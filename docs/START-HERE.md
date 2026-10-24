@@ -27,6 +27,8 @@ GPU 容器实例 v1.5：[规格](specs/instance-mvp.md)、[实施计划](plans/i
 
 [历史未知创建恢复提案](plans/provider-unknown-create-recovery.md)区分退出结果落库修正与旧回执缺失的恢复前提；本次实验例外已按用户授权恢复并复测；通用管理接口未实施，实际结果见执行状态。
 
+[Sandbox 方案复核与实施计划](plans/sandbox-runtime-review-20261025.md)只覆盖 Sandbox；它对照旧 ANI 的实现和 live evidence，区分可继承的行为、必须重写的架构和各阶段的真实验收门禁。当前仅方案有条件通过，未表示 Sandbox 已实现或生产 ready。
+
 ## 架构决定
 
 | 记录 | 决定 |
