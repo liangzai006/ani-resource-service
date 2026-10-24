@@ -21,6 +21,7 @@ var (
 	ErrChanged     = errors.New("VM_DEPENDENCY_CHANGED")
 	ErrOwnership   = errors.New("VM_OBJECT_OWNERSHIP_CONFLICT")
 	ErrUnknown     = errors.New("VM_EXTERNAL_RESULT_UNKNOWN")
+	ErrStartFailed = errors.New("VM_NATIVE_START_FAILED")
 	ErrLease       = errors.New("VM_LEASE_LOST")
 	ErrConsole     = errors.New("VM_CONSOLE_TARGET_CHANGED")
 )
@@ -121,9 +122,10 @@ type Operation struct {
 	ObservedAt                                     time.Time
 }
 type Mutation struct {
-	Action    string
-	Target    ObjectRef
-	Submitted bool
+	Action       string
+	Target       ObjectRef
+	Submitted    bool
+	BeforeVMIUID *string // nil: legacy unknown; empty: observed absent; otherwise the pre-submit VMI UID
 }
 type Acceptance struct {
 	TenantID, VMID, OperationID, RequestDigest, CreateOperationID string

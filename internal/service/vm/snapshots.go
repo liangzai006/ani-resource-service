@@ -50,15 +50,16 @@ func (s *Service) ListSnapshots(ctx context.Context, r *pb.GetVMRequest) (*pb.Li
 		return nil, rpcError(err)
 	}
 	result := &pb.ListSnapshotsResponse{}
-	for i, item := range v.Snapshots {
+	// Workers persist snapshot observations. Listing that projection must not
+	// reopen every native dependency; detail and restore paths recheck it live.
+	for _, item := range v.Snapshots {
 		if item.Tombstone {
 			continue
 		}
-		observed, err := s.snapshotObservation(ctx, v, i)
-		if err != nil {
-			return nil, rpcError(err)
+		if item.SourceVMID != v.ID || item.SourceVMUID != v.Native.UID {
+			return nil, rpcError(biz.ErrOwnership)
 		}
-		result.Items = append(result.Items, snapshotWire(observed))
+		result.Items = append(result.Items, snapshotWire(item))
 	}
 	return result, nil
 }

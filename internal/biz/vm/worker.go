@@ -31,7 +31,7 @@ func (w *Worker) RunOnce(ctx context.Context) error {
 		o.Reason = e.Error()
 		if errors.Is(e, ErrUnknown) {
 			o.State = "unknown"
-		} else if errors.Is(e, ErrOwnership) || errors.Is(e, ErrInvalid) || errors.Is(e, ErrChanged) {
+		} else if errors.Is(e, ErrOwnership) || errors.Is(e, ErrInvalid) || errors.Is(e, ErrChanged) || errors.Is(e, ErrStartFailed) {
 			o.State = "failed"
 		} else {
 			o.State = "running"
@@ -201,13 +201,29 @@ func (w *Worker) power(ctx context.Context, o *Operation, v *VM) error {
 			o.Pending = nil
 			return nil
 		}
+		// Only a VMI different from the identity observed before this Start can
+		// prove its terminal failure. Legacy checkpoints lack that observation;
+		// an unchanged old VMI or an outstanding native request remains unknown.
+		if o.Pending != nil && o.Pending.Action == "start" && o.Pending.Submitted && o.Pending.Target == v.Native &&
+			x.State == "Failed" && x.VMI != nil && x.VMI.UID != "" && v.Native.UID != "" && x.VM.UID == v.Native.UID &&
+			o.Pending.BeforeVMIUID != nil && x.VMI.UID != *o.Pending.BeforeVMIUID &&
+			len(x.StateChangeRequests) == 0 {
+			o.Pending = nil
+			v.Reason = ErrStartFailed.Error()
+			return ErrStartFailed
+		}
 		// Start converges to one VMI for this VM. After observing an actually
 		// stopped VM with no VMI, launcher or native request, retrying Start is
 		// safe. Restart remains fenced below because it creates a new VMI.
 		if o.Pending != nil && o.Pending.Submitted && !(o.Pending.Action == "start" && x.Stopped) {
 			return ErrUnknown
 		}
-		if e = w.checkpoint(ctx, o, *v, "start", v.Native); e != nil {
+		beforeVMIUID := ""
+		if x.VMI != nil {
+			beforeVMIUID = x.VMI.UID
+		}
+		o.Pending = &Mutation{Action: "start", Target: v.Native, Submitted: true, BeforeVMIUID: &beforeVMIUID}
+		if e = w.repo.Checkpoint(ctx, *o, *v); e != nil {
 			return e
 		}
 		return w.native.Start(ctx, *v)

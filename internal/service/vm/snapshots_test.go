@@ -2,7 +2,9 @@ package vm
 
 import (
 	"context"
+	"errors"
 	"testing"
+	"time"
 
 	"github.com/google/uuid"
 	pb "github.com/zhangzhe-ctrl/ani-resource-service/api/vm/v1"
@@ -45,6 +47,7 @@ type snapshotServiceNative struct {
 	fresh   biz.Snapshot
 	reads   int
 	running bool
+	readErr error
 }
 
 func (n *snapshotServiceNative) Observe(_ context.Context, v biz.VM) (biz.Observation, error) {
@@ -62,6 +65,9 @@ func (n *snapshotServiceNative) EnsureSnapshot(context.Context, biz.VM, biz.Snap
 }
 func (n *snapshotServiceNative) ObserveSnapshot(context.Context, biz.VM, biz.Snapshot) (biz.Snapshot, error) {
 	n.reads++
+	if n.readErr != nil {
+		return biz.Snapshot{}, n.readErr
+	}
 	return n.fresh, nil
 }
 func (n *snapshotServiceNative) DeleteSnapshot(context.Context, biz.VM, biz.Snapshot) (bool, error) {
@@ -122,6 +128,58 @@ func TestSnapshotServiceReadsAreScopedAndPreviewIsSideEffectFree(t *testing.T) {
 	native.running = true
 	if _, err = service.PreviewRestore(ctx, &pb.PreviewRestoreRequest{TenantId: repo.current.TenantID, VmId: repo.current.ID, SnapshotId: s.ID}); status.Code(err) != codes.FailedPrecondition {
 		t.Fatal("running target preview admitted", err)
+	}
+}
+func TestListSnapshotsReturnsPersistedObservationsWithoutNativeDependency(t *testing.T) {
+	service, repo, native, ctx, ready := serviceSnapshotFixture(t)
+	ready.ObservedAt = time.Date(2026, 10, 24, 10, 0, 0, 0, time.UTC)
+	ready.Indications = []string{"NoGuestAgent"}
+	preparing := ready
+	preparing.ID = uuid.NewString()
+	preparing.Ready = false
+	preparing.Complete = false
+	preparing.Included = nil
+	preparing.Content = biz.ObjectRef{}
+	preparing.ObservedAt = ready.ObservedAt.Add(time.Second)
+	preparing.Reason = "VM_SNAPSHOT_PREPARING"
+	deleted := ready
+	deleted.ID = uuid.NewString()
+	deleted.Tombstone = true
+	repo.current.Snapshots = []biz.Snapshot{ready, preparing, deleted}
+	native.readErr = errors.New("native snapshot API unavailable")
+	request := &pb.GetVMRequest{TenantId: repo.current.TenantID, VmId: repo.current.ID}
+	result, err := service.ListSnapshots(ctx, request)
+	if err != nil || len(result.GetItems()) != 2 {
+		t.Fatalf("persisted snapshots unavailable: result=%v err=%v", result, err)
+	}
+	first, second := result.Items[0], result.Items[1]
+	if first.SnapshotId != ready.ID || !first.Ready || first.Completeness != "COMPLETE" || first.ObservedAt != "2026-10-24T10:00:00Z" || first.Reason != "" || len(first.Disks) != 1 || first.Disks[0].DiskId != ready.Inventory[0].ID || len(first.Indications) != 1 || first.Indications[0] != "NoGuestAgent" {
+		t.Fatalf("ready observation changed: %v", first)
+	}
+	if second.SnapshotId != preparing.ID || second.Ready || second.Completeness != "INCOMPLETE" || second.ObservedAt != "2026-10-24T10:00:01Z" || second.Reason != "VM_SNAPSHOT_PREPARING" {
+		t.Fatalf("preparing observation changed: %v", second)
+	}
+	if native.reads != 0 || repo.accepts != 0 {
+		t.Fatal("list reopened native dependency or accepted a mutation", native.reads, repo.accepts)
+	}
+	request.TenantId = uuid.NewString()
+	if _, err = service.ListSnapshots(ctx, request); status.Code(err) != codes.PermissionDenied || native.reads != 0 {
+		t.Fatal("cross-tenant list reached native", err)
+	}
+	request.TenantId = repo.current.TenantID
+	for _, field := range []string{"source-vm-id", "source-vm-uid"} {
+		t.Run(field, func(t *testing.T) {
+			mismatched := ready
+			if field == "source-vm-id" {
+				mismatched.SourceVMID = uuid.NewString()
+			} else {
+				mismatched.SourceVMUID = "replacement-vm-uid"
+			}
+			repo.current.Snapshots = []biz.Snapshot{mismatched}
+			if _, err := service.ListSnapshots(ctx, request); status.Code(err) != codes.FailedPrecondition || native.reads != 0 {
+				t.Fatal("snapshot source identity mismatch admitted", err)
+			}
+		})
 	}
 }
 func TestRestoreAdmissionRechecksFreshNativeSnapshotBeforeAccept(t *testing.T) {
