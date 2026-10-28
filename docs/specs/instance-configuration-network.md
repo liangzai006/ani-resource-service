@@ -199,7 +199,7 @@ Network 持久保存最高已接受 snapshot_revision、固定根 UID、相应�
 
 同一动作使用稳定幂等身份。Prepare/Confirm/Release 丢回执或进程重启后由持久步骤重试，不依赖内存调用链。发出但结果未知的 Notebook CREATE 不能因为一次 404 就 closed 或释放网络；未知关系也不能被重置为“无资源”。
 
-Stop 完成需要确认无运行 Pod；旧网络清理状态独立显示。最终实例删除完成要求计算退出、专属盘清理、borrowed 引用解除、网络 released 和应有退额回执均完成。GPU 在实际计算释放满足现有规则后即可按原账幂等退额，磁盘/网络清理失败保留独立待清理状态，不能重复退额或永久扣留已释放计算的原账。
+Stop 完成需要确认无运行 Pod；旧网络清理状态独立显示。最终删除与 GPU 退额时机统一遵循[实例规格 §8.3](instance-mvp.md#83-最终删除)和[完整释放规则](instance-mvp.md#10-完整释放及-gov-原账退额)：计算、专属盘、borrowed 引用与网络占用完整清理后才提交原账释放事件；清理失败保留原操作和具体原因，Gov 通知独立重试且不得重复退额。
 
 ### 6.4 数据与运行装配
 
@@ -228,7 +228,7 @@ Gov 先做当前授权，再按租户/主体/action/幂等键查已受理的当�
 
 首次受理把当前版本、请求意图摘要、冻结载荷和原有占额记录在同一事务中确定。两个并发请求争用同一幂等键时，未胜出的请求按胜出记录重新比较。新写维护闸门关闭时直接拒绝新受理，不能退回生成旧版本命令。
 
-CPU frozen decoder 只校验当前合同的规范编码及原 business_payload 字节摘要，不做旧字段投影、HTML 反转义或旧 envelope 恢复。GPU 当前唯一冻结 Execution、原始 charges、稳定退额事件和物理释放 fence 保持原合同；它们自身的协议版本不因实例配置清理而改写。
+CPU frozen decoder 只校验当前合同的规范编码及原 business_payload 字节摘要，不做旧字段投影、HTML 反转义或旧 envelope 恢复。GPU 当前唯一冻结 Execution、原始 charges 与稳定退额事件保持原合同；它们自身的协议版本不因实例配置清理而改写。关闭资格使用[实例完整释放规则](instance-mvp.md#10-完整释放及-gov-原账退额)，不依赖 ACC ObserveRelease 或历史物理摘要。
 
 部署只读当前合同的候选前，先用仍能处理旧记录的产品入口正常删除旧实例，核对计算、工作盘、网络及原账，再清除已终结的旧实例/操作/幂等记录。保留删除及退额证据；不能用删库、改账或注入完成状态代替实际释放。历史 migration/checksum 不改写，必要结构变化追加显式迁移。
 
@@ -260,7 +260,7 @@ CPU frozen decoder 只校验当前合同的规范编码及原 business_payload �
 | B1 | 指定 VPC/Subnet 创建，真实子网取址及同 VPC 对照服务通信通过；错误租户/placement 被拒绝 |
 | B2 | Stop/Start 和删除 Pod 触发自动重建均能重新联网；新旧 UID 交接无永久误冲突，旧地址不再被作为有效后端 |
 | B3 | Prepare/Confirm/Release 丢回执、Instance/Network 重启、Consumer 快照落后、未知 CREATE 均可恢复或明确等待；覆盖快照/Confirm 乱序、closing 后迟到 open、旧 Pod Confirm 迟到，不能回退状态或提前释放 |
-| B4 | 最终删除等待当前/历史 Pod、VNic/VNicIP/Nic 等依赖清理，Network released；原 GPU 退额不被网络失败错误重扣或永久扣留 |
+| B4 | 最终删除等待当前/历史 Pod、VNic/VNicIP/Nic 等依赖清理及 Network released；完整清理后才提交原 GPU 退额，恢复与重试只作用于原事件 |
 | C1 | 旧实例和终结记录已清理；0/1/缺省配置版本明确拒绝；当前 CPU/GPU 创建、重放、恢复、Start/Delete、原账与重复退额保持，配置差异触发幂等冲突 |
 | C2 | GPU 模式验证用户配置不改变冻结执行、额度占退及系统注解；真实硬件运行与仅字段传播分别报告 |
 | C3 | 实际 governance/full 装配可推进网络，旧 single_pod Consumer 定向回归；真实前端页面验收独立记录 |

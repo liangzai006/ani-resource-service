@@ -1,0 +1,35 @@
+test "$(/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/buf --version)" = "1.60.0"
+test "$(go version -m /home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/buf | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/bufbuild/buf@v1.60.0"
+test "$(/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/sqlc version)" = "v1.31.1"
+test "$(go version -m /home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/sqlc | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/sqlc-dev/sqlc@v1.31.1"
+./scripts/verify-source /home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/buf /home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/sqlc
+./scripts/verify-boundaries
+go: writing go.mod cache: open /home/chabking/go/pkg/mod/cache/download/github.com/moby/spdystream/@v/v0.5.1.mod105122718.tmp: permission denied
+go: writing stat cache: open /home/chabking/go/pkg/mod/cache/download/github.com/alecthomas/units/@v/v0.0.0-20240927000941-0f3dac36c52b.info997756873.tmp: permission denied
+go: writing stat cache: open /home/chabking/go/pkg/mod/cache/download/github.com/moby/spdystream/@v/v0.5.1.info79702369.tmp: permission denied
+go: writing stat cache: open /home/chabking/go/pkg/mod/cache/download/golang.org/x/tools/go/expect/@v/v0.1.0-deprecated.info983894129.tmp: permission denied
+go: writing stat cache: open /home/chabking/go/pkg/mod/cache/download/k8s.io/gengo/v2/@v/v2.0.0-20250604051438-85fd79dbfd9f.info206282814.tmp: permission denied
+boundary fixture rejected: internal/biz/network/nested -> database/sql
+boundary fixture rejected: internal/biz/image/nested -> net/http
+boundary fixture rejected: internal/biz/image/nested -> example.invalid/boundary-fixture/internal/data/image
+boundary fixture rejected: internal/data/image -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/service/image -> example.invalid/boundary-fixture/internal/service/network
+boundary fixture rejected: internal/biz/network/nested -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/service/network -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/data/network -> example.invalid/boundary-fixture/internal/service/network
+boundary fixture rejected: internal/data/network -> example.invalid/boundary-fixture/internal/data/storage
+boundary fixture rejected: internal/service/network -> example.invalid/boundary-fixture/internal/service/storage
+recursive domain and repository ownership boundaries verified
+./scripts/net05a-build-faults.py --network-only
+{"fault_build": "/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.work/fault-build", "status": "pass"}
+go mod tidy -diff
+go: writing go.mod cache: open /home/chabking/go/pkg/mod/cache/download/github.com/moby/spdystream/@v/v0.5.1.mod530151279.tmp: permission denied
+go: downloading k8s.io/streaming v0.36.0
+go: downloading github.com/moby/spdystream v0.5.1
+go: github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance tested by
+	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance.test imports
+	k8s.io/client-go/tools/remotecommand tested by
+	k8s.io/client-go/tools/remotecommand.test imports
+	k8s.io/streaming/pkg/httpstream/spdy imports
+	github.com/moby/spdystream: open /home/chabking/go/pkg/mod/cache/download/github.com/moby/spdystream/@v/v0.5.1.lock: permission denied
+make: *** [Makefile:98：verify] 错误 1

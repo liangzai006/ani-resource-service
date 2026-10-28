@@ -1,0 +1,228 @@
+{
+  "at": "2026-10-26T03:37:27.456969+00:00",
+  "scope": "Current environment Linux ISO necessary mainline and task cleanup only",
+  "result": "PASS_ISO_NECESSARY_MAINLINE_AND_TASK_CLEANUP",
+  "cluster": "100.64.128.12 / 10.10.1.66-68",
+  "vm_id": "8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+  "native_vm_uid": "ba796cff-14ab-4502-a379-5d7865fd58b2",
+  "installation": "Actual Fedora Linux 44 KDE installer Successfully installed in real VNC; existing root disk only",
+  "system_boot": "Normal Stop / Eject INSTALL / Boot SYSTEM_DISK / Start; ISO absent from VM and VMI, original root virtio boot1",
+  "account": "User completed first account setup; Root then logged in with the existing account zz-test using real VNC keyboard",
+  "marker": {
+    "path": "/home/zz-test/ani-iso-marker",
+    "content": "ANI-LINUX-ISO-8bc17e0e-a09a-4bb1-a838-e54dc6a84550 root A\n",
+    "sha256": "ddfcbbb33cc2384e367ca3e7db058050158fe8e985fd4a7b0ef1aaa9849c2a23",
+    "first_successful_write": "Authenticated VNC keyboard with noclobber, then sync/full content/SHA/boot ID",
+    "after_normal_stop_start": "Existing account login via VNC; same full marker and SHA read without rewrite; boot ID changed",
+    "before_browser_proof": "linux-iso-login-marker-before.png",
+    "after_browser_proof": "linux-iso-login-marker-after.png"
+  },
+  "normal_stop_start": {
+    "result": "PASS",
+    "stop": {
+      "operation_id": "fa33decb-c5d9-45d4-9a56-1d47f2f17c97",
+      "operation_state": "succeeded",
+      "version": "6",
+      "observed_state": "Stopped"
+    },
+    "start": {
+      "operation_id": "a762284e-ef4b-4926-866b-8348ef6fe26a",
+      "operation_state": "succeeded",
+      "version": "7",
+      "observed_state": "Running",
+      "boot_device": "SYSTEM_DISK"
+    },
+    "before_VMI_uid": "d8ca1b80-27d9-4e20-a031-f496c4ac99cd",
+    "after_VMI_uid": "5cc77512-03ca-49fe-83f0-0d2ad3f8df1b",
+    "same_native_VM_uid": true,
+    "same_original_DV_PVC_PV": true,
+    "root_volume": {
+      "volume_name": "disk-1d99935f3d4950c78090f39eb85f9b2f",
+      "DV": {
+        "kind": "DataVolume",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vd-1d99935f-3d49-50c7-8090-f39eb85f9b2f",
+        "uid": "285bec31-6992-4b01-addd-51455fa7b773"
+      },
+      "PVC": {
+        "kind": "PersistentVolumeClaim",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vd-1d99935f-3d49-50c7-8090-f39eb85f9b2f",
+        "uid": "2a881734-2fa7-450b-93fb-d466d6ddf836"
+      },
+      "PV": {
+        "kind": "PersistentVolume",
+        "namespace": "",
+        "name": "pvc-9b8f3bc8-b7f2-48d7-9d81-ab6f228c1568",
+        "uid": "8f6b374f-d064-4362-a7e4-da6b974c0d92"
+      },
+      "volume_mode": "Block",
+      "requested_storage": "69G"
+    },
+    "operation_receipt_sha256": {
+      "observation-stop-persistence.json": "4e87f25a518ca67691af7043890d87ee285b8d6f3e5bcc9e01dc57de40a5b5b4",
+      "observation-start-persistence.json": "f6defcf8f8f3a7be24ad7ce9501eefd19f9bd8098a1f345106fe9c530633281b"
+    }
+  },
+  "browser_disconnect": "Normal disconnect completed as observed by Root",
+  "qga": {
+    "agent_connected": true,
+    "result": "NOT_VERIFIED_FOR_MARKER; write exit1/read PermissionError preserved separately",
+    "proof": "linux-iso-guest-agent.json",
+    "acceptance_source": "Authenticated VNC keyboard; no QGA marker PASS claim"
+  },
+  "gov_drift": {
+    "confirmed_diagnostic": "linux-iso-console05-diagnostic.json",
+    "observed": "Shared Gov was replaced with another image and rejected persisted frozen CREATE spec before console dispatch",
+    "recovery": "User-authorized image-only restores to known compatible sha256:44998565ab092ef7a9e09d143fbc9aa8e391c031c80fc134090e6a0f87d3a0e6, generations35 and37. Subsequent original request/normal product operations succeeded.",
+    "console05": {
+      "result": "PASS_NORMAL_GOV_ORIGINAL_REQUEST_REPLAY",
+      "status": 202,
+      "original_error_preserved": true,
+      "original_key_preserved": true,
+      "receipt_sha256": "10769535429a323cf8a9c751eaf2f23b5d738d7a9bc36576ce5c45733f224c5f"
+    },
+    "compatibility_source_change": false,
+    "restore_receipts": [
+      {
+        "source": "gov-rollback/observed.json",
+        "sha256": "30e6c5fc36c7638d9e0c3cccf7d40b0c6e2f2c5a78458e4efac1d9554b079f4d",
+        "result": "PASS",
+        "generation": 35,
+        "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:44998565ab092ef7a9e09d143fbc9aa8e391c031c80fc134090e6a0f87d3a0e6",
+        "status": {
+          "observedGeneration": 35,
+          "replicas": 1,
+          "updatedReplicas": 1,
+          "readyReplicas": 1,
+          "availableReplicas": 1,
+          "terminatingReplicas": 0,
+          "conditions": [
+            {
+              "type": "Available",
+              "status": "True",
+              "lastUpdateTime": "2026-10-22T04:07:24Z",
+              "lastTransitionTime": "2026-10-22T04:07:24Z",
+              "reason": "MinimumReplicasAvailable",
+              "message": "Deployment has minimum availability."
+            },
+            {
+              "type": "Progressing",
+              "status": "True",
+              "lastUpdateTime": "2026-10-26T03:14:05Z",
+              "lastTransitionTime": "2026-10-22T04:03:03Z",
+              "reason": "NewReplicaSetAvailable",
+              "message": "ReplicaSet \"ani-governance-7cf747f49\" has successfully progressed."
+            }
+          ]
+        }
+      },
+      {
+        "source": "gov-rollback-02/observed.json",
+        "sha256": "941af4f99f3e63b7154075f6b07dc527c04f217b97e42b3c03a0ed3900066db9",
+        "result": "PASS",
+        "generation": 37,
+        "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:44998565ab092ef7a9e09d143fbc9aa8e391c031c80fc134090e6a0f87d3a0e6",
+        "status": {
+          "observedGeneration": 37,
+          "replicas": 2,
+          "updatedReplicas": 1,
+          "readyReplicas": 1,
+          "availableReplicas": 1,
+          "unavailableReplicas": 1,
+          "terminatingReplicas": 0,
+          "conditions": [
+            {
+              "type": "Available",
+              "status": "True",
+              "lastUpdateTime": "2026-10-22T04:07:24Z",
+              "lastTransitionTime": "2026-10-22T04:07:24Z",
+              "reason": "MinimumReplicasAvailable",
+              "message": "Deployment has minimum availability."
+            },
+            {
+              "type": "Progressing",
+              "status": "True",
+              "lastUpdateTime": "2026-10-26T03:22:56Z",
+              "lastTransitionTime": "2026-10-22T04:03:03Z",
+              "reason": "ReplicaSetUpdated",
+              "message": "ReplicaSet \"ani-governance-7cf747f49\" is progressing."
+            }
+          ]
+        }
+      }
+    ],
+    "second_drift": {
+      "observed_generation": 36,
+      "actual_image": "10.10.1.66:30003/ani-gpu-platform/ani-governance:v21-detail-20261026-r2",
+      "source_sha256": "5a99ab277596c34fa30728cc8b1d94bf1f77a0cea1268c675f0c313b0dd54ae5"
+    },
+    "final_runtime": {
+      "Resource_generation": 16,
+      "Gov_generation": 37,
+      "SG_generation": 4,
+      "all_Ready": true,
+      "proof": "linux-iso-runtime-final.json"
+    }
+  },
+  "cleanup": {
+    "native_objects": {
+      "result": "PASS",
+      "exact_objects_Gone": 13,
+      "protected_same_UID": 6,
+      "proof": "linux-iso-cleanup-final.json"
+    },
+    "backend": {
+      "result": "PASS_EXACT_LOGICAL_NAMES_AND_CAPTURED_IDS_ENOENT",
+      "names": 3,
+      "captured_ids": 3,
+      "proof": "linux-iso-cleanup-final.json",
+      "physical_bytes": "NOT_MEASURED",
+      "pool_or_trash_enumeration": false,
+      "backend_writes": 0
+    },
+    "network_attachment": {
+      "result": "PASS",
+      "state": "released",
+      "protocol_blocked": false,
+      "same_attachment_id": "att_17bf118a22694f2da9167a99bbf5f926",
+      "proof": "linux-iso-network-release.json"
+    },
+    "task_subnet_vpc": {
+      "result": "PASS",
+      "subnet_delete_operation": "64c7270f-51b1-4923-88a9-f29aebea820c",
+      "vpc_delete_operation": "4ef7b55a-e337-4075-b7da-ee2c83d403f9",
+      "both": "deleted/succeeded/nativeGone",
+      "each_send_attempts": 1,
+      "proof": "linux-iso-network-cleanup.json"
+    },
+    "temporary_transports_private_sessions": {
+      "result": "PASS",
+      "transport_proof": "linux-iso-transport-cleanup.json",
+      "four_exact_transports": "STOPPED_GONE",
+      "three_task_ports_and_two_control_sockets": "GONE",
+      "private_copy_count": 11,
+      "private_copy_proof": "linux-iso-private-session-cleanup.json",
+      "original_intents_public_evidence_user_sources_preserved": true
+    }
+  },
+  "new_data_disks": 0,
+  "snapshots": 0,
+  "public_egress_test": "NOT_RERUN",
+  "full_original_V01_V25_matrix": "NOT_RERUN; no overall phase-one completion claim",
+  "credentials_or_console_tickets_recorded": false,
+  "screenshot_sha256": {
+    "linux-iso-login-marker-before.png": "a8dc5561fe545041cf8f2c1fa03bf328ab8b20d5f87a94da14352a4eb6e842e5",
+    "linux-iso-login-marker-after.png": "0fff03cd55761ed4df743f2bc0e5b3bd7f45f6c73071c66a1709fb6d3b1c9b31"
+  },
+  "normal_delete": {
+    "operation_id": "7cdf4695-d2ef-4733-b5bf-4a12855137bf",
+    "operation_state": "succeeded",
+    "version": "8",
+    "observed_state": "Deleted",
+    "native_VM": null,
+    "current_VMI": null,
+    "volumes": [],
+    "source_sha256": "abcacc6952154b8668fb05abc9f1e60842938be1a3bcbfd3b9052d5075fb9874"
+  }
+}

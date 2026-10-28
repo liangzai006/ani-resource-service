@@ -1,0 +1,91 @@
+127.0.0.1:5432 - accepting connections
+=== RUN   TestInstanceNetworkAdapterUsesStableSubmissionAndSnapshotFences
+--- PASS: TestInstanceNetworkAdapterUsesStableSubmissionAndSnapshotFences (0.00s)
+=== RUN   TestInstanceNetworkAdapterRejectsScopeAndMapsDomainErrors
+--- PASS: TestInstanceNetworkAdapterRejectsScopeAndMapsDomainErrors (0.00s)
+=== RUN   TestInstanceNetworkConsumerRoutesOnlyDurableManagedIdentity
+--- PASS: TestInstanceNetworkConsumerRoutesOnlyDurableManagedIdentity (0.00s)
+=== RUN   TestCPUNotebookProjectionAndPodBinding
+=== RUN   TestCPUNotebookProjectionAndPodBinding/additional_GPU_limit
+=== RUN   TestCPUNotebookProjectionAndPodBinding/GPU_annotation
+=== RUN   TestCPUNotebookProjectionAndPodBinding/GPU_scheduler
+=== RUN   TestCPUNotebookProjectionAndPodBinding/GPU_selector
+=== RUN   TestCPUNotebookProjectionAndPodBinding/runtime_class
+=== RUN   TestCPUNotebookProjectionAndPodBinding/different_user
+=== RUN   TestCPUNotebookProjectionAndPodBinding/different_working_directory
+=== RUN   TestCPUNotebookProjectionAndPodBinding/different_CPU_limit
+--- PASS: TestCPUNotebookProjectionAndPodBinding (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/additional_GPU_limit (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/GPU_annotation (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/GPU_scheduler (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/GPU_selector (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/runtime_class (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/different_user (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/different_working_directory (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/different_CPU_limit (0.00s)
+=== RUN   TestBorrowedVolumeReferencesPersistAndReleaseWithCompute
+--- PASS: TestBorrowedVolumeReferencesPersistAndReleaseWithCompute (0.26s)
+=== RUN   TestInstanceNetworkSubmissionAdmissionAndIntentAreAtomic
+--- PASS: TestInstanceNetworkSubmissionAdmissionAndIntentAreAtomic (0.24s)
+=== RUN   TestInstanceNetworkClosingWaitsForUnknownNotebookCreate
+--- PASS: TestInstanceNetworkClosingWaitsForUnknownNotebookCreate (0.33s)
+=== RUN   TestInstanceNetworkOutageBlocksOriginalGPURefundUntilCleanup
+--- PASS: TestInstanceNetworkOutageBlocksOriginalGPURefundUntilCleanup (0.35s)
+=== RUN   TestInstanceNetworkSubmissionTrustedServiceAcceptsFrozenSelectionAfterWritesClose
+--- PASS: TestInstanceNetworkSubmissionTrustedServiceAcceptsFrozenSelectionAfterWritesClose (0.38s)
+=== RUN   TestInstanceNetworkVerticalPGNotebookTwoRestartsAndRecreation
+    network_vertical_integration_test.go:198: requires scripts/integration's isolated PostgreSQL
+--- SKIP: TestInstanceNetworkVerticalPGNotebookTwoRestartsAndRecreation (0.43s)
+=== RUN   TestInstanceNetworkVerticalConfirmRetryRequiresDurableAck
+    network_vertical_integration_test.go:201: requires scripts/integration's isolated PostgreSQL
+--- SKIP: TestInstanceNetworkVerticalConfirmRetryRequiresDurableAck (0.35s)
+=== RUN   TestInstanceOwnerCleanupOutboxDispatchWithoutACC
+--- PASS: TestInstanceOwnerCleanupOutboxDispatchWithoutACC (0.46s)
+=== RUN   TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact
+=== RUN   TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact/unacknowledged
+=== RUN   TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact/acknowledged
+--- PASS: TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact (0.78s)
+    --- PASS: TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact/unacknowledged (0.40s)
+    --- PASS: TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact/acknowledged (0.37s)
+=== RUN   TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation
+=== RUN   TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/provider_unavailable
+=== RUN   TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/residual_volume
+=== RUN   TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/workspace_observation_failed
+--- PASS: TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation (0.71s)
+    --- PASS: TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/provider_unavailable (0.25s)
+    --- PASS: TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/residual_volume (0.23s)
+    --- PASS: TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/workspace_observation_failed (0.24s)
+=== RUN   TestCPUInstancePersistentLifecycleAndTerminal
+--- PASS: TestCPUInstancePersistentLifecycleAndTerminal (0.37s)
+=== RUN   TestCPUDeleteFirstAndUnknownCreate
+--- PASS: TestCPUDeleteFirstAndUnknownCreate (0.28s)
+=== RUN   TestInstancePersistentLifecycle
+--- PASS: TestInstancePersistentLifecycle (0.47s)
+=== RUN   TestInstanceDeleteFirstAndTenant
+--- PASS: TestInstanceDeleteFirstAndTenant (0.28s)
+=== RUN   TestInstanceReleaseRetryAndTerminalRevocation
+--- PASS: TestInstanceReleaseRetryAndTerminalRevocation (0.38s)
+=== RUN   TestInstanceSupersededMutationAndLeaseFencing
+--- PASS: TestInstanceSupersededMutationAndLeaseFencing (0.30s)
+=== RUN   TestResourceReleaseRequiresMatchingAck
+--- PASS: TestResourceReleaseRequiresMatchingAck (0.30s)
+=== RUN   TestGPUExternalScopeIsCommittedBeforeNotebookCall
+--- PASS: TestGPUExternalScopeIsCommittedBeforeNotebookCall (0.19s)
+=== RUN   TestGPUCreatedWithoutSeenPodClosesOnOwnerCleanup
+--- PASS: TestGPUCreatedWithoutSeenPodClosesOnOwnerCleanup (0.27s)
+PASS
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	7.161s
+=== RUN   TestComputeMigrationPreservesRelationAndRecovers
+--- PASS: TestComputeMigrationPreservesRelationAndRecovers (0.63s)
+=== RUN   TestComputeMigrationFailureIsAtomic
+=== RUN   TestComputeMigrationFailureIsAtomic/target-conflict
+=== RUN   TestComputeMigrationFailureIsAtomic/checksum
+=== RUN   TestComputeMigrationFailureIsAtomic/dependency
+=== RUN   TestComputeMigrationFailureIsAtomic/lock-timeout
+--- PASS: TestComputeMigrationFailureIsAtomic (6.14s)
+    --- PASS: TestComputeMigrationFailureIsAtomic/target-conflict (0.28s)
+    --- PASS: TestComputeMigrationFailureIsAtomic/checksum (0.31s)
+    --- PASS: TestComputeMigrationFailureIsAtomic/dependency (0.26s)
+    --- PASS: TestComputeMigrationFailureIsAtomic/lock-timeout (5.29s)
+PASS
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/compute	6.788s

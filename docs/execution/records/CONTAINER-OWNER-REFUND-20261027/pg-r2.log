@@ -1,0 +1,5 @@
+127.0.0.1:5432 - accepting connections
+# github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance.test
+/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/pkg/tool/linux_amd64/link: mapping output file failed: disk quota exceeded
+FAIL	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance [build failed]
+FAIL

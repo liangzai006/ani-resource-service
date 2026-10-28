@@ -1,0 +1,76 @@
+{
+  "result": "CONFIRMED_GOV_IMAGE_DRIFT_AND_FROZEN_VM_SPEC_DECODE_REJECTION",
+  "read_only": true,
+  "vm_id": "8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+  "native_vm_uid_from_parent": "ba796cff-14ab-4502-a379-5d7865fd58b2",
+  "vmi_uid_from_parent": "d8ca1b80-27d9-4e20-a031-f496c4ac99cd",
+  "request": {
+    "idempotency_key": "766d86e8-ab1d-5241-a581-aa52c31cdf96",
+    "expected_version": "5",
+    "sha256": "423d9aa2c28fb8a964735c994a570a3c33a51f4d9b7a43255f939012e427f1fc",
+    "saved_at_utc": "2026-10-26T03:01:13.126509+00:00",
+    "comparison": "Same fields and JSON value types as successful console03/04; only canonical UUID idempotency key differs."
+  },
+  "response": {
+    "status": 400,
+    "reason": "VM_INVALID_REQUEST",
+    "message": "invalid VM request",
+    "sha256": "13d33b649ccf3480b99795eff35d204a0b66cc39432475dea61e107f8aaa04aa"
+  },
+  "governance_runtime": {
+    "deployment_uid": "4ae87828-5f2c-4b27-a8b8-d348aeb86ee5",
+    "generation": 33,
+    "expected_image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:44998565ab092ef7a9e09d143fbc9aa8e391c031c80fc134090e6a0f87d3a0e6",
+    "actual_image": "10.10.1.66:30003/ani-gpu-platform/ani-governance:v21-detail-20261026",
+    "actual_pod_image_id": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:3cbaf6a21c1f313388ae085e4ff01abf5787ad7de398a0aeb2a06d9b0d33a743",
+    "stale_source_annotation": "2fc11388289bc9dc9eac088bf7d9658293b1262d",
+    "pod_name": "ani-governance-898449cd6-2gff4",
+    "pod_uid": "ed13ae40-ecf3-4929-ab70-4555c8bd4ffd",
+    "pod_start_time": "2026-10-26T02:58:54Z",
+    "ready": true,
+    "restart_count": 0
+  },
+  "exact_log_projection": {
+    "at": "2026-10-26T03:01:11.720Z",
+    "operation": "/admin.service.v1.VMService/CreateVMConsoleSession",
+    "code": 400,
+    "reason": "INVALID_QUOTA_REQUEST",
+    "error_message": "invalid frozen VM create spec",
+    "latency_seconds": 0.052622918,
+    "line_sha256": "037cb93bbb71eed29ff38153b378264208eda8e6d20c3381e151bb1c0455de58"
+  },
+  "fixed_source_trace": {
+    "resource_commit": "0cb7df8ea5ca3ab3b50bc1e68b754959d4a51d0b",
+    "governance_commit": "2fc11388289bc9dc9eac088bf7d9658293b1262d",
+    "flow": [
+      "VMService.CreateVMConsoleSession calls GetSessionReplay, then canOperate before resolving Resource target or creating a new SG session.",
+      "canOperate calls QuotaLedgerRepo.HasAcceptedVMDelete, which validates the original CREATE frozen command before reading the durable DELETE fence.",
+      "commandcontract.DecodeVMCanonical emits invalid frozen VM create spec when vmv1.DecodeCreateSpec fails.",
+      "vmHTTPError maps INVALID_QUOTA_REQUEST to HTTP400 VM_INVALID_REQUEST / invalid VM request."
+    ],
+    "source_locations": [
+      "app/admin/service/internal/service/vm_service.go:288",
+      "app/admin/service/internal/service/vm_service.go:517",
+      "app/admin/service/internal/data/vm_delete_guard.go:26",
+      "app/admin/service/internal/commandcontract/vm.go:57",
+      "app/admin/service/internal/server/vm_http.go:123"
+    ],
+    "resource_console_version_or_native_identity_failure_would_return": "VM_CONSOLE_TARGET_CHANGED, not this frozen-spec error"
+  },
+  "assessment": {
+    "confirmed": "A different Gov runtime rejects the existing persisted VM CREATE spec before normal console session creation. console04 succeeded at02:53:43, before the new pod started; console05 failed after the replacement.",
+    "most_likely": "The replacement Gov uses an incompatible Resource VM SDK/frozen-spec decoder, or a newly incompatible validation rule.",
+    "exact_rejected_field": "NOT_VERIFIED; no persisted create spec or initialization credentials were read.",
+    "request_format_or_vmi_failure": "Not supported by the exact raw error; the failure is the Gov original-CREATE contract check."
+  },
+  "normal_recovery": [
+    "Root coordinates the shared Gov replacement: restore the known compatible immutable image, or deploy a Gov whose VM SDK/decoder is compatible with this frozen CREATE contract.",
+    "Preserve the original HTTP400 evidence. After source alignment, explicitly replay this exact original request and original key once; do not switch labels/keys to conceal the refusal.",
+    "Do not edit ledger/frozen create spec, bypass the Gov DELETE fence, restart KubeVirt, or change VM YAML to work around this error."
+  ],
+  "mutations": 0,
+  "console_replays": 0,
+  "business_sql": 0,
+  "tests_or_builds": 0,
+  "credentials_or_console_tickets_recorded": false
+}

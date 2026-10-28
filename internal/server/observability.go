@@ -151,6 +151,14 @@ func (o *Observability) Shutdown(ctx context.Context) error {
 }
 
 func (o *Observability) ObserveWork(ctx context.Context, logger *slog.Logger, work biz.Work, progress biz.Progress, err error) {
+	if progress.ProviderError != nil {
+		cause := progress.ProviderError
+		var failure *biz.ProviderError
+		if errors.As(cause, &failure) && failure.Cause != nil {
+			cause = failure.Cause
+		}
+		logger.WarnContext(ctx, "network provider request failed", "resource_type", work.Resource.Kind, "resource_id", work.Resource.ID, "operation_id", work.Operation.ID, "binding_id", work.BindingID, "epoch", work.Epoch, "reason", progress.Reason, "error", cause)
+	}
 	result := "observed"
 	if work.ActiveOperation {
 		result = string(progress.OperationState)
@@ -186,5 +194,34 @@ func (o *Observability) ObserveAttachmentWork(ctx context.Context, work biz.Atta
 	o.workerAttempts.Add(ctx, 1, metric.WithAttributes(attribute.String("kind", "attachment"), attribute.String("result", result)))
 	if err == nil && p.Observed {
 		o.evidenceAge.Record(ctx, time.Since(p.Proof.CollectedAt).Seconds(), metric.WithAttributes(attribute.String("kind", "attachment")))
+	}
+}
+
+func (o *Observability) ObserveVirtualSwitchWork(ctx context.Context, logger *slog.Logger, work biz.VirtualSwitchWork, progress biz.VirtualSwitchProgress, err error) {
+	if progress.ProviderError != nil {
+		cause := progress.ProviderError
+		var failure *biz.ProviderError
+		if errors.As(cause, &failure) && failure.Cause != nil {
+			cause = failure.Cause
+		}
+		logger.WarnContext(ctx, "virtual switch provider request failed", "resource_type", "virtual_switch", "resource_id", work.Switch.ID, "operation_id", work.Switch.LastOperationID, "binding_id", work.Switch.BindingID, "epoch", work.Epoch, "action", progress.Action, "node_name", progress.NodeName, "node_uid", progress.NodeUID, "binding_state", progress.BindingState, "reason", progress.Reason, "error", cause)
+	}
+	result := progress.BindingState
+	if progress.Observed {
+		result = "observed"
+	} else if progress.ProviderError != nil {
+		result = "provider_error"
+	}
+	if errors.Is(err, biz.ErrLeaseLost) {
+		result = "lease_lost"
+	} else if err != nil {
+		result = "database_error"
+	}
+	o.workerAttempts.Add(ctx, 1, metric.WithAttributes(attribute.String("kind", "virtual_switch"), attribute.String("result", result)))
+	if err == nil && progress.Observed && !progress.CollectedAt.IsZero() {
+		o.evidenceAge.Record(ctx, time.Since(progress.CollectedAt).Seconds(), metric.WithAttributes(attribute.String("kind", "virtual_switch")))
+	}
+	if err != nil || progress.ProviderError != nil || work.Switch.BindingState != progress.BindingState || work.Switch.Reason != progress.Reason {
+		logger.InfoContext(ctx, "virtual switch reconciliation", "resource_id", work.Switch.ID, "operation_id", work.Switch.LastOperationID, "binding_id", work.Switch.BindingID, "epoch", work.Epoch, "binding_state", progress.BindingState, "observed", progress.Observed, "result", result, "reason", progress.Reason)
 	}
 }

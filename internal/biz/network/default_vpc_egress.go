@@ -24,7 +24,7 @@ func (i DefaultVPCIdentity) Validate() error {
 
 type DefaultVPCEgress struct {
 	EgressMetadata
-	PoolID, Phase, OperationState, Address                             string
+	PoolID, Phase, OperationState, Address, EIPID                      string
 	Identity                                                           DefaultVPCIdentity
 	EIPProviderName, EIPProviderUID, SnatProviderName, SnatProviderUID string
 	PendingAction                                                      string
@@ -41,6 +41,7 @@ type DefaultEgressPoolProof struct {
 type DefaultVPCEgressRepository interface {
 	CreateDefaultVPCEgress(context.Context, DefaultVPCEgressIntent, Attribution) (DefaultVPCEgress, error)
 	GetDefaultVPCEgress(context.Context, string) (DefaultVPCEgress, error)
+	GetCurrentDefaultVPCEgress(context.Context) (DefaultVPCEgress, error)
 	DeleteDefaultVPCEgress(context.Context, string, Attribution) (DefaultVPCEgress, error)
 }
 type DefaultVPCEgressUseCase struct {
@@ -86,6 +87,13 @@ func (u *DefaultVPCEgressUseCase) Delete(ctx context.Context, id string) (Defaul
 		return DefaultVPCEgress{}, Fail(ResourceNotFound, "platform default VPC egress not found")
 	}
 	return u.repository.DeleteDefaultVPCEgress(ctx, id, a)
+}
+
+func (u *DefaultVPCEgressUseCase) GetCurrent(ctx context.Context) (DefaultVPCEgress, error) {
+	if _, err := u.authorization.Platform(ctx); err != nil {
+		return DefaultVPCEgress{}, err
+	}
+	return u.repository.GetCurrentDefaultVPCEgress(ctx)
 }
 
 type DefaultEgressWork struct {

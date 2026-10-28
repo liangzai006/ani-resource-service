@@ -1,0 +1,76 @@
+{
+  "at": "2026-10-26T03:36:08.397075+00:00",
+  "result": "PASS_EXACT_TASK_PRIVATE_COPIES_REMOVED",
+  "items": [
+    {
+      "path": "private/product-vnc/linuxiso01-response.json",
+      "original_inode": 26769962,
+      "original_sha256": "a86b79737caa65ad57b1e306765c122c1d24e6d7e60b417a6d9f9123902f4885",
+      "observed": "GONE"
+    },
+    {
+      "path": "private/product-vnc/linuxiso02-response.json",
+      "original_inode": 26769990,
+      "original_sha256": "a4c982c52d794a27672db63eae88c5733a30413281386af6c26f121f83743406",
+      "observed": "GONE"
+    },
+    {
+      "path": "private/product-vnc/linuxiso03-response.json",
+      "original_inode": 26770099,
+      "original_sha256": "29e1323aebcd89114fb041a171b3ee7b7d6cd4314689b06447ac204b90dfdda1",
+      "observed": "GONE"
+    },
+    {
+      "path": "private/product-vnc/linuxiso04-response.json",
+      "original_inode": 26770162,
+      "original_sha256": "c2f9aa3cf7792e1b004d73f77c34e437648f2c760ef57c78ed5b499a6f9d19cd",
+      "observed": "GONE"
+    },
+    {
+      "path": "private/product-vnc/linuxiso05-response.json",
+      "original_inode": 26770191,
+      "original_sha256": "13d33b649ccf3480b99795eff35d204a0b66cc39432475dea61e107f8aaa04aa",
+      "observed": "GONE"
+    },
+    {
+      "path": "private/product-vnc/linuxiso06-response.json",
+      "original_inode": 26770454,
+      "original_sha256": "640e5553607acafdc3fe7814522860faa8baa712a787c0b5faf35e18f56981de",
+      "observed": "GONE"
+    },
+    {
+      "path": "private/product-vnc/linuxiso05-original-replay-response.json",
+      "original_inode": 26770301,
+      "original_sha256": "ecae0881265c16cd34455b1948ef7a436253ca18f71ca8447c94f1cc6eb14e97",
+      "observed": "GONE"
+    },
+    {
+      "path": "private/product-vnc/prepared.json",
+      "original_inode": 26769963,
+      "original_sha256": "b3992166ae2281c3125196cb59b3f6e3b0ac88ed97b9867bb73c11714eec480d",
+      "observed": "GONE"
+    },
+    {
+      "path": "private/session-tenant.json",
+      "original_inode": 26769902,
+      "original_sha256": "746b5360ba1de60b0b7496b844aaec39b2d4e9d847e417c11dca093a8fb34e56",
+      "observed": "GONE"
+    },
+    {
+      "path": "private/session-tenant.cookies",
+      "original_inode": 26769903,
+      "original_sha256": "ecfc3ac54f057d79e23a95553114fc6dc9b08c0fbead8ffe0b0ba7e0eb5086e9",
+      "observed": "GONE"
+    },
+    {
+      "path": "R2/product-linux-iso-20261026/compatibility-private/original-create-command.json",
+      "original_inode": 26770238,
+      "original_sha256": "efae10ae51968b6a2ed57e8a457f95ef6ba5bbd2027234338b9ae3654ac3725d",
+      "observed": "GONE"
+    }
+  ],
+  "count": 11,
+  "original_intents_public_evidence_user_sources_preserved": true,
+  "business_mutations": 0,
+  "transport_receipt_sha256": "821a4857451fe4baa5d405b091ab700e103782fa637778fd66ef7f5fb725bdb7"
+}

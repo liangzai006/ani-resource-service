@@ -286,8 +286,7 @@ func runInstanceNetworkVertical(t *testing.T, confirmFaults bool) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	quota := &quota{}
-	worker, err := biz.NewWorker(f.repo, notebook, quota, &releaseObservation{confirmed: true}, "vertical-instance")
+	worker, err := biz.NewWorker(f.repo, notebook, "vertical-instance")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -368,7 +367,7 @@ func runInstanceNetworkVertical(t *testing.T, confirmFaults bool) {
 		t.Fatal("automatic Pod recreation was not observed")
 	}
 	// Fresh workers consume the saved submission instead of rebuilding identity.
-	worker, err = biz.NewWorker(f.repo, notebook, quota, &releaseObservation{confirmed: true}, "vertical-after-restart")
+	worker, err = biz.NewWorker(f.repo, notebook, "vertical-after-restart")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -386,7 +385,7 @@ func runInstanceNetworkVertical(t *testing.T, confirmFaults bool) {
 	}
 	command(t, f, c, i, "delete")
 	i = drive(biz.Deleted)
-	if !i.ComputeCleaned || !i.WorkspaceCleaned || !i.QuotaReturned || !i.Network.Cleaned || !i.Network.ReleaseAcknowledged || i.Network.State != "closed" || quota.calls != 0 {
+	if !i.ComputeCleaned || !i.WorkspaceCleaned || !i.QuotaReturned || !i.Network.Cleaned || !i.Network.ReleaseAcknowledged || i.Network.State != "closed" {
 		t.Fatal("final release omitted real cleanup or called GPU quota", i.Network)
 	}
 	a, err := attachments.Get(ctx, c.TenantID, binding)

@@ -82,22 +82,25 @@ type ResourceWork struct {
 }
 
 type Work struct {
-	GateReason      Reason
-	CancelUnsent    bool
-	Requirement     ObservationRequirement
-	Resource        ResourceWork
-	Operation       Operation
-	ActiveOperation bool
-	BindingID       string
-	KnownIdentity   string
-	PendingAction   string
-	Owner           string
-	Epoch           int64
-	Attempt         int32
-	Now             time.Time
+	DependencyFailed bool
+	GateReason       Reason
+	CancelUnsent     bool
+	Requirement      ObservationRequirement
+	Resource         ResourceWork
+	Operation        Operation
+	ActiveOperation  bool
+	BindingID        string
+	KnownIdentity    string
+	PendingAction    string
+	Owner            string
+	Epoch            int64
+	Attempt          int32
+	Now              time.Time
 }
 
 type Progress struct {
+	// Diagnostic only; never persisted or returned in the public resource model.
+	ProviderError  error `json:"-"`
 	SubnetIPRanges SubnetIPRanges
 	LoadBalancer   *LoadBalancerObservation
 	Egress         *EgressAppliedFacts
@@ -175,6 +178,11 @@ func (w *Worker) Step(ctx context.Context) (worked bool, stepErr error) {
 		return true, w.stepLoadBalancer(ctx, work)
 	}
 	progress := Progress{State: work.Resource.State, Identity: work.KnownIdentity, NextDelay: w.policy.ObserveEvery}
+	defer func() {
+		if w.observer != nil {
+			w.observer(ctx, work, progress, stepErr)
+		}
+	}()
 	if work.ActiveOperation {
 		progress.OperationState = Retrying
 		progress.NextDelay = w.retryDelay(work.Attempt)
@@ -184,6 +192,10 @@ func (w *Worker) Step(ctx context.Context) (worked bool, stepErr error) {
 	if work.CancelUnsent {
 		progress.State, progress.OperationState, progress.ClearPending = Deleted, Succeeded, true
 		progress.Reason = ""
+		return true, w.finish(ctx, work, progress)
+	}
+	if work.DependencyFailed {
+		progress.State, progress.OperationState, progress.Reason = Failed, OpFailed, ProviderRejected
 		return true, w.finish(ctx, work, progress)
 	}
 	if work.GateReason != "" {
@@ -202,6 +214,7 @@ func (w *Worker) Step(ctx context.Context) (worked bool, stepErr error) {
 	observation, observeErr := w.provider.Observe(callCtx, target)
 	cancel()
 	if observeErr != nil {
+		progress.ProviderError = observeErr
 		progress.Reason = providerReason(observeErr)
 		if work.ActiveOperation && progress.Reason == ProviderOwnership {
 			progress.OperationState = Blocked
@@ -247,8 +260,15 @@ func (w *Worker) Step(ctx context.Context) (worked bool, stepErr error) {
 	if err == nil {
 		err = w.finish(ctx, work, progress)
 	}
-	if w.observer != nil {
-		w.observer(ctx, work, progress, err)
+	if err == nil && work.Resource.Kind == "subnet" && progress.State == Available && progress.Reason == "" {
+		if preparer, ok := w.provider.(VMNetworkPreparer); ok {
+			// This runs for existing as well as newly created Subnets. The
+			// preparer persists its own readiness; a failed NAD must not degrade
+			// a healthy ordinary-container network or its completed operation.
+			prepareCtx, cancel := context.WithTimeout(ctx, w.policy.RequestTimeout)
+			_ = preparer.PrepareVMNetwork(prepareCtx, target)
+			cancel()
+		}
 	}
 	return true, err
 }
@@ -296,6 +316,7 @@ func (w *Worker) ensure(ctx context.Context, work Work, target ProviderTarget, o
 
 		cancel()
 		if err != nil {
+			progress.ProviderError = err
 			progress.Observed = false
 			progress.Reason = providerReason(err)
 			kind := providerKind(err)
@@ -334,6 +355,7 @@ func (w *Worker) ensure(ctx context.Context, work Work, target ProviderTarget, o
 		value, err := w.mutateEgress(callCtx, target, true)
 		cancel()
 		if err != nil {
+			progress.ProviderError = err
 			progress.Observed = false
 			progress.Reason = providerReason(err)
 			progress.ClearPending = providerKind(err) != ProviderUncertain
@@ -396,6 +418,7 @@ func (w *Worker) delete(ctx context.Context, work Work, target ProviderTarget, o
 	cancel()
 	progress.ClearPending = false
 	if err != nil {
+		progress.ProviderError = err
 		progress.Reason = providerReason(err)
 		if providerKind(err) != ProviderTemporary {
 			progress.OperationState = Blocked

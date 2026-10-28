@@ -1,0 +1,19 @@
+test "$(/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/buf --version)" = "1.60.0"
+test "$(go version -m /home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/buf | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/bufbuild/buf@v1.60.0"
+test "$(/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/sqlc version)" = "v1.31.1"
+test "$(go version -m /home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/sqlc | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/sqlc-dev/sqlc@v1.31.1"
+./scripts/verify-source /home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/buf /home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/src-r2/.tools/bin/sqlc
+go: downloading google.golang.org/protobuf v1.36.11
+go: downloading google.golang.org/grpc v1.5.1
+go: downloading google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
+go: downloading google.golang.org/grpc v1.5.1
+go: downloading google.golang.org/protobuf v1.36.11
+go: downloading google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
+go: google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1: google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1: verifying module: google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1: initializing sumdb.Client: checking tree#70132247: Get "https://sum.golang.org/tile/8/3/000.p/4": EOF
+Failure: plugin go run google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1: exit status 1
+context canceled
+signal: killed
+plugin go run google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.11: context canceled
+signal: killed
+signal: killed
+make: *** [Makefile:95：verify] 错误 1

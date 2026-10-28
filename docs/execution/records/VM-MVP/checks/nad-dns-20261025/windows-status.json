@@ -1,0 +1,58 @@
+{
+  "result": "PASS_WINDOWS_NECESSARY_MAINLINE_DELETE_AND_EXACT_BACKEND_CLEANUP",
+  "vm_id": "1823315c-e0ae-421a-b76d-e27f97343160",
+  "native_vm_uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575",
+  "create_operation": "7a966d11-066b-4031-91e8-eb64a8a18d9b",
+  "infrastructure": "Product VM v23 Deleted; current native VM, disks and snapshots Gone",
+  "dns": {
+    "mode": "CUSTOM",
+    "nameservers": [
+      "223.5.5.5"
+    ]
+  },
+  "edition_selected": "Windows Server 2025 Standard (Desktop Experience)",
+  "license_accepted": true,
+  "license_approval": "Human action-time approval received 2026-10-26; accepted in native VNC",
+  "storage_drivers_loaded": [
+    "E:\\vioscsi\\2k25\\amd64\\vioscsi.inf",
+    "E:\\viostor\\2k25\\amd64\\viostor.inf"
+  ],
+  "root_disk_serial": "7eaebbb4-4f04-5cc5-894e-a50e745c8839",
+  "root_disk_bus": "virtio",
+  "installation": "Real task system disk recognized; installation copied files and automatically rebooted to Administrator initial password page",
+  "account_handoff": "User completed initial password setup; Root used existing password and observed desktop, including after normal Stop/ISO ejection/system boot/Start",
+  "explicit_system_disk_boot_api": "PASS; both ISO slots empty, SYSTEM_DISK, native root bootOrder 1, only original root volume",
+  "qga": "PASS; MSI exit 0, QEMU-GA Running, current VMI AgentConnected True",
+  "product_key_entered": false,
+  "azure_pay_as_you_go_selected": false,
+  "guest_acceptance": "PASS installation, system disk stop/start, QGA, network, two data disks, online/offline three-volume restore and post-restore same-disk hotplug",
+  "screenshots": [
+    "windows-license.png",
+    "windows-installing.png",
+    "windows-first-account.png",
+    "windows-agent-installed.png",
+    "windows-system-boot-login.png",
+    "windows-restored-root-a.png"
+  ],
+  "browser_input_history": "First typeText login failed; exact native key sequence succeeded. Chinese IME command canceled without installation; English mode then succeeded",
+  "logout": "Normal sign out returned to lock screen; browser disconnected before storage power tests",
+  "operations": {
+    "stop": "f768da50-94b8-47ab-879a-7c8911e11a8c",
+    "eject_install": "f2f2b15b-a3e2-494f-a349-84ba0561d571",
+    "boot_system": "2baede07-6ace-4599-8c5b-e6e07b634939",
+    "eject_driver": "31c3da53-df44-491b-87b2-795308f17598",
+    "start": "a381424e-4208-4dda-95de-6e0497ab9109"
+  },
+  "system_boot_checkpoint": {
+    "version": "6",
+    "vmi_uid": "6c0536ec-9e85-438f-9afe-a53c6e9a8bbd"
+  },
+  "final_version": "23",
+  "desired_state": "Deleted",
+  "observed_state": "Deleted",
+  "storage_result": "windows-storage-mainline.json",
+  "final_browser": "windows-restored-root-a.json",
+  "normal_delete_operation": "22be64b4-1e92-4a8b-a3d8-b2658c845c95",
+  "network_attachment_release": "windows-network-release.json",
+  "cleanup": "windows-cleanup-final.json; 38 current native objects/12 historical PVC-PV refs Gone; 17 logical names/14 captured IDs and two exact media-temp parents ENOENT after normal asynchronous reclaim; no backend writes or global enumeration; physical bytes not measured"
+}

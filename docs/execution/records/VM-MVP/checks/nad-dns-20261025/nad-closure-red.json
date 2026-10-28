@@ -1,0 +1,39 @@
+{
+  "phase": "red",
+  "host": "fedora",
+  "source": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/resource-source",
+  "overlay": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/red-overlay.json",
+  "steps": [
+    {
+      "name": "regression",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-overlay=/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/red-overlay.json",
+        "-json",
+        "-count=1",
+        "-timeout=120s",
+        "./internal/data/network",
+        "-run",
+        "^TestVMAutoNetworkPGStopAndClosureSurviveAuxiliaryPreparationFailure$/^not-ready$"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 103.705,
+      "private_log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/red-regression.log",
+      "log_sha256": "1e7f4e34ce50ac367888a17be62eb79fdb948bba14d80042149cdc54e85347ec"
+    }
+  ],
+  "cgroup_limits": {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "go_flags": "-mod=readonly -p=1",
+  "gomaxprocs": 2,
+  "tmp": "/home/chabking/n1qfq3zm",
+  "started_at": "2026-10-25T16:26:03.579720+00:00",
+  "result": "PASS_EXPECTED_REGRESSION_REPRODUCED",
+  "finished_at": "2026-10-25T16:27:47.285619+00:00",
+  "heavy_lock_released": true
+}

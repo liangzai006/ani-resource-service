@@ -1,0 +1,123 @@
+{
+  "prepared_contract_source": "ani-governance@2fc11388289bc9dc9eac088bf7d9658293b1262d",
+  "steps": {
+    "snat": {
+      "at": "2026-10-26T01:33:42.791165+00:00",
+      "native_uid": "cda5f3bf-9aeb-4647-970f-83cf230193eb",
+      "before_resource_version": "3159475",
+      "send_attempts": 1,
+      "state": "ACKNOWLEDGED_OBSERVE_ORIGINAL_OPERATION",
+      "observation": {
+        "at": "2026-10-26T01:35:53.386028+00:00",
+        "native_gone": true,
+        "complete": true
+      }
+    },
+    "eip": {
+      "at": "2026-10-26T01:34:06.499489+00:00",
+      "native_uid": "920cb629-93ca-4ceb-839b-f7c79d9aaccd",
+      "before_resource_version": "3613757",
+      "send_attempts": 1,
+      "state": "ACKNOWLEDGED_OBSERVE_ORIGINAL_OPERATION",
+      "observation": {
+        "at": "2026-10-26T01:35:53.903940+00:00",
+        "native_gone": true,
+        "complete": true
+      }
+    },
+    "subnet": {
+      "at": "2026-10-26T01:34:26.614488+00:00",
+      "native_uid": "3f8af97d-ba1e-4f39-9098-719ea2c10502",
+      "before_resource_version": "3609894",
+      "send_attempts": 1,
+      "state": "ACKNOWLEDGED_OBSERVE_ORIGINAL_OPERATION",
+      "before_operation_id": "465f7f19-e3e3-4bef-8538-0dcb070934d2",
+      "request_body": null,
+      "operation_id": "e35f8fbc-c050-4aa5-a2fd-14ca27a3af21",
+      "observation": {
+        "at": "2026-10-26T01:35:54.392467+00:00",
+        "native_gone": true,
+        "resource_state": "deleted",
+        "last_operation_id": "e35f8fbc-c050-4aa5-a2fd-14ca27a3af21",
+        "operation_state": "succeeded",
+        "operation_reason": "",
+        "complete": true
+      }
+    },
+    "vpc": {
+      "at": "2026-10-26T01:35:23.398995+00:00",
+      "native_uid": "c75f1a63-478a-4463-8ca0-1f5ac9a3c1bb",
+      "before_resource_version": "3614181",
+      "send_attempts": 1,
+      "state": "ACKNOWLEDGED_OBSERVE_ORIGINAL_OPERATION",
+      "before_operation_id": "2111fedf-c316-437c-9e05-9e125adb285e",
+      "request_body": null,
+      "operation_id": "8f3990db-b122-4c80-8064-c567d83d27d6",
+      "observation": {
+        "at": "2026-10-26T01:35:55.434594+00:00",
+        "native_gone": true,
+        "resource_state": "deleted",
+        "last_operation_id": "8f3990db-b122-4c80-8064-c567d83d27d6",
+        "operation_state": "succeeded",
+        "operation_reason": "",
+        "complete": true
+      }
+    }
+  },
+  "automatic_mutation_retries": 0,
+  "business_SQL": 0,
+  "force_finalizers": 0,
+  "precondition": {
+    "windows_delete_operation_id": "22be64b4-1e92-4a8b-a3d8-b2658c845c95",
+    "windows_attachment_id": "att_2a65c873456e4a37bf5c898936839f13",
+    "windows_release_sha256": "b4be87791f9d1a287edd342623cb559376a775d9cd543c9e8cdd3e84db838759",
+    "kept": {
+      "/apis/networking.kubercloud.com/v1/namespaces/kcn-system/subnets/manual-egress-pool-20261022": {
+        "uid": "1830618b-91c5-4bd6-bd2a-1b3f01e22300",
+        "configuration_sha256": "debde752641ad43d269e2e26eb4a62ed1a38c7898f4783968e7a3947e1a85ccc"
+      },
+      "/apis/networking.kubercloud.com/v1/namespaces/kcn-system/eips/manual-egress-eip-201-20261022": {
+        "uid": "87e7a16c-7c70-43ce-90a3-98c60b774c16",
+        "configuration_sha256": "bc6a853fe1579b3aa6690f5076d2b768bd17aed557a45470e0e50a87b6121e75"
+      },
+      "/apis/networking.kubercloud.com/v1/namespaces/kcn-system/snats/manual-egress-snat-20261022": {
+        "uid": "cb544bba-911b-4ff1-ad05-95a5a69dca00",
+        "configuration_sha256": "6d64efe2711a86a6041904c0707b6fb9320aab4139874e9abaf0559d00dfd20f"
+      },
+      "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420": {
+        "uid": "a8d8a472-8a8a-43cf-abf0-0e805bbe67b0",
+        "configuration_sha256": "77ea8a8c4d0f5c7fa433ccd9a75b73774911a49bb62c82cc737817df203ab62b"
+      },
+      "/apis/k8s.cni.cncf.io/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/network-attachment-definitions/ani-vm-primary-v1": {
+        "uid": "49487e12-184c-41be-8e7c-064dafac7dd8",
+        "configuration_sha256": "7eca950d10d53d51056449b15d9050a204c08140988556dadebdb5d6f572e006"
+      },
+      "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/serviceaccounts/ani-vm-workload": {
+        "uid": "f39d35d8-24ac-4191-a4a7-0f125de59b66",
+        "configuration_sha256": "2e5fcb57598d921ed68edd1b91e60679fa8f15f4ac7e183db11df58d16e65325"
+      },
+      "/apis/rbac.authorization.k8s.io/v1/clusterroles/ani-resource-vm-network": {
+        "uid": "58fe1945-e16b-48be-80a5-66f6235f34a5",
+        "configuration_sha256": "2379f5f1ec98c8e32d064e91ab0c8492e73904c9cba717c0121e464fbf3e7ede"
+      },
+      "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/ani-resource-vm-network-ani-system": {
+        "uid": "7b5d4605-e2f9-4f1a-8e1a-25dbaf43a0a2",
+        "configuration_sha256": "ff81fd90619cb124ea103c654eecba68c547ec718a0e3b4a4b35dc899bd91f8d"
+      },
+      "/apis/rbac.authorization.k8s.io/v1/namespaces/kcn-system/roles/ani-resource-vm-nic-cleanup": {
+        "uid": "20d7d623-26e5-4f2f-963f-8c180ad27221",
+        "configuration_sha256": "fbb38d5e1baf0bcee51aeca87d3a58b8abed15494dfe76a10d1c291788598a01"
+      },
+      "/apis/rbac.authorization.k8s.io/v1/namespaces/kcn-system/rolebindings/ani-resource-vm-nic-cleanup": {
+        "uid": "d1d93f63-35a4-4f78-9b3b-b81b98357200",
+        "configuration_sha256": "92ab5f85583a8da2e50cc9cec5d1de34d4110843d996907fed18b4965bbe5d52"
+      }
+    }
+  },
+  "last_observed_at": "2026-10-26T01:35:56.068498+00:00",
+  "result": "PASS_FOUR_TASK_NETWORK_OBJECTS_CLOSED",
+  "all_complete": true,
+  "mutation_attempts": 4,
+  "transport_changes": 0,
+  "completed_at": "2026-10-26T01:35:56.068498+00:00"
+}

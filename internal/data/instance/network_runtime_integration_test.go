@@ -104,7 +104,7 @@ func TestInstanceNetworkClosingWaitsForUnknownNotebookCreate(t *testing.T) {
 	}
 }
 
-func TestInstanceNetworkOutageDoesNotHoldOriginalGPURefund(t *testing.T) {
+func TestInstanceNetworkOutageBlocksOriginalGPURefundUntilCleanup(t *testing.T) {
 	f := database(t)
 	ctx := context.Background()
 	c := create()
@@ -119,7 +119,7 @@ func TestInstanceNetworkOutageDoesNotHoldOriginalGPURefund(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	worker, err := biz.NewWorker(f.repo, &provider{}, reporter, &releaseObservation{confirmed: true}, "gpu-network-outage")
+	worker, err := biz.NewWorker(f.repo, &provider{}, "gpu-network-outage")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -129,17 +129,16 @@ func TestInstanceNetworkOutageDoesNotHoldOriginalGPURefund(t *testing.T) {
 	command(t, f, c, i, "delete")
 	for round := 0; round < 12; round++ {
 		i = step(t, f, worker, c)
-		if i.QuotaReturned {
-			break
-		}
 	}
-	if !i.ComputeCleaned || !i.QuotaReturned || i.Network.Cleaned || i.Observed == biz.Deleted {
-		t.Fatal("network outage held GPU quota or fabricated release", i.Network)
+	if !i.ComputeCleaned || !i.WorkspaceCleaned || i.QuotaReturned || i.Network.Cleaned || i.Observed == biz.Deleted || !i.CleanupCompletedAt.IsZero() {
+		t.Fatal("network outage fabricated complete owner cleanup", i.Network, i.Reason)
 	}
-	var original string
-	var acknowledged bool
-	if err = f.runtime.QueryRow(ctx, `SELECT original_create_operation_id::text,acknowledged FROM instance.instance_quota_release_outbox WHERE tenant_id=$1 AND instance_id=$2`, c.TenantID, c.ID).Scan(&original, &acknowledged); err != nil || original != c.OperationID || !acknowledged {
-		t.Fatal("original refund event was not durable", err)
+	if dispatched, err := reporter.Dispatch(ctx); err != nil || dispatched || endpoint.calls != 0 {
+		t.Fatal("network outage permitted early original refund", dispatched, err, endpoint.calls)
+	}
+	var events int
+	if err = f.runtime.QueryRow(ctx, `SELECT count(*) FROM instance.instance_quota_release_outbox WHERE tenant_id=$1 AND instance_id=$2`, c.TenantID, c.ID).Scan(&events); err != nil || events != 0 {
+		t.Fatal("unfinished network cleanup created a refund event", events, err)
 	}
 }
 

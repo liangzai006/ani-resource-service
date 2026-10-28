@@ -37,6 +37,10 @@ sql:
       - migrations/0016_virtual_switches.sql
       - migrations/0017_legacy_device_retirement.sql
       - migrations/0018_default_vpc_egress.sql
+      - migrations/0019_vm_networks.sql
+      - migrations/0020_managed_pool_gateway.sql
+      - migrations/0021_optional_public_pool_verification.sql
+      - migrations/0022_default_egress_eip_identity.sql
     queries: internal/data/network/queries
     gen:
       go:

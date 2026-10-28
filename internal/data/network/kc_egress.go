@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/netip"
 	"reflect"
 	"regexp"
@@ -234,8 +235,11 @@ func (p *KCProvider) resolveEgress(ctx context.Context, t biz.ProviderTarget) (e
 			if err != nil {
 				return r, err
 			}
-			if device.SwitchBindingID == nil || sw.BindingID != *device.SwitchBindingID || sw.ClusterID != r.binding.ClusterID || sw.State != biz.Available {
-				return r, switchConflict()
+			if device.SwitchBindingID == nil || sw.BindingID != *device.SwitchBindingID || sw.ClusterID != r.binding.ClusterID {
+				return r, switchConflict(fmt.Errorf("virtual switch %s binding identity does not match device %s", sw.ID, device.ResourceID))
+			}
+			if sw.State != biz.Available {
+				return r, switchUnavailable(fmt.Errorf("virtual switch %s dependency is %s: %s", sw.ID, sw.State, sw.Reason))
 			}
 			r.spec["vClusterName"] = sw.GroupName
 		}
@@ -307,8 +311,11 @@ func (p *KCProvider) resolveEgress(ctx context.Context, t biz.ProviderTarget) (e
 			if err != nil {
 				return r, err
 			}
-			if device.Retired || device.SwitchBindingID == nil || sw.BindingID != *device.SwitchBindingID || sw.ClusterID != r.binding.ClusterID || sw.State != biz.Available {
-				return r, switchConflict()
+			if device.Retired || device.SwitchBindingID == nil || sw.BindingID != *device.SwitchBindingID || sw.ClusterID != r.binding.ClusterID {
+				return r, switchConflict(fmt.Errorf("virtual switch %s binding identity does not match active device %s", sw.ID, device.ResourceID))
+			}
+			if sw.State != biz.Available {
+				return r, switchUnavailable(fmt.Errorf("virtual switch %s dependency is %s: %s", sw.ID, sw.State, sw.Reason))
 			}
 			r.virtualSwitch = &sw
 			r.switchDevice = device
@@ -632,9 +639,13 @@ func (p *KCProvider) readEgressSetOnce(ctx context.Context, r egressResolved, cr
 	if r.deviceID != "" && !(r.target.Kind == "snat" && !r.snat.DesiredEnabled) {
 		result.deviceRequired = true
 		if r.virtualSwitch != nil {
-			configured, wired, proof, err := p.virtualSwitchDeviceState(ctx, *r.virtualSwitch, r.switchDevice)
+			configured, wired, proof, err := p.virtualSwitchDeviceState(ctx, *r.virtualSwitch, r.switchDevice, result.view)
 			if err != nil {
 				return result, err
+			}
+			result.proof.CollectionStartedAt = result.proof.CollectedAt
+			if proof.CollectionStartedAt.Before(result.proof.CollectionStartedAt) {
+				result.proof.CollectionStartedAt = proof.CollectionStartedAt
 			}
 			result.switchConfigured, result.switchWired = configured, wired
 			result.deviceReady = wired
@@ -1151,6 +1162,11 @@ func emptyBoundResource(eip *unstructured.Unstructured) bool {
 }
 
 func verifiedEgressExit(r egressResolved, set egressReadSet) bool {
+	// Public admission uses current component readiness, without requiring an
+	// administrator's manual forwarding evidence. Intranet remains independent.
+	if r.pool.Scope == "public" {
+		return len(providerImages(set.all[pods])) > 0
+	}
 	var evidence biz.PublicPoolVerification
 	if json.Unmarshal(r.pool.Verification, &evidence) != nil {
 		return false

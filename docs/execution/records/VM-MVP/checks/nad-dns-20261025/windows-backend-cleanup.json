@@ -1,0 +1,378 @@
+{
+  "at": "2026-10-26T01:28:42.608166+00:00",
+  "vm_id": "1823315c-e0ae-421a-b76d-e27f97343160",
+  "native_vm_uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575",
+  "scope": "exact 17 frozen logical names and captured IDs bound to those same names; no other names/IDs/pool enumeration",
+  "rows": [
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-9e2318bf-3a41-469d-8e5f-383e9261180c",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-9e2318bf-3a41-469d-8e5f-383e9261180c",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_captured_id": {
+        "observed": "NOT_CAPTURED_BEFORE_RETIREMENT"
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-5d33357b-8778-483b-80e7-045755aaf6dd",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-5d33357b-8778-483b-80e7-045755aaf6dd",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b1ad9148f",
+      "captured_id_provenance": [
+        "exact image info in original baseline",
+        "captured exact parent pool/image/id in csi-vol-65bc1f29-8194-499d-bbb0-2e7835b097d4"
+      ],
+      "by_captured_id": {
+        "observed": "PRESENT",
+        "image_id": "1732b1ad9148f",
+        "size": 64424509440,
+        "parent": null
+      }
+    },
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-30114021-69a7-4515-8ccb-4bd3abe8bf7a",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-30114021-69a7-4515-8ccb-4bd3abe8bf7a",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_captured_id": {
+        "observed": "NOT_CAPTURED_BEFORE_RETIREMENT"
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-99ec21f5-21fb-4812-9401-0e8e2a6af87e",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-99ec21f5-21fb-4812-9401-0e8e2a6af87e",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b9c9d4b7d",
+      "captured_id_provenance": [
+        "exact image info in original baseline",
+        "captured exact parent pool/image/id in csi-vol-06900854-f454-43f7-ad14-edd78b932157"
+      ],
+      "by_captured_id": {
+        "observed": "PRESENT",
+        "image_id": "1732b9c9d4b7d",
+        "size": 1000341504,
+        "parent": null
+      }
+    },
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-6c3bd852-5e76-4b27-b2dc-7013167995fe",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-6c3bd852-5e76-4b27-b2dc-7013167995fe",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_captured_id": {
+        "observed": "NOT_CAPTURED_BEFORE_RETIREMENT"
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-b00610e8-3485-4de2-a669-58242290557e",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-b00610e8-3485-4de2-a669-58242290557e",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732ba33dc8f3",
+      "captured_id_provenance": [
+        "exact image info in original baseline",
+        "captured exact parent pool/image/id in csi-vol-d09d5b68-d0aa-4252-adf6-5b4dcdbd24ca"
+      ],
+      "by_captured_id": {
+        "observed": "PRESENT",
+        "image_id": "1732ba33dc8f3",
+        "size": 1000341504,
+        "parent": null
+      }
+    },
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-65bc1f29-8194-499d-bbb0-2e7835b097d4",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-65bc1f29-8194-499d-bbb0-2e7835b097d4",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b851abb7e",
+      "captured_id_provenance": [
+        "exact image info in original baseline",
+        "captured exact parent pool/image/id in csi-snap-9e7d1e8a-f1b5-4133-9757-0a34666b2397"
+      ],
+      "by_captured_id": {
+        "observed": "PRESENT",
+        "image_id": "1732b851abb7e",
+        "size": 64424509440,
+        "parent": {
+          "pool": "ani-block-pool",
+          "pool_namespace": "",
+          "image": "csi-snap-5d33357b-8778-483b-80e7-045755aaf6dd",
+          "id": "1732b1ad9148f",
+          "snapshot": "f511706d-1f36-4f76-9790-d5d3d07461d7",
+          "trash": true,
+          "overlap": 64424509440
+        }
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-9e7d1e8a-f1b5-4133-9757-0a34666b2397",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-9e7d1e8a-f1b5-4133-9757-0a34666b2397",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b8cee4ae7",
+      "captured_id_provenance": [
+        "exact image info in original baseline",
+        "captured exact parent pool/image/id in csi-vol-b6febcf1-19fb-4837-afc1-3502c90e3684"
+      ],
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-06900854-f454-43f7-ad14-edd78b932157",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-06900854-f454-43f7-ad14-edd78b932157",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b66941246",
+      "captured_id_provenance": [
+        "exact image info in original baseline",
+        "captured exact parent pool/image/id in csi-snap-69e265f4-8b44-4e31-a054-f433f14ee925"
+      ],
+      "by_captured_id": {
+        "observed": "PRESENT",
+        "image_id": "1732b66941246",
+        "size": 1000341504,
+        "parent": {
+          "pool": "ani-block-pool",
+          "pool_namespace": "",
+          "image": "csi-snap-99ec21f5-21fb-4812-9401-0e8e2a6af87e",
+          "id": "1732b9c9d4b7d",
+          "snapshot": "678a4a6c-e45f-4dbe-b324-7b8f822ffcc0",
+          "trash": true,
+          "overlap": 1000341504
+        }
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-69e265f4-8b44-4e31-a054-f433f14ee925",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-69e265f4-8b44-4e31-a054-f433f14ee925",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732ba6bc7830",
+      "captured_id_provenance": [
+        "exact image info in original baseline",
+        "captured exact parent pool/image/id in csi-vol-ff11cded-0ab7-452f-bedc-b63b6e9f0349"
+      ],
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-d09d5b68-d0aa-4252-adf6-5b4dcdbd24ca",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-d09d5b68-d0aa-4252-adf6-5b4dcdbd24ca",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732be1ed04c1",
+      "captured_id_provenance": [
+        "exact image info in original baseline",
+        "captured exact parent pool/image/id in csi-snap-aebfec62-028d-484b-9184-b62990ec7aa9"
+      ],
+      "by_captured_id": {
+        "observed": "PRESENT",
+        "image_id": "1732be1ed04c1",
+        "size": 1000341504,
+        "parent": {
+          "pool": "ani-block-pool",
+          "pool_namespace": "",
+          "image": "csi-snap-b00610e8-3485-4de2-a669-58242290557e",
+          "id": "1732ba33dc8f3",
+          "snapshot": "40e23218-43a6-4ac0-88cb-8edf9dfffabd",
+          "trash": true,
+          "overlap": 1000341504
+        }
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-aebfec62-028d-484b-9184-b62990ec7aa9",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-aebfec62-028d-484b-9184-b62990ec7aa9",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b6defee40",
+      "captured_id_provenance": [
+        "exact image info in original baseline",
+        "captured exact parent pool/image/id in csi-vol-e07e9062-2fd2-487f-b69b-9158bee077e2"
+      ],
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-b6febcf1-19fb-4837-afc1-3502c90e3684",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-b6febcf1-19fb-4837-afc1-3502c90e3684",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b9811629b",
+      "captured_id_provenance": [
+        "exact image info in original baseline"
+      ],
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-ff11cded-0ab7-452f-bedc-b63b6e9f0349",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-ff11cded-0ab7-452f-bedc-b63b6e9f0349",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732bc1688828",
+      "captured_id_provenance": [
+        "exact image info in original baseline"
+      ],
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-e07e9062-2fd2-487f-b69b-9158bee077e2",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-e07e9062-2fd2-487f-b69b-9158bee077e2",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b7b0b8c30",
+      "captured_id_provenance": [
+        "exact image info in original baseline"
+      ],
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "media-volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-91409605-d3c7-419f-9a48-0d70ccb08b7b",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-91409605-d3c7-419f-9a48-0d70ccb08b7b",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732bca53f076",
+      "captured_id_provenance": [
+        "exact image info in original baseline"
+      ],
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "media-volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-7cb3ce63-7a4b-42be-b66f-1e6610bc3c41",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-7cb3ce63-7a4b-42be-b66f-1e6610bc3c41",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732bcd8cc646",
+      "captured_id_provenance": [
+        "exact image info in original baseline"
+      ],
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    }
+  ],
+  "physical_bytes_reclaimed": "NOT_MEASURED",
+  "global_trash": "NOT_ENUMERATED",
+  "result": "PASS_EXACT_LOGICAL_IMAGES_AND_CAPTURED_IDS_ABSENT_AFTER_ONE_ASYNC_WINDOW",
+  "captured_ids_checked": 14,
+  "initial_result": "PENDING_OR_FAILED_EXACT_BACKEND_OBSERVATIONS",
+  "second_read": {
+    "at": "2026-10-26T01:34:11.610669+00:00",
+    "scope": "one final short asynchronous CSI window, exact original six remaining captured IDs only",
+    "wait_seconds": 0,
+    "rows": [
+      {
+        "pool": "ani-block-pool",
+        "exact_image": "csi-snap-5d33357b-8778-483b-80e7-045755aaf6dd",
+        "captured_image_id": "1732b1ad9148f",
+        "original_observed": "PRESENT",
+        "observed": "ABSENT_ENOENT"
+      },
+      {
+        "pool": "ani-block-pool",
+        "exact_image": "csi-snap-99ec21f5-21fb-4812-9401-0e8e2a6af87e",
+        "captured_image_id": "1732b9c9d4b7d",
+        "original_observed": "PRESENT",
+        "observed": "ABSENT_ENOENT"
+      },
+      {
+        "pool": "ani-block-pool",
+        "exact_image": "csi-snap-b00610e8-3485-4de2-a669-58242290557e",
+        "captured_image_id": "1732ba33dc8f3",
+        "original_observed": "PRESENT",
+        "observed": "ABSENT_ENOENT"
+      },
+      {
+        "pool": "ani-block-pool",
+        "exact_image": "csi-vol-65bc1f29-8194-499d-bbb0-2e7835b097d4",
+        "captured_image_id": "1732b851abb7e",
+        "original_observed": "PRESENT",
+        "observed": "ABSENT_ENOENT"
+      },
+      {
+        "pool": "ani-block-pool",
+        "exact_image": "csi-vol-06900854-f454-43f7-ad14-edd78b932157",
+        "captured_image_id": "1732b66941246",
+        "original_observed": "PRESENT",
+        "observed": "ABSENT_ENOENT"
+      },
+      {
+        "pool": "ani-block-pool",
+        "exact_image": "csi-vol-d09d5b68-d0aa-4252-adf6-5b4dcdbd24ca",
+        "captured_image_id": "1732be1ed04c1",
+        "original_observed": "PRESENT",
+        "observed": "ABSENT_ENOENT"
+      }
+    ],
+    "no_further_loop": true,
+    "writes": 0,
+    "pool_trash_enumeration": false
+  },
+  "final_captured_ids_absent": 14,
+  "final_remaining_present_ids": []
+}

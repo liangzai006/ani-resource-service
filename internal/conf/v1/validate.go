@@ -98,6 +98,9 @@ func (c *Bootstrap) Validate() error {
 			}
 		}
 	}
+	if err := c.ObjectStorage.Validate(); err != nil {
+		return err
+	}
 	return c.Image.Validate()
 }
 

@@ -30,6 +30,14 @@ func NewServiceTLS(t testing.TB) ServiceTLS {
 }
 func NewInstanceServiceTLS(t testing.TB) ServiceTLS { return newServiceTLS(t, true) }
 func newServiceTLS(t testing.TB, instance bool) ServiceTLS {
+	return serviceTLSForClient(t, instance, "ani-governance")
+}
+
+func NewImageRuntimeServiceTLS(t testing.TB) ServiceTLS {
+	return serviceTLSForClient(t, false, "ani-inference-service")
+}
+
+func serviceTLSForClient(t testing.TB, instance bool, clientName string) ServiceTLS {
 	t.Helper()
 	dir := t.TempDir()
 	caKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
@@ -90,7 +98,7 @@ func newServiceTLS(t testing.TB, instance bool) ServiceTLS {
 		return cert, certFile, keyFile
 	}
 	_, certFile, keyFile := issue("ani-network-service", 2, x509.ExtKeyUsageServerAuth)
-	client, clientCertFile, clientKeyFile := issue("ani-governance", 3, x509.ExtKeyUsageClientAuth)
+	client, clientCertFile, clientKeyFile := issue(clientName, 3, x509.ExtKeyUsageClientAuth)
 	roots := x509.NewCertPool()
 	roots.AddCert(ca)
 	result := ServiceTLS{CAFile: caFile, CertFile: certFile, KeyFile: keyFile, ClientCertFile: clientCertFile, ClientKeyFile: clientKeyFile, Client: &tls.Config{MinVersion: tls.VersionTLS13, RootCAs: roots, ServerName: "ani-network-service", Certificates: []tls.Certificate{client}}}

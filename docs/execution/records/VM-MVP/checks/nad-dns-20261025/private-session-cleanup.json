@@ -1,0 +1,113 @@
+{
+  "at": "2026-10-26T01:38:51.816026+00:00",
+  "result": "PASS_TASK_SESSION_AND_CONSOLE_RESPONSE_COPIES_REMOVED",
+  "execution_host": "fedora",
+  "scope": "13 exact task-private session/ticket response copies after VNC server stopped; intents/public receipts/original user inputs preserved",
+  "removed": [
+    {
+      "relative_path": "private/session-tenant.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26763423,
+      "size": 3671,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/session-tenant.cookies",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26763424,
+      "size": 778,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/product-vnc/prepared.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26763565,
+      "size": 362,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/product-vnc/linux01-response.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26763561,
+      "size": 271,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/product-vnc/windows01-response.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26763704,
+      "size": 273,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/product-vnc/windows02-response.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26763728,
+      "size": 273,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/product-vnc/windows03-response.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26766077,
+      "size": 273,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/product-vnc/windows04-response.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26766678,
+      "size": 273,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/product-vnc/windows05-response.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26767783,
+      "size": 273,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/product-vnc/windows06-response.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26767786,
+      "size": 273,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/product-vnc/windows07-response.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26767851,
+      "size": 273,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/product-vnc/windows08-response.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26768052,
+      "size": 273,
+      "after": "ABSENT"
+    },
+    {
+      "relative_path": "private/product-vnc/windows09-response.json",
+      "uid": 1000,
+      "mode": "0600",
+      "inode": 26769496,
+      "size": 273,
+      "after": "ABSENT"
+    }
+  ],
+  "contents_emitted": false
+}

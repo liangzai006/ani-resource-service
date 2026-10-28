@@ -35,3 +35,13 @@ network:
     workers_per_kind: ${OBSERVATION_WORKERS_PER_KIND:2}
     request_qps: ${OBSERVATION_REQUEST_QPS:5}
     request_burst: ${OBSERVATION_REQUEST_BURST:10}
+object_storage:
+  # 对接已有 S3 兼容服务；endpoint 为空表示本期不启用对象浏览。
+  # 新增租户桶需要修改配置并重启，不支持热更新。
+  endpoint: "${OBJECT_STORAGE_ENDPOINT:}"
+  browser_endpoint: "${OBJECT_STORAGE_BROWSER_ENDPOINT:}"
+  region: "${OBJECT_STORAGE_REGION:us-east-1}"
+  path_style: true
+  credentials_file: "${OBJECT_STORAGE_CREDENTIALS_FILE:}"
+  ca_file: "${OBJECT_STORAGE_CA_FILE:}"
+  managed_buckets: []

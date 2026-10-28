@@ -1,0 +1,80 @@
+{
+  "at": "2026-10-26T00:50:16.912163+00:00",
+  "context": {
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "VM": {
+      "kind": "VirtualMachine",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "vm-1823315c-e0ae-421a-b76d-e27f97343160",
+      "uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575"
+    },
+    "VMI": {
+      "kind": "VirtualMachineInstance",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "vm-1823315c-e0ae-421a-b76d-e27f97343160",
+      "uid": "6c0536ec-9e85-438f-9afe-a53c6e9a8bbd"
+    },
+    "pod": {
+      "kind": "Pod",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "virt-launcher-vm-1823315c-e0ae-421a-b76d-e27f97343160-tx7v4",
+      "uid": "cb2115a1-093d-4c57-91cf-b67ca411b918"
+    },
+    "compute_container_id": "containerd://4dd4fac7c3ab04d11f589fb364a8299497fc2ab5af1614af8e385d087ddf25cd",
+    "compute_image_id": "10.10.1.66:5001/kubevirt/virt-launcher@sha256:2a47dceaa6ed4176175f58f4f7d927064f55d935fdd56e3999ac4dbe7d3a8e6a",
+    "virsh_path": "/usr/bin/virsh",
+    "libvirt_uri": "qemu:///session",
+    "domain": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420_vm-1823315c-e0ae-421a-b76d-e27f97343160",
+    "domain_uuid": "1823315c-e0ae-421a-b76d-e27f97343160",
+    "qemu_agent_command_timeout_supported": true
+  },
+  "guest_exec_pid": 6872,
+  "observation": {
+    "win32": [
+      {
+        "Index": 0,
+        "SerialNumber": "7eaebbb4-4f04-5cc5-8",
+        "PNPDeviceID": "SCSI\\DISK&VEN_RED_HAT&PROD_VIRTIO\\5&2FDE2E10&0&000000",
+        "Model": "Red Hat VirtIO SCSI Disk Device",
+        "Size": 64420392960
+      }
+    ],
+    "root": {
+      "unique_id": "7eaebbb4-4f04-5cc5-8",
+      "number": 0,
+      "serial": "7eaebbb4-4f04-5cc5-8",
+      "size_bytes": 64424509440,
+      "bus": "SCSI",
+      "is_system": true,
+      "is_boot": true
+    },
+    "network": [
+      {
+        "dns_v4": [
+          "223.5.5.5"
+        ],
+        "dhcp": "Enabled",
+        "default_gateway": [
+          "10.128.10.1"
+        ],
+        "ipv4": [
+          "10.128.10.15"
+        ],
+        "interface_index": 4
+      }
+    ],
+    "vm_id": "1823315c-e0ae-421a-b76d-e27f97343160",
+    "https": {
+      "body_length": 201253,
+      "status": 200,
+      "strict_tls": true
+    },
+    "dns": {
+      "addresses": [
+        "23.15.142.75"
+      ],
+      "error": null,
+      "name": "www.microsoft.com"
+    }
+  }
+}

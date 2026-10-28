@@ -175,6 +175,10 @@ func (f *egressFixture) setPool(t *testing.T, i biz.PlatformIntent) biz.Platform
 	return v
 }
 func newEgressFixture(t *testing.T) *egressFixture {
+	return newEgressFixtureWithPublicVerification(t, true)
+}
+
+func newEgressFixtureWithPublicVerification(t *testing.T, verify bool) *egressFixture {
 	t.Helper()
 	p, owner := database(t)
 	infra := testEgressInfrastructure{}
@@ -188,8 +192,10 @@ func newEgressFixture(t *testing.T) *egressFixture {
 	f.ctx = biz.WithEgressCaller(context.Background(), biz.EgressCaller{TenantID: f.tenant, PlatformAdministrator: true, Attribution: biz.Attribution{Actor: "controlled-fixture", DirectCaller: "egress-test"}})
 	gateway := f.platform(t, biz.PlatformIntent{Kind: "create_egress_gateway", Name: "fixture-gateway", IdempotencyKey: "gateway"})
 	f.pool = f.platform(t, biz.PlatformIntent{Kind: "create_public_pool", Name: "fixture-pool", IdempotencyKey: "pool", Pool: &biz.PublicPoolConfig{Mode: "overlay", GatewayID: gateway.ID, CIDR: "192.0.2.0/24", OVNGatewayIP: "192.0.2.1"}})
-	evidence := &biz.PublicPoolVerification{ProviderSourceRevision: strings.Repeat("a", 40), ProviderImageDigests: f.provider.images, TopologyFingerprint: f.pool.TopologyFingerprint, EvidenceReference: "controlled unit provider only, no live data plane claim", Scope: "automated repository test", VerifiedAt: time.Now().Add(-time.Second), ExpiresAt: time.Now().Add(time.Hour)}
-	f.setPool(t, biz.PlatformIntent{Kind: "verify_public_pool", ID: f.pool.ID, IdempotencyKey: "verify", Verification: evidence})
+	if verify {
+		evidence := &biz.PublicPoolVerification{ProviderSourceRevision: strings.Repeat("a", 40), ProviderImageDigests: f.provider.images, TopologyFingerprint: f.pool.TopologyFingerprint, EvidenceReference: "controlled unit provider only, no live data plane claim", Scope: "automated repository test", VerifiedAt: time.Now().Add(-time.Second), ExpiresAt: time.Now().Add(time.Hour)}
+		f.setPool(t, biz.PlatformIntent{Kind: "verify_public_pool", ID: f.pool.ID, IdempotencyKey: "verify", Verification: evidence})
+	}
 	f.setPool(t, biz.PlatformIntent{Kind: "set_pool_allocation", ID: f.pool.ID, Enabled: true, IdempotencyKey: "open"})
 	f.setPool(t, biz.PlatformIntent{Kind: "set_default_pool", ID: f.pool.ID, IdempotencyKey: "default"})
 	return f

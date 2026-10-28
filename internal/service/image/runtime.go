@@ -6,8 +6,8 @@ import (
 	biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/image"
 )
 
-// RuntimeService is deliberately not registered by the public composition.
-// A separately verified workload owner is required before exposing this port.
+// RuntimeService is registered only by the dedicated Inference mTLS listener.
+// The Governance/catalog listener cannot deliver pull credentials.
 type RuntimeService struct {
 	imagev1.UnimplementedImageRuntimeServiceServer
 	images biz.RuntimeImages

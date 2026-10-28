@@ -90,7 +90,11 @@ func (p *Postgres) Claim(ctx context.Context, owner string, duration time.Durati
 	if err := tx.Commit(ctx); err != nil {
 		return biz.Work{}, false, databaseFailure(err)
 	}
-	return biz.Work{GateReason: gateReason, CancelUnsent: cancelUnsent, Requirement: biz.ObservationRequirement{RequestedGeneration: lease.RequestedGeneration, AppliedAt: lease.EvidenceAppliedAt, Hash: lease.EvidenceHash}, Resource: resource, Operation: operation(op), ActiveOperation: active, BindingID: binding.BindingID,
+	requirement := biz.ObservationRequirement{RequestedGeneration: lease.RequestedGeneration, AppliedAt: lease.EvidenceAppliedAt, Hash: lease.EvidenceHash}
+	if resource.ObservedAt != nil {
+		requirement.PreviousCollectedAt = *resource.ObservedAt
+	}
+	return biz.Work{GateReason: gateReason, CancelUnsent: cancelUnsent, Requirement: requirement, Resource: resource, Operation: operation(op), ActiveOperation: active, BindingID: binding.BindingID,
 		KnownIdentity: binding.ProviderUid, PendingAction: binding.PendingAction, Owner: owner, Epoch: lease.LeaseEpoch, Attempt: op.Attempt, Now: now}, true, nil
 }
 

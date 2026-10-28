@@ -1,0 +1,38 @@
+syntax = "proto3";
+package network.v1;
+option go_package = "github.com/zhangzhe-ctrl/ani-resource-service/api/network/v1;networkv1";
+
+import "network/v1/network.proto";
+import "network/v1/egress.proto";
+
+// Platform-scoped inventory. Tenant credentials and tenant delegation do not
+// grant access. Release retains the ordinary active-claim and operation fences.
+service PlatformEIPService {
+  rpc ListPlatformEIPs(ListPlatformEIPsRequest) returns (ListPlatformEIPsResponse);
+  rpc GetPlatformEIP(GetPlatformEIPRequest) returns (GetPlatformEIPResponse);
+  rpc ReleasePlatformEIP(ReleasePlatformEIPRequest) returns (ReleasePlatformEIPResponse);
+}
+message PlatformEIP {
+  EIP eip = 1;
+  string pool_id = 2;
+  string pool_name = 3;
+  string cluster_id = 4;
+}
+message ListPlatformEIPsRequest {
+  optional uint32 page = 1;
+  optional uint32 page_size = 2;
+  string tenant_id = 3;
+  string name = 4;
+  string address = 5;
+  string pool_id = 6;
+  ResourceState state = 7;
+  string scope = 8;
+}
+message ListPlatformEIPsResponse {
+  repeated PlatformEIP items = 1;
+  int64 total = 2;
+}
+message GetPlatformEIPRequest { string eip_id = 1; }
+message GetPlatformEIPResponse { PlatformEIP resource = 1; }
+message ReleasePlatformEIPRequest { string eip_id = 1; }
+message ReleasePlatformEIPResponse { PlatformEIP resource = 1; }

@@ -12,7 +12,7 @@ Network 实施基础为 `d8835a22d905e358b7f60756d3113baa97d7c762`（既有 EIP/
 
 空监听器保存、独立 Provider 目标版本、下发集合与清空/再激活的增量合同由 [LB 延迟下发规格](lb-deferred-activation.md) §§2～6 定义；实际验证范围只见 [LB-DEFERRED-01](../execution/status.md#lb-deferred-01)。
 
-已有 VPC/Subnet/Attachment 的未冲突规则、Public EIP 的独立申请/保留/释放语义、平台 Public 网络模式和证据要求继续适用。本文替代旧方案中“每 VPC 总共一个 SNAT”“VPC Ready 即整个创建完成”“任何 SNAT 都直接阻塞 VPC 删除”“EIP 只能用于 SNAT”的相关限制。
+已有 VPC/Subnet/Attachment 的未冲突规则、Public EIP 的独立申请/保留/释放语义、平台 Public 网络模式与当前准入规则继续适用。本文替代旧方案中“每 VPC 总共一个 SNAT”“VPC Ready 即整个创建完成”“任何 SNAT 都直接阻塞 VPC 删除”“EIP 只能用于 SNAT”的相关限制。
 
 ### 1.1 已有证据与边界
 
@@ -48,7 +48,7 @@ Network 实施基础为 `d8835a22d905e358b7f60756d3113baa97d7c762`（既有 EIP/
 
 ## 3. 平台初始化流程
 
-管理员按环境准备所需二层网络、Public EIPGateway/Public Pool、Intranet Pool、`intranetNetworks` 和 LB 运行组件。Overlay 无 `underlayConfig`，不强制创建 VLAN；Underlay 需物理网卡、VLAN、上游网关和单独验收。保留既有网卡接管保护和 Public 池验证机制。
+管理员按环境准备所需二层网络、Public EIPGateway/Public Pool、Intranet Pool、`intranetNetworks` 和 LB 运行组件。Overlay 无 `underlayConfig`，不强制创建 VLAN；Underlay 需物理网卡、VLAN、上游网关和单独验收。保留既有网卡接管保护和 Public 池资源就绪检查；公有网络不再以手工出网证据作为准入条件，详见 [Public 分配规则](vpc-snat.md#44-出口验收开放分配和默认池)。
 
 安装器已经将物理口加入 `managedDevices` 并由 kc 接管时，应核验并登记该现成设备，再创建二层网络；不能将“已接管”本身判作环境阻塞。空闲接管与已有设备登记共用管理员接口，身份、并发与退役规则统一见[Public 方案 4.1](vpc-snat.md#41-underlay-的网卡发现与二层网络)。现场连通性和完整产品 API 数据面仍分别验证。
 

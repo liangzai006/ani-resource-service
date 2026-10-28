@@ -9,13 +9,16 @@ import "google/protobuf/timestamp.proto";
 service PlatformDefaultEgressService {
   rpc CreateDefaultVPCEgress(CreateDefaultVPCEgressRequest) returns (CreateDefaultVPCEgressResponse);
   rpc GetDefaultVPCEgress(GetDefaultVPCEgressRequest) returns (GetDefaultVPCEgressResponse);
+  rpc GetCurrentDefaultVPCEgress(GetCurrentDefaultVPCEgressRequest) returns (GetCurrentDefaultVPCEgressResponse);
   rpc DeleteDefaultVPCEgress(DeleteDefaultVPCEgressRequest) returns (DeleteDefaultVPCEgressResponse);
 }
 message CreateDefaultVPCEgressRequest { string name = 1; string pool_id = 2; string idempotency_key = 3; }
 message GetDefaultVPCEgressRequest { string egress_id = 1; }
+message GetCurrentDefaultVPCEgressRequest {}
 message DeleteDefaultVPCEgressRequest { string egress_id = 1; }
 message CreateDefaultVPCEgressResponse { DefaultVPCEgress egress = 1; }
 message GetDefaultVPCEgressResponse { DefaultVPCEgress egress = 1; }
+message GetCurrentDefaultVPCEgressResponse { DefaultVPCEgress egress = 1; }
 message DeleteDefaultVPCEgressResponse { DefaultVPCEgress egress = 1; }
 message DefaultVPCEgress {
   string id = 1;
@@ -46,4 +49,5 @@ message DefaultVPCEgress {
   int64 target_generation = 26;
   string pending_action = 27;
   bool observation_stale = 28;
+  string eip_id = 29;
 }

@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-26T02:30:12.440344+00:00",
+  "result": "PASS_NORMAL_ISO_EJECT_AND_SYSTEM_DISK_BOOT_NATIVE",
+  "vm_id": "8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+  "version": "5",
+  "native_VM": {
+    "kind": "VirtualMachine",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "name": "vm-8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+    "uid": "ba796cff-14ab-4502-a379-5d7865fd58b2"
+  },
+  "VMI": {
+    "kind": "VirtualMachineInstance",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "name": "vm-8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+    "uid": "d8ca1b80-27d9-4e20-a031-f496c4ac99cd"
+  },
+  "boot_device": "SYSTEM_DISK",
+  "install_volume_absent_from_VM_and_VMI": true,
+  "root_only_virtio_boot1": true,
+  "old_VMI_Gone": true,
+  "start_operation": "377a642a-75c6-47d8-b769-f4ee453eda22",
+  "guest_login": "NOT_YET_VERIFIED"
+}

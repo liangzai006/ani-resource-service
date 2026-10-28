@@ -118,7 +118,7 @@ WFFC/PendingPopulation 的观察与错误如实展示；不为提前 Ready 修�
 
 新增 vm_managed/v3 consumer，严格验证 VM→VMI→launcher Pod 的 GVK、namespace/name/UID、owner、租户与冻结网络选择。旧 single_pod/v1 和 Notebook/v2 路径保留；不把旧校验泛化为任意 GVK。
 
-参与租户 namespace 的受管 NAD 由管理员在明确授权的环境准备中预置。Network 只读核验并返回 NAD name/UID/config_digest 与独立 kcn_subnet_ref。缺失或漂移时明确拒绝使用，不回落到共享默认网，也不新增 NAD 产品生命周期。NAD 不是 KCN Subnet，二者不可共用一个字段。
+参与租户 namespace 的受管 NAD 和 workload SA 由 Resource Network 现有持久 worker 按真实租户、集群及 namespace 自动准备；每个租户网络 namespace 复用一个 KCN 单插件 NAD，多子网仍使用各自独立的 kcn_subnet_ref。准备意图先持久化，Kubernetes 创建回执的 Namespace/NAD/SA UID 与模板摘要随后固定；不接管同名异主对象，也不在已登记 UID 丢失后重建或认可新对象。失败只阻止 VM 使用该依赖，不改变普通 VPC/Subnet 可用性。已存在租户网络同样进入周期准备，无需逐租户改配置或重启服务。VM ResolveCreateSpec 保持只读，按真实网络绑定读取并核验持久 NAD 身份；兼容既有明确部署映射。NAD 不是 KCN Subnet，二者不可共用一个字段。
 
 NAD/来源依赖失效只阻止需要该依赖的新建、启动和当前地址授权，不能阻止按已登记原生 UID 执行 Stop/Delete。Network 依据冻结关系的实际退出证明完成释放，不要求 NAD 此时仍健康。
 
@@ -136,6 +136,8 @@ CurrentPods 仅为当前 launcher，最多一个；CDI/hotplug helper 不作 VM 
 控制台可使用不依赖所有盘或 CSI 健康的窄运行身份观察，但须保持相同 namespace/UID/owner、唯一 launcher、业务 version 与 closing 校验；普通生命周期仍使用完整存储观察。
 
 租户网络验收使用真实 VPC/Subnet，覆盖跨节点通信、DNS、出站和按现有网络规则跨租户拒绝。旧共享默认子网探测不证明租户隔离。secondary KCN 已知问题、固定 IP、多网卡产品和 NetworkPolicy 对 guest 的自动覆盖均不在本期实现范围。[R03/U08]
+
+创建 VM 提供“平台默认 DNS”（省略时默认）和“自定义 DNS”。自定义接受 1–3 个有效 IPv4/IPv6 地址，规范化并保序去重；平台默认不附自定义地址，由可信部署配置提供。只读默认值接口用于创建页展示实际配置。首次解析将生效 DNS 随创建规格持久冻结，Start、重放与恢复不重新读取平台默认；原生 VM 使用 dnsPolicy=None 和冻结的 dnsConfig.nameservers。缺失默认配置明确拒绝默认模式的新建，自定义模式仍按输入校验；旧无 DNS 冻结字段的 VM 保持原合同。此选择不自动建立 VPC 出口或内部 DNS 路由，真实 Guest 必须分别验收实际 DNS 与外部访问。
 
 ## S08 电源与 VNC
 

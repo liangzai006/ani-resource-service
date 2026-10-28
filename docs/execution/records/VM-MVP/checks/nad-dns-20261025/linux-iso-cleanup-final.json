@@ -1,0 +1,255 @@
+{
+  "at": "2026-10-26T03:30:11.710263+00:00",
+  "vm_id": "8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+  "native_vm_uid": "ba796cff-14ab-4502-a379-5d7865fd58b2",
+  "delete_operation": "7cdf4695-d2ef-4733-b5bf-4a12855137bf",
+  "objects": [
+    {
+      "path": "/apis/kubevirt.io/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/virtualmachines/vm-8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+      "ref": {
+        "kind": "VirtualMachine",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+        "uid": "ba796cff-14ab-4502-a379-5d7865fd58b2"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/apis/kubevirt.io/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/virtualmachineinstances/vm-8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+      "ref": {
+        "kind": "VirtualMachineInstance",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+        "uid": "5cc77512-03ca-49fe-83f0-0d2ad3f8df1b"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/apis/cdi.kubevirt.io/v1beta1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/datavolumes/vd-1d99935f-3d49-50c7-8090-f39eb85f9b2f",
+      "ref": {
+        "kind": "DataVolume",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vd-1d99935f-3d49-50c7-8090-f39eb85f9b2f",
+        "uid": "285bec31-6992-4b01-addd-51455fa7b773"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/apis/cdi.kubevirt.io/v1beta1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/datavolumes/vm-media-ec8f15c6-cb8b-597f-935d-bb4569d44cb2",
+      "ref": {
+        "kind": "DataVolume",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-media-ec8f15c6-cb8b-597f-935d-bb4569d44cb2",
+        "uid": "b25bad4a-2400-412c-bebf-e494a6e7380d"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/persistentvolumeclaims/vd-1d99935f-3d49-50c7-8090-f39eb85f9b2f",
+      "ref": {
+        "kind": "PersistentVolumeClaim",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vd-1d99935f-3d49-50c7-8090-f39eb85f9b2f",
+        "uid": "2a881734-2fa7-450b-93fb-d466d6ddf836"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/persistentvolumeclaims/vm-media-ec8f15c6-cb8b-597f-935d-bb4569d44cb2",
+      "ref": {
+        "kind": "PersistentVolumeClaim",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-media-ec8f15c6-cb8b-597f-935d-bb4569d44cb2",
+        "uid": "45a085ed-a984-42ae-a9a4-209cf79a3379"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/api/v1/persistentvolumes/pvc-dc99a060-33ba-4c48-b7ee-ea1f3c8216ba",
+      "ref": {
+        "kind": "PersistentVolume",
+        "namespace": "",
+        "name": "pvc-dc99a060-33ba-4c48-b7ee-ea1f3c8216ba",
+        "uid": "4d5a24e9-c2b5-4f5b-a8f1-00fb802494fc"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/api/v1/persistentvolumes/pvc-9b8f3bc8-b7f2-48d7-9d81-ab6f228c1568",
+      "ref": {
+        "kind": "PersistentVolume",
+        "namespace": "",
+        "name": "pvc-9b8f3bc8-b7f2-48d7-9d81-ab6f228c1568",
+        "uid": "8f6b374f-d064-4362-a7e4-da6b974c0d92"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/pods/virt-launcher-vm-8bc17e0e-a09a-4bb1-a838-e54dc6a84550-2kgn7",
+      "ref": {
+        "kind": "Pod",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "virt-launcher-vm-8bc17e0e-a09a-4bb1-a838-e54dc6a84550-2kgn7",
+        "uid": "7d1f0604-b290-407e-8b66-b449affbad2c"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/apis/apps/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/controllerrevisions/revision-start-vm-ba796cff-14ab-4502-a379-5d7865fd58b2-3",
+      "ref": {
+        "kind": "ControllerRevision",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "revision-start-vm-ba796cff-14ab-4502-a379-5d7865fd58b2-3",
+        "uid": "bd3bc263-b527-4ba9-a2e4-fdc1b9ee3e50"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/apis/networking.kubercloud.com/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/vnics/auto-virt-launcher-vm-8bc17e0e-a09a-4bb1-a8-vnic-2bmp9",
+      "ref": {
+        "kind": "VNic",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "auto-virt-launcher-vm-8bc17e0e-a09a-4bb1-a8-vnic-2bmp9",
+        "uid": "3b1e8414-06d2-4e6d-bfe4-7a8ee5192645"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/apis/networking.kubercloud.com/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/vnicips/auto-virt-launcher-vm-8bc17e0e-a09a-4bb1-a8-vnic-2bmp9",
+      "ref": {
+        "kind": "VNicIP",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "auto-virt-launcher-vm-8bc17e0e-a09a-4bb1-a8-vnic-2bmp9",
+        "uid": "4ea93a9b-764f-4879-9083-42dd1f21af9f"
+      },
+      "observed": "Gone"
+    },
+    {
+      "path": "/apis/networking.kubercloud.com/v1/namespaces/kcn-system/nics/nic-tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420-virt-laun-xqkgh",
+      "ref": {
+        "kind": "Nic",
+        "namespace": "kcn-system",
+        "name": "nic-tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420-virt-laun-xqkgh",
+        "uid": "cf503cf1-21cf-4ebf-8b61-7bf231b2c75c"
+      },
+      "observed": "Gone"
+    }
+  ],
+  "protected": [
+    {
+      "path": "/api/v1/namespaces/ani-vm-media-linux-20261025/persistentvolumeclaims/fedora-44-kde-install-source",
+      "ref": {
+        "kind": "PersistentVolumeClaim",
+        "namespace": "ani-vm-media-linux-20261025",
+        "name": "fedora-44-kde-install-source",
+        "uid": "f6438eb6-ddf9-44fd-958d-163a4e3ccf4c"
+      },
+      "observed": "SameUIDPresent"
+    },
+    {
+      "path": "/apis/cdi.kubevirt.io/v1beta1/namespaces/ani-vm-media-linux-20261025/datavolumes/fedora-44-kde-install-source",
+      "ref": {
+        "kind": "DataVolume",
+        "namespace": "ani-vm-media-linux-20261025",
+        "name": "fedora-44-kde-install-source",
+        "uid": "86914a6b-a8dd-4374-833f-fb03c58e0073"
+      },
+      "observed": "SameUIDPresent"
+    },
+    {
+      "path": "/api/v1/persistentvolumes/pvc-a9962716-3984-4647-89d9-c93dd1e0366a",
+      "ref": {
+        "kind": "PersistentVolume",
+        "namespace": "",
+        "name": "pvc-a9962716-3984-4647-89d9-c93dd1e0366a",
+        "uid": "8b45fbac-421e-4c17-9b5b-a243fd03f5ad"
+      },
+      "observed": "SameUIDPresent"
+    },
+    {
+      "path": "/apis/k8s.cni.cncf.io/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/network-attachment-definitions/ani-vm-primary-v1",
+      "ref": {
+        "kind": "NetworkAttachmentDefinition",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "ani-vm-primary-v1",
+        "uid": "49487e12-184c-41be-8e7c-064dafac7dd8"
+      },
+      "observed": "SameUIDPresent"
+    },
+    {
+      "path": "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/serviceaccounts/ani-vm-workload",
+      "ref": {
+        "kind": "ServiceAccount",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "ani-vm-workload",
+        "uid": "f39d35d8-24ac-4191-a4a7-0f125de59b66"
+      },
+      "observed": "SameUIDPresent"
+    },
+    {
+      "path": "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "ref": {
+        "kind": "Namespace",
+        "namespace": "",
+        "name": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "a8d8a472-8a8a-43cf-abf0-0e805bbe67b0"
+      },
+      "observed": "SameUIDPresent"
+    }
+  ],
+  "backends": [
+    {
+      "kind": "volume",
+      "pool": "ani-block-pool",
+      "image": "csi-vol-529bbd82-804e-4987-87ab-e932d16791bf",
+      "captured_image_id": "1732b37018244",
+      "by_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "exact-task-clone-temp-parent",
+      "pool": "ani-block-pool",
+      "image": "csi-vol-529bbd82-804e-4987-87ab-e932d16791bf-temp",
+      "captured_image_id": "1732b5a89772a",
+      "by_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "volume",
+      "pool": "ani-block-pool",
+      "image": "csi-vol-dea5c967-a654-4db9-95f7-aca8ce5b94a8",
+      "captured_image_id": "1732bbc24353e",
+      "by_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    }
+  ],
+  "backend_writes": 0,
+  "pool_trash_enumeration": false,
+  "physical_bytes": "NOT_MEASURED",
+  "operation": {
+    "id": "7cdf4695-d2ef-4733-b5bf-4a12855137bf",
+    "vmId": "8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+    "action": "/vm.v1.VMService/AcceptDelete",
+    "intentVersion": "8",
+    "state": "succeeded",
+    "reason": "",
+    "observedAt": "2026-10-26T03:29:52.057351905Z"
+  },
+  "VM": {
+    "version": "8",
+    "observed_state": "Deleted"
+  },
+  "result": "PASS_EXACT_NATIVE_AND_LOGICAL_BACKEND_GONE"
+}

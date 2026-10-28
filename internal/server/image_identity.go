@@ -54,7 +54,9 @@ func requestLogging(logger *slog.Logger) middleware.Middleware {
 		standard := normal(handler)
 		return func(ctx context.Context, req any) (any, error) {
 			info, ok := transport.FromServerContext(ctx)
-			if !ok || (!strings.HasPrefix(info.Operation(), "/image.v1.") && !strings.HasPrefix(info.Operation(), "/vm.v1.")) {
+			if !ok || (!strings.HasPrefix(info.Operation(), "/image.v1.") &&
+				!strings.HasPrefix(info.Operation(), "/vm.v1.") &&
+				!strings.HasPrefix(info.Operation(), "/storage.v1.")) {
 				return standard(ctx, req)
 			}
 			return normal(func(ctx context.Context, _ any) (any, error) { return handler(ctx, req) })(ctx, redactedImageRequest{})

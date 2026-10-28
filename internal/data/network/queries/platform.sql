@@ -55,8 +55,18 @@ INSERT INTO network_vlan_networks(resource_id,cluster_id,device_id,vlan_id) VALU
 INSERT INTO network_egress_gateways(resource_id,cluster_id) VALUES($1,$2);
 
 -- name: InsertPublicPool :exec
-INSERT INTO network_public_pools(resource_id,cluster_id,mode,gateway_id,cidr,ovn_gateway_ip,excluded_ips,vlan_network_id,upstream_gateway_ip)
-VALUES($1,$2,$3,$4,$5,$6,$7,NULLIF(sqlc.arg(vlan_network_id)::text,''),NULLIF(sqlc.arg(upstream_gateway_ip)::text,''));
+INSERT INTO network_public_pools(resource_id,cluster_id,mode,gateway_id,cidr,ovn_gateway_ip,excluded_ips,vlan_network_id,upstream_gateway_ip,managed_gateway)
+VALUES($1,$2,$3,$4,$5,$6,$7,NULLIF(sqlc.arg(vlan_network_id)::text,''),NULLIF(sqlc.arg(upstream_gateway_ip)::text,''),sqlc.arg(managed_gateway));
+
+-- name: ManagedGatewayOwner :one
+SELECT resource_id FROM network_public_pools WHERE cluster_id=$1 AND gateway_id=$2 AND managed_gateway;
+
+-- Only an explicit owner deletion may supersede an unfinished create. The
+-- resource version and lease are fenced by SetPlatformIntent/SchedulePlatform.
+-- name: SupersedePlatformCreate :execrows
+UPDATE network_platform_operations SET state='failed',reason='SUPERSEDED_BY_DELETE',
+ completed_at=clock_timestamp(),updated_at=clock_timestamp(),next_attempt_at=NULL
+WHERE resource_id=$1 AND operation_id=$2 AND kind LIKE 'create_%' AND completed_at IS NULL;
 
 -- name: PublicPoolOverlaps :one
 SELECT count(*)::bigint FROM network_public_pools p JOIN network_platform_resources r ON r.cluster_id=p.cluster_id AND r.resource_id=p.resource_id

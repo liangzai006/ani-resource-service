@@ -1,0 +1,61 @@
+{
+  "host": "fedora",
+  "phase": "resource-targeted",
+  "steps": [
+    {
+      "label": "targeted",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=180s",
+        "./api/vm/v1",
+        "./internal/biz/network",
+        "./internal/service/vm",
+        "./internal/data/vm",
+        "./internal/server",
+        "./cmd/ani-resource-service"
+      ],
+      "exit_code": 0,
+      "seconds": 125.251,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/resource-targeted-targeted.log"
+    },
+    {
+      "label": "network-pg",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=240s",
+        "./internal/data/network",
+        "-run",
+        "TestVMAutoNetworkPG|TestVMManagedNADRequires|TestVMAttachmentPG"
+      ],
+      "exit_code": 0,
+      "seconds": 19.78,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/resource-targeted-network-pg.log"
+    },
+    {
+      "label": "vm-pg",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-tags=instanceintegration",
+        "-count=1",
+        "-timeout=180s",
+        "./internal/data/vm",
+        "-run",
+        "TestVMPostgresAcceptanceReplayVersionAndTenant"
+      ],
+      "exit_code": 0,
+      "seconds": 5.851,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/resource-targeted-vm-pg.log"
+    }
+  ],
+  "started_at": "2026-10-25T14:56:10.583737+00:00",
+  "result": "PASS",
+  "finished_at": "2026-10-25T14:58:41.468924+00:00"
+}

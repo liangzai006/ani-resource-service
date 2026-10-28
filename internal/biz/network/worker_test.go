@@ -50,3 +50,30 @@ func TestWorkerEarlyCompletionLeaseLossDoesNotTerminateService(t *testing.T) {
 		}
 	}
 }
+
+type failedObservationProvider struct {
+	ResourceProvider
+	err error
+}
+
+func (p failedObservationProvider) Observe(context.Context, ProviderTarget) (ProviderObservation, error) {
+	return ProviderObservation{}, p.err
+}
+
+func TestWorkerObserverRetainsProviderCauseAfterSuccessfulPersistence(t *testing.T) {
+	cause := errors.New("kubernetes request deadline exceeded")
+	r := &earlyCompletionRepository{work: Work{Resource: ResourceWork{Kind: "egress_gateway", State: Available}}}
+	calls := 0
+	w, err := NewWorker(r, failedObservationProvider{err: &ProviderError{Kind: ProviderTemporary, Cause: cause}}, uuid.NewString(), DefaultWorkerPolicy(), func(_ context.Context, _ Work, p Progress, finishErr error) {
+		calls++
+		if finishErr != nil || !errors.Is(p.ProviderError, cause) || p.Reason != ProviderUnavailable {
+			t.Error("provider failure lost or confused with persistence", p, finishErr)
+		}
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err = w.Step(context.Background()); err != nil || calls != 1 {
+		t.Fatal("observer missing", calls, err)
+	}
+}

@@ -480,7 +480,7 @@ func (q *Queries) GetPlatformOperation(ctx context.Context, arg GetPlatformOpera
 }
 
 const getPublicPool = `-- name: GetPublicPool :one
-SELECT resource_id, cluster_id, kind, mode, gateway_id, cidr, ovn_gateway_ip, excluded_ips, vlan_network_id, upstream_gateway_ip, allocation_enabled, config_revision, verification, verification_expires_at, retired, scope, default_vpc_name, default_vpc_uid, intranet_networks FROM network_public_pools WHERE cluster_id=$1 AND resource_id=$2
+SELECT resource_id, cluster_id, kind, mode, gateway_id, cidr, ovn_gateway_ip, excluded_ips, vlan_network_id, upstream_gateway_ip, allocation_enabled, config_revision, verification, verification_expires_at, retired, scope, default_vpc_name, default_vpc_uid, intranet_networks, managed_gateway FROM network_public_pools WHERE cluster_id=$1 AND resource_id=$2
 `
 
 type GetPublicPoolParams struct {
@@ -511,6 +511,7 @@ func (q *Queries) GetPublicPool(ctx context.Context, arg GetPublicPoolParams) (N
 		&i.DefaultVpcName,
 		&i.DefaultVpcUid,
 		&i.IntranetNetworks,
+		&i.ManagedGateway,
 	)
 	return i, err
 }
@@ -768,8 +769,8 @@ func (q *Queries) InsertPlatformResource(ctx context.Context, arg InsertPlatform
 }
 
 const insertPublicPool = `-- name: InsertPublicPool :exec
-INSERT INTO network_public_pools(resource_id,cluster_id,mode,gateway_id,cidr,ovn_gateway_ip,excluded_ips,vlan_network_id,upstream_gateway_ip)
-VALUES($1,$2,$3,$4,$5,$6,$7,NULLIF($8::text,''),NULLIF($9::text,''))
+INSERT INTO network_public_pools(resource_id,cluster_id,mode,gateway_id,cidr,ovn_gateway_ip,excluded_ips,vlan_network_id,upstream_gateway_ip,managed_gateway)
+VALUES($1,$2,$3,$4,$5,$6,$7,NULLIF($8::text,''),NULLIF($9::text,''),$10)
 `
 
 type InsertPublicPoolParams struct {
@@ -782,6 +783,7 @@ type InsertPublicPoolParams struct {
 	ExcludedIps       []string
 	VlanNetworkID     string
 	UpstreamGatewayIp string
+	ManagedGateway    bool
 }
 
 func (q *Queries) InsertPublicPool(ctx context.Context, arg InsertPublicPoolParams) error {
@@ -795,6 +797,7 @@ func (q *Queries) InsertPublicPool(ctx context.Context, arg InsertPublicPoolPara
 		arg.ExcludedIps,
 		arg.VlanNetworkID,
 		arg.UpstreamGatewayIp,
+		arg.ManagedGateway,
 	)
 	return err
 }
@@ -1015,7 +1018,7 @@ func (q *Queries) LockPlatformKey(ctx context.Context, arg LockPlatformKeyParams
 }
 
 const lockPublicPool = `-- name: LockPublicPool :one
-SELECT resource_id, cluster_id, kind, mode, gateway_id, cidr, ovn_gateway_ip, excluded_ips, vlan_network_id, upstream_gateway_ip, allocation_enabled, config_revision, verification, verification_expires_at, retired, scope, default_vpc_name, default_vpc_uid, intranet_networks FROM network_public_pools WHERE cluster_id=$1 AND resource_id=$2 FOR UPDATE
+SELECT resource_id, cluster_id, kind, mode, gateway_id, cidr, ovn_gateway_ip, excluded_ips, vlan_network_id, upstream_gateway_ip, allocation_enabled, config_revision, verification, verification_expires_at, retired, scope, default_vpc_name, default_vpc_uid, intranet_networks, managed_gateway FROM network_public_pools WHERE cluster_id=$1 AND resource_id=$2 FOR UPDATE
 `
 
 type LockPublicPoolParams struct {
@@ -1046,8 +1049,25 @@ func (q *Queries) LockPublicPool(ctx context.Context, arg LockPublicPoolParams) 
 		&i.DefaultVpcName,
 		&i.DefaultVpcUid,
 		&i.IntranetNetworks,
+		&i.ManagedGateway,
 	)
 	return i, err
+}
+
+const managedGatewayOwner = `-- name: ManagedGatewayOwner :one
+SELECT resource_id FROM network_public_pools WHERE cluster_id=$1 AND gateway_id=$2 AND managed_gateway
+`
+
+type ManagedGatewayOwnerParams struct {
+	ClusterID string
+	GatewayID *string
+}
+
+func (q *Queries) ManagedGatewayOwner(ctx context.Context, arg ManagedGatewayOwnerParams) (string, error) {
+	row := q.db.QueryRow(ctx, managedGatewayOwner, arg.ClusterID, arg.GatewayID)
+	var resource_id string
+	err := row.Scan(&resource_id)
+	return resource_id, err
 }
 
 const notifyPlatform = `-- name: NotifyPlatform :execrows
@@ -1495,6 +1515,27 @@ type SetPoolAllocationParams struct {
 
 func (q *Queries) SetPoolAllocation(ctx context.Context, arg SetPoolAllocationParams) (int64, error) {
 	result, err := q.db.Exec(ctx, setPoolAllocation, arg.ClusterID, arg.ResourceID, arg.AllocationEnabled)
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected(), nil
+}
+
+const supersedePlatformCreate = `-- name: SupersedePlatformCreate :execrows
+UPDATE network_platform_operations SET state='failed',reason='SUPERSEDED_BY_DELETE',
+ completed_at=clock_timestamp(),updated_at=clock_timestamp(),next_attempt_at=NULL
+WHERE resource_id=$1 AND operation_id=$2 AND kind LIKE 'create_%' AND completed_at IS NULL
+`
+
+type SupersedePlatformCreateParams struct {
+	ResourceID  string
+	OperationID string
+}
+
+// Only an explicit owner deletion may supersede an unfinished create. The
+// resource version and lease are fenced by SetPlatformIntent/SchedulePlatform.
+func (q *Queries) SupersedePlatformCreate(ctx context.Context, arg SupersedePlatformCreateParams) (int64, error) {
+	result, err := q.db.Exec(ctx, supersedePlatformCreate, arg.ResourceID, arg.OperationID)
 	if err != nil {
 		return 0, err
 	}

@@ -35,6 +35,32 @@ subjects:
     name: ani-resource-service
     namespace: ani-system
 ---
+# VM and controller-managed consumer closure both verify that their witnessed
+# system NICs are gone. See ../../docs/runbooks/instance-mvp-fedora.md.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ani-resource-vm-nic-cleanup
+  namespace: kcn-system
+rules:
+  - apiGroups: [networking.kubercloud.com]
+    resources: [nics]
+    verbs: [list]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ani-resource-vm-nic-cleanup
+  namespace: kcn-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ani-resource-vm-nic-cleanup
+subjects:
+  - kind: ServiceAccount
+    name: ani-resource-service
+    namespace: ani-system
+---
 # Gateway API access for the load-balancer slice. Bind it unconditionally: the
 # governance-mode run assembles the complete worker (Network + Egress + LB), so
 # the LB reconciler is live even before a tenant calls the LB routes.

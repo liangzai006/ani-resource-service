@@ -84,8 +84,8 @@ func TestInstanceMetricScopePersistentGRPC(t *testing.T) {
 		}
 	}
 	t.Run("pending persisted scope", resolve)
-	p, q := &provider{}, &quota{}
-	w, err := biz.NewWorker(f.repo, p, q, &releaseObservation{confirmed: true}, "metric-history")
+	p := &provider{}
+	w, err := biz.NewWorker(f.repo, p, "metric-history")
 	if err != nil {
 		t.Fatal(err)
 	}

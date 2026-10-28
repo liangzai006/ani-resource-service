@@ -1,0 +1,48 @@
+{
+  "phase": "tests-04",
+  "host": "fedora",
+  "steps": [
+    {
+      "label": "vm-service",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=240s",
+        "./app/admin/service/internal/service",
+        "-run",
+        "^TestVM"
+      ],
+      "exit_code": 0,
+      "seconds": 269.818,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/tests-04-vm-service.log",
+      "log_sha256": "8ede69e344dba97dc95c880543191c53b00a0491034ae4d52fa7349ea10b86f4"
+    },
+    {
+      "label": "vm-http-perm",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=180s",
+        "./app/admin/service/internal/server",
+        "./pkg/permcode",
+        "-run",
+        "TestVMHTTP|TestResolveAuthoritativeCodes|TestCountsAndKeys"
+      ],
+      "exit_code": 0,
+      "seconds": 82.847,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/tests-04-vm-http-perm.log",
+      "log_sha256": "3050627e2afa93caffba610033dec1354dd8ef1e1cf47fad5520ae511baf1afa"
+    }
+  ],
+  "source": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/governance-source",
+  "resource_version": "v0.0.0-20261025150932-52c19b06f304",
+  "go_flags": "-mod=readonly -p=1 -trimpath",
+  "gogc": "25",
+  "started_at": "2026-10-25T15:35:42.560269+00:00",
+  "result": "PASS",
+  "finished_at": "2026-10-25T15:41:35.226884+00:00"
+}

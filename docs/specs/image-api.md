@@ -91,6 +91,16 @@ search 只匹配 display_name/repository，不开放任意 SQL/JSON filter。同
 
 同进程优先窄 Go 接口；仅真实独立创建方存在时注册专用内部mTLS listener。证书必须是 IMG-00 绑定的唯一身份、方法白名单仅这两项；不复用 Governance 人工 actor，不接受用户头。调用方须验证业务意图属于tenant、写入自己的租户namespace，不允许转发任意用户提供的tenant_id。
 
+Inference 的独立入口通过 `ANI_IMAGE_RUNTIME_ADDR/CA/CERT/KEY` 显式启用，默认不监听。
+TLS 1.3 客户端证书只允许唯一 DNS SAN `ani-inference-service`，不能带额外 DNS、URI、IP、
+email 或通配符身份；服务端证书沿用 `ani-network-service` DNS SAN。该入口只注册上表两方法，
+与 Governance listener 的方法、证书白名单分离，不注册 HTTP、reflection、health 或 streaming。
+Inference 必须先验证受信业务命令的身份、tenant、摘要及重放状态，再用 `metadata.NewOutgoingContext` 新建且只发送各一项
+`x-ani-tenant-id` 和 `x-ani-request-id`；两者都是规范小写、非零 UUID，tenant 必须等于请求体。
+禁止传递 `x-ani-actor`、`x-ani-operator`、`x-ani-scope`。受信适配器构造
+`RuntimeCaller{Subject: "ani-inference-service", TenantID: tenant}`，`Actor` 始终为空。
+租户目录方法不能交付 pull material，Governance 身份不能访问运行入口；Instance 保留原同进程窄接口。
+
 ## 5. 错误码
 
 所有 Resource 错误使用 gRPC status + `google.rpc.ErrorInfo{domain:"image.ani.io",reason:<code>}`，message不含密码/DSN/Harbor内部敏感URL。

@@ -8,11 +8,16 @@ SELECT * FROM network_default_vpc_egress_idempotency WHERE cluster_id=$1 AND ide
 INSERT INTO network_default_vpc_egress_idempotency(cluster_id,idempotency_key,fingerprint,resource_id,operation_id,response,created_at) VALUES($1,$2,$3,$4,$5,$6,$7);
 
 -- name: InsertDefaultEgress :exec
-INSERT INTO network_default_vpc_egresses(resource_id,cluster_id,cluster_uid,default_vpc_namespace,default_vpc_name,default_vpc_uid,name,pool_id,pool_revision,pool_provider_uid,admission_hash,admitted_at,last_operation_id,eip_provider_name,eip_binding_id,snat_provider_name,snat_binding_id,next_run_at,created_at,updated_at)
-VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$12,$12,$12);
+INSERT INTO network_default_vpc_egresses(resource_id,cluster_id,cluster_uid,default_vpc_namespace,default_vpc_name,default_vpc_uid,name,pool_id,pool_revision,pool_provider_uid,admission_hash,admitted_at,last_operation_id,eip_provider_name,eip_binding_id,snat_provider_name,snat_binding_id,next_run_at,created_at,updated_at,eip_id)
+VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$12,$12,$12,$18);
 
 -- name: GetDefaultEgress :one
 SELECT sqlc.embed(r),o.state AS operation_state FROM network_default_vpc_egresses r JOIN network_default_vpc_egress_operations o ON o.resource_id=r.resource_id AND o.operation_id=r.last_operation_id WHERE r.cluster_id=$1 AND r.resource_id=$2;
+
+-- name: GetCurrentDefaultEgress :one
+SELECT sqlc.embed(r),o.state AS operation_state FROM network_default_vpc_egresses r
+JOIN network_default_vpc_egress_operations o ON o.resource_id=r.resource_id AND o.operation_id=r.last_operation_id
+WHERE r.cluster_id=$1 AND r.default_vpc_namespace=$2 AND r.default_vpc_name=$3 AND r.retired_at IS NULL;
 
 -- name: LockDefaultEgress :one
 SELECT sqlc.embed(r),o.state AS operation_state FROM network_default_vpc_egresses r JOIN network_default_vpc_egress_operations o ON o.resource_id=r.resource_id AND o.operation_id=r.last_operation_id WHERE r.cluster_id=$1 AND r.resource_id=$2 FOR UPDATE OF r;

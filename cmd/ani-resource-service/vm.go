@@ -24,6 +24,7 @@ import (
 
 type vmSettings struct {
 	DatabaseDSNFile, ConsoleAddress, GuestCredentialKeyFile string
+	NetworkServerSocket                                     string
 	Service                                                 service.Config
 	Networks                                                []networkdata.ManagedVMNAD
 }
@@ -66,6 +67,9 @@ func wireVM(ctx context.Context, c *conf.Network, compute *computeComponents, re
 		return nil, nil, fmt.Errorf("VM requires managed compute database and cluster configuration")
 	}
 	if e = provider.ConfigureVMNetworks(cfg.Networks); e != nil {
+		return nil, nil, e
+	}
+	if e = provider.ConfigureVMAutoNetwork(networkdata.VMAutoNetworkConfig{ServiceAccount: cfg.Service.ServiceAccount, ServerSocket: cfg.NetworkServerSocket}); e != nil {
 		return nil, nil, e
 	}
 	if e = repository.SetVMNetworkResolver(provider, freshness); e != nil {
@@ -115,16 +119,9 @@ func wireVM(ctx context.Context, c *conf.Network, compute *computeComponents, re
 		return nil, nil, e
 	}
 	environment, e := data.NewEnvironment(native, c.NamespacePrefix, func(ctx context.Context, tenant, cluster, namespace string, s biz.NetworkSelection) (biz.NetworkSelection, error) {
-		var policy *networkdata.ManagedVMNAD
-		for i := range cfg.Networks {
-			p := &cfg.Networks[i]
-			if p.TenantID == tenant && p.ClusterID == cluster && p.Namespace == namespace && p.VPCID == s.VPCID && p.SubnetID == s.SubnetID {
-				policy = p
-				break
-			}
-		}
-		if policy == nil {
-			return biz.NetworkSelection{}, biz.ErrDependency
+		policy, e := provider.LookupManagedVMNetwork(ctx, tenant, s.VPCID, s.SubnetID, cluster, namespace)
+		if e != nil {
+			return biz.NetworkSelection{}, e
 		}
 		if s.NADName != "" && (s.NADName != policy.NADName || s.NADUID != policy.NADUID || s.NADDigest != policy.NADConfigDigest) {
 			return biz.NetworkSelection{}, biz.ErrChanged

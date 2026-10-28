@@ -1,0 +1,216 @@
+syntax = "proto3";
+
+package storage.v1;
+
+option go_package = "github.com/zhangzhe-ctrl/ani-resource-service/api/storage/v1;storagev1";
+
+import "google/protobuf/timestamp.proto";
+
+// StorageService 是 Gov 调用 Res 的存储内部合同。tenant_id 来自可信
+// Governance 主体，用户侧不提交 namespace、endpoint 或物理桶名。
+service StorageService {
+  rpc ListStorageClasses(ListStorageClassesRequest) returns (ListStorageClassesResponse);
+  rpc CreateVolume(CreateVolumeRequest) returns (CreateVolumeResponse);
+  rpc ListVolumes(ListVolumesRequest) returns (ListVolumesResponse);
+  rpc GetVolume(GetVolumeRequest) returns (GetVolumeResponse);
+  rpc UpdateVolume(UpdateVolumeRequest) returns (UpdateVolumeResponse);
+  rpc DeleteVolume(DeleteVolumeRequest) returns (DeleteVolumeResponse);
+  rpc ListBuckets(ListBucketsRequest) returns (ListBucketsResponse);
+  rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse);
+  rpc HeadObject(HeadObjectRequest) returns (HeadObjectResponse);
+  rpc GetDownloadURL(GetDownloadURLRequest) returns (GetDownloadURLResponse);
+}
+
+message StorageClass {
+  string name = 1;
+  string provisioner = 2;
+  bool is_default = 3;
+  bool allow_volume_expansion = 4;
+  string volume_binding_mode = 5;
+  string reclaim_policy = 6;
+}
+
+message ListStorageClassesRequest {
+  string tenant_id = 1;
+}
+
+message ListStorageClassesResponse {
+  repeated StorageClass items = 1;
+}
+
+message VolumeCondition {
+  string type = 1;
+  string status = 2;
+  string reason = 3;
+  string message = 4;
+  google.protobuf.Timestamp last_transition_time = 5;
+}
+
+message VolumeEvent {
+  string type = 1;
+  string reason = 2;
+  string message = 3;
+  int32 count = 4;
+  google.protobuf.Timestamp last_timestamp = 5;
+}
+
+message VolumeConsumer {
+  // Pod 或 Notebook。
+  string kind = 1;
+  string namespace = 2;
+  string name = 3;
+}
+
+message Volume {
+  string pvc_name = 1 [json_name = "pvc_name"];
+  string uid = 2;
+  string display_name = 3 [json_name = "display_name"];
+  string storage_class_name = 4 [json_name = "storage_class_name"];
+  string volume_mode = 5 [json_name = "volume_mode"];
+  repeated string access_modes = 6 [json_name = "access_modes"];
+  int64 requested_capacity_gb = 7 [json_name = "requested_capacity_gb"];
+  int64 observed_capacity_bytes = 8 [json_name = "observed_capacity_bytes"];
+  bool observed_capacity_known = 9 [json_name = "observed_capacity_known"];
+  string observed_capacity_quantity = 10 [json_name = "observed_capacity_quantity"];
+  string phase = 11;
+  bool deleting = 12;
+  string reclaim_policy = 13 [json_name = "reclaim_policy"];
+  bool reclaim_policy_known = 14 [json_name = "reclaim_policy_known"];
+}
+
+message VolumeDetail {
+  Volume volume = 1;
+  repeated VolumeCondition conditions = 2;
+  repeated VolumeEvent events = 3;
+  repeated VolumeConsumer consumers = 4;
+}
+
+message CreateVolumeRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string create_token = 2 [json_name = "create_token"];
+  string display_name = 3 [json_name = "display_name"];
+  int64 capacity_gb = 4 [json_name = "capacity_gb"];
+  string storage_class_name = 5 [json_name = "storage_class_name"];
+  // Filesystem（默认）或 Block。
+  string volume_mode = 6 [json_name = "volume_mode"];
+  repeated string access_modes = 7 [json_name = "access_modes"];
+}
+
+message CreateVolumeResponse {
+  Volume volume = 1;
+}
+
+message ListVolumesRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  uint32 page = 2;
+  uint32 page_size = 3 [json_name = "page_size"];
+  // 筛选条件在分页前生效；空串表示不按该字段筛选。
+  string name = 4;
+  string id = 5;
+  string state = 6;
+}
+
+message ListVolumesResponse {
+  repeated Volume items = 1;
+  int64 total = 2;
+}
+
+message GetVolumeRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string pvc_name = 2 [json_name = "pvc_name"];
+}
+
+message GetVolumeResponse {
+  VolumeDetail detail = 1;
+}
+
+message UpdateVolumeRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string pvc_name = 2 [json_name = "pvc_name"];
+  string expected_uid = 3 [json_name = "expected_uid"];
+  int64 capacity_gb = 4 [json_name = "capacity_gb"];
+}
+
+message UpdateVolumeResponse {
+  Volume volume = 1;
+}
+
+message DeleteVolumeRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string pvc_name = 2 [json_name = "pvc_name"];
+  string expected_uid = 3 [json_name = "expected_uid"];
+}
+
+message DeleteVolumeResponse {
+  // SUBMITTED：删除已提交且对象仍存在；TERMINATING：存在 deletionTimestamp；
+  // GONE：原对象已不存在。
+  string state = 1;
+  Volume volume = 2;
+}
+
+message Bucket {
+  string id = 1;
+  string name = 2;
+}
+
+message ListBucketsRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  // 筛选条件在分页前生效；空串表示不按该字段筛选。
+  string name = 2;
+  string id = 3;
+}
+
+message ListBucketsResponse {
+  repeated Bucket items = 1;
+}
+
+message ListObjectsRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string bucket_id = 2 [json_name = "bucket_id"];
+  string prefix = 3;
+  optional uint32 limit = 4;
+  string cursor = 5;
+}
+
+message ObjectItem {
+  string key = 1;
+  int64 size = 2;
+  string etag = 3;
+  google.protobuf.Timestamp last_modified = 4 [json_name = "last_modified"];
+}
+
+message ListObjectsResponse {
+  repeated ObjectItem items = 1;
+  repeated string common_prefixes = 2 [json_name = "common_prefixes"];
+  string next_cursor = 3 [json_name = "next_cursor"];
+  bool is_truncated = 4 [json_name = "is_truncated"];
+}
+
+message HeadObjectRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string bucket_id = 2 [json_name = "bucket_id"];
+  string key = 3;
+}
+
+message ObjectMeta {
+  string key = 1;
+  int64 size = 2;
+  string etag = 3;
+  string content_type = 4 [json_name = "content_type"];
+  google.protobuf.Timestamp last_modified = 5 [json_name = "last_modified"];
+}
+
+message HeadObjectResponse {
+  ObjectMeta object = 1;
+}
+
+message GetDownloadURLRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string bucket_id = 2 [json_name = "bucket_id"];
+  string key = 3;
+}
+
+message GetDownloadURLResponse {
+  string url = 1;
+  google.protobuf.Timestamp expires_at = 2 [json_name = "expires_at"];
+}

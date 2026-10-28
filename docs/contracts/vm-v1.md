@@ -82,7 +82,7 @@ VM canonical 顶层固定为 `vm_contract_version`、`create_spec`，delete 只�
 
 | 消息 | 冻结字段与校验 |
 |---|---|
-| CreateVMData | name；preset_id；source_kind=DISK_IMAGE或INSTALL_ISO；media_key；system_disk_size_gb；data_disks[]；network={vpc_id,subnet_id}；start_after_create（必填布尔）；可选 guest_initialization（由 Gov 规范化，见下） |
+| CreateVMData | name；preset_id；source_kind=DISK_IMAGE或INSTALL_ISO；media_key；system_disk_size_gb；data_disks[]；network={vpc_id,subnet_id}；start_after_create（必填布尔）；可选 guest_initialization（由 Gov 规范化，见下）；可选 dns={mode,nameservers[]} |
 | InitialDataDisk | client_disk_key（同一创建内唯一）；name；size_gb；全部为 blank，初始挂载；不接受任意 PVC |
 | ChangeVMRequest | tenant_id（仅受信gRPC）；vm_id；idempotency_key；expected_version |
 | ForceStopRequest | ChangeVMRequest字段；destructive_confirmation=true，缺失/false拒绝；确认纳入意图摘要；原生StopOptions.GracePeriod=0，不开放任意宽限时间 |
@@ -98,6 +98,8 @@ VM canonical 顶层固定为 `vm_contract_version`、`create_spec`，delete 只�
 | GetOperationRequest | tenant_id；vm_id；operation_id（须属于该VM） |
 
 size_gb 均为正整数十进制 GB；公开输入不接受 volume_mode/StorageClass/磁盘总线/原始 YAML。平台 root/data 固定 Block/RWO，介质与设备按受管目录。data_disks 保留数组，不以“一块系统盘”为产品上限。合理请求大小和分页限额沿现有接口治理，不新增租户磁盘配额。具体 Proto tag 在 VM-01A 首次生成时按该消息字段顺序冻结，不改任何旧消息 tag。
+
+DNSSelection 的 mode 为 PLATFORM_DEFAULT 或 CUSTOM；省略、空 mode 或显式 PLATFORM_DEFAULT 在规范化意图中等价为默认选择，不可夹带 nameservers。CUSTOM 接受 1–3 个 IP 地址，规范化 IPv4/IPv6 并保序去重。新增 Resource GetDNSDefaults(tenant_id) 只读返回平台 nameservers；Gov 以当前 tenant、vm:create 和 VIRTUAL_MACHINE 套餐授权公开 GET /api/v1/virtual-machine-dns-defaults。CreateVMData.dns 追加 tag 10，CreateSpec.dns 追加 tag 15，FrozenDNS 固定 mode 和实际 nameservers；其余旧 tag 与无 DNS 的历史摘要不变。新建时实际 DNS 必须完整冻结，平台默认变化不修改既有冻结规格。GetVM 返回该冻结值，不提供任意原生 YAML 或可信网络身份输入。
 
 公开创建的可选 `guestInitialization={username,password?,sshPublicKey?}` 仅用于[S05.1](../specs/vm-mvp.md#s051-linux-镜像的可选账户初始化)。启用时 username 必填，密码或公钥至少一项；用户名匹配 `^[a-z_][a-z0-9_-]{0,31}$` 且不能为 root；密码为 8–128 UTF-8 bytes，不含 NUL 或换行。公钥最多 16384 bytes，须为单行、无 options 的 OpenSSH 公钥；拒绝私钥，不由平台生成 keypair。默认不启用 SSH 密码登录，密码用于控制台登录。
 

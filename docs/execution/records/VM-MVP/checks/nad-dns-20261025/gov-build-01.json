@@ -1,0 +1,104 @@
+{
+  "phase": "build-01",
+  "host": "fedora",
+  "steps": [
+    {
+      "label": "governance-server",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "build",
+        "-trimpath",
+        "-buildvcs=false",
+        "-ldflags=-s -w",
+        "-o",
+        "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/bin/governance-server",
+        "./app/admin/service/cmd/server"
+      ],
+      "exit_code": 0,
+      "seconds": 66.781,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/build-01-governance-server.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "governance-admin",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "build",
+        "-trimpath",
+        "-buildvcs=false",
+        "-ldflags=-s -w",
+        "-o",
+        "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/bin/governance-admin",
+        "./app/admin/service/cmd/admin"
+      ],
+      "exit_code": 0,
+      "seconds": 9.6,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/build-01-governance-admin.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/governance-source",
+  "resource_version": "v0.0.0-20261025150932-52c19b06f304",
+  "go_flags": "-mod=readonly -p=1 -trimpath",
+  "gogc": "25",
+  "started_at": "2026-10-25T15:43:37.068400+00:00",
+  "binaries": {
+    "governance-server": {
+      "path": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/bin/governance-server",
+      "sha256": "35b76808ad3b33affe3e4fc3b34bc4bdb25d691673dd80afd93bbbef2ee548b2"
+    },
+    "governance-admin": {
+      "path": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/bin/governance-admin",
+      "sha256": "1b20f36b4df57bb01b3f67d3f4412a6c53533e306483c729facd19d11fb7288a"
+    }
+  },
+  "outputs": {
+    "go.mod": {
+      "sha256": "033fb276223db208f0542f5768226c799c8974d1b4871ad5514c1dcb13a41455",
+      "mode": 420,
+      "before": "c91951e2f75c42ee6eb42320f306cbba5f360ef45888ba77a06ad8928067de9a"
+    },
+    "go.sum": {
+      "sha256": "97b258f09a2e2699c5dc4a494a1234cabe589cd91719f24034c43ce1d801aa5a",
+      "mode": 420,
+      "before": "284bdcf2eaf502736372a8605aadb9aad8f1dc44075519565ef466c9561b7fba"
+    },
+    "pkg/permcode/capability_gen.go": {
+      "sha256": "11d17ceac3005d03e6ed14e1a69b271d68d973e63fb4a5c5097368ee3c98b973",
+      "mode": 420,
+      "before": "e83cb0feab74a17e4c1ccd0b0d1c6a78771af02664c7f6174ec0fe2f51971c03"
+    },
+    "app/admin/service/cmd/server/assets/openapi.yaml": {
+      "sha256": "8d176753e23cd67ff7af80e8af974021cc578c9f8e19c5f057e45c03776be2e0",
+      "mode": 420,
+      "before": "c5e9e76b06c70466fdd6e8a641066fa9f6527e4403e4bb61f5b9984b1a4ba568"
+    },
+    "api/gen/go/vm/service/v1/vm.pb.go": {
+      "sha256": "2ba5fa29a368ae8a60d6638a2fbc21eab06ff88043359382ec27d48657019b47",
+      "mode": 420,
+      "before": "b0036320338deffc5c9368113a697a822f8c4beace0f1798beded2ed73657d5f"
+    },
+    "api/gen/go/vm/service/v1/vm.pb.redact.go": {
+      "sha256": "2b648b9f63b45f3ebd2bf3851504af212ba0ed6fa7a543466cfbc1d7b1c78dfd",
+      "mode": 420,
+      "before": "f078ac6ecde048bf811600cd18e14b66f82df21f134fc15a4d970c04d1236df8"
+    },
+    "api/gen/go/admin/service/v1/i_vm.pb.go": {
+      "sha256": "e21bade37c3fde3a620dc2ab63a0fe001173d656954fceeb41da35202085b1a1",
+      "mode": 420,
+      "before": "8a23c89d3ef052138af44e540d4bc7da1f5120d4d573f0091e3fe0982d869489"
+    },
+    "api/gen/go/admin/service/v1/i_vm_grpc.pb.go": {
+      "sha256": "a1ee93d1c239cf1d460486af1af5d9f526d0bc7b837129d3ff553e2214b300ce",
+      "mode": 420,
+      "before": "3601882c7748ea27495167e8d7fbc54e694d4d2d715f550fa89d4c1b321171cf"
+    },
+    "api/gen/go/admin/service/v1/i_vm_http.pb.go": {
+      "sha256": "204e1c92cb52cf4a03116fa174f159e0c86b366cf26370abeb6dfe81bb4aa3c8",
+      "mode": 420,
+      "before": "70b2a1e32fca3d80a9179a3cb356eb5cb0a11d707e5b936dc6ac2008a43323b7"
+    }
+  },
+  "result": "PASS",
+  "finished_at": "2026-10-25T15:44:59.095807+00:00"
+}

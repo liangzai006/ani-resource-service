@@ -1,0 +1,22 @@
+{
+  "host": "fedora",
+  "phase": "resource-verify-02",
+  "steps": [
+    {
+      "label": "verify",
+      "argv": [
+        "make",
+        "verify",
+        "GO=/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go"
+      ],
+      "exit_code": 2,
+      "seconds": 32.917,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/resource-verify-02-verify.log"
+    }
+  ],
+  "started_at": "2026-10-25T15:02:12.135702+00:00",
+  "result": "FAIL",
+  "error_type": "AssertionError",
+  "error": "verify failed; exact log retained",
+  "finished_at": "2026-10-25T15:02:45.053761+00:00"
+}

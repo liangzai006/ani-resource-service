@@ -1,0 +1,115 @@
+{
+  "date_utc": "2026-10-27T11:52:28.576894+00:00",
+  "base_main": "33ea63b4699e7d47fd0d86bef86ae8461033c869",
+  "revision": "c4472e933c9cdbd943bb6764187f5dd015fd8b72",
+  "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:86e0dcf617ffae46ab15770e7717a47c197e4fb98815fb0f12ce72e0dd4e6d55",
+  "execution_host": "fedora",
+  "cluster_entry": "100.64.128.12",
+  "deployment": {
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:86e0dcf617ffae46ab15770e7717a47c197e4fb98815fb0f12ce72e0dd4e6d55",
+    "generation": 45,
+    "ready": true,
+    "request_timeout_seconds": 10,
+    "lease_seconds": 40,
+    "qps": 20,
+    "burst": 40
+  },
+  "pod": {
+    "name": "ani-resource-service-86ffccc78-64wjv",
+    "uid": "014d959b-fea5-452d-8bc1-d5ec1a229000",
+    "node": "node3",
+    "restarts": 0
+  },
+  "migration": {
+    "versions": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20"
+    ],
+    "checksums_verified": true
+  },
+  "validation": {
+    "unit_and_full_tests": "PASS",
+    "postgres_egress_virtual_switch_recovery": "PASS",
+    "vet_and_build": "PASS",
+    "initial_generation_consistency": "PASS",
+    "make_verify": "NOT_GREEN_CACHE_GENERATOR_METADATA_AND_BASELINE_ARCHIVED_IMPORTS",
+    "make_verify_reason": "Initial tidy encountered module-cache write permissions and archived cross-repository imports; final retry failed because GOPROXY=off prevented generator metadata lookup. No generator inputs changed in the observation fix.",
+    "red_then_green_observation_regression": true,
+    "live_no_gateway_id_create": "PASS",
+    "live_exact_idempotency_replay": "PASS",
+    "live_restart_observation_window": "PASS",
+    "live_owner_gateway_cleanup": "PASS",
+    "existing_gateway_retained": "PASS",
+    "gov_boss_browser": "NOT_RUN",
+    "eip_snat_data_plane": "NOT_RUN",
+    "full_suite_scope": "Full suite passed for observation model fix; subsequent tenant Claim timestamp propagation passed related PostgreSQL EIP/SNAT/ownership/recovery regressions and vet."
+  },
+  "observations": {
+    "ani_network_observation_audit_collection_max_seconds": 1.927730163,
+    "ani_network_observation_audit_evidence_age_seconds": 1.5176792080000001,
+    "ani_network_observation_audit_failures_total": 0.0,
+    "ani_network_observation_queue_overflows_total": 0.0,
+    "ani_network_observation_source_synced": 1.0,
+    "ani_network_observation_watch_errors_total": 0.0
+  },
+  "temporary_resources": {
+    "gateway_id": "egw_64dedfd0e6404c5db909ee93c3e5087b",
+    "pool_id": "pool_7fffa4008d4b4fe09c72ee0f9b6206b3"
+  },
+  "watch_log": [
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_AVAILABLE/PROVIDER_UNAVAILABLE/stale=false",
+    "READY pool_7fffa4008d4b4fe09c72ee0f9b6206b3 observed_at 2026-10-27 11:47:43.499789 +0000 UTC",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_AVAILABLE//stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_AVAILABLE/PROVIDER_UNAVAILABLE/stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_AVAILABLE//stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_AVAILABLE/PROVIDER_UNAVAILABLE/stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_AVAILABLE//stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_AVAILABLE/PROVIDER_UNAVAILABLE/stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_AVAILABLE//stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_AVAILABLE/PROVIDER_UNAVAILABLE/stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_AVAILABLE//stale=false",
+    "STABLE_FRESH 2m12s observation_advanced 154"
+  ],
+  "delete_log": [
+    "DELETE_ACCEPTED pool_7fffa4008d4b4fe09c72ee0f9b6206b3",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_DELETING//stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_DELETING/CLEANUP_PENDING/stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_DELETING/PROVIDER_OWNERSHIP_CONFLICT/stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_DELETING/CLEANUP_PENDING/stale=false",
+    "POOL pool_7fffa4008d4b4fe09c72ee0f9b6206b3 RESOURCE_STATE_DELETED//stale=false",
+    "CLEANUP_COMPLETE pool_7fffa4008d4b4fe09c72ee0f9b6206b3 egw_64dedfd0e6404c5db909ee93c3e5087b"
+  ],
+  "source_manifest_sha256": "45423157792606e624d72ce5d688c24f7ba3c1a1a6c7169966bbcc3b46bdf9e2",
+  "binary_sha256": "e40204d365f8727535c7ccd36a1ac93d5a332707eac552491abb8dfa2c78c71b",
+  "limits": {
+    "transient_provider_unavailable_observed": true,
+    "observation_expired_in_final_132_second_window": false,
+    "temporary_pool_allocation_enabled": false,
+    "gov_boss_browser_tested": false
+  },
+  "commands": [
+    "go test -count=1 -timeout=5m ./...",
+    "scripts/integration -timeout=8m -v -run TestManagedPoolGateway|TestVirtualSwitchDurable|TestEgressKCManagedVlan|TestNET05ACriticalAudit|TestNET05ASilentWatch|TestEgress ./internal/data/network",
+    "go vet ./...; go build -trimpath ./...",
+    "make verify (failed environment dependencies)",
+    "smoke create; smoke watch; smoke delete (Fedora, real Res mTLS RPC)"
+  ]
+}

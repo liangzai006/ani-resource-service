@@ -153,6 +153,7 @@ type NetworkDefaultVpcEgress struct {
 	UpdatedAt           time.Time
 	ObservedAt          *time.Time
 	RetiredAt           *time.Time
+	EipID               string
 }
 
 type NetworkDefaultVpcEgressHistory struct {
@@ -643,6 +644,7 @@ type NetworkPublicPool struct {
 	DefaultVpcName        string
 	DefaultVpcUid         string
 	IntranetNetworks      []string
+	ManagedGateway        bool
 }
 
 type NetworkReconciliation struct {
@@ -800,6 +802,24 @@ type NetworkVlanNetwork struct {
 	VlanID          int32
 	Retired         bool
 	VirtualSwitchID *string
+}
+
+type NetworkVmNamespace struct {
+	TenantID          string
+	ClusterID         string
+	Namespace         string
+	NamespaceUid      string
+	ManagementID      string
+	TemplateID        string
+	NadName           string
+	NadUid            string
+	NadConfig         string
+	NadConfigDigest   string
+	ServiceAccount    string
+	ServiceAccountUid string
+	Ready             bool
+	Reason            string
+	UpdatedAt         time.Time
 }
 
 type NetworkVpc struct {

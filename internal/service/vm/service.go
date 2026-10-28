@@ -24,6 +24,7 @@ type AddressReader interface {
 type Config struct {
 	ClusterID, ServiceAccount, StorageClass, StorageClassUID, BackendStorageClass, MediaStorageClass string
 	Media                                                                                            []*pb.MediaReference
+	DefaultDNSServers                                                                                []string
 }
 type Service struct {
 	pb.UnimplementedVMServiceServer
@@ -94,6 +95,12 @@ func (s *Service) ResolveCreateSpec(ctx context.Context, r *pb.ResolveCreateSpec
 	if r.VmContractVersion != pb.ContractVersion || pb.ValidateUserIntent(r.Data) != nil {
 		return nil, rpcError(biz.ErrInvalid)
 	}
+	intent := proto.Clone(r.Data).(*pb.CreateVMData)
+	intent.Dns, _ = pb.NormalizeDNSSelection(intent.Dns)
+	dns, e := s.resolveDNS(intent.Dns)
+	if e != nil {
+		return nil, rpcError(e)
+	}
 	ns, e := s.environment.ResolveNamespace(ctx, r.TenantId, r.Namespace)
 	if e != nil {
 		return nil, rpcError(e)
@@ -120,7 +127,7 @@ func (s *Service) ResolveCreateSpec(ctx context.Context, r *pb.ResolveCreateSpec
 	if e != nil {
 		return nil, rpcError(e)
 	}
-	spec := &pb.CreateSpec{Intent: proto.Clone(r.Data).(*pb.CreateVMData), Compute: selection, ClusterId: s.config.ClusterID, Namespace: ns.Name, NamespaceUid: ns.UID, ServiceAccount: s.config.ServiceAccount, Storage: &pb.StoragePolicy{StorageClass: s.config.StorageClass, StorageClassUid: s.config.StorageClassUID, VolumeMode: "Block", AccessModes: []string{"ReadWriteOnce"}, BackendStorageClass: s.config.BackendStorageClass, MediaStorageClass: s.config.MediaStorageClass}, Media: media, Network: &pb.FrozenNetwork{VpcId: selectionNetwork.VPCID, SubnetId: selectionNetwork.SubnetID, NadName: selectionNetwork.NADName, NadUid: selectionNetwork.NADUID, NadConfigDigest: selectionNetwork.NADDigest}, Sockets: 1, Cores: uint32((selection.CpuMillis + 999) / 1000), Threads: 1, BootDevice: "SYSTEM_DISK"}
+	spec := &pb.CreateSpec{Intent: intent, Compute: selection, ClusterId: s.config.ClusterID, Namespace: ns.Name, NamespaceUid: ns.UID, ServiceAccount: s.config.ServiceAccount, Storage: &pb.StoragePolicy{StorageClass: s.config.StorageClass, StorageClassUid: s.config.StorageClassUID, VolumeMode: "Block", AccessModes: []string{"ReadWriteOnce"}, BackendStorageClass: s.config.BackendStorageClass, MediaStorageClass: s.config.MediaStorageClass}, Media: media, Network: &pb.FrozenNetwork{VpcId: selectionNetwork.VPCID, SubnetId: selectionNetwork.SubnetID, NadName: selectionNetwork.NADName, NadUid: selectionNetwork.NADUID, NadConfigDigest: selectionNetwork.NADDigest}, Sockets: 1, Cores: uint32((selection.CpuMillis + 999) / 1000), Threads: 1, BootDevice: "SYSTEM_DISK", Dns: dns}
 	if media.Kind == "INSTALL_ISO" {
 		spec.BootDevice = "INSTALL_MEDIA"
 	}
@@ -163,6 +170,9 @@ func domainSpec(vmid string, p *pb.CreateSpec) (biz.Spec, error) {
 	if p.DriverMedia != nil {
 		d := domainSource(p.DriverMedia)
 		s.Driver = &d
+	}
+	if p.Dns != nil {
+		s.DNS = &biz.DNS{Mode: p.Dns.Mode, Nameservers: append([]string(nil), p.Dns.Nameservers...)}
 	}
 	if g := p.Intent.GuestInitialization; g != nil {
 		s.GuestInitialization = &biz.GuestInitialization{Method: g.Method, Username: g.Username, SSHPublicKey: g.SshPublicKey, PasswordSet: g.PasswordSet, CredentialIntentDigest: g.CredentialIntentDigest}

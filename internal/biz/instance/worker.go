@@ -9,17 +9,15 @@ import (
 type Worker struct {
 	repo     Repository
 	provider Provider
-	quota    QuotaReporter
-	releases PhysicalReleaseObserver
 	owner    string
 	network  NetworkPort
 }
 
-func NewWorker(r Repository, p Provider, q QuotaReporter, releases PhysicalReleaseObserver, owner string) (*Worker, error) {
-	if r == nil || p == nil || q == nil || releases == nil || owner == "" {
+func NewWorker(r Repository, p Provider, owner string) (*Worker, error) {
+	if r == nil || p == nil || owner == "" {
 		return nil, ErrInvalid
 	}
-	return &Worker{repo: r, provider: p, quota: q, releases: releases, owner: owner}, nil
+	return &Worker{repo: r, provider: p, owner: owner}, nil
 }
 func (w *Worker) Step(ctx context.Context) (bool, error) {
 	work, err := w.repo.Claim(ctx, w.owner, 45*time.Second)
@@ -29,6 +27,12 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 	i := work.Instance
 	p := Progress{Instance: i, Next: 5 * time.Second}
 	p.Instance.Network = CloneNetwork(i.Network)
+	if !i.CleanupCompletedAt.IsZero() && OwnerCleanupReady(i) {
+		// Local cleanup is already durable. Gov delivery is independent and
+		// must not become dependent on Kubernetes again after a restart.
+		completeOwnerCleanup(&p)
+		return true, w.repo.Finish(ctx, *work, p)
+	}
 	var obs Observation
 	// A DELETE-first tombstone has never accepted an external creation. Its
 	// admission lock prevents any later CREATE from enabling external writes.
@@ -41,8 +45,6 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 	}
 	if obs.NotebookExists || obs.PodExists || obs.StatefulSetUID != "" {
 		p.Instance.ExternalComputeStarted = true
-		p.Instance.ComputeSealAt = time.Time{}
-		p.Instance.PhysicalReleaseDigest = ""
 		p.Instance.ComputeCleaned = false
 	}
 	if err != nil {
@@ -169,36 +171,12 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		if obs.NotebookExists {
 			return mutate("delete_notebook", func() error { return w.provider.DeleteNotebook(ctx, p.Instance, obs) })
 		}
-		if obs.PodExists {
+		if obs.PodExists || obs.StatefulSetUID != "" {
 			p.Instance.Reason = "WAITING_FOR_COMPUTE_CLEANUP"
 			return true, w.repo.Finish(ctx, *work, p)
 		}
-		if i.Spec.ComputeType == TypeGPU && p.Instance.ExternalComputeStarted && !i.ComputeCleaned {
-			if i.ComputeSealAt.IsZero() {
-				p.Instance.ComputeSealAt = time.Now().UTC()
-				p.Instance.Reason = "WAITING_FOR_PHYSICAL_RELEASE"
-				return true, w.repo.Finish(ctx, *work, p)
-			}
-			evidence, e := w.releases.ObserveRelease(ctx, p.Instance)
-			if e != nil || !evidence.Confirmed || !digest64.MatchString(evidence.Digest) {
-				p.Instance.Reason = "WAITING_FOR_PHYSICAL_RELEASE"
-				return true, w.repo.Finish(ctx, *work, p)
-			}
-			p.Instance.PhysicalReleaseDigest = evidence.Digest
-		}
 		p.Instance.ComputeCleaned = true
 		if !i.ComputeCleaned {
-			return true, w.repo.Finish(ctx, *work, p)
-		}
-		// A stable event is rebuilt from the original CREATE identity; PVC errors do not hold GPU quota.
-		if !i.QuotaReturned {
-			if i.Spec.ComputeType == TypeCPU {
-				p.Instance.QuotaReturned = true
-			} else if err := w.quota.Report(ctx, p.Instance); err != nil {
-				p.Instance.Reason = "QUOTA_RETURN_PENDING"
-			} else {
-				p.Instance.QuotaReturned = true
-			}
 			return true, w.repo.Finish(ctx, *work, p)
 		}
 		if obs.PVCExists {
@@ -224,9 +202,15 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 			p.Instance.Reason = "WAITING_FOR_NETWORK_RELEASE"
 			return true, w.repo.Finish(ctx, *work, p)
 		}
-		p.Instance.Observed = Deleted
-		p.Instance.Reason = ""
-		p.Next = 0
+		if !p.Instance.VolumeReferencesReleased {
+			p.Instance.Reason = "WAITING_FOR_VOLUME_REFERENCE_RELEASE"
+			return true, w.repo.Finish(ctx, *work, p)
+		}
+		if !OwnerCleanupReady(p.Instance) {
+			p.Instance.Reason = ErrInvalid.Error()
+			return true, w.repo.Finish(ctx, *work, p)
+		}
+		completeOwnerCleanup(&p)
 		return true, w.repo.Finish(ctx, *work, p)
 	}
 	if i.Desired == Stopped && obs.NotebookExists {
@@ -283,4 +267,16 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		}
 	}
 	return true, w.repo.Finish(ctx, *work, p)
+}
+
+func completeOwnerCleanup(p *Progress) {
+	p.CleanupComplete = true
+	p.Instance.Observed = Deleted
+	p.Instance.Reason = ""
+	if p.Instance.Spec.ComputeType == TypeCPU {
+		p.Instance.QuotaReturned = true
+	} else if !p.Instance.QuotaReturned {
+		p.Instance.Reason = "QUOTA_RETURN_PENDING"
+	}
+	p.Next = 0
 }

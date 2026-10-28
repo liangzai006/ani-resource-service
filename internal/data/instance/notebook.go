@@ -227,6 +227,7 @@ func (n *Notebook) Observe(ctx context.Context, i biz.Instance) (biz.Observation
 	if e != nil {
 		return out, e
 	}
+	seenPodUIDs := make(map[string]struct{}, len(pods.Items))
 	for j := range pods.Items {
 		p := &pods.Items[j]
 		if !owned(p, i, "") {
@@ -235,6 +236,7 @@ func (n *Notebook) Observe(ctx context.Context, i biz.Instance) (biz.Observation
 		if !controlledBy(p, "apps", "StatefulSet", i.Spec.NotebookName, setUID) {
 			return out, biz.ErrOwnership
 		}
+		seenPodUIDs[string(p.GetUID())] = struct{}{}
 		out.PodExists = true
 		if e := verifyPod(p, i); e != nil {
 			return out, e
@@ -283,7 +285,57 @@ func (n *Notebook) Observe(ctx context.Context, i biz.Instance) (biz.Observation
 			}
 		}
 	}
+	if i.Desired == biz.Deleted {
+		if err := n.observeHistoricalPods(ctx, i, seenPodUIDs, &out); err != nil {
+			return out, err
+		}
+	}
 	return out, nil
+}
+
+// Labels are mutable, so an empty managed Pod list cannot prove that every
+// previously observed UID is gone. Read each original identity during DELETE;
+// a same-name replacement is not the original Pod and is never mutated here.
+func (n *Notebook) observeHistoricalPods(ctx context.Context, i biz.Instance, seen map[string]struct{}, out *biz.Observation) error {
+	refs := append([]biz.PodRef(nil), i.GPUPods...)
+	if i.PodName != "" || i.PodUID != "" {
+		found := false
+		for _, ref := range refs {
+			if ref.Name == i.PodName && ref.UID == i.PodUID {
+				found = true
+				break
+			}
+		}
+		if !found {
+			refs = append(refs, biz.PodRef{ClusterID: i.Spec.ClusterID, Namespace: i.Spec.Namespace, Name: i.PodName, UID: i.PodUID, ContainerName: biz.Container})
+		}
+	}
+	for _, ref := range refs {
+		if ref.ClusterID == "" || ref.ClusterID != i.Spec.ClusterID || ref.Namespace == "" || ref.Namespace != i.Spec.Namespace || ref.Name == "" || ref.UID == "" {
+			return biz.ErrOwnership
+		}
+		if _, exists := seen[ref.UID]; exists {
+			continue
+		}
+		pod, err := n.client.Resource(podGVR).Namespace(ref.Namespace).Get(ctx, ref.Name, metav1.GetOptions{})
+		if apierrors.IsNotFound(err) {
+			seen[ref.UID] = struct{}{}
+			continue
+		}
+		if err != nil {
+			return err
+		}
+		seen[ref.UID] = struct{}{}
+		if string(pod.GetUID()) == ref.UID {
+			out.PodExists = true
+			// Preserve the fallback identity across worker turns, including CPU
+			// instances that have no historical GPU Pod list.
+			if out.PodUID == "" {
+				out.PodName, out.PodUID = ref.Name, ref.UID
+			}
+		}
+	}
+	return nil
 }
 
 func controlledBy(o *unstructured.Unstructured, group, kind, name, uid string) bool {

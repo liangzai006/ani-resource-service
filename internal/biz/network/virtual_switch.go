@@ -18,8 +18,11 @@ type VirtualSwitch struct {
 
 type VirtualSwitchNode struct {
 	NodeName, NodeUID, MAC, State, Reason string
-	Priority                              int32
-	Allocated                             bool
+	// LastObservedAt is the oldest provider evidence supporting the last
+	// successful inspection. Failed reads never renew this durable timestamp.
+	LastObservedAt time.Time `json:"LastObservedAt,omitzero"`
+	Priority       int32
+	Allocated      bool
 	// Patch intent and acknowledgement survive ambiguous Kubernetes responses.
 	ResourceVersion, OriginalValue, OriginalOwner string
 	OriginalPresent, Prepared, Applied, Unknown   bool

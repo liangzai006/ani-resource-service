@@ -1,0 +1,11 @@
+{
+  "result": "PASS_BROWSER_EXISTING_PASSWORD_LOGIN_AND_KEYBOARD_MARKER_READ",
+  "vm_id": "bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+  "native_vm_uid": "a7da032d-6ba8-4fcf-bb6c-81761a2d1520",
+  "VMI_uid": "b7e1c585-3c12-4019-ab68-ba5bf81d82f5",
+  "browser_origin": "http://localhost:5173",
+  "public_ws_base": "ws://100.64.128.12:30082/api/v1/realtime",
+  "username": "zz-test",
+  "visible_marker_sha256": "ac39a5a1f6b891b2a7ac09c5496263daa68ef4d13e5fc9911ad3e5670a093c1f",
+  "screenshot_sha256": "4be724bc35b1651e4c1e333ac7e60b1a2207f5717f5edf5f414a72880a53b6e8"
+}

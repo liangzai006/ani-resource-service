@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-26T01:30:25.365960+00:00",
+  "vm_id": "1823315c-e0ae-421a-b76d-e27f97343160",
+  "native_vm_uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575",
+  "addendum_scope": "only 2 explicitly authorized media clone temp parent names and captured IDs; separate from original17",
+  "rows": [
+    {
+      "pool": "ani-block-pool",
+      "exact_parent_image": "csi-vol-91409605-d3c7-419f-9a48-0d70ccb08b7b-temp",
+      "captured_image_id": "1732befb34a15",
+      "provenance": "Root-approved exact clone temp parent captured before deletion",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "pool": "ani-block-pool",
+      "exact_parent_image": "csi-vol-7cb3ce63-7a4b-42be-b66f-1e6610bc3c41-temp",
+      "captured_image_id": "1732b4fc511be",
+      "provenance": "Root-approved exact clone temp parent captured before deletion",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    }
+  ],
+  "backend_writes": 0,
+  "pool_trash_enumeration": false,
+  "physical_bytes_reclaimed": "NOT_MEASURED",
+  "result": "PASS_EXACT_TWO_MEDIA_TEMP_PARENTS_ABSENT"
+}

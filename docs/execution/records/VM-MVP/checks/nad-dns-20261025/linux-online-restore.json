@@ -1,0 +1,76 @@
+{
+  "result": "PASS_ONLINE_RESTORE_CHECKPOINT",
+  "vm_id": "bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+  "native_vm_uid": "a7da032d-6ba8-4fcf-bb6c-81761a2d1520",
+  "current_vmi": {
+    "kind": "VirtualMachineInstance",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "name": "vm-bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+    "uid": "eb1083d7-b56c-4248-889b-1ae8e2e53318"
+  },
+  "disk_ids": {
+    "d1": "6fc44dc1-525d-5576-a575-05a3a806e72a",
+    "d2": "2449bf42-61b7-50f8-a08b-024df164ba22"
+  },
+  "snapshot_id": "59cb4e65-4585-56b5-bafe-9b8052d43648",
+  "online_native_snapshot": {
+    "snapshot": {
+      "kind": "VirtualMachineSnapshot",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "vm-snap-59cb4e65-4585-56b5-bafe-9b8052d43648",
+      "uid": "fb04bd85-010c-48f7-9b51-8d74e2689899"
+    },
+    "content": {
+      "kind": "VirtualMachineSnapshotContent",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "vmsnapshot-content-fb04bd85-010c-48f7-9b51-8d74e2689899",
+      "uid": "6c4aab36-8a0f-4ee2-ab12-b807fc825674"
+    },
+    "included": [
+      "disk-cf3a4f3e9a10519784462fee133b81d2",
+      "disk-6fc44dc1525d5576a57505a3a806e72a",
+      "disk-2449bf4261b750f8a08b024df164ba22"
+    ],
+    "indications": [
+      "GuestAgent",
+      "Online"
+    ],
+    "guest_agent_connected_before": true
+  },
+  "operations": {
+    "create-d1": "0dfc8b0b-fa67-423a-b8bd-d7b8683d5540",
+    "attach-d1": "4143292f-40a2-4b0e-b0ff-bfee5efd2894",
+    "create-d2": "fd961633-b887-41ec-98be-e042c5f714a4",
+    "attach-d2": "1cc446ce-5ecb-46a1-ae03-d6006252e229",
+    "detach-d2": "14697e26-45dc-4ff4-a270-e2bfaa080390",
+    "reattach-d2": "0830ba91-b69c-44ad-8c03-53afc54f3723",
+    "online-snapshot": "fa585407-2fbf-47d9-b281-99874f15716d",
+    "stop-online": "d4fbae58-af8e-4e1e-8d73-99080c0caabb",
+    "restore-online": "e0faed09-96dc-4131-b65f-1e85d1a62220",
+    "start-online": "1a1396b1-b2aa-4f2b-8c04-e38302cf786c"
+  },
+  "root_marker_sha256": "081aab62a091072f8900f9058e0fe1bc36fab81c09f21e727b699ffa5ad16ace",
+  "data_disks": [
+    {
+      "label": "d1",
+      "serial": "6fc44dc1-525d-5576-a575-05a3a806e72a",
+      "device": "/dev/sda",
+      "size_bytes": 1000341504,
+      "filesystem_uuid": "01843494-a3af-4a61-9799-2a3d5fc1ee4f",
+      "marker_state": "A",
+      "marker_sha256": "04e397fbce89d9802c3944e0b1ec7c1113291cdd66f0282a6d1d1f98c64f5a3b"
+    },
+    {
+      "label": "d2",
+      "serial": "2449bf42-61b7-50f8-a08b-024df164ba22",
+      "device": "/dev/sdb",
+      "size_bytes": 1000341504,
+      "filesystem_uuid": "11d8082e-8c1e-4392-90ff-7c368b81059b",
+      "marker_state": "A",
+      "marker_sha256": "35e209a8022e1ad277604b98665815a6ce852a64223f5baf938dfaad60429ebe"
+    }
+  ],
+  "all_data_disks_unmounted": true,
+  "offline_round": "NOT_STARTED_WAITING_RESOURCE_UPDATE",
+  "active_ssh_port_forward": "NONE"
+}

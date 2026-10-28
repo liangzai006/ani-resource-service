@@ -1,0 +1,62 @@
+{
+  "at": "2026-10-25T16:05:55.334001+00:00",
+  "result": "PASS_PRODUCT_GOV_RESOURCE_LINUX_DEFAULT_DNS_AUTOMATIC_NAD_SA_GUEST_STOP_START",
+  "vm_id": "bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+  "version": "3",
+  "create_operation": "5cc8b2cd-13f5-48e4-9bef-baa04321e99b",
+  "stop_operation": "33f0d0fc-48d8-4d84-af73-0c2a3f31c871",
+  "start_operation": "5616d5bf-02ea-4292-b0c5-0ba24da71681",
+  "automatic_network": {
+    "at": "2026-10-25T15:58:12.160967+00:00",
+    "result": "PASS_READ_ONLY_PRODUCT_INPUTS",
+    "default_dns": [
+      "223.5.5.5"
+    ],
+    "preset_id": "21aea531-8645-4076-b451-8f81c6cf8b71",
+    "media_key": "ubuntu-24.04-cloud",
+    "source_PVC_UID": "0371dc09-ba09-4cfd-8181-f3ab57270598",
+    "source_checksum": "714b8ff209d84d8b4c4b20d183bf7f84406ca5eebb47422b32b2dfa069e0aa07",
+    "automatic_NAD": {
+      "kind": "NetworkAttachmentDefinition",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "ani-vm-primary-v1",
+      "uid": "49487e12-184c-41be-8e7c-064dafac7dd8"
+    },
+    "automatic_SA": {
+      "kind": "ServiceAccount",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "ani-vm-workload",
+      "uid": "f39d35d8-24ac-4191-a4a7-0f125de59b66"
+    },
+    "management_id": "28fbd97e-b5e9-497f-b9ac-9775f3238e98",
+    "NAD_config_digest": "bb5bb6d1ad273609354486dfa052bf46236c47583fdb6a228bab4b75fb902d30",
+    "product_VM_created": false
+  },
+  "native_VM": {
+    "kind": "VirtualMachine",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "name": "vm-bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+    "uid": "a7da032d-6ba8-4fcf-bb6c-81761a2d1520"
+  },
+  "first_VMI": {
+    "kind": "VirtualMachineInstance",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "name": "vm-bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+    "uid": "55e4eb34-a2e0-451e-982c-5b45588c2eb1"
+  },
+  "second_VMI": {
+    "kind": "VirtualMachineInstance",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "name": "vm-bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+    "uid": "b7e1c585-3c12-4019-ab68-ba5bf81d82f5"
+  },
+  "current_IP": "10.128.10.9",
+  "marker_sha256": "ac39a5a1f6b891b2a7ac09c5496263daa68ef4d13e5fc9911ad3e5670a093c1f",
+  "guest_default_dns": [
+    "223.5.5.5"
+  ],
+  "temporary_relay": "Pod/VNic/VNicIP/Nic Gone",
+  "product_VM": "Running; retained for remaining Goal; not deleted by this driver",
+  "disks_snapshots_windows_browser": "NOT_RUN_IN_THIS_DRIVER",
+  "platform_generated_keys_passwords": "NONE"
+}

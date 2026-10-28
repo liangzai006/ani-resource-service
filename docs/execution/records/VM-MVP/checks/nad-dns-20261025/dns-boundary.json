@@ -1,0 +1,1 @@
+{"result": "PASS", "route": "/api/v1/virtual-machine-dns-defaults", "anonymous_http_status": 401, "tenant_authenticated_read": "200 in product-linux-driver/preflight.json", "anonymous_business_writes": 0}

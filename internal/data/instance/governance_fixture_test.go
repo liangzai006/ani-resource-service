@@ -87,10 +87,13 @@ func TestInstanceGovernanceFixture(t *testing.T) {
 		t.Fatal(e)
 	}
 	providerState := &provider{}
-	var reporter biz.QuotaReporter
-	cpuQuota := &quota{}
+	cpuQuota := &releaseEndpoint{immediateReceipt: true}
+	var reporter *data.Quota
 	if gpu == nil {
-		reporter = cpuQuota
+		reporter, e = data.NewQuota(f.repo, cpuQuota)
+		if e != nil {
+			t.Fatal(e)
+		}
 	}
 	if path := os.Getenv("INSTANCE_JOINT_QUOTA_FILE"); path != "" {
 		var cfg struct{ Address, CAFile, CertFile, KeyFile, ServerName string }
@@ -126,11 +129,11 @@ func TestInstanceGovernanceFixture(t *testing.T) {
 	if reporter != nil {
 		// Only the external Kubernetes boundary is controlled in this ledger
 		// slice. Admission, worker, cleanup decisions, outbox and Gov RPC are real.
-		worker, e := biz.NewWorker(f.repo, providerState, reporter, &releaseObservation{confirmed: true}, "cross-service-worker")
+		worker, e := biz.NewWorker(f.repo, providerState, "cross-service-worker")
 		if e != nil {
 			t.Fatal(e)
 		}
-		execution := server.NewInstanceWorkerServer(worker, slog.New(slog.NewTextHandler(io.Discard, nil)))
+		execution := server.NewInstanceWorkerServer(worker, slog.New(slog.NewTextHandler(io.Discard, nil)), reporter)
 		done := make(chan error, 1)
 		go func() { done <- execution.Start(context.Background()) }()
 		defer func() {

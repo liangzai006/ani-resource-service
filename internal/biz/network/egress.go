@@ -631,7 +631,7 @@ func NormalizePublicPool(p PublicPoolConfig) (PublicPoolConfig, error) {
 	if (p.Scope != "" && p.Scope != "public") || p.DefaultVPCName != "" || p.DefaultVPCUID != "" || len(p.IntranetNetworks) != 0 {
 		return bad()
 	}
-	if err != nil || !cidr.Addr().Is4() || cidr != cidr.Masked() || cidr.Bits() > 30 || !validEgressID(p.GatewayID, "egw") {
+	if err != nil || !cidr.Addr().Is4() || cidr != cidr.Masked() || cidr.Bits() > 30 || (p.GatewayID != "" && !validEgressID(p.GatewayID, "egw")) {
 		return bad()
 	}
 	usable := func(raw string) bool {

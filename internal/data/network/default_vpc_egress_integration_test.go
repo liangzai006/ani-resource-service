@@ -31,6 +31,43 @@ type defaultEgressFixture struct {
 	policy   biz.WorkerPolicy
 }
 
+func TestCurrentDefaultVPCEgress(t *testing.T) {
+	f := newDefaultEgressFixture(t, nil)
+	if _, err := f.usecase.GetCurrent(f.ctx); err == nil {
+		t.Fatal("empty current outlet must be not found")
+	}
+	created := f.create(t, "current-default-egress")
+	current, err := f.usecase.GetCurrent(f.ctx)
+	if err != nil || current.ID != created.ID || current.Identity != f.identity {
+		t.Fatalf("current outlet not discoverable: %v %v", current, err)
+	}
+	rows, total, err := f.e.ListPlatformEIPs(f.ctx, biz.PlatformEIPFilter{PageWindow: biz.PageWindow{Limit: 20}})
+	if err != nil || total != 1 || len(rows) != 1 || rows[0].ID != current.EIPID || rows[0].ManagedBy != "system" || rows[0].TenantID != "" || rows[0].BindingTarget.ID != current.ID {
+		t.Fatalf("system EIP missing from platform inventory: %+v total=%d err=%v", rows, total, err)
+	}
+	if _, err = f.e.GetPlatformEIP(f.ctx, current.EIPID); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = f.e.ReleasePlatformEIP(f.ctx, current.EIPID); biz.ReasonOf(err) != biz.PermissionDenied {
+		t.Fatalf("system EIP independently released: %v", err)
+	}
+	rows, total, err = f.e.ListPlatformEIPs(f.ctx, biz.PlatformEIPFilter{PageWindow: biz.PageWindow{Limit: 20}, TenantID: f.tenant})
+	if err != nil || total != 0 || len(rows) != 0 {
+		t.Fatalf("system EIP leaked into tenant filter: %+v %d %v", rows, total, err)
+	}
+	tenant := biz.WithEgressCaller(context.Background(), biz.EgressCaller{TenantID: "11111111-1111-4111-8111-111111111111"})
+	if _, err = f.usecase.GetCurrent(tenant); err == nil {
+		t.Fatal("tenant discovered platform outlet")
+	}
+	if _, err = f.usecase.Delete(f.ctx, created.ID); err != nil {
+		t.Fatal(err)
+	}
+	f.driveDefault(t, created.ID, func(v biz.DefaultVPCEgress) bool { return v.State == biz.Deleted })
+	if _, err = f.usecase.GetCurrent(f.ctx); err == nil {
+		t.Fatal("retired outlet returned as current")
+	}
+}
+
 func newDefaultEgressFixture(t *testing.T, intercept func(http.ResponseWriter, *http.Request, *controlled.Server) bool) *defaultEgressFixture {
 	t.Helper()
 	f, api, _, kubeconfig := newEgressKCFixture(t, intercept)

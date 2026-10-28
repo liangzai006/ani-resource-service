@@ -33,11 +33,6 @@ Resource 使用 `ANI_NETWORK_MODE=governance`，保留现有业务 mTLS listener
   "QuotaCertFile": "/managed/resource-client.pem",
   "QuotaKeyFile": "/managed/resource-client.key",
   "QuotaServerName": "ani-governance",
-  "ReleaseAddress": "accelerator.internal:9443",
-  "ReleaseCAFile": "/managed/accelerator-ca.pem",
-  "ReleaseCertFile": "/managed/resource-accelerator.pem",
-  "ReleaseKeyFile": "/managed/resource-accelerator.key",
-  "ReleaseServerName": "ani-accelerator-service",
   "TerminalAddress": ":9446",
   "Service": {
     "ClusterID": "<Acc 的真实 cluster UUID>",
@@ -53,15 +48,17 @@ Resource 使用 `ANI_NETWORK_MODE=governance`，保留现有业务 mTLS listener
 
 示例中的 UUID、地址与私有路径必须替换；未配置默认拒绝。NamespacePrefix 始终从当前 Network 配置读入，不由该 JSON 改写。SigningKeyFile 为 64 字节原始 Ed25519 私钥，不放入源码、普通归档或日志。
 
-ACC 物理释放只使用独立 `spiffe://ani.internal/service/ani-resource-service` 客户端身份，权限仅为 `ObserveRelease`，不复用 Gov 或 Quota 身份。`Release*` 字段全部必填，TLS 1.3 校验受管 CA 和精确 DNS SAN。创建 Notebook 的外部调用前，同一实例/lease 事务先持久 `ExternalComputeStarted` 与完整已见 Pod 历史；进程重启、Stop/Start 和并发删除均保留原 UID。普通 Notebook 删除采用 UID/RV 条件和 Foreground GC，不强制删除 Pod。
+Resource 不再建立 ACC release 连接或调用 `ObserveRelease`。旧私有配置中的 `ReleaseAddress/ReleaseCAFile/ReleaseCertFile/ReleaseKeyFile/ReleaseServerName` 仅为过渡解码兼容保留，不读取文件、不校验或连接地址；新配置应移除它们。`SigningKeyFile` 和 Pod owner 签名仍用于实际运行投影，必须保留；Gov Quota mTLS 继续校验受管 CA、客户端身份、TLS 1.3 和精确 DNS SAN。
 
-Notebook、StatefulSet 和 Pod 全部消失且没有待确认写后，先持久 `ComputeSealAt`，下一轮才查询 ACC 的 cluster/owner 全范围物理证据。ACC 必须确认完整来源水位已越过该 fence、无活分配，所有已知分配都有正向释放事实；未知、节点离线、缺来源或不匹配回执继续占额，不能设置 `ComputeCleaned` 或发送退额事件。只有从未开始外部计算创建且已封闭的取消/删除先到，才使用内部未执行事实跳过物理查询。该证据不增加规格资格或有效期限制。
+创建 Notebook 的外部调用前，同一实例/lease 事务先持久 `ExternalComputeStarted` 与完整已见 Pod 历史；进程重启、Stop/Start 和并发删除均保留原 UID。普通 Notebook 删除采用 UID/RV 条件和 Foreground GC，不强制删除 Pod。明确 DELETE 后依次清理 Notebook/StatefulSet/Pod、专属 PVC/原 PV、网络和借用引用，再在同一事务中保存最终 owner 清理事实和稳定 outbox。未知 CREATE 保持阻塞；借用卷仅解除引用，原数据保留。
+
+Resource 与 ModelDev 共用 Gov 现有 `ReportResourceReleased` 四字段协议；ACC 摘要是旧 Resource 本地门槛，从未传给 Gov。清理事实提交后，独立投递循环重试 Gov，不依赖再次观察 Kubernetes 或 ACC。匹配 APPLIED/ALREADY_APPLIED 才确认本地 outbox；Gov 退额与 ACC 设备容量恢复分别核验。CPU 实例没有 GPU 释放事件，普通 Stop/Start 不退额。
 
 GPU RuntimeClass 必须由 ACC 受管配置写入唯一 `GpuExecution.runtime_class_name`；Res 没有第二个配置来源。只有历史004从F256/百分比迁往绝对显存合同的首次切换才要求先结束不兼容GPU活动并确认outbox；不得将旧F256状态交给当前reader。本次目录迁移校验已应用004且不重放，保留当前合同的GPU活动、冻结执行和原账，不要求重新发布ACC Profile。
 
 规格唯一来源为 Resource compute 的 `compute.presets`，配置中的 `Presets` 已删除，严格配置解码会拒绝该旧字段。规格通过 Gov 的 ComputePresetService 平台管理入口创建，CPU 创建不依赖 ACC；GPU 新建/替换引用必须使用可信 ACC 目录的完整事实。独立算力配置与原地迁移见[算力目录合同](../specs/compute-presets.md)及[维护/逆向恢复手册](compute-presets-migration.md)。
 
-首次迁移由独立 owner 身份显式运行 `ANI_INSTANCE_OWNER_DSN_FILE=<私有文件> ANI_INSTANCE_RUNTIME_ROLE=<受限角色> ./ani-resource-service -instance-migrate`，按历史instance阶段再进入独立compute阶段。已有001..006只验证checksum，不重放004；本次目录迁移保留已有实例和GPU活动，前文旧F256切换前置不适用于目录改名。应用只用受限角色，不在启动时迁移，不用超级用户。启动方式沿用现有 Resource 的 `-conf`、Image及`ANI_INSTANCE_CONFIG_FILE`，并提供显式`ANI_COMPUTE_CONFIG_FILE`；两者使用同一受管实例/规格数据库及cluster。
+首次迁移由独立 owner 身份显式运行 `ANI_INSTANCE_OWNER_DSN_FILE=<私有文件> ANI_INSTANCE_RUNTIME_ROLE=<受限角色> ./ani-resource-service -instance-migrate`，按 instance 阶段再进入独立 compute 阶段。已有001..006只验证checksum，不重放004；本次追加007至schema 7，Compute元数据迁移也校验这一完整历史，保留原表、实例、GPU活动和原账。前文旧F256切换前置不适用于本次增量。应用只用受限角色，不在启动时迁移，不用超级用户。启动方式沿用现有 Resource 的 `-conf`、Image及`ANI_INSTANCE_CONFIG_FILE`，并提供显式`ANI_COMPUTE_CONFIG_FILE`；两者使用同一受管实例/规格数据库及cluster。
 
 Governance 配置 `ANI_INSTANCE_ADDR/CA/CERT/KEY`（现有 Resource DNS-only mTLS），登记 INSTANCE 套餐模块、九个具体 API 及实验用户当前角色权限、GPU quota。先执行既有 `sync-apis --dry-run`，审阅后执行 `sync-apis`；Governance 仓的 `scripts/ops/sql/register-instance-permissions.sql` 只登记对应 action，不自动扩大租户或角色授权。退额 listener 增加 `ANI_QUOTA_RESOURCE_DNS_SAN=<Resource 客户端精确 DNS SAN>`，固定映射 `ani-resource-service`，不能与 Inference 名称复用。
 
@@ -130,8 +127,9 @@ ssh fedora 'python3 /home/chabking/workspace/ani-resource-service-runs/instance-
 - 重启后由同一受限 PG、原冻结 spec 和唯一 GPU execution、待定 mutation 和 lease epoch 恢复；普通 Stop/Start 不重占额、不重新解析镜像或 Namespace，不更换 PVC。
 - `CREATE_RESULT_UNKNOWN` / `WORKSPACE_CREATE_RESULT_UNKNOWN` 保留原待定动作与原账。404、等待和重启不能清除它；只有原归属对象或可归因的确定外部结果才可推进。未实现绕过该规则的管理强制完成接口。
 - 旧 worker 结果只能写入所属原操作的 receipt，不能覆盖新业务意图；过期 lease 拒绝回写。版本冲突后重新读取当前状态，不能重试旧 Start。
-- `QUOTA_RETURN_PENDING` 使用持久 outbox 中的原事件、原 CREATE、resource 与 reason重试。Gov 已入账但回执丢失也不能生成新事件。PVC 删除失败时允许 GPU 已归还，整体删除仍保持未完成。
-- `WORKSPACE_OBSERVATION_FAILED` 保留磁盘重试，计算已清理时仍可归还原 GPU quota。`WAITING_FOR_WORKSPACE_RECLAIM` 表示 PVC 已消失、原 PV 尚未回收；只有回收核验通过才完成整体删除。不通过手改状态、移除存储 finalizer 或直接删 PV 解阻。
+- `WAITING_FOR_PHYSICAL_RELEASE` 的旧 DELETE 按新规则重新观察并继续清理；不补假摘要，不批量改 `ComputeCleaned/QuotaReturned`。升级前停止旧版本实例执行与投递，避免继续提前上报；由 owner 显式执行增量 `007_owner_cleanup_release.sql`（schema 7），匹配二进制与配置同批切换，应用启动不迁移。具体运行授权及结果见[本次执行状态](../execution/status.md#container-instance-owner-refund-2026-10-27)。
+- `QUOTA_RETURN_PENDING` 使用持久 outbox 中的原事件、原 CREATE、resource 与 reason 重试。旧未 ACK 事件须先核实全部清理并固化最终事实，不能直接扫描即发；Gov 已入账但回执丢失仍重试原事件。旧已 ACK 事实保留，只继续剩余清理，不重复退额。
+- `WORKSPACE_OBSERVATION_FAILED` 保留磁盘重试；计算已清理仍须等工作盘、网络和引用完整清理后才投递原 GPU 退额。`WAITING_FOR_WORKSPACE_RECLAIM` 表示 PVC 已消失、原 PV 尚未回收；不通过手改状态、移除存储 finalizer 或直接删 PV 解阻。
 - 回退前保存共享服务原配置、镜像、证书引用和数据库迁移点；恢复原启动配置可禁用新接入，但不能删除实例账本、待定动作或退额 outbox。已有接受请求未收敛时，保留 owner 执行与可靠退额能力。不得删除共享 Namespace、租户 Image pull secret 或其他任务对象。
 
 本任务快照、测试二进制、私有运行配置与文件哈希按当前状态记录的远端目录保留。临时 fixture PG/Redis 由标签核对后自动清理；隔离实验的持久 PG/Redis、卷和角色密钥保留用于恢复。CPU 基础设施探针已按原 UID 回收，资源清单记录留存；真实 GPU 产品对象必须通过产品删除并核对 compute、专属 PVC 与账本，再清理对应任务 SA/Namespace。共享平台组件缺失时记录准确断点和最小接入条件，不安装设备插件或重建集群来扩展本任务。

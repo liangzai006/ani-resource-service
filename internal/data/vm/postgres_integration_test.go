@@ -27,6 +27,7 @@ func TestVMPostgresAcceptanceReplayVersionAndTenant(t *testing.T) {
 	defer p.Close()
 	tenant, id, op := uuid.NewString(), uuid.NewString(), uuid.NewString()
 	a := biz.Acceptance{TenantID: tenant, VMID: id, OperationID: op, RequestDigest: stringDigest('a'), Spec: biz.Spec{Canonical: []byte(`{"immutable":"repository-fixture"}`), Digest: stringDigest('b'), Name: "test", InitialDisks: []biz.Disk{biz.NewInitialDisk(id, "system", "system", "system", 8)}}}
+	a.Spec.DNS = &biz.DNS{Mode: "PLATFORM_DEFAULT", Nameservers: []string{"223.5.5.5"}}
 	const count = 8
 	var wg sync.WaitGroup
 	wg.Add(count)
@@ -122,6 +123,9 @@ func TestVMPostgresAcceptanceReplayVersionAndTenant(t *testing.T) {
 		t.Fatal(e)
 	}
 	defer p2.Close()
+	if persisted, e := p2.Get(ctx, tenant, id); e != nil || persisted.Spec.DNS == nil || persisted.Spec.DNS.Mode != "PLATFORM_DEFAULT" || len(persisted.Spec.DNS.Nameservers) != 1 || persisted.Spec.DNS.Nameservers[0] != "223.5.5.5" {
+		t.Fatalf("restart lost frozen DNS: %+v %v", persisted.Spec.DNS, e)
+	}
 	if o, e = p2.GetOperation(ctx, tenant, id, deleteOp.ID); e != nil || o.State != "accepted" {
 		t.Fatalf("restart lost durable accept: %+v %v", o, e)
 	}

@@ -31,7 +31,7 @@ func NewDefaultVPCEgressRepository(p *Postgres, i biz.DefaultVPCIdentity, provid
 	return &DefaultVPCEgressPostgres{p, i, provider, freshness}, nil
 }
 func defaultEgressSnapshot(r sqlcgen.NetworkDefaultVpcEgress, operationState string) biz.DefaultVPCEgress {
-	v := biz.DefaultVPCEgress{EgressMetadata: biz.EgressMetadata{ID: r.ResourceID, Name: r.Name, State: biz.ResourceState(r.State), Reason: biz.Reason(r.Reason), Version: r.Version, CreatedAt: r.CreatedAt, UpdatedAt: r.UpdatedAt, ObservedAt: r.ObservedAt, LastOperationID: r.LastOperationID}, PoolID: r.PoolID, Phase: r.Phase, OperationState: operationState, Address: r.Address,
+	v := biz.DefaultVPCEgress{EgressMetadata: biz.EgressMetadata{ID: r.ResourceID, Name: r.Name, State: biz.ResourceState(r.State), Reason: biz.Reason(r.Reason), Version: r.Version, CreatedAt: r.CreatedAt, UpdatedAt: r.UpdatedAt, ObservedAt: r.ObservedAt, LastOperationID: r.LastOperationID}, PoolID: r.PoolID, Phase: r.Phase, OperationState: operationState, Address: r.Address, EIPID: r.EipID,
 		Identity:        biz.DefaultVPCIdentity{ClusterID: r.ClusterID, ClusterUID: r.ClusterUid, Namespace: r.DefaultVpcNamespace, Name: r.DefaultVpcName, UID: r.DefaultVpcUid},
 		EIPProviderName: r.EipProviderName, EIPProviderUID: r.EipProviderUid, SnatProviderName: r.SnatProviderName, SnatProviderUID: r.SnatProviderUid, PendingAction: r.PendingAction, PendingUnknown: r.PendingUnknown, DesiredEnabled: true, TargetGeneration: r.TargetGeneration}
 	if r.AppliedEnabled.Valid {
@@ -108,7 +108,7 @@ func (p *DefaultVPCEgressPostgres) CreateDefaultVPCEgress(ctx context.Context, i
 	}
 	id, op := newEgressID("dve"), uuid.NewString()
 	suffix := strings.TrimPrefix(id, "dve_")
-	err = q.InsertDefaultEgress(ctx, sqlcgen.InsertDefaultEgressParams{ResourceID: id, ClusterID: p.identity.ClusterID, ClusterUid: p.identity.ClusterUID, DefaultVpcNamespace: p.identity.Namespace, DefaultVpcName: p.identity.Name, DefaultVpcUid: p.identity.UID, Name: i.Name, PoolID: i.PoolID, PoolRevision: pool.ConfigRevision, PoolProviderUid: resource.ProviderUid, AdmissionHash: proof.Hash, AdmittedAt: now, LastOperationID: op, EipProviderName: "ani-default-eip-" + suffix, EipBindingID: uuid.NewString(), SnatProviderName: "ani-default-snat-" + suffix, SnatBindingID: uuid.NewString()})
+	err = q.InsertDefaultEgress(ctx, sqlcgen.InsertDefaultEgressParams{ResourceID: id, EipID: newEgressID("eip"), ClusterID: p.identity.ClusterID, ClusterUid: p.identity.ClusterUID, DefaultVpcNamespace: p.identity.Namespace, DefaultVpcName: p.identity.Name, DefaultVpcUid: p.identity.UID, Name: i.Name, PoolID: i.PoolID, PoolRevision: pool.ConfigRevision, PoolProviderUid: resource.ProviderUid, AdmissionHash: proof.Hash, AdmittedAt: now, LastOperationID: op, EipProviderName: "ani-default-eip-" + suffix, EipBindingID: uuid.NewString(), SnatProviderName: "ani-default-snat-" + suffix, SnatBindingID: uuid.NewString()})
 	if err != nil {
 		return biz.DefaultVPCEgress{}, switchAdmissionFailure(err)
 	}
@@ -137,7 +137,10 @@ func (p *DefaultVPCEgressPostgres) GetDefaultVPCEgress(ctx context.Context, id s
 	if err != nil {
 		return biz.DefaultVPCEgress{}, databaseFailure(err)
 	}
-	v := defaultEgressSnapshot(r.NetworkDefaultVpcEgress, r.OperationState)
+	return p.observedDefaultEgress(ctx, r.NetworkDefaultVpcEgress, r.OperationState)
+}
+func (p *DefaultVPCEgressPostgres) observedDefaultEgress(ctx context.Context, row sqlcgen.NetworkDefaultVpcEgress, state string) (biz.DefaultVPCEgress, error) {
+	v := defaultEgressSnapshot(row, state)
 	now, err := p.base.queries.DatabaseTime(ctx)
 	if err != nil {
 		return v, databaseFailure(err)
@@ -147,6 +150,15 @@ func (p *DefaultVPCEgressPostgres) GetDefaultVPCEgress(ctx context.Context, id s
 		v.State, v.Reason = biz.Degraded, biz.ProviderNotReady
 	}
 	return v, nil
+}
+func (p *DefaultVPCEgressPostgres) GetCurrentDefaultVPCEgress(ctx context.Context) (biz.DefaultVPCEgress, error) {
+	r, err := p.base.queries.GetCurrentDefaultEgress(ctx, sqlcgen.GetCurrentDefaultEgressParams{
+		ClusterID: p.identity.ClusterID, DefaultVpcNamespace: p.identity.Namespace, DefaultVpcName: p.identity.Name,
+	})
+	if err != nil {
+		return biz.DefaultVPCEgress{}, databaseFailure(err)
+	}
+	return p.observedDefaultEgress(ctx, r.NetworkDefaultVpcEgress, r.OperationState)
 }
 func (p *DefaultVPCEgressPostgres) DeleteDefaultVPCEgress(ctx context.Context, id string, a biz.Attribution) (biz.DefaultVPCEgress, error) {
 	tx, err := p.base.pool.Begin(ctx)

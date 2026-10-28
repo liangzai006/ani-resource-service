@@ -171,3 +171,43 @@ func TestKCBridgeFactsRetainV09GroupNetwork(t *testing.T) {
 		t.Fatal(bridge, networks, err)
 	}
 }
+
+// Node source timestamps gate physical freshness independently of the time of a
+// complete Kubernetes collection, which must cover the prior committed fact.
+func TestVirtualSwitchObservationProofCoversConsecutiveCollections(t *testing.T) {
+	sw, nodes, maps, daemons, config, now := switchFixture(t)
+	collected := now.Add(20 * time.Second)
+	current, err := virtualSwitchInventoryMode(sw, "ens35", nodes, maps, nil, daemons, config, collected, collected, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	proof := virtualSwitchObservationProof(sw, current.Inventory, collected)
+	proof.CoveredGeneration = 2
+	requirement := biz.ObservationRequirement{RequestedGeneration: 2, AppliedAt: now.Add(10 * time.Second), Hash: "prior-applied-fact"}
+	if !proof.Covers(requirement) {
+		t.Fatalf("new complete collection was fenced by old node timestamp: proof=%+v requirement=%+v", proof, requirement)
+	}
+	if !proof.CollectedAt.Equal(now) {
+		t.Fatal("reading source facts renewed physical freshness", proof)
+	}
+	requirement.PreviousCollectedAt = now.Add(time.Second)
+	if proof.Covers(requirement) {
+		t.Fatal("physical evidence regressed behind committed source", proof)
+	}
+	requirement.PreviousCollectedAt = time.Time{}
+	proof.CollectionStartedAt = now.Add(5 * time.Second)
+	if proof.Covers(requirement) {
+		t.Fatal("older API collection bypassed commit fence", proof)
+	}
+	if _, err = virtualSwitchInventoryMode(sw, "ens35", nodes, maps, nil, daemons, config, now.Add(61*time.Second), now.Add(61*time.Second), false); err == nil {
+		t.Fatal("expired physical facts accepted")
+	}
+}
+
+func TestVirtualSwitchDependentReadRejectsInvalidParentViewForBoundedRetry(t *testing.T) {
+	p := &KCProvider{observation: &KCObservation{epoch: 2}}
+	_, _, proof, err := p.virtualSwitchDeviceState(context.Background(), biz.VirtualSwitch{}, sqlcgen.NetworkDeviceAdoption{}, &auditView{epoch: 1})
+	if err != errEgressAuditInvalid || !proof.CollectedAt.IsZero() {
+		t.Fatal("dependent read escaped parent audit fence", proof, err)
+	}
+}

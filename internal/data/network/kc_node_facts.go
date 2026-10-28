@@ -3,6 +3,7 @@ package data
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/netip"
 	"slices"
 	"strings"
@@ -402,24 +403,38 @@ func (p *KCProvider) ValidatePublicPool(ctx context.Context, c biz.PublicPoolCon
 
 func (p *KCProvider) nodeFactsObjects(ctx context.Context) ([]unstructured.Unstructured, []unstructured.Unstructured, []unstructured.Unstructured, time.Time, error) {
 	if p.observation != nil {
-		view, err := p.observation.snapshot(ctx, time.Time{})
-		if err != nil {
-			return nil, nil, nil, time.Time{}, readFailure(err)
-		}
-		if !p.observation.valid(view, []string{"node-facts"}) {
-			view, err = p.observation.snapshot(ctx, time.Now())
-			if err != nil {
-				return nil, nil, nil, time.Time{}, readFailure(err)
+		var after time.Time
+		refreshed := false
+		for {
+			if err := ctx.Err(); err != nil {
+				return nil, nil, nil, time.Time{}, readFailure(fmt.Errorf("node facts audit stopped: %w", err))
 			}
+			view, err := p.observation.snapshot(ctx, after)
+			if err != nil {
+				return nil, nil, nil, time.Time{}, readFailure(fmt.Errorf("node facts audit collection failed: %w", err))
+			}
+			nodes, maps, vlans, collected, err := nodeFactsFromView(view)
+			if err != nil {
+				return nil, nil, nil, time.Time{}, err
+			}
+			if err = ctx.Err(); err != nil {
+				return nil, nil, nil, time.Time{}, readFailure(fmt.Errorf("node facts audit stopped: %w", err))
+			}
+			if p.observation.valid(view, []string{"node-facts"}) {
+				return nodes, maps, vlans, collected, nil
+			}
+			// A related event or Watch boundary can invalidate more than one
+			// collection. Recollect within the original caller budget, always
+			// after a new DB-clock boundary. Real read failures are not retries.
+			if _, bounded := ctx.Deadline(); !bounded && refreshed {
+				return nil, nil, nil, time.Time{}, readFailure(fmt.Errorf("node facts audit invalidated after one fresh collection"))
+			}
+			after, err = p.repository.queries.DatabaseTime(ctx)
+			if err != nil {
+				return nil, nil, nil, time.Time{}, readFailure(fmt.Errorf("node facts audit boundary failed: %w", err))
+			}
+			refreshed = true
 		}
-		nodes, maps, vlans, collected, err := nodeFactsFromView(view)
-		if err != nil {
-			return nil, nil, nil, time.Time{}, err
-		}
-		if !p.observation.valid(view, []string{"node-facts"}) {
-			return nil, nil, nil, time.Time{}, &biz.ProviderError{Kind: biz.ProviderTemporary}
-		}
-		return nodes, maps, vlans, collected, nil
 	}
 	collected, err := p.repository.queries.DatabaseTime(ctx)
 	if err != nil {
@@ -443,7 +458,7 @@ func (p *KCProvider) nodeFactsObjects(ctx context.Context) ([]unstructured.Unstr
 func nodeFactsFromView(view *auditView) ([]unstructured.Unstructured, []unstructured.Unstructured, []unstructured.Unstructured, time.Time, error) {
 	for _, gvr := range []schema.GroupVersionResource{kcNodes, kcConfigMaps, kcVlans} {
 		if view.indices[gvr] == nil {
-			return nil, nil, nil, time.Time{}, &biz.ProviderError{Kind: biz.ProviderTemporary}
+			return nil, nil, nil, time.Time{}, readFailure(fmt.Errorf("node facts audit is missing %s", gvr.Resource))
 		}
 	}
 	items := func(gvr schema.GroupVersionResource) []unstructured.Unstructured {

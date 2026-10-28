@@ -126,6 +126,42 @@ func (x *GetDefaultVPCEgressRequest) GetEgressId() string {
 	return ""
 }
 
+type GetCurrentDefaultVPCEgressRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCurrentDefaultVPCEgressRequest) Reset() {
+	*x = GetCurrentDefaultVPCEgressRequest{}
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCurrentDefaultVPCEgressRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCurrentDefaultVPCEgressRequest) ProtoMessage() {}
+
+func (x *GetCurrentDefaultVPCEgressRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCurrentDefaultVPCEgressRequest.ProtoReflect.Descriptor instead.
+func (*GetCurrentDefaultVPCEgressRequest) Descriptor() ([]byte, []int) {
+	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{2}
+}
+
 type DeleteDefaultVPCEgressRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	EgressId      string                 `protobuf:"bytes,1,opt,name=egress_id,json=egressId,proto3" json:"egress_id,omitempty"`
@@ -135,7 +171,7 @@ type DeleteDefaultVPCEgressRequest struct {
 
 func (x *DeleteDefaultVPCEgressRequest) Reset() {
 	*x = DeleteDefaultVPCEgressRequest{}
-	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[2]
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -147,7 +183,7 @@ func (x *DeleteDefaultVPCEgressRequest) String() string {
 func (*DeleteDefaultVPCEgressRequest) ProtoMessage() {}
 
 func (x *DeleteDefaultVPCEgressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[2]
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -160,7 +196,7 @@ func (x *DeleteDefaultVPCEgressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteDefaultVPCEgressRequest.ProtoReflect.Descriptor instead.
 func (*DeleteDefaultVPCEgressRequest) Descriptor() ([]byte, []int) {
-	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{2}
+	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *DeleteDefaultVPCEgressRequest) GetEgressId() string {
@@ -179,7 +215,7 @@ type CreateDefaultVPCEgressResponse struct {
 
 func (x *CreateDefaultVPCEgressResponse) Reset() {
 	*x = CreateDefaultVPCEgressResponse{}
-	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[3]
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -191,7 +227,7 @@ func (x *CreateDefaultVPCEgressResponse) String() string {
 func (*CreateDefaultVPCEgressResponse) ProtoMessage() {}
 
 func (x *CreateDefaultVPCEgressResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[3]
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -204,7 +240,7 @@ func (x *CreateDefaultVPCEgressResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateDefaultVPCEgressResponse.ProtoReflect.Descriptor instead.
 func (*CreateDefaultVPCEgressResponse) Descriptor() ([]byte, []int) {
-	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{3}
+	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *CreateDefaultVPCEgressResponse) GetEgress() *DefaultVPCEgress {
@@ -223,7 +259,7 @@ type GetDefaultVPCEgressResponse struct {
 
 func (x *GetDefaultVPCEgressResponse) Reset() {
 	*x = GetDefaultVPCEgressResponse{}
-	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[4]
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -235,7 +271,7 @@ func (x *GetDefaultVPCEgressResponse) String() string {
 func (*GetDefaultVPCEgressResponse) ProtoMessage() {}
 
 func (x *GetDefaultVPCEgressResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[4]
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -248,10 +284,54 @@ func (x *GetDefaultVPCEgressResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDefaultVPCEgressResponse.ProtoReflect.Descriptor instead.
 func (*GetDefaultVPCEgressResponse) Descriptor() ([]byte, []int) {
-	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{4}
+	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetDefaultVPCEgressResponse) GetEgress() *DefaultVPCEgress {
+	if x != nil {
+		return x.Egress
+	}
+	return nil
+}
+
+type GetCurrentDefaultVPCEgressResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Egress        *DefaultVPCEgress      `protobuf:"bytes,1,opt,name=egress,proto3" json:"egress,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCurrentDefaultVPCEgressResponse) Reset() {
+	*x = GetCurrentDefaultVPCEgressResponse{}
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCurrentDefaultVPCEgressResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCurrentDefaultVPCEgressResponse) ProtoMessage() {}
+
+func (x *GetCurrentDefaultVPCEgressResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCurrentDefaultVPCEgressResponse.ProtoReflect.Descriptor instead.
+func (*GetCurrentDefaultVPCEgressResponse) Descriptor() ([]byte, []int) {
+	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *GetCurrentDefaultVPCEgressResponse) GetEgress() *DefaultVPCEgress {
 	if x != nil {
 		return x.Egress
 	}
@@ -267,7 +347,7 @@ type DeleteDefaultVPCEgressResponse struct {
 
 func (x *DeleteDefaultVPCEgressResponse) Reset() {
 	*x = DeleteDefaultVPCEgressResponse{}
-	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[5]
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -279,7 +359,7 @@ func (x *DeleteDefaultVPCEgressResponse) String() string {
 func (*DeleteDefaultVPCEgressResponse) ProtoMessage() {}
 
 func (x *DeleteDefaultVPCEgressResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[5]
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -292,7 +372,7 @@ func (x *DeleteDefaultVPCEgressResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteDefaultVPCEgressResponse.ProtoReflect.Descriptor instead.
 func (*DeleteDefaultVPCEgressResponse) Descriptor() ([]byte, []int) {
-	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{5}
+	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *DeleteDefaultVPCEgressResponse) GetEgress() *DefaultVPCEgress {
@@ -332,13 +412,14 @@ type DefaultVPCEgress struct {
 	TargetGeneration    int64                  `protobuf:"varint,26,opt,name=target_generation,json=targetGeneration,proto3" json:"target_generation,omitempty"`
 	PendingAction       string                 `protobuf:"bytes,27,opt,name=pending_action,json=pendingAction,proto3" json:"pending_action,omitempty"`
 	ObservationStale    bool                   `protobuf:"varint,28,opt,name=observation_stale,json=observationStale,proto3" json:"observation_stale,omitempty"`
+	EipId               string                 `protobuf:"bytes,29,opt,name=eip_id,json=eipId,proto3" json:"eip_id,omitempty"`
 	unknownFields       protoimpl.UnknownFields
 	sizeCache           protoimpl.SizeCache
 }
 
 func (x *DefaultVPCEgress) Reset() {
 	*x = DefaultVPCEgress{}
-	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[6]
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -350,7 +431,7 @@ func (x *DefaultVPCEgress) String() string {
 func (*DefaultVPCEgress) ProtoMessage() {}
 
 func (x *DefaultVPCEgress) ProtoReflect() protoreflect.Message {
-	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[6]
+	mi := &file_network_v1_default_vpc_egress_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -363,7 +444,7 @@ func (x *DefaultVPCEgress) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DefaultVPCEgress.ProtoReflect.Descriptor instead.
 func (*DefaultVPCEgress) Descriptor() ([]byte, []int) {
-	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{6}
+	return file_network_v1_default_vpc_egress_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *DefaultVPCEgress) GetId() string {
@@ -562,6 +643,13 @@ func (x *DefaultVPCEgress) GetObservationStale() bool {
 	return false
 }
 
+func (x *DefaultVPCEgress) GetEipId() string {
+	if x != nil {
+		return x.EipId
+	}
+	return ""
+}
+
 var File_network_v1_default_vpc_egress_proto protoreflect.FileDescriptor
 
 const file_network_v1_default_vpc_egress_proto_rawDesc = "" +
@@ -573,15 +661,18 @@ const file_network_v1_default_vpc_egress_proto_rawDesc = "" +
 	"\apool_id\x18\x02 \x01(\tR\x06poolId\x12'\n" +
 	"\x0fidempotency_key\x18\x03 \x01(\tR\x0eidempotencyKey\"9\n" +
 	"\x1aGetDefaultVPCEgressRequest\x12\x1b\n" +
-	"\tegress_id\x18\x01 \x01(\tR\begressId\"<\n" +
+	"\tegress_id\x18\x01 \x01(\tR\begressId\"#\n" +
+	"!GetCurrentDefaultVPCEgressRequest\"<\n" +
 	"\x1dDeleteDefaultVPCEgressRequest\x12\x1b\n" +
 	"\tegress_id\x18\x01 \x01(\tR\begressId\"V\n" +
 	"\x1eCreateDefaultVPCEgressResponse\x124\n" +
 	"\x06egress\x18\x01 \x01(\v2\x1c.network.v1.DefaultVPCEgressR\x06egress\"S\n" +
 	"\x1bGetDefaultVPCEgressResponse\x124\n" +
+	"\x06egress\x18\x01 \x01(\v2\x1c.network.v1.DefaultVPCEgressR\x06egress\"Z\n" +
+	"\"GetCurrentDefaultVPCEgressResponse\x124\n" +
 	"\x06egress\x18\x01 \x01(\v2\x1c.network.v1.DefaultVPCEgressR\x06egress\"V\n" +
 	"\x1eDeleteDefaultVPCEgressResponse\x124\n" +
-	"\x06egress\x18\x01 \x01(\v2\x1c.network.v1.DefaultVPCEgressR\x06egress\"\xda\b\n" +
+	"\x06egress\x18\x01 \x01(\v2\x1c.network.v1.DefaultVPCEgressR\x06egress\"\xf1\b\n" +
 	"\x10DefaultVPCEgress\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x17\n" +
@@ -616,11 +707,13 @@ const file_network_v1_default_vpc_egress_proto_rawDesc = "" +
 	"observedAt\x12+\n" +
 	"\x11target_generation\x18\x1a \x01(\x03R\x10targetGeneration\x12%\n" +
 	"\x0epending_action\x18\x1b \x01(\tR\rpendingAction\x12+\n" +
-	"\x11observation_stale\x18\x1c \x01(\bR\x10observationStaleB\x12\n" +
-	"\x10_applied_enabled2\xe8\x02\n" +
+	"\x11observation_stale\x18\x1c \x01(\bR\x10observationStale\x12\x15\n" +
+	"\x06eip_id\x18\x1d \x01(\tR\x05eipIdB\x12\n" +
+	"\x10_applied_enabled2\xe5\x03\n" +
 	"\x1cPlatformDefaultEgressService\x12o\n" +
 	"\x16CreateDefaultVPCEgress\x12).network.v1.CreateDefaultVPCEgressRequest\x1a*.network.v1.CreateDefaultVPCEgressResponse\x12f\n" +
-	"\x13GetDefaultVPCEgress\x12&.network.v1.GetDefaultVPCEgressRequest\x1a'.network.v1.GetDefaultVPCEgressResponse\x12o\n" +
+	"\x13GetDefaultVPCEgress\x12&.network.v1.GetDefaultVPCEgressRequest\x1a'.network.v1.GetDefaultVPCEgressResponse\x12{\n" +
+	"\x1aGetCurrentDefaultVPCEgress\x12-.network.v1.GetCurrentDefaultVPCEgressRequest\x1a..network.v1.GetCurrentDefaultVPCEgressResponse\x12o\n" +
 	"\x16DeleteDefaultVPCEgress\x12).network.v1.DeleteDefaultVPCEgressRequest\x1a*.network.v1.DeleteDefaultVPCEgressResponseBHZFgithub.com/zhangzhe-ctrl/ani-resource-service/api/network/v1;networkv1b\x06proto3"
 
 var (
@@ -635,35 +728,40 @@ func file_network_v1_default_vpc_egress_proto_rawDescGZIP() []byte {
 	return file_network_v1_default_vpc_egress_proto_rawDescData
 }
 
-var file_network_v1_default_vpc_egress_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_network_v1_default_vpc_egress_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_network_v1_default_vpc_egress_proto_goTypes = []any{
-	(*CreateDefaultVPCEgressRequest)(nil),  // 0: network.v1.CreateDefaultVPCEgressRequest
-	(*GetDefaultVPCEgressRequest)(nil),     // 1: network.v1.GetDefaultVPCEgressRequest
-	(*DeleteDefaultVPCEgressRequest)(nil),  // 2: network.v1.DeleteDefaultVPCEgressRequest
-	(*CreateDefaultVPCEgressResponse)(nil), // 3: network.v1.CreateDefaultVPCEgressResponse
-	(*GetDefaultVPCEgressResponse)(nil),    // 4: network.v1.GetDefaultVPCEgressResponse
-	(*DeleteDefaultVPCEgressResponse)(nil), // 5: network.v1.DeleteDefaultVPCEgressResponse
-	(*DefaultVPCEgress)(nil),               // 6: network.v1.DefaultVPCEgress
-	(*timestamppb.Timestamp)(nil),          // 7: google.protobuf.Timestamp
+	(*CreateDefaultVPCEgressRequest)(nil),      // 0: network.v1.CreateDefaultVPCEgressRequest
+	(*GetDefaultVPCEgressRequest)(nil),         // 1: network.v1.GetDefaultVPCEgressRequest
+	(*GetCurrentDefaultVPCEgressRequest)(nil),  // 2: network.v1.GetCurrentDefaultVPCEgressRequest
+	(*DeleteDefaultVPCEgressRequest)(nil),      // 3: network.v1.DeleteDefaultVPCEgressRequest
+	(*CreateDefaultVPCEgressResponse)(nil),     // 4: network.v1.CreateDefaultVPCEgressResponse
+	(*GetDefaultVPCEgressResponse)(nil),        // 5: network.v1.GetDefaultVPCEgressResponse
+	(*GetCurrentDefaultVPCEgressResponse)(nil), // 6: network.v1.GetCurrentDefaultVPCEgressResponse
+	(*DeleteDefaultVPCEgressResponse)(nil),     // 7: network.v1.DeleteDefaultVPCEgressResponse
+	(*DefaultVPCEgress)(nil),                   // 8: network.v1.DefaultVPCEgress
+	(*timestamppb.Timestamp)(nil),              // 9: google.protobuf.Timestamp
 }
 var file_network_v1_default_vpc_egress_proto_depIdxs = []int32{
-	6, // 0: network.v1.CreateDefaultVPCEgressResponse.egress:type_name -> network.v1.DefaultVPCEgress
-	6, // 1: network.v1.GetDefaultVPCEgressResponse.egress:type_name -> network.v1.DefaultVPCEgress
-	6, // 2: network.v1.DeleteDefaultVPCEgressResponse.egress:type_name -> network.v1.DefaultVPCEgress
-	7, // 3: network.v1.DefaultVPCEgress.created_at:type_name -> google.protobuf.Timestamp
-	7, // 4: network.v1.DefaultVPCEgress.updated_at:type_name -> google.protobuf.Timestamp
-	7, // 5: network.v1.DefaultVPCEgress.observed_at:type_name -> google.protobuf.Timestamp
-	0, // 6: network.v1.PlatformDefaultEgressService.CreateDefaultVPCEgress:input_type -> network.v1.CreateDefaultVPCEgressRequest
-	1, // 7: network.v1.PlatformDefaultEgressService.GetDefaultVPCEgress:input_type -> network.v1.GetDefaultVPCEgressRequest
-	2, // 8: network.v1.PlatformDefaultEgressService.DeleteDefaultVPCEgress:input_type -> network.v1.DeleteDefaultVPCEgressRequest
-	3, // 9: network.v1.PlatformDefaultEgressService.CreateDefaultVPCEgress:output_type -> network.v1.CreateDefaultVPCEgressResponse
-	4, // 10: network.v1.PlatformDefaultEgressService.GetDefaultVPCEgress:output_type -> network.v1.GetDefaultVPCEgressResponse
-	5, // 11: network.v1.PlatformDefaultEgressService.DeleteDefaultVPCEgress:output_type -> network.v1.DeleteDefaultVPCEgressResponse
-	9, // [9:12] is the sub-list for method output_type
-	6, // [6:9] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	8,  // 0: network.v1.CreateDefaultVPCEgressResponse.egress:type_name -> network.v1.DefaultVPCEgress
+	8,  // 1: network.v1.GetDefaultVPCEgressResponse.egress:type_name -> network.v1.DefaultVPCEgress
+	8,  // 2: network.v1.GetCurrentDefaultVPCEgressResponse.egress:type_name -> network.v1.DefaultVPCEgress
+	8,  // 3: network.v1.DeleteDefaultVPCEgressResponse.egress:type_name -> network.v1.DefaultVPCEgress
+	9,  // 4: network.v1.DefaultVPCEgress.created_at:type_name -> google.protobuf.Timestamp
+	9,  // 5: network.v1.DefaultVPCEgress.updated_at:type_name -> google.protobuf.Timestamp
+	9,  // 6: network.v1.DefaultVPCEgress.observed_at:type_name -> google.protobuf.Timestamp
+	0,  // 7: network.v1.PlatformDefaultEgressService.CreateDefaultVPCEgress:input_type -> network.v1.CreateDefaultVPCEgressRequest
+	1,  // 8: network.v1.PlatformDefaultEgressService.GetDefaultVPCEgress:input_type -> network.v1.GetDefaultVPCEgressRequest
+	2,  // 9: network.v1.PlatformDefaultEgressService.GetCurrentDefaultVPCEgress:input_type -> network.v1.GetCurrentDefaultVPCEgressRequest
+	3,  // 10: network.v1.PlatformDefaultEgressService.DeleteDefaultVPCEgress:input_type -> network.v1.DeleteDefaultVPCEgressRequest
+	4,  // 11: network.v1.PlatformDefaultEgressService.CreateDefaultVPCEgress:output_type -> network.v1.CreateDefaultVPCEgressResponse
+	5,  // 12: network.v1.PlatformDefaultEgressService.GetDefaultVPCEgress:output_type -> network.v1.GetDefaultVPCEgressResponse
+	6,  // 13: network.v1.PlatformDefaultEgressService.GetCurrentDefaultVPCEgress:output_type -> network.v1.GetCurrentDefaultVPCEgressResponse
+	7,  // 14: network.v1.PlatformDefaultEgressService.DeleteDefaultVPCEgress:output_type -> network.v1.DeleteDefaultVPCEgressResponse
+	11, // [11:15] is the sub-list for method output_type
+	7,  // [7:11] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_network_v1_default_vpc_egress_proto_init() }
@@ -671,14 +769,14 @@ func file_network_v1_default_vpc_egress_proto_init() {
 	if File_network_v1_default_vpc_egress_proto != nil {
 		return
 	}
-	file_network_v1_default_vpc_egress_proto_msgTypes[6].OneofWrappers = []any{}
+	file_network_v1_default_vpc_egress_proto_msgTypes[8].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_network_v1_default_vpc_egress_proto_rawDesc), len(file_network_v1_default_vpc_egress_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

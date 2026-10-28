@@ -1,0 +1,6 @@
+=== RUN   TestImageRuntimeMTLSListener
+2026/10/26 17:47:53 INFO [gRPC] server listening addr=127.0.0.1:36349
+2026/10/26 17:47:53 INFO [gRPC] server stopping
+--- PASS: TestImageRuntimeMTLSListener (0.01s)
+PASS
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/server	0.028s

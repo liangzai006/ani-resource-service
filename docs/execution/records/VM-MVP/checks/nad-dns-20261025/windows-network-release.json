@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-26T01:28:44.020826+00:00",
+  "host": "fedora",
+  "read_only": true,
+  "attachment": {
+    "at": "2026-10-26T01:28:41.698673+00:00",
+    "epoch": 3176,
+    "state": "released",
+    "reason": "",
+    "pod_uid": "",
+    "version": 3182,
+    "pod_name": "",
+    "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "instance_id": "1823315c-e0ae-421a-b76d-e27f97343160",
+    "released_at": "2026-10-26T01:27:13.51623+00:00",
+    "attachment_id": "att_2a65c873456e4a37bf5c898936839f13",
+    "finalization_id": "f8ee5410-3321-5b86-92cd-b23fba57f9c9",
+    "protocol_blocked": false
+  },
+  "writes": 0,
+  "database_pod_uid": "333fe87e-4a47-4e99-b5ea-33ef48be2e27",
+  "result": "PASS"
+}

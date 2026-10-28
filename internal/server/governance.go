@@ -31,6 +31,9 @@ const GovernanceScopeHeader = "x-ani-scope"
 
 // Platform delegation is explicit and mutually exclusive with tenant delegation.
 var governancePlatformMethods = map[string]struct{}{
+	"/network.v1.PlatformEIPService/ListPlatformEIPs":                        {},
+	"/network.v1.PlatformEIPService/GetPlatformEIP":                          {},
+	"/network.v1.PlatformEIPService/ReleasePlatformEIP":                      {},
 	"/network.v1.PlatformNetworkService/ListNodeInterfaces":                  {},
 	"/network.v1.PlatformNetworkService/CreateVirtualSwitch":                 {},
 	"/network.v1.PlatformNetworkService/GetVirtualSwitch":                    {},
@@ -40,6 +43,7 @@ var governancePlatformMethods = map[string]struct{}{
 	"/network.v1.PlatformDeviceRetirementService/GetNetworkDeviceRetirement": {},
 	"/network.v1.PlatformDefaultEgressService/CreateDefaultVPCEgress":        {},
 	"/network.v1.PlatformDefaultEgressService/GetDefaultVPCEgress":           {},
+	"/network.v1.PlatformDefaultEgressService/GetCurrentDefaultVPCEgress":    {},
 	"/network.v1.PlatformDefaultEgressService/DeleteDefaultVPCEgress":        {},
 	"/network.v1.PlatformNetworkService/AdoptNetworkDevice":                  {},
 	"/network.v1.PlatformNetworkService/GetNetworkDevice":                    {},
@@ -102,6 +106,22 @@ var governanceReadMethods = map[string]struct{}{
 	"/network.v1.TenantLoadBalancerService/UpdateLoadBalancer":       {},
 	"/network.v1.TenantLoadBalancerService/DeleteLoadBalancer":       {},
 	"/network.v1.TenantLoadBalancerService/GetLoadBalancerOperation": {},
+}
+
+// storageGovernanceMethods is the tenant-bound Storage domain allowlist.
+// Tenant identity is bound to the authenticated Governance scope; no platform
+// scope is accepted for these methods.
+var storageGovernanceMethods = map[string]struct{}{
+	"/storage.v1.StorageService/ListStorageClasses": {},
+	"/storage.v1.StorageService/CreateVolume":       {},
+	"/storage.v1.StorageService/ListVolumes":        {},
+	"/storage.v1.StorageService/GetVolume":          {},
+	"/storage.v1.StorageService/UpdateVolume":       {},
+	"/storage.v1.StorageService/DeleteVolume":       {},
+	"/storage.v1.StorageService/ListBuckets":        {},
+	"/storage.v1.StorageService/ListObjects":        {},
+	"/storage.v1.StorageService/HeadObject":         {},
+	"/storage.v1.StorageService/GetDownloadURL":     {},
 }
 
 // GetVPCMethod is kept for the vpc-read mode and existing deployment checks.
@@ -255,8 +275,9 @@ func governanceUnary(readOnly bool) grpc.UnaryServerInterceptor {
 		_, imageMethod := imageGovernanceMethods[info.FullMethod]
 		_, instanceMethod := instanceGovernanceMethods[info.FullMethod]
 		_, computeMethod := computeGovernanceMethods[info.FullMethod]
+		_, storageMethod := storageGovernanceMethods[info.FullMethod]
 		_, vmMethod := vmGovernanceMethods[info.FullMethod]
-		if _, ok := governanceReadMethods[info.FullMethod]; !ok && !imageMethod && !platformMethod && !instanceMethod && !computeMethod && !vmMethod {
+		if _, ok := governanceReadMethods[info.FullMethod]; !ok && !imageMethod && !platformMethod && !instanceMethod && !computeMethod && !storageMethod && !vmMethod {
 			return nil, status.Error(codes.PermissionDenied, "governance credential does not permit this method")
 		}
 		r, ok := req.(proto.Message)

@@ -61,6 +61,10 @@ type Disk struct {
 	Cleanup                                       []ObjectRef
 }
 type NetworkSelection struct{ VPCID, SubnetID, NADName, NADUID, NADDigest string }
+type DNS struct {
+	Mode        string
+	Nameservers []string
+}
 type NetworkPlan struct {
 	AttachmentID, SubmissionID, BindingRevision         string
 	Generation, Version, SnapshotRevision               int64
@@ -83,6 +87,7 @@ type Spec struct {
 	Media                                                                             Source
 	Driver                                                                            *Source
 	Network                                                                           NetworkSelection
+	DNS                                                                               *DNS
 	BootDevice                                                                        string
 	StartAfterCreate                                                                  bool
 	InitialDisks                                                                      []Disk

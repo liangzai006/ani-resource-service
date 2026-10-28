@@ -92,8 +92,7 @@ func computeMigrationRows(t *testing.T, pool *pgxpool.Pool) map[string]string {
 }
 
 // These are pre-move durable Resource samples, built by the existing real
-// repository and worker. Kubernetes, ACC physical observation and the remote
-// Gov receipt are the existing explicit external boundaries. This proves PG
+// repository and worker. Kubernetes and the remote Gov receipt are the existing explicit external boundaries. This proves PG
 // state preservation; it makes no claim of live Pod/GPU or Gov-ledger proof.
 func TestComputeMigrationPG17FrozenLifecycleRowsSurvive(t *testing.T) {
 	for _, kind := range []string{biz.TypeCPU, biz.TypeGPU} {
@@ -127,7 +126,7 @@ func TestComputeMigrationPG17FrozenLifecycleRowsSurvive(t *testing.T) {
 				if err != nil {
 					t.Fatal(err)
 				}
-				worker, err := biz.NewWorker(f.repo, p, reporter, &releaseObservation{confirmed: true}, "compute-migration-baseline")
+				worker, err := biz.NewWorker(f.repo, p, "compute-migration-baseline")
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -154,9 +153,13 @@ func TestComputeMigrationPG17FrozenLifecycleRowsSurvive(t *testing.T) {
 				}
 				if phase == "cleanup" {
 					command(t, f, c, current, "delete")
-					p.failPVC = true
 					for n := 0; n < 8; n++ {
 						current = step(t, f, worker, c)
+						if current.Observed == biz.Deleted && kind == biz.TypeGPU {
+							if _, err := reporter.Dispatch(ctx); err == nil {
+								t.Fatal("lost Gov receipt unexpectedly accepted")
+							}
+						}
 						if kind == biz.TypeGPU && remote.calls == 1 {
 							break
 						}
@@ -164,8 +167,8 @@ func TestComputeMigrationPG17FrozenLifecycleRowsSurvive(t *testing.T) {
 							break
 						}
 					}
-					if !current.ComputeCleaned || current.WorkspaceCleaned {
-						t.Fatal("sample is not durably cleaning", current.Reason)
+					if !current.ComputeCleaned || !current.WorkspaceCleaned || current.CleanupCompletedAt.IsZero() {
+						t.Fatal("sample lacks durably completed owner cleanup", current.Reason)
 					}
 					var events int
 					var acknowledged bool

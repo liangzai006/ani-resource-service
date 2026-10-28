@@ -1,0 +1,98 @@
+127.0.0.1:5432 - accepting connections
+=== RUN   TestInstanceNetworkAdapterUsesStableSubmissionAndSnapshotFences
+--- PASS: TestInstanceNetworkAdapterUsesStableSubmissionAndSnapshotFences (0.00s)
+=== RUN   TestInstanceNetworkAdapterRejectsScopeAndMapsDomainErrors
+--- PASS: TestInstanceNetworkAdapterRejectsScopeAndMapsDomainErrors (0.00s)
+=== RUN   TestInstanceNetworkConsumerRoutesOnlyDurableManagedIdentity
+--- PASS: TestInstanceNetworkConsumerRoutesOnlyDurableManagedIdentity (0.00s)
+=== RUN   TestCPUNotebookProjectionAndPodBinding
+=== RUN   TestCPUNotebookProjectionAndPodBinding/runtime_class
+=== RUN   TestCPUNotebookProjectionAndPodBinding/different_user
+=== RUN   TestCPUNotebookProjectionAndPodBinding/different_working_directory
+=== RUN   TestCPUNotebookProjectionAndPodBinding/different_CPU_limit
+=== RUN   TestCPUNotebookProjectionAndPodBinding/additional_GPU_limit
+=== RUN   TestCPUNotebookProjectionAndPodBinding/GPU_annotation
+=== RUN   TestCPUNotebookProjectionAndPodBinding/GPU_scheduler
+=== RUN   TestCPUNotebookProjectionAndPodBinding/GPU_selector
+--- PASS: TestCPUNotebookProjectionAndPodBinding (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/runtime_class (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/different_user (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/different_working_directory (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/different_CPU_limit (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/additional_GPU_limit (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/GPU_annotation (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/GPU_scheduler (0.00s)
+    --- PASS: TestCPUNotebookProjectionAndPodBinding/GPU_selector (0.00s)
+=== RUN   TestBorrowedVolumeReferencesPersistAndReleaseWithCompute
+    configuration_integration_test.go:15: unexpected instance migration history
+--- FAIL: TestBorrowedVolumeReferencesPersistAndReleaseWithCompute (0.22s)
+=== RUN   TestInstanceNetworkSubmissionAdmissionAndIntentAreAtomic
+    network_runtime_integration_test.go:28: unexpected instance migration history
+--- FAIL: TestInstanceNetworkSubmissionAdmissionAndIntentAreAtomic (0.16s)
+=== RUN   TestInstanceNetworkClosingWaitsForUnknownNotebookCreate
+    network_runtime_integration_test.go:76: unexpected instance migration history
+--- FAIL: TestInstanceNetworkClosingWaitsForUnknownNotebookCreate (0.16s)
+=== RUN   TestInstanceNetworkOutageBlocksOriginalGPURefundUntilCleanup
+    network_runtime_integration_test.go:108: unexpected instance migration history
+--- FAIL: TestInstanceNetworkOutageBlocksOriginalGPURefundUntilCleanup (0.17s)
+=== RUN   TestInstanceNetworkSubmissionTrustedServiceAcceptsFrozenSelectionAfterWritesClose
+    network_runtime_integration_test.go:157: unexpected instance migration history
+--- FAIL: TestInstanceNetworkSubmissionTrustedServiceAcceptsFrozenSelectionAfterWritesClose (0.18s)
+=== RUN   TestInstanceNetworkVerticalPGNotebookTwoRestartsAndRecreation
+    network_vertical_integration_test.go:198: unexpected instance migration history
+--- FAIL: TestInstanceNetworkVerticalPGNotebookTwoRestartsAndRecreation (0.18s)
+=== RUN   TestInstanceNetworkVerticalConfirmRetryRequiresDurableAck
+    network_vertical_integration_test.go:201: unexpected instance migration history
+--- FAIL: TestInstanceNetworkVerticalConfirmRetryRequiresDurableAck (0.17s)
+=== RUN   TestInstanceOwnerCleanupOutboxDispatchWithoutACC
+    owner_cleanup_integration_test.go:20: unexpected instance migration history
+--- FAIL: TestInstanceOwnerCleanupOutboxDispatchWithoutACC (0.16s)
+=== RUN   TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact
+=== RUN   TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact/unacknowledged
+    owner_cleanup_integration_test.go:115: unexpected instance migration history
+=== RUN   TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact/acknowledged
+    owner_cleanup_integration_test.go:115: unexpected instance migration history
+--- FAIL: TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact (0.33s)
+    --- FAIL: TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact/unacknowledged (0.17s)
+    --- FAIL: TestInstanceLegacyReleaseOutboxNeedsOwnerCleanupFact/acknowledged (0.17s)
+=== RUN   TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation
+=== RUN   TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/provider_unavailable
+    owner_cleanup_integration_test.go:190: unexpected instance migration history
+=== RUN   TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/residual_volume
+    owner_cleanup_integration_test.go:190: unexpected instance migration history
+=== RUN   TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/workspace_observation_failed
+    owner_cleanup_integration_test.go:190: unexpected instance migration history
+--- FAIL: TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation (0.45s)
+    --- FAIL: TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/provider_unavailable (0.17s)
+    --- FAIL: TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/residual_volume (0.16s)
+    --- FAIL: TestInstanceLegacyCleanupFlagsCannotSealAfterFailedObservation/workspace_observation_failed (0.12s)
+=== RUN   TestCPUInstancePersistentLifecycleAndTerminal
+    postgres_integration_test.go:123: unexpected instance migration history
+--- FAIL: TestCPUInstancePersistentLifecycleAndTerminal (0.14s)
+=== RUN   TestCPUDeleteFirstAndUnknownCreate
+    postgres_integration_test.go:213: unexpected instance migration history
+--- FAIL: TestCPUDeleteFirstAndUnknownCreate (0.13s)
+=== RUN   TestInstancePersistentLifecycle
+    postgres_integration_test.go:369: unexpected instance migration history
+--- FAIL: TestInstancePersistentLifecycle (0.16s)
+=== RUN   TestInstanceDeleteFirstAndTenant
+    postgres_integration_test.go:506: unexpected instance migration history
+--- FAIL: TestInstanceDeleteFirstAndTenant (0.15s)
+=== RUN   TestInstanceReleaseRetryAndTerminalRevocation
+    postgres_integration_test.go:583: unexpected instance migration history
+--- FAIL: TestInstanceReleaseRetryAndTerminalRevocation (0.15s)
+=== RUN   TestInstanceSupersededMutationAndLeaseFencing
+    postgres_integration_test.go:667: unexpected instance migration history
+--- FAIL: TestInstanceSupersededMutationAndLeaseFencing (0.16s)
+=== RUN   TestResourceReleaseRequiresMatchingAck
+    postgres_integration_test.go:726: unexpected instance migration history
+--- FAIL: TestResourceReleaseRequiresMatchingAck (0.16s)
+=== RUN   TestGPUExternalScopeIsCommittedBeforeNotebookCall
+    postgres_integration_test.go:769: unexpected instance migration history
+--- FAIL: TestGPUExternalScopeIsCommittedBeforeNotebookCall (0.16s)
+=== RUN   TestGPUCreatedWithoutSeenPodClosesOnOwnerCleanup
+    postgres_integration_test.go:799: unexpected instance migration history
+--- FAIL: TestGPUCreatedWithoutSeenPodClosesOnOwnerCleanup (0.16s)
+FAIL
+FAIL	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	3.604s
+FAIL

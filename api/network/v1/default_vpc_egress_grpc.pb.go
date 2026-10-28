@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PlatformDefaultEgressService_CreateDefaultVPCEgress_FullMethodName = "/network.v1.PlatformDefaultEgressService/CreateDefaultVPCEgress"
-	PlatformDefaultEgressService_GetDefaultVPCEgress_FullMethodName    = "/network.v1.PlatformDefaultEgressService/GetDefaultVPCEgress"
-	PlatformDefaultEgressService_DeleteDefaultVPCEgress_FullMethodName = "/network.v1.PlatformDefaultEgressService/DeleteDefaultVPCEgress"
+	PlatformDefaultEgressService_CreateDefaultVPCEgress_FullMethodName     = "/network.v1.PlatformDefaultEgressService/CreateDefaultVPCEgress"
+	PlatformDefaultEgressService_GetDefaultVPCEgress_FullMethodName        = "/network.v1.PlatformDefaultEgressService/GetDefaultVPCEgress"
+	PlatformDefaultEgressService_GetCurrentDefaultVPCEgress_FullMethodName = "/network.v1.PlatformDefaultEgressService/GetCurrentDefaultVPCEgress"
+	PlatformDefaultEgressService_DeleteDefaultVPCEgress_FullMethodName     = "/network.v1.PlatformDefaultEgressService/DeleteDefaultVPCEgress"
 )
 
 // PlatformDefaultEgressServiceClient is the client API for PlatformDefaultEgressService service.
@@ -33,6 +34,7 @@ const (
 type PlatformDefaultEgressServiceClient interface {
 	CreateDefaultVPCEgress(ctx context.Context, in *CreateDefaultVPCEgressRequest, opts ...grpc.CallOption) (*CreateDefaultVPCEgressResponse, error)
 	GetDefaultVPCEgress(ctx context.Context, in *GetDefaultVPCEgressRequest, opts ...grpc.CallOption) (*GetDefaultVPCEgressResponse, error)
+	GetCurrentDefaultVPCEgress(ctx context.Context, in *GetCurrentDefaultVPCEgressRequest, opts ...grpc.CallOption) (*GetCurrentDefaultVPCEgressResponse, error)
 	DeleteDefaultVPCEgress(ctx context.Context, in *DeleteDefaultVPCEgressRequest, opts ...grpc.CallOption) (*DeleteDefaultVPCEgressResponse, error)
 }
 
@@ -64,6 +66,16 @@ func (c *platformDefaultEgressServiceClient) GetDefaultVPCEgress(ctx context.Con
 	return out, nil
 }
 
+func (c *platformDefaultEgressServiceClient) GetCurrentDefaultVPCEgress(ctx context.Context, in *GetCurrentDefaultVPCEgressRequest, opts ...grpc.CallOption) (*GetCurrentDefaultVPCEgressResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetCurrentDefaultVPCEgressResponse)
+	err := c.cc.Invoke(ctx, PlatformDefaultEgressService_GetCurrentDefaultVPCEgress_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *platformDefaultEgressServiceClient) DeleteDefaultVPCEgress(ctx context.Context, in *DeleteDefaultVPCEgressRequest, opts ...grpc.CallOption) (*DeleteDefaultVPCEgressResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DeleteDefaultVPCEgressResponse)
@@ -83,6 +95,7 @@ func (c *platformDefaultEgressServiceClient) DeleteDefaultVPCEgress(ctx context.
 type PlatformDefaultEgressServiceServer interface {
 	CreateDefaultVPCEgress(context.Context, *CreateDefaultVPCEgressRequest) (*CreateDefaultVPCEgressResponse, error)
 	GetDefaultVPCEgress(context.Context, *GetDefaultVPCEgressRequest) (*GetDefaultVPCEgressResponse, error)
+	GetCurrentDefaultVPCEgress(context.Context, *GetCurrentDefaultVPCEgressRequest) (*GetCurrentDefaultVPCEgressResponse, error)
 	DeleteDefaultVPCEgress(context.Context, *DeleteDefaultVPCEgressRequest) (*DeleteDefaultVPCEgressResponse, error)
 	mustEmbedUnimplementedPlatformDefaultEgressServiceServer()
 }
@@ -99,6 +112,9 @@ func (UnimplementedPlatformDefaultEgressServiceServer) CreateDefaultVPCEgress(co
 }
 func (UnimplementedPlatformDefaultEgressServiceServer) GetDefaultVPCEgress(context.Context, *GetDefaultVPCEgressRequest) (*GetDefaultVPCEgressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDefaultVPCEgress not implemented")
+}
+func (UnimplementedPlatformDefaultEgressServiceServer) GetCurrentDefaultVPCEgress(context.Context, *GetCurrentDefaultVPCEgressRequest) (*GetCurrentDefaultVPCEgressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCurrentDefaultVPCEgress not implemented")
 }
 func (UnimplementedPlatformDefaultEgressServiceServer) DeleteDefaultVPCEgress(context.Context, *DeleteDefaultVPCEgressRequest) (*DeleteDefaultVPCEgressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDefaultVPCEgress not implemented")
@@ -161,6 +177,24 @@ func _PlatformDefaultEgressService_GetDefaultVPCEgress_Handler(srv interface{}, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PlatformDefaultEgressService_GetCurrentDefaultVPCEgress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCurrentDefaultVPCEgressRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PlatformDefaultEgressServiceServer).GetCurrentDefaultVPCEgress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PlatformDefaultEgressService_GetCurrentDefaultVPCEgress_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PlatformDefaultEgressServiceServer).GetCurrentDefaultVPCEgress(ctx, req.(*GetCurrentDefaultVPCEgressRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PlatformDefaultEgressService_DeleteDefaultVPCEgress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteDefaultVPCEgressRequest)
 	if err := dec(in); err != nil {
@@ -193,6 +227,10 @@ var PlatformDefaultEgressService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDefaultVPCEgress",
 			Handler:    _PlatformDefaultEgressService_GetDefaultVPCEgress_Handler,
+		},
+		{
+			MethodName: "GetCurrentDefaultVPCEgress",
+			Handler:    _PlatformDefaultEgressService_GetCurrentDefaultVPCEgress_Handler,
 		},
 		{
 			MethodName: "DeleteDefaultVPCEgress",

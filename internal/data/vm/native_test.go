@@ -41,6 +41,7 @@ func TestNativeIndependentBlockVolumesAndUIDOwnership(t *testing.T) {
 	n := NewNativeWithClients(client, nil)
 	v := biz.VM{TenantID: tenant, ID: id, Native: biz.ObjectRef{Kind: "VirtualMachine", Namespace: "tenant-test", Name: "vm-" + id}, Spec: biz.Spec{Digest: strings.Repeat("b", 64), Namespace: "tenant-test", NamespaceUID: nsUID, CPUMillis: 1500, MemoryMiB: 512, Cores: 2, ServiceAccount: "default", StorageClass: "ani-block", Media: biz.Source{Kind: "DISK_IMAGE", Namespace: "media", PVCName: "source", PVCUID: sourceUID, Checksum: digest, VolumeMode: "Block", RootBus: "virtio", NICModel: "virtio"}}, Network: biz.NetworkPlan{Namespace: "tenant-test", NADName: "main", KCNSubnetRef: "tenant-test/kcn-subnet"}}
 	v.Disks = []biz.Disk{biz.NewInitialDisk(id, "system", "system", "system", 8), biz.NewInitialDisk(id, "first", "data-a", "data", 2), biz.NewInitialDisk(id, "second", "data-b", "data", 3)}
+	v.Spec.DNS = &biz.DNS{Mode: "PLATFORM_DEFAULT", Nameservers: []string{"223.5.5.5"}}
 	ref, e := n.EnsureVM(ctx, v)
 	if e != nil || ref.UID == "" {
 		t.Fatalf("root %v %v", ref, e)
@@ -58,6 +59,11 @@ func TestNativeIndependentBlockVolumesAndUIDOwnership(t *testing.T) {
 	cores, _, _ := unstructured.NestedInt64(root.Object, "spec", "template", "spec", "domain", "cpu", "cores")
 	if strategy != "Manual" || cpu != "1500m" || cores != 2 {
 		t.Fatalf("projection %s %s %d", strategy, cpu, cores)
+	}
+	policy, _, _ := unstructured.NestedString(root.Object, "spec", "template", "spec", "dnsPolicy")
+	servers, _, _ := unstructured.NestedStringSlice(root.Object, "spec", "template", "spec", "dnsConfig", "nameservers")
+	if policy != "None" || len(servers) != 1 || servers[0] != "223.5.5.5" {
+		t.Fatal("native VM omitted its frozen DNS", root.Object)
 	}
 	firmware, _, _ := unstructured.NestedString(root.Object, "spec", "template", "spec", "domain", "firmware", "uuid")
 	if firmware != id {

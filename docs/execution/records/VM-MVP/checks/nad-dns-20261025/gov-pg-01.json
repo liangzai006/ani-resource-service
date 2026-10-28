@@ -1,0 +1,419 @@
+{
+  "phase": "pg-01",
+  "host": "fedora",
+  "steps": [
+    {
+      "label": "create-fixture",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "postgres",
+        "-d",
+        "postgres"
+      ],
+      "exit_code": 0,
+      "seconds": 0.216,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-create-fixture.log",
+      "log_sha256": "54f2994c9fe906aa2053af27948c07e7e32c845f809415cef7f16032df058ad0"
+    },
+    {
+      "label": "20260921134442_initial",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.592,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20260921134442_initial.log",
+      "log_sha256": "84769159d49534c5715301e5fdbb5911fb5faf75c0deaec0e0a8c80b588c06c0"
+    },
+    {
+      "label": "20260922190000_quota_expand",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.165,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20260922190000_quota_expand.log",
+      "log_sha256": "f2eafc5704343996565e871fe60c9ff160fa264a88dd9f3401f953149526253a"
+    },
+    {
+      "label": "quota-backfill",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.165,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-quota-backfill.log",
+      "log_sha256": "870559a6089f73079358045ae7416189207961699b796fcdd5f6e895e1fa5322"
+    },
+    {
+      "label": "20260922190100_quota_constraints",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.166,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20260922190100_quota_constraints.log",
+      "log_sha256": "fb918006111aca525547058efa6f6c1cc3899dfb8e2a183f9b3f36898b56d268"
+    },
+    {
+      "label": "20260923130000_gpu_sqlc",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.215,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20260923130000_gpu_sqlc.log",
+      "log_sha256": "bf53e4a65c1756ff3311417c655b5f7c610d901b5950898d3b4f3f3eff13df2b"
+    },
+    {
+      "label": "20260923130100_gpu_no_rls_catalog",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.165,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20260923130100_gpu_no_rls_catalog.log",
+      "log_sha256": "b6b7ca31fd4e4548a1a0f2c59c01388a38a009778bb5281621cb54b8f51f278b"
+    },
+    {
+      "label": "20260923130200_gpu_sync_ref",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.165,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20260923130200_gpu_sync_ref.log",
+      "log_sha256": "4a088d19556876da16935e44506855c8aa1852cdbb59b82e49e059e05df0b2b7"
+    },
+    {
+      "label": "20260923143455_drop_geo_location",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.165,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20260923143455_drop_geo_location.log",
+      "log_sha256": "cae54de054e89cfb52569e48ea20410e0daad09f2f2f079f49c96a7c2933a896"
+    },
+    {
+      "label": "20260930093111_cpu_modeldev_acceptance",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.165,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20260930093111_cpu_modeldev_acceptance.log",
+      "log_sha256": "7562623f377b022064f7e7861d53d7e93e27f43aabab4404a94cab34b523f6fa"
+    },
+    {
+      "label": "20260930103955_cpu_modeldev_release_binding",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.165,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20260930103955_cpu_modeldev_release_binding.log",
+      "log_sha256": "77a26bc823b7dd1bf76f53d968de2b36e94ba7447c738326dd8f9ad177740164"
+    },
+    {
+      "label": "20261003074738_cpu_modeldev_delivery",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.165,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20261003074738_cpu_modeldev_delivery.log",
+      "log_sha256": "d0211a4c79a99fe38dc26f7c5712d0a1adc869d91e539aadfa6ac0b8db62db24"
+    },
+    {
+      "label": "20261003152319_cpu_modeldev_stop",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.166,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20261003152319_cpu_modeldev_stop.log",
+      "log_sha256": "d0211a4c79a99fe38dc26f7c5712d0a1adc869d91e539aadfa6ac0b8db62db24"
+    },
+    {
+      "label": "20261010131938_access_key_idempotency",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.165,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20261010131938_access_key_idempotency.log",
+      "log_sha256": "2352ada5eafd0c524dcf4f2a4baaf787dad86b2e47d5bcd46fc7332d256bb983"
+    },
+    {
+      "label": "20261019090000_instance_contract_version",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.167,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20261019090000_instance_contract_version.log",
+      "log_sha256": "bf149179e7b03bb718761a7ed14805e34793bf8de6fbcecd1ff29a232fb34767"
+    },
+    {
+      "label": "20261022010000_modeldev_execution_v21",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.165,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-20261022010000_modeldev_execution_v21.log",
+      "log_sha256": "c14aee5b62ffd744902b84a24398e930998597dda300e71334862f0ef148e50a"
+    },
+    {
+      "label": "runtime-grants",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "vm_dns_owner_07e80a2ce8",
+        "-d",
+        "vm_dns_07e80a2ce8",
+        "-v",
+        "migrate_role=vm_dns_owner_07e80a2ce8",
+        "-v",
+        "runtime_role=vm_dns_runtime_07e80a2ce8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.165,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-runtime-grants.log",
+      "log_sha256": "aba7351f730d43782b55413aaf02fe477079f167354fa1f2ad44425bd23ed28b"
+    },
+    {
+      "label": "vm-pg",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-tags=quota_pg",
+        "-count=1",
+        "-timeout=180s",
+        "./app/admin/service/internal/service",
+        "-run",
+        "^TestVMPostgresUnmeteredDeleteFenceAndOriginalReplay$"
+      ],
+      "exit_code": 0,
+      "seconds": 55.512,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-vm-pg.log",
+      "log_sha256": "4365bc6744619b9c694b36355a205c205964e6a7d854adf6cb9eeb9158f4d446"
+    },
+    {
+      "label": "drop-fixture",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "5e88155a11a945128b524ad669657ad6d1e2d12296b1bb4f34ca566dce7c463c",
+        "psql",
+        "-X",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-U",
+        "postgres",
+        "-d",
+        "postgres"
+      ],
+      "exit_code": 0,
+      "seconds": 0.167,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/gov-dns/pg-01-drop-fixture.log",
+      "log_sha256": "e64a5d570b64268bc64be5f035d2eb8b61e0444978f49488e67f37cbf9feba94"
+    }
+  ],
+  "source": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/governance-source",
+  "resource_version": "v0.0.0-20261025150932-52c19b06f304",
+  "go_flags": "-mod=readonly -p=1 -trimpath",
+  "gogc": "25",
+  "started_at": "2026-10-25T15:42:12.600864+00:00",
+  "pg_fixture_cleaned": true,
+  "pg_database": "vm_dns_07e80a2ce8",
+  "pg_roles": [
+    "vm_dns_owner_07e80a2ce8",
+    "vm_dns_runtime_07e80a2ce8"
+  ],
+  "result": "PASS",
+  "finished_at": "2026-10-25T15:43:12.260855+00:00"
+}

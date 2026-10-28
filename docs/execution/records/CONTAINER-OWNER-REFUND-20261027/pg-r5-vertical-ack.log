@@ -1,0 +1,9 @@
+127.0.0.1:5432 - accepting connections
+=== RUN   TestInstanceNetworkVerticalPGNotebookTwoRestartsAndRecreation
+--- PASS: TestInstanceNetworkVerticalPGNotebookTwoRestartsAndRecreation (1.51s)
+=== RUN   TestInstanceNetworkVerticalConfirmRetryRequiresDurableAck
+--- PASS: TestInstanceNetworkVerticalConfirmRetryRequiresDurableAck (1.65s)
+=== RUN   TestInstanceWorkerFinishPreservesCommittedReleaseACK
+--- PASS: TestInstanceWorkerFinishPreservesCommittedReleaseACK (0.32s)
+PASS
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	3.506s

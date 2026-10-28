@@ -10,6 +10,26 @@ message Bootstrap {
   Server server = 1;
   Network network = 2;
   Image image = 3;
+  ObjectStorage object_storage = 4;
+}
+
+// ObjectStorage 对接已有 S3 兼容服务；endpoint 为空表示本期不启用对象浏览。
+// 新增租户桶需要修改配置并重启，不支持热更新。
+message ObjectStorage {
+  string endpoint = 1;
+  string browser_endpoint = 2;
+  string region = 3;
+  bool path_style = 4;
+  string credentials_file = 5;
+  string ca_file = 6;
+  repeated ManagedBucket managed_buckets = 7;
+}
+
+message ManagedBucket {
+  string id = 1;
+  string tenant_id = 2;
+  string name = 3;
+  string bucket = 4;
 }
 
 // Independent Image connections and private secret files. Disabled Image has

@@ -28,6 +28,7 @@ service VMService {
   rpc EjectMedia(EjectMediaRequest) returns (Operation);
   rpc SetBootDevice(SetBootDeviceRequest) returns (Operation);
   rpc ListMedia(ListMediaRequest) returns (ListMediaResponse);
+  rpc GetDNSDefaults(GetDNSDefaultsRequest) returns (DNSDefaults);
   rpc ListSnapshots(GetVMRequest) returns (ListSnapshotsResponse);
   rpc GetSnapshot(GetSnapshotRequest) returns (Snapshot);
   rpc CreateSnapshot(SnapshotCreateRequest) returns (Operation);
@@ -49,7 +50,12 @@ message CreateVMData {
   NetworkSelection network = 7;
   optional bool start_after_create = 8;
   GuestInitialization guest_initialization = 9;
+  DNSSelection dns = 10;
 }
+// Omitted/empty mode means PLATFORM_DEFAULT. CUSTOM accepts IP addresses only.
+message DNSSelection { string mode = 1; repeated string nameservers = 2; }
+// Addresses are normalized and frozen at creation; later platform changes do not apply.
+message FrozenDNS { string mode = 1; repeated string nameservers = 2; }
 // Password is write-only and travels separately from this audited intent.
 message GuestInitialization {
   string method = 1; string username = 2; string ssh_public_key = 3;
@@ -86,6 +92,7 @@ message CreateSpec {
   FrozenNetwork network = 10;
   uint32 sockets = 11; uint32 cores = 12; uint32 threads = 13;
   string boot_device = 14;
+  FrozenDNS dns = 15;
 }
 message ResolveCreateSpecRequest {
   string tenant_id = 1; CreateVMData data = 2;
@@ -140,6 +147,8 @@ message SetBootDeviceRequest {
 }
 message ListMediaRequest { string tenant_id = 1; }
 message ListMediaResponse { repeated MediaReference items = 1; }
+message GetDNSDefaultsRequest { string tenant_id = 1; }
+message DNSDefaults { repeated string nameservers = 1; }
 message SnapshotCreateRequest {
   string tenant_id = 1; string vm_id = 2; string idempotency_key = 3; int64 expected_version = 4; string name = 5;
 }

@@ -186,11 +186,14 @@ type Instance struct {
 	PodUID, PodName                                                    string
 	ComputeCleaned, WorkspaceCleaned, QuotaReturned                    bool
 	VolumeReferencesReleased                                           bool
+	CleanupCompletedAt                                                 time.Time
 	// The scope is durable before any external Notebook creation or mutation.
 	ExternalComputeStarted bool
 	GPUPods                []PodRef
-	ComputeSealAt          time.Time
-	PhysicalReleaseDigest  string
+	// Historical ACC evidence is retained for audit only. Owner cleanup no
+	// longer requires an ACC observation or release digest.
+	ComputeSealAt         time.Time
+	PhysicalReleaseDigest string
 	// Pending is written before sending. Absence of a target never clears an unknown CREATE.
 	Pending              *Mutation
 	CreatedAt, UpdatedAt time.Time
@@ -217,12 +220,14 @@ type Observation struct {
 type PodRef struct {
 	ClusterID, Namespace, Name, UID, ContainerName string
 }
-type ReleaseEvidence struct {
-	Confirmed bool
-	Digest    string
-}
-type PhysicalReleaseObserver interface {
-	ObserveRelease(context.Context, Instance) (ReleaseEvidence, error)
+
+// OwnerCleanupReady is the local release boundary. The repository persists
+// this fact and the stable Gov notification in the same transaction.
+func OwnerCleanupReady(i Instance) bool {
+	return (i.Spec.ComputeType == TypeCPU || i.Spec.ComputeType == TypeGPU) &&
+		i.Desired == Deleted && i.Pending == nil && i.ComputeCleaned &&
+		i.WorkspaceCleaned && i.VolumeReferencesReleased &&
+		(i.Network == nil || i.Network.Cleaned)
 }
 
 func MergePodRefs(a, b []PodRef) []PodRef {
@@ -250,6 +255,9 @@ type Progress struct {
 	Instance Instance
 	Next     time.Duration
 	Receipt  *MutationReceipt
+	// CleanupComplete records this turn's successful owner cleanup decision.
+	// Stored cleanup flags alone are insufficient after a failed observation.
+	CleanupComplete bool
 }
 type Repository interface {
 	AcceptCreate(context.Context, Create) (ACK, error)

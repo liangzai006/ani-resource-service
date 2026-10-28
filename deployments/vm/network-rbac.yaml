@@ -1,0 +1,27 @@
+# The Network worker prepares VM connectivity only in tenant namespaces whose
+# ownership and binding it has verified. No Pod, NAD or SA mutation is exposed
+# through the read-only VM resolver. Existing NAD/SA identities are never adopted.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ani-resource-vm-network
+rules:
+  - apiGroups: ["k8s.cni.cncf.io"]
+    resources: ["network-attachment-definitions"]
+    verbs: ["get", "create"]
+  - apiGroups: [""]
+    resources: ["serviceaccounts"]
+    verbs: ["get", "create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ani-resource-vm-network-ani-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ani-resource-vm-network
+subjects:
+  - kind: ServiceAccount
+    name: ani-resource-service
+    namespace: ani-system

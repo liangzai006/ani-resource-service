@@ -1,0 +1,124 @@
+{
+  "result": "PASS_EXACT_OWNED_TEMPORARY_TRANSPORTS_STOPPED",
+  "prepared_sha256": "f111e31520bbecdd127985a501a3581ca2994f701809ca4037562024caf2a397",
+  "started_at": "2026-10-26T01:38:25.839408+00:00",
+  "scope": "Exact task transports only; Root final GO received",
+  "root_go": true,
+  "steps": [
+    {
+      "order": 1,
+      "target": "fedora_vnc_unit",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "observation": {
+        "pid_exists": false,
+        "unit_load_state": "not-found",
+        "unit_active_state": "inactive",
+        "unit_sub_state": "dead",
+        "main_pid": 0,
+        "fedora_5173_listener_present": false,
+        "result": "PASS"
+      }
+    },
+    {
+      "order": 2,
+      "target": "local_browser_transfer",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "observation": {
+        "process": {
+          "exists": false
+        },
+        "listeners": {
+          "ports": [
+            5173
+          ],
+          "any_listener_present": false
+        }
+      },
+      "result": "PASS"
+    },
+    {
+      "order": 3,
+      "target": "closure_image_fedora",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "Exit request sent.\n",
+      "observation": {
+        "process": {
+          "exists": false
+        },
+        "control_socket_exists": false,
+        "listeners": {
+          "ports": [
+            41904
+          ],
+          "any_listener_present": false
+        }
+      },
+      "result": "PASS"
+    },
+    {
+      "order": 4,
+      "target": "goal_fedora",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "Exit request sent.\n",
+      "observation": {
+        "process": {
+          "exists": false
+        },
+        "control_socket_exists": false,
+        "listeners": {
+          "ports": [
+            41944,
+            41985,
+            41900,
+            41946,
+            41990,
+            41932
+          ],
+          "any_listener_present": false
+        }
+      },
+      "result": "PASS"
+    },
+    {
+      "order": 5,
+      "target": "goal_node1",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "Exit request sent.\n",
+      "observation": {
+        "process": {
+          "exists": false
+        },
+        "control_socket_exists": false,
+        "listeners": {
+          "ports": [
+            41944,
+            41985,
+            41900,
+            41946,
+            41990,
+            41932
+          ],
+          "any_listener_present": false
+        }
+      },
+      "result": "PASS"
+    }
+  ],
+  "business_api_calls": 0,
+  "tests": 0,
+  "excluded": [
+    "old T/browser-transfer.py PID370468",
+    "39188",
+    "39185"
+  ],
+  "completed_at": "2026-10-26T01:39:04.058789+00:00",
+  "api_channels_preserved": false,
+  "absent_41903": "Previously verified both local/Fedora41903 absent and both known task goal-image control sockets absent; no new action performed"
+}

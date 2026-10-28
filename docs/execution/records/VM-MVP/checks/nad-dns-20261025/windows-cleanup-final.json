@@ -1,0 +1,115 @@
+{
+  "at": "2026-10-26T01:34:20.022371+00:00",
+  "vm_id": "1823315c-e0ae-421a-b76d-e27f97343160",
+  "native_vm_uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575",
+  "operation_id": "22be64b4-1e92-4a8b-a3d8-b2658c845c95",
+  "result": "PASS_NORMAL_DELETE_EXACT_NATIVE_AND_LOGICAL_BACKEND_ABSENT",
+  "normal_Gov_DELETE": "PASS original operation succeeded; no replay/new intent",
+  "VM": {
+    "version": "23",
+    "desired_state": "Deleted",
+    "observed_state": "Deleted",
+    "closing": true,
+    "reason": ""
+  },
+  "current_native_objects_Gone": 38,
+  "historical_PVC_PV_refs_Gone": 12,
+  "protected_UIDs_unchanged_at_VM_delete_checkpoint": 12,
+  "backend": {
+    "original17_names_ENOENT": 17,
+    "captured_IDs_checked": 14,
+    "captured_IDs_ENOENT": 14,
+    "remaining_present_IDs": [],
+    "media_temp_parent_addendum": "PASS_EXACT_TWO_MEDIA_TEMP_PARENTS_ABSENT",
+    "physical_bytes": "NOT_MEASURED",
+    "pool_or_trash_enumeration": false,
+    "backend_writes": 0,
+    "initial_present_IDs": [
+      {
+        "image": "csi-snap-5d33357b-8778-483b-80e7-045755aaf6dd",
+        "id": "1732b1ad9148f"
+      },
+      {
+        "image": "csi-snap-99ec21f5-21fb-4812-9401-0e8e2a6af87e",
+        "id": "1732b9c9d4b7d"
+      },
+      {
+        "image": "csi-snap-b00610e8-3485-4de2-a669-58242290557e",
+        "id": "1732ba33dc8f3"
+      },
+      {
+        "image": "csi-vol-65bc1f29-8194-499d-bbb0-2e7835b097d4",
+        "id": "1732b851abb7e"
+      },
+      {
+        "image": "csi-vol-06900854-f454-43f7-ad14-edd78b932157",
+        "id": "1732b66941246"
+      },
+      {
+        "image": "csi-vol-d09d5b68-d0aa-4252-adf6-5b4dcdbd24ca",
+        "id": "1732be1ed04c1"
+      }
+    ],
+    "one_async_window": {
+      "at": "2026-10-26T01:34:11.610669+00:00",
+      "scope": "one final short asynchronous CSI window, exact original six remaining captured IDs only",
+      "wait_seconds": 0,
+      "rows": [
+        {
+          "pool": "ani-block-pool",
+          "exact_image": "csi-snap-5d33357b-8778-483b-80e7-045755aaf6dd",
+          "captured_image_id": "1732b1ad9148f",
+          "original_observed": "PRESENT",
+          "observed": "ABSENT_ENOENT"
+        },
+        {
+          "pool": "ani-block-pool",
+          "exact_image": "csi-snap-99ec21f5-21fb-4812-9401-0e8e2a6af87e",
+          "captured_image_id": "1732b9c9d4b7d",
+          "original_observed": "PRESENT",
+          "observed": "ABSENT_ENOENT"
+        },
+        {
+          "pool": "ani-block-pool",
+          "exact_image": "csi-snap-b00610e8-3485-4de2-a669-58242290557e",
+          "captured_image_id": "1732ba33dc8f3",
+          "original_observed": "PRESENT",
+          "observed": "ABSENT_ENOENT"
+        },
+        {
+          "pool": "ani-block-pool",
+          "exact_image": "csi-vol-65bc1f29-8194-499d-bbb0-2e7835b097d4",
+          "captured_image_id": "1732b851abb7e",
+          "original_observed": "PRESENT",
+          "observed": "ABSENT_ENOENT"
+        },
+        {
+          "pool": "ani-block-pool",
+          "exact_image": "csi-vol-06900854-f454-43f7-ad14-edd78b932157",
+          "captured_image_id": "1732b66941246",
+          "original_observed": "PRESENT",
+          "observed": "ABSENT_ENOENT"
+        },
+        {
+          "pool": "ani-block-pool",
+          "exact_image": "csi-vol-d09d5b68-d0aa-4252-adf6-5b4dcdbd24ca",
+          "captured_image_id": "1732be1ed04c1",
+          "original_observed": "PRESENT",
+          "observed": "ABSENT_ENOENT"
+        }
+      ],
+      "no_further_loop": true,
+      "writes": 0,
+      "pool_trash_enumeration": false
+    }
+  },
+  "network_cleanup": "Root separately owns released attachment and authorized four network objects; no repeated PG read here",
+  "receipts": {
+    "cleanup-inventory.json": "4a8b4f2e9ae9e87eb8be539d28dacc537112de68db8eda268a85cac933044cb8",
+    "cleanup-inventory-before-media-addendum.json": "9f9accf9aad74b6b5c0dfed1af9beb7ed0be5de594867e8ce93da769ed715900",
+    "cleanup-progress.json": "996801df92f978f4c9bc752942d3bc845c63ce76281b235066b63f7320388572",
+    "backend-cleanup.json": "1e8da98484cc3c68f5ed30e55f4fd1ed0eb2f6f9f87cc9ec69dcc7244f9e8ab6",
+    "media-temp-parent-cleanup.json": "ff3a87c46e9743b3e3e0f64539882dde7f0897c468c905e28f31f9c59c643adb"
+  },
+  "initial_result": "PARTIAL_NORMAL_DELETE_NATIVE_GONE_BACKEND_ID_PENDING"
+}

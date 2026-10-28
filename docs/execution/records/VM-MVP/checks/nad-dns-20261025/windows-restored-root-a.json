@@ -1,0 +1,17 @@
+{
+  "result": "PASS_BROWSER_RESTORED_LOGIN_AND_ROOT_A",
+  "vm_id": "1823315c-e0ae-421a-b76d-e27f97343160",
+  "native_vm_uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575",
+  "version": "22",
+  "vmi_uid": "634cc54b-19ce-441b-afdd-4f0585ddd7da",
+  "transport": "normal tenant Gov console session windows09 -> SG -> native VNC",
+  "account": "Administrator existing-password login passed after offline restore and post-restore data disk replug",
+  "read_only_command": "cmd /k type C:\\ProgramData\\ANI\\VMStorage-01a168ce\\root-marker.txt",
+  "observed_full_text": "ani-vm-windows-storage-01a168ce 1823315c-e0ae-421a-b76d-e27f97343160 root A",
+  "data_disk_three_a_scope": "Both data A markers, exact filesystem/disk identity and all three SHA values verified by actual QGA; browser only re-read the root marker",
+  "shutdown_event_tracker": "Shown after disk snapshot restore; canceled without assigning a fabricated cause. No claim that the disk snapshot contains RAM or proves clean Guest shutdown",
+  "logout": "Normal sign out returned to lock screen; VNC disconnected and task tab closed",
+  "credentials_in_receipt": false,
+  "guest_content_writes": 0,
+  "screenshot": "windows-restored-root-a.png"
+}

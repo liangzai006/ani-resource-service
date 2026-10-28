@@ -1,0 +1,183 @@
+{
+  "result": "PASS_DEPLOYMENT_READONLY_CHECKS",
+  "at": "2026-10-27T04:27:21.628373+00:00",
+  "authorization": "User: submit PR; bypass normal merge; no force push; deploy 100.64.128.12",
+  "target": "100.64.128.12",
+  "cluster_uid": "3eeb5379-8748-4bf8-8f6d-d7a48ce3bc24",
+  "pull_request": "https://github.com/zhangzhe-ctrl/ani-resource-service/pull/18",
+  "pr_head": "632b30d6337a8154518890b22ca21add4dc44fd7",
+  "merge_commit": "45d8f0ee3f8f51af66cebc94a13711565278e813",
+  "merge_parents": [
+    "ece9d53037404b04034884e5c2d641ee95eb5729",
+    "632b30d6337a8154518890b22ca21add4dc44fd7"
+  ],
+  "no_force_push": true,
+  "no_direct_main_push": true,
+  "release_source": {
+    "host": "fedora",
+    "revision": "7d3fbb6272a37697d75c3d77127a0402536e12f1",
+    "parents": [
+      "45d8f0ee3f8f51af66cebc94a13711565278e813",
+      "7755f6f4b8514cca80ad99886c4e1019fa276eea"
+    ],
+    "source_archive_sha256": "16e80554cab4a1ddbc1fa6b3d2aae12de6b2daefc9ec931eea30d6d6f8c202b7",
+    "source_tree": "ddd1ba18cfa0151e17890970e58b9399012bc56b",
+    "steps": [
+      {
+        "phase": "combined-tests",
+        "exit_code": 0,
+        "log": "/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/logs/release-r2-combined-tests.log"
+      },
+      {
+        "phase": "static-build",
+        "exit_code": 0,
+        "log": "/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/logs/release-r2-static-build.log"
+      },
+      {
+        "phase": "buildinfo",
+        "exit_code": 0,
+        "log": "/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/logs/release-r2-buildinfo.log"
+      },
+      {
+        "phase": "base-inspect",
+        "exit_code": 0,
+        "log": "/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/logs/release-r2-base-inspect.log"
+      },
+      {
+        "phase": "package",
+        "exit_code": 0,
+        "log": "/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/logs/release-r2-package.log"
+      },
+      {
+        "phase": "entry-probe",
+        "exit_code": 0,
+        "log": "/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/logs/release-r2-entry-probe.log"
+      },
+      {
+        "phase": "oci-export",
+        "exit_code": 0,
+        "log": "/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/logs/release-r2-oci-export.log"
+      }
+    ],
+    "result": "PASS_BUILT_NOT_PUBLISHED",
+    "binary_sha256": "282829bdc2fb923eb3cec464f6b91f2c57fc221fc45beec2e1488063b06edb3a",
+    "PT_INTERP": false,
+    "PT_DYNAMIC": false,
+    "image_tag": "owner-refund-7d3fbb6272a3-10064-20261027",
+    "manifest_digest": "sha256:4b074baa1df4e439373de375ff8eeb7a7196ca8a2c68351700ebf372313003d3",
+    "archive": "/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/release-resource.oci.tar",
+    "archive_sha256": "e2b1a117b2353ad9341ba34957d79dbd72d5cad770d80e35dc3515f7ed3c3b48",
+    "source_unchanged": true
+  },
+  "registry": {
+    "result": "PASS_PUBLISHED_NOT_DEPLOYED",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:4b074baa1df4e439373de375ff8eeb7a7196ca8a2c68351700ebf372313003d3",
+    "tag": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:owner-refund-7d3fbb6272a3-10064-20261027",
+    "revision": "7d3fbb6272a37697d75c3d77127a0402536e12f1",
+    "parents": [
+      "45d8f0ee3f8f51af66cebc94a13711565278e813",
+      "7755f6f4b8514cca80ad99886c4e1019fa276eea"
+    ],
+    "binary_sha256": "282829bdc2fb923eb3cec464f6b91f2c57fc221fc45beec2e1488063b06edb3a",
+    "strict_tls": true,
+    "registry_manifest_verified": true
+  },
+  "backup": {
+    "task": "refund-20261027",
+    "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+    "snapshot_sha256": "4452c1ae1d79849fa2090ccaf95e6cc2c24b74c5134b7f2e5a8bd302563fc39b",
+    "pg_pod_uid": "333fe87e-4a47-4e99-b5ea-33ef48be2e27",
+    "pg_container": "postgresql",
+    "database": "ani_resource",
+    "owner": "resource_migrate",
+    "runtime": "resource_runtime",
+    "tools": "pg_dump (PostgreSQL) 17.11 (Debian 17.11-1.pgdg12+2)\npg_restore (PostgreSQL) 17.11 (Debian 17.11-1.pgdg12+2)\npsql (PostgreSQL) 17.11 (Debian 17.11-1.pgdg12+2)",
+    "result": "PASS",
+    "dump_file": "/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/release-live/ani_resource.before.dump",
+    "dump_sha256": "62dbbdd5fd6f8fb2060a139cf968516992d9b7916e69bd1b791cae24e1b46cee",
+    "dump_bytes": 427946,
+    "toc_verified": true,
+    "toc_sha256": "81a2c2db33cf881319f0dc1501038ac2d9a2f5fd756850bea5fd9a7ce30c1ab3",
+    "outbox_rows": 1,
+    "outbox_sha256": "d76d26640463ac5dad2b20b81518be258195e68ce2b2b73511005f5fb2f214f7"
+  },
+  "schema": {
+    "task": "refund-20261027",
+    "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+    "snapshot_sha256": "4452c1ae1d79849fa2090ccaf95e6cc2c24b74c5134b7f2e5a8bd302563fc39b",
+    "pg_pod_uid": "333fe87e-4a47-4e99-b5ea-33ef48be2e27",
+    "pg_container": "postgresql",
+    "database": "ani_resource",
+    "owner": "resource_migrate",
+    "runtime": "resource_runtime",
+    "tools": "pg_dump (PostgreSQL) 17.11 (Debian 17.11-1.pgdg12+2)\npg_restore (PostgreSQL) 17.11 (Debian 17.11-1.pgdg12+2)\npsql (PostgreSQL) 17.11 (Debian 17.11-1.pgdg12+2)",
+    "result": "PASS",
+    "instance_versions": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "checksums_verified": true,
+    "original_outbox_unchanged": true,
+    "runtime_ddl_safe": true,
+    "compute_unchanged": true,
+    "outbox_rows": 1,
+    "outbox_sha256": "d76d26640463ac5dad2b20b81518be258195e68ce2b2b73511005f5fb2f214f7"
+  },
+  "observation": {
+    "result": "PASS_DEPLOYMENT_READONLY_CHECKS",
+    "task": "refund-20261027",
+    "at": "2026-10-27T04:26:39.429811+00:00",
+    "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+    "generation": 38,
+    "deployment_image_only_change": true,
+    "replicas": 1,
+    "pods": [
+      {
+        "name": "ani-resource-service-d6c4f94bb-hpztn",
+        "uid": "89ad97a8-4e69-4dfe-8ada-71ae70e170d4",
+        "imageID": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:4b074baa1df4e439373de375ff8eeb7a7196ca8a2c68351700ebf372313003d3",
+        "ready": true,
+        "restartCount": 0,
+        "log_file": "/home/chabking/workspace/ani-resource-service-runs/container-owner-refund-20261027-01a17b4e/release-live/observe-20261027T042628Z-790d84/ani-resource-service-d6c4f94bb-hpztn.log",
+        "log_sha256": "b568be7b0e5275aa47012e2782bc3e72e794dc5956142bd4ef13726583f10a07"
+      }
+    ],
+    "env_ports_mounts_preserved": true,
+    "image_runtime_service_19094": true,
+    "migration_objects_absent": true,
+    "resource_log_error_count": 0,
+    "resource_log_fatal_count": 0,
+    "image_runtime_startup_marker_count": 3,
+    "image_runtime_startup_marker": "OBSERVED",
+    "database_counts": {
+      "deleted": 1,
+      "running": 0,
+      "stopped": 0,
+      "instances": 1,
+      "release_pending": 0,
+      "external_results_pending": 0,
+      "release_eligible_pending": 0,
+      "delete_operations_pending": 0,
+      "release_waiting_cleanup_fact": 0
+    },
+    "original_event_identity_count": 1,
+    "original_event_identity_sha256": "ac830d1e8e4d45c04533e6bcc55ec400b79e00637bd554a03e2503ce3154db22",
+    "original_ack_identity_count": 1,
+    "original_ack_identity_sha256": "ac830d1e8e4d45c04533e6bcc55ec400b79e00637bd554a03e2503ce3154db22",
+    "original_events_and_acks_preserved": true,
+    "existing_lifecycle_followup_required": false,
+    "product_validation": "NOT_RUN_NO_NEW_INSTANCE_OR_GPU_LEDGER",
+    "cluster_writes": 0,
+    "database_writes": 0
+  },
+  "task_migration_objects_deleted": true,
+  "task_owner_dsn_file_deleted": true,
+  "ci": "BYPASS_AUTHORIZED; GitHub main CI contains failures; not called green",
+  "product_validation": "NOT_RUN_NEW_INSTANCE_GOV_LEDGER_GPU_CAPACITY",
+  "early_release_input_failure": "First minimal source archive omitted tests/testenv; no product tests ran. Full tracked runtime/test source used for passing combined validation."
+}

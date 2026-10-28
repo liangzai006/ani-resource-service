@@ -304,7 +304,12 @@ func (p *Postgres) AcceptPlatform(ctx context.Context, i biz.PlatformIntent, a b
 		}
 	}
 	if i.Pool != nil {
-		if i.Pool.Scope != "intranet" {
+		if i.Pool.Scope != "intranet" && i.Pool.GatewayID != "" {
+			if _, ownerErr := q.ManagedGatewayOwner(ctx, sqlcgen.ManagedGatewayOwnerParams{ClusterID: p.placement.ClusterID, GatewayID: &i.Pool.GatewayID}); ownerErr == nil {
+				return biz.PlatformResource{}, biz.Fail(biz.ResourceInUse, "gateway is owned by another public pool")
+			} else if !errors.Is(ownerErr, pgx.ErrNoRows) {
+				return biz.PlatformResource{}, databaseFailure(ownerErr)
+			}
 			if err = checkParent("egress_gateway", i.Pool.GatewayID); err != nil {
 				return biz.PlatformResource{}, err
 			}
@@ -354,11 +359,18 @@ func (p *Postgres) AcceptPlatform(ctx context.Context, i biz.PlatformIntent, a b
 	case "egress_gateway":
 		err = q.InsertEgressGateway(ctx, sqlcgen.InsertEgressGatewayParams{ResourceID: id, ClusterID: p.placement.ClusterID})
 	case "public_pool":
-		c := i.Pool
+		c := *i.Pool
+		managed := c.Scope != "intranet" && c.GatewayID == ""
+		if managed {
+			c.GatewayID, err = p.acceptManagedGateway(ctx, q, row, a, now)
+			if err != nil {
+				return biz.PlatformResource{}, err
+			}
+		}
 		if c.Scope == "intranet" {
 			err = q.InsertIntranetPool(ctx, sqlcgen.InsertIntranetPoolParams{ResourceID: id, ClusterID: p.placement.ClusterID, Cidr: c.CIDR, OvnGatewayIp: c.OVNGatewayIP, ExcludedIps: c.ExcludedIPs, DefaultVpcName: c.DefaultVPCName, DefaultVpcUid: c.DefaultVPCUID, IntranetNetworks: c.IntranetNetworks})
 		} else {
-			err = q.InsertPublicPool(ctx, sqlcgen.InsertPublicPoolParams{ResourceID: id, ClusterID: p.placement.ClusterID, Mode: c.Mode, GatewayID: &c.GatewayID, Cidr: c.CIDR, OvnGatewayIp: c.OVNGatewayIP, ExcludedIps: c.ExcludedIPs, VlanNetworkID: c.VlanNetworkID, UpstreamGatewayIp: c.UpstreamGatewayIP})
+			err = q.InsertPublicPool(ctx, sqlcgen.InsertPublicPoolParams{ResourceID: id, ClusterID: p.placement.ClusterID, Mode: c.Mode, ManagedGateway: managed, GatewayID: &c.GatewayID, Cidr: c.CIDR, OvnGatewayIp: c.OVNGatewayIP, ExcludedIps: c.ExcludedIPs, VlanNetworkID: c.VlanNetworkID, UpstreamGatewayIp: c.UpstreamGatewayIP})
 		}
 	}
 	if err != nil {
@@ -496,20 +508,27 @@ func (p *Postgres) poolReady(ctx context.Context, q *sqlcgen.Queries, pool sqlcg
 	if allocation && !pool.AllocationEnabled {
 		return unavailable()
 	}
-	if pool.VerificationExpiresAt == nil || !pool.VerificationExpiresAt.After(now) || len(pool.Verification) == 0 {
-		return unavailable()
-	}
 	topology, err := q.PublicPoolTopology(ctx, sqlcgen.PublicPoolTopologyParams{ClusterID: pool.ClusterID, ResourceID: pool.ResourceID})
 	if err != nil {
 		return databaseFailure(err)
 	}
-	var evidence biz.PublicPoolVerification
-	topologyHash, err := addressPoolTopologyFor(ctx, q, pool, topology)
-	if err != nil {
-		return err
-	}
-	if json.Unmarshal(pool.Verification, &evidence) != nil || evidence.TopologyFingerprint != topologyHash || !sameProviderImages(evidence.ProviderImageDigests, topology.ProviderImages) || biz.ValidatePoolVerificationForScope(evidence, pool.Scope, now) != nil {
+	// Current provider health remains mandatory. Manual forwarding evidence is
+	// optional for public pools; intranet keeps its independent verification.
+	if len(topology.ProviderImages) == 0 {
 		return unavailable()
+	}
+	if pool.Scope != "public" {
+		if pool.VerificationExpiresAt == nil || !pool.VerificationExpiresAt.After(now) || len(pool.Verification) == 0 {
+			return unavailable()
+		}
+		var evidence biz.PublicPoolVerification
+		topologyHash, err := addressPoolTopologyFor(ctx, q, pool, topology)
+		if err != nil {
+			return err
+		}
+		if json.Unmarshal(pool.Verification, &evidence) != nil || evidence.TopologyFingerprint != topologyHash || !sameProviderImages(evidence.ProviderImageDigests, topology.ProviderImages) || biz.ValidatePoolVerificationForScope(evidence, pool.Scope, now) != nil {
+			return unavailable()
+		}
 	}
 	refs := [][2]string{{"public_pool", pool.ResourceID}}
 	if pool.Scope != "intranet" {
@@ -579,7 +598,14 @@ func (p *Postgres) DeletePlatform(ctx context.Context, kind, id string, a biz.At
 		return biz.PlatformResource{}, databaseFailure(err)
 	}
 	if op.CompletedAt == nil {
-		return biz.PlatformResource{}, biz.Fail(biz.ResourceBusy, "platform creation has unfinished work")
+		// Owner deletion also cancels a pool waiting for its managed gateway.
+		pool, poolErr := q.GetPublicPool(ctx, sqlcgen.GetPublicPoolParams{ClusterID: row.ClusterID, ResourceID: id})
+		if kind != "public_pool" || poolErr != nil || !pool.ManagedGateway || op.Kind != "create_public_pool" {
+			return biz.PlatformResource{}, biz.Fail(biz.ResourceBusy, "platform creation has unfinished work")
+		}
+		if err = affected(q.SupersedePlatformCreate(ctx, sqlcgen.SupersedePlatformCreateParams{ResourceID: id, OperationID: op.OperationID})); err != nil {
+			return biz.PlatformResource{}, err
+		}
 	}
 	var count int64
 	switch kind {

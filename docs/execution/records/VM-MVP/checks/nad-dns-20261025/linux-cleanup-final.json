@@ -1,0 +1,387 @@
+{
+  "result": "PASS_NORMAL_PRODUCT_DELETE_NATIVE_CSI_CLEANUP",
+  "at": "2026-10-25T17:25:15.206047+00:00",
+  "vm_id": "bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+  "native_vm_uid": "a7da032d-6ba8-4fcf-bb6c-81761a2d1520",
+  "delete_operation_id": "d6ce213d-557d-412a-aa2a-c4e3ff52141b",
+  "operation": {
+    "id": "d6ce213d-557d-412a-aa2a-c4e3ff52141b",
+    "vmId": "bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+    "state": "succeeded",
+    "reason": "",
+    "action": "/vm.v1.VMService/AcceptDelete"
+  },
+  "product_VM": {
+    "id": "bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+    "version": "22",
+    "desiredState": "Deleted",
+    "observedState": "Deleted",
+    "closing": true,
+    "reason": ""
+  },
+  "delete_admission": {
+    "HTTP": 202,
+    "result": "QUEUED_FOR_OWNER",
+    "send_count": 1,
+    "replayed": false
+  },
+  "native_objects": {
+    "gone_count": 32,
+    "refs": [
+      {
+        "kind": "VirtualMachine",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+        "uid": "a7da032d-6ba8-4fcf-bb6c-81761a2d1520"
+      },
+      {
+        "kind": "VirtualMachineInstance",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+        "uid": "1a6f07bc-3f3b-4d90-b56c-8642634f6558"
+      },
+      {
+        "kind": "PersistentVolumeClaim",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "restore-31c78120-38c7-4b08-8537-f1c5957288ae-disk-cf3a4f3e9a10519784462fee133b81d2",
+        "uid": "a763e288-9165-4ec5-92d2-edb1aaa306d6"
+      },
+      {
+        "kind": "PersistentVolume",
+        "namespace": "",
+        "name": "pvc-a763e288-9165-4ec5-92d2-edb1aaa306d6",
+        "uid": "645ab608-5873-4325-824b-ad8da9614bab"
+      },
+      {
+        "kind": "PersistentVolumeClaim",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "restore-31c78120-38c7-4b08-8537-f1c5957288ae-disk-6fc44dc1525d5576a57505a3a806e72a",
+        "uid": "14ae494a-6524-4579-855b-7dc594f3b697"
+      },
+      {
+        "kind": "PersistentVolume",
+        "namespace": "",
+        "name": "pvc-14ae494a-6524-4579-855b-7dc594f3b697",
+        "uid": "99dea472-062c-43e3-8c69-bea4432220fc"
+      },
+      {
+        "kind": "PersistentVolumeClaim",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "restore-31c78120-38c7-4b08-8537-f1c5957288ae-disk-2449bf4261b750f8a08b024df164ba22",
+        "uid": "a638e280-144d-40eb-bf0b-335491005389"
+      },
+      {
+        "kind": "PersistentVolume",
+        "namespace": "",
+        "name": "pvc-a638e280-144d-40eb-bf0b-335491005389",
+        "uid": "9b776219-e901-4fc5-a53a-843aeb721747"
+      },
+      {
+        "kind": "VirtualMachineSnapshot",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-snap-59cb4e65-4585-56b5-bafe-9b8052d43648",
+        "uid": "fb04bd85-010c-48f7-9b51-8d74e2689899"
+      },
+      {
+        "kind": "VirtualMachineSnapshotContent",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vmsnapshot-content-fb04bd85-010c-48f7-9b51-8d74e2689899",
+        "uid": "6c4aab36-8a0f-4ee2-ab12-b807fc825674"
+      },
+      {
+        "kind": "VolumeSnapshot",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vmsnapshot-fb04bd85-010c-48f7-9b51-8d74e2689899-volume-disk-cf3a4f3e9a10519784462fee133b81d2",
+        "uid": "991af8df-c23a-4a2c-8ba8-eff766c62ea6"
+      },
+      {
+        "kind": "VolumeSnapshotContent",
+        "namespace": "",
+        "name": "snapcontent-991af8df-c23a-4a2c-8ba8-eff766c62ea6",
+        "uid": "2ed48c2d-bf91-43f2-bd68-8df9d7646744"
+      },
+      {
+        "kind": "VolumeSnapshot",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vmsnapshot-fb04bd85-010c-48f7-9b51-8d74e2689899-volume-disk-6fc44dc1525d5576a57505a3a806e72a",
+        "uid": "2e006d9b-c078-4343-8813-2e6076b2e2fd"
+      },
+      {
+        "kind": "VolumeSnapshotContent",
+        "namespace": "",
+        "name": "snapcontent-2e006d9b-c078-4343-8813-2e6076b2e2fd",
+        "uid": "1ffe36b1-8a12-4a5a-b7b5-b70b4d7e98ed"
+      },
+      {
+        "kind": "VolumeSnapshot",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vmsnapshot-fb04bd85-010c-48f7-9b51-8d74e2689899-volume-disk-2449bf4261b750f8a08b024df164ba22",
+        "uid": "7a984e31-c632-427d-a645-b67dbf9fdccf"
+      },
+      {
+        "kind": "VolumeSnapshotContent",
+        "namespace": "",
+        "name": "snapcontent-7a984e31-c632-427d-a645-b67dbf9fdccf",
+        "uid": "5b1310e9-4431-4d71-be11-25758ad9cc70"
+      },
+      {
+        "kind": "VirtualMachineSnapshot",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-snap-ad21f4e2-ef22-57dd-a02d-1262b0ed5958",
+        "uid": "8e62acb6-831b-4c46-86dc-d89105971b9c"
+      },
+      {
+        "kind": "VirtualMachineSnapshotContent",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vmsnapshot-content-8e62acb6-831b-4c46-86dc-d89105971b9c",
+        "uid": "6204af68-a9a3-403f-b586-b0a8d3647fe9"
+      },
+      {
+        "kind": "VolumeSnapshot",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vmsnapshot-8e62acb6-831b-4c46-86dc-d89105971b9c-volume-disk-cf3a4f3e9a10519784462fee133b81d2",
+        "uid": "a6484e69-7140-409b-a36f-6facd842dac5"
+      },
+      {
+        "kind": "VolumeSnapshotContent",
+        "namespace": "",
+        "name": "snapcontent-a6484e69-7140-409b-a36f-6facd842dac5",
+        "uid": "5e7f4b88-8704-49b9-b5d2-d0870e379190"
+      },
+      {
+        "kind": "VolumeSnapshot",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vmsnapshot-8e62acb6-831b-4c46-86dc-d89105971b9c-volume-disk-6fc44dc1525d5576a57505a3a806e72a",
+        "uid": "fe737afc-2b61-4b79-96e4-bd49058615ab"
+      },
+      {
+        "kind": "VolumeSnapshotContent",
+        "namespace": "",
+        "name": "snapcontent-fe737afc-2b61-4b79-96e4-bd49058615ab",
+        "uid": "351e58e2-43c4-4009-a1a7-594aa970a774"
+      },
+      {
+        "kind": "VolumeSnapshot",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vmsnapshot-8e62acb6-831b-4c46-86dc-d89105971b9c-volume-disk-2449bf4261b750f8a08b024df164ba22",
+        "uid": "d733187c-1599-4123-ac35-74fecea913b3"
+      },
+      {
+        "kind": "VolumeSnapshotContent",
+        "namespace": "",
+        "name": "snapcontent-d733187c-1599-4123-ac35-74fecea913b3",
+        "uid": "dc65f260-f0fe-404b-b7be-f57a1c0b69fd"
+      },
+      {
+        "kind": "VirtualMachineRestore",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-restore-3b8f8456-dc52-44a8-89af-9d50897d0dc4",
+        "uid": "31c78120-38c7-4b08-8537-f1c5957288ae"
+      },
+      {
+        "kind": "VirtualMachineRestore",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-restore-e0faed09-96dc-4131-b65f-1e85d1a62220",
+        "uid": "22647b4b-a124-4620-a3fa-e6deda0b65ce"
+      },
+      {
+        "kind": null,
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "virt-launcher-vm-bc4b9b77-8cae-4b4c-8a05-a25c4712a927-2czfj",
+        "uid": "503c8b98-ed92-41e2-8a02-6adb98da2c0a"
+      },
+      {
+        "kind": null,
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "revision-start-vm-a7da032d-6ba8-4fcf-bb6c-81761a2d1520-8",
+        "uid": "28f5722d-69af-42e2-913f-5bef90382adb"
+      },
+      {
+        "kind": "VNic",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "auto-virt-launcher-vm-bc4b9b77-8cae-4b4c-8a-vnic-lnglw",
+        "uid": "223add4d-56ad-46eb-ad2c-a6e9089c7c9c"
+      },
+      {
+        "kind": "Nic",
+        "namespace": "kcn-system",
+        "name": "nic-tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420-virt-laun-tw9vg",
+        "uid": "b2675b1d-706e-43e4-a36f-d01c1a393dc2"
+      },
+      {
+        "kind": "VNicIP",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "auto-virt-launcher-vm-bc4b9b77-8cae-4b4c-8a-vnic-lnglw",
+        "uid": "8364f3e3-c971-42db-817c-d52d2a04e6b3"
+      },
+      {
+        "kind": "Secret",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-init-bc4b9b77-8cae-4b4c-8a05-a25c4712a927",
+        "uid": "17bee370-c2bb-4826-a128-e02b0dbda414"
+      }
+    ],
+    "nonsecret_observation": "2026-10-25T17:09:58.519198+00:00",
+    "secret_observation": "2026-10-25T17:14:02.561486+00:00",
+    "secret_metadata": "Gone via PartialObjectMetadata HTTP404 without secret data read"
+  },
+  "backend": {
+    "name_queries_absent": 15,
+    "captured_image_ID_queries_absent": 9,
+    "exact_receipt": "backend-cleanup.json",
+    "physical_bytes_reclaimed": "NOT_MEASURED",
+    "global_trash": "NOT_INSPECTED",
+    "retired_image_id_boundary": "6 historical images were already name-absent at capture; exact image IDs not captured before retirement"
+  },
+  "retained_UIDs_unchanged": [
+    {
+      "path": "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "ref": {
+        "kind": "Namespace",
+        "namespace": "",
+        "name": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "a8d8a472-8a8a-43cf-abf0-0e805bbe67b0"
+      }
+    },
+    {
+      "path": "/apis/k8s.cni.cncf.io/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/network-attachment-definitions/ani-vm-primary-v1",
+      "ref": {
+        "kind": "NetworkAttachmentDefinition",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "ani-vm-primary-v1",
+        "uid": "49487e12-184c-41be-8e7c-064dafac7dd8"
+      }
+    },
+    {
+      "path": "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/serviceaccounts/ani-vm-workload",
+      "ref": {
+        "kind": "ServiceAccount",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "ani-vm-workload",
+        "uid": "f39d35d8-24ac-4191-a4a7-0f125de59b66"
+      }
+    },
+    {
+      "path": "/apis/kubevirt.io/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/virtualmachines/vm-1823315c-e0ae-421a-b76d-e27f97343160",
+      "ref": {
+        "kind": "VirtualMachine",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-1823315c-e0ae-421a-b76d-e27f97343160",
+        "uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575"
+      }
+    },
+    {
+      "path": "/api/v1/namespaces/ani-vm-media-linux-20261025/persistentvolumeclaims/fedora-44-kde-install-source",
+      "ref": {
+        "kind": null,
+        "namespace": "ani-vm-media-linux-20261025",
+        "name": "fedora-44-kde-install-source",
+        "uid": "f6438eb6-ddf9-44fd-958d-163a4e3ccf4c"
+      }
+    },
+    {
+      "path": "/api/v1/namespaces/ani-vm-media-linux-20261025/persistentvolumeclaims/ubuntu-2404-cloud-disk-source",
+      "ref": {
+        "kind": null,
+        "namespace": "ani-vm-media-linux-20261025",
+        "name": "ubuntu-2404-cloud-disk-source",
+        "uid": "0371dc09-ba09-4cfd-8181-f3ab57270598"
+      }
+    },
+    {
+      "path": "/apis/cdi.kubevirt.io/v1beta1/namespaces/ani-vm-media-linux-20261025/datavolumes/fedora-44-kde-install-source",
+      "ref": {
+        "kind": "DataVolume",
+        "namespace": "ani-vm-media-linux-20261025",
+        "name": "fedora-44-kde-install-source",
+        "uid": "86914a6b-a8dd-4374-833f-fb03c58e0073"
+      }
+    },
+    {
+      "path": "/apis/cdi.kubevirt.io/v1beta1/namespaces/ani-vm-media-linux-20261025/datavolumes/ubuntu-2404-cloud-disk-source",
+      "ref": {
+        "kind": "DataVolume",
+        "namespace": "ani-vm-media-linux-20261025",
+        "name": "ubuntu-2404-cloud-disk-source",
+        "uid": "73e1b83f-e50d-4f3c-b3f1-a5ddb2b8fb7d"
+      }
+    },
+    {
+      "path": "/api/v1/namespaces/ani-vm-media-win-20261025/persistentvolumeclaims/virtio-win-01271-iso-source",
+      "ref": {
+        "kind": null,
+        "namespace": "ani-vm-media-win-20261025",
+        "name": "virtio-win-01271-iso-source",
+        "uid": "1b755940-87db-4cfe-a57b-48bc2b4be250"
+      }
+    },
+    {
+      "path": "/api/v1/namespaces/ani-vm-media-win-20261025/persistentvolumeclaims/windows-server-2025-iso-source",
+      "ref": {
+        "kind": null,
+        "namespace": "ani-vm-media-win-20261025",
+        "name": "windows-server-2025-iso-source",
+        "uid": "00a4d704-9e14-4fef-b450-731323fe6830"
+      }
+    },
+    {
+      "path": "/apis/cdi.kubevirt.io/v1beta1/namespaces/ani-vm-media-win-20261025/datavolumes/virtio-win-01271-iso-source",
+      "ref": {
+        "kind": "DataVolume",
+        "namespace": "ani-vm-media-win-20261025",
+        "name": "virtio-win-01271-iso-source",
+        "uid": "a6702d2e-47f1-417c-8c48-3c2d78a8fc32"
+      }
+    },
+    {
+      "path": "/apis/cdi.kubevirt.io/v1beta1/namespaces/ani-vm-media-win-20261025/datavolumes/windows-server-2025-iso-source",
+      "ref": {
+        "kind": "DataVolume",
+        "namespace": "ani-vm-media-win-20261025",
+        "name": "windows-server-2025-iso-source",
+        "uid": "36382259-d895-4518-8548-3264eed59368"
+      }
+    },
+    {
+      "path": "/apis/networking.kubercloud.com/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/subnets/subnet-272bc3070b7c45f7938ee80ba2dcb16d",
+      "ref": {
+        "kind": "Subnet",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "subnet-272bc3070b7c45f7938ee80ba2dcb16d",
+        "uid": "3f8af97d-ba1e-4f39-9098-719ea2c10502"
+      }
+    }
+  ],
+  "shared_product_networks": [
+    {
+      "kind": "vpcs",
+      "id": "vpc_b4544502331b435180a4c010ccf28980",
+      "state": "available"
+    },
+    {
+      "kind": "subnets",
+      "id": "subnet_272bc3070b7c45f7938ee80ba2dcb16d",
+      "state": "available"
+    }
+  ],
+  "temporary_relay": "Pod/VNic/VNicIP/Nic Gone before DELETE",
+  "password_copy": "Guarded unlink completed; contents never read during cleanup",
+  "client_mutations_after_DELETE": "No second DELETE or cluster/native/ledger write; only guarded unlink of the authorized Fedora Linux test-password copy",
+  "handoff": "Original normal Gov DELETE succeeded; Linux VM storage/client cleanup complete within recorded backend observation boundary",
+  "protected_UIDs_final_observed_at": "2026-10-25T17:25:15.206095+00:00",
+  "prior_incomplete_receipt": "cleanup-before-rbac-fix.json",
+  "resolution": {
+    "by": "Root",
+    "environment_gap": "Resource SA could not list nics in kcn-system for closed-consumer cleanup",
+    "change": "Role and RoleBinding ani-resource-vm-nic-cleanup, nics:list only",
+    "service_restart": false,
+    "ledger_write": false,
+    "original_delete_resumed_without_resubmission": true
+  },
+  "transient_final_view_401": {
+    "classification": "session expiration after product DELETE had succeeded; not a business deletion failure",
+    "recovery": "Root refreshed original session with existing cookie/CSRF; no new login credentials",
+    "final_single_GET_HTTP": 200
+  },
+  "password_copy_receipt": "password-copy-cleanup.json"
+}

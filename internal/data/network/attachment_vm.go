@@ -16,8 +16,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-// ManagedVMNAD is deployment input, never browser input or an observed object
-// promoted to trusted configuration. The policy is copied before workers run.
+// ManagedVMNAD comes from a trusted durable preparation record or compatible
+// deployment input, never browser input or an arbitrary observed NAD.
 type ManagedVMNAD struct {
 	TenantID, VPCID, SubnetID, ClusterID, Namespace, NamespaceUID string
 	NADName, NADUID, NADConfigDigest, KCNSubnetRef                string
@@ -59,8 +59,18 @@ func (p *KCProvider) ResolveVMNetwork(ctx context.Context, s biz.VMNetworkSelect
 }
 
 func (p *KCProvider) resolveVMNetwork(ctx context.Context, s biz.VMNetworkSelection, e biz.VMNetworkExpectation, requireRunnable bool) (biz.VMPrimaryPlan, error) {
-	v, ok := p.vmNetworks[vmNetworkPolicyKey(s.TenantID, s.SubnetID, s.Namespace)]
-	if !ok || !biz.ValidVMNetworkExpectation(&e) || s.ClusterID != v.ClusterID || s.VPCID != v.VPCID || s.KCNSubnetRef != v.KCNSubnetRef || e.NADName != v.NADName || e.NADUID != v.NADUID || e.NADConfigDigest != v.NADConfigDigest {
+	// Existing VM specifications keep their explicitly frozen static identity
+	// when automatic preparation becomes ready for later creates in that tenant.
+	v, static := p.vmNetworks[vmNetworkPolicyKey(s.TenantID, s.SubnetID, s.Namespace)]
+	static = static && e.NADName == v.NADName && e.NADUID == v.NADUID && e.NADConfigDigest == v.NADConfigDigest
+	if !static {
+		var err error
+		v, err = p.lookupManagedVMNetwork(ctx, s.TenantID, s.VPCID, s.SubnetID, s.ClusterID, s.Namespace, requireRunnable)
+		if err != nil {
+			return biz.VMPrimaryPlan{}, err
+		}
+	}
+	if !biz.ValidVMNetworkExpectation(&e) || s.ClusterID != v.ClusterID || s.VPCID != v.VPCID || s.KCNSubnetRef != v.KCNSubnetRef || e.NADName != v.NADName || e.NADUID != v.NADUID || e.NADConfigDigest != v.NADConfigDigest {
 		return biz.VMPrimaryPlan{}, biz.Fail(biz.AttachmentConflict, "managed VM NAD differs from frozen network selection")
 	}
 	ns, err := p.client.Resource(namespaces).Get(ctx, s.Namespace, metav1.GetOptions{})
@@ -70,12 +80,37 @@ func (p *KCProvider) resolveVMNetwork(ctx context.Context, s biz.VMNetworkSelect
 	if string(ns.GetUID()) != v.NamespaceUID || ns.GetDeletionTimestamp() != nil {
 		return biz.VMPrimaryPlan{}, biz.Fail(biz.AttachmentConflict, "VM namespace identity changed")
 	}
+	var managedRecord *sqlcgen.NetworkVmNamespace
+	if !static {
+		record, err := p.repository.queries.GetVMNamespace(ctx, sqlcgen.GetVMNamespaceParams{TenantID: s.TenantID, ClusterID: s.ClusterID})
+		if err != nil {
+			return biz.VMPrimaryPlan{}, databaseFailure(err)
+		}
+		managedRecord = &record
+		if ns.GetLabels()[ownerLabel] != "ani-network-service" || ns.GetLabels()[tenantLabel] != s.TenantID {
+			return biz.VMPrimaryPlan{}, biz.Fail(biz.AttachmentConflict, "managed VM namespace ownership changed")
+		}
+		if requireRunnable {
+			sa, err := p.client.Resource(vmServiceAccounts).Namespace(s.Namespace).Get(ctx, record.ServiceAccount, metav1.GetOptions{})
+			if err != nil {
+				return biz.VMPrimaryPlan{}, readFailure(err)
+			}
+			if err = verifyVMNetworkObject(sa, record, "ServiceAccount", record.ServiceAccount, record.ServiceAccountUid); err != nil {
+				return biz.VMPrimaryPlan{}, err
+			}
+		}
+	}
 	nad, err := p.client.Resource(vmNADs).Namespace(s.Namespace).Get(ctx, e.NADName, metav1.GetOptions{})
 	if err != nil {
 		return biz.VMPrimaryPlan{}, readFailure(err)
 	}
 	if nad.GetAPIVersion() != "k8s.cni.cncf.io/v1" || nad.GetKind() != "NetworkAttachmentDefinition" || string(nad.GetUID()) != e.NADUID || nad.GetDeletionTimestamp() != nil {
 		return biz.VMPrimaryPlan{}, biz.Fail(biz.AttachmentConflict, "managed VM NAD identity changed")
+	}
+	if managedRecord != nil {
+		if err := verifyVMNetworkObject(nad, *managedRecord, "NetworkAttachmentDefinition", managedRecord.NadName, managedRecord.NadUid); err != nil {
+			return biz.VMPrimaryPlan{}, err
+		}
 	}
 	config, ok := nad.Object["spec"].(map[string]any)
 	if !ok {

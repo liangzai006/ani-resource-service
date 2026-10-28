@@ -1,0 +1,135 @@
+{
+  "at": "2026-10-25T17:14:02.561486+00:00",
+  "initialization_secret": "Gone via PartialObjectMetadata HTTP404 without secret data read",
+  "retained_UIDs_unchanged": [
+    {
+      "path": "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "ref": {
+        "kind": "Namespace",
+        "namespace": "",
+        "name": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "a8d8a472-8a8a-43cf-abf0-0e805bbe67b0"
+      }
+    },
+    {
+      "path": "/apis/k8s.cni.cncf.io/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/network-attachment-definitions/ani-vm-primary-v1",
+      "ref": {
+        "kind": "NetworkAttachmentDefinition",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "ani-vm-primary-v1",
+        "uid": "49487e12-184c-41be-8e7c-064dafac7dd8"
+      }
+    },
+    {
+      "path": "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/serviceaccounts/ani-vm-workload",
+      "ref": {
+        "kind": "ServiceAccount",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "ani-vm-workload",
+        "uid": "f39d35d8-24ac-4191-a4a7-0f125de59b66"
+      }
+    },
+    {
+      "path": "/apis/kubevirt.io/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/virtualmachines/vm-1823315c-e0ae-421a-b76d-e27f97343160",
+      "ref": {
+        "kind": "VirtualMachine",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "vm-1823315c-e0ae-421a-b76d-e27f97343160",
+        "uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575"
+      }
+    },
+    {
+      "path": "/api/v1/namespaces/ani-vm-media-linux-20261025/persistentvolumeclaims/fedora-44-kde-install-source",
+      "ref": {
+        "kind": null,
+        "namespace": "ani-vm-media-linux-20261025",
+        "name": "fedora-44-kde-install-source",
+        "uid": "f6438eb6-ddf9-44fd-958d-163a4e3ccf4c"
+      }
+    },
+    {
+      "path": "/api/v1/namespaces/ani-vm-media-linux-20261025/persistentvolumeclaims/ubuntu-2404-cloud-disk-source",
+      "ref": {
+        "kind": null,
+        "namespace": "ani-vm-media-linux-20261025",
+        "name": "ubuntu-2404-cloud-disk-source",
+        "uid": "0371dc09-ba09-4cfd-8181-f3ab57270598"
+      }
+    },
+    {
+      "path": "/apis/cdi.kubevirt.io/v1beta1/namespaces/ani-vm-media-linux-20261025/datavolumes/fedora-44-kde-install-source",
+      "ref": {
+        "kind": "DataVolume",
+        "namespace": "ani-vm-media-linux-20261025",
+        "name": "fedora-44-kde-install-source",
+        "uid": "86914a6b-a8dd-4374-833f-fb03c58e0073"
+      }
+    },
+    {
+      "path": "/apis/cdi.kubevirt.io/v1beta1/namespaces/ani-vm-media-linux-20261025/datavolumes/ubuntu-2404-cloud-disk-source",
+      "ref": {
+        "kind": "DataVolume",
+        "namespace": "ani-vm-media-linux-20261025",
+        "name": "ubuntu-2404-cloud-disk-source",
+        "uid": "73e1b83f-e50d-4f3c-b3f1-a5ddb2b8fb7d"
+      }
+    },
+    {
+      "path": "/api/v1/namespaces/ani-vm-media-win-20261025/persistentvolumeclaims/virtio-win-01271-iso-source",
+      "ref": {
+        "kind": null,
+        "namespace": "ani-vm-media-win-20261025",
+        "name": "virtio-win-01271-iso-source",
+        "uid": "1b755940-87db-4cfe-a57b-48bc2b4be250"
+      }
+    },
+    {
+      "path": "/api/v1/namespaces/ani-vm-media-win-20261025/persistentvolumeclaims/windows-server-2025-iso-source",
+      "ref": {
+        "kind": null,
+        "namespace": "ani-vm-media-win-20261025",
+        "name": "windows-server-2025-iso-source",
+        "uid": "00a4d704-9e14-4fef-b450-731323fe6830"
+      }
+    },
+    {
+      "path": "/apis/cdi.kubevirt.io/v1beta1/namespaces/ani-vm-media-win-20261025/datavolumes/virtio-win-01271-iso-source",
+      "ref": {
+        "kind": "DataVolume",
+        "namespace": "ani-vm-media-win-20261025",
+        "name": "virtio-win-01271-iso-source",
+        "uid": "a6702d2e-47f1-417c-8c48-3c2d78a8fc32"
+      }
+    },
+    {
+      "path": "/apis/cdi.kubevirt.io/v1beta1/namespaces/ani-vm-media-win-20261025/datavolumes/windows-server-2025-iso-source",
+      "ref": {
+        "kind": "DataVolume",
+        "namespace": "ani-vm-media-win-20261025",
+        "name": "windows-server-2025-iso-source",
+        "uid": "36382259-d895-4518-8548-3264eed59368"
+      }
+    },
+    {
+      "path": "/apis/networking.kubercloud.com/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/subnets/subnet-272bc3070b7c45f7938ee80ba2dcb16d",
+      "ref": {
+        "kind": "Subnet",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "name": "subnet-272bc3070b7c45f7938ee80ba2dcb16d",
+        "uid": "3f8af97d-ba1e-4f39-9098-719ea2c10502"
+      }
+    }
+  ],
+  "shared_product_networks": [
+    {
+      "kind": "vpcs",
+      "id": "vpc_b4544502331b435180a4c010ccf28980",
+      "state": "available"
+    },
+    {
+      "kind": "subnets",
+      "id": "subnet_272bc3070b7c45f7938ee80ba2dcb16d",
+      "state": "available"
+    }
+  ]
+}

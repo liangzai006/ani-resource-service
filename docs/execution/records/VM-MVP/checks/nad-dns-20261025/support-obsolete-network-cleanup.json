@@ -1,0 +1,208 @@
+{
+  "at": "2026-10-26T00:54:47.625613+00:00",
+  "execution_host": "fedora",
+  "scope": "only four explicitly approved obsolete manual NAD/SA; exact UID+fresh RV",
+  "before_guard": {
+    "windows_native_vm_uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575",
+    "retained": {
+      "automatic_NAD": {
+        "uid": "49487e12-184c-41be-8e7c-064dafac7dd8",
+        "configuration_sha256": "7eca950d10d53d51056449b15d9050a204c08140988556dadebdb5d6f572e006"
+      },
+      "automatic_SA": {
+        "uid": "f39d35d8-24ac-4191-a4a7-0f125de59b66",
+        "configuration_sha256": "2e5fcb57598d921ed68edd1b91e60679fa8f15f4ac7e183db11df58d16e65325"
+      },
+      "permanent_NAD_role": {
+        "uid": "58fe1945-e16b-48be-80a5-66f6235f34a5",
+        "configuration_sha256": "2379f5f1ec98c8e32d064e91ab0c8492e73904c9cba717c0121e464fbf3e7ede"
+      },
+      "permanent_NAD_binding": {
+        "uid": "7b5d4605-e2f9-4f1a-8e1a-25dbaf43a0a2",
+        "configuration_sha256": "ff81fd90619cb124ea103c654eecba68c547ec718a0e3b4a4b35dc899bd91f8d"
+      },
+      "permanent_Nic_role": {
+        "uid": "20d7d623-26e5-4f2f-963f-8c180ad27221",
+        "configuration_sha256": "fbb38d5e1baf0bcee51aeca87d3a58b8abed15494dfe76a10d1c291788598a01"
+      },
+      "permanent_Nic_binding": {
+        "uid": "d1d93f63-35a4-4f78-9b3b-b81b98357200",
+        "configuration_sha256": "92ab5f85583a8da2e50cc9cec5d1de34d4110843d996907fed18b4965bbe5d52"
+      }
+    }
+  },
+  "objects": [
+    {
+      "kind": "NetworkAttachmentDefinition",
+      "namespace": "ani-vm-win-test-20261025",
+      "name": "vm-win-01a168ce",
+      "uid": "95d71aec-c41d-42fe-9499-e6f200ce44e9",
+      "api_path": "/apis/k8s.cni.cncf.io/v1/namespaces/ani-vm-win-test-20261025/network-attachment-definitions/vm-win-01a168ce",
+      "resource_version": "3092439",
+      "consumers": [],
+      "delete_attempts": 1,
+      "state": "GONE"
+    },
+    {
+      "kind": "ServiceAccount",
+      "namespace": "ani-vm-win-test-20261025",
+      "name": "vm-win-workload",
+      "uid": "ad3cd91d-b40f-4b76-9906-7e32693000c5",
+      "api_path": "/api/v1/namespaces/ani-vm-win-test-20261025/serviceaccounts/vm-win-workload",
+      "resource_version": "3092419",
+      "consumers": [],
+      "delete_attempts": 1,
+      "state": "GONE"
+    },
+    {
+      "kind": "NetworkAttachmentDefinition",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "vm-win-01a168ce",
+      "uid": "391c3224-4e7c-45fa-937f-bb74566233cb",
+      "api_path": "/apis/k8s.cni.cncf.io/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/network-attachment-definitions/vm-win-01a168ce",
+      "resource_version": "3157292",
+      "consumers": [],
+      "delete_attempts": 1,
+      "state": "GONE"
+    },
+    {
+      "kind": "ServiceAccount",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "workload",
+      "uid": "0184ce6c-b8f2-41a6-9756-37d75bfb7322",
+      "api_path": "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/serviceaccounts/workload",
+      "resource_version": "3157273",
+      "consumers": [],
+      "delete_attempts": 1,
+      "state": "GONE"
+    }
+  ],
+  "namespace": {
+    "name": "ani-vm-win-test-20261025",
+    "uid": "74963793-371d-44df-9551-947447141d02",
+    "state": "GONE",
+    "delete_attempts": 1,
+    "inventory": {
+      "reader": "gov_dns",
+      "namespace_uid_before_and_after": "74963793-371d-44df-9551-947447141d02",
+      "empty_kinds": [
+        "Pod",
+        "VirtualMachine",
+        "VirtualMachineInstance",
+        "PersistentVolumeClaim",
+        "DataVolume",
+        "VolumeSnapshot",
+        "Secret",
+        "RoleBinding",
+        "Role"
+      ],
+      "remaining_default_objects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "default",
+          "uid": "35c84251-3103-45e0-98cd-c7ad98b2e194"
+        },
+        {
+          "kind": "ConfigMap",
+          "name": "kube-root-ca.crt",
+          "uid": "0012846e-d405-42bc-b550-23b85c5500b9"
+        }
+      ],
+      "unresolved_read_failures": 0,
+      "all_CRD_coverage_claimed": false
+    },
+    "resource_version": "3092411"
+  },
+  "task_egress_network_writes": 0,
+  "forced_finalizers": 0,
+  "unrelated_writes": 0,
+  "after_guard": {
+    "windows_native_vm_uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575",
+    "retained": {
+      "automatic_NAD": {
+        "uid": "49487e12-184c-41be-8e7c-064dafac7dd8",
+        "configuration_sha256": "7eca950d10d53d51056449b15d9050a204c08140988556dadebdb5d6f572e006"
+      },
+      "automatic_SA": {
+        "uid": "f39d35d8-24ac-4191-a4a7-0f125de59b66",
+        "configuration_sha256": "2e5fcb57598d921ed68edd1b91e60679fa8f15f4ac7e183db11df58d16e65325"
+      },
+      "permanent_NAD_role": {
+        "uid": "58fe1945-e16b-48be-80a5-66f6235f34a5",
+        "configuration_sha256": "2379f5f1ec98c8e32d064e91ab0c8492e73904c9cba717c0121e464fbf3e7ede"
+      },
+      "permanent_NAD_binding": {
+        "uid": "7b5d4605-e2f9-4f1a-8e1a-25dbaf43a0a2",
+        "configuration_sha256": "ff81fd90619cb124ea103c654eecba68c547ec718a0e3b4a4b35dc899bd91f8d"
+      },
+      "permanent_Nic_role": {
+        "uid": "20d7d623-26e5-4f2f-963f-8c180ad27221",
+        "configuration_sha256": "fbb38d5e1baf0bcee51aeca87d3a58b8abed15494dfe76a10d1c291788598a01"
+      },
+      "permanent_Nic_binding": {
+        "uid": "d1d93f63-35a4-4f78-9b3b-b81b98357200",
+        "configuration_sha256": "92ab5f85583a8da2e50cc9cec5d1de34d4110843d996907fed18b4965bbe5d52"
+      }
+    }
+  },
+  "result": "PASS_FOUR_GONE_NAMESPACE_GONE_RETAINED_IDENTITIES_AND_CONFIG_UNCHANGED",
+  "finished_at": "2026-10-26T00:58:58.737550+00:00",
+  "namespace_before_guard": {
+    "windows_native_vm_uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575",
+    "retained": {
+      "automatic_NAD": {
+        "uid": "49487e12-184c-41be-8e7c-064dafac7dd8",
+        "configuration_sha256": "7eca950d10d53d51056449b15d9050a204c08140988556dadebdb5d6f572e006"
+      },
+      "automatic_SA": {
+        "uid": "f39d35d8-24ac-4191-a4a7-0f125de59b66",
+        "configuration_sha256": "2e5fcb57598d921ed68edd1b91e60679fa8f15f4ac7e183db11df58d16e65325"
+      },
+      "permanent_NAD_role": {
+        "uid": "58fe1945-e16b-48be-80a5-66f6235f34a5",
+        "configuration_sha256": "2379f5f1ec98c8e32d064e91ab0c8492e73904c9cba717c0121e464fbf3e7ede"
+      },
+      "permanent_NAD_binding": {
+        "uid": "7b5d4605-e2f9-4f1a-8e1a-25dbaf43a0a2",
+        "configuration_sha256": "ff81fd90619cb124ea103c654eecba68c547ec718a0e3b4a4b35dc899bd91f8d"
+      },
+      "permanent_Nic_role": {
+        "uid": "20d7d623-26e5-4f2f-963f-8c180ad27221",
+        "configuration_sha256": "fbb38d5e1baf0bcee51aeca87d3a58b8abed15494dfe76a10d1c291788598a01"
+      },
+      "permanent_Nic_binding": {
+        "uid": "d1d93f63-35a4-4f78-9b3b-b81b98357200",
+        "configuration_sha256": "92ab5f85583a8da2e50cc9cec5d1de34d4110843d996907fed18b4965bbe5d52"
+      }
+    }
+  },
+  "namespace_after_guard": {
+    "windows_native_vm_uid": "f8e50d20-aab9-4f8b-8fb1-f46dad2b6575",
+    "retained": {
+      "automatic_NAD": {
+        "uid": "49487e12-184c-41be-8e7c-064dafac7dd8",
+        "configuration_sha256": "7eca950d10d53d51056449b15d9050a204c08140988556dadebdb5d6f572e006"
+      },
+      "automatic_SA": {
+        "uid": "f39d35d8-24ac-4191-a4a7-0f125de59b66",
+        "configuration_sha256": "2e5fcb57598d921ed68edd1b91e60679fa8f15f4ac7e183db11df58d16e65325"
+      },
+      "permanent_NAD_role": {
+        "uid": "58fe1945-e16b-48be-80a5-66f6235f34a5",
+        "configuration_sha256": "2379f5f1ec98c8e32d064e91ab0c8492e73904c9cba717c0121e464fbf3e7ede"
+      },
+      "permanent_NAD_binding": {
+        "uid": "7b5d4605-e2f9-4f1a-8e1a-25dbaf43a0a2",
+        "configuration_sha256": "ff81fd90619cb124ea103c654eecba68c547ec718a0e3b4a4b35dc899bd91f8d"
+      },
+      "permanent_Nic_role": {
+        "uid": "20d7d623-26e5-4f2f-963f-8c180ad27221",
+        "configuration_sha256": "fbb38d5e1baf0bcee51aeca87d3a58b8abed15494dfe76a10d1c291788598a01"
+      },
+      "permanent_Nic_binding": {
+        "uid": "d1d93f63-35a4-4f78-9b3b-b81b98357200",
+        "configuration_sha256": "92ab5f85583a8da2e50cc9cec5d1de34d4110843d996907fed18b4965bbe5d52"
+      }
+    }
+  }
+}

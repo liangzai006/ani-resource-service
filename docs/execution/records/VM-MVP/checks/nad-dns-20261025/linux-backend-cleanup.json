@@ -1,0 +1,198 @@
+{
+  "at": "2026-10-25T17:11:39.328461+00:00",
+  "scope": "exact 15 frozen logical images and 9 captured image IDs; no pool/trash enumeration",
+  "rows": [
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-099d1dfd-14c4-41b3-8c30-d588ed5b5959",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-099d1dfd-14c4-41b3-8c30-d588ed5b5959",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b59aa9698",
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-95d3a530-546c-4653-9745-390fb200b2b1",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-95d3a530-546c-4653-9745-390fb200b2b1",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b57d05925",
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-21162634-93f7-485d-9d6a-ffe510330d7c",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-21162634-93f7-485d-9d6a-ffe510330d7c",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b2eb54838",
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-6a55bf49-38b9-45fc-9114-d0446ea476df",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-6a55bf49-38b9-45fc-9114-d0446ea476df",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b1cb4818f",
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-3067013f-444d-4955-93bf-eed28aa27b93",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-3067013f-444d-4955-93bf-eed28aa27b93",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732bf24cfeef",
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-a77a6e09-aa44-4eb4-bb7c-1eeb9044c6c7",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-a77a6e09-aa44-4eb4-bb7c-1eeb9044c6c7",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732babfd8d32",
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-bbac354b-5a68-440f-a471-6b15f2932db8",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-bbac354b-5a68-440f-a471-6b15f2932db8",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732bb14eea27",
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-e6bd43fc-11c1-4f9b-9328-d41b8bf9e8e7",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-e6bd43fc-11c1-4f9b-9328-d41b8bf9e8e7",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732b6da3ba08",
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "snapshot",
+      "handle": "0001-0009-rook-ceph-0000000000000004-b42179cb-fef1-4a71-bbf2-2be7e8178656",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-snap-b42179cb-fef1-4a71-bbf2-2be7e8178656",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "captured_image_id": "1732bb9e7ddc6",
+      "by_captured_id": {
+        "observed": "ABSENT_ENOENT"
+      }
+    },
+    {
+      "kind": "retired-volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-28f7c5a8-4169-46d5-aef1-9f3505d52373",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-28f7c5a8-4169-46d5-aef1-9f3505d52373",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_captured_id": {
+        "observed": "NOT_VERIFIED_ID_NOT_CAPTURED_BEFORE_RETIREMENT"
+      }
+    },
+    {
+      "kind": "retired-volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-61ca6ea4-93be-4f11-927b-addc19b7b523",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-61ca6ea4-93be-4f11-927b-addc19b7b523",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_captured_id": {
+        "observed": "NOT_VERIFIED_ID_NOT_CAPTURED_BEFORE_RETIREMENT"
+      }
+    },
+    {
+      "kind": "retired-volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-83ed629b-3251-4ee5-a0de-841d2ddc39c7",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-83ed629b-3251-4ee5-a0de-841d2ddc39c7",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_captured_id": {
+        "observed": "NOT_VERIFIED_ID_NOT_CAPTURED_BEFORE_RETIREMENT"
+      }
+    },
+    {
+      "kind": "retired-volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-804b7846-db97-427d-895f-83cf9e396f17",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-804b7846-db97-427d-895f-83cf9e396f17",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_captured_id": {
+        "observed": "NOT_VERIFIED_ID_NOT_CAPTURED_BEFORE_RETIREMENT"
+      }
+    },
+    {
+      "kind": "retired-volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-a2b55a25-e8a6-46b8-982b-3abfafef2011",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-a2b55a25-e8a6-46b8-982b-3abfafef2011",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_captured_id": {
+        "observed": "NOT_VERIFIED_ID_NOT_CAPTURED_BEFORE_RETIREMENT"
+      }
+    },
+    {
+      "kind": "retired-volume",
+      "handle": "0001-0009-rook-ceph-0000000000000004-7b37cc6e-ba28-49cd-bdee-6679dd9a879f",
+      "pool": "ani-block-pool",
+      "exact_image": "csi-vol-7b37cc6e-ba28-49cd-bdee-6679dd9a879f",
+      "by_exact_name": {
+        "observed": "ABSENT_ENOENT"
+      },
+      "by_captured_id": {
+        "observed": "NOT_VERIFIED_ID_NOT_CAPTURED_BEFORE_RETIREMENT"
+      }
+    }
+  ],
+  "physical_bytes_reclaimed": "NOT_MEASURED",
+  "global_trash": "NOT_INSPECTED",
+  "retired_image_id_boundary": "6 historical images were already name-absent at capture; exact image IDs not captured before retirement"
+}

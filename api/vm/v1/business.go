@@ -7,7 +7,9 @@ import (
 	"encoding/json"
 	"errors"
 	"math"
+	"net/netip"
 	"regexp"
+	"slices"
 	"strings"
 	"unicode/utf8"
 
@@ -30,6 +32,85 @@ var subnetIDPattern = regexp.MustCompile(`^subnet_[0-9a-f]{32}$`)
 var guestUsernamePattern = regexp.MustCompile(`^[a-z_][a-z0-9_-]{0,31}$`)
 
 const CloudInitNoCloud = "CLOUD_INIT_NOCLOUD"
+
+const DNSPlatformDefault = "PLATFORM_DEFAULT"
+const DNSCustom = "CUSTOM"
+
+// NormalizeDNSServers accepts one to three IP literals, renders a canonical IP
+// spelling and removes duplicates without changing the resolver preference order.
+// Hostnames, CIDRs, ports, zones and whitespace are not DNS server addresses.
+func NormalizeDNSServers(servers []string) ([]string, error) {
+	if len(servers) < 1 || len(servers) > 3 {
+		return nil, ErrInvalidRequest
+	}
+	out := make([]string, 0, len(servers))
+	seen := map[string]bool{}
+	for _, server := range servers {
+		ip, e := netip.ParseAddr(server)
+		if e != nil || ip.Zone() != "" {
+			return nil, ErrInvalidRequest
+		}
+		normalized := ip.Unmap().String()
+		if !seen[normalized] {
+			out = append(out, normalized)
+			seen[normalized] = true
+		}
+	}
+	return out, nil
+}
+
+// NormalizeDNSSelection keeps platform-default intent absent so clients which
+// predate DNS selection retain their accepted request digest. FrozenDNS, unlike
+// this selector, always records the actual addresses used by a new resolution.
+func NormalizeDNSSelection(d *DNSSelection) (*DNSSelection, error) {
+	if d == nil {
+		return nil, nil
+	}
+	if hasUnknown(d.ProtoReflect()) {
+		return nil, ErrInvalidRequest
+	}
+	if d.Mode == "" || d.Mode == DNSPlatformDefault {
+		if len(d.Nameservers) != 0 {
+			return nil, ErrInvalidRequest
+		}
+		return nil, nil
+	}
+	if d.Mode != DNSCustom {
+		return nil, ErrInvalidRequest
+	}
+	servers, e := NormalizeDNSServers(d.Nameservers)
+	if e != nil {
+		return nil, e
+	}
+	return &DNSSelection{Mode: DNSCustom, Nameservers: servers}, nil
+}
+
+func validateFrozenDNS(s *CreateSpec) error {
+	selector, e := NormalizeDNSSelection(s.Intent.Dns)
+	if e != nil {
+		return e
+	}
+	if s.Dns == nil {
+		// Legacy frozen specs did not include DNS. Reading and replaying them
+		// must neither require platform defaults nor change their digest.
+		if selector == nil {
+			return nil
+		}
+		return ErrInvalidRequest
+	}
+	servers, e := NormalizeDNSServers(s.Dns.Nameservers)
+	if e != nil || !slices.Equal(servers, s.Dns.Nameservers) {
+		return ErrInvalidRequest
+	}
+	if selector == nil {
+		if s.Dns.Mode != DNSPlatformDefault {
+			return ErrInvalidRequest
+		}
+	} else if s.Dns.Mode != DNSCustom || !slices.Equal(selector.Nameservers, s.Dns.Nameservers) {
+		return ErrInvalidRequest
+	}
+	return nil
+}
 
 func validateGuestInitialization(g *GuestInitialization) error {
 	if g == nil {
@@ -124,6 +205,9 @@ func ValidateUserIntent(d *CreateVMData) error {
 	if validateGuestInitialization(d.GuestInitialization) != nil || (d.GuestInitialization != nil && d.SourceKind != "DISK_IMAGE") {
 		return ErrInvalidRequest
 	}
+	if _, e := NormalizeDNSSelection(d.Dns); e != nil {
+		return e
+	}
 	seen := map[string]bool{}
 	for _, disk := range d.DataDisks {
 		if disk == nil || strings.TrimSpace(disk.ClientDiskKey) == "" || len(disk.ClientDiskKey) > 128 || seen[disk.ClientDiskKey] || strings.TrimSpace(disk.Name) == "" || utf8.RuneCountInString(disk.Name) > 128 || !validSize(disk.SizeGb) {
@@ -172,6 +256,9 @@ func ValidateCreateSpec(s *CreateSpec) error {
 	if s == nil || hasUnknown(s.ProtoReflect()) || ValidateUserIntent(s.Intent) != nil || compute.ValidateSelection(s.Compute) != nil || !validUUID(s.ClusterId) || !validName(s.Namespace) || s.NamespaceUid == "" || !validName(s.ServiceAccount) || s.Storage == nil || s.Network == nil || validateMedia(s.Media) != nil {
 		return ErrInvalidRequest
 	}
+	if e := validateFrozenDNS(s); e != nil {
+		return e
+	}
 	p := s.Storage
 	if !validName(p.StorageClass) || p.StorageClassUid == "" || p.VolumeMode != "Block" || len(p.AccessModes) != 1 || p.AccessModes[0] != "ReadWriteOnce" {
 		return ErrInvalidRequest
@@ -216,12 +303,15 @@ var canonicalFields = map[protoreflect.FullName][]string{
 	"vm.v1.StoragePolicy":       {"storage_class", "storage_class_uid", "volume_mode", "access_modes", "backend_storage_class", "media_storage_class"},
 	"vm.v1.FrozenNetwork":       {"vpc_id", "subnet_id", "nad_name", "nad_uid", "nad_config_digest"},
 	"vm.v1.GuestInitialization": {"method", "username", "ssh_public_key", "password_set", "credential_intent_digest"},
+	"vm.v1.DNSSelection":        {"mode", "nameservers"},
+	"vm.v1.FrozenDNS":           {"mode", "nameservers"},
 }
 
 // Optional extensions are omitted at their default value, preserving accepted
-// v1 bytes for all payloads which predate guest initialization.
+// v1 bytes for payloads which predate guest initialization or DNS selection.
 var canonicalOptionalFields = map[protoreflect.FullName][]string{
-	"vm.v1.CreateVMData":   {"guest_initialization"},
+	"vm.v1.CreateVMData":   {"guest_initialization", "dns"},
+	"vm.v1.CreateSpec":     {"dns"},
 	"vm.v1.MediaReference": {"initialization_capability", "initialization_verified"},
 }
 
@@ -306,13 +396,17 @@ func CanonicalUserIntent(d *CreateVMData) ([]byte, error) {
 	if e := ValidateUserIntent(d); e != nil {
 		return nil, e
 	}
-	return canonical(d)
+	normalized := proto.Clone(d).(*CreateVMData)
+	normalized.Dns, _ = NormalizeDNSSelection(d.Dns)
+	return canonical(normalized)
 }
 func CanonicalCreateSpec(s *CreateSpec) ([]byte, error) {
 	if e := ValidateCreateSpec(s); e != nil {
 		return nil, e
 	}
-	return canonical(s)
+	normalized := proto.Clone(s).(*CreateSpec)
+	normalized.Intent.Dns, _ = NormalizeDNSSelection(s.Intent.Dns)
+	return canonical(normalized)
 }
 func DecodeCreateSpec(b []byte) (*CreateSpec, error) {
 	s := new(CreateSpec)

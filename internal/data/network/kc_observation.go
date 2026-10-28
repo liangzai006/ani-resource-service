@@ -147,7 +147,7 @@ func (o *KCObservation) changed(old, new any) {
 			o.watchIndexBytes.Add(item.sign * int64(len(body)))
 		}
 	}
-	if unchangedNodeFactsRenewal(before, after, time.Now()) {
+	if unchangedNodeFactsRenewal(before, after, time.Now()) || unchangedNodeNetworkObservation(before, after) {
 		o.coalesced.Add(1)
 		return
 	}

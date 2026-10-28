@@ -29,6 +29,13 @@ type VMNetworkResolver interface {
 	ResolveVMNetwork(context.Context, VMNetworkSelection, VMNetworkExpectation) (VMPrimaryPlan, error)
 }
 
+// VMNetworkPreparer is an optional, ancillary part of Network's existing
+// durable Subnet reconciliation. Its failure does not change ordinary network
+// availability; VM admission requires its separately persisted ready identity.
+type VMNetworkPreparer interface {
+	PrepareVMNetwork(context.Context, ProviderTarget) error
+}
+
 // VMReader is implemented by the VM domain. Instance IDs in this mode are VM
 // IDs; this port must never fall through to the existing Instance repository.
 type VMReader interface {

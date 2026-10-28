@@ -1,0 +1,57 @@
+# Storage 的 Kubernetes 部署权限。与 Gov 对用户的 action/套餐授权分别配置。
+# 集群级绑定沿用 ani-system 现有 ServiceAccount；命名空间级由运维按租户开通清单
+# 逐个创建 RoleBinding（见 README.md），本清单不包含 rolebindings 权限。
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ani-storage-tenant
+  labels:
+    app.kubernetes.io/name: ani-resource-service
+    app.kubernetes.io/component: storage
+rules:
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get", "list", "create", "update", "delete"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["list"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["list"]
+  - apiGroups: ["kubeflow.org"]
+    resources: ["notebooks"]
+    verbs: ["list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ani-storage-cluster
+  labels:
+    app.kubernetes.io/name: ani-resource-service
+    app.kubernetes.io/component: storage
+rules:
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["storageclasses"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ani-storage-cluster
+  labels:
+    app.kubernetes.io/name: ani-resource-service
+    app.kubernetes.io/component: storage
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ani-storage-cluster
+subjects:
+  - kind: ServiceAccount
+    name: ani-resource-service
+    namespace: ani-system

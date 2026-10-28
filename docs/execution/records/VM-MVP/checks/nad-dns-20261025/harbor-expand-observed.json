@@ -1,0 +1,25 @@
+{
+  "registry_writes": 0,
+  "cluster_writes": 0,
+  "pvc_uid": "740375a5-5af2-487a-9418-cf14d0eb3179",
+  "pvc_request": {
+    "storage": "20Gi"
+  },
+  "pvc_status": {
+    "phase": "Bound",
+    "accessModes": [
+      "ReadWriteOnce"
+    ],
+    "capacity": {
+      "storage": "20Gi"
+    },
+    "allocatedResources": {
+      "storage": "20Gi"
+    }
+  },
+  "pv_capacity": {
+    "storage": "20Gi"
+  },
+  "df_available_kib": 10313064,
+  "df_output": "Filesystem     1024-blocks     Used Available Capacity Mounted on\n/dev/rbd1         20531836 10202388  10313064      50% /storage\n"
+}

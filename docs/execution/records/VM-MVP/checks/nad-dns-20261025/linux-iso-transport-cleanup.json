@@ -1,0 +1,75 @@
+{
+  "result": "PASS_FOUR_TASK_TRANSPORTS_STOPPED_LISTENERS_AND_CONTROL_SOCKETS_GONE",
+  "root_network_cleanup_complete_go": true,
+  "prepared_sha256": "1fb15d56d9e3477a3f504a7c055414c7fe949b790d7ef243597743b0fa1d2468",
+  "steps": [
+    {
+      "order": 1,
+      "target": "fedora_vnc_unit",
+      "at": "2026-10-26T03:35:35.149939+00:00",
+      "state": "STOPPED_GONE",
+      "stop_exit_code": 0,
+      "verification": {
+        "pid2411400": "GONE",
+        "unit": "INACTIVE_OR_UNLOADED",
+        "fedora5173": "GONE"
+      }
+    },
+    {
+      "order": 2,
+      "target": "browser_transfer",
+      "at": "2026-10-26T03:35:36.331300+00:00",
+      "state": "STOPPED_GONE",
+      "stop_exit_code": 0,
+      "verification": {
+        "pid15343": "GONE",
+        "local_listeners": {
+          "5173": "GONE"
+        }
+      }
+    },
+    {
+      "order": 3,
+      "target": "fedora",
+      "at": "2026-10-26T03:35:36.375926+00:00",
+      "state": "STOPPED_GONE",
+      "stop_exit_code": 0,
+      "verification": {
+        "pid": 15342,
+        "process": "GONE",
+        "control_socket": "GONE",
+        "remote_listeners": {
+          "41944": "GONE",
+          "41985": "GONE"
+        }
+      }
+    },
+    {
+      "order": 4,
+      "target": "node1",
+      "at": "2026-10-26T03:35:37.375591+00:00",
+      "state": "STOPPED_GONE",
+      "stop_exit_code": 0,
+      "verification": {
+        "pid": 15340,
+        "process": "GONE",
+        "control_socket": "GONE",
+        "local_listeners": {
+          "41944": "GONE",
+          "41985": "GONE"
+        }
+      }
+    }
+  ],
+  "business_api_calls": 0,
+  "business_changes": 0,
+  "credentials_deleted": 0,
+  "other_task_processes_touched": 0,
+  "normal_stop_only": true,
+  "updated_at": "2026-10-26T03:35:37.437010+00:00",
+  "final_local_listeners": {
+    "5173": "GONE",
+    "41944": "GONE",
+    "41985": "GONE"
+  }
+}

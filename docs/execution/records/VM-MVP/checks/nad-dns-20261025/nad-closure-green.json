@@ -1,0 +1,89 @@
+{
+  "phase": "green",
+  "host": "fedora",
+  "source": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/resource-source",
+  "overlay": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/green-overlay.json",
+  "steps": [
+    {
+      "name": "gofmt",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/gofmt",
+        "-w",
+        "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/vm_namespace.go",
+        "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/attachment_vm.go",
+        "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/vm_namespace_integration_test.go"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.477,
+      "private_log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/green-gofmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "related-network-pg",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-overlay=/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/green-overlay.json",
+        "-json",
+        "-count=1",
+        "-timeout=180s",
+        "./internal/data/network",
+        "-run",
+        "TestVMAutoNetworkPG|TestVMBlockedAttachmentPGClosesWithFrozenHistoricalNADAndFreshAbsence|TestVMManagedNADRequires|TestVMAttachmentPG"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 81.427,
+      "private_log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/green-related-network-pg.log",
+      "log_sha256": "182612877b19f0ce1e2a97330381b5d32dec1acb87fd6c8dd0eac673e618c324"
+    },
+    {
+      "name": "affected-vet",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "vet",
+        "-overlay=/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/green-overlay.json",
+        "./internal/data/network"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 5.984,
+      "private_log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/green-affected-vet.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "binary",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "build",
+        "-overlay=/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/green-overlay.json",
+        "-trimpath",
+        "-buildvcs=false",
+        "-ldflags=-s -w",
+        "-o",
+        "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/bin/resource-closure",
+        "./cmd/ani-resource-service"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 64.427,
+      "private_log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/nad-closure/green-binary.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "cgroup_limits": {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "go_flags": "-mod=readonly -p=1",
+  "gomaxprocs": 2,
+  "tmp": "/home/chabking/n1qfq3zm",
+  "started_at": "2026-10-25T16:29:22.906816+00:00",
+  "binary_sha256": "f365c514c3e7168947fcf4c3d88e8ea90595b4a24666856eb12e3d6ffacdeb33",
+  "binary": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/bin/resource-closure",
+  "result": "PASS",
+  "finished_at": "2026-10-25T16:31:55.430990+00:00",
+  "heavy_lock_released": true
+}

@@ -9,7 +9,7 @@
 
 将 [image.example.yaml](image.example.yaml) 的 `image` 段追加到部署方已有的完整、
 有效配置中。示例默认关闭；启用前替换所有占位符，使用运行身份可读的绝对路径。
-`ANI_NETWORK_MODE=governance` 才注册 Image 租户 RPC；full/vpc-read 模式不注册。
+`ANI_NETWORK_MODE=governance` 或 `full` 注册 Image 租户 RPC；vpc-read 模式不注册。
 Governance 模式仍装配现有 Network worker，并需要原 Network 配置及 Provider 权限，
 不能把仅有 `image` 段的文件当成完整服务配置。
 
@@ -18,6 +18,40 @@ Resource 入站继续使用 `ANI_NETWORK_CLIENT_CA`、`ANI_NETWORK_TLS_CERT`、
 受信 Governance 客户端证书包含 `ani-governance`；TLS 最低1.3。
 这些服务间证书与 Harbor HTTPS CA 是不同的配置用途。
 Image 仅增加固定11项租户操作；平台管理和运行拉取材料没有公共浏览器入口。
+
+### Inference 运行入口
+
+Inference 已作为独立工作负载 owner 接入时，在 Resource `governance/full` 部署显式设置：
+
+```text
+ANI_IMAGE_RUNTIME_ADDR=:19094
+ANI_IMAGE_RUNTIME_CA=/run/ani-image-runtime/ca.pem
+ANI_IMAGE_RUNTIME_CERT=/run/ani-image-runtime/tls.crt
+ANI_IMAGE_RUNTIME_KEY=/run/ani-image-runtime/tls.key
+```
+
+地址为空默认不监听；仅配置 TLS 而没有地址、Image 未启用、证书缺失均拒绝启动，
+不退回明文或 Governance 凭证。端口仅加入已有 Resource 内部 Service 和对应 NetworkPolicy，
+允许 Inference 工作负载访问；不加入公网入口、Gov BFF 或浏览器 OpenAPI。
+现有 Service selector、namespace、NetworkPolicy 标签需从实际部署读取，不能套用猜测值。
+
+沿用部署的内部服务 CA 签发方式，给 Inference **单独**签发 clientAuth 证书，唯一 DNS SAN
+为 `ani-inference-service`，不带 URI/IP/email/额外 DNS，不复用 `ani-governance` 客户端密钥。
+Resource 端 `CERT/KEY` 为 serverAuth 证书，DNS SAN 包含 `ani-network-service`；Inference
+客户端固定 serverName 为该值并校验 CA。TLS 只接受 1.3。证书通过既有 Kubernetes Secret
+只读挂载到相应服务，不将私钥写 ConfigMap、源码、证据或命令行；沿用已有签发/轮换责任。
+
+运行协议和受信 tenant metadata 见[内部合同](../../docs/specs/image-api.md#4-内部-imageruntimeservice)。
+Resource 仍只用原 Image 数据库权限读取凭据，不新增 Secret 写入 RBAC。Inference 的已有
+控制器身份是其共享 pull Secret 的唯一写入 owner，只在已授权 namespace 获得 Secrets 的
+get/create/update 权限；普通 runtime SA 不增加 API 权限，Pod 显式引用本租户 Secret。
+Instance 原 `ani-instance-image-pull` 及 `ani-resource-instance` owner 不受此入口接管。
+
+API 使用根模块 `github.com/zhangzhe-ctrl/ani-resource-service` 的正式版本及其
+`api/image/v1` 生成合同，当前两 RPC 不需要变更 protobuf。不得复制 DTO 或用本地 replace/go.work
+替代发布。仓库 CI 对所有 push/PR 在 Ubuntu 运行全量 verify/integration/race；在用户禁止
+全量及非 Fedora 重任务的本轮，push、PR 和新 tag 发布均停止，保留本地候选与 Fedora 定向证据，
+不修改或绕过 CI。已存在正式基线版本可供消费者锁定。
 
 镜像外部调用有界；配置 `server.grpc.timeout` 时需给空间/凭证写入留下足够时间，
 例如45秒，Governance Image 客户端超时默认30秒、最多45秒。

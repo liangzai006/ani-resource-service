@@ -195,6 +195,9 @@ func (n *Native) EnsureVM(ctx context.Context, v biz.VM) (biz.ObjectRef, error) 
 		return biz.ObjectRef{}, e
 	}
 	o := &unstructured.Unstructured{Object: map[string]any{"apiVersion": "kubevirt.io/v1", "kind": "VirtualMachine", "metadata": map[string]any{"name": v.Native.Name, "namespace": v.Spec.Namespace}, "spec": map[string]any{"runStrategy": "Manual", "template": map[string]any{"metadata": map[string]any{"annotations": map[string]any{"networking.kubercloud.com/subnet": v.Network.KCNSubnetRef}}, "spec": map[string]any{"serviceAccountName": v.Spec.ServiceAccount, "domain": domain, "volumes": volumes, "networks": []any{map[string]any{"name": "default", "multus": map[string]any{"default": true, "networkName": v.Spec.Namespace + "/" + v.Network.NADName}}}}}}}}
+	if e = configureDNS(v.Spec.DNS, o); e != nil {
+		return biz.ObjectRef{}, e
+	}
 	o.SetLabels(labels)
 	rawLabels := map[string]any{}
 	for k, x := range labels {

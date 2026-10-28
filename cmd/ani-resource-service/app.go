@@ -14,6 +14,7 @@ import (
 	imagev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/image/v1"
 	instancev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/instance/v1"
 	networkv1 "github.com/zhangzhe-ctrl/ani-resource-service/api/network/v1"
+	storagev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/storage/v1"
 	vmv1 "github.com/zhangzhe-ctrl/ani-resource-service/api/vm/v1"
 	"github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/network"
 	conf "github.com/zhangzhe-ctrl/ani-resource-service/internal/conf/v1"
@@ -63,24 +64,7 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 			repository.Close()
 		}
 	}()
-	clientPolicy := data.KCClientPolicy{QPS: 5, Burst: 10}
-	if o := bc.Network.Observation; o != nil {
-		clientPolicy = data.KCClientPolicy{QPS: float32(o.RequestQps), Burst: int(o.RequestBurst)}
-	}
-	provider, err := data.OpenKCProvider(repository, bc.Network.Kubeconfig, clientPolicy)
-	if err != nil {
-		return nil, err
-	}
-	options := data.DefaultObservationOptions()
-	if lb := bc.Network.LoadBalancer; lb != nil {
-		if err = provider.ConfigureLoadBalancer(data.LoadBalancerInstallation{Fingerprint: lb.InstallationFingerprint, ControllerImageID: lb.ControllerImageId, EnvoyImageID: lb.EnvoyImageId, ShutdownImageID: lb.ShutdownImageId, KCImageID: lb.KcImageId}); err != nil {
-			return nil, err
-		}
-	}
-	if o := bc.Network.Observation; o != nil {
-		options = data.ObservationOptions{AuditInterval: o.AuditInterval.AsDuration(), AuditJitter: o.AuditJitter.AsDuration(), AuditTimeout: o.AuditTimeout.AsDuration(), FlushInterval: o.FlushInterval.AsDuration(), QueueCapacity: int(o.QueueCapacity)}
-	}
-	observation, err := provider.EnableObservation(options)
+	provider, observation, err := openNetworkProvider(repository, bc.Network)
 	if err != nil {
 		return nil, err
 	}
@@ -143,7 +127,9 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 			consumer.Close()
 		}
 	}()
-	switchWorker, err := biz.NewVirtualSwitchWorker(repository, provider, uuid.NewString(), policy)
+	switchWorker, err := biz.NewVirtualSwitchWorker(repository, provider, uuid.NewString(), policy, func(ctx context.Context, work biz.VirtualSwitchWork, progress biz.VirtualSwitchProgress, err error) {
+		observability.ObserveVirtualSwitchWork(ctx, logger, work, progress, err)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -173,6 +159,11 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 	if err != nil {
 		return nil, err
 	}
+	storageComponents, err := openStorage(ctx, bc)
+	if err != nil {
+		return nil, err
+	}
+	storagev1.RegisterStorageServiceServer(grpcServer, storageComponents.service)
 	networkv1.RegisterNetworkServiceServer(grpcServer, service.NewNetworkService(network, attachments))
 	repository.UseEgressInfrastructure(provider)
 	egress, err := biz.NewEgress(repository, provider, biz.ContextEgressAuthorization{}, key, policy.StaleAfter, time.Now)
@@ -181,6 +172,7 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 	}
 	networkv1.RegisterTenantEgressServiceServer(grpcServer, service.NewTenantEgressService(egress))
 	networkv1.RegisterPlatformNetworkServiceServer(grpcServer, service.NewPlatformNetworkService(egress))
+	networkv1.RegisterPlatformEIPServiceServer(grpcServer, service.NewPlatformEIPService(egress))
 	networkv1.RegisterPlatformDeviceRetirementServiceServer(grpcServer, service.NewPlatformDeviceRetirementService(egress))
 	if defaultService != nil {
 		networkv1.RegisterPlatformDefaultEgressServiceServer(grpcServer, defaultService)
@@ -206,6 +198,13 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 	}
 	adminServer := server.NewAdminServer(bc.Server.Admin, readiness, observability.Gatherer(), middlewares...)
 	servers := []transport.Server{grpcServer, adminServer, observation, execution}
+	imageRuntime, err := openImageRuntime(images, middlewares...)
+	if err != nil {
+		return nil, err
+	}
+	if imageRuntime != nil {
+		servers = append(servers, imageRuntime)
+	}
 	if vms != nil && vms.console != nil {
 		servers = append(servers, vms.console)
 	}

@@ -1,0 +1,67 @@
+{
+  "task": "product-linux-iso-network-20261026-01a168ce",
+  "steps": {
+    "subnet": {
+      "at": "2026-10-26T03:31:47.094567+00:00",
+      "native_uid": "8ab1d08b-2edb-4009-875a-afd9e7b18127",
+      "before_resource_version": "3681702",
+      "before_operation_id": "b011e70f-2326-4866-b64f-b7c02480f059",
+      "send_attempts": 1,
+      "request_body": null,
+      "state": "ACKNOWLEDGED_OBSERVE_ORIGINAL_OPERATION",
+      "operation_id": "64c7270f-51b1-4923-88a9-f29aebea820c",
+      "observation": {
+        "at": "2026-10-26T03:32:52.195760+00:00",
+        "resource_state": "deleted",
+        "operation_id": "64c7270f-51b1-4923-88a9-f29aebea820c",
+        "operation_state": "succeeded",
+        "reason": "",
+        "native_gone": true,
+        "complete": true
+      }
+    },
+    "vpc": {
+      "at": "2026-10-26T03:32:53.308574+00:00",
+      "native_uid": "8a67cc63-4386-49bd-8b07-94c5ae9cb189",
+      "before_resource_version": "3682995",
+      "before_operation_id": "40a7e4b9-98d2-4ba8-a472-29f3a690ee0e",
+      "send_attempts": 1,
+      "request_body": null,
+      "state": "ACKNOWLEDGED_OBSERVE_ORIGINAL_OPERATION",
+      "operation_id": "4ef7b55a-e337-4075-b7da-ee2c83d403f9",
+      "observation": {
+        "at": "2026-10-26T03:33:27.445639+00:00",
+        "resource_state": "deleted",
+        "operation_id": "4ef7b55a-e337-4075-b7da-ee2c83d403f9",
+        "operation_state": "succeeded",
+        "reason": "",
+        "native_gone": true,
+        "complete": true
+      }
+    }
+  },
+  "automatic_mutation_retries": 0,
+  "business_SQL": 0,
+  "force_finalizers": 0,
+  "precondition": {
+    "vm_id": "8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+    "vm_delete_operation_id": "7cdf4695-d2ef-4733-b5bf-4a12855137bf",
+    "attachment_id": "att_17bf118a22694f2da9167a99bbf5f926",
+    "release_sha256": "53fe9cf5392224549ec6808944d36c0b804d856771b1e2b8dac6385a0ea6d38f",
+    "network_policy_sha256": "f0964e9b539d60ee1b11094f0d8fc3e6709ab6075ada34a5fe4e1b804d30e3c9",
+    "kept": {
+      "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420": {
+        "uid": "a8d8a472-8a8a-43cf-abf0-0e805bbe67b0",
+        "configuration_sha256": "77ea8a8c4d0f5c7fa433ccd9a75b73774911a49bb62c82cc737817df203ab62b"
+      },
+      "/apis/k8s.cni.cncf.io/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/network-attachment-definitions/ani-vm-primary-v1": {
+        "uid": "49487e12-184c-41be-8e7c-064dafac7dd8",
+        "configuration_sha256": "7eca950d10d53d51056449b15d9050a204c08140988556dadebdb5d6f572e006"
+      },
+      "/api/v1/namespaces/tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/serviceaccounts/ani-vm-workload": {
+        "uid": "f39d35d8-24ac-4191-a4a7-0f125de59b66",
+        "configuration_sha256": "2e5fcb57598d921ed68edd1b91e60679fa8f15f4ac7e183db11df58d16e65325"
+      }
+    }
+  }
+}

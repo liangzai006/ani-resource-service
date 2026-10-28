@@ -1,0 +1,191 @@
+{
+  "started_at": "2026-10-25T16:44:02.496543+00:00",
+  "host": "fedora",
+  "registry": "10.10.1.66:30003",
+  "repository": "ani-gpu-platform/ani-resource-service",
+  "tag": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:vm-nad-closure-0cb7df8ea5ca-01a168ce",
+  "strict_https": true,
+  "process_local_dial": "127.0.0.1:41904",
+  "tls_server_name": "10.10.1.66",
+  "cluster_uid_expected": "3eeb5379-8748-4bf8-8f6d-d7a48ce3bc24",
+  "private_references": {
+    "authfile": "/home/chabking/workspace/ani-resource-service-runs/vm-env-10064-20261025-01a168ce/images/private/harbor-auth.json",
+    "ca_file": "/home/chabking/workspace/ani-resource-service-runs/vm-env-10064-20261025-01a168ce/images/private/harbor-ca.crt"
+  },
+  "secret_reads": 0,
+  "cluster_writes": 0,
+  "database_access": 0,
+  "builds": 0,
+  "deployments": 0,
+  "automatic_retries": 0,
+  "manifest_put_attempts": 1,
+  "blob_post_attempts": 2,
+  "blob_put_attempts": 2,
+  "existing_blobs": 12,
+  "blobs": [
+    {
+      "digest": "sha256:94221ffb6c3e2f40b5b8be87279154deba3cc6dc3d1da803bbf67685e8e60426",
+      "post_attempts": 1,
+      "put_attempts": 1,
+      "head_status": 404,
+      "result": "CREATED_ACKNOWLEDGED"
+    },
+    {
+      "digest": "sha256:c1f4ff7724f7f15a187d5ec633a1d59cfcd376d636ba58704475c09c7d00f0dc",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:12b98db1f9a3daa07eca266140274100405e2ba33684a9cfed19227d8214a491",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:156feddf55001fe5c9fe753ad7ab8fea1f84e95b1d2e589ff3c8b0b55dee25b7",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:864c4fb7c1f3a443ce0386a9cb14c81e4a029660e0e844e278b707839c73a5f2",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:02c91f6b395a6b06d17b8985a2db90aef7b09feedff77eff1f7c269161263a9b",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:ffdf8cfdbafeabe2762d2dde33e36f1b87dfa967ae34811ff5342ebe8233eb4b",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:818beb2a6ac52d3cfb90a96d84cff5123ade753aac5adc2dd8f43347f6fa74eb",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:a0ce62815afcb344f5e245b1fe8026bef515df1fa3446ecc272057ba74be8bed",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:83717d7c33ed99f82afbd90b8a13fe29f05c433b7c55c2d7e1f2c2df18dfd5d5",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:88d89c9f554ae39742eb60ef19cc0198899514f6c95ebf216d7fc3249973e680",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:4eb6e32233edf636593de3be3c09079eb36e5bc5d405f77f6a943dc65834d8c5",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:752c3ee82ca8986fc2f87501573e664789781c520de5f6b630728b7537e8ff94",
+      "post_attempts": 0,
+      "put_attempts": 0,
+      "head_status": 200,
+      "result": "EXISTS"
+    },
+    {
+      "digest": "sha256:2dd59ca5b5ef5e027b34808cecf5e0274de70ba2dc9aa045d869bfeb3b567bfa",
+      "post_attempts": 1,
+      "put_attempts": 1,
+      "head_status": 404,
+      "result": "CREATED_ACKNOWLEDGED"
+    }
+  ],
+  "result": "PASS_PUBLISHED_INDEPENDENT_DIGEST_READBACK",
+  "cluster_uid_verified": true,
+  "build_receipt": {
+    "path": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/resource-closure-image/build.json",
+    "sha256": "18de2addd059f2cd887f3507b70fa9665fc62eb7fddddcdbef1f5cfceeb8baf4"
+  },
+  "source_commit": "0cb7df8ea5ca3ab3b50bc1e68b754959d4a51d0b",
+  "binary_sha256": "f365c514c3e7168947fcf4c3d88e8ea90595b4a24666856eb12e3d6ffacdeb33",
+  "archive": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/resource-closure-image/resource.oci.tar",
+  "archive_sha256": "c203094dc0329e214d2c52cb830a2c48021b9a3aa930eaa1e8d75ae8a75fba41",
+  "expected_manifest_digest": "sha256:a4b573f43b313ee4632c8d152d0ebb55ce5ca0f6e6ec718a0290ec9762b59607",
+  "source_provenance": {
+    "source_commit": "0cb7df8ea5ca3ab3b50bc1e68b754959d4a51d0b",
+    "base_source_commit": "52c19b06f304bbbc3f9ac55c0070d57912fd63df",
+    "binary_sha256": "f365c514c3e7168947fcf4c3d88e8ea90595b4a24666856eb12e3d6ffacdeb33",
+    "overlay_sha256": {
+      "internal/data/network/attachment_vm.go": "d82efe39afda2794fb814e091c67b5924e6a5fa2e331c1e70ebaf1a02d7c3f4e",
+      "internal/data/network/vm_namespace.go": "67e04870a66ec0f01925c75e6b58c66fc49a7226e49e821b459550bf37e6b859",
+      "internal/data/network/vm_namespace_integration_test.go": "80cc78154d9ec3476578f09a558ad767dcbe596c2173a0c59b615881b7bbe289"
+    }
+  },
+  "source_provenance_sha256": "a7846615ba4a2cc0e22453780ef302d090570444aaaebe76601f9d7b415f67de",
+  "tag_head_status": 404,
+  "new_tag_absence_confirmed": true,
+  "immutable_ref": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:a4b573f43b313ee4632c8d152d0ebb55ce5ca0f6e6ec718a0290ec9762b59607",
+  "elapsed_s": 94.649,
+  "finished_at": "2026-10-25T16:45:37.145380+00:00",
+  "heavy_lock_released": true,
+  "task_transport": {
+    "task": "vm-nad-dns-20261025-01a168ce/resource-closure-image",
+    "created_for": "new strict-HTTPS publisher transport only",
+    "authority": "10.10.1.66:30003",
+    "process_local_dial_on_fedora": "127.0.0.1:41904",
+    "masters": [
+      {
+        "host": "kubercloud@100.64.128.12",
+        "control_socket": "/home/chabking/.ssh/ctl-vm10064-closure-image-node1",
+        "control_socket_inode": 6254989,
+        "owner_pid_local": 1770435,
+        "owner_uid_local": 1000,
+        "port": 41904,
+        "process_args": "ssh -M -S /home/chabking/.ssh/ctl-vm10064-closure-image-node1 -fnNT -oExitOnForwardFailure=yes -oServerAliveInterval=15 -oServerAliveCountMax=2 -L 127.0.0.1:41904:10.10.1.66:30003 kubercloud@100.64.128.12"
+      },
+      {
+        "host": "fedora",
+        "control_socket": "/home/chabking/.ssh/ctl-vm10064-closure-image-fedora",
+        "control_socket_inode": 6254990,
+        "owner_pid_local": 1770437,
+        "owner_uid_local": 1000,
+        "port": 41904,
+        "process_args": "ssh -M -S /home/chabking/.ssh/ctl-vm10064-closure-image-fedora -fnNT -oExitOnForwardFailure=yes -oServerAliveInterval=15 -oServerAliveCountMax=2 -R 127.0.0.1:41904:127.0.0.1:41904 fedora"
+      }
+    ],
+    "old_task_general_masters_touched": false,
+    "at": "2026-10-25T16:45:07.632511+00:00"
+  },
+  "attempt_receipts": [
+    {
+      "path": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/resource-closure-image/publish.json",
+      "sha256": "e7318ad69a914e2bf25ffc072d89604c905441c245c6c1280771298c601437c4"
+    },
+    {
+      "path": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/resource-closure-image/publish-02.json",
+      "sha256": "84e82ae2b082e872a16a916d88b423e900ef412ae471d79388b4f75ab05f38b9"
+    }
+  ]
+}

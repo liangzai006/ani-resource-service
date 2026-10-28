@@ -14,6 +14,7 @@ import (
 	imagev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/image/v1"
 	instancev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/instance/v1"
 	networkv1 "github.com/zhangzhe-ctrl/ani-resource-service/api/network/v1"
+	storagev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/storage/v1"
 	vmv1 "github.com/zhangzhe-ctrl/ani-resource-service/api/vm/v1"
 	"github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/network"
 	conf "github.com/zhangzhe-ctrl/ani-resource-service/internal/conf/v1"
@@ -64,7 +65,7 @@ func runGovernance(bc *conf.Bootstrap, logger *slog.Logger) error {
 	// Writes need the same provider access as full mode; the governance
 	// boundary is enforced by service registration and the allowlist, not by
 	// removing the worker.
-	provider, err := data.OpenKCProvider(repository, bc.Network.Kubeconfig, data.KCClientPolicy{QPS: 5, Burst: 10})
+	provider, observation, err := openNetworkProvider(repository, bc.Network)
 	if err != nil {
 		return err
 	}
@@ -80,7 +81,23 @@ func runGovernance(bc *conf.Bootstrap, logger *slog.Logger) error {
 	if err != nil {
 		return err
 	}
-	worker, err := biz.NewWorker(repository, provider, uuid.NewString(), policy, func(ctx context.Context, work biz.Work, progress biz.Progress, err error) {})
+	var execution *server.WorkerServer
+	readiness := server.NewReadiness(func() bool { return execution != nil && execution.Ready() })
+	observability, err := server.NewObservability(Name, Version, readiness)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err := observability.Shutdown(context.Background()); err != nil {
+			logger.Error("observability shutdown", "error", err)
+		}
+	}()
+	if err = observability.RegisterObservation(observation); err != nil {
+		return err
+	}
+	worker, err := biz.NewWorker(repository, provider, uuid.NewString(), policy, func(ctx context.Context, work biz.Work, progress biz.Progress, err error) {
+		observability.ObserveWork(ctx, logger, work, progress, err)
+	})
 	if err != nil {
 		return err
 	}
@@ -107,11 +124,13 @@ func runGovernance(bc *conf.Bootstrap, logger *slog.Logger) error {
 		return err
 	}
 	defer vms.Close()
-	attachmentWorker, err := biz.NewAttachmentWorker(repository, provider, consumer, uuid.NewString(), policy)
+	attachmentWorker, err := biz.NewAttachmentWorker(repository, provider, consumer, uuid.NewString(), policy, observability.ObserveAttachmentWork)
 	if err != nil {
 		return err
 	}
-	switchWorker, err := biz.NewVirtualSwitchWorker(repository, provider, uuid.NewString(), policy)
+	switchWorker, err := biz.NewVirtualSwitchWorker(repository, provider, uuid.NewString(), policy, func(ctx context.Context, work biz.VirtualSwitchWork, progress biz.VirtualSwitchProgress, err error) {
+		observability.ObserveVirtualSwitchWork(ctx, logger, work, progress, err)
+	})
 	if err != nil {
 		return err
 	}
@@ -130,17 +149,12 @@ func runGovernance(bc *conf.Bootstrap, logger *slog.Logger) error {
 	if defaultWorker != nil {
 		additional = append(additional, defaultWorker)
 	}
-	execution := server.NewWorkerServer(worker, repository, logger, w.PollInterval.AsDuration(), additional...)
-	readiness := server.NewReadiness(func() bool { return execution.Ready() })
-	observability, err := server.NewObservability(Name, Version, readiness)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err := observability.Shutdown(context.Background()); err != nil {
-			logger.Error("observability shutdown", "error", err)
+	execution = server.NewWorkerServer(worker, repository, logger, w.PollInterval.AsDuration(), additional...)
+	if o := bc.Network.Observation; o != nil {
+		if err = execution.SetConcurrency(int(o.WorkersPerKind)); err != nil {
+			return err
 		}
-	}()
+	}
 	middlewares := observability.ServerMiddleware(logger)
 	gs, err := server.NewGRPCServer(bc.Server.Grpc, readiness, tlsConfig, false, middlewares...)
 	if err != nil {
@@ -149,6 +163,7 @@ func runGovernance(bc *conf.Bootstrap, logger *slog.Logger) error {
 	networkv1.RegisterNetworkServiceServer(gs, networkService.NewNetworkService(networkUC, attachments))
 	networkv1.RegisterTenantEgressServiceServer(gs, networkService.NewTenantEgressService(egress))
 	networkv1.RegisterPlatformNetworkServiceServer(gs, networkService.NewPlatformNetworkService(egress))
+	networkv1.RegisterPlatformEIPServiceServer(gs, networkService.NewPlatformEIPService(egress))
 	networkv1.RegisterPlatformDeviceRetirementServiceServer(gs, networkService.NewPlatformDeviceRetirementService(egress))
 	if defaultService != nil {
 		networkv1.RegisterPlatformDefaultEgressServiceServer(gs, defaultService)
@@ -166,9 +181,21 @@ func runGovernance(bc *conf.Bootstrap, logger *slog.Logger) error {
 	if vms != nil {
 		vmv1.RegisterVMServiceServer(gs, vms.service)
 	}
+	storageComponents, err := openStorage(context.Background(), bc)
+	if err != nil {
+		return err
+	}
+	storagev1.RegisterStorageServiceServer(gs, storageComponents.service)
 	configured = true
 	admin := server.NewAdminServer(bc.Server.Admin, readiness, observability.Gatherer(), middlewares...)
-	servers := []transport.Server{gs, admin, execution}
+	servers := []transport.Server{gs, admin, observation, execution}
+	imageRuntime, err := openImageRuntime(images, middlewares...)
+	if err != nil {
+		return err
+	}
+	if imageRuntime != nil {
+		servers = append(servers, imageRuntime)
+	}
 	if vms != nil && vms.console != nil {
 		servers = append(servers, vms.console)
 	}

@@ -51,3 +51,37 @@ func TestCPUAdmissionRejectsGPUState(t *testing.T) {
 		t.Fatal("missing instance classification accepted")
 	}
 }
+
+func TestOwnerCleanupReadyRequiresEntireClosedInstance(t *testing.T) {
+	ready := Instance{
+		Spec: Spec{ComputeType: TypeGPU}, Desired: Deleted,
+		ComputeCleaned: true, WorkspaceCleaned: true, VolumeReferencesReleased: true,
+	}
+	if !OwnerCleanupReady(ready) {
+		t.Fatal("owner cleanup incorrectly required ACC evidence or a Gov ACK")
+	}
+	for name, mutate := range map[string]func(*Instance){
+		"running":                    func(i *Instance) { i.Desired = Running },
+		"stopped":                    func(i *Instance) { i.Desired = Stopped },
+		"pending write":              func(i *Instance) { i.Pending = &Mutation{Kind: "create_notebook"} },
+		"compute remains":            func(i *Instance) { i.ComputeCleaned = false },
+		"workspace remains":          func(i *Instance) { i.WorkspaceCleaned = false },
+		"borrowed references remain": func(i *Instance) { i.VolumeReferencesReleased = false },
+		"network remains":            func(i *Instance) { i.Network = &NetworkRuntime{} },
+		"unknown compute type":       func(i *Instance) { i.Spec.ComputeType = "automatic" },
+		"missing compute type":       func(i *Instance) { i.Spec.ComputeType = "" },
+	} {
+		t.Run(name, func(t *testing.T) {
+			i := ready
+			mutate(&i)
+			if OwnerCleanupReady(i) {
+				t.Fatal("incomplete owner cleanup accepted")
+			}
+		})
+	}
+	ready.Spec.ComputeType = TypeCPU
+	ready.Network = &NetworkRuntime{Cleaned: true}
+	if !OwnerCleanupReady(ready) {
+		t.Fatal("completed CPU instance or released network rejected")
+	}
+}

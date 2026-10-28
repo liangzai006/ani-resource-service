@@ -2,6 +2,8 @@
 
 > 2026-10-19 增量合同：[挂载、配置与 VPC 接入](instance-configuration-network.md)替代下文固定工作目录、排除已有用户卷及仅复用默认网络的限制。专属工作盘仍最终回收；新增 borrowed 卷只解除引用并保留原卷与数据。显式 VPC 采用受控工作负载合同，当前真实验收结论只见[执行状态](../execution/status.md#instance-configuration-and-network-2026-10-19)。
 
+> 2026-10-27 释放合同调整：明确 DELETE 后，由 Resource 完成整个实例的计算、专属工作盘、网络与借用引用清理，再持久化最终 owner 清理事实和退额 outbox。Resource 与 ModelDev 共用 Gov 现有 `ReportResourceReleased`，不调用 ACC `ObserveRelease`；旧 ACC 摘要是 Resource 本地门槛，从未作为 Gov 请求字段。以下 §8.3、§9.1 和 §10 是当前释放规则；实施顺序见[整改方案](../plans/container-instance-release-without-acc-20261027.md)，实际结果只见[执行状态](../execution/status.md#container-instance-owner-refund-2026-10-27)。
+
 > 本版基于 v1.4 和后续讨论修订，面向当前受控实验环境。文中接口、字段及工作包是实施约定，不代表已经修改代码、部署或通过验收。
 
 **主线保持不变：Res 管实例，Notebook 承载运行，SG 提供浏览器终端；Gov 创建时占额一次，普通启停不动账本，最终由 Res 决定何时通知退额。** 这沿用 v1.4 已明确的配额生命周期与服务分工。[1]
@@ -222,7 +224,7 @@ Res 保存 PVC 名称、UID、租户和实例绑定，在计算停止并确认�
 
 平台选择符合回收语义的 StorageClass。PVC 删除后的实际回收受 PV reclaim policy 和存储插件影响；`Retain` 不等于自动删除底层数据，采用 `Delete` 也必须由受支持的存储插件执行。此项在所选存储上做一次真实验证，不改存储驱动。[6]
 
-**本版细化约定：计算资源满足 Res 退额规则后可以通知归还 GPU；工作盘清理失败由同一个 worker 继续重试，实例删除操作不能提前显示全部完成。** 不让 PVC 故障把已清理的 GPU 永久挂账，也不因为 GPU 已退就遗忘磁盘。
+**最终删除必须完成计算、专属工作盘及其他实例占用清理后，才按 §10 持久化 GPU 退额通知。** 工作盘回收失败由实例 worker 保留原绑定继续重试，通知 Gov 不阻塞这些前置清理。
 
 创建中的 PVC、正常工作盘和删除未完成的 PVC 都继续计入现有存储／对象限制。配额不足或创建被拒绝如实返回，不为本 MVP 新建存储账本。并发限制优先复用已有的平台或 Namespace 资源上限，不用一次无锁计数冒充强限制。
 
@@ -274,16 +276,22 @@ Res 对同一命令也返回原持久 ACK，不重复建资源。已接受的后
         ↓
 仍有对象：继续处理；查询失败：重试
         ↓
-计算对象已清理：持久生成原 GPU 退额通知
+计算对象已清理：封闭计算创建，保存清理进度
         ↓
-清理专属工作盘和实例专属附属对象
+清理专属工作盘并核对原 PV 回收
         ↓
-Gov 回执与清理进度分别保存，全部完成后结束删除操作
+释放网络占用和借用卷引用，保留借用卷与原数据
+        ↓
+同一事务保存最终 owner 清理事实和原 GPU 退额 outbox
+        ↓
+独立通知 Gov；收到匹配回执后结束退额阶段与删除操作
 ```
 
-Res 的正常退额规则仍是它自己的资源检查。Gov 不重新执行上述流程，也不等待 PVC 或 Kubernetes 证明。
+最终事实提交前再次核对当前 DELETE 意图、业务版本和 lease；没有待确认的外部写，且迟到 CREATE 与 Start 已被封闭。只有完整对象观察与归属校验成功，才能确认 Notebook、其 StatefulSet 与 Pod 消失；terminating 对象仍算存在。专属 PVC 消失后仍须核对原绑定 PV 回收；借用卷只解除实例引用。网络 Release 请求须取得回执并观察到 released，不能仅凭请求已发送完成清理。
 
-只有最终删除或终止创建才触发本服务的默认退额。普通运行阶段查不到 Pod，不能直接退款；保留实例与占额，显示异常并进入相应业务操作。
+Res 的正常退额规则是上述自有生命周期检查。Gov 不重新执行清理，也不接收 PVC、Kubernetes 或 ACC 证明。Gov 不可用只使退额等待重试，不阻塞计算、存储、网络和引用清理。
+
+本服务仅在明确最终 DELETE 且完整清理后退额。创建已受理但启动失败、一直 Pending 时仍需明确 DELETE；从未开始外部创建的取消可以使用内部未执行事实，但仍须完成已经准备的其他资源清理。普通运行阶段查不到 Pod，不能直接退款；保留实例与占额，显示异常并进入相应业务操作。CPU 实例不创建 GPU 释放事件，不调用 Gov GPU 退额 RPC。
 
 ## 9. worker 不改架构，只补必要的请求正确性
 
@@ -297,7 +305,7 @@ PG 持久工作 → Step → Claim → Observe / BeginMutation → Finish
 
 不修改 Network worker，不增加独立 worker 服务，不引入事件关系图。业务变化中可从 5–10 秒轮询、稳定运行从约 30 秒开始；这些只是初始参数，按小规模实测调整。
 
-操作状态、运行状态、工作盘清理进度、退额通知回执分别记录，但由同一实例工作流程推进，不增加跨服务事务。
+操作状态、运行状态、工作盘清理进度、最终 owner 清理事实和退额通知回执分别记录。清理由实例 worker 推进，已提交的 outbox 在同一进程生命周期内独立扫描和投递；投递不依赖新的 Kubernetes/ACC 观察或 Get/List 请求，不增加跨服务事务。单个事件失败不能阻塞其他实例清理或饿死其他待投递事件。
 
 ### 9.2 迟到启停请求：使用条件更新
 
@@ -325,9 +333,13 @@ Kubernetes 支持通过 resourceVersion 检测并拒绝基于旧对象版本的�
 
 ## 10. 完整释放及 Gov 原账退额
 
-Res 在计算资源清理完成且没有待确认写、已封闭迟到创建之后持久化释放 outbox，再发送 `ReportResourceReleased`。计算清理须同时满足 Kubernetes 对象消失及 ACC 物理释放确认：外部创建前持久开始标记和已见 Pod 历史，清理后先持久封闭时间，再以 cluster/owner 全范围 `ObserveRelease` 验证来源水位与正向释放事实。API absence、节点离线和未知证据不能单独完成清理；仅从未开始外部创建的封闭取消可凭内部未执行事实跳过物理观察。该通知只有稳定 release_event_id、create_operation_id、resource_id、reason。Stop、重启、普通退出及来源缺项不能触发完整释放。Pending 从未分配 GPU 时可在可靠封闭创建后退额。
+Res 完成 §8.3 的全部清理后，在同一 PG 事务中持久化最终 owner 清理事实和释放 outbox；事务提交后才发送 Gov 现有 `ReportResourceReleased`。Resource 和 ModelDev 使用同一个 Gov RPC，没有新增退额接口。请求只有稳定 `release_event_id`、`create_operation_id`、`resource_id`、`reason` 四字段；原 `PhysicalReleaseDigest` 是 Resource 本地遗留检查，从未传给 Gov，当前不再参与关闭资格判断，也不伪造摘要代替清理事实。
+
+Resource 不请求 ACC `ObserveRelease`。保留外部创建前的持久开始标记、完整已见 Pod UID 历史、正常 UID/RV 条件删除、Foreground GC 及未知外部写 fencing。API absence、节点离线、超时、重启或 ACC 不可用不能单独清除未知 CREATE。Stop、Start、普通重启、Pod 退出与 ACC 来源缺项均不产生最终释放事件。
 
 Gov 从已认证 owner 与原创建操作查原账，验证归属后幂等全退；Res 不接受或存储 charge/code/units，也不根据当前目录重算。响应必须匹配事件、原操作、资源且为 APPLIED／ALREADY_APPLIED，Res 才确认 outbox。丢回执重试相同内容；同事件异内容拒绝，同资源换事件不得重复退额。
+
+旧未 ACK outbox 可能产生于工作盘或网络清理之前：必须先完成原实例全部清理并持久最终事实，才能投递原事件。旧已 ACK 事件保留原退额事实，只继续剩余清理；不得重复退款。`WAITING_FOR_PHYSICAL_RELEASE` 的原 DELETE 按当前规则继续，不回填虚假摘要或批量改完成标志。
 
 Gov 独立异步同步 ACC 的薄 Usage 投影；失败重试不回滚已经完成退额。Usage ENDED 不能清除真实活绑定，物理释放与容量恢复仍由 ACC 的运行采集确认。各项实际验收状态仅见执行状态，协议和受控测试不代表真实 GPU 通过。
 
@@ -359,7 +371,7 @@ Gov 独立异步同步 ACC 的薄 Usage 投影；失败重试不回滚已经完�
 | `instance_operations` | 请求指纹、幂等 ACK、命令意图版本、外部调用待定结果 |
 | `instance_work` | 到期时间、租约、Owner/Epoch、失败与重试信息 |
 | `workspace_bindings` | 实例专属 PVC 身份和删除进度，不提供独立保留卷生命周期 |
-| `instance_quota_release_outbox` | 稳定事件、原 CREATE、resource、reason、匹配 Gov ACK |
+| `instance_quota_release_outbox` | 稳定事件、原 CREATE、resource、reason、最终 owner 清理资格与匹配 Gov ACK |
 
 无独立 Run 表、无第二套账户余额、无 Namespace 映射新表。业务版本只随有效命令变化，不随普通观察刷新变化。最终删除后保留必要操作与审计记录，不靠物理删除数据库行表达幂等终态。
 
@@ -383,7 +395,7 @@ SG 复用原 terminal／exec；只补当前实例目标和申请／建连时检�
 
 ## 12. 实施顺序
 
-见 [v1.5 实施计划](../plans/instance-mvp-v1.5.md)。
+基础实例工作包见 [v1.5 实施计划](../plans/instance-mvp-v1.5.md)；ACC 释放确认依赖移除、完整清理事务与独立 Gov 投递见[2026-10-27 整改方案](../plans/container-instance-release-without-acc-20261027.md)。
 
 ## 13. 最小验收清单
 
@@ -398,9 +410,12 @@ SG 复用原 terminal／exec；只补当前实例目标和申请／建连时检�
 | 旧 Start 请求最后到达 | 条件冲突或被最新意图拒绝，不让旧动作覆盖新状态 |
 | 创建结果未知，此时查不到对象 | 不错误宣告完成，保留待定动作和清晰原因 |
 | Res 删除检查有对象／查询失败 | 按自身规则等待或重试 |
-| 最终删除 | 计算清理、原 GPU 归还、专属工作盘回收各自有结果 |
-| 工作盘删除失败 | 继续清理，不清空原绑定，不显示全部删除成功 |
-| 退额回执丢失 | 原事件重试，不重复退额 |
+| 最终删除 | 计算、专属 PVC/PV、网络和借用引用全部清理后，同事务固化最终事实与原 GPU outbox |
+| 工作盘/PV 或网络释放阻塞 | 保留原绑定与具体原因；清理未完整前不投递 Gov 退额 |
+| Gov 不可用 | 实例清理完整完成；持久 outbox 独立重试，恢复后按原账退额 |
+| 退额回执丢失或投递进程重启 | 原事件恢复重试，匹配 ALREADY_APPLIED 后确认，不重复退额 |
+| ACC 释放接口不可用或配置缺失 | 不调用 ObserveRelease，不妨碍完整清理后的 Gov 退额；设备容量事实独立验证 |
+| CPU 实例最终删除 | 走原清理链，不创建 GPU 释放事件，不调用 GPU 退额 RPC |
 | 合法 owner 提前通知 | Gov 按账本合同归还，不查询业务；Acc 保留实际观察 |
 | 跨租户实例／操作／终端请求 | 现有权限与归属检查拒绝 |
 | 不同 Namespace 的容器网络通信 | 本轮不据此承诺完整隔离，不扩建网络验收矩阵 |

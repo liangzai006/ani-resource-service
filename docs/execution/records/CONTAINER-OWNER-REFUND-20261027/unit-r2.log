@@ -1,0 +1,6 @@
+go: downloading github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.005s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	1.156s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/instance	1.016s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/server	2.242s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/cmd/ani-resource-service	0.044s

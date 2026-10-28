@@ -1,0 +1,68 @@
+{
+  "host": "fedora",
+  "phase": "resource-finalize",
+  "steps": [
+    {
+      "label": "short-socket",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-count=1",
+        "./scripts/lb-api",
+        "-run",
+        "^TestSocketRequiresPrivateDirectoryAndPreservesExistingPath$"
+      ],
+      "exit_code": 0,
+      "seconds": 1.622,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/resource-finalize-short-socket.log"
+    },
+    {
+      "label": "affected-vet",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "vet",
+        "./api/vm/v1",
+        "./internal/biz/network",
+        "./internal/data/network",
+        "./internal/service/vm",
+        "./internal/data/vm",
+        "./internal/server",
+        "./cmd/ani-resource-service"
+      ],
+      "exit_code": 0,
+      "seconds": 12.127,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/resource-finalize-affected-vet.log"
+    },
+    {
+      "label": "binary",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "build",
+        "-trimpath",
+        "-buildvcs=false",
+        "-ldflags=-s -w",
+        "-o",
+        "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/bin/resource",
+        "./cmd/ani-resource-service"
+      ],
+      "exit_code": 0,
+      "seconds": 15.681,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/resource-finalize-binary.log"
+    },
+    {
+      "label": "mod-verify",
+      "argv": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "mod",
+        "verify"
+      ],
+      "exit_code": 0,
+      "seconds": 23.797,
+      "log": "/home/chabking/workspace/ani-resource-service-runs/vm-nad-dns-20261025-01a168ce/private/resource-finalize-mod-verify.log"
+    }
+  ],
+  "started_at": "2026-10-25T15:07:35.971987+00:00",
+  "binary_sha256": "602270b2a72bb39593634146c6dc90158d7a4fdbd966e1c1096b66059b26628c",
+  "result": "PASS",
+  "finished_at": "2026-10-25T15:08:29.435023+00:00"
+}

@@ -1,0 +1,30 @@
+{
+  "vm_id": "8bc17e0e-a09a-4bb1-a838-e54dc6a84550",
+  "write_attempt": {
+    "guest_exec_pid": 5759,
+    "exitcode": 1,
+    "result": "KNOWN_GUEST_EXIT1_NO_RETRY",
+    "retry_sent": false,
+    "source_sha256": "ed4a0d22ecd0ce56558d793296ba67ac542d09e5db8eea788fe08b0846c949e3"
+  },
+  "after_failed_write_diagnostic": {
+    "guest_exec_pid": 5819,
+    "Guest_writes": 0,
+    "marker": {
+      "path": "/home/zz-test/ani-iso-marker",
+      "resolved": "/home/zz-test/ani-iso-marker",
+      "exists": false
+    },
+    "source_sha256": "8b410c17e93c9985f9fd2f986fa5fb62f5beea264d1df7c6f47dc60c046d46ae"
+  },
+  "read_attempt": {
+    "guest_exec_pid": 5890,
+    "exitcode": 1,
+    "result": "NOT_VERIFIED_QGA_MARKER_READ_PERMISSION_DENIED",
+    "break": "PermissionError Errno13 at pathlib.read_bytes for exact /home/zz-test/ani-iso-marker",
+    "Guest_writes": 0,
+    "retry_or_additional_RPC": false,
+    "source_sha256": "677e1e1cc11d1aabdecedf9a2bfc854151dbd830880663dfd293f5cc7b1e9f72"
+  },
+  "acceptance": "No QGA marker PASS claim; actual normal VNC keyboard proves write/read/persistence. No Guest permissions/accounts/software changed for QGA."
+}

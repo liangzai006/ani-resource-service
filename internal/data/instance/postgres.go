@@ -605,6 +605,12 @@ func (p *Postgres) Finish(ctx context.Context, w biz.Work, progress biz.Progress
 	if i.Version == w.Instance.Version {
 		progress.Instance.GPUPods = biz.MergePodRefs(i.GPUPods, progress.Instance.GPUPods)
 		progress.Instance.ExternalComputeStarted = i.ExternalComputeStarted || progress.Instance.ExternalComputeStarted
+		// An outbox ACK may commit while this worker owns its lease. Keep that
+		// monotone result when saving an otherwise unchanged business version.
+		progress.Instance.QuotaReturned = i.QuotaReturned || progress.Instance.QuotaReturned
+		if !i.CleanupCompletedAt.IsZero() {
+			progress.Instance.CleanupCompletedAt = i.CleanupCompletedAt
+		}
 		i = progress.Instance
 		if e = saveNetworkSubmission(ctx, tx, i); e != nil {
 			return e
@@ -614,6 +620,14 @@ func (p *Postgres) Finish(ctx context.Context, w biz.Work, progress biz.Progress
 				return e
 			}
 			i.VolumeReferencesReleased = true
+		}
+		if progress.CleanupComplete {
+			if e = sealQuotaRelease(ctx, tx, &i); e != nil {
+				return e
+			}
+		}
+		if biz.OwnerCleanupReady(i) && i.QuotaReturned {
+			i.Reason = ""
 		}
 		raw, e := json.Marshal(i)
 		if e != nil {

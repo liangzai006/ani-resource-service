@@ -16,7 +16,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	accelerator "github.com/zhangzhe-ctrl/ani-accelerator-service/api/gen/go/accelerator/v1"
 	quota "github.com/zhangzhe-ctrl/ani-governance/api/quota/gen/go/quota/service/v1"
 	biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance"
 	networkbiz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/network"
@@ -32,20 +31,20 @@ import (
 )
 
 type instanceSettings struct {
-	DatabaseDSNFile, SigningKeyFile                                                   string
-	QuotaAddress, QuotaCAFile, QuotaCertFile, QuotaKeyFile, QuotaServerName           string
+	DatabaseDSNFile, SigningKeyFile                                         string
+	QuotaAddress, QuotaCAFile, QuotaCertFile, QuotaKeyFile, QuotaServerName string
+	// Deprecated: accepted for old private configurations, never used at runtime.
 	ReleaseAddress, ReleaseCAFile, ReleaseCertFile, ReleaseKeyFile, ReleaseServerName string
 	TerminalAddress                                                                   string
 	Service                                                                           service.Config
 }
 type instanceComponents struct {
-	service           *service.Service
-	worker            *biz.Worker
-	execution         *server.InstanceWorkerServer
-	terminal          *server.InstanceTerminalServer
-	repo              *data.Postgres
-	quotaConnection   *grpc.ClientConn
-	releaseConnection *grpc.ClientConn
+	service         *service.Service
+	worker          *biz.Worker
+	execution       *server.InstanceWorkerServer
+	terminal        *server.InstanceTerminalServer
+	repo            *data.Postgres
+	quotaConnection *grpc.ClientConn
 }
 
 func runInstanceMigration() error {
@@ -80,9 +79,6 @@ func (c *instanceComponents) Close() {
 	if c.quotaConnection != nil {
 		_ = c.quotaConnection.Close()
 	}
-	if c.releaseConnection != nil {
-		_ = c.releaseConnection.Close()
-	}
 	if c.repo != nil {
 		c.repo.Close()
 	}
@@ -111,13 +107,8 @@ func openInstance(ctx context.Context, network *conf.Network, images *imageCompo
 	}
 	// Namespace configuration is shared by value only, never Network tables.
 	cfg.Service.NamespacePrefix = network.NamespacePrefix
-	for _, f := range []string{cfg.DatabaseDSNFile, cfg.SigningKeyFile, cfg.QuotaCAFile, cfg.QuotaCertFile, cfg.QuotaKeyFile, cfg.ReleaseCAFile, cfg.ReleaseCertFile, cfg.ReleaseKeyFile} {
-		if !filepath.IsAbs(f) {
-			return nil, fmt.Errorf("instance requires absolute managed private paths")
-		}
-	}
-	if cfg.QuotaAddress == "" || cfg.QuotaServerName == "" || strings.ContainsAny(cfg.QuotaServerName, "*:/") {
-		return nil, fmt.Errorf("instance quota address and exact server identity required")
+	if e = validateInstanceSettings(cfg); e != nil {
+		return nil, e
 	}
 	dsn, e := readImagePrivateFile(cfg.DatabaseDSNFile)
 	if e != nil {
@@ -172,20 +163,11 @@ func openInstance(ctx context.Context, network *conf.Network, images *imageCompo
 		return nil, e
 	}
 	c.quotaConnection = connection
-	releaseConnection, e := instanceClientConnection(cfg.ReleaseAddress, cfg.ReleaseCAFile, cfg.ReleaseCertFile, cfg.ReleaseKeyFile, cfg.ReleaseServerName)
-	if e != nil {
-		return nil, e
-	}
-	c.releaseConnection = releaseConnection
-	releases, e := data.NewPhysicalReleaseObserver(accelerator.NewAcceleratorUsageServiceClient(releaseConnection))
-	if e != nil {
-		return nil, e
-	}
 	reporter, e := data.NewQuota(repo, quota.NewQuotaReleaseServiceClient(connection))
 	if e != nil {
 		return nil, e
 	}
-	worker, e := biz.NewWorker(repo, provider, reporter, releases, uuid.NewString())
+	worker, e := biz.NewWorker(repo, provider, uuid.NewString())
 	if e != nil {
 		return nil, e
 	}
@@ -195,13 +177,25 @@ func openInstance(ctx context.Context, network *conf.Network, images *imageCompo
 	}
 	c.service = handler
 	c.worker = worker
-	c.execution = server.NewInstanceWorkerServer(worker, logger)
+	c.execution = server.NewInstanceWorkerServer(worker, logger, reporter)
 	c.terminal, e = server.NewInstanceTerminalServer(cfg.TerminalAddress, os.Getenv("ANI_NETWORK_CLIENT_CA"), os.Getenv("ANI_NETWORK_TLS_CERT"), os.Getenv("ANI_NETWORK_TLS_KEY"), service.NewTerminalValidation(repo, provider))
 	if e != nil {
 		return nil, e
 	}
 	ready = true
 	return c, nil
+}
+
+func validateInstanceSettings(cfg instanceSettings) error {
+	for _, f := range []string{cfg.DatabaseDSNFile, cfg.SigningKeyFile, cfg.QuotaCAFile, cfg.QuotaCertFile, cfg.QuotaKeyFile} {
+		if !filepath.IsAbs(f) {
+			return fmt.Errorf("instance requires absolute managed private paths")
+		}
+	}
+	if cfg.QuotaAddress == "" || cfg.QuotaServerName == "" || strings.ContainsAny(cfg.QuotaServerName, "*:/") {
+		return fmt.Errorf("instance quota address and exact server identity required")
+	}
+	return nil
 }
 
 func instanceClientConnection(address, caFile, certFile, keyFile, serverName string) (*grpc.ClientConn, error) {
