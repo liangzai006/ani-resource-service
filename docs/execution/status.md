@@ -42,6 +42,12 @@ Ubuntu/Go1.26.10 独立源码副本验证：修复前代码在 PV Forbidden/Time
 
 本轮未部署或执行共享数据库迁移，新补丁的现场验证仍为 `not_verified`。父删除检查与 Resource 受理 RPC 不构成跨服务原子排序，未实现自动级联；未知创建的人工恢复入口与 P3–P5 保持未实现范围。
 
+### 2026-10-28：未知创建只读诊断
+
+按用户选择保留未知创建屏障，新增[运维诊断](../runbooks/sandbox-unknown-create-review.md)：精确读取 Sandbox、operation、lease 和 Kubernetes 对象，输出可留存的 JSON；不修改业务状态，不证明原请求未执行或旧 Pod 已停止。输出不是持久、防篡改审计；身份与物理集群验证边界见手册。没有可信原请求结果及必要的节点终止证据时，人工解除未知创建仍未实现，PVC 未知创建同样保持阻塞。
+
+验证：Resource 基础提交 `a18fe6d6caa3a90c511ddb38da7223eef7cbc31d` 加本次未提交诊断补丁；源码清单 `resource-review-corrected-source.json` SHA-256 `98bb95f37cc42edf142011599f86925dda5aae8dfa3c2a77403e03723eaad3f3`（最终验证后仅更新本条记录）。实际在当前 `ubuntu` 主机、Go 1.26.10 执行 `make verify TOOLS_DIR=/root/kubercon/ani-resource-service/.tools/bin`：`pass`；独占 PostgreSQL 17.11 和 Kubernetes fake 执行 `go test -mod=readonly -count=1 -json -tags=sandboxintegration ./internal/data/sandbox`：`pass`，临时数据库容器已清理。指定 SSH 配置文件不存在，默认 `ssh ubuntu` 主机密钥校验失败，按允许的本地回退规则使用当前同名主机；完整清单、命令和日志位于仓外 `../verification-artifacts/sandbox-concurrency-recovery-d809vu7r/`。真实集群、实际业务数据、部署及完整未知创建恢复均为 `not_verified`。
+
 ## 2026-10-21：KCN 网络平台化 Goal
 
 2026-10-22 当前主链已到 **真实平台登录 → Gov → Res/mTLS/PostgreSQL/worker → 新虚拟交换机、ens35/VLAN 0、Underlay 公网池 → kcn-cluster 独立平台默认出口 → 原消费者 DNS/自身 CA HTTPS 与物理 SNAT `172.16.102.192` 回程**，本次必要重建切片 `PASS`。用户后续明确授权“完全删除，记下网段相关参数，然后再通过res创建一个一样的出来”：旧五个原生对象按 Snat→EIP→Subnet→Gateway→VLAN 正常删除并逐项确认 NotFound；旧 Device `device_94d6…055d` 已 `deleted/retired=true/registration_closed=true`。18:25 的 `blocked/LEGACY_NATIVE_VLAN_IN_USE` 是拆除前历史状态，已由最终退役结果取代。本次没有强删 finalizer、直接 SQL 业务删行或用永久原生对象代替产品链。唯一综合记录见[本轮交付回执](records/KCN-NETWORK-PLATFORM-20261021/resume-delivery-20261022.json)。

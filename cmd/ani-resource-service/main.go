@@ -57,6 +57,12 @@ func main() {
 	logger := newRuntimeLogger(logOutput)
 	log.SetDefault(logger)
 	execute := func() error {
+		if sandboxReviewMode {
+			if flagVMMigrate || flagComputeRestore || flagInstanceMigrate || flagSandboxMigrate || flagMigrate || flagImageMigrate || flagNodeFacts || imageAdminAction != "" || baseConnectivityAction != "" {
+				return fmt.Errorf("sandbox diagnostic is exclusive with other command modes")
+			}
+			return runSandboxUnknownReview()
+		}
 		if flagVMMigrate {
 			if flagComputeRestore || flagInstanceMigrate || flagSandboxMigrate || flagMigrate || flagImageMigrate || flagNodeFacts || imageAdminAction != "" || baseConnectivityAction != "" {
 				return fmt.Errorf("VM migration is exclusive with other command modes")

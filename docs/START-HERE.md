@@ -29,6 +29,8 @@ GPU 容器实例 v1.5：[规格](specs/instance-mvp.md)、[实施计划](plans/i
 
 [历史未知创建恢复提案](plans/provider-unknown-create-recovery.md)区分退出结果落库修正与旧回执缺失的恢复前提；本次实验例外已按用户授权恢复并复测；通用管理接口未实施，实际结果见执行状态。
 
+[Sandbox 未知创建只读诊断](runbooks/sandbox-unknown-create-review.md)输出目标、凭据身份及 Provider 观察，保留未知屏障；报告本身不是持久审计或恢复证明。
+
 [Sandbox Runtime 完整设计方案](plans/sandbox-runtime-design-20261025.md)是 Sandbox 唯一设计入口，已把旧 ANI 行为和 live evidence、新版 Resource 的 compute 解析/冻结快照/租户边界/Provider 恢复模型，以及推理服务资源语义合并在一份文档中。一期核心链和二期数据面能力分别按方案门禁推进；实际实现、部署和验收仅见[当前执行状态](execution/status.md)。
 
 ## 架构决定
