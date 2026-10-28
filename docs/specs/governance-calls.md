@@ -2,7 +2,7 @@
 
 本登记覆盖 Network/Image/Instance/Sandbox 用户业务委托，统一规则见 [ANI 服务间调用规范](https://github.com/zhangzhe-ctrl/ani-governance/blob/8724a32ab7dda903e1c67def28ad206a06d09c44/docs/contracts/service-to-service-calls.md)。平台网络及实例使用原业务委托身份；实例 owner 退额另走既有 QuotaReleaseService 的受管 owner 身份。
 
-Sandbox 条目当前表示 Resource 侧已冻结的 RPC 合同和精确接收方 allowlist。Governance BFF 的 HTTP 客户端、路由、权限目录和真实跨仓联调仍待包含 `api/sandbox/v1` 的正式 Resource API module 发布；在该 artifact 发布前，不使用本地 `replace`、复制生成代码或把 Resource 本地工作区当作已完成的 Gov 接入。
+Sandbox 条目定义 Resource RPC 合同和精确接收方 allowlist。Governance BFF 已接入 HTTP 客户端、路由和权限目录，并固定使用包含 `api/sandbox/v1` 的正式 Resource API module；不使用本地 `replace` 或复制生成代码。实现、部署与真实跨仓验收分别记录，实际验证范围见[执行状态](../execution/status.md)。
 
 ## 身份、范围和入口
 

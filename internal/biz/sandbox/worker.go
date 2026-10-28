@@ -37,7 +37,12 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		defer done()
 		return true, w.repo.Finish(persistCtx, *work, p)
 	}
-	obs, observeErr := w.provider.Observe(callCtx, work.Sandbox)
+	// A PV read can consume its entire observation deadline after the Pod has
+	// already been verified. Reserve a separate part of the lease budget for
+	// journaling and stopping that Pod with an unexpired mutation context.
+	observeCtx, observeCancel := context.WithTimeout(callCtx, (w.lease-5*time.Second)/2)
+	obs, observeErr := w.provider.Observe(observeCtx, work.Sandbox)
+	observeCancel()
 	if observeErr != nil {
 		p.Sandbox.Observed, p.Sandbox.Reason = ObservedUnknown, "PROVIDER_OBSERVATION_FAILED"
 		if errors.Is(observeErr, ErrClusterMismatch) {
@@ -62,6 +67,9 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 				p.Sandbox.Observed = ObservedDeleting
 			}
 			p.Sandbox.Reason = "WAITING_FOR_PROVIDER_OBSERVATION"
+			if obs.VolumeObservationFailed {
+				p.Sandbox.Reason = obs.Reason
+			}
 		}
 		if mutateErr != nil || result.Outcome != MutationApplied {
 			p.Sandbox.Observed, p.Sandbox.Reason = ObservedUnknown, result.Reason
@@ -89,7 +97,7 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		}
 		if resolved {
 			p.Receipt = &MutationResult{Mutation: *pending, Outcome: MutationApplied, Refs: obs.ProviderRefs}
-		} else if (pending.Kind == MutationDeletePod && obs.ProviderRefs.PodUID == pending.TargetUID && pending.TargetUID != "") || (pending.Kind == MutationDeleteWorkspace && obs.ProviderRefs.PVCUID == pending.TargetUID && pending.TargetUID != "") {
+		} else if (pending.Kind == MutationDeletePod && obs.ProviderRefs.PodUID == pending.TargetUID && pending.TargetUID != "") || (pending.Kind == MutationDeleteWorkspace && !obs.VolumeObservationFailed && obs.ProviderRefs.PVCUID == pending.TargetUID && pending.TargetUID != "") {
 			// Each retry gets its own durable attempt fence. A negative result
 			// for this retry cannot cancel an older potentially dispatched call.
 			if pending.Attempt == math.MaxInt64 {
@@ -104,9 +112,18 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 			p.Sandbox.Pending = &retry
 			apply(retry)
 		} else {
-			p.Sandbox.Observed, p.Sandbox.Reason = ObservedUnknown, "PROVIDER_MUTATION_RESULT_UNKNOWN"
+			p.Sandbox.Observed = ObservedUnknown
+			if !obs.VolumeObservationFailed {
+				p.Sandbox.Reason = "PROVIDER_MUTATION_RESULT_UNKNOWN"
+			}
 		}
 		// Commit recovery before preparing another provider command.
+		return finish()
+	}
+	if obs.VolumeObservationFailed && (work.Sandbox.Desired == DesiredRunning || (work.Sandbox.Desired == DesiredDeleted && !obs.PodExists)) {
+		// A failed storage read permits stopping an attributable Pod, never
+		// creating a consumer, deleting the workspace, or declaring reclamation.
+		p.Sandbox.Observed = ObservedUnknown
 		return finish()
 	}
 	if obs.Observed == ObservedUnknown && work.Sandbox.Desired != DesiredDeleted && work.Sandbox.Desired != DesiredPaused {

@@ -482,10 +482,55 @@ func TestKubernetesProviderCannotProveReclaimWithoutVolumeListAccess(t *testing.
 		return true, nil, apierrors.NewForbidden(schema.GroupResource{Resource: "persistentvolumes"}, "", errors.New("no list permission"))
 	})
 	s.Desired = biz.DesiredDeleted
-	if obs, err := provider.Observe(context.Background(), s); err == nil || obs.Observed == biz.ObservedDeleted || obs.ProviderRefs.CleanupReceipt != "" {
+	if obs, err := provider.Observe(context.Background(), s); err != nil || !obs.VolumeObservationFailed || obs.Observed != biz.ObservedUnknown || obs.Reason != "WORKSPACE_VOLUME_OBSERVATION_FAILED" || obs.ProviderRefs.PVCUID != s.ProviderRefs.PVCUID || obs.ProviderRefs.CleanupReceipt != "" {
 		t.Fatalf("failed PV list became reclaim receipt: %#v %v", obs, err)
 	}
 }
+
+func TestKubernetesProviderIncompleteVolumeListDoesNotCommitIdentity(t *testing.T) {
+	client, provider, s := providerFixture(t)
+	applyProvider(t, provider, &s, biz.MutationCreateWorkspace)
+	providerBoundWorkspace(t, client, s)
+	applyProvider(t, provider, &s, biz.MutationCreatePod)
+	pv, err := client.Resource(pvGVR).Get(context.Background(), "pv-"+s.ID, metav1.GetOptions{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	duplicate := pv.DeepCopy()
+	duplicate.SetName("duplicate-pv")
+	duplicate.SetUID("duplicate-pv-uid")
+	if err = client.Tracker().Delete(pvcGVR, s.Snapshot.Namespace, s.ProviderRefs.PVCName); err != nil {
+		t.Fatal(err)
+	}
+	page, failSecondPage := 0, true
+	client.PrependReactor("list", "persistentvolumes", func(ktesting.Action) (bool, runtime.Object, error) {
+		page++
+		list := &unstructured.UnstructuredList{}
+		list.SetAPIVersion("v1")
+		list.SetKind("PersistentVolumeList")
+		if page == 1 {
+			list.Items = []unstructured.Unstructured{*pv.DeepCopy()}
+			list.SetContinue("next-page")
+			return true, list, nil
+		}
+		if failSecondPage {
+			return true, nil, apierrors.NewTimeoutError("second PV page timed out", 0)
+		}
+		list.Items = []unstructured.Unstructured{*duplicate.DeepCopy()}
+		return true, list, nil
+	})
+	s.Desired = biz.DesiredPaused
+	obs, err := provider.Observe(context.Background(), s)
+	if err != nil || !obs.VolumeObservationFailed || obs.Observed != biz.ObservedUnknown || obs.ProviderRefs.PVName != "" || obs.ProviderRefs.PVUID != "" || obs.ProviderRefs.PVCUID != s.ProviderRefs.PVCUID || obs.ProviderRefs.PodUID != s.ProviderRefs.PodUID || obs.ProviderRefs.CleanupReceipt != "" || page != 2 {
+		t.Fatalf("incomplete PV scan committed unverified identity: %#v pages=%d err=%v", obs, page, err)
+	}
+	s.ProviderRefs = obs.ProviderRefs
+	page, failSecondPage = 0, false
+	if obs, err = provider.Observe(context.Background(), s); !errors.Is(err, biz.ErrOwnership) || obs != (biz.Observation{}) || page != 2 {
+		t.Fatalf("retry bypassed the duplicate binding guard: %#v pages=%d err=%v", obs, page, err)
+	}
+}
+
 func TestKubernetesProviderMatchesEquivalentResourceQuantities(t *testing.T) {
 	s := biz.Sandbox{ID: "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee", TenantID: "ffffffff-ffff-4fff-8fff-ffffffffffff", Snapshot: biz.Snapshot{Namespace: "sandbox-ns", RuntimeClass: "kata", ImageReference: "registry.example/sandbox@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", CPUMillis: 1000, MemoryMiB: 1024, Workspace: biz.WorkspaceSpec{MountPath: "/workspace", Size: "10Gi", StorageClass: "fast"}}}
 	for _, tc := range []struct {

@@ -340,7 +340,7 @@ Sandbox workspace（业务概念）
 - **PVC**是工作盘在 Kubernetes 中的持久化绑定对象，负责请求容量、StorageClass、访问模式和回收策略；
 - **PV/存储后端**是集群实际提供数据的对象，通常不由 Sandbox 直接创建或操作；
 - 一期一个 Sandbox 的工作盘对应一个由 Sandbox 管理的 PVC。pause 只停止运行负载，保留同一个 PVC；resume 重新挂载原 PVC，不能新建空 PVC；
-- 暂停以归属明确的 Pod 已停止且没有未决 mutation 为完成条件，不要求保留盘 Bound。WFFC Pending 可在无 Pod 时暂停，恢复时由同一 PVC 的 consumer 促成绑定；Lost/Missing/Deleting 等存储诊断和原 UID 保留。工作盘异常不阻止对已确认原 Pod 的 UID 受限停止，但不允许 Resume 用空盘替代缺失的原盘；未知创建仍必须先恢复归属，不能因为暂时无 Pod 就完成暂停；
+- 暂停以归属明确的 Pod 已停止且没有未决 mutation 为完成条件，不要求保留盘 Bound。WFFC Pending 可在无 Pod 时暂停，恢复时由同一 PVC 的 consumer 促成绑定；Lost/Missing/Deleting 等存储诊断和原 UID 保留。工作盘异常或 PV 只读查询失败不阻止对已确认原 Pod 的 UID 受限停止，但不允许 Resume 用空盘替代缺失的原盘；未知创建仍必须先恢复归属，不能因为暂时无 Pod 就完成暂停。PV 查询失败时保留原存储身份及诊断，删除仍须等待后续存储观察和回收证据，不能将读取失败视为 Gone；Pod 读取失败、归属或 UID 冲突及 cluster 不匹配仍拒绝写入；
 - restore/clone 可以产生新的 PVC，但必须记录 source PVC/Snapshot UID 和新 PVC UID；
 - 删除 Sandbox 先删除或释放运行负载，再按冻结的 reclaim 策略处理 PVC，并等待 PVC/PV/快照的回收 receipt；不能因为删除接口返回成功就认为工作盘已经清理。
 

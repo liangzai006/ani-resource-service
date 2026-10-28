@@ -223,11 +223,14 @@ func (p *KubernetesProvider) observeVolume(ctx context.Context, s biz.Sandbox, p
 	if pvc == nil && refs.PVName == "" && refs.PVCUID != "" {
 		// Recover a binding lost between PVC deletion and the first successful
 		// observation. A failed or incomplete list is never a reclaim receipt.
+		originalRefs := refs
 		continuation := ""
 		for {
 			list, err := p.client.Resource(pvGVR).List(ctx, metav1.ListOptions{Limit: 200, Continue: continuation})
 			if err != nil {
-				return refs, false, "", err
+				// An incomplete scan has not ruled out duplicate bindings. Do not
+				// persist a first-page identity that would bypass the next scan.
+				return originalRefs, false, "", err
 			}
 			for i := range list.Items {
 				pv := &list.Items[i]
@@ -315,21 +318,30 @@ func (p *KubernetesProvider) Observe(ctx context.Context, s biz.Sandbox) (biz.Ob
 		}
 	}
 	refs, volumeExists, volumeReason, err := p.observeVolume(ctx, s, pvc, refs)
-	if err != nil {
+	if errors.Is(err, biz.ErrOwnership) {
 		return biz.Observation{}, err
 	}
-	obs := biz.Observation{Observed: biz.ObservedProvisioning, ProviderRefs: refs, At: time.Now().UTC(), WorkspaceExists: pvc != nil, PodExists: pod != nil, VolumeExists: volumeExists}
+	// PVC and Pod identity checks above are independent of the read-only PV
+	// query. A failed PV read must not prevent UID-fenced stopping of a known
+	// Pod, but cannot establish volume absence or authorize workspace cleanup.
+	volumeObservationFailed := err != nil
+	if volumeObservationFailed {
+		volumeReason = "WORKSPACE_VOLUME_OBSERVATION_FAILED"
+	}
+	obs := biz.Observation{Observed: biz.ObservedProvisioning, ProviderRefs: refs, At: time.Now().UTC(), WorkspaceExists: pvc != nil, PodExists: pod != nil, VolumeExists: volumeExists, VolumeObservationFailed: volumeObservationFailed}
 	if pod != nil {
 		obs.PodTerminated = podTerminal(pod)
 	}
 	phase := ""
 	if pvc != nil {
 		phase, _, _ = unstructured.NestedString(pvc.Object, "status", "phase")
-		obs.WorkspaceBound = phase == "Bound" && pvc.GetDeletionTimestamp() == nil && volumeExists && volumeReason == ""
+		obs.WorkspaceBound = phase == "Bound" && pvc.GetDeletionTimestamp() == nil && volumeExists && volumeReason == "" && !volumeObservationFailed
 	}
 	if s.Desired == biz.DesiredDeleted {
 		obs.Observed = biz.ObservedDeleting
 		switch {
+		case volumeObservationFailed:
+			obs.Observed, obs.Reason = biz.ObservedUnknown, volumeReason
 		case pvc != nil || pod != nil:
 			obs.Reason = volumeReason
 		case s.Pending != nil:
@@ -348,6 +360,8 @@ func (p *KubernetesProvider) Observe(ctx context.Context, s biz.Sandbox) (biz.Ob
 		return obs, nil
 	}
 	switch {
+	case volumeObservationFailed:
+		obs.Observed, obs.Reason = biz.ObservedUnknown, volumeReason
 	case pvc == nil && refs.PVCUID != "":
 		obs.Observed, obs.Reason = biz.ObservedUnknown, "WORKSPACE_MISSING"
 	case phase == "Lost":

@@ -145,10 +145,14 @@ type MutationResult struct {
 }
 type Observation struct {
 	WorkspaceExists, WorkspaceBound, PodExists, VolumeExists, PodTerminated bool
-	Observed                                                                string
-	Reason                                                                  string
-	ProviderRefs                                                            ProviderRefs
-	At                                                                      time.Time
+	// VolumeObservationFailed leaves volume existence/reclamation unknown while
+	// preserving independently verified workspace and Pod identities. Only the
+	// known Pod may be stopped until volume observation succeeds again.
+	VolumeObservationFailed bool
+	Observed                string
+	Reason                  string
+	ProviderRefs            ProviderRefs
+	At                      time.Time
 }
 type Work struct {
 	Sandbox    Sandbox

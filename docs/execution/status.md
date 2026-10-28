@@ -34,6 +34,14 @@ Fedora Go 1.26.10 的相关单元测试、真实 PG18.6 定向生命周期/故�
 
 2026-10-28 来源更新：`origin/main@8ede17c` 已合入当前分支（合并提交 `81e5886`），原有 Sandbox 改动已恢复；后续交付状态以 Git 提交和远端引用为准。合并后工作区完整 `make verify` 在 ubuntu/Go1.26.10 通过，主线新增接线与 Sandbox 接线均保留。当前源码已含 Network 1–22 迁移，上述 Network20 来源缺失仅为历史时点记录；本次未部署或执行数据库迁移。完整检查日志保存在仓外任务目录 `../verification-artifacts/ani-resource-service/merge-main-20261028-gh7camlg/`（相对仓库根目录的路径），未增加仓内原始日志。
 
+### 2026-10-28：复审缺陷修复
+
+基于 Resource `55092db` 与 Gov `7be13be`，两仓在 `codex/sandbox-review-fixes-20261028` 修复三处：PV 查询失败时仍允许以原 UID 停止已确认的 Pod，保留观察/写入预算和存储回收屏障；Gov 详情/列表透传 PV 名称和 UID；全新创建检查父实例状态与既有持久删除受理记录，保留原请求重放及查询/清理。PV 分页查询中断不会保存未经完整扫描验证的新身份。行为边界见[工作盘合同](../plans/sandbox-runtime-design-20261025.md#51-工作盘与-pvc-的关系)，Gov 准入以其前端 HTTP 合同为准。
+
+Ubuntu/Go1.26.10 独立源码副本验证：修复前代码在 PV Forbidden/Timeout × pause/delete 四项行为回归中失败；修复后完整 `make verify` 通过，专用 PostgreSQL17.11 的 `go test -tags=sandboxintegration ./internal/data/sandbox` 通过（14 项实库顶层测试，含子用例的完整 data/sandbox 套件共121项通过、零失败/跳过）。Gov 完整 `make api`、76项 Sandbox 定向回归（含子用例）及生产入口构建通过。本轮回执、原始日志、源码清单及 SHA 位于仓外 `../verification-artifacts/sandbox-review-fixes-20261028-8flr91ob/`（相对仓库根目录的路径），测试容器和临时数据库凭据已清理。
+
+本轮未部署或执行共享数据库迁移，新补丁的现场验证仍为 `not_verified`。父删除检查与 Resource 受理 RPC 不构成跨服务原子排序，未实现自动级联；未知创建的人工恢复入口与 P3–P5 保持未实现范围。
+
 ## 2026-10-21：KCN 网络平台化 Goal
 
 2026-10-22 当前主链已到 **真实平台登录 → Gov → Res/mTLS/PostgreSQL/worker → 新虚拟交换机、ens35/VLAN 0、Underlay 公网池 → kcn-cluster 独立平台默认出口 → 原消费者 DNS/自身 CA HTTPS 与物理 SNAT `172.16.102.192` 回程**，本次必要重建切片 `PASS`。用户后续明确授权“完全删除，记下网段相关参数，然后再通过res创建一个一样的出来”：旧五个原生对象按 Snat→EIP→Subnet→Gateway→VLAN 正常删除并逐项确认 NotFound；旧 Device `device_94d6…055d` 已 `deleted/retired=true/registration_closed=true`。18:25 的 `blocked/LEGACY_NATIVE_VLAN_IN_USE` 是拆除前历史状态，已由最终退役结果取代。本次没有强删 finalizer、直接 SQL 业务删行或用永久原生对象代替产品链。唯一综合记录见[本轮交付回执](records/KCN-NETWORK-PLATFORM-20261021/resume-delivery-20261022.json)。

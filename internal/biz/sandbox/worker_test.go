@@ -38,14 +38,18 @@ func (r *workerRepo) Finish(ctx context.Context, _ Work, p Progress) error {
 }
 
 type workerProvider struct {
-	repo       *workerRepo
-	observe    Observation
-	observeErr error
-	apply      func(context.Context, Sandbox, Mutation) (MutationResult, error)
-	calls      []Mutation
+	repo        *workerRepo
+	observe     Observation
+	observeErr  error
+	observeCall func(context.Context, Sandbox) (Observation, error)
+	apply       func(context.Context, Sandbox, Mutation) (MutationResult, error)
+	calls       []Mutation
 }
 
-func (p *workerProvider) Observe(context.Context, Sandbox) (Observation, error) {
+func (p *workerProvider) Observe(ctx context.Context, s Sandbox) (Observation, error) {
+	if p.observeCall != nil {
+		return p.observeCall(ctx, s)
+	}
 	return p.observe, p.observeErr
 }
 func (p *workerProvider) Apply(ctx context.Context, s Sandbox, m Mutation) (MutationResult, error) {
@@ -243,5 +247,55 @@ func TestWorkerPauseCannotCompleteWhileCreateIsUnknown(t *testing.T) {
 	step(t, w)
 	if r.progress.Sandbox.Observed != ObservedUnknown || r.work.Sandbox.Pending == nil || len(p.calls) != 0 {
 		t.Fatal("stopped Pod incorrectly canceled unknown workspace creation")
+	}
+}
+
+func TestWorkerVolumeReadFailureOnlyRetriesOriginalPodDeletion(t *testing.T) {
+	for _, kind := range []string{MutationDeletePod, MutationDeleteWorkspace} {
+		t.Run(kind, func(t *testing.T) {
+			w, r, p := testWorker(t, DesiredDeleted)
+			target := "original-pod"
+			if kind == MutationDeleteWorkspace {
+				target = "original-workspace"
+			}
+			pending := Mutation{ID: "pending-delete", Kind: kind, OperationID: "original-delete", Version: 1, TargetUID: target}
+			r.work.Sandbox.Pending = &pending
+			p.observe = Observation{Observed: ObservedUnknown, Reason: "WORKSPACE_VOLUME_OBSERVATION_FAILED", VolumeObservationFailed: true, WorkspaceExists: true, PodExists: kind == MutationDeletePod, ProviderRefs: ProviderRefs{PodUID: "original-pod", PVCUID: "original-workspace", PVUID: "original-volume"}}
+			step(t, w)
+			if r.progress.Sandbox.Reason != p.observe.Reason || r.progress.Sandbox.ProviderRefs.PVCUID != "original-workspace" || r.progress.Sandbox.ProviderRefs.PVUID != "original-volume" {
+				t.Fatalf("lost volume diagnosis or identities: %+v", r.progress)
+			}
+			if kind == MutationDeletePod {
+				if len(p.calls) != 1 || p.calls[0].Kind != MutationDeletePod || p.calls[0].TargetUID != target || p.calls[0].Attempt != 1 || !p.calls[0].PreviousUncertain || r.work.Sandbox.Pending != nil || r.progress.Sandbox.Observed == ObservedDeleted {
+					t.Fatalf("known Pod delete was not safely retried: calls=%v progress=%+v", p.calls, r.progress)
+				}
+			} else if len(p.calls) != 0 || len(r.prepared) != 0 || r.work.Sandbox.Pending == nil || *r.work.Sandbox.Pending != pending || r.progress.Sandbox.Observed != ObservedUnknown {
+				t.Fatalf("unknown volume read permitted workspace deletion: calls=%v progress=%+v", p.calls, r.progress)
+			}
+		})
+	}
+}
+
+func TestWorkerVolumeObservationDeadlineLeavesBudgetToStopPod(t *testing.T) {
+	w, r, p := testWorker(t, DesiredPaused)
+	w.lease = 7 * time.Second
+	var observationDeadline time.Time
+	p.observeCall = func(ctx context.Context, _ Sandbox) (Observation, error) {
+		observationDeadline, _ = ctx.Deadline()
+		// Model a PV read that uses all of its allotted budget after the Pod
+		// has already been verified, rather than an immediate Timeout response.
+		<-ctx.Done()
+		return Observation{Observed: ObservedUnknown, Reason: "WORKSPACE_VOLUME_OBSERVATION_FAILED", VolumeObservationFailed: true, PodExists: true, WorkspaceExists: true, ProviderRefs: ProviderRefs{PodUID: "original-pod", PVCUID: "original-workspace"}}, nil
+	}
+	p.apply = func(ctx context.Context, s Sandbox, m Mutation) (MutationResult, error) {
+		deadline, ok := ctx.Deadline()
+		if ctx.Err() != nil || !ok || !deadline.After(observationDeadline) {
+			t.Fatalf("PV timeout exhausted the Pod stop budget: err=%v deadline=%v observation=%v", ctx.Err(), deadline, observationDeadline)
+		}
+		return MutationResult{Mutation: m, Outcome: MutationApplied, Refs: s.ProviderRefs}, nil
+	}
+	step(t, w)
+	if len(p.calls) != 1 || p.calls[0].Kind != MutationDeletePod || p.calls[0].TargetUID != "original-pod" || r.progress.Sandbox.Reason != "WORKSPACE_VOLUME_OBSERVATION_FAILED" || r.work.Sandbox.Pending != nil {
+		t.Fatalf("deadline-bound PV failure prevented the original Pod stop: calls=%v progress=%+v", p.calls, r.progress)
 	}
 }
