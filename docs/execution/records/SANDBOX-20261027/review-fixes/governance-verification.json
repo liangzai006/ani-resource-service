@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "exitCode": 0,
+  "host": "ubuntu",
+  "sourceManifest": "/tmp/sandbox-fixes-20261027/governance-source.json",
+  "sourceManifestSha256": "aaab1ec17ec67a12925b79c339374f3a6ae0275a0f3a75b31df7c7f3859eb050",
+  "command": "env CGO_ENABLED=0 GOTOOLCHAIN=go1.26.10 GOWORK=off GOMAXPROCS=2 GOFLAGS=-p=2 go test ./app/admin/service/internal/service ./app/admin/service/internal/server ./app/admin/service/internal/data -run 'Sandbox|ComputeHTTP|ComputeCatalog|ComputeClientSharedConnection' -count=1",
+  "log": "/tmp/sandbox-fixes-20261027/governance-completed-regressions.log",
+  "logSha256": "4320f6cfc02cbb31874e5000a0678100db60e888e5d98ef90e814076192e26e0",
+  "verified": [
+    "Sandbox service intent replay after mutable preset rename/disable",
+    "legacy frozen snapshot replay",
+    "simultaneous first delivery differing frozen resolution recovers persisted winner",
+    "changed public intent conflicts and lookup infrastructure failures preserved",
+    "public HTTP create/replay, lifecycle replay flag, path/body binding and conflicts",
+    "strict canonical page/pageSize defaults, max uint32 and invalid request rejection",
+    "stable safe HTTP reason/status for business versus dependency errors",
+    "existing Compute catalog, HTTP and shared client regressions"
+  ],
+  "notVerified": [
+    "tagged PostgreSQL integration suites",
+    "full Governance repository checks",
+    "new candidate deployment or new live API/Provider lifecycle"
+  ]
+}

@@ -14,6 +14,7 @@ import (
 	imagev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/image/v1"
 	instancev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/instance/v1"
 	networkv1 "github.com/zhangzhe-ctrl/ani-resource-service/api/network/v1"
+	sandboxv1 "github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1"
 	storagev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/storage/v1"
 	vmv1 "github.com/zhangzhe-ctrl/ani-resource-service/api/vm/v1"
 	"github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/network"
@@ -55,9 +56,18 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 		repository.Close()
 		return nil, err
 	}
+	sandboxes, err := openSandbox(context.Background(), compute, logger)
+	if err != nil {
+		instances.Close()
+		compute.Close()
+		images.Close()
+		repository.Close()
+		return nil, err
+	}
 	configured := false
 	defer func() {
 		if !configured {
+			sandboxes.Close()
 			instances.Close()
 			compute.Close()
 			images.Close()
@@ -193,6 +203,9 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 	if instances != nil {
 		instancev1.RegisterInstanceServiceServer(grpcServer, instances.service)
 	}
+	if sandboxes != nil {
+		sandboxv1.RegisterSandboxServiceServer(grpcServer, sandboxes.service)
+	}
 	if vms != nil {
 		vmv1.RegisterVMServiceServer(grpcServer, vms.service)
 	}
@@ -204,6 +217,9 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 	}
 	if imageRuntime != nil {
 		servers = append(servers, imageRuntime)
+	}
+	if sandboxes != nil {
+		servers = append(servers, sandboxes.execution)
 	}
 	if vms != nil && vms.console != nil {
 		servers = append(servers, vms.console)
@@ -217,6 +233,7 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 		kratos.AfterStart(func(context.Context) error { readiness.Set(true); return nil }),
 		kratos.BeforeStop(func(context.Context) error { readiness.Set(false); return nil }),
 		kratos.AfterStop(func(ctx context.Context) error {
+			sandboxes.Close()
 			vms.Close()
 			consumer.Close()
 			instances.Close()

@@ -20,6 +20,20 @@ Fedora Go 1.26.10 的相关单元测试、真实 PG18.6 定向生命周期/故�
 
 本次未新建用户实例或 GPU 账本；没有待恢复的未 ACK 存量事件，因此不能将发布成功及旧 ACK 保留宣称为新一次真实原 charge 退额或 GPU/浏览器产品验收。后续新快照与关闭事实已写入后，不得仅回退旧二进制或与旧 worker 混跑。
 
+## 2026-10-27：Sandbox 真实集群联调（独立候选）
+
+本轮 **Sandbox 核心验收 pass**：正常登录、临时租户/最小权限/INSTANCE套餐与合法CPU父实例，经 Gov HTTP→Resource mTLS→真实 PostgreSQL/worker/Kata 完成 create→pause→候选进程重启→resume→delete。四个 operation succeeded；重放、冲突、跨租户隔离及原工作盘/文件保持通过。另有五类生产组件故障验证通过，覆盖逻辑 ClusterID、迟到 Pod、WFFC/Lost观察、lease/旧回执和PV回收屏障；故障验证不冒充Gov HTTP全链。详见[验收回执](records/SANDBOX-20261027/live-final-fixes/result.json)。
+
+业务和临时基础设施收尾 pass：父实例及运行资源已正常回收，CPU零计费合同下占用为0；临时权限恢复、三个会话注销，新候选/Provider RBAC/配置及两专用库已清理。tenant5因配额历史保留OFF、user6 DISABLED，受保护角色8/9保留ON但零授权；对照tenant6/user7已删除，套餐5为空模块，Image space按无删除API的现有合同保留元数据。共享Sandbox migration003保留，旧r9 worker保持0；两次无效故障驱动尝试和首次清理namespace遗漏均保留在原始备份，不计产品通过。
+
+验证实际在ubuntu/Go1.26.10执行：冻结候选851文件、14包定向回归、生产镜像构建及33文件补丁重建核对通过。源码、镜像摘要、实际命令和退出码见[来源与验证摘要](records/SANDBOX-20261027/live-final-fixes/source.json)。本轮未新增修改原工作区业务实现，候选使用既有修复并做入口兼容接线，主Gov/主Resource部署未由本轮替换；未Git提交或推送。
+
+验收边界：候选Network使用独立1–19版库、VM禁用，CPU父实例未请求Network；本轮未开展Network产品链验收。Lost为受控GET投影；PV/RBD回收不代表字节擦除。GPU live仅验目录过滤拒绝，P3–P5未启用或验证。后续主Resource整体整合仍需取得匹配现场Network20的源码；验收时最新镜像标注0402f2f仍无法取得，此项不作为本轮Sandbox核心验收未完成。
+
+按用户要求，本轮210份原始材料完整移至仓库外，仓内仅保留验收、来源及[备份索引](records/SANDBOX-20261027/live-final-fixes/evidence-index.json)三份摘要；索引记录备份路径、SHA及可恢复性。此前[九项修复](records/SANDBOX-20261027/review-fixes/result.json)、[追加补修](records/SANDBOX-20261027/cross-review-fixes/result.json)和[Gov交接](records/SANDBOX-20261027/gov-main-handoff/reconciliation.json)保持原历史范围。
+
+2026-10-28 来源更新：`origin/main@8ede17c` 已合入当前分支（合并提交 `81e5886`），原有 Sandbox 改动已恢复；后续交付状态以 Git 提交和远端引用为准。合并后工作区完整 `make verify` 在 ubuntu/Go1.26.10 通过，主线新增接线与 Sandbox 接线均保留。当前源码已含 Network 1–22 迁移，上述 Network20 来源缺失仅为历史时点记录；本次未部署或执行数据库迁移。完整检查日志保存在仓外任务目录 `../verification-artifacts/ani-resource-service/merge-main-20261028-gh7camlg/`（相对仓库根目录的路径），未增加仓内原始日志。
+
 ## 2026-10-21：KCN 网络平台化 Goal
 
 2026-10-22 当前主链已到 **真实平台登录 → Gov → Res/mTLS/PostgreSQL/worker → 新虚拟交换机、ens35/VLAN 0、Underlay 公网池 → kcn-cluster 独立平台默认出口 → 原消费者 DNS/自身 CA HTTPS 与物理 SNAT `172.16.102.192` 回程**，本次必要重建切片 `PASS`。用户后续明确授权“完全删除，记下网段相关参数，然后再通过res创建一个一样的出来”：旧五个原生对象按 Snat→EIP→Subnet→Gateway→VLAN 正常删除并逐项确认 NotFound；旧 Device `device_94d6…055d` 已 `deleted/retired=true/registration_closed=true`。18:25 的 `blocked/LEGACY_NATIVE_VLAN_IN_USE` 是拆除前历史状态，已由最终退役结果取代。本次没有强删 finalizer、直接 SQL 业务删行或用永久原生对象代替产品链。唯一综合记录见[本轮交付回执](records/KCN-NETWORK-PLATFORM-20261021/resume-delivery-20261022.json)。

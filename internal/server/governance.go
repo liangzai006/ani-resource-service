@@ -11,9 +11,11 @@ import (
 
 	"github.com/google/uuid"
 	instancepb "github.com/zhangzhe-ctrl/ani-resource-service/api/instance/v1"
+	sandboxpb "github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1"
 	computebiz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/compute"
 	instancebiz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance"
 	"github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/network"
+	sandboxbiz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/sandbox"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
@@ -277,7 +279,8 @@ func governanceUnary(readOnly bool) grpc.UnaryServerInterceptor {
 		_, computeMethod := computeGovernanceMethods[info.FullMethod]
 		_, storageMethod := storageGovernanceMethods[info.FullMethod]
 		_, vmMethod := vmGovernanceMethods[info.FullMethod]
-		if _, ok := governanceReadMethods[info.FullMethod]; !ok && !imageMethod && !platformMethod && !instanceMethod && !computeMethod && !storageMethod && !vmMethod {
+		_, sandboxMethod := sandboxGovernanceMethods[info.FullMethod]
+		if _, ok := governanceReadMethods[info.FullMethod]; !ok && !imageMethod && !platformMethod && !instanceMethod && !computeMethod && !storageMethod && !vmMethod && !sandboxMethod {
 			return nil, status.Error(codes.PermissionDenied, "governance credential does not permit this method")
 		}
 		r, ok := req.(proto.Message)
@@ -298,6 +301,24 @@ func governanceUnary(readOnly bool) grpc.UnaryServerInterceptor {
 				return nil, err
 			}
 			return next(ctx, req)
+		}
+		if sandboxMethod {
+			var tenant string
+			switch v := r.(type) {
+			case *sandboxpb.AcceptCreateRequest:
+				tenant = v.GetContext().GetTenantId()
+			default:
+				if fd := r.ProtoReflect().Descriptor().Fields().ByName("tenant_id"); fd != nil {
+					tenant = r.ProtoReflect().Get(fd).String()
+				}
+			}
+			if tenant == "" || tenant != p.TenantID {
+				return nil, status.Error(codes.PermissionDenied, "sandbox tenant differs from authenticated scope")
+			}
+			if info.FullMethod == sandboxpb.SandboxService_ResolveCreateSpec_FullMethodName {
+				ctx = computeScope(ctx, p, info.FullMethod, computebiz.Sandbox)
+			}
+			return next(sandboxbiz.WithCaller(ctx, sandboxCaller(p.TenantID, p.Actor)), req)
 		}
 		if instanceMethod {
 			var tenant string

@@ -1,0 +1,42 @@
+package service
+
+import (
+  "context"
+  "testing"
+  res "github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1"
+  "google.golang.org/grpc/codes"
+  "google.golang.org/grpc/status"
+)
+
+type reviewResolveRaceClient struct {
+  *sandboxTestClient
+  winner *res.Sandbox
+  gets int
+}
+func (c *reviewResolveRaceClient) GetSandbox(context.Context,string,string,*res.GetSandboxRequest)(*res.GetSandboxResponse,error){
+  c.gets++
+  if c.gets == 1 { return nil,status.Error(codes.NotFound,"SANDBOX_NOT_FOUND") }
+  return &res.GetSandboxResponse{Sandbox:c.winner},nil
+}
+func (c *reviewResolveRaceClient) ResolveSandbox(context.Context,string,string,*res.ResolveCreateSpecRequest)(*res.ResolveCreateSpecResponse,error){
+  // Same-intent B has committed the winner after A's absent read. The catalog
+  // has now been disabled, so A's new resolution fails.
+  c.stored=c.winner
+  return nil,status.Error(codes.FailedPrecondition,"COMPUTE_PRESET_DISABLED")
+}
+func TestReviewAcceptedWinnerLostWhenResolutionFails(t *testing.T){
+  s,base,ctx,request:=sandboxReplayFixture()
+  intent,err:=res.CreateIntentDigest(request.Data.InstanceId,&res.CreateSandboxData{Name:request.Data.Name,ImageReference:request.Data.ImageReference,PresetId:request.Data.PresetId})
+  if err!=nil{t.Fatal(err)}
+  winner:=&res.Sandbox{Id:stableSandboxID(sandboxTestTenant,"create-1","resource"),InstanceId:sandboxTestInstance,CreateOperationId:stableSandboxID(sandboxTestTenant,"create-1","operation"),CreateIntentDigest:intent}
+  c:=&reviewResolveRaceClient{sandboxTestClient:base,winner:winner}
+  s.client=c
+  got,err:=s.CreateSandbox(ctx,request)
+  if status.Code(err)!=codes.FailedPrecondition || got!=nil || c.gets!=1 { t.Fatalf("unexpected result: got=%v err=%v reads=%d",got,err,c.gets) }
+  if c.stored!=winner {t.Fatal("winner was not committed")}
+  // A later retry replays successfully. The raced request itself returned an
+  // error despite the same accepted request already existing.
+  retry,err:=s.CreateSandbox(ctx,request)
+  if err!=nil || !retry.Replayed || retry.OperationId!=winner.CreateOperationId {t.Fatalf("retry=%v err=%v",retry,err)}
+  t.Log("BUG REPRODUCED: first identical in-flight request returns COMPUTE_PRESET_DISABLED; next identical request replays committed winner")
+}

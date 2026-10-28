@@ -1,0 +1,41 @@
+{
+  "sandbox": {
+    "tenant_id": "432e7877-7596-48e6-b3a7-daec3ac6a073",
+    "sandbox_id": "c7077711-beef-501d-960d-deabe62d415b",
+    "instance_id": "7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+    "version": 2,
+    "desired": "paused",
+    "observed": "paused",
+    "reason": "",
+    "create_operation_id": "15ca5240-cf9b-577a-a46c-bb60306b9321",
+    "last_operation_id": "4712a44e-18e9-4ad6-9d7f-52384737cb18",
+    "provider_refs": {
+      "PVCUID": "b941fc32-1293-40fa-96df-fe8ac9164773",
+      "PodUID": "",
+      "PVCName": "workspace-c7077711-beef-501d-960d-deabe62d415b",
+      "PodName": "sandbox-c7077711-beef-501d-960d-deabe62d415b",
+      "CleanupReceipt": "",
+      "ResourceVersion": "4684627",
+      "PVCResourceVersion": "4684627",
+      "PodResourceVersion": ""
+    }
+  },
+  "operations": [
+    {
+      "operation_id": "15ca5240-cf9b-577a-a46c-bb60306b9321",
+      "action": "create",
+      "intent_version": 1,
+      "state": "succeeded",
+      "reason": ""
+    },
+    {
+      "operation_id": "4712a44e-18e9-4ad6-9d7f-52384737cb18",
+      "action": "pause",
+      "intent_version": 2,
+      "state": "succeeded",
+      "reason": ""
+    }
+  ],
+  "workCount": 1,
+  "checkedAtUTC": "2026-10-27T07:42:32.230262+00:00"
+}

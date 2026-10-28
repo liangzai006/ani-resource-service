@@ -1,0 +1,27 @@
+{
+  "recordedAtUTC": "2026-10-27T09:18:42.065797+00:00",
+  "inputReview": "../cross-review/result.json",
+  "scope": [
+    "SB-X01",
+    "SB-X02",
+    "SB-X03",
+    "SB-X04",
+    "SB-X05"
+  ],
+  "initialState": "in_progress",
+  "authorization": "Continue previously requested source fixes after user challenged inaccurate completion statement; tests and documentation within same scope. No deployment, candidate sync or commit/push.",
+  "executionHost": "ubuntu",
+  "toolchain": "Go1.26.10/GOWORK=off/CGO_ENABLED=0",
+  "plannedVerification": [
+    "Promote all five isolated reproductions into official regression tests",
+    "Fence every delete retry and preserve all earlier uncertainty",
+    "Configured cluster identity checked before any provider I/O",
+    "Pause convergence with Pending/Lost/missing workspace preserving original identity",
+    "Replay concurrently persisted winner across resolution/accept errors",
+    "Independent review of final code by different reviewers, then stable source gates and exact source snapshots"
+  ],
+  "limits": [
+    "Provider protocol fake tests do not establish live CSI fault behavior",
+    "Prepared-but-unobserved unknown creates remain conservative and may require intervention; no manual recovery endpoint in scope"
+  ]
+}

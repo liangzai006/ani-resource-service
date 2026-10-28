@@ -1,0 +1,1418 @@
+{
+  "recordedAtUTC": "2026-10-27T07:52:49.419458+00:00",
+  "executionHost": "ubuntu",
+  "kubernetesContext": "kubernetes-admin@ani-kcn-full",
+  "state": {
+    "task": "/tmp/sandbox-live-20261027-kdxgk3no",
+    "resource": "/tmp/sandbox-live-20261027-kdxgk3no/resource",
+    "originalResource": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:4f7f0477e30ec0d319fdfb7869d4af0fdf827e35813c1aa74d6156f2f5165c63",
+    "governance": "/tmp/sandbox-live-20261027-kdxgk3no/governance",
+    "originalGovernance": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:efc69d9072e66c9855e9516201b49a862fb6f60f0da9712bdf5820ff9bede682",
+    "resourceDeployment": "ani-resource-sandbox-20261027",
+    "sandboxNamespace": "ani-sandbox-integration-20261027",
+    "providerTokenExpiresAfterUTC": "2026-10-27T09:28:18+00:00",
+    "resourceImage": "docker.changqingyun.cn/ani/resource-service@sha256:2f831c6c04f95b44c2da11b182fc4c1176807d57d2317924e443b7dfa2833e43",
+    "governanceDeployment": "ani-governance-sandbox-20261027",
+    "governanceImage": "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada",
+    "progress": {
+      "checkedAtUTC": "2026-10-27T07:52:49.419458+00:00",
+      "resourceMTLS": "pass: Sandbox list, cross-tenant denial, missing certificate refusal, VM list",
+      "governanceCandidate": "healthy r7; HTTP tenant Sandbox full core lifecycle passed with scoped temporary role/INSTANCE plan; task grants now revoked",
+      "userAuthorizedKataInstall": true,
+      "userAuthorizedTemporaryTenant": true,
+      "kataTargetNode": "node2",
+      "kataVersion": "4.3.1",
+      "platformLogin": "pass normal platform password login and platform:admin identity; normally logged out/session revoked, prior token401",
+      "apiCatalogCredential": "ani-system/ani-governance-admin:owner-dsn role gov_migrate",
+      "kataInstallation": "pass; Helm deployed; node2 Kata Ready; same PVC data survives Pod recreation under UID 10001",
+      "resourceWorkspaceFix": "healthy r9; preserve current Instance cleanup timestamp and JSONB create replay; full HTTP/DB/worker/Kata lifecycle and backend cleanup passed",
+      "remaining": "requested core lifecycle validation complete; full release gates and P3-P5 beyond current scope",
+      "tenantLogin": "task tenant3 normal login; normal logout/session revoked; previous access token401; tenant OFF and zero role grants/plan modules",
+      "governanceCatalogVerification": "two trees make api, relevant permcode/service/data and HTTP tests passed; isolated PG four-usage authorization and permission-registration rollback/idempotency/default OFF passed",
+      "latestClusterCheck": "/tmp/sandbox-live-20261027-kdxgk3no/http-lifecycle/final-cluster.json"
+    },
+    "resourceImageTag": "docker.changqingyun.cn/ani/resource-service:sandbox-20261027-r9",
+    "kataRelease": "kata-sandbox",
+    "kataNamespace": "kata-system",
+    "kataVersion": "4.3.1",
+    "kataNodes": [
+      "node2"
+    ],
+    "governanceImageTag": "docker.changqingyun.cn/ani/governance:sandbox-20261027-r7",
+    "providerTokenStatus": "same ServiceAccount and unchanged RBAC renewed; expires09:28Z; no active Sandbox workloads after cleanup",
+    "sharedServicesObserved": {
+      "checkedAtUTC": "2026-10-27T07:51:00.565231+00:00",
+      "executionHost": "ubuntu",
+      "deployments": {
+        "ani-resource-sandbox-20261027": {
+          "readyReplicas": 1,
+          "generation": 6,
+          "image": "docker.changqingyun.cn/ani/resource-service@sha256:2f831c6c04f95b44c2da11b182fc4c1176807d57d2317924e443b7dfa2833e43",
+          "pods": [
+            {
+              "name": "ani-resource-sandbox-20261027-bc9ccbf5f-sdpb2",
+              "uid": "6796e37e-6eaf-44be-ba98-cc980dcaaf83",
+              "phase": "Running",
+              "containers": [
+                {
+                  "name": "resource",
+                  "ready": true,
+                  "restartCount": 0,
+                  "imageID": "docker.changqingyun.cn/ani/resource-service@sha256:2f831c6c04f95b44c2da11b182fc4c1176807d57d2317924e443b7dfa2833e43"
+                }
+              ]
+            }
+          ],
+          "sharedEndpointTargets": [
+            "ani-resource-service-d6c4f94bb-hpztn"
+          ]
+        },
+        "ani-governance-sandbox-20261027": {
+          "readyReplicas": 1,
+          "generation": 5,
+          "image": "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada",
+          "pods": [
+            {
+              "name": "ani-governance-sandbox-20261027-9dbf5b669-7kc7c",
+              "uid": "7978f328-39f2-4c47-b624-8958baf4aa0a",
+              "phase": "Running",
+              "containers": [
+                {
+                  "name": "governance",
+                  "ready": true,
+                  "restartCount": 0,
+                  "imageID": "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada"
+                }
+              ]
+            }
+          ],
+          "sharedEndpointTargets": [
+            "ani-governance-57788fb44c-tk6rw"
+          ]
+        },
+        "ani-resource-service": {
+          "readyReplicas": 1,
+          "generation": 38,
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:4b074baa1df4e439373de375ff8eeb7a7196ca8a2c68351700ebf372313003d3",
+          "pods": [
+            {
+              "name": "ani-resource-service-d6c4f94bb-hpztn",
+              "uid": "89ad97a8-4e69-4dfe-8ada-71ae70e170d4",
+              "phase": "Running",
+              "containers": [
+                {
+                  "name": "resource",
+                  "ready": true,
+                  "restartCount": 0,
+                  "imageID": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:4b074baa1df4e439373de375ff8eeb7a7196ca8a2c68351700ebf372313003d3"
+                }
+              ]
+            }
+          ],
+          "sharedEndpointTargets": [
+            "ani-resource-service-d6c4f94bb-hpztn"
+          ]
+        },
+        "ani-governance": {
+          "readyReplicas": 1,
+          "generation": 61,
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance:v21-detail-on-dev-20261027",
+          "pods": [
+            {
+              "name": "ani-governance-57788fb44c-tk6rw",
+              "uid": "f5c95a65-38e6-46b0-ab08-4e501119cab1",
+              "phase": "Running",
+              "containers": [
+                {
+                  "name": "governance",
+                  "ready": true,
+                  "restartCount": 0,
+                  "imageID": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:234155abf633e81080be0bb69e948404b17aa6a166b44551208bfd55ee0b40af"
+                }
+              ]
+            }
+          ],
+          "sharedEndpointTargets": [
+            "ani-governance-57788fb44c-tk6rw"
+          ]
+        }
+      },
+      "sandboxPods": 0,
+      "sandboxPVCs": 0
+    }
+  },
+  "evidence": {
+    "resource-source-manifest.json": {
+      "baseline": "7755f6f4b8514cca80ad99886c4e1019fa276eea",
+      "trackedDiffSHA256": "060e66c7ac6ea4ebe0c390056ce514f55c18cf3b919773e28044a774fd9fe7ac",
+      "untrackedFiles": {
+        "api/sandbox/v1/sandbox.pb.go": "117297a9df37e9e469fa0baef656e74c95aa0624e8e26c4f07193c13a3c769c3",
+        "api/sandbox/v1/sandbox.proto": "6d3a0872734ea56add5e2c4d61fff8d3c370ea6bfc3e6f48a1638ac476245159",
+        "api/sandbox/v1/sandbox_grpc.pb.go": "ffa9f44bcb19f9f0f15ba651c281cde6b3a9f57efff050ede80ca5172a8ea927",
+        "cmd/ani-resource-service/sandbox.go": "c66c11b01e9b9b8e1614a85f2688dce596c9e9c0000a4abcc5b4fec23830d6c8",
+        "internal/biz/sandbox/types.go": "347ed92e675c786b1c641bc37c8642be3a0a3167585149d54d336c5228ccdbf6",
+        "internal/biz/sandbox/worker.go": "911b0523096a583870e89648a4afbb13ee5bde12b768a6376be046d20a8e30e9",
+        "internal/biz/sandbox/worker_test.go": "ed533d51657cd0da09be3a8fb0cb1562e3926daa0d11743b9583d5b3edda24a8",
+        "internal/data/sandbox/postgres.go": "1f7ba9193ef685ea41821b8080ae4cde5fa8cf97b4bd5e94dcb8cde0dacdfabe",
+        "internal/data/sandbox/provider.go": "8b0b03db424459b9c94126aa3cb1a1f022a1cf0b6ae4797dbeb05f306555afa5",
+        "internal/data/sandbox/provider_test.go": "abb098a2db6f5d6362d61970433ca1c08d9cf03b9328c76b183d6efde97925a3",
+        "internal/server/sandbox_identity.go": "cb236f621793b0fbed8fd9ba0efb7af5adc8bd6b19a30b460daa56675c69a451",
+        "internal/server/sandbox_identity_test.go": "8cca52f0a77e4c2458d6ead0d76b204ba153070a032c96eff7beb4c3fd9bb25e",
+        "internal/server/sandbox_worker.go": "14827165e6d9b703b85541103351514ac5815336b57b3c3104fef728eef96fbe",
+        "internal/service/sandbox/service.go": "74a1b9d876c315cb4b89f8a0ebc44cdc618c4ab7e69ce8aa8fe2355aafb60aef",
+        "internal/service/sandbox/service_test.go": "2a61356aa09c0aabbb7aa5c40bd3680f471cae1050d1d7670fc4227ca402e08e",
+        "migrations/sandbox/001_sandbox.sql": "95dd41f0b9f420973a9fc209a65a20d546c34b070aa41f6996bc7ca56f61fbf0",
+        "migrations/sandbox/002_workspace_bindings.sql": "f8e4ffe18f7c003374f53da68aff4c1e56903d47142eb6a4fc2fc2b34a4bb0c8",
+        "migrations/sandbox/embed.go": "747320163bb5430537a9cb35888a635f833386820e66abcc545804326045b172"
+      }
+    },
+    "governance-source-manifest.json": {
+      "baseline": "11cd56003fb46cef741ffab28035519ea575a427",
+      "trackedDiffSHA256": "a580b54a6eba2b7d81f8d4dba638562d699b1b6085aad8139eefed5b1418f486",
+      "untrackedFiles": {
+        "api/gen/go/admin/service/v1/i_sandbox.pb.go": "35b8f89d018174f1856c2ab896b164b330744d3c76df33cd57e288aabf1c4e1e",
+        "api/gen/go/admin/service/v1/i_sandbox_grpc.pb.go": "ae1ddfc7aa4b15dd40556ba2523db234f28d548032b869816d8349bbd36be5e5",
+        "api/gen/go/admin/service/v1/i_sandbox_http.pb.go": "e233194299ec661d311e946f8489100bdad3fb655eca077a953446c87c81d460",
+        "api/gen/go/sandbox/service/v1/sandbox.pb.go": "721646ca87fb1cbebaae47e91f8bde1cbb9fc27014f27ebaa9d3f96fc63ab29d",
+        "api/protos/admin/service/v1/i_sandbox.proto": "76f9f87c1e6b97935010fb02eb83997f3d5ae49f185d4a86c33bce92c6d74cff",
+        "api/protos/sandbox/service/v1/sandbox.proto": "16f87f1f9ec17baa492114b8b6931579f253678c77530971337690440472ac0e",
+        "app/admin/service/internal/data/sandbox_client.go": "409bd2a977cbb94f4d0640aa029814d0573414b3677f509f38ad91bb3fb74718",
+        "app/admin/service/internal/service/sandbox_service.go": "2fcaaf38cefa42eb5e8f46caae3c6ee80cd7c6f2dc6544ecd45c6c15f81dd7d8",
+        "app/admin/service/internal/service/sandbox_service_test.go": "995a87219393d153ad8e1da07d55973aba5512cccbacd234417bc834d4857c32"
+      }
+    },
+    "resource-mtls-probes.json": [
+      {
+        "name": "sandbox_list_trusted_scope",
+        "exitCode": 0,
+        "response": "{}",
+        "error": ""
+      },
+      {
+        "name": "sandbox_cross_tenant_rejected",
+        "exitCode": 71,
+        "response": "",
+        "error": "ERROR:\n  Code: PermissionDenied\n  Message: sandbox tenant differs from authenticated scope"
+      },
+      {
+        "name": "sandbox_missing_client_certificate_rejected",
+        "exitCode": 1,
+        "response": "",
+        "error": "Failed to dial target host \"127.0.0.1:19290\": context deadline exceeded"
+      },
+      {
+        "name": "existing_vm_list_still_registered",
+        "exitCode": 1,
+        "response": "",
+        "error": "Failed to process proto source files.: could not parse given files: compute/v1/compute.proto:5:8: open /tmp/sandbox-live-20261027-kdxgk3no/resource/api/accelerator/v1/accelerator.proto: no such file or directory"
+      }
+    ],
+    "resource-mtls-probes-followup.json": [
+      {
+        "name": "existing_vm_list_corrected_proto_paths",
+        "exitCode": 0,
+        "response": "{}",
+        "error": ""
+      },
+      {
+        "name": "missing_client_certificate_handshake",
+        "rejected": true,
+        "error": "[SSL: TLSV13_ALERT_CERTIFICATE_REQUIRED] tlsv13 alert certificate required (_ssl.c:2589)"
+      }
+    ],
+    "governance-http-probes.json": {
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/api/v1/instances/{data.instance_id}/sandbox",
+          "operationId": "SandboxService_CreateSandbox"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/v1/instances/{data.instance_id}/sandbox/{data.sandbox_id}",
+          "operationId": "SandboxService_DeleteSandbox"
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/instances/{data.instance_id}/sandbox/{data.sandbox_id}:pause",
+          "operationId": "SandboxService_PauseSandbox"
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/instances/{data.instance_id}/sandbox/{data.sandbox_id}:resume",
+          "operationId": "SandboxService_ResumeSandbox"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/instances/{instance_id}/sandbox",
+          "operationId": "SandboxService_ListSandboxes"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/instances/{instance_id}/sandbox/operations/{operation_id}",
+          "operationId": "SandboxService_GetSandboxOperation"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/instances/{instance_id}/sandbox/{sandbox_id}",
+          "operationId": "SandboxService_GetSandbox"
+        }
+      ],
+      "probes": [
+        {
+          "name": "anonymous",
+          "status": 401,
+          "body": "{\"code\":401,\"reason\":\"UNAUTHORIZED\",\"message\":\"missing bearer token\",\"metadata\":{\"request_id\":\"77af8355-a1e8-4856-808c-0752d94986a1\"}}"
+        },
+        {
+          "name": "forged_scope_headers",
+          "status": 401,
+          "body": "{\"code\":401,\"reason\":\"UNAUTHORIZED\",\"message\":\"missing bearer token\",\"metadata\":{\"request_id\":\"77af8355-a1e8-4856-808c-0752d94986a1\"}}"
+        },
+        {
+          "name": "invalid_bearer",
+          "status": 401,
+          "body": "{\"code\":401,\"reason\":\"UNAUTHORIZED\",\"message\":\"access token expired\",\"metadata\":{\"request_id\":\"4c85a0d3-2530-4222-b99c-533bbe1e3e26\"}}"
+        }
+      ]
+    },
+    "ani_resource-final-counts.json": {
+      "sandboxes": 0,
+      "operations": 0,
+      "work": 0,
+      "workspaceBindings": 0
+    },
+    "ani_governance-final-counts.json": {
+      "sandboxApiCount": 7,
+      "sandboxPermissionLinks": 0
+    },
+    "final-cluster-check.json": {
+      "ani-resource-service": {
+        "readyReplicas": 1,
+        "replicas": 1,
+        "images": [
+          "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:4f7f0477e30ec0d319fdfb7869d4af0fdf827e35813c1aa74d6156f2f5165c63"
+        ],
+        "pods": [
+          {
+            "name": "ani-resource-service-6cf84b8fdb-7pbxl",
+            "phase": "Running",
+            "ready": true,
+            "restarts": 0
+          }
+        ],
+        "endpointPods": [
+          "ani-resource-service-6cf84b8fdb-7pbxl"
+        ]
+      },
+      "ani-governance": {
+        "readyReplicas": 1,
+        "replicas": 1,
+        "images": [
+          "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:efc69d9072e66c9855e9516201b49a862fb6f60f0da9712bdf5820ff9bede682"
+        ],
+        "pods": [
+          {
+            "name": "ani-governance-57d46bd56-t8nps",
+            "phase": "Running",
+            "ready": true,
+            "restarts": 0
+          }
+        ],
+        "endpointPods": [
+          "ani-governance-57d46bd56-t8nps"
+        ]
+      },
+      "ani-resource-sandbox-20261027": {
+        "readyReplicas": 1,
+        "replicas": 1,
+        "images": [
+          "docker.changqingyun.cn/ani/resource-service@sha256:946c8d1a282634bf5dab5c39eea9e05adfd2f07d593995f9dfed07dd3aae82b9"
+        ],
+        "pods": [
+          {
+            "name": "ani-resource-sandbox-20261027-5bcc48cbf6-j4wxr",
+            "phase": "Running",
+            "ready": true,
+            "restarts": 0
+          }
+        ]
+      },
+      "ani-governance-sandbox-20261027": {
+        "readyReplicas": 1,
+        "replicas": 1,
+        "images": [
+          "docker.changqingyun.cn/ani/governance@sha256:0508c4069b4abf5c25162e4b3723a029f405adc4be489ee8b366c424c8dd5a9a"
+        ],
+        "pods": [
+          {
+            "name": "ani-governance-sandbox-20261027-7b76cd4dcb-9wglh",
+            "phase": "Running",
+            "ready": true,
+            "restarts": 0
+          }
+        ]
+      },
+      "namespaceBusinessResourceCount": 0,
+      "checkedAtUTC": "2026-10-27T02:30:23.404774+00:00"
+    },
+    "resource-source-manifest-final.json": {
+      "baseline": "7755f6f4b8514cca80ad99886c4e1019fa276eea",
+      "trackedDiffSHA256": "060e66c7ac6ea4ebe0c390056ce514f55c18cf3b919773e28044a774fd9fe7ac",
+      "untrackedFiles": {
+        "api/sandbox/v1/sandbox.pb.go": "117297a9df37e9e469fa0baef656e74c95aa0624e8e26c4f07193c13a3c769c3",
+        "api/sandbox/v1/sandbox.proto": "6d3a0872734ea56add5e2c4d61fff8d3c370ea6bfc3e6f48a1638ac476245159",
+        "api/sandbox/v1/sandbox_grpc.pb.go": "ffa9f44bcb19f9f0f15ba651c281cde6b3a9f57efff050ede80ca5172a8ea927",
+        "cmd/ani-resource-service/sandbox.go": "c66c11b01e9b9b8e1614a85f2688dce596c9e9c0000a4abcc5b4fec23830d6c8",
+        "internal/biz/sandbox/types.go": "347ed92e675c786b1c641bc37c8642be3a0a3167585149d54d336c5228ccdbf6",
+        "internal/biz/sandbox/worker.go": "911b0523096a583870e89648a4afbb13ee5bde12b768a6376be046d20a8e30e9",
+        "internal/biz/sandbox/worker_test.go": "ed533d51657cd0da09be3a8fb0cb1562e3926daa0d11743b9583d5b3edda24a8",
+        "internal/data/sandbox/postgres.go": "1f7ba9193ef685ea41821b8080ae4cde5fa8cf97b4bd5e94dcb8cde0dacdfabe",
+        "internal/data/sandbox/provider.go": "0a41a2c502588659acba1345bfdea3d070dea4e578fbe93f6f394680bcf9dab1",
+        "internal/data/sandbox/provider_test.go": "1afea2d961aae753c586e44984ad289c09543e2b64d34604d4afab17bf71a8aa",
+        "internal/server/sandbox_identity.go": "cb236f621793b0fbed8fd9ba0efb7af5adc8bd6b19a30b460daa56675c69a451",
+        "internal/server/sandbox_identity_test.go": "8cca52f0a77e4c2458d6ead0d76b204ba153070a032c96eff7beb4c3fd9bb25e",
+        "internal/server/sandbox_worker.go": "14827165e6d9b703b85541103351514ac5815336b57b3c3104fef728eef96fbe",
+        "internal/service/sandbox/service.go": "74a1b9d876c315cb4b89f8a0ebc44cdc618c4ab7e69ce8aa8fe2355aafb60aef",
+        "internal/service/sandbox/service_test.go": "2a61356aa09c0aabbb7aa5c40bd3680f471cae1050d1d7670fc4227ca402e08e",
+        "migrations/sandbox/001_sandbox.sql": "95dd41f0b9f420973a9fc209a65a20d546c34b070aa41f6996bc7ca56f61fbf0",
+        "migrations/sandbox/002_workspace_bindings.sql": "f8e4ffe18f7c003374f53da68aff4c1e56903d47142eb6a4fc2fc2b34a4bb0c8",
+        "migrations/sandbox/embed.go": "747320163bb5430537a9cb35888a635f833386820e66abcc545804326045b172"
+      }
+    },
+    "governance-source-manifest-final.json": {
+      "baseline": "11cd56003fb46cef741ffab28035519ea575a427",
+      "trackedDiffSHA256": "a580b54a6eba2b7d81f8d4dba638562d699b1b6085aad8139eefed5b1418f486",
+      "untrackedFiles": {
+        "api/gen/go/admin/service/v1/i_sandbox.pb.go": "35b8f89d018174f1856c2ab896b164b330744d3c76df33cd57e288aabf1c4e1e",
+        "api/gen/go/admin/service/v1/i_sandbox_grpc.pb.go": "ae1ddfc7aa4b15dd40556ba2523db234f28d548032b869816d8349bbd36be5e5",
+        "api/gen/go/admin/service/v1/i_sandbox_http.pb.go": "e233194299ec661d311e946f8489100bdad3fb655eca077a953446c87c81d460",
+        "api/gen/go/sandbox/service/v1/sandbox.pb.go": "721646ca87fb1cbebaae47e91f8bde1cbb9fc27014f27ebaa9d3f96fc63ab29d",
+        "api/protos/admin/service/v1/i_sandbox.proto": "76f9f87c1e6b97935010fb02eb83997f3d5ae49f185d4a86c33bce92c6d74cff",
+        "api/protos/sandbox/service/v1/sandbox.proto": "16f87f1f9ec17baa492114b8b6931579f253678c77530971337690440472ac0e",
+        "app/admin/service/internal/data/sandbox_client.go": "409bd2a977cbb94f4d0640aa029814d0573414b3677f509f38ad91bb3fb74718",
+        "app/admin/service/internal/service/sandbox_service.go": "2fcaaf38cefa42eb5e8f46caae3c6ee80cd7c6f2dc6544ecd45c6c15f81dd7d8",
+        "app/admin/service/internal/service/sandbox_service_test.go": "995a87219393d153ad8e1da07d55973aba5512cccbacd234417bc834d4857c32"
+      }
+    },
+    "r7-final-service-probes.json": [
+      {
+        "name": "r7_sandbox_list",
+        "exitCode": 0,
+        "response": "{}",
+        "error": ""
+      },
+      {
+        "name": "r7_cross_tenant_denial",
+        "exitCode": 71,
+        "response": "",
+        "error": "ERROR:\n  Code: PermissionDenied\n  Message: sandbox tenant differs from authenticated scope"
+      },
+      {
+        "name": "r7_existing_vm_list",
+        "exitCode": 0,
+        "response": "{}",
+        "error": ""
+      },
+      {
+        "name": "r7_missing_client_certificate",
+        "error": "[SSL: TLSV13_ALERT_CERTIFICATE_REQUIRED] tlsv13 alert certificate required (_ssl.c:2589)"
+      },
+      {
+        "name": "final_bff_forged_scope_without_login",
+        "status": 401,
+        "body": "{\"code\":401,\"reason\":\"UNAUTHORIZED\",\"message\":\"missing bearer token\",\"metadata\":{\"request_id\":\"1b3b59eb-54b1-4f9f-901d-f2ca36065e17\"}}"
+      }
+    ],
+    "final-cluster-check-r7.json": {
+      "checkedAtUTC": "2026-10-27T03:12:12.353826+00:00",
+      "ani-resource-service": {
+        "readyReplicas": 1,
+        "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:4f7f0477e30ec0d319fdfb7869d4af0fdf827e35813c1aa74d6156f2f5165c63",
+        "pods": [
+          {
+            "name": "ani-resource-service-6cf84b8fdb-7pbxl",
+            "node": "node3",
+            "ready": true,
+            "restarts": 0
+          }
+        ],
+        "endpointPods": [
+          "ani-resource-service-6cf84b8fdb-7pbxl"
+        ]
+      },
+      "ani-governance": {
+        "readyReplicas": 1,
+        "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:efc69d9072e66c9855e9516201b49a862fb6f60f0da9712bdf5820ff9bede682",
+        "pods": [
+          {
+            "name": "ani-governance-57d46bd56-t8nps",
+            "node": "node3",
+            "ready": true,
+            "restarts": 0
+          }
+        ],
+        "endpointPods": [
+          "ani-governance-57d46bd56-t8nps"
+        ]
+      },
+      "ani-resource-sandbox-20261027": {
+        "readyReplicas": 1,
+        "image": "docker.changqingyun.cn/ani/resource-service@sha256:5b961ed5b4d747ace4d03ea2d41ac39fcab5522e92daa23e6c9ffd67f3adb802",
+        "pods": [
+          {
+            "name": "ani-resource-sandbox-20261027-5f575bbb-hvj9n",
+            "node": "node3",
+            "ready": true,
+            "restarts": 0
+          }
+        ]
+      },
+      "ani-governance-sandbox-20261027": {
+        "readyReplicas": 1,
+        "image": "docker.changqingyun.cn/ani/governance@sha256:0508c4069b4abf5c25162e4b3723a029f405adc4be489ee8b366c424c8dd5a9a",
+        "pods": [
+          {
+            "name": "ani-governance-sandbox-20261027-7b76cd4dcb-9wglh",
+            "node": "node3",
+            "ready": true,
+            "restarts": 0
+          }
+        ]
+      },
+      "nodes": {
+        "node1": "True",
+        "node2": "True",
+        "node3": "True"
+      },
+      "node2BaselineRunningPods": {
+        "unchangedUIDAndRestartCount": 55,
+        "missingUIDs": [],
+        "increasedRestarts": []
+      },
+      "ani-sandbox-integration-20261027TaskBusinessResources": 0,
+      "kata-systemTaskBusinessResources": 0
+    },
+    "ani_resource-final-counts-r7.json": {
+      "sandboxes": 0,
+      "operations": 0,
+      "work": 0,
+      "workspaceBindings": 0
+    },
+    "ani_governance-final-counts-r7.json": {
+      "sandboxApiCount": 7,
+      "sandboxPermissionLinks": 0
+    },
+    "image-runtime-test-failure.json": {
+      "file": "internal/server/image_runtime_test.go",
+      "baselineSHA256": "54628fda7dd06223e630691a7a5f86f185d86df84cf1ca00966c5ad040512f44",
+      "currentSHA256": "54628fda7dd06223e630691a7a5f86f185d86df84cf1ca00966c5ad040512f44",
+      "unchanged": true,
+      "failure": "TestImageRuntimeMTLSListener connection refused at 127.0.0.1 ephemeral port before listener ready; full server package failed in resource-r7-tests.log",
+      "interpretation": "startup timing race suspected from unchanged test; not silently retried, no assertion removed; not a full test-suite pass"
+    },
+    "local-cleanup.json": {
+      "checkedAtUTC": "2026-10-27T03:14:49.622798+00:00",
+      "privateLocalCopiesDeleted": [
+        "ca.crt",
+        "gov-client.crt",
+        "gov-client.key",
+        "sandbox-provider.kubeconfig"
+      ],
+      "portForwardsStopped": [
+        {
+          "pid": 1188821,
+          "resource": "service/ani-resource-sandbox-20261027",
+          "port": "19290:9000"
+        },
+        {
+          "pid": 1199783,
+          "resource": "service/ani-governance-sandbox-20261027",
+          "port": "19288:7788"
+        },
+        {
+          "pid": 1200205,
+          "resource": "service/postgresql",
+          "port": "19432:5432"
+        },
+        {
+          "pid": 1206779,
+          "resource": "service/ani-governance-sandbox-20261027",
+          "port": "19289:7788"
+        },
+        {
+          "pid": 1232974,
+          "resource": "service/ani-resource-sandbox-20261027",
+          "port": "19390:9000"
+        }
+      ],
+      "candidateDeploymentsRetained": true,
+      "kataInstallationRetainedOn": [
+        "node2"
+      ],
+      "temporaryDriverSourceMovedOutsideRepository": true
+    },
+    "resource-r7-image.json": {
+      "tag": "docker.changqingyun.cn/ani/resource-service:sandbox-20261027-r7",
+      "image": "docker.changqingyun.cn/ani/resource-service@sha256:5b961ed5b4d747ace4d03ea2d41ac39fcab5522e92daa23e6c9ffd67f3adb802",
+      "digest": "sha256:5b961ed5b4d747ace4d03ea2d41ac39fcab5522e92daa23e6c9ffd67f3adb802"
+    },
+    "kata-install/remote-images.json": {
+      "kata": {
+        "tag": "docker.changqingyun.cn/ani/kata-deploy:sandbox-20261027-kata-4.3.1",
+        "digest": "sha256:799c17dcbd6f2c93f2c84f69667aa74b250ce91986096cc990a12abfc8871799",
+        "image": "docker.changqingyun.cn/ani/kata-deploy:sandbox-20261027-kata-4.3.1@sha256:799c17dcbd6f2c93f2c84f69667aa74b250ce91986096cc990a12abfc8871799"
+      },
+      "dispatcher": {
+        "tag": "docker.changqingyun.cn/ani/kata-job-dispatcher:sandbox-20261027-v0.3.0",
+        "digest": "sha256:e42be39b19fa908866c973c74e9cde90c3454dcafe137a0360d2a899199eb770",
+        "image": "docker.changqingyun.cn/ani/kata-job-dispatcher:sandbox-20261027-v0.3.0@sha256:e42be39b19fa908866c973c74e9cde90c3454dcafe137a0360d2a899199eb770"
+      },
+      "kubectl": {
+        "tag": "docker.changqingyun.cn/ani/kata-kubectl:sandbox-20261027",
+        "digest": "sha256:cb41fad61ca9e63a922221a7edb3968781874ccd369b11ddaf4c0b57d0a18c77",
+        "image": "docker.changqingyun.cn/ani/kata-kubectl:sandbox-20261027@sha256:cb41fad61ca9e63a922221a7edb3968781874ccd369b11ddaf4c0b57d0a18c77"
+      },
+      "workload": {
+        "tag": "docker.changqingyun.cn/ani/sandbox-probe:sandbox-20261027-busybox137",
+        "digest": "sha256:66a6306db78bf2dbf3487f293aa8d6990d8e506fdffab9cc43fe422becf886e4",
+        "image": "docker.changqingyun.cn/ani/sandbox-probe:sandbox-20261027-busybox137@sha256:66a6306db78bf2dbf3487f293aa8d6990d8e506fdffab9cc43fe422becf886e4"
+      }
+    },
+    "kata-install/workspace-probe-before.json": {
+      "podUID": "8fb8e2c3-b6a3-4cdb-8800-c7fdfbacea04",
+      "podName": "kata-workspace-probe-20261027",
+      "node": "node2",
+      "runtimeClassName": "kata",
+      "image": "docker.changqingyun.cn/ani/sandbox-probe:sandbox-20261027-busybox137@sha256:66a6306db78bf2dbf3487f293aa8d6990d8e506fdffab9cc43fe422becf886e4",
+      "imageID": "docker.changqingyun.cn/ani/sandbox-probe@sha256:66a6306db78bf2dbf3487f293aa8d6990d8e506fdffab9cc43fe422becf886e4",
+      "pvcUID": "60d94502-f08c-4c62-81a6-f0daf1333428",
+      "pvcName": "kata-workspace-probe-20261027",
+      "pvName": "pvc-60d94502-f08c-4c62-81a6-f0daf1333428",
+      "log": "uid=10001 gid=10001 groups=10001\n6.18.56\nWORKSPACE_WRITE_DENIED\n/bin/sh: can't create /workspace/proof: Permission denied\n"
+    },
+    "kata-install/workspace-persistence-result.json": {
+      "verifiedAtUTC": "2026-10-27T02:54:50.882240+00:00",
+      "node": "node2",
+      "runtimeClass": "kata",
+      "podBeforeUID": "b39c2559-b311-4a4d-8a5f-3e8f29f39652",
+      "podAfterUID": "e2ca3dd9-6853-4b9a-9f5d-23fa89fe1f0d",
+      "pvcUID": "60d94502-f08c-4c62-81a6-f0daf1333428",
+      "pvName": "pvc-60d94502-f08c-4c62-81a6-f0daf1333428",
+      "marker": "sandbox-persistence-aad3a70ab636437abd6769e4e527fcec",
+      "persisted": true,
+      "nonRootUID": 10001,
+      "serviceAccountTokenAbsent": true,
+      "scope": "Kata/CSI provider infrastructure probe; not Sandbox business HTTP lifecycle"
+    },
+    "kata-install/provider-lifecycle-result.json": {
+      "scope": "actual Sandbox KubernetesProvider / Kata / CSI only; no Gov user authentication or Resource DB/worker claimed",
+      "fixtureID": "40ff99af-e776-419e-a093-eb6d694ecca3",
+      "namespace": "ani-sandbox-integration-20261027",
+      "cpuMillis": 1000,
+      "memoryMiB": 1024,
+      "startedAtUTC": "2026-10-27T03:06:09.812214+00:00",
+      "steps": [
+        {
+          "action": "observe",
+          "desired": "running",
+          "observation": {
+            "Observed": "provisioning",
+            "Reason": "",
+            "ProviderRefs": {
+              "PVCName": "workspace-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PVCUID": "5c60ac1f-ba42-4976-81d1-1d0af0dea49a",
+              "PodName": "sandbox-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PodUID": "8b06fb77-e901-4339-9714-d14ef1b76413",
+              "PVCResourceVersion": "4497763",
+              "PodResourceVersion": "4497769",
+              "ResourceVersion": "4497763",
+              "CleanupReceipt": ""
+            },
+            "At": "2026-10-27T03:06:10.116068405Z"
+          },
+          "observed": "provisioning"
+        },
+        {
+          "action": "observe",
+          "desired": "running",
+          "observation": {
+            "Observed": "running",
+            "Reason": "",
+            "ProviderRefs": {
+              "PVCName": "workspace-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PVCUID": "5c60ac1f-ba42-4976-81d1-1d0af0dea49a",
+              "PodName": "sandbox-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PodUID": "8b06fb77-e901-4339-9714-d14ef1b76413",
+              "PVCResourceVersion": "4497763",
+              "PodResourceVersion": "4497835",
+              "ResourceVersion": "4497763",
+              "CleanupReceipt": ""
+            },
+            "At": "2026-10-27T03:06:14.266045774Z"
+          },
+          "observed": "running"
+        },
+        {
+          "action": "observe",
+          "desired": "paused",
+          "observation": {
+            "Observed": "running",
+            "Reason": "",
+            "ProviderRefs": {
+              "PVCName": "workspace-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PVCUID": "5c60ac1f-ba42-4976-81d1-1d0af0dea49a",
+              "PodName": "sandbox-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PodUID": "8b06fb77-e901-4339-9714-d14ef1b76413",
+              "PVCResourceVersion": "4497763",
+              "PodResourceVersion": "4497856",
+              "ResourceVersion": "4497763",
+              "CleanupReceipt": ""
+            },
+            "At": "2026-10-27T03:06:15.730642819Z"
+          },
+          "observed": "running"
+        },
+        {
+          "action": "observe",
+          "desired": "paused",
+          "observation": {
+            "Observed": "paused",
+            "Reason": "",
+            "ProviderRefs": {
+              "PVCName": "workspace-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PVCUID": "5c60ac1f-ba42-4976-81d1-1d0af0dea49a",
+              "PodName": "sandbox-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PodUID": "",
+              "PVCResourceVersion": "4497763",
+              "PodResourceVersion": "",
+              "ResourceVersion": "4497763",
+              "CleanupReceipt": ""
+            },
+            "At": "2026-10-27T03:06:17.768869342Z"
+          },
+          "observed": "paused"
+        },
+        {
+          "action": "observe",
+          "desired": "running",
+          "observation": {
+            "Observed": "provisioning",
+            "Reason": "",
+            "ProviderRefs": {
+              "PVCName": "workspace-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PVCUID": "5c60ac1f-ba42-4976-81d1-1d0af0dea49a",
+              "PodName": "sandbox-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PodUID": "948c6a0c-6d0f-4307-ac52-112e1ea06557",
+              "PVCResourceVersion": "4497763",
+              "PodResourceVersion": "4497898",
+              "ResourceVersion": "4497763",
+              "CleanupReceipt": ""
+            },
+            "At": "2026-10-27T03:06:18.096178756Z"
+          },
+          "observed": "provisioning"
+        },
+        {
+          "action": "observe",
+          "desired": "running",
+          "observation": {
+            "Observed": "running",
+            "Reason": "",
+            "ProviderRefs": {
+              "PVCName": "workspace-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PVCUID": "5c60ac1f-ba42-4976-81d1-1d0af0dea49a",
+              "PodName": "sandbox-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PodUID": "948c6a0c-6d0f-4307-ac52-112e1ea06557",
+              "PVCResourceVersion": "4497763",
+              "PodResourceVersion": "4497970",
+              "ResourceVersion": "4497763",
+              "CleanupReceipt": ""
+            },
+            "At": "2026-10-27T03:06:24.300008432Z"
+          },
+          "observed": "running"
+        },
+        {
+          "action": "observe",
+          "desired": "deleted",
+          "observation": {
+            "Observed": "running",
+            "Reason": "",
+            "ProviderRefs": {
+              "PVCName": "workspace-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PVCUID": "5c60ac1f-ba42-4976-81d1-1d0af0dea49a",
+              "PodName": "sandbox-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PodUID": "948c6a0c-6d0f-4307-ac52-112e1ea06557",
+              "PVCResourceVersion": "4497985",
+              "PodResourceVersion": "4497982",
+              "ResourceVersion": "4497985",
+              "CleanupReceipt": ""
+            },
+            "At": "2026-10-27T03:06:25.355394517Z"
+          },
+          "observed": "running"
+        },
+        {
+          "action": "observe",
+          "desired": "deleted",
+          "observation": {
+            "Observed": "deleted",
+            "Reason": "",
+            "ProviderRefs": {
+              "PVCName": "workspace-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PVCUID": "",
+              "PodName": "sandbox-40ff99af-e776-419e-a093-eb6d694ecca3",
+              "PodUID": "",
+              "PVCResourceVersion": "",
+              "PodResourceVersion": "",
+              "ResourceVersion": "",
+              "CleanupReceipt": "k8s-delete:40ff99af-e776-419e-a093-eb6d694ecca3:0"
+            },
+            "At": "2026-10-27T03:06:27.394386862Z"
+          },
+          "observed": "deleted"
+        }
+      ],
+      "status": "pass",
+      "podBeforeUID": "8b06fb77-e901-4339-9714-d14ef1b76413",
+      "podAfterUID": "948c6a0c-6d0f-4307-ac52-112e1ea06557",
+      "pvcUID": "5c60ac1f-ba42-4976-81d1-1d0af0dea49a",
+      "pvName": "pvc-5c60ac1f-ba42-4976-81d1-1d0af0dea49a",
+      "workspacePersisted": true,
+      "canonicalResources": {
+        "limits": {
+          "cpu": "1",
+          "memory": "1Gi"
+        },
+        "requests": {
+          "cpu": "1",
+          "memory": "1Gi"
+        }
+      },
+      "securityContext": {
+        "fsGroup": 10001,
+        "fsGroupChangePolicy": "OnRootMismatch",
+        "runAsGroup": 10001,
+        "runAsNonRoot": true,
+        "runAsUser": 10001,
+        "seccompProfile": {
+          "type": "RuntimeDefault"
+        }
+      },
+      "node": "node2",
+      "runtimeClass": "kata",
+      "cleanup": "Provider observed deleted; PV gone",
+      "finishedAtUTC": "2026-10-27T03:06:34.409568+00:00"
+    },
+    "kata-install/default-runtime-check.json": {
+      "checkedAtUTC": "2026-10-27T03:08:38.688423+00:00",
+      "node": "node2",
+      "runtimeClassSpecified": false,
+      "ordinaryPodKernel": "6.8.0-100-generic",
+      "hostKernel": "6.8.0-100-generic",
+      "kataProbeKernel": "6.18.56",
+      "defaultStillHostKernel": true
+    },
+    "kata-install/quantity-canonicalization.json": {
+      "input": {
+        "requests": {
+          "cpu": "1000m",
+          "memory": "1024Mi"
+        },
+        "limits": {
+          "cpu": "1000m",
+          "memory": "1024Mi"
+        }
+      },
+      "apiServerResponse": {
+        "limits": {
+          "cpu": "1",
+          "memory": "1Gi"
+        },
+        "requests": {
+          "cpu": "1",
+          "memory": "1Gi"
+        }
+      },
+      "dryRun": true,
+      "createdResources": false
+    },
+    "tenant-account-r7-check.json": {
+      "checkedAtUTC": "2026-10-27T06:58:21.383658+00:00",
+      "candidate": "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada",
+      "account": {
+        "tenant": "tenant-a",
+        "username": "admin"
+      },
+      "checks": [
+        {
+          "name": "identity",
+          "httpStatus": 200,
+          "reason": "",
+          "identity": {
+            "userId": null,
+            "tenantId": 2,
+            "roles": [
+              "tenant:manager"
+            ]
+          }
+        },
+        {
+          "name": "instances",
+          "httpStatus": 200,
+          "reason": "",
+          "total": "0",
+          "itemCount": 0
+        },
+        {
+          "name": "sandbox-presets",
+          "httpStatus": 403,
+          "reason": "FORBIDDEN",
+          "message": "compute action denied"
+        },
+        {
+          "name": "container-presets",
+          "httpStatus": 200,
+          "reason": "",
+          "total": "9",
+          "itemCount": 9
+        },
+        {
+          "name": "sandbox-list",
+          "httpStatus": 403,
+          "reason": "FORBIDDEN",
+          "message": "unauthorized access"
+        }
+      ],
+      "businessMutations": 0,
+      "loginStatus": 200,
+      "refreshCookieReceived": true,
+      "logout": {
+        "httpStatus": 200,
+        "sessionRevoked": true
+      },
+      "accessAfterLogout": {
+        "httpStatus": 401,
+        "reason": "UNAUTHORIZED"
+      }
+    },
+    "governance-r7-source-manifest.json": {
+      "baseline": "11cd56003fb46cef741ffab28035519ea575a427",
+      "trackedDiffSHA256": "8a88b24c9d3077c421d934a9cb9ec554a9bf407ea5297686fe311dd56189ca90",
+      "untrackedFiles": {
+        "api/gen/go/admin/service/v1/i_sandbox.pb.go": "35b8f89d018174f1856c2ab896b164b330744d3c76df33cd57e288aabf1c4e1e",
+        "api/gen/go/admin/service/v1/i_sandbox_grpc.pb.go": "ae1ddfc7aa4b15dd40556ba2523db234f28d548032b869816d8349bbd36be5e5",
+        "api/gen/go/admin/service/v1/i_sandbox_http.pb.go": "e233194299ec661d311e946f8489100bdad3fb655eca077a953446c87c81d460",
+        "api/gen/go/sandbox/service/v1/sandbox.pb.go": "721646ca87fb1cbebaae47e91f8bde1cbb9fc27014f27ebaa9d3f96fc63ab29d",
+        "api/protos/admin/service/v1/i_sandbox.proto": "76f9f87c1e6b97935010fb02eb83997f3d5ae49f185d4a86c33bce92c6d74cff",
+        "api/protos/sandbox/service/v1/sandbox.proto": "16f87f1f9ec17baa492114b8b6931579f253678c77530971337690440472ac0e",
+        "app/admin/service/internal/data/sandbox_client.go": "409bd2a977cbb94f4d0640aa029814d0573414b3677f509f38ad91bb3fb74718",
+        "app/admin/service/internal/service/sandbox_service.go": "2fcaaf38cefa42eb5e8f46caae3c6ee80cd7c6f2dc6544ecd45c6c15f81dd7d8",
+        "app/admin/service/internal/service/sandbox_service_test.go": "995a87219393d153ad8e1da07d55973aba5512cccbacd234417bc834d4857c32",
+        "scripts/ops/sql/register-sandbox-permissions.sql": "ee36f03b297181ad37a8003530c5a266775173bd46db37490b62b9a3848f50e1"
+      },
+      "binaries": {
+        "server": "2178b20f731275a5c9700b433cc6b63200b3a6dd917297930b41cd702ad4da57",
+        "admin": "8e69fd7867b287bf653794f5b368fd638b2103785314ce160f9f4b6e543bc65f"
+      },
+      "buildEnvironment": {
+        "GOTOOLCHAIN": "go1.26.10",
+        "GOWORK": "off",
+        "CGO_ENABLED": "0",
+        "GOOS": "linux",
+        "GOARCH": "amd64"
+      }
+    },
+    "governance-r7-manifest-check.json": {
+      "checkedAtUTC": "2026-10-27T07:06:44.287566+00:00",
+      "trackedDiffCommand": [
+        "git",
+        "diff",
+        "HEAD"
+      ],
+      "baselineMatches": true,
+      "trackedDiffMatches": true,
+      "untrackedMismatches": [],
+      "binaryMatches": {
+        "server": true,
+        "admin": true
+      },
+      "trackedNonDocumentationDiffSHA256": "6aae211c2476a5d84e03aa3dc08f3d158ee384e678b27e39f2fcc649f91c5185",
+      "note": "Source matches deployment manifest before documentation-only status updates. HEAD includes staged and unstaged changes.",
+      "postDocumentationUpdate": {
+        "checkedAtUTC": "2026-10-27T07:10:36.032909+00:00",
+        "trackedNonDocumentationDiffMatches": true,
+        "untrackedFilesMatch": true,
+        "note": "Only documentation changed after the exact pre-update source/binary match."
+      }
+    },
+    "final-cluster-check-gov-r7.json": {
+      "checkedAtUTC": "2026-10-27T07:05:31.920257+00:00",
+      "deployments": {
+        "ani-resource-service": {
+          "generation": 38,
+          "readyReplicas": 1,
+          "replicas": 1,
+          "images": [
+            "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:4b074baa1df4e439373de375ff8eeb7a7196ca8a2c68351700ebf372313003d3"
+          ],
+          "pods": [
+            {
+              "name": "ani-resource-service-d6c4f94bb-hpztn",
+              "phase": "Running",
+              "containers": [
+                {
+                  "name": "resource",
+                  "ready": true,
+                  "restarts": 0,
+                  "imageID": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:4b074baa1df4e439373de375ff8eeb7a7196ca8a2c68351700ebf372313003d3"
+                }
+              ]
+            }
+          ],
+          "endpointPods": [
+            "ani-resource-service-d6c4f94bb-hpztn"
+          ]
+        },
+        "ani-governance": {
+          "generation": 61,
+          "readyReplicas": 1,
+          "replicas": 1,
+          "images": [
+            "10.10.1.66:30003/ani-gpu-platform/ani-governance:v21-detail-on-dev-20261027"
+          ],
+          "pods": [
+            {
+              "name": "ani-governance-57788fb44c-tk6rw",
+              "phase": "Running",
+              "containers": [
+                {
+                  "name": "governance",
+                  "ready": true,
+                  "restarts": 0,
+                  "imageID": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:234155abf633e81080be0bb69e948404b17aa6a166b44551208bfd55ee0b40af"
+                }
+              ]
+            }
+          ],
+          "endpointPods": [
+            "ani-governance-57788fb44c-tk6rw"
+          ]
+        },
+        "ani-resource-sandbox-20261027": {
+          "generation": 3,
+          "readyReplicas": 1,
+          "replicas": 1,
+          "images": [
+            "docker.changqingyun.cn/ani/resource-service@sha256:5b961ed5b4d747ace4d03ea2d41ac39fcab5522e92daa23e6c9ffd67f3adb802"
+          ],
+          "pods": [
+            {
+              "name": "ani-resource-sandbox-20261027-5f575bbb-hvj9n",
+              "phase": "Running",
+              "containers": [
+                {
+                  "name": "resource",
+                  "ready": true,
+                  "restarts": 0,
+                  "imageID": "docker.changqingyun.cn/ani/resource-service@sha256:5b961ed5b4d747ace4d03ea2d41ac39fcab5522e92daa23e6c9ffd67f3adb802"
+                }
+              ]
+            }
+          ],
+          "endpointPods": [
+            "ani-resource-sandbox-20261027-5f575bbb-hvj9n"
+          ]
+        },
+        "ani-governance-sandbox-20261027": {
+          "generation": 5,
+          "readyReplicas": 1,
+          "replicas": 1,
+          "images": [
+            "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada"
+          ],
+          "pods": [
+            {
+              "name": "ani-governance-sandbox-20261027-9dbf5b669-7kc7c",
+              "phase": "Running",
+              "containers": [
+                {
+                  "name": "governance",
+                  "ready": true,
+                  "restarts": 0,
+                  "imageID": "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada"
+                }
+              ]
+            }
+          ],
+          "endpointPods": [
+            "ani-governance-sandbox-20261027-9dbf5b669-7kc7c"
+          ]
+        }
+      },
+      "sandboxResources": {
+        "pods": [],
+        "pvc": []
+      },
+      "nodes": [
+        {
+          "name": "node1",
+          "ready": "True"
+        },
+        {
+          "name": "node2",
+          "ready": "True"
+        },
+        {
+          "name": "node3",
+          "ready": "True"
+        }
+      ]
+    },
+    "governance-r7-local-cleanup.json": {
+      "checkedAtUTC": "2026-10-27T07:06:44.287566+00:00",
+      "portForward": {
+        "pid": 1394355,
+        "port": 19289,
+        "terminationRequested": true,
+        "processAbsent": true,
+        "portClosed": true
+      }
+    }
+  },
+  "catalog": {
+    "governance-api-catalog-dry-run.log": "ADD DELETE /api/v1/instances/{data.instance_id}/sandbox/{data.sandbox_id}\nADD GET /api/v1/instances/{instance_id}/sandbox\nADD GET /api/v1/instances/{instance_id}/sandbox/operations/{operation_id}\nADD GET /api/v1/instances/{instance_id}/sandbox/{sandbox_id}\nADD POST /api/v1/instances/{data.instance_id}/sandbox\nADD POST /api/v1/instances/{data.instance_id}/sandbox/{data.sandbox_id}:pause\nADD POST /api/v1/instances/{data.instance_id}/sandbox/{data.sandbox_id}:resume\nREVIEW absent from OpenAPI (retained): GET /api/v1/modeldev/executions/{execution_id}/events\nREVIEW absent from OpenAPI (retained): GET /api/v1/modeldev/executions/{execution_id}/logs/stream\nREVIEW absent from OpenAPI (retained): GET /api/v1/modeldev/executions/{execution_id}/pods\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/buckets\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/buckets/{bucket_id}/objects\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/classes\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/volumes\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/volumes/{pvc_name}\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:delete\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:restart\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:start\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:stop\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:update\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/buckets/{data.bucket_id}/objects:download-url\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/buckets/{data.bucket_id}/objects:head\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/volumes\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/volumes/{data.pvc_name}:delete\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/volumes/{data.pvc_name}:update\nDRY RUN: no changes written\n",
+    "governance-api-catalog-sync.log": "ERROR: permission denied for sequence sys_apis_id_seq (SQLSTATE 42501)\n",
+    "governance-api-catalog-owner-sync.log": "ADD DELETE /api/v1/instances/{data.instance_id}/sandbox/{data.sandbox_id}\nADD GET /api/v1/instances/{instance_id}/sandbox\nADD GET /api/v1/instances/{instance_id}/sandbox/operations/{operation_id}\nADD GET /api/v1/instances/{instance_id}/sandbox/{sandbox_id}\nADD POST /api/v1/instances/{data.instance_id}/sandbox\nADD POST /api/v1/instances/{data.instance_id}/sandbox/{data.sandbox_id}:pause\nADD POST /api/v1/instances/{data.instance_id}/sandbox/{data.sandbox_id}:resume\nREVIEW absent from OpenAPI (retained): GET /api/v1/modeldev/executions/{execution_id}/events\nREVIEW absent from OpenAPI (retained): GET /api/v1/modeldev/executions/{execution_id}/logs/stream\nREVIEW absent from OpenAPI (retained): GET /api/v1/modeldev/executions/{execution_id}/pods\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/buckets\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/buckets/{bucket_id}/objects\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/classes\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/volumes\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/volumes/{pvc_name}\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:delete\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:restart\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:start\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:stop\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:update\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/buckets/{data.bucket_id}/objects:download-url\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/buckets/{data.bucket_id}/objects:head\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/volumes\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/volumes/{data.pvc_name}:delete\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/volumes/{data.pvc_name}:update\nPASS: API catalog synchronized; permissions unchanged. Reload running instances to refresh authorization policies.\n",
+    "governance-api-catalog-after.log": "REVIEW absent from OpenAPI (retained): GET /api/v1/modeldev/executions/{execution_id}/events\nREVIEW absent from OpenAPI (retained): GET /api/v1/modeldev/executions/{execution_id}/logs/stream\nREVIEW absent from OpenAPI (retained): GET /api/v1/modeldev/executions/{execution_id}/pods\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/buckets\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/buckets/{bucket_id}/objects\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/classes\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/volumes\nREVIEW absent from OpenAPI (retained): GET /api/v1/storage/volumes/{pvc_name}\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:delete\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:restart\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:start\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:stop\nREVIEW absent from OpenAPI (retained): POST /api/v1/inference/services/{data.resource_id}:update\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/buckets/{data.bucket_id}/objects:download-url\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/buckets/{data.bucket_id}/objects:head\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/volumes\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/volumes/{data.pvc_name}:delete\nREVIEW absent from OpenAPI (retained): POST /api/v1/storage/volumes/{data.pvc_name}:update\nDRY RUN: no changes written\n"
+  },
+  "credentialSources": {
+    "registry": "/root/.docker/config.json, docker.changqingyun.cn, username admin; values omitted",
+    "catalog": "ani-system/ani-governance-admin key owner-dsn, role gov_migrate; values omitted",
+    "platformLogin": "User-provided platform password accepted; platform root user1/tenant0/platform:admin confirmed; values omitted; memory-only sessions normally logged out and revoked",
+    "tenantLogin": "User-provided tenant-a/admin credentials; password and tokens excluded from evidence"
+  },
+  "inProgress": [],
+  "notVerified": [
+    "full repository make verify and all PG integration suites; original r7 ImageRuntime mTLS startup test failure retained",
+    "formal source commit/push/release and removal of local go.mod replace",
+    "P3-P5 public data plane, live provider timeout injection and multi-worker race matrix; see scoped limitations in http-lifecycle/result.json"
+  ],
+  "failureHistory": [
+    "VM probe initial protobuf import-path failure corrected; VM list then passed",
+    "build internal Harbor metadata failed CA verification; used same already-cached base via local alias without changing trust",
+    "runtime catalog sync failed sequence permission and rolled back; existing gov_migrate owner sync inserted seven APIs without granting permissions",
+    "SANDBOX initial catalog/HTTP regression tests failed for missing usage/mappings; fixed with preserved original failures",
+    "First full Governance package tests failed permission-map route count snapshot; adjusted exact count by seven and preserved failures",
+    "First two-tree make api failed because finalizer assumed a fixed enum count; generic nonempty/unique enum validation fixed generation",
+    "Governance r6 image sha256:61cbc99f5f362583cefc8245d0feeb650c88021909b08592d7d3561717aef246 failed startup: dynamic binary required absent glibc interpreter. Restored r5, rebuilt with CGO_ENABLED=0, then deployed static r7",
+    "First isolated-PG SQL driver incorrectly expected all eight permissions OFF although catalog grant had already been ON from the authorization fixture; corrected driver to assert preservation, product SQL unchanged; first logs retained",
+    {
+      "recordedAtUTC": "2026-10-27T07:52:49.419458+00:00",
+      "stage": "http lifecycle follow-up",
+      "record": "http-lifecycle/http-evidence.json",
+      "failuresRetained": [
+        "initial parent create with non-UUID idempotency key400 corrected to UUID before any accepted create",
+        "parent Get503 after shared worker adds CleanupCompletedAt; reproduced by regression then fixed",
+        "exact create replay409 due raw/jsonb byte equality; reproduced on real isolated PostgreSQL then fixed",
+        "initial Image request shape/query400 corrected before accepted Image-space mutation",
+        "deleted isolation tenant GET500 after normal deletion; database confirms absence; unrelated error mapping unchanged"
+      ],
+      "harnessCorrections": "one final read-only harness initially expected terminal work removal; existing implementation retains due_at=infinity instead; corrected assertion verifies stored terminal scheduling and cleared lease"
+    }
+  ],
+  "kataInstallation": {
+    "release": "kata-sandbox",
+    "namespace": "kata-system",
+    "version": "4.3.1",
+    "nodes": [
+      "node2"
+    ],
+    "runtimeClasses": [
+      "kata",
+      "kata-qemu-runtime-rs"
+    ],
+    "handler": "kata-qemu-runtime-rs",
+    "chartDigest": "sha256:8eab352a59b42dc7b3aebe87d4114b936a8576967d4800047ce708fcebb61d2e",
+    "chartSHA256": "c25077416d37c178bf72df0204ea3ba89418efad1b1299b0d5d34ec02556187e",
+    "values": "deploymentMode: job\njob:\n  nodes:\n  - node2\n  parallelism: 1\n  cleanup:\n    nodes:\n    - node2\n  activeDeadlineSeconds: 1800\n  backoffLimit: 0\n  dispatcherImage:\n    reference: docker.changqingyun.cn/ani/kata-job-dispatcher\n    tag: sandbox-20261027-v0.3.0@sha256:e42be39b19fa908866c973c74e9cde90c3454dcafe137a0360d2a899199eb770\nnodeSelector:\n  kubernetes.io/hostname: node2\nimage:\n  reference: docker.changqingyun.cn/ani/kata-deploy\n  tag: sandbox-20261027-kata-4.3.1@sha256:799c17dcbd6f2c93f2c84f69667aa74b250ce91986096cc990a12abfc8871799\nimagePullPolicy: IfNotPresent\nshims:\n  disableAll: true\n  qemu-runtime-rs:\n    enabled: true\ndefaultShim:\n  amd64: qemu-runtime-rs\nruntimeClasses:\n  enabled: true\n  createDefault: true\n  defaultName: kata\nnode-feature-discovery:\n  enabled: false\nverification:\n  enabled: false\nkubectlImage:\n  reference: docker.changqingyun.cn/ani/kata-kubectl\n  tag: sandbox-20261027@sha256:cb41fad61ca9e63a922221a7edb3968781874ccd369b11ddaf4c0b57d0a18c77\nimagePullSecrets:\n- name: kata-sandbox-registry-pull\n",
+    "sourceRelease": {
+      "tag": "4.3.1",
+      "published_at": "2026-10-21T21:47:55Z",
+      "prerelease": false,
+      "url": "https://github.com/kata-containers/kata-containers/releases/tag/4.3.1"
+    },
+    "defaultRuntimeProof": "ordinary Pod kernel 6.8.0-100-generic; Kata guest kernel 6.18.56",
+    "node2BaselineRunningPods": {
+      "unchangedUIDAndRestartCount": 55,
+      "missingUIDs": [],
+      "increasedRestarts": []
+    }
+  },
+  "sourceFixes": [
+    "original Resource cmd/ani-resource-service/governance.go now registers Sandbox RPC and worker in actual runGovernance composition",
+    "original and candidate internal/data/sandbox/provider.go render fsGroup=10001 and OnRootMismatch, guard those fields, and compare CPU/memory through Kubernetes Quantity semantics",
+    "original and candidate provider_test.go verifies fsGroup and canonical equivalent resource values, rejecting changed/invalid resource values",
+    "SANDBOX list/data/catalog usage forwarding and CPU constraints added without mutating request; HTTP allowed usages derive from ComputeCatalogGrant",
+    "Seven Sandbox actions use independent tenant/INSTANCE permission mappings generated from TSV; registration SQL defaults new permissions OFF and does not grant roles/plans",
+    "OpenAPI finalizer validates nonempty unique Proto usage enum instead of a fixed usage count",
+    "Preserve CleanupCompletedAt in Instance strict persisted snapshot model, fixing parent Get503 after current shared worker progress",
+    "Sandbox create replay compares frozen JSONB content rather than raw Go JSON bytes; operation,parent,digest guards retained;13-subtest real PostgreSQL regression passes in original and candidate"
+  ],
+  "verificationLogs": {
+    "resource-workspace-fix-tests.log": "ok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/data/sandbox\t0.008s\nok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/biz/sandbox\t0.004s\nok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/service/sandbox\t0.007s\nok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/server\t2.152s\nok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/cmd/ani-resource-service\t0.059s\n",
+    "resource-quantity-before.log": "--- FAIL: TestKubernetesProviderMatchesEquivalentResourceQuantities (0.00s)\n    --- FAIL: TestKubernetesProviderMatchesEquivalentResourceQuantities/canonical_api_response (0.00s)\n        provider_test.go:186: resource match = false, want true; cpu=\"1\" memory=\"1Gi\"\nFAIL\nFAIL\tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/data/sandbox\t0.008s\nFAIL\n",
+    "resource-r7-tests.log": "ok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/data/sandbox\t0.009s\nok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/biz/sandbox\t0.004s\nok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/service/sandbox\t0.007s\n2026/10/27 11:01:09 INFO [gRPC] server listening addr=127.0.0.1:44589\n2026/10/27 11:01:09 INFO [gRPC] server stopping\n2026/10/27 11:01:09 INFO [gRPC] server listening addr=127.0.0.1:33389\n2026/10/27 11:01:09 INFO [gRPC] server stopping\n2026/10/27 11:01:09 INFO [gRPC] server listening addr=127.0.0.1:36595\n2026/10/27 11:01:09 INFO [gRPC] server stopping\n2026/10/27 11:01:09 INFO [gRPC] server listening addr=127.0.0.1:45977\n2026/10/27 11:01:09 INFO [gRPC] server stopping\n2026/10/27 11:01:09 INFO [gRPC] server stopping\n2026/10/27 11:01:09 INFO [gRPC] server listening addr=127.0.0.1:43659\n--- FAIL: TestImageRuntimeMTLSListener (0.00s)\n    image_runtime_test.go:148: resolve: <nil> rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:43659: connect: connection refused\"\n    image_runtime_test.go:131: grpc: the server has been stopped\nFAIL\nFAIL\tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/server\t2.154s\nok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/cmd/ani-resource-service\t0.063s\nFAIL\n"
+  },
+  "completed": [
+    "official Kata 4.3.1 installed only on node2; ordinary default runtime preserved; three nodes Ready",
+    "actual production KubernetesProvider create/observe Ready/pause/resume/workspace persistence/delete; 1000m/1024Mi accepted as API canonical 1/1Gi; UID changes and preserved PVC verified",
+    "manual and Provider test Pods/PVC/PVs reclaimed; temporary local keys/kubeconfig and port forwards removed",
+    "r7 Sandbox list/VM list mTLS pass, cross-tenant denied, no certificate rejected, public forged scope without login returns 401",
+    "tenant-a/admin normal tenant login and authenticated identity HTTP 200; existing tenant and role preserved; no business mutation",
+    "r7 Resource and r7 Governance isolated candidates ready 1/1, 0 restarts; shared EndpointSlices exclude candidates; shared image changes observed externally and not reverted",
+    "SANDBOX HTTP validation, CPU-only catalog authorization/forwarding and independent seven-action permission maps fixed in original and candidate Governance trees",
+    "Latest tenant session logged out normally: 200/sessionRevoked=true; prior access token then rejected 401",
+    "Two-tree API generation and targeted Go/HTTP tests plus isolated PostgreSQL catalog authorization and registration regressions passed; task PostgreSQL containers removed",
+    "Source manifest/binary hashes verified, then documentation-only status updates verified without runtime-source changes",
+    "Local port-forward PID 1394355 stopped precisely; process absent and port 19289 closed",
+    "2026-10-27 normal platform identity -> temporary scoped tenant/INSTANCE plan -> legitimate CPU parent -> HTTP/Gov/mTLS/Resource DB/worker/Kata create/pause/restart recovery/resume/workspace preservation/delete passed",
+    "JSONB idempotency replay fix and current Instance cleanup timestamp compatibility regressions passed; candidate Resource r9 deployed only to independent task Deployment",
+    "Four persisted Sandbox operations succeeded; namespace/PVC/PV/RBD native and backend cleanup passed; normal tenant retention policy honored without SQL deletion; all sessions and temporary grants revoked"
+  ],
+  "testFailure": {
+    "status": "fail retained",
+    "test": "TestImageRuntimeMTLSListener",
+    "package": "internal/server",
+    "testFileUnchangedFromLiveBaseline": true,
+    "details": "resource-r7-tests.log: first ResolveImageForWorkload RPC got connection refused; startup timing suspected. No retry-to-green or assertion removal. Other four tested packages passed; earlier r6 five-package run passed. Candidate binary builds; not reported as all tests passing."
+  },
+  "cleanupState": "Sandbox/parent normal lifecycle deletion passed; exact Pod/PVC/PV and both Ceph RBD active/trash absent; task parent namespace removed. Main tenant3 retained OFF under QUOTA_HISTORY_PRESENT with both test roles OFF/zero grants and plan4 zero modules; isolation tenant4/user5 deleted. All8 Sandbox permissions OFF with API maps preserved, no grants to existing roles; all3 sessions logged out/token401; driver memory destroyed and local port19289 closed. Kata/candidates and disabled tenant Image space/project/pull identity plus audit facts retained; exact boundaries in http-lifecycle/result.json.",
+  "tenantAccountVerification": {
+    "checkedAtUTC": "2026-10-27T03:42:20.534229+00:00",
+    "login": {
+      "httpStatus": 200,
+      "tenantName": "tenant-a",
+      "username": "admin",
+      "userId": 3,
+      "tenantId": 2,
+      "roles": [
+        "tenant:manager"
+      ]
+    },
+    "identityHTTPStatus": 200,
+    "instances": {
+      "httpStatus": 200,
+      "total": 0
+    },
+    "sandboxListPermissionProbe": {
+      "httpStatus": 403,
+      "reason": "FORBIDDEN",
+      "message": "unauthorized access",
+      "usesNonexistentRandomParent": true,
+      "parentLookupNotReached": true
+    },
+    "permissionCodes": {
+      "httpStatus": 403,
+      "message": "module not allowed"
+    },
+    "sandboxPresetQuery": {
+      "usage": "SANDBOX",
+      "httpStatus": 400,
+      "reason": "INVALID_INSTANCE_REQUEST",
+      "note": "Query rejected; this does not establish whether SANDBOX presets exist."
+    },
+    "containerInstancePresetQuery": {
+      "httpStatus": 200,
+      "total": 9,
+      "selectableCPUPresets": 4
+    },
+    "businessMutations": 0,
+    "fullSandboxBusinessChain": "not_verified",
+    "credentials": "user-provided tenant credentials; values omitted; access token retained only in mode 0600 private file"
+  },
+  "tenantAccountVerificationR7": {
+    "checkedAtUTC": "2026-10-27T06:58:21.383658+00:00",
+    "candidate": "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada",
+    "account": {
+      "tenant": "tenant-a",
+      "username": "admin"
+    },
+    "checks": [
+      {
+        "name": "identity",
+        "httpStatus": 200,
+        "reason": "",
+        "identity": {
+          "tenantId": 2,
+          "roles": [
+            "tenant:manager"
+          ],
+          "note": "User ID was not collected by this response extractor; prior verified userId=3 is preserved in historical tenantAccountVerification."
+        }
+      },
+      {
+        "name": "instances",
+        "httpStatus": 200,
+        "reason": "",
+        "total": "0",
+        "itemCount": 0
+      },
+      {
+        "name": "sandbox-presets",
+        "httpStatus": 403,
+        "reason": "FORBIDDEN",
+        "message": "compute action denied"
+      },
+      {
+        "name": "container-presets",
+        "httpStatus": 200,
+        "reason": "",
+        "total": "9",
+        "itemCount": 9
+      },
+      {
+        "name": "sandbox-list",
+        "httpStatus": 403,
+        "reason": "FORBIDDEN",
+        "message": "unauthorized access"
+      }
+    ],
+    "businessMutations": 0,
+    "loginStatus": 200,
+    "refreshCookieReceived": true,
+    "logout": {
+      "httpStatus": 200,
+      "sessionRevoked": true
+    },
+    "accessAfterLogout": {
+      "httpStatus": 401,
+      "reason": "UNAUTHORIZED"
+    },
+    "fullSandboxBusinessChain": "not_verified"
+  },
+  "governanceCatalogVerification": {
+    "executionHost": "ubuntu",
+    "buildEnvironment": {
+      "GOTOOLCHAIN": "go1.26.10",
+      "GOWORK": "off",
+      "CGO_ENABLED": "0",
+      "GOOS": "linux",
+      "GOARCH": "amd64"
+    },
+    "logs": {
+      "governance-r6-targeted-tests-fixed.log": {
+        "result": "pass: candidate permcode/service/data packages",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/governance-r6-targeted-tests-fixed.log",
+        "sha256": "7119d47fc2da5dc132c2b0353c3a4ea92db00fbc0104b623d1d2b93e99bb2f0c"
+      },
+      "original-governance-permcode-fixed.log": {
+        "result": "pass: original permission count corrected; service/data already passed in prior package run",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/original-governance-permcode-fixed.log",
+        "sha256": "0251a624969d93f25e02f779be1ac3ab97469c07722a49a48072a16470e2bc34"
+      },
+      "sandbox-http-tests.log": {
+        "result": "pass: candidate TestComputeHTTP cases",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/sandbox-http-tests.log",
+        "sha256": "a656c5c18045bcd6888261c4e76b1728eff7574b345b5a2fcf165ddd7106203c"
+      },
+      "original-governance-http-tests.log": {
+        "result": "pass: original TestComputeHTTP cases",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/original-governance-http-tests.log",
+        "sha256": "4dcc5965104d57800009cc07f87c1ab7d7a00533b081851d7ed048cece3f6697"
+      },
+      "sandbox-catalog-pg-tests.log": {
+        "result": "pass: four-usage current authorization on isolated PG/runtime role",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/sandbox-catalog-pg-tests.log",
+        "sha256": "715f4d5d401ede99459157cf3a86aeb4f20a117b67ca0b0704c6f59575cc0660"
+      },
+      "sandbox-catalog-pg-result.log": {
+        "result": "pass: registration atomic conflict rollback/idempotency/new OFF/existing state preserved",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/sandbox-catalog-pg-result.log",
+        "sha256": "a6a355d35508263e2c3d48f153b199f9ba1f6398116566408f49ae48b9f99b08"
+      },
+      "governance-r6-api-generation-fixed.log": {
+        "result": "pass: candidate full make api",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/governance-r6-api-generation-fixed.log",
+        "sha256": "cc0ed8c862576a50716039d0b420cfd779f4b166327b098ac77e79f806dc74cb"
+      },
+      "original-governance-sandbox-api-generation-fixed.log": {
+        "result": "pass: original full make api",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/original-governance-sandbox-api-generation-fixed.log",
+        "sha256": "1e738bb2d0e44a6368e353308fac1746d32428873223b5606a2203e9f3bd1728"
+      },
+      "sandbox-catalog-before-tests.log": {
+        "result": "fail retained: original catalog regression",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/sandbox-catalog-before-tests.log",
+        "sha256": "f40270aff8910ca812c4b639e5145cf42d72bb1cf42964c4e1461666e91bc59e"
+      },
+      "sandbox-http-before-tests.log": {
+        "result": "fail retained: SANDBOX HTTP input validation",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/sandbox-http-before-tests.log",
+        "sha256": "950f565b62011216441dcded21d69afb8291105ca68c1507bc55582f9a7207a4"
+      },
+      "governance-r6-api-generation.log": {
+        "result": "fail retained: fixed enum count",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/governance-r6-api-generation.log",
+        "sha256": "85317b6ed3167833adcff88bb64f0f82e00b7e36115209a8f2ffa918904632a2"
+      },
+      "original-governance-sandbox-api-generation.log": {
+        "result": "fail retained: fixed enum count",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/original-governance-sandbox-api-generation.log",
+        "sha256": "5a9fcca761c0d67733393495ac0942c972d7e313cbe8a58de8bd8f7cb23d4794"
+      },
+      "governance-r6-startup-failure.log": {
+        "result": "fail retained: dynamic binary interpreter absent",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/governance-r6-startup-failure.log",
+        "sha256": "e3c6c008b4420e090a76f99946fef23613789d98af4af825da96c12a03d5148c"
+      },
+      "governance-r7-push.log": {
+        "result": "pass: actual pushed digest 96f13f7d...",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/governance-r7-push.log",
+        "sha256": "79c73dce31be3c05305b8763bbda3cab015e68740292f0c610479a02f1ad7234"
+      },
+      "governance-r7-container-help.log": {
+        "result": "pass: static server executes inside target image",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/governance-r7-container-help.log",
+        "sha256": "8da24f514d0b04a934447d91638d81a4c973c2646f9ca8df762587af4ef223f9"
+      },
+      "governance-r7-admin-container-usage.log": {
+        "result": "pass: static admin executes with no-argument usage",
+        "path": "/tmp/sandbox-live-20261027-kdxgk3no/governance-r7-admin-container-usage.log",
+        "sha256": "21bc22ff38df7186f71c91c358e21cb869007230d908c9fa5a062c0fd06926e5"
+      }
+    },
+    "pythonGeneratorTests": "7 passed (prior run)",
+    "registrationSQLAppliedToLiveBusinessDB": false,
+    "fullMakeVerify": "not_run",
+    "allPGSuites": "not_run"
+  },
+  "governanceR7Image": {
+    "tag": "docker.changqingyun.cn/ani/governance:sandbox-20261027-r7",
+    "image": "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada",
+    "buildAndPushHost": "ubuntu",
+    "registryCredentialSource": "/root/.docker/config.json entry docker.changqingyun.cn; values omitted",
+    "base": "ani-governance-sandbox-base:20261027 (task-start Governance image)",
+    "overwrittenPaths": [
+      "/app/bin/server",
+      "/app/bin/admin"
+    ],
+    "runtimeUser": "65532",
+    "binaryOwner": "65532:65532",
+    "binaryMode": "0555",
+    "sourceManifest": "governance-r7-source-manifest.json",
+    "note": "Pushed/cluster digest is authoritative; local attestation build digest can differ."
+  },
+  "nextRequiredInput": {
+    "resolvedAtUTC": "2026-10-27T07:52:49.419458+00:00",
+    "platformIdentity": "normal platform login succeeded",
+    "furtherUserInputRequiredForRequestedScope": false
+  },
+  "httpBusinessLifecycle": {
+    "result": "pass",
+    "record": "http-lifecycle/result.json",
+    "completedAtUTC": "2026-10-27T07:52:49.419458+00:00",
+    "scope": "Normal authenticated HTTP -> Governance candidate -> Resource mTLS/DB/worker -> Kata CPU create/pause/resume/delete, workspace retention, replay/conflict/isolation and normal cleanup; not a formal release"
+  }
+}

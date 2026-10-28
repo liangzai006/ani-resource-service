@@ -25,6 +25,7 @@ enum Usage {
   TRAINING = 2;
   INFERENCE = 3;
   VIRTUAL_MACHINE = 4;
+  SANDBOX = 5;
 }
 
 // Trusted, managed reference; never accepted directly from public JSON.

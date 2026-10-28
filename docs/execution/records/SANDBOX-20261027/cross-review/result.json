@@ -1,0 +1,246 @@
+{
+  "recordedAtUTC": "2026-10-27T09:09:02.033823+00:00",
+  "host": "ubuntu",
+  "toolchain": "Go1.26.10/GOWORK=off/CGO_ENABLED=0",
+  "scope": "Independent cross review of repaired9 findings; source and deployment unchanged, isolated probes only",
+  "priorInputSnapshot": "../review-fixes/source.json",
+  "sourceDriftAgainstPriorSnapshot": [],
+  "verdict": "not_fully_closed",
+  "originalFindingAssessment": {
+    "reopened": [
+      "SB-R02",
+      "SB-R03",
+      "SB-R04"
+    ],
+    "no_additional_residual_found": [
+      "SB-R01",
+      "SB-R05",
+      "SB-R06",
+      "SB-R07",
+      "SB-R08",
+      "SB-R09"
+    ],
+    "new_pause_boundaries": [
+      "SB-X03",
+      "SB-X04"
+    ]
+  },
+  "findings": [
+    {
+      "id": "SB-X01",
+      "priority": "P2",
+      "reopens": "SB-R02",
+      "title": "Old negative receipt clears successor unknown deletion",
+      "locations": [
+        {
+          "repo": "resource",
+          "path": "internal/biz/sandbox/worker.go",
+          "line": 78
+        },
+        {
+          "repo": "resource",
+          "path": "internal/data/sandbox/postgres.go",
+          "line": 540
+        }
+      ],
+      "trigger": "A prepares DeletePod and returns not_sent but stalls before Finish; B takes lease and dispatches same Mutation with unknown result; Resume accepted; A late not_sent closes B journal; Resume sees still Ready original Pod and succeeds before B delayed deletion.",
+      "impact": "Outstanding old deletion is no longer fenced from completing new Resume; original Pod may stop after Resume succeeded. UID fence protects replacement UID, but does not preserve intent ordering.",
+      "suggestion": "Identify/fence each dispatch attempt; old negative receipts may not close uncertainty from a newer attempt. Preserve attributable refs separately from journal closure.",
+      "verification": "reproduced using actual repository and exclusive PostgreSQL17.11 with scheduled Provider boundary outcomes",
+      "evidence": [
+        "persistence-result.json",
+        "persistence.log",
+        "persistence_probe_test.go.txt"
+      ]
+    },
+    {
+      "id": "SB-X02",
+      "priority": "P2",
+      "reopens": "SB-R03",
+      "title": "Wrong configured cluster can falsely prove original cleanup",
+      "locations": [
+        {
+          "repo": "resource",
+          "path": "internal/data/sandbox/provider.go",
+          "line": 33
+        },
+        {
+          "repo": "resource",
+          "path": "internal/data/sandbox/provider.go",
+          "line": 266
+        },
+        {
+          "repo": "resource",
+          "path": "cmd/ani-resource-service/sandbox.go",
+          "line": 73
+        }
+      ],
+      "trigger": "Keep DB but change Compute/Sandbox current ClusterID and kubeconfig together; old frozen record from clusterA is observed by clusterB client. ClusterB returns NotFound for names/UIDs, although original A objects remain.",
+      "impact": "ObservedDeleted/cleanup receipt can be emitted using wrong cluster absence; old Pod/PVC/PV leaked in A. Requires operator configuration change, not an ordinary tenant request.",
+      "suggestion": "Bind Provider to configured cluster identity and reject mismatched frozen snapshots before Observe/Apply; absence in another cluster cannot be evidence.",
+      "verification": "reproduced with two isolated Kubernetes dynamic fake clients; original UID objects remain in A while B emits cleanup receipt",
+      "evidence": [
+        "cluster-probe.json",
+        "cluster-probe.log",
+        "cluster-probe.go.txt"
+      ]
+    },
+    {
+      "id": "SB-X03",
+      "priority": "P2",
+      "reopens": null,
+      "title": "Lost workspace blocks accepted pause from stopping known owned Pod",
+      "locations": [
+        {
+          "repo": "resource",
+          "path": "internal/biz/sandbox/worker.go",
+          "line": 87
+        }
+      ],
+      "trigger": "Original PVC becomes Lost while original owned Ready Pod remains; Pause accepted. Observe returns WORKSPACE_LOST; worker returns before DesiredPaused child deletion.",
+      "impact": "Pause does not stop runtime; repeated reconciliation sends zero mutations despite known Pod ownership/UID.",
+      "suggestion": "Permit safe UID-fenced Pod stop for paused intent independently of unhealthy workspace; retain original storage identity and diagnostics.",
+      "verification": "five real Worker+Provider cycles with fake Kubernetes boundary reproduce unchanged ReadyPod and zero mutations",
+      "evidence": [
+        "provider-worker-probes.json",
+        "provider-worker-probes.log",
+        "provider-worker-probes.go.txt"
+      ]
+    },
+    {
+      "id": "SB-X04",
+      "priority": "P2",
+      "reopens": null,
+      "title": "Accepted pause in WFFC provisioning window cannot converge",
+      "locations": [
+        {
+          "repo": "resource",
+          "path": "internal/data/sandbox/provider.go",
+          "line": 348
+        },
+        {
+          "repo": "resource",
+          "path": "internal/biz/sandbox/worker.go",
+          "line": 107
+        }
+      ],
+      "trigger": "Workspace created, WFFC PVC Pending, no consumer Pod yet; Pause accepted. Pause branch creates no Pod, but observed paused requires Bound, so claim can never bind.",
+      "impact": "Accepted pause remains provisioning/retrying indefinitely; no consumer can satisfy the guard.",
+      "suggestion": "Define paused from stopped runtime while preserving pending PVC, or explicitly reject unsupported action at acceptance; do not accept a state that cannot progress.",
+      "verification": "five Worker+Provider cycles reproduce Pending PVC/provisioning and zero mutations",
+      "evidence": [
+        "provider-worker-probes.json",
+        "provider-worker-probes.log",
+        "provider-worker-probes.go.txt"
+      ]
+    },
+    {
+      "id": "SB-X05",
+      "priority": "P2",
+      "reopens": "SB-R04",
+      "title": "Resolution error misses concurrently accepted frozen replay",
+      "locations": [
+        {
+          "repo": "governance",
+          "path": "app/admin/service/internal/service/sandbox_service.go",
+          "line": 105
+        }
+      ],
+      "trigger": "A preflight Get NotFound; same-intent B persists acceptance; preset disabled/deleted/unavailable before A Resolve; A returns resolution error without rereading B. Next identical retry replays B immediately.",
+      "impact": "Same accepted public intent is still coupled to mutable catalog in preflight/resolution race. Existing AlreadyExists fallback is too late to cover this window.",
+      "suggestion": "On resolution failure, reread stable ID and replay matching persisted winner; retain original error if no winner, and preserve lookup infrastructure failures.",
+      "verification": "real Governance CreateSandbox via isolated Go overlay reproduced disabled-preset error followed by exact successful replay",
+      "evidence": [
+        "replay-race-result.json",
+        "replay_race_test.go.txt"
+      ]
+    }
+  ],
+  "knownConservativeLimitation": {
+    "behavior": "Crash after Prepare commit and before Apply dispatch leaves absent unknown create pending indefinitely; later Delete also remains unknown.",
+    "assessment": "Documented conservative policy disallows blindly retrying/canceling unknown creates; liveness limitation, not counted as a sixth defect. No manual recovery API implemented.",
+    "evidence": [
+      "persistence.log",
+      "persistence_probe_test.go.txt"
+    ]
+  },
+  "verificationNotes": [
+    "Probe exit0 means residual was reproduced, not that implementation satisfies desired behavior.",
+    "Actual exclusive PostgreSQL17.11 uses distinct owner/runtime; provider protocol boundaries use fake Kubernetes only; Governance probe invokes real service with downstream RPC fixture.",
+    "Prior make verify remains a true pass for its covered source/tests. No unchanged full suite rerun was needed; new probes demonstrate missing cases."
+  ],
+  "sideEffects": {
+    "productionSource": "unchanged",
+    "businessDatabase": "untouched",
+    "clusterDeploymentRBAC": "untouched",
+    "candidateSources": "untouched",
+    "commitPush": "none",
+    "postgresTaskContainerAbsent": true,
+    "postgresCredentialsAbsent": true
+  },
+  "notVerified": [
+    "live Provider or CSI fault injection",
+    "live cluster reconfiguration",
+    "new deployment of fixes"
+  ],
+  "artifacts": {
+    "cluster-probe.go.txt": {
+      "sha256": "bed147fe22389e509b03a90f0adaad65d7434780aba729b9d23e0acce42e897d",
+      "bytes": 1971
+    },
+    "cluster-probe.json": {
+      "sha256": "d79c92170d2d7e105aec9ddf214d49db5c2f5f2d4e091a43c95e10c6e9397614",
+      "bytes": 1951
+    },
+    "cluster-probe.log": {
+      "sha256": "3e49031b19669ea8e8b9fa7cc2baeed20bd561661b6e9e61893d0939c61ca7f4",
+      "bytes": 545
+    },
+    "persistence-result.json": {
+      "sha256": "8227f47bbcf7cbdbde98eedb60909a569aff5822d0e3dbd354ed1ae2e0366b8e",
+      "bytes": 2265
+    },
+    "persistence-source.json": {
+      "sha256": "c5f09f4697b40174c4e5663e0d779c70ae2d6a3793374c5b77ca69c9e5e91146",
+      "bytes": 1820
+    },
+    "persistence.log": {
+      "sha256": "fe488e948102f27c90fde19ac4727bbdcaa6ba16441011e467ba7223f66f5e13",
+      "bytes": 764
+    },
+    "persistence_probe_test.go.txt": {
+      "sha256": "d70bbd2d400809b1dec60d42e1bd0b06e738e6a401e30506490fafcc692fc441",
+      "bytes": 5694
+    },
+    "provider-worker-probes.go.txt": {
+      "sha256": "6fd2fbc4fc3cb5f3ae88138e34296c084e1c6f99ac710d52eef022a78d891404",
+      "bytes": 3967
+    },
+    "provider-worker-probes.json": {
+      "sha256": "5bc7e9c1893eca1ca67b099d032aacecdaffe32bdd242c2bf36c8d42d9e4fbda",
+      "bytes": 2093
+    },
+    "provider-worker-probes.log": {
+      "sha256": "6725644d466884929fe8f633ed43446856940e1d87ed07818ddcc4b2939d3cff",
+      "bytes": 684
+    },
+    "replay-race-result.json": {
+      "sha256": "038498f7fc86e019e0b35fe2a97a341d51da34ce003b5c415ae7cecf56732808",
+      "bytes": 1281
+    },
+    "replay_race_test.go.txt": {
+      "sha256": "27589341e5f723696b78493a2bac9f2da762fb39859a882b25407680184b7563",
+      "bytes": 2263
+    },
+    "run-persistence-pg.py.txt": {
+      "sha256": "213e58bb2ba7b6dc60185c02b505a8fd428fd4974b671e9e638f5644fd304454",
+      "bytes": 4240
+    }
+  },
+  "finalDocumentationChecks": {
+    "statusLinkTarget": "pass",
+    "allFindingEvidenceTargets": "pass",
+    "diffCheck": "pass",
+    "productionSourceHash": "unchanged against prior snapshot"
+  }
+}

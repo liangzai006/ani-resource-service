@@ -1,0 +1,66 @@
+{
+  "atUTC": "2026-10-27T07:41:54.409032+00:00",
+  "stage": "before",
+  "objects": {
+    "sandbox": {
+      "namespace": "ani-sandbox-integration-20261027",
+      "pvcName": "workspace-c7077711-beef-501d-960d-deabe62d415b",
+      "pvcUID": "b941fc32-1293-40fa-96df-fe8ac9164773",
+      "pvName": "pvc-b941fc32-1293-40fa-96df-fe8ac9164773",
+      "pvUID": "670ffc99-f5fe-47ae-8a56-8387169c8654",
+      "volumeHandle": "0001-0009-rook-ceph-0000000000000004-6817d924-71e8-4936-b3b1-1fc4145800e5",
+      "pool": "ani-block-pool",
+      "image": "csi-vol-6817d924-71e8-4936-b3b1-1fc4145800e5",
+      "imageID": "1732b3dd7ba92",
+      "rbdInfo": {
+        "name": "csi-vol-6817d924-71e8-4936-b3b1-1fc4145800e5",
+        "id": "1732b3dd7ba92",
+        "size": 10737418240,
+        "objects": 2560,
+        "order": 22,
+        "object_size": 4194304,
+        "snapshot_count": 0,
+        "block_name_prefix": "rbd_data.1732b3dd7ba92",
+        "format": 2,
+        "features": [
+          "layering"
+        ],
+        "op_features": [],
+        "flags": [],
+        "create_timestamp": "Tue Oct 27 07:37:00 2026",
+        "access_timestamp": "Tue Oct 27 07:37:00 2026",
+        "modify_timestamp": "Tue Oct 27 07:37:00 2026"
+      }
+    },
+    "parent": {
+      "namespace": "tenant-432e7877-7596-48e6-b3a7-daec3ac6a073",
+      "pvcName": "workspace-7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+      "pvcUID": "d2aeaa93-9502-40e4-b56c-065a91bacbd5",
+      "pvName": "pvc-d2aeaa93-9502-40e4-b56c-065a91bacbd5",
+      "pvUID": "13d3507c-2e23-4e6c-82e0-8bc1643e9567",
+      "volumeHandle": "0001-0009-rook-ceph-0000000000000004-09e6eb1f-96cd-445e-9b6d-cafc1a49bf02",
+      "pool": "ani-block-pool",
+      "image": "csi-vol-09e6eb1f-96cd-445e-9b6d-cafc1a49bf02",
+      "imageID": "1732bad9baff1",
+      "rbdInfo": {
+        "name": "csi-vol-09e6eb1f-96cd-445e-9b6d-cafc1a49bf02",
+        "id": "1732bad9baff1",
+        "size": 10737418240,
+        "objects": 2560,
+        "order": 22,
+        "object_size": 4194304,
+        "snapshot_count": 0,
+        "block_name_prefix": "rbd_data.1732bad9baff1",
+        "format": 2,
+        "features": [
+          "layering"
+        ],
+        "op_features": [],
+        "flags": [],
+        "create_timestamp": "Tue Oct 27 07:31:11 2026",
+        "access_timestamp": "Tue Oct 27 07:31:11 2026",
+        "modify_timestamp": "Tue Oct 27 07:31:11 2026"
+      }
+    }
+  }
+}

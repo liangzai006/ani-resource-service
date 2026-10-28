@@ -1,0 +1,57 @@
+{
+  "phase": "red",
+  "host": "ubuntu",
+  "execution": "direct execution on authorized ubuntu host",
+  "source": "/tmp/sandbox-live-20261027-kdxgk3no/resource",
+  "postgresImage": "docker.io/library/postgres@sha256:18cfe3ef5e6815560c98237d6216d1e5119702fb0f3894c8785dd58b8bbe5d73",
+  "container": "sandbox-replay-pg-red-6486dd88",
+  "commands": [
+    [
+      "docker",
+      "run",
+      "-d",
+      "--name",
+      "sandbox-replay-pg-red-6486dd88",
+      "--label",
+      "ani.task=sandbox-replay-20261027",
+      "--memory=768m",
+      "--memory-swap=768m",
+      "--cpus=1",
+      "--mount",
+      "type=tmpfs,destination=/var/lib/postgresql",
+      "--env-file",
+      "/tmp/sandbox-live-20261027-kdxgk3no/http-lifecycle/sandbox-replay-pg-private-xlibq107/postgres.env",
+      "-p",
+      "127.0.0.1::5432",
+      "docker.io/library/postgres@sha256:18cfe3ef5e6815560c98237d6216d1e5119702fb0f3894c8785dd58b8bbe5d73"
+    ],
+    [
+      "go",
+      "test",
+      "-tags=sandboxintegration",
+      "-count=1",
+      "-timeout=3m",
+      "./internal/data/sandbox",
+      "-run",
+      "^TestSandboxCreateReplayAcrossWorkerProgress$",
+      "-v"
+    ]
+  ],
+  "sourceFiles": {
+    "internal/data/sandbox/postgres.go": "1f7ba9193ef685ea41821b8080ae4cde5fa8cf97b4bd5e94dcb8cde0dacdfabe",
+    "internal/data/sandbox/postgres_integration_test.go": "5a83c4432f4c1053943abdc616b24206f3343321d7f9fbea76fde601fdb9ba64"
+  },
+  "log": "/tmp/sandbox-live-20261027-kdxgk3no/http-lifecycle/sandbox-replay-red.log",
+  "loopbackPort": 32799,
+  "postgresVersion": "PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "goVersion": "go version go1.26.8 linux/amd64",
+  "testExitCode": 1,
+  "result": "fail",
+  "cleanup": {
+    "containerRemovalExitCode": 0,
+    "containerAbsent": true,
+    "privateDirectoryAbsent": true,
+    "credentialFilesAbsent": true,
+    "storage": "task-owned tmpfs; docker rm -v"
+  }
+}

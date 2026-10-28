@@ -1,0 +1,319 @@
+{
+  "recordedAtUTC": "2026-10-27T08:42:58.313245+00:00",
+  "host": "ubuntu",
+  "status": "source_fixed_and_verified",
+  "review": "review.json",
+  "source": "source.json",
+  "findings": [
+    {
+      "id": "SB-R01",
+      "implementation": "implemented",
+      "verification": "pass",
+      "change": "Original workspace UID preserved; missing known PVC is unknown; no blank replacement.",
+      "regressions": [
+        "TestKubernetesProviderNeverReplacesMissingWorkspace",
+        "TestWorkerDoesNotReplaceMissingOriginalWorkspace"
+      ]
+    },
+    {
+      "id": "SB-R02",
+      "implementation": "implemented",
+      "verification": "pass",
+      "change": "Per-child persistent journal, exact receipts, conservative unknown creates, UID-fenced delete retry, restart/lease/new-intent late receipt recovery.",
+      "regressions": [
+        "TestWorkerUnknownCreateSurvivesDeleteAndRecoversLateObject",
+        "TestWorkerRetriesUnknownDeleteWithOriginalUID",
+        "TestSandboxMutationJournalRestartAndLateIntent",
+        "TestSandboxUnknownMutationAndLeaseTakeover",
+        "TestSandboxMutationReceiptOutcomes"
+      ]
+    },
+    {
+      "id": "SB-R03",
+      "implementation": "implemented",
+      "verification": "pass",
+      "change": "StorageClass Delete validation; exact PVC/PV claimRef+UID tracking/recovery and Gone gate.",
+      "regressions": [
+        "TestKubernetesProviderRejectsRetainStorageClassBeforeCreate",
+        "TestKubernetesProviderWaitsForOriginalVolumeReclaim",
+        "TestKubernetesProviderRecoversUnrecordedOriginalVolume",
+        "TestKubernetesProviderCannotProveReclaimWithoutVolumeListAccess",
+        "TestWorkerWaitsForVolumeReclamation"
+      ]
+    },
+    {
+      "id": "SB-R04",
+      "implementation": "implemented",
+      "verification": "pass",
+      "change": "Frozen public intent and original command replay precede mutable catalog/config resolution; legacy snapshot fallback; concurrent differing resolution recovers winner.",
+      "regressions": [
+        "TestAcceptReplaysFrozenCommandBeforeCurrentConfiguration",
+        "Governance CreateSandbox replay/catalog/race HTTP+service regressions"
+      ]
+    },
+    {
+      "id": "SB-R05",
+      "implementation": "implemented",
+      "verification": "pass",
+      "change": "Require Running plus PodReady and sandbox container ready, with no deletion timestamp.",
+      "regressions": [
+        "TestKubernetesProviderRequiresReadyPodAndContainer"
+      ]
+    },
+    {
+      "id": "SB-R06",
+      "implementation": "implemented",
+      "verification": "pass",
+      "change": "One-based pagination, defaults1/20, strict public parameters, repeatable-read total/items and unique tie-breaker.",
+      "regressions": [
+        "TestSandboxListPaginationAndSnapshot",
+        "Governance Sandbox HTTP canonical pagination regressions"
+      ]
+    },
+    {
+      "id": "SB-R07",
+      "implementation": "implemented",
+      "verification": "pass",
+      "change": "Resource observations may change; completed/superseded operation outcome stays terminal.",
+      "regressions": [
+        "TestSandboxOperationSuccessRemainsTerminal"
+      ]
+    },
+    {
+      "id": "SB-R08",
+      "implementation": "implemented",
+      "verification": "pass",
+      "change": "Serialize acceptance identities;12 identical concurrent deliveries yield one acceptance and11 replay ACKs.",
+      "regressions": [
+        "TestSandboxConcurrentCreateReplay"
+      ]
+    },
+    {
+      "id": "SB-R09",
+      "implementation": "implemented",
+      "verification": "pass",
+      "change": "Map preset missing/disabled and public RPC failures to stable HTTP statuses/reasons; replay metadata propagated.",
+      "regressions": [
+        "TestResolvePresetBusinessErrorsHaveStableStatus",
+        "Governance Sandbox HTTP status/reason and replay regressions"
+      ]
+    },
+    {
+      "id": "SB-D01",
+      "implementation": "implemented",
+      "verification": "pass",
+      "change": "Expiry fields and automation consistently deferred to P4; stale progress and implementation naming in design aligned, state only in status.md.",
+      "regressions": [
+        "final_documentation_links"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "pinned_generation",
+      "result": "pass",
+      "exitCode": 0,
+      "command": "env CGO_ENABLED=0 GOTOOLCHAIN=go1.26.10 GOWORK=off GOMAXPROCS=2 GOFLAGS=-p=2 make config",
+      "log": "resource-generation.log"
+    },
+    {
+      "name": "intermediate_make_verify",
+      "result": "fail",
+      "exitCode": 2,
+      "command": "env CGO_ENABLED=0 GOTOOLCHAIN=go1.26.10 GOWORK=off GOMAXPROCS=2 GOFLAGS=-p=2 make verify",
+      "log": "resource-make-verify.log",
+      "reason": "Started before final source freeze; source gate correctly detected concurrent provider edits. Invalid intermediate snapshot, retained. Stable rerun justified by subsequent completed source."
+    },
+    {
+      "name": "resource_make_verify",
+      "result": "pass",
+      "exitCode": 0,
+      "command": "env CGO_ENABLED=0 GOTOOLCHAIN=go1.26.10 GOWORK=off GOMAXPROCS=2 GOFLAGS=-p=2 make verify",
+      "log": "resource-make-verify-stable.log",
+      "includes": [
+        "pinned source generation no drift",
+        "recursive domain boundaries",
+        "Network build faults",
+        "go mod tidy -diff",
+        "go test -count=1 ./...",
+        "go vet ./...",
+        "go build -trimpath ./...",
+        "go mod verify",
+        "git diff --check"
+      ],
+      "sourceNote": "Code frozen before start; subsequent edits documentation/evidence only; final documentation/link and diff check recorded separately."
+    },
+    {
+      "name": "exclusive_postgresql_first_run",
+      "result": "fail",
+      "exitCode": 1,
+      "log": "sandbox-replay-postgres-fixes.log",
+      "receipt": "sandbox-replay-postgres-fixes-result.json",
+      "reason": "New immediate-reschedule cases exposed PostgreSQL rejection of Go duration string 1ns; repaired interval parameters to numeric microseconds."
+    },
+    {
+      "name": "exclusive_postgresql_final",
+      "result": "pass",
+      "exitCode": 0,
+      "log": "sandbox-replay-postgres-fixes-green.log",
+      "receipt": "sandbox-replay-postgres-fixes-green-result.json",
+      "postgresVersion": "17.11 actual server; pinned image digest recorded in receipt",
+      "runtimeRole": "distinct owner/runtime, NOSUPERUSER/NOBYPASSRLS/no schema CREATE",
+      "cleanup": "both task containers/tmpfs volumes and private credential files absent"
+    },
+    {
+      "name": "provider_regressions",
+      "result": "pass",
+      "exitCode": 0,
+      "command": "env CGO_ENABLED=0 GOTOOLCHAIN=go1.26.10 GOWORK=off GOMAXPROCS=2 GOFLAGS=-p=2 go test -count=1 ./internal/data/sandbox -run TestKubernetesProvider",
+      "log": "provider-tests-final.log",
+      "verboseLog": "provider-tests.log",
+      "boundary": "Kubernetes dynamic fake protocol boundary; not live API faults"
+    },
+    {
+      "name": "governance_related_regressions",
+      "status": "pass",
+      "exitCode": 0,
+      "host": "ubuntu",
+      "sourceManifest": "/tmp/sandbox-fixes-20261027/governance-source.json",
+      "sourceManifestSha256": "aaab1ec17ec67a12925b79c339374f3a6ae0275a0f3a75b31df7c7f3859eb050",
+      "command": "env CGO_ENABLED=0 GOTOOLCHAIN=go1.26.10 GOWORK=off GOMAXPROCS=2 GOFLAGS=-p=2 go test ./app/admin/service/internal/service ./app/admin/service/internal/server ./app/admin/service/internal/data -run 'Sandbox|ComputeHTTP|ComputeCatalog|ComputeClientSharedConnection' -count=1",
+      "log": "/tmp/sandbox-fixes-20261027/governance-completed-regressions.log",
+      "logSha256": "4320f6cfc02cbb31874e5000a0678100db60e888e5d98ef90e814076192e26e0",
+      "verified": [
+        "Sandbox service intent replay after mutable preset rename/disable",
+        "legacy frozen snapshot replay",
+        "simultaneous first delivery differing frozen resolution recovers persisted winner",
+        "changed public intent conflicts and lookup infrastructure failures preserved",
+        "public HTTP create/replay, lifecycle replay flag, path/body binding and conflicts",
+        "strict canonical page/pageSize defaults, max uint32 and invalid request rejection",
+        "stable safe HTTP reason/status for business versus dependency errors",
+        "existing Compute catalog, HTTP and shared client regressions"
+      ],
+      "notVerified": [
+        "tagged PostgreSQL integration suites",
+        "full Governance repository checks",
+        "new candidate deployment or new live API/Provider lifecycle"
+      ],
+      "result": "pass"
+    },
+    {
+      "name": "final_documentation_links",
+      "result": "pass_for_changed_links",
+      "receipt": "documentation-links.json",
+      "targetChecks": 938,
+      "anchorChecks": 27,
+      "note": "One unrelated CPU anchor already in HEAD retained and separately reported."
+    },
+    {
+      "name": "final_resource_and_governance_diff_check",
+      "result": "pass",
+      "exitCode": 0,
+      "commands": [
+        "git diff --check",
+        "git -C /root/kubercon/ani-governance diff --check"
+      ]
+    }
+  ],
+  "releasePrerequisites": [
+    "Apply Sandbox migration003 using owner/runtime split;001/002 unchanged",
+    "Provider cluster readonly storageclasses.get and persistentvolumes.get/list, namespace Pod/PVC permissions retained",
+    "Stop old Sandbox workers before sharing DB with new journal-aware version; no rolling mixed old worker",
+    "Governance local go.mod replace remains explicitly authorized; release dependency handling separate"
+  ],
+  "not_verified": [
+    "new candidate or shared deployment",
+    "live Provider timeout/multi-worker/CSI fault injection",
+    "CSI backend byte erasure or garbage collection beyond Kubernetes PVC/PV Gone",
+    "complete Governance repository and tagged PG suites",
+    "P3-P5 data plane/expiry capabilities"
+  ],
+  "sideEffects": {
+    "deployment": "unchanged in this fix pass",
+    "candidateSource": "not synchronized",
+    "commitPush": "none",
+    "clusterRBAC": "unchanged",
+    "credentials": "none copied into source/evidence"
+  },
+  "finalSourceSHA256Recheck": "pass",
+  "finalTaskPostgresCleanupRecheck": [
+    {
+      "container": "sandbox-replay-pg-postgres-fixes-a2b8949d",
+      "absent": true
+    },
+    {
+      "container": "sandbox-replay-pg-postgres-fixes-green-1f24a4fd",
+      "absent": true
+    }
+  ],
+  "artifacts": {
+    "documentation-links.json": {
+      "sha256": "1b6a991ebec68579106857735ab6788b8afeb8208f2fd64b62c97d9555d7bd1e",
+      "bytes": 770
+    },
+    "governance-completed-regressions.log": {
+      "sha256": "4320f6cfc02cbb31874e5000a0678100db60e888e5d98ef90e814076192e26e0",
+      "bytes": 179
+    },
+    "governance-source.json": {
+      "sha256": "aaab1ec17ec67a12925b79c339374f3a6ae0275a0f3a75b31df7c7f3859eb050",
+      "bytes": 1934
+    },
+    "governance-verification.json": {
+      "sha256": "f824703c4a7698179189cb7ae8f5e6e76e5ac91381226ed2c30564bda9b2c269",
+      "bytes": 1477
+    },
+    "provider-tests-final.log": {
+      "sha256": "07aff37cd92c489d1eaba67b893062d6623496c57937e08ccde41f5fdb0e819f",
+      "bytes": 80
+    },
+    "provider-tests.log": {
+      "sha256": "4548c2f8cb80fbbef68379293a3f19c4d8d6dca6f33ed80729ba5b318f2dd9e3",
+      "bytes": 6205
+    },
+    "resource-generation.log": {
+      "sha256": "b057fb31b209cba5fdef4f96d4162cf1805dafde4c8ab5f9eeaec49bfa876d63",
+      "bytes": 876
+    },
+    "resource-make-verify-stable.log": {
+      "sha256": "ef67101708b999e94022af05a48431a6b9a2205319773f64079dbc9bfb29f00f",
+      "bytes": 5825
+    },
+    "resource-make-verify.log": {
+      "sha256": "07f24c6a9398ba293e7ab27e739599ff1842b2088b27b260cbdb022b888dc3ce",
+      "bytes": 5020
+    },
+    "resource-sandbox-final.log": {
+      "sha256": "91e14030295c48d603ccbdf39bbd6cb571fd9301aabf04eb784688fadaea0d64",
+      "bytes": 8908
+    },
+    "review.json": {
+      "sha256": "ed2c684ed210e88314e0653bb4b81f2756e2a1ceec40ad148e5fd3fa11336e8d",
+      "bytes": 4955
+    },
+    "sandbox-replay-postgres-fixes-green-result.json": {
+      "sha256": "17e891dd054f77b0bcd468a5a08a0aaf307905e04ca186ca3b6898c22d6e842b",
+      "bytes": 2238
+    },
+    "sandbox-replay-postgres-fixes-green.log": {
+      "sha256": "eab55221218281e702adbd93b0186ad824e77c4c605a98862e678d32e6163353",
+      "bytes": 4562
+    },
+    "sandbox-replay-postgres-fixes-result.json": {
+      "sha256": "c317651bcd5ebfa85cc3306aa40b61bc002d3a6f40abbdaec8f307aeb611e110",
+      "bytes": 2214
+    },
+    "sandbox-replay-postgres-fixes.log": {
+      "sha256": "3da844a518cddda1f226406cffd6d1be079b6eaae8eefe8f1567e85e3c44e028",
+      "bytes": 4891
+    },
+    "source.json": {
+      "sha256": "6cc25a88fb74b786bbe9224ecc3b47cebf51879e5e0eaa791a14b9074deef8fe",
+      "bytes": 6312
+    },
+    "source.tar.gz": {
+      "sha256": "9386448dc0a5eeefdd2a98f876c92f8c8535bb7059a661d9310f917f14df00ca",
+      "bytes": 249476
+    }
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "recordedAtUTC": "2026-10-27T07:52:49.419458+00:00",
+  "executionHost": "ubuntu",
+  "scope": "Normal authenticated HTTP -> Governance candidate -> Resource mTLS/DB/worker -> Kata CPU create/pause/resume/delete, workspace retention, replay/conflict/isolation and normal cleanup; not a formal release",
+  "result": "pass",
+  "identity": {
+    "platformUserID": 1,
+    "platformTenantID": 0,
+    "platformRole": "platform:admin",
+    "credentialSource": "user-provided platform login password, value omitted; password and all access/refresh/CSRF tokens kept in driver memory only",
+    "testTenantID": 3,
+    "testUserID": 4,
+    "testRoleID": 6,
+    "testPlanID": 4,
+    "isolationTenantID": 4,
+    "isolationUserID": 5,
+    "isolationRoleID": 7,
+    "resourceTenantID": "432e7877-7596-48e6-b3a7-daec3ac6a073"
+  },
+  "candidates": {
+    "resourceImage": "docker.changqingyun.cn/ani/resource-service@sha256:2f831c6c04f95b44c2da11b182fc4c1176807d57d2317924e443b7dfa2833e43",
+    "governanceImage": "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada",
+    "sharedServicesChangedByThisRound": false,
+    "candidateEndpointsExcludedFromSharedServices": true
+  },
+  "passed": [
+    "platform normal login200 and platform:admin identity; scoped temporary tenant and plan created by management APIs",
+    "tenant Sandbox CPU catalog200 with INSTANCE; temporary IMAGE prep entitlement removed before lifecycle acceptance",
+    "legitimate parent CPU Instance created via normal tenant API, actual Notebook/Pod Running, original operation completed",
+    "Sandbox create -> running -> pause -> paused -> Resource process replacement -> paused state recovered -> resume -> running -> delete -> deleted",
+    "four persisted Sandbox operations succeeded; terminal work retained unscheduled at due_at=infinity with cleared lease; original PVC UID and cleanup receipt retained in workspace binding",
+    "Kata guest UID10001/kernel6.18.56, new Pod UID after resume, same PVC/PV UID and exact workspace marker SHA256",
+    "identical create/action replays keep original resource/operation IDs and version; replaying create after delete leaves tombstone deleted; changed intent409",
+    "second real tenant with same Sandbox grants cannot read/list/query operation/mutate first tenant Sandbox;404 at parent scope; no instance create grant403; GPU Sandbox catalog400; stale version request rejected",
+    "normal Sandbox and parent deletes; parent five cleanup flags true and operation completed; task namespace removed; exact original Pod/PVC/PV absent; both Ceph RBD active/trash absent",
+    "main tenant OFF; both task roles OFF and zero grants; task plan zero modules;8 Sandbox permissions OFF with exact API mappings preserved; no grants to existing tenant roles",
+    "isolation tenant/user deleted by normal APIs; all3 sessions normally logged out and prior access tokens401; driver process exited and port19289 closed"
+  ],
+  "fixes": [
+    {
+      "problem": "GetInstance returned503 after shared worker persisted CleanupCompletedAt, preventing Sandbox parent scope",
+      "change": "preserve typed CleanupCompletedAt runtime timestamp; keep strict unknown field decoding",
+      "verification": "regression red first; candidate Instance biz/data/service packages and original targeted current configuration tests pass; same existing parent then HTTP200"
+    },
+    {
+      "problem": "identical Sandbox create replay returned409 because jsonb formatting was compared as raw JSON bytes",
+      "change": "compare frozen snapshot with PostgreSQL JSONB equality while retaining operation,parent,request digest checks",
+      "verification": "real exclusive PostgreSQL18.6 under distinct owner/runtime roles: red immediate replay; green candidate and original13 subtests each; actual HTTP replay200 after state progression and delete"
+    }
+  ],
+  "retained": {
+    "disabledMainTenant": "tenant3 cannot be physically removed by normal API because409 QUOTA_HISTORY_PRESENT; historical Sandbox/Instance/Gov ledger facts retained, no SQL deletion or bypass",
+    "emptyTestPlan": "plan4 metadata retained without modules",
+    "imageSpace": "task-owned t-sandbox-live-20261027 project and pull identity/Image space remain with disabled tenant; no Image-space deletion API; no publisher credential issued",
+    "roleMetadata": "task role6 and orphan role7 retained OFF with zero grants; role7 remained after normal tenant4 deletion",
+    "runtime": "Kata release, independent candidates, required service accounts/pull Secrets retained; no running Sandbox/parent test workloads"
+  },
+  "limitations": [
+    "full make verify/all integration suites not run; existing r7 TestImageRuntimeMTLSListener failure retained in parent record",
+    "Sandbox P3-P5 file/exec/port/token/egress/checkpoint public capabilities not tested or enabled; workspace write/read uses observational kubectl exec only",
+    "no live provider-timeout/fault-injection or multiple-worker race matrix in this round; restart recovery tested at paused durable state",
+    "SandboxAcceptance.replayed currently stays false; replay behavior verified via identical IDs/no extra rows or version changes, not that response flag",
+    "deleted isolation tenant GET returned500 after normal DELETE200; scoped read-only database confirms tenant absent; did not change unrelated error mapping",
+    "one final read-only harness initially expected terminal work removal; existing implementation retains due_at=infinity instead; corrected assertion verifies stored terminal scheduling and cleared lease"
+  ],
+  "commands": {
+    "apiDriver": "python3 -u /tmp/sandbox-live-20261027-kdxgk3no/http-lifecycle/driver.py; request inputs and all149 redacted HTTP responses archived",
+    "workspace": "python3 http-lifecycle/workspace-proof.py write; python3 http-lifecycle/workspace-proof.py read",
+    "backend": "python3 http-lifecycle/backend-proof.py before; python3 http-lifecycle/backend-proof.py after",
+    "postgres": "go test -tags=sandboxintegration -count=1 -timeout=3m ./internal/data/sandbox -run ^TestSandboxCreateReplayAcrossWorkerProgress$ -v; exclusive container actual commands/source hashes/cleanup in result files",
+    "build": "CGO_ENABLED=0 GOTOOLCHAIN=go1.26.10 GOWORK=off GOMAXPROCS=2 GOFLAGS=-p=2 go build -trimpath -ldflags -X main.Name=ani-resource-service -X main.Version=sandbox-20261027-integration-r9 ./cmd/ani-resource-service",
+    "cluster": "kubectl --context=kubernetes-admin@ani-kcn-full; only task candidates and task-owned infrastructure mutated"
+  },
+  "source": "source-summary.json",
+  "artifacts": {
+    "backend-after.json": "519caef39bf01834548623543f50589884a48fd3218199798b9e976882c5a557",
+    "backend-before.json": "070226593018cfe693b664fe043174bc74aaebd3201bc4036c82aa78ff443e8d",
+    "final-cluster.json": "be554c41ffd137a4d1e81a88653e4ccf794492874dae616ac83311aff1aeccd4",
+    "governance-final-cleanup.json": "c588a1e7779cc3e8a76a79dd8c05ac24445c82ac450fd829b3b91bbe54aaa354",
+    "http-evidence.json": "c474603b7fba7bec0692e217e984fc915bd81cce05257ecd8a0d50d277063543",
+    "inputs.json": "00b06e844b077b8b716174e2bcb7224c17a7bbba3a02e010eff33c3548eff533",
+    "instance-read-before.log": "862ffc1a23978ee900e1b67cf5cfbd20ede738b9722a04d1cbc16aad21061d44",
+    "instance-read-tests.log": "71891802f680abe4060806f1a8fb181369a4f6db9cb9789d9e5f187a2e70b911",
+    "native-cleanup.json": "7435c53172ad023d6acab6ca836919ac0f7d81a20fb4d9f9f5d45991863cc01d",
+    "original-instance-read-tests.log": "30a481b3b05bbf027fcb8cc280945b5e05a7ed0074db4b4e79e3966f71122497",
+    "parent-deleted.json": "438c4b30441a86467e7a3dcd8678515304b81f56d0dd3819be86cc7574eb5a0c",
+    "parent-infrastructure.json": "ea3e0a76cd0b8a8758d7bf19d63ea0a229522d0d0e238c87420013c76eb158c7",
+    "pause-native-check.json": "5f165d2bec5d0622b5f060da0e7cd9f98adadee51223bbcf458ced179381dcaf",
+    "permission-cleanup.json": "94e189f4849925c1e9c85ea07d937bc579dafe711321493524027d63dd40235a",
+    "provider-token-renewal.json": "11d72646fcf8b63d37096bf40093a4836f4112d3bec9bed66158ee1450c6e9b3",
+    "resource-r8-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "resource-r8-help.log": "435d3fb682c81c320256101b3457179578afc786f0c38d6b1ece5b815f7ec011",
+    "resource-r8-image-build.log": "c9496fe15804766fdd3d66564ad22bc33c8dae563c324fb1c079cd3c8aabf7b2",
+    "resource-r8-push.log": "73f902e6a0c017f80135721f58ba8bffa2b78c30e8443b7ca8edf4da0184b72d",
+    "resource-r9-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "resource-r9-help.log": "435d3fb682c81c320256101b3457179578afc786f0c38d6b1ece5b815f7ec011",
+    "resource-r9-image-build.log": "8fc3d0856002fc7a581f8931adef054572d036ae2e02702ab7832aa1da8013c9",
+    "resource-r9-push.log": "f765d9913ca42d184710de3182e719763bb18d64079493d9c89a8a5e0c5d3522",
+    "sandbox-after-restart.json": "eee0b6825bf884933aac17587b88e8cc9413f7dd8182c2329e59824a28e52838",
+    "sandbox-db-final.json": "188481c6d8593a7800740fc1f3bfe3242e60ea866e7eb43ded24d5a8a45fa075",
+    "sandbox-db-paused.json": "bf8981997ffd05435bdcc0adaf00b5ac6d1838c1992ead7ed8c8835396040aec",
+    "sandbox-deleted.json": "95863e9bed55bf7f7d4297304b1a0649f34888ae5b7cd8413268c60e2d2911cf",
+    "sandbox-paused.json": "90b490bdd2d81922c7df1c0cf59c9f69d421d5f53dd55cdea0cf07f872ea4396",
+    "sandbox-replay-green-candidate-result.json": "479f64c3b20701dc0fbb65f0a9280a6d04c3494fcae741e39cde1fc1ead52862",
+    "sandbox-replay-green-candidate.log": "14fad4d21eea4600e724109d6c98580f9addb9594aedbcf04c8f7028b924457c",
+    "sandbox-replay-green-original-result.json": "63f1ae9a654076fa28515bc7a46c3b327b122ea65cca9da45d82dae6db0c0d87",
+    "sandbox-replay-green-original.log": "1827780ba538fa5811746a4b87aee3332a8f3c7ab637bd5af2ea932e8b399766",
+    "sandbox-replay-red-goroot-result.json": "da9c8d24d441cc9535404bb8b65e205f4c9091f8c990e27c968ee2cf557f2e5c",
+    "sandbox-replay-red-result.json": "01acf5a60291362bd859a440b5b970f17faababe30babb7159d4559b2348aaf5",
+    "sandbox-replay-red-toolchain-result.json": "cf2170c4624ba768e43062b2a8ccbc78d33ee5ee5690fcc44b562168c1941e0b",
+    "sandbox-replay-red.log": "b95d7604eddec607b6c936b6e48d8d8c64604e92260a15b7376c3a002ac8a7ef",
+    "sandbox-resumed.json": "02042aa0c40525e0fd2e9fab1160409d6a80314362357726bda9670e634d4488",
+    "sandbox-running.json": "62808ec728fc810a24b9dafe7f24abee408226975f8e02420d91bcc4413ace1e",
+    "session-cleanup.json": "7a97ffb476b5a982043abc1746987d8af2357708a5e23b29c139e9aa91fd005f",
+    "source-summary.json": "c489c055464afd47ebdc029d735ed6ed068ad12fe0ca10cbb7d755075ec64669",
+    "tenant-mapping.json": "5f894357ed3400fc3abe2d4a6478ac70aa39e0eb3178a69ac556cfd6ed1e2ba4",
+    "workspace-read.json": "08f3050fae5dd664090e305efba0e404454bbd430cfb4745d0be31f9cc61a29c",
+    "workspace-write.json": "756cb4a2a792a16ef802f854a42c401f76151b0e81a1f9605c51f553fe45f05d"
+  }
+}

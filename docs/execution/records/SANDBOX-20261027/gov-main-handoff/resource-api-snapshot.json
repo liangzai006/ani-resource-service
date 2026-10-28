@@ -1,0 +1,12 @@
+{
+  "resource_base": "33ea63b4699e7d47fd0d86bef86ae8461033c869",
+  "overlays": {
+    "api/compute/v1/compute.proto": "f2220382e3e6a6eeda202cc138fa41fcba2977b168729b6fa0289a85fa51c994",
+    "api/compute/v1/compute.pb.go": "0e315109f86781a482b0d0571e77aaef845f45ba9e4a12141c4d5caeaf7cc578",
+    "api/sandbox/v1/intent.go": "483a424615f4b52b54d43dc9ff35e324587039439fadc1186a810c6110c28b1a",
+    "api/sandbox/v1/sandbox.pb.go": "841d1999e7b24914e0737603f479b9d362302baa6e7101b5ed702779d5f34518",
+    "api/sandbox/v1/sandbox.proto": "5e8f4efe535248334909a7cb6c93ae9d01d4f2bf91dd7d85aa3c2e09561c2db1",
+    "api/sandbox/v1/sandbox_grpc.pb.go": "ffa9f44bcb19f9f0f15ba651c281cde6b3a9f57efff050ede80ca5172a8ea927"
+  },
+  "purpose": "Frozen local API dependency for Gov build; Resource worktree unchanged"
+}

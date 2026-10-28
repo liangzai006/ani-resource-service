@@ -1,0 +1,316 @@
+{
+  "recordedAtUTC": "2026-10-27T13:31:13.973558+00:00",
+  "executionHost": "ubuntu",
+  "toolchain": "go1.26.10 linux/amd64",
+  "environment": {
+    "GOROOT": "/root/.config/.gvm/go/gopath/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64",
+    "GOTOOLCHAIN": "local",
+    "GOWORK": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "2",
+    "GOFLAGS": "-p=2 -mod=readonly"
+  },
+  "snapshot": {
+    "baseline": "33ea63b4699e7d47fd0d86bef86ae8461033c869",
+    "originalWorkspaceHEAD": "3a1c8756fbe1ac24cee5b16a9a1afe0f6b79dfca",
+    "productionFileCount": 851,
+    "manifestSHA256": "7f901bf91b0d893761a9bd6cf4d86a6df73161f0667d13065f332049c78f357b",
+    "overlayFileCount": 33,
+    "overlayFiles": [
+      {
+        "path": "api/compute/v1/compute.pb.go",
+        "kind": "shared-scoped-delta",
+        "sha256": "0e315109f86781a482b0d0571e77aaef845f45ba9e4a12141c4d5caeaf7cc578"
+      },
+      {
+        "path": "api/compute/v1/compute.proto",
+        "kind": "shared-scoped-delta",
+        "sha256": "f2220382e3e6a6eeda202cc138fa41fcba2977b168729b6fa0289a85fa51c994"
+      },
+      {
+        "path": "cmd/ani-resource-service/app.go",
+        "kind": "shared-scoped-delta",
+        "sha256": "34aabacfec841becdcedf0db2da8986a42c34934a3f572600d06b8ba4aa5587b"
+      },
+      {
+        "path": "cmd/ani-resource-service/governance.go",
+        "kind": "shared-scoped-delta",
+        "sha256": "a56c10b8a7d8e29037bb8669b7e1adef45b7536767567ad935ba06b89d037838"
+      },
+      {
+        "path": "cmd/ani-resource-service/main.go",
+        "kind": "shared-scoped-delta",
+        "sha256": "4e9544471293a81b4d439dd90b1810cbe71b847db44adaa06e18fe4a89817c5e"
+      },
+      {
+        "path": "internal/biz/compute/resolution.go",
+        "kind": "shared-scoped-delta",
+        "sha256": "bafee61aa02a846dbf48803efb8e663309c4b22e6fd359340a2704c7394e2f67"
+      },
+      {
+        "path": "internal/biz/compute/resolution_test.go",
+        "kind": "shared-scoped-delta",
+        "sha256": "4d0536058d33982dd8d05ff6a594e98b9c66558dc637da3473611647f34d9580"
+      },
+      {
+        "path": "internal/data/instance/current_contract_test.go",
+        "kind": "shared-scoped-delta",
+        "sha256": "413dd1b7dfed96587a8a47d2d903fa076b32900bea4c5e190b28e08751ff3b8e"
+      },
+      {
+        "path": "internal/server/compute_identity_test.go",
+        "kind": "shared-scoped-delta",
+        "sha256": "f1ee0f4f6f577cae8fce2a05479ae8eca00f648cebe9d835772948c355a39dff"
+      },
+      {
+        "path": "internal/server/governance.go",
+        "kind": "shared-scoped-delta",
+        "sha256": "981ca351b4265dd973a5edfae155d6e8e807527ba1526efc9221ec89eb58f14f"
+      },
+      {
+        "path": "api/sandbox/v1/intent.go",
+        "kind": "new-sandbox-source",
+        "sha256": "483a424615f4b52b54d43dc9ff35e324587039439fadc1186a810c6110c28b1a"
+      },
+      {
+        "path": "api/sandbox/v1/sandbox.pb.go",
+        "kind": "new-sandbox-source",
+        "sha256": "841d1999e7b24914e0737603f479b9d362302baa6e7101b5ed702779d5f34518"
+      },
+      {
+        "path": "api/sandbox/v1/sandbox.proto",
+        "kind": "new-sandbox-source",
+        "sha256": "5e8f4efe535248334909a7cb6c93ae9d01d4f2bf91dd7d85aa3c2e09561c2db1"
+      },
+      {
+        "path": "api/sandbox/v1/sandbox_grpc.pb.go",
+        "kind": "new-sandbox-source",
+        "sha256": "ffa9f44bcb19f9f0f15ba651c281cde6b3a9f57efff050ede80ca5172a8ea927"
+      },
+      {
+        "path": "cmd/ani-resource-service/sandbox.go",
+        "kind": "new-sandbox-source",
+        "sha256": "2e665e45fc19e9ebec032bea51b870ff5f58025859645b0eb640cf7c4980b336"
+      },
+      {
+        "path": "internal/biz/sandbox/types.go",
+        "kind": "new-sandbox-source",
+        "sha256": "0e73c61def03b1b7ef189629b6e1738baaef6e5cbfa68d1535bbda18d956a8f2"
+      },
+      {
+        "path": "internal/biz/sandbox/worker.go",
+        "kind": "new-sandbox-source",
+        "sha256": "855abce0efec77841f407674d808e8ad96cbc979cf141f44bcf2375b2b07abd4"
+      },
+      {
+        "path": "internal/biz/sandbox/worker_test.go",
+        "kind": "new-sandbox-source",
+        "sha256": "35ed3c015833daafe679aca5b91d820853db8f6261b2de5b4dfb0b9acda3a5d3"
+      },
+      {
+        "path": "internal/data/sandbox/lifecycle_integration_test.go",
+        "kind": "new-sandbox-source",
+        "sha256": "8c90d312bbc001e2cffff5d4548081eb589a94aa6ebfd906e042d9b960175b35"
+      },
+      {
+        "path": "internal/data/sandbox/postgres.go",
+        "kind": "new-sandbox-source",
+        "sha256": "a5dc505462efaa5d95e53e700cfc35069b84aceddbfebfc85e1eb529dfd2d586"
+      },
+      {
+        "path": "internal/data/sandbox/postgres_integration_test.go",
+        "kind": "new-sandbox-source",
+        "sha256": "67057e8a7e208e187fe10c7847cc89a4631de10c02aeb99615035128b55b070c"
+      },
+      {
+        "path": "internal/data/sandbox/provider.go",
+        "kind": "new-sandbox-source",
+        "sha256": "a71b64db49b58fb25074d423ef1f93e121b9d8746793605aa928fd37c6e06311"
+      },
+      {
+        "path": "internal/data/sandbox/provider_test.go",
+        "kind": "new-sandbox-source",
+        "sha256": "7fb2ac8c4262b2824123059b76fd554175d8d518c9eff01f41c5ff3f1684dbb4"
+      },
+      {
+        "path": "internal/data/sandbox/provider_worker_test.go",
+        "kind": "new-sandbox-source",
+        "sha256": "19364a1df0bfdf66a044bc9a9a54aa185641b970b3010de931caa3417b1998e7"
+      },
+      {
+        "path": "internal/server/sandbox_identity.go",
+        "kind": "new-sandbox-source",
+        "sha256": "cb236f621793b0fbed8fd9ba0efb7af5adc8bd6b19a30b460daa56675c69a451"
+      },
+      {
+        "path": "internal/server/sandbox_identity_test.go",
+        "kind": "new-sandbox-source",
+        "sha256": "8cca52f0a77e4c2458d6ead0d76b204ba153070a032c96eff7beb4c3fd9bb25e"
+      },
+      {
+        "path": "internal/server/sandbox_worker.go",
+        "kind": "new-sandbox-source",
+        "sha256": "14827165e6d9b703b85541103351514ac5815336b57b3c3104fef728eef96fbe"
+      },
+      {
+        "path": "internal/service/sandbox/service.go",
+        "kind": "new-sandbox-source",
+        "sha256": "04aa570c000c398723ef1babfc77dfd9b6f81a3a15ce48d2216860cc88bc8aeb"
+      },
+      {
+        "path": "internal/service/sandbox/service_test.go",
+        "kind": "new-sandbox-source",
+        "sha256": "e1cb11a2db94f93cac685f37babe1824ca69a5e2b07f2a2241c8ce2bc4cae1de"
+      },
+      {
+        "path": "migrations/sandbox/001_sandbox.sql",
+        "kind": "new-sandbox-source",
+        "sha256": "95dd41f0b9f420973a9fc209a65a20d546c34b070aa41f6996bc7ca56f61fbf0"
+      },
+      {
+        "path": "migrations/sandbox/002_workspace_bindings.sql",
+        "kind": "new-sandbox-source",
+        "sha256": "f8e4ffe18f7c003374f53da68aff4c1e56903d47142eb6a4fc2fc2b34a4bb0c8"
+      },
+      {
+        "path": "migrations/sandbox/003_recovery_and_create_intent.sql",
+        "kind": "new-sandbox-source",
+        "sha256": "5b4391896c28ecfa743f4ed376d50fcac272c3bc427464a475610055879fc662"
+      },
+      {
+        "path": "migrations/sandbox/embed.go",
+        "kind": "new-sandbox-source",
+        "sha256": "747320163bb5430537a9cb35888a635f833386820e66abcc545804326045b172"
+      }
+    ],
+    "modules": "33ea63b go.mod/go.sum retained verbatim; no old dirty dependency files copied",
+    "preservedBaselineModules": [
+      "storage",
+      "image-runtime",
+      "instance-owner-cleanup-refund",
+      "vm",
+      "network"
+    ],
+    "sourceManifest": {
+      "archive": "externalArchive",
+      "member": "live-final-fixes/resource-source-files.sha256",
+      "sha256": "7f901bf91b0d893761a9bd6cf4d86a6df73161f0667d13065f332049c78f357b"
+    },
+    "candidateOverlay": {
+      "archive": "externalArchive",
+      "member": "live-final-fixes/candidate-overlay.tar.gz",
+      "sha256": "723972828940c6e7071f4533d1a0a4fba849f043869a6d1068853b7bd4387dc1"
+    }
+  },
+  "artifacts": {
+    "binarySHA256": "c09f310d7bd4f2e58d586619788844b15376ea5027d45da9b9ad7ddee8944b17",
+    "resourceImage": "sha256:71e64a6358f5fcecbfc5c788e4754ebd779995eef4b0fb2af98c03dd45a6ab6b",
+    "govImage": "sha256:ac94b46fe0e81fe6bf5698797a8678fc9c4ebfff265d292439b0f7bd5727be7c",
+    "candidatePatchSHA256": "4a060b2ab196c45f1ba8c638d71baa1a27e3b4585694cacf55c302c1689765a5",
+    "candidatePatch": {
+      "archive": "externalArchive",
+      "member": "live-final-fixes/sandbox-against-33ea.patch",
+      "sha256": "4a060b2ab196c45f1ba8c638d71baa1a27e3b4585694cacf55c302c1689765a5"
+    },
+    "patchVerification": "plain git apply后33文件逐一SHA匹配；仅针对33ea基线，不是最新Network20主源码整合证明"
+  },
+  "verificationCommands": [
+    {
+      "kind": "resource-compatibility-tests",
+      "command": [
+        "/root/.config/.gvm/go/gopath/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-count=1",
+        "./api/compute/v1",
+        "./api/instance/v1",
+        "./api/sandbox/v1",
+        "./internal/biz/compute",
+        "./internal/data/compute",
+        "./internal/service/compute",
+        "./internal/biz/instance",
+        "./internal/data/instance",
+        "./internal/service/instance",
+        "./internal/biz/sandbox",
+        "./internal/data/sandbox",
+        "./internal/service/sandbox",
+        "./internal/server",
+        "./cmd/ani-resource-service"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 49.055,
+      "scope": "none; integration build tags disabled, runtime/fixture env cleared",
+      "evidence": {
+        "archive": "externalArchive",
+        "member": "live-final-fixes/resource-compatibility-tests.json",
+        "sha256": "349bceba756a2afc1cf72ea13596a4567be5f5d2501191d0cda1ee505235bbdd"
+      }
+    },
+    {
+      "kind": "resource-build",
+      "command": [
+        "/root/.config/.gvm/go/gopath/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "build",
+        "-buildvcs=false",
+        "-trimpath",
+        "-ldflags",
+        "-X main.Name=ani-resource-service -X main.Version=sandbox-verify-20261027-65q0weq",
+        "-o",
+        "/tmp/sandbox-live-verify-20261027-65q0w_eq/artifacts/ani-resource-service",
+        "./cmd/ani-resource-service"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 17.969,
+      "scope": "recorded command",
+      "evidence": {
+        "archive": "externalArchive",
+        "member": "live-final-fixes/resource-build.json",
+        "sha256": "e50d93c56b404c77373071599a1a20ab545011d7a32e4fb9e14de2a6a1883fe4"
+      }
+    },
+    {
+      "kind": "resource-integration-compile",
+      "command": [
+        "/root/.config/.gvm/go/gopath/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-tags=sandboxintegration,instanceintegration",
+        "-run",
+        "^$",
+        "./internal/data/sandbox",
+        "./internal/data/instance"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 4.311,
+      "scope": "compile only; zero tests run; no DB fixture supplied/accessed",
+      "evidence": {
+        "archive": "externalArchive",
+        "member": "live-final-fixes/resource-integration-compile.json",
+        "sha256": "3f4dce453b45166f19dc66ceaf39f4103b0067e63667c25c91cfbf2e205d6a26"
+      }
+    },
+    {
+      "kind": "resource-image-build",
+      "command": [
+        "docker",
+        "build",
+        "--network=none",
+        "--pull=false",
+        "--iidfile",
+        "/tmp/sandbox-live-verify-20261027-65q0w_eq/evidence/resource-image-id.txt",
+        "-t",
+        "ani-resource-sandbox-verify:20261027-65q0weq",
+        "/tmp/sandbox-live-verify-20261027-65q0w_eq/image"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 6.357,
+      "scope": "recorded command",
+      "evidence": {
+        "archive": "externalArchive",
+        "member": "live-final-fixes/resource-image-build.json",
+        "sha256": "b4ecb5892fbd5c9f250c7241352a4575991b20e9fc7e36c46dda75290047f29e"
+      }
+    }
+  ],
+  "actualRuntimeValidation": "正常Gov HTTP和五类组件故障均使用真实PostgreSQL/Kubernetes；结论与限定范围见result.json。",
+  "priorRegression": "此前完整make verify与14项PostgreSQL Sandbox集成的原回执位于../cross-review-fixes/result.json；本轮候选14包定向测试通过，集成标签仅编译（0 tests），不冒称候选全仓make verify或实库回归。",
+  "archiveReference": "所有原始命令日志、临时驱动及失败尝试按evidence-index.json定位到仓外完整备份。"
+}

@@ -1,0 +1,55 @@
+{
+  "testTenant": {
+    "id": 3,
+    "code": "sandbox-live-20261027",
+    "status": "OFF",
+    "planId": 4
+  },
+  "isolationTenantCount": 0,
+  "testRoleGrantCount": 0,
+  "testPlanModuleCount": 0,
+  "sandboxPermissions": [
+    {
+      "id": 288,
+      "code": "sandbox:create",
+      "status": "OFF"
+    },
+    {
+      "id": 289,
+      "code": "sandbox:list",
+      "status": "OFF"
+    },
+    {
+      "id": 290,
+      "code": "sandbox:read",
+      "status": "OFF"
+    },
+    {
+      "id": 291,
+      "code": "sandbox:operation:read",
+      "status": "OFF"
+    },
+    {
+      "id": 292,
+      "code": "sandbox:pause",
+      "status": "OFF"
+    },
+    {
+      "id": 293,
+      "code": "sandbox:resume",
+      "status": "OFF"
+    },
+    {
+      "id": 294,
+      "code": "sandbox:delete",
+      "status": "OFF"
+    },
+    {
+      "id": 295,
+      "code": "sandbox:preset:read",
+      "status": "OFF"
+    }
+  ],
+  "existingTenantRoleSandboxGrants": 0,
+  "checkedAtUTC": "2026-10-27T07:50:10.622358+00:00"
+}

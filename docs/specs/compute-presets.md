@@ -12,13 +12,13 @@
 
 `ListPresets` 面向可信租户范围，显式传入 usage。只返回 enabled 规格；GPU 按受信 `allowed_gpu_profiles` 的 profile_id/version/spec_digest/cluster_id/pool_id 精确交集过滤，再执行 count/page。空允许集合严格排除 GPU。CPU 不依赖 ACC；`has_gpu_candidates` 仅供 Gov 安全处理目录依赖故障。列表/计数使用同一只读 Repeatable Read 快照，按 created_at DESC、id DESC 排序，分页默认 1/20、最多100；name 为大小写不敏感字面子串。
 
-Gov 唯一租户目录为 `GET /api/v1/compute-presets`，usage 必填。CONTAINER_INSTANCE 要求 `instance:preset:read`/INSTANCE；TRAINING（含微调）要求 `modeldev:compute-preset:read`/MODEL；INFERENCE 要求 `inference:compute-preset:read`/INFERENCE；VIRTUAL_MACHINE 要求 `vm:compute-preset:read`/VIRTUAL_MACHINE（module=17）。旧 `/api/v1/instance-presets` 删除，无兼容入口。四个用途分别检查当前业务授权，不因共享 URL 互相放行。创建仍只调用一次活跃的 `instance.v1.InstanceService/ResolveCreateSpec`：服务端复用 compute resolver 的单次读取，再检查镜像、Namespace、SA、存储、调度、网络及卷。Gov 不串行调用公共解析与容器解析来重复读取规格。
+Gov 唯一租户目录为 `GET /api/v1/compute-presets`，usage 必填。CONTAINER_INSTANCE 要求 `instance:preset:read`/INSTANCE；TRAINING（含微调）要求 `modeldev:compute-preset:read`/MODEL；INFERENCE 要求 `inference:compute-preset:read`/INFERENCE；VIRTUAL_MACHINE 要求 `vm:compute-preset:read`/VIRTUAL_MACHINE（module=17）；SANDBOX 由 Sandbox 生命周期合同固定使用，不把它当作普通容器目录。旧 `/api/v1/instance-presets` 删除，无兼容入口。各用途分别检查当前业务授权，不因共享 URL 互相放行。创建仍只调用一次活跃的 `instance.v1.InstanceService/ResolveCreateSpec`：服务端复用 compute resolver 的单次读取，再检查镜像、Namespace、SA、存储、调度、网络及卷。Gov 不串行调用公共解析与容器解析来重复读取规格。
 
 InstanceService 原七个目录 RPC 直接删除，不保留转发、别名、旧方法失败后的回退或双目录实现。活跃实例 v2、GpuPresetReference、冻结字节/hash、AcceptCreate 和生命周期合同见[实例合同](instance-mvp.md)及[配置与网络合同](instance-configuration-network.md)。目录中的 `devices_per_instance` 存储 JSON 和实例 v2 字段保持原语义，公共解析显式映射为单执行单元设备数。
 
 ## 公共解析
 
-完整方法为 `/compute.v1.ComputePresetService/ResolveComputePreset`。请求字段固定：`tenant_id=1`、`preset_id=2`、`usage=3`。用途枚举 UNSPECIFIED=0（拒绝）、CONTAINER_INSTANCE=1、TRAINING=2、INFERENCE=3、VIRTUAL_MACHINE=4；普通训练与微调共用 TRAINING。
+完整方法为 `/compute.v1.ComputePresetService/ResolveComputePreset`。请求字段固定：`tenant_id=1`、`preset_id=2`、`usage=3`。用途枚举 UNSPECIFIED=0（拒绝）、CONTAINER_INSTANCE=1、TRAINING=2、INFERENCE=3、VIRTUAL_MACHINE=4、SANDBOX=5；普通训练与微调共用 TRAINING。Sandbox 一期只接受 `compute_type=cpu` 且 `gpu=null`。
 
 成功结果为一次只读候选，不创建资源、不占额、不产生持久受理 ACK。schema_version 固定1；ComputeSelection 的字段编号为：
 
@@ -38,7 +38,7 @@ InstanceService 原七个目录 RPC 直接删除，不保留转发、别名、�
 
 ## 身份、用途与时效
 
-调用登记见[Governance 调用合同](governance-calls.md#公共算力与平台规格)。沿用同一内部业务 TLS1.3/mTLS listener、唯一精确 Gov DNS SAN、完整方法允许清单及单值 tenant/actor/request_id。compute 使用独立可信 Scope，不依赖 instance.Caller。平台与租户范围互斥；非法服务、方法、混合 metadata、跨租户、不规范 actor/request_id 和未获准用途均拒绝。容器内部调用由已验证范围适配为固定 CONTAINER_INSTANCE；VM 的 `/vm.v1.VMService/ResolveCreateSpec` 内部调用由同一受信范围固定 VIRTUAL_MACHINE，两者不能互借方法或用途。公共调用不能伪造实例/VM上下文绕过用途校验。
+调用登记见[Governance 调用合同](governance-calls.md#公共算力与平台规格)。沿用同一内部业务 TLS1.3/mTLS listener、唯一精确 Gov DNS SAN、完整方法允许清单及单值 tenant/actor/request_id。compute 使用独立可信 Scope，不依赖 instance.Caller。平台与租户范围互斥；非法服务、方法、混合 metadata、跨租户、不规范 actor/request_id 和未获准用途均拒绝。容器内部调用由已验证范围适配为固定 CONTAINER_INSTANCE；VM 的 `/vm.v1.VMService/ResolveCreateSpec` 内部调用由同一受信范围固定 VIRTUAL_MACHINE；Sandbox 的 `/sandbox.v1.SandboxService/ResolveCreateSpec` 固定 SANDBOX，三者不能互借方法或用途。公共调用不能伪造实例/VM/Sandbox上下文绕过用途校验。
 
 Res 校验可信服务/RPC/租户/actor/用途，以及规格存在、enabled、资源组合、精确引用和目标 cluster。Gov 校验当前用户、业务动作、角色和套餐；新 GPU 请求组合已经获准的本业务创建动作与 ACCELERATOR 资格，不要求 Profile 目录读权限。ACC 仍负责既有委托、Profile/供给/数量/状态及执行计划。目录可见性不是 GPU 创建授权。
 
@@ -50,7 +50,7 @@ Res 校验可信服务/RPC/租户/actor/用途，以及规格存在、enabled、
 
 TRAINING/INFERENCE 已提供 Gov 统一目录查询和 Resource 用途支持，尚未接通创建消费者。训练/微调以后须组合 ModelDev 的 Release、程序、镜像、Runtime 和最终 Snapshot；`compute_preset_id` 必须区别于训练 preset_id，不能修改 owner 快照后沿用旧 hash。本次不增加训练创建算力消费，不修改 ModelDev 或 Gov 训练受理/worker。
 
-INFERENCE 解析不需要模型、引擎、Namespace 或拓扑；未来消费者负责单元到副本/总量的组合与对应业务准入。本次只增加统一算力目录的 INFERENCE 查询与资格，不增加推理管理、创建受理/执行链、Inference API 依赖或部署。VM 创建消费者按[VM正式合同](../contracts/vm-v1.md)组合一次只读compute结果并冻结；公共目录与解析保持通用GPU一致性、引用及cluster校验，不新增VM专属GPU禁令，前端按VM一期范围排除GPU规格。沙箱仍待显式合同，不把未知目标默认作容器。
+INFERENCE 解析不需要模型、引擎、Namespace 或拓扑；未来消费者负责单元到副本/总量的组合与对应业务准入。本次只增加统一算力目录的 INFERENCE 查询与资格，不增加推理管理、创建受理/执行链、Inference API 依赖或部署。VM 创建消费者按[VM正式合同](../contracts/vm-v1.md)组合一次只读compute结果并冻结；公共目录与解析保持通用GPU一致性、引用及cluster校验，不新增VM专属GPU禁令，前端按VM一期范围排除GPU规格。Sandbox 由[统一设计方案](../plans/sandbox-runtime-design-20261025.md)冻结 CPU 规格和工作盘，不把未知目标默认作容器。
 
 ## 数据与运行
 

@@ -1,0 +1,15 @@
+{
+  "host": "ubuntu",
+  "toolchain": "go1.26.10 linux/amd64",
+  "command": "env CGO_ENABLED=0 GOTOOLCHAIN=go1.26.10 GOWORK=off GOMAXPROCS=2 GOFLAGS=-p=2 go test -count=1 -v -overlay=/tmp/sandbox-crossreview-20261027/overlay.json ./app/admin/service/internal/service -run TestReviewAcceptedWinnerLostWhenResolutionFails",
+  "exitCode": 0,
+  "packageSeconds": 0.036,
+  "result": "race reproduced: same accepted intent returns catalog-disabled error on raced request; next identical request replays winner",
+  "sourceFiles": {
+    "/root/kubercon/ani-governance/app/admin/service/internal/service/sandbox_service.go": "9a55305ad4fc9632f875168d3c84461d641438390521954db3f166ba755d115a",
+    "/root/kubercon/ani-governance/app/admin/service/internal/server/sandbox_http.go": "dfcd18638bcc15d321d9434ac1ebc4a30616ec9248492920d7d31a2a9e7da9df",
+    "/root/kubercon/ani-governance/app/admin/service/internal/data/sandbox_client.go": "0723dfea6640c4995fc9ab1e1a2e5ca4601602c2943e03b02ca49a14eae34f02",
+    "/root/kubercon/ani-resource-service/internal/service/sandbox/service.go": "04aa570c000c398723ef1babfc77dfd9b6f81a3a15ce48d2216860cc88bc8aeb",
+    "/root/kubercon/ani-resource-service/api/sandbox/v1/intent.go": "483a424615f4b52b54d43dc9ff35e324587039439fadc1186a810c6110c28b1a"
+  }
+}

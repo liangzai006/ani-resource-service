@@ -1,0 +1,28 @@
+{
+  "compactedAtUTC": "2026-10-27T14:02:47.307394+00:00",
+  "scope": "按用户要求将本轮原始证据移出仓库；保留历史验收摘要。当前执行状态仅由../../../status.md维护。",
+  "localFiles": [
+    {
+      "path": "result.json",
+      "bytes": 14670,
+      "sha256": "2d08118c9f49d515421c8e134f46c323a5d5913c10d4f3fa71f18927535342df"
+    },
+    {
+      "path": "source.json",
+      "bytes": 12447,
+      "sha256": "e75fe0ee9228051a91f93e40c5a5a4707439d17db5a64ce426dc316db165df47"
+    }
+  ],
+  "externalArchive": {
+    "path": "/root/kubercon/verification-artifacts/ani-resource-service/SANDBOX-20261027/live-final-fixes-nsj4smih/full-evidence.tar.gz",
+    "bytes": 794845,
+    "sha256": "0105d6b7712dfe1ef0aabb62ce4ad9168e6068dc0d2caed4b460dfff08a791c1",
+    "originalFileCount": 210,
+    "originalBytes": 8185727,
+    "memberPrefix": "live-final-fixes/",
+    "originalIndexMember": "live-final-fixes/evidence-index.json",
+    "originalIndexSHA256": "1f8ad3c35dc9ba3dcdbca214df519f03c2fc2a769ed074812a28f9af0b39a98a",
+    "verification": "写入前已完整读取tar中的210文件，与移出前所有文件逐字节一致；原索引209个文件SHA/bytes均匹配。"
+  },
+  "recovery": "完整备份包含原始结果、HTTP/故障日志、全部失败、独立复核、补丁与源码/驱动归档；本次未丢弃这些材料。"
+}

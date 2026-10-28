@@ -1,0 +1,43 @@
+{
+  "checkedAtUTC": "2026-10-27T07:51:28.546021+00:00",
+  "currentPasswordsAndTokens": "driver memory cleared and process exited; no password/token files written this round",
+  "normalLogouts": [
+    {
+      "account": "isolation",
+      "httpStatus": 200,
+      "body": {
+        "status": "revoked",
+        "session_revoked": true
+      }
+    },
+    {
+      "account": "tenant",
+      "httpStatus": 200,
+      "body": {
+        "status": "revoked",
+        "session_revoked": true
+      }
+    },
+    {
+      "account": "platform",
+      "httpStatus": 200,
+      "body": {
+        "status": "revoked",
+        "session_revoked": true
+      }
+    }
+  ],
+  "priorTaskPrivateJSONFilesRemoved": [
+    "tenant-login.json",
+    "identity.json",
+    "instance-presets.json",
+    "instances.json",
+    "permissions.json",
+    "presets.json",
+    "sandbox-permission-probe.json",
+    "sandbox-presets.json"
+  ],
+  "localPort19289Open": false,
+  "parentReadProbeRemoved": true,
+  "httpEvidenceSecretFieldScan": "pass"
+}

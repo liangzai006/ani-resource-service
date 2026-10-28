@@ -1,0 +1,100 @@
+{
+  "checkedAtUTC": "2026-10-27T07:51:00.565231+00:00",
+  "executionHost": "ubuntu",
+  "deployments": {
+    "ani-resource-sandbox-20261027": {
+      "readyReplicas": 1,
+      "generation": 6,
+      "image": "docker.changqingyun.cn/ani/resource-service@sha256:2f831c6c04f95b44c2da11b182fc4c1176807d57d2317924e443b7dfa2833e43",
+      "pods": [
+        {
+          "name": "ani-resource-sandbox-20261027-bc9ccbf5f-sdpb2",
+          "uid": "6796e37e-6eaf-44be-ba98-cc980dcaaf83",
+          "phase": "Running",
+          "containers": [
+            {
+              "name": "resource",
+              "ready": true,
+              "restartCount": 0,
+              "imageID": "docker.changqingyun.cn/ani/resource-service@sha256:2f831c6c04f95b44c2da11b182fc4c1176807d57d2317924e443b7dfa2833e43"
+            }
+          ]
+        }
+      ],
+      "sharedEndpointTargets": [
+        "ani-resource-service-d6c4f94bb-hpztn"
+      ]
+    },
+    "ani-governance-sandbox-20261027": {
+      "readyReplicas": 1,
+      "generation": 5,
+      "image": "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada",
+      "pods": [
+        {
+          "name": "ani-governance-sandbox-20261027-9dbf5b669-7kc7c",
+          "uid": "7978f328-39f2-4c47-b624-8958baf4aa0a",
+          "phase": "Running",
+          "containers": [
+            {
+              "name": "governance",
+              "ready": true,
+              "restartCount": 0,
+              "imageID": "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada"
+            }
+          ]
+        }
+      ],
+      "sharedEndpointTargets": [
+        "ani-governance-57788fb44c-tk6rw"
+      ]
+    },
+    "ani-resource-service": {
+      "readyReplicas": 1,
+      "generation": 38,
+      "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:4b074baa1df4e439373de375ff8eeb7a7196ca8a2c68351700ebf372313003d3",
+      "pods": [
+        {
+          "name": "ani-resource-service-d6c4f94bb-hpztn",
+          "uid": "89ad97a8-4e69-4dfe-8ada-71ae70e170d4",
+          "phase": "Running",
+          "containers": [
+            {
+              "name": "resource",
+              "ready": true,
+              "restartCount": 0,
+              "imageID": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:4b074baa1df4e439373de375ff8eeb7a7196ca8a2c68351700ebf372313003d3"
+            }
+          ]
+        }
+      ],
+      "sharedEndpointTargets": [
+        "ani-resource-service-d6c4f94bb-hpztn"
+      ]
+    },
+    "ani-governance": {
+      "readyReplicas": 1,
+      "generation": 61,
+      "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance:v21-detail-on-dev-20261027",
+      "pods": [
+        {
+          "name": "ani-governance-57788fb44c-tk6rw",
+          "uid": "f5c95a65-38e6-46b0-ab08-4e501119cab1",
+          "phase": "Running",
+          "containers": [
+            {
+              "name": "governance",
+              "ready": true,
+              "restartCount": 0,
+              "imageID": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:234155abf633e81080be0bb69e948404b17aa6a166b44551208bfd55ee0b40af"
+            }
+          ]
+        }
+      ],
+      "sharedEndpointTargets": [
+        "ani-governance-57788fb44c-tk6rw"
+      ]
+    }
+  },
+  "sandboxPods": 0,
+  "sandboxPVCs": 0
+}

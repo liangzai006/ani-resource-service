@@ -1,0 +1,122 @@
+[
+  {
+    "id": 288,
+    "name": "sandbox:create",
+    "code": "sandbox:create",
+    "description": "Sandbox 20261027 integration action; no existing role grant",
+    "status": "OFF",
+    "menuIds": [],
+    "apiIds": [
+      404
+    ],
+    "createdBy": 1,
+    "updatedBy": 1,
+    "createdAt": "2026-10-27T07:27:23.944781Z",
+    "updatedAt": "2026-10-27T07:48:43.243256Z"
+  },
+  {
+    "id": 289,
+    "name": "sandbox:list",
+    "code": "sandbox:list",
+    "description": "Sandbox 20261027 integration action; no existing role grant",
+    "status": "OFF",
+    "menuIds": [],
+    "apiIds": [
+      408
+    ],
+    "createdBy": 1,
+    "updatedBy": 1,
+    "createdAt": "2026-10-27T07:27:24.016902Z",
+    "updatedAt": "2026-10-27T07:48:43.312077Z"
+  },
+  {
+    "id": 290,
+    "name": "sandbox:read",
+    "code": "sandbox:read",
+    "description": "Sandbox 20261027 integration action; no existing role grant",
+    "status": "OFF",
+    "menuIds": [],
+    "apiIds": [
+      410
+    ],
+    "createdBy": 1,
+    "updatedBy": 1,
+    "createdAt": "2026-10-27T07:27:24.079446Z",
+    "updatedAt": "2026-10-27T07:48:43.379362Z"
+  },
+  {
+    "id": 291,
+    "name": "sandbox:operation:read",
+    "code": "sandbox:operation:read",
+    "description": "Sandbox 20261027 integration action; no existing role grant",
+    "status": "OFF",
+    "menuIds": [],
+    "apiIds": [
+      409
+    ],
+    "createdBy": 1,
+    "updatedBy": 1,
+    "createdAt": "2026-10-27T07:27:24.143104Z",
+    "updatedAt": "2026-10-27T07:48:43.470583Z"
+  },
+  {
+    "id": 292,
+    "name": "sandbox:pause",
+    "code": "sandbox:pause",
+    "description": "Sandbox 20261027 integration action; no existing role grant",
+    "status": "OFF",
+    "menuIds": [],
+    "apiIds": [
+      406
+    ],
+    "createdBy": 1,
+    "updatedBy": 1,
+    "createdAt": "2026-10-27T07:27:24.206700Z",
+    "updatedAt": "2026-10-27T07:48:43.598245Z"
+  },
+  {
+    "id": 293,
+    "name": "sandbox:resume",
+    "code": "sandbox:resume",
+    "description": "Sandbox 20261027 integration action; no existing role grant",
+    "status": "OFF",
+    "menuIds": [],
+    "apiIds": [
+      407
+    ],
+    "createdBy": 1,
+    "updatedBy": 1,
+    "createdAt": "2026-10-27T07:27:24.264654Z",
+    "updatedAt": "2026-10-27T07:48:43.663422Z"
+  },
+  {
+    "id": 294,
+    "name": "sandbox:delete",
+    "code": "sandbox:delete",
+    "description": "Sandbox 20261027 integration action; no existing role grant",
+    "status": "OFF",
+    "menuIds": [],
+    "apiIds": [
+      405
+    ],
+    "createdBy": 1,
+    "updatedBy": 1,
+    "createdAt": "2026-10-27T07:27:24.324466Z",
+    "updatedAt": "2026-10-27T07:48:43.731439Z"
+  },
+  {
+    "id": 295,
+    "name": "sandbox:preset:read",
+    "code": "sandbox:preset:read",
+    "description": "Sandbox 20261027 integration action; no existing role grant",
+    "status": "OFF",
+    "menuIds": [],
+    "apiIds": [
+      250
+    ],
+    "createdBy": 1,
+    "updatedBy": 1,
+    "createdAt": "2026-10-27T07:27:24.378810Z",
+    "updatedAt": "2026-10-27T07:48:43.799212Z"
+  }
+]

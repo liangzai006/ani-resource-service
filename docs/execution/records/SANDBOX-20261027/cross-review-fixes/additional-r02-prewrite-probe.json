@@ -1,0 +1,32 @@
+{
+  "host": "ubuntu",
+  "sourceFiles": {
+    "go.mod": "83737a930f230fd210a0d2f2d32f9ee91b2b080da886488f2e91c18b4e611361",
+    "go.sum": "ea4437a3d55b58ea0bad675b6ac8757aa2bc292743048795e5f98d6022957a90",
+    "internal/biz/sandbox/worker_test.go": "35ed3c015833daafe679aca5b91d820853db8f6261b2de5b4dfb0b9acda3a5d3",
+    "internal/biz/sandbox/worker.go": "cc88e8199e3690a5d31b06d0db23646c040590d27cdcb5366202dbe106c5c60a",
+    "internal/biz/sandbox/types.go": "0e73c61def03b1b7ef189629b6e1738baaef6e5cbfa68d1535bbda18d956a8f2",
+    "internal/biz/compute/presets.go": "11a48a718756f48b4df3bfdbb7f443467fec007c7a6e3116ed71a024649d1518",
+    "internal/biz/compute/presets_test.go": "bad676af36aa3827355f741185cb2c6b760ab64e669cb94baf7e8e87b6a70f3b",
+    "internal/biz/compute/resolution_test.go": "4d0536058d33982dd8d05ff6a594e98b9c66558dc637da3473611647f34d9580",
+    "internal/biz/compute/resolution.go": "bafee61aa02a846dbf48803efb8e663309c4b22e6fd359340a2704c7394e2f67"
+  },
+  "command": [
+    "/root/.config/.gvm/go/gopath/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+    "test",
+    "-mod=readonly",
+    "-count=1",
+    "-timeout=45s",
+    "./internal/biz/sandbox",
+    "-run",
+    "^TestCrossReview",
+    "-v"
+  ],
+  "probeSHA256": "70c5f89dcb91c199a4ed0d6da02b0b52cc1d3f30fe5ade10c11a67626e743d02",
+  "exitCode": 0,
+  "stdout": "=== RUN   TestCrossReviewSuccessfulOldDeleteCompletesResumeBeforeReady\n    cross_review_test.go:14: verified defect: successful retry deletes old Pod (present=false), but current Resume v2 progress remains desired=running observed=running pending=<nil>; Postgres.Finish's succeeded condition is already true before replacement exists/Ready\n--- PASS: TestCrossReviewSuccessfulOldDeleteCompletesResumeBeforeReady (0.00s)\nPASS\nok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/biz/sandbox\t0.003s\n",
+  "stderr": "",
+  "elapsedSeconds": 0.386,
+  "sourceUnchanged": true,
+  "temporarySourceRemoved": true
+}

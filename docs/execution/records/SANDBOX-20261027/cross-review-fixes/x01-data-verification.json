@@ -1,0 +1,27 @@
+{
+  "status": "pass",
+  "ownedFilesFrozen": true,
+  "ownedFiles": {
+    "internal/biz/sandbox/types.go": "0e73c61def03b1b7ef189629b6e1738baaef6e5cbfa68d1535bbda18d956a8f2",
+    "internal/data/sandbox/postgres.go": "a5dc505462efaa5d95e53e700cfc35069b84aceddbfebfc85e1eb529dfd2d586",
+    "internal/data/sandbox/postgres_integration_test.go": "67057e8a7e208e187fe10c7847cc89a4631de10c02aeb99615035128b55b070c"
+  },
+  "red": "/tmp/sandbox-followup-fixes-20261027/sandbox-replay-x01-red-result.json",
+  "green": "/tmp/sandbox-followup-fixes-20261027/sandbox-replay-x01-green-result.json",
+  "coverage": [
+    "per-dispatch attempt fences for retry deletes",
+    "old negative receipts cannot erase newer unknown",
+    "latest negative with previous uncertainty retains pending",
+    "current attempt applied resolution clears pending",
+    "cleared and advanced journal cannot be resurrected by stale Work",
+    "current Work intent checked independently from older mutation origin",
+    "old lease and altered origin/UID/attempt are rejected",
+    "existing initial negative receipts close original journal",
+    "existing late same-attempt create positive retains references across takeover"
+  ],
+  "notVerified": [
+    "new candidate deployment",
+    "live Kubernetes lifecycle",
+    "mixed old/new worker rollout compatibility"
+  ]
+}

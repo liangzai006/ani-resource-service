@@ -1,0 +1,289 @@
+{
+  "recordedAtUTC": "2026-10-27T11:36:15.627079+00:00",
+  "scope": "Reconcile user-provided Gov-only merge/build/deployment acceptance into Sandbox state; no new rollout or tests",
+  "sourceReceipt": {
+    "path": "/tmp/gov-main-integration-20261027/evidence/summary.json",
+    "sha256": "507cfe79bdbcefd8d00848d15885af638193b5503f5b26c6af82c4d4e70d30a2",
+    "archivedAs": "summary.json"
+  },
+  "verification": {
+    "governanceHEAD": "77e45579f7f77e294144eebd49c3ad39411284ac",
+    "governanceWorktreeClean": true,
+    "sandboxSourceFiles": [
+      {
+        "path": "app/admin/service/internal/service/sandbox_service.go",
+        "sha256": "0d5a585db922896bec630111d1e73bb570cd7148bc6cfd6dd2e90e6cb9257e00",
+        "matchesVerifiedFixSnapshot": true,
+        "committedInMain": true
+      },
+      {
+        "path": "app/admin/service/internal/service/sandbox_service_test.go",
+        "sha256": "369beadc43a7552de5985ed410bd83dd320724426c526a4e7ab11c77bad84d64",
+        "matchesVerifiedFixSnapshot": true,
+        "committedInMain": true
+      },
+      {
+        "path": "app/admin/service/internal/server/sandbox_http.go",
+        "sha256": "dfcd18638bcc15d321d9434ac1ebc4a30616ec9248492920d7d31a2a9e7da9df",
+        "matchesVerifiedFixSnapshot": true,
+        "committedInMain": true
+      },
+      {
+        "path": "app/admin/service/internal/server/sandbox_http_test.go",
+        "sha256": "15137ec4ccfef2704da0496ad55806a0e8af8d367610be25bcc043745bcab880",
+        "matchesVerifiedFixSnapshot": true,
+        "committedInMain": true
+      },
+      {
+        "path": "app/admin/service/internal/data/sandbox_client.go",
+        "sha256": "0723dfea6640c4995fc9ab1e1a2e5ca4601602c2943e03b02ca49a14eae34f02",
+        "matchesVerifiedFixSnapshot": true,
+        "committedInMain": true
+      }
+    ],
+    "resourceSourceDriftAgainstVerifiedFixSnapshot": [],
+    "testPassEvents": 163,
+    "sandboxPassEventsIncludingSubtests": 53,
+    "sandboxTests": [
+      {
+        "package": "go-wind-admin/pkg/permcode",
+        "test": "TestSandboxCapabilities"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/server",
+        "test": "TestSandboxHTTPPaginationAndCommandBoundary"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/server",
+        "test": "TestSandboxHTTPErrorsPreservePublicReasons"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/server",
+        "test": "TestSandboxHTTPFailedResolutionReconcilesAcceptedIntent/disabled_winner"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/server",
+        "test": "TestSandboxHTTPFailedResolutionReconcilesAcceptedIntent/deleted_winner"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/server",
+        "test": "TestSandboxHTTPFailedResolutionReconcilesAcceptedIntent/unavailable_winner"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/server",
+        "test": "TestSandboxHTTPFailedResolutionReconcilesAcceptedIntent/nil_resolution_winner"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/server",
+        "test": "TestSandboxHTTPFailedResolutionReconcilesAcceptedIntent/changed_intent"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/server",
+        "test": "TestSandboxHTTPFailedResolutionReconcilesAcceptedIntent/deleted_absent"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/server",
+        "test": "TestSandboxHTTPFailedResolutionReconcilesAcceptedIntent/unavailable_absent"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/server",
+        "test": "TestSandboxHTTPFailedResolutionReconcilesAcceptedIntent"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxCatalogCPUOnly/default_CPU"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxCatalogCPUOnly/explicit_CPU"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxCatalogCPUOnly/GPU_rejected"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxCatalogCPUOnly/GPU_mode_rejected"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxCatalogCPUOnly/CPU_GPU_mode_rejected"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxCatalogCPUOnly/permission_denied"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxCatalogCPUOnly"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxCreateUsesMappedTenantAndResourceDigest"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxCreateReplayUsesFrozenIntent"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxLegacyCreateReplayUsesFrozenSnapshot"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxConcurrentCreateReplayAck"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxServicePaginationDefaultsAndValidation"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxCreateLookupFailureDoesNotResolve"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxConcurrentCreateCatalogChangeReplaysWinner"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryReplaysPersistedWinner/preset_disabled"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryReplaysPersistedWinner/preset_deleted"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryReplaysPersistedWinner/catalog_unavailable"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryReplaysPersistedWinner/nil_resolution"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryReplaysPersistedWinner/changed_deployment_policy"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryReplaysPersistedWinner/accept_response_lost"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryReplaysPersistedWinner/accept_conflict"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryReplaysPersistedWinner/nil_acceptance"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryReplaysPersistedWinner"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/resolve/still_absent"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/resolve/different_intent"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/resolve/lookup_unavailable"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/resolve/wrong_parent"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/resolve/foreign_tenant_resource"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/resolve"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/accept/still_absent"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/accept/different_intent"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/accept/lookup_unavailable"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/accept/wrong_parent"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/accept/foreign_tenant_resource"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance/accept"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotInventAcceptance"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotLookupAfterCancellation/resolve"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotLookupAfterCancellation/accept"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxFailedDeliveryDoesNotLookupAfterCancellation"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxEmptyDeliveryResponseWithoutWinnerRemainsFailure/nil_resolve"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxEmptyDeliveryResponseWithoutWinnerRemainsFailure/nil_ack"
+      },
+      {
+        "package": "go-wind-admin/app/admin/service/internal/service",
+        "test": "TestSandboxEmptyDeliveryResponseWithoutWinnerRemainsFailure"
+      }
+    ],
+    "failedEvents": [],
+    "postgresScope": "Compute catalog authorization and quota internal mTLS/cumulative release only; not Sandbox PG/lifecycle",
+    "deploymentEvidence": "Provided receipt at 2026-10-27T11:30:22Z shows Ready1/1 and immutable ac94b46... image. This reconciliation did not perform a fresh cluster check."
+  },
+  "state": {
+    "governanceMainMerged": true,
+    "governanceDeployedPerReceipt": true,
+    "governanceRemotePushed": false,
+    "resourceNewFixDeployment": false,
+    "sandboxCatalogHTTP": 403,
+    "sandboxFullLifecycleVerified": false
+  },
+  "remainingSandboxLiveAcceptance": [
+    "Integrate and deploy matching Resource fix version with migration003, least Provider readonly SC/PV permissions and old-worker exclusion",
+    "Use isolated test tenant with minimal Sandbox grants, INSTANCE plan and legitimate parent instance",
+    "Verify public authorization success then create/pause/restart/resume/original-workspace retention/delete/reclaim, replay/conflicts/tenant isolation and timeout/takeover/late receipts"
+  ],
+  "notes": [
+    "403 is a permission-layer observation and does not verify Resource Sandbox provider/worker behavior.",
+    "Main Gov acceptance does not supersede old independent candidate evidence or prove the new Resource runtime is installed.",
+    "Manual recovery API for unobserved unknown creates remains unimplemented; prior source and fault-coverage limits retain their scope."
+  ],
+  "sideEffects": {
+    "businessSource": "unchanged",
+    "governanceRepository": "read only",
+    "clusterAndPermissions": "untouched",
+    "commitPush": "none"
+  }
+}

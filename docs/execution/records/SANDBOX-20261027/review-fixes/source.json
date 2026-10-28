@@ -1,0 +1,80 @@
+{
+  "recordedAtUTC": "2026-10-27T08:42:58.251061+00:00",
+  "host": "ubuntu",
+  "resource": {
+    "head": "3a1c8756fbe1ac24cee5b16a9a1afe0f6b79dfca",
+    "tree": "dirty, existing Sandbox and unrelated changes retained",
+    "files": {
+      "Makefile": "819b1e4f2881985c6861717be64ec9a6f01e88dc70596f99bb26adc4b73c129d",
+      "api/compute/v1/compute.pb.go": "0e315109f86781a482b0d0571e77aaef845f45ba9e4a12141c4d5caeaf7cc578",
+      "api/compute/v1/compute.proto": "f2220382e3e6a6eeda202cc138fa41fcba2977b168729b6fa0289a85fa51c994",
+      "api/sandbox/v1/intent.go": "483a424615f4b52b54d43dc9ff35e324587039439fadc1186a810c6110c28b1a",
+      "api/sandbox/v1/sandbox.pb.go": "841d1999e7b24914e0737603f479b9d362302baa6e7101b5ed702779d5f34518",
+      "api/sandbox/v1/sandbox.proto": "5e8f4efe535248334909a7cb6c93ae9d01d4f2bf91dd7d85aa3c2e09561c2db1",
+      "api/sandbox/v1/sandbox_grpc.pb.go": "ffa9f44bcb19f9f0f15ba651c281cde6b3a9f57efff050ede80ca5172a8ea927",
+      "buf.gen.yaml": "d0faeb8463eddaf42f9fc0872743439029cf90bd5554c89297b0b8d64e5893c3",
+      "buf.yaml": "5ef1461d8da520fc385344f0ac458a31bd7959b7f2dc4128486951d48c7b9e8d",
+      "cmd/ani-resource-service/app.go": "0d607b580e772ffe4dd83f975db93feb603c8aeb3417c234f32b4a9e81241f11",
+      "cmd/ani-resource-service/governance.go": "00249280ff4bef3e0fa88b0962421ddb05bd17eabb84787ca11ecbf63f29f345",
+      "cmd/ani-resource-service/main.go": "4e9544471293a81b4d439dd90b1810cbe71b847db44adaa06e18fe4a89817c5e",
+      "cmd/ani-resource-service/sandbox.go": "c66c11b01e9b9b8e1614a85f2688dce596c9e9c0000a4abcc5b4fec23830d6c8",
+      "docs/plans/sandbox-runtime-design-20261025.md": "55d6aef81ea9b907960bf35003ae958e1f766d35eda94100e0cdb22b882a198f",
+      "go.mod": "83737a930f230fd210a0d2f2d32f9ee91b2b080da886488f2e91c18b4e611361",
+      "go.sum": "ea4437a3d55b58ea0bad675b6ac8757aa2bc292743048795e5f98d6022957a90",
+      "internal/biz/compute/resolution.go": "bafee61aa02a846dbf48803efb8e663309c4b22e6fd359340a2704c7394e2f67",
+      "internal/biz/sandbox/types.go": "a99bc0b279a5acf478ad27a55d23f509cec2fdb0db36058dc290fc409aaec067",
+      "internal/biz/sandbox/worker.go": "627d8710a8f7159d1ff3235cc2299ecde92a6d5423858fe7ce39081346ee1cf2",
+      "internal/biz/sandbox/worker_test.go": "dc6f8bad1ba3825df6f98eb9a80b92bc7ca977fa88ab32ffc15303413fd86fcc",
+      "internal/data/sandbox/postgres.go": "a02ab552f58bc6f11a7ee987a2ae172e0154377277d64bb37d04638c9f670067",
+      "internal/data/sandbox/postgres_integration_test.go": "84ba836c884656e09ac8ce3633b05b5b50e8900579d7945be79f7c1ab28744ec",
+      "internal/data/sandbox/provider.go": "787cdfd79eaad8d6b362b0512b95c5e6e992223b6c24bbb53dc7f1dee766736c",
+      "internal/data/sandbox/provider_test.go": "2ad688d23671d8a31469d57cfacd854eacdbf5acf32bb8b8d64f19bc44327ed7",
+      "internal/server/governance.go": "85cec1d39d9f58b81f686ce80406f1088bd176c5d71e8d53be2082094d39a8ef",
+      "internal/server/sandbox_identity.go": "cb236f621793b0fbed8fd9ba0efb7af5adc8bd6b19a30b460daa56675c69a451",
+      "internal/server/sandbox_identity_test.go": "8cca52f0a77e4c2458d6ead0d76b204ba153070a032c96eff7beb4c3fd9bb25e",
+      "internal/server/sandbox_worker.go": "14827165e6d9b703b85541103351514ac5815336b57b3c3104fef728eef96fbe",
+      "internal/service/sandbox/service.go": "04aa570c000c398723ef1babfc77dfd9b6f81a3a15ce48d2216860cc88bc8aeb",
+      "internal/service/sandbox/service_test.go": "e1cb11a2db94f93cac685f37babe1824ca69a5e2b07f2a2241c8ce2bc4cae1de",
+      "migrations/sandbox/001_sandbox.sql": "95dd41f0b9f420973a9fc209a65a20d546c34b070aa41f6996bc7ca56f61fbf0",
+      "migrations/sandbox/002_workspace_bindings.sql": "f8e4ffe18f7c003374f53da68aff4c1e56903d47142eb6a4fc2fc2b34a4bb0c8",
+      "migrations/sandbox/003_recovery_and_create_intent.sql": "5b4391896c28ecfa743f4ed376d50fcac272c3bc427464a475610055879fc662",
+      "migrations/sandbox/embed.go": "747320163bb5430537a9cb35888a635f833386820e66abcc545804326045b172"
+    }
+  },
+  "governance": {
+    "host": "ubuntu",
+    "repository": "/root/kubercon/ani-governance",
+    "head": "5eedeb8e31e9582ac9ef60c6249de40cde7355ad",
+    "files": {
+      "app/admin/service/internal/data/sandbox_client.go": "0723dfea6640c4995fc9ab1e1a2e5ca4601602c2943e03b02ca49a14eae34f02",
+      "app/admin/service/internal/service/sandbox_service.go": "9a55305ad4fc9632f875168d3c84461d641438390521954db3f166ba755d115a",
+      "app/admin/service/internal/service/sandbox_service_test.go": "695c24b8efa323a4d403f0d93d786c764c983c83e37723d22606eb53ef00fd0e",
+      "app/admin/service/internal/server/sandbox_http.go": "dfcd18638bcc15d321d9434ac1ebc4a30616ec9248492920d7d31a2a9e7da9df",
+      "app/admin/service/internal/server/sandbox_http_test.go": "eff26a3e96f96aa31f69d725f0c19553a1fb675d822800718f5c7408be45a412",
+      "app/admin/service/internal/server/rest_server.go": "c522bb00610feece4a7d8a857210e7139a3dea38cc24d6c9c558dff964402319",
+      "docs/contracts/frontend-http-api.md": "57fe36eec4b8bd34ed6886318ada7fbf9e09333a9380255fd3f2c687c61fe000",
+      "docs/contracts/service-to-service-calls.md": "156c35f3a8d07391ea1649996ce13af2eb684cafc5e25b627fe74aea8d9e1d6c",
+      "docs/interface-integration-register.md": "24c08fdecfed2b9050b234295781119540746b29caa043166a0efc35d6d62908",
+      "go.mod": "f021e95c0d916af0c3a4d7f24740a91158bba1ac2f5631979e1e799dc79face6",
+      "go.sum": "6175352592782647b5b7edc9605a48d0c09dc162b2627f81007ab478ec72695d"
+    },
+    "resourceAPI": {
+      "api/sandbox/v1/intent.go": "483a424615f4b52b54d43dc9ff35e324587039439fadc1186a810c6110c28b1a",
+      "api/sandbox/v1/sandbox.proto": "5e8f4efe535248334909a7cb6c93ae9d01d4f2bf91dd7d85aa3c2e09561c2db1",
+      "api/sandbox/v1/sandbox.pb.go": "841d1999e7b24914e0737603f479b9d362302baa6e7101b5ed702779d5f34518"
+    },
+    "toolchain": "Go1.26.10 linux/amd64",
+    "environment": {
+      "CGO_ENABLED": "0",
+      "GOTOOLCHAIN": "go1.26.10",
+      "GOWORK": "off",
+      "GOMAXPROCS": "2",
+      "GOFLAGS": "-p=2"
+    }
+  },
+  "archiveScope": "Affected Sandbox source, composition/compute dependencies, pinned workflow files and Gov owned source/docs; overlays dirty repository HEADs, not a full checkout archive; private runtime configuration excluded.",
+  "archive": {
+    "path": "source.tar.gz",
+    "sha256": "9386448dc0a5eeefdd2a98f876c92f8c8535bb7059a661d9310f917f14df00ca"
+  }
+}

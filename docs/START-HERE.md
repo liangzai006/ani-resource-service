@@ -9,7 +9,7 @@ GPU 容器实例 v1.5：[规格](specs/instance-mvp.md)、[实施计划](plans/i
 这是本仓库唯一正式文档导航。项目入口为 [README](../README.md)，工程约定为 [AGENTS](../AGENTS.md)。
 当前实施与验证进度只在 [执行状态](execution/status.md) 维护，本文不复制进度表。
 
-[算力目录与公共解析](specs/compute-presets.md)定义 compute 管理、列表、三用途只读候选及与实例的组合边界；[原地迁移与恢复](runbooks/compute-presets-migration.md)定义规格表/账本与匹配 Gov 权限维护步骤。实例 v2、配置与生命周期合同继续有效。
+[算力目录与公共解析](specs/compute-presets.md)定义 compute 管理、列表、用途绑定的只读候选及与各消费者的组合边界；[原地迁移与恢复](runbooks/compute-presets-migration.md)定义规格表/账本与匹配 Gov 权限维护步骤。实例 v2、配置与生命周期合同继续有效。
 
 [ani-resource-service 改名与模块整理计划](plans/resource-service-modularization.md)：原R0–R5沿用现有仓库和Kratos分层整理Network，并验证旧客户端、旧数据、资源接管和回退；本次Compute增量以[算力目录合同](specs/compute-presets.md)为准，Storage仍待后续切片。
 
@@ -29,7 +29,7 @@ GPU 容器实例 v1.5：[规格](specs/instance-mvp.md)、[实施计划](plans/i
 
 [历史未知创建恢复提案](plans/provider-unknown-create-recovery.md)区分退出结果落库修正与旧回执缺失的恢复前提；本次实验例外已按用户授权恢复并复测；通用管理接口未实施，实际结果见执行状态。
 
-[Sandbox 方案复核与实施计划](plans/sandbox-runtime-review-20261025.md)只覆盖 Sandbox；它对照旧 ANI 的实现和 live evidence，区分可继承的行为、必须重写的架构和各阶段的真实验收门禁。当前仅方案有条件通过，未表示 Sandbox 已实现或生产 ready。
+[Sandbox Runtime 完整设计方案](plans/sandbox-runtime-design-20261025.md)是 Sandbox 唯一设计入口，已把旧 ANI 行为和 live evidence、新版 Resource 的 compute 解析/冻结快照/租户边界/Provider 恢复模型，以及推理服务资源语义合并在一份文档中。一期核心链和二期数据面能力分别按方案门禁推进；实际实现、部署和验收仅见[当前执行状态](execution/status.md)。
 
 ## 架构决定
 

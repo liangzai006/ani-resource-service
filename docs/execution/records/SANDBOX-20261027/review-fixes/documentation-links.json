@@ -1,0 +1,21 @@
+{
+  "checkedFiles": [
+    "/root/kubercon/ani-resource-service/docs/plans/sandbox-runtime-design-20261025.md",
+    "/root/kubercon/ani-resource-service/docs/execution/status.md",
+    "/root/kubercon/ani-governance/docs/contracts/frontend-http-api.md",
+    "/root/kubercon/ani-governance/docs/contracts/service-to-service-calls.md",
+    "/root/kubercon/ani-governance/docs/interface-integration-register.md"
+  ],
+  "targetChecks": 938,
+  "anchorChecks": 27,
+  "result": "pass_for_changed_links",
+  "failures": [],
+  "preExistingFailuresRetained": [
+    {
+      "source": "/root/kubercon/ani-resource-service/docs/execution/status.md",
+      "link": "../specs/instance-mvp.md#cpu-增量合同",
+      "error": "missing anchor",
+      "preExistingInHEAD": true
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "source": "source.json",
+  "scope": "Read-only cross reviews by agents other than the implementation owner, followed by root composition tests",
+  "reviews": [
+    {
+      "reviewer": "review_architecture",
+      "reviewed": "types/worker/Postgres attempt journal and final lifecycle integration tests",
+      "found": "Successful delete reused pre-write Running and could prematurely finish Resume",
+      "resolution": "Formal PG+Worker+Provider test red, worker invalidates pre-write completion after successful Apply, test green; final read-only review confirmed coverage, no further blocking issue found",
+      "limits": "Provider requests are dynamic fake boundary; no live fault/CSI attestation"
+    },
+    {
+      "reviewer": "review_provider",
+      "reviewed": "configured cluster guard, pause/storage behavior, worker and composition",
+      "result": "No new blocking issue found in reviewed final source",
+      "limits": "Logical ClusterID check only; kubeconfig/physical cluster mapping remains trusted deployment configuration"
+    },
+    {
+      "reviewer": "review_governance",
+      "reviewed": "Governance replayAccepted and Service/HTTP cases",
+      "result": "No new blocking issue found in reviewed final source",
+      "limits": "Downstream fixtures; no new live mTLS or full Gov PG suite"
+    }
+  ]
+}

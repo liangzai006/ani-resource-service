@@ -1,0 +1,19 @@
+{
+  "internal/biz/compute/presets.go": "11a48a718756f48b4df3bfdbb7f443467fec007c7a6e3116ed71a024649d1518",
+  "internal/biz/compute/presets_test.go": "bad676af36aa3827355f741185cb2c6b760ab64e669cb94baf7e8e87b6a70f3b",
+  "internal/biz/compute/resolution_test.go": "4d0536058d33982dd8d05ff6a594e98b9c66558dc637da3473611647f34d9580",
+  "internal/biz/compute/resolution.go": "bafee61aa02a846dbf48803efb8e663309c4b22e6fd359340a2704c7394e2f67",
+  "internal/biz/sandbox/worker_test.go": "dc6f8bad1ba3825df6f98eb9a80b92bc7ca977fa88ab32ffc15303413fd86fcc",
+  "internal/biz/sandbox/worker.go": "627d8710a8f7159d1ff3235cc2299ecde92a6d5423858fe7ce39081346ee1cf2",
+  "internal/biz/sandbox/types.go": "a99bc0b279a5acf478ad27a55d23f509cec2fdb0db36058dc290fc409aaec067",
+  "internal/data/sandbox/provider_test.go": "2ad688d23671d8a31469d57cfacd854eacdbf5acf32bb8b8d64f19bc44327ed7",
+  "internal/data/sandbox/postgres.go": "a02ab552f58bc6f11a7ee987a2ae172e0154377277d64bb37d04638c9f670067",
+  "internal/data/sandbox/provider.go": "787cdfd79eaad8d6b362b0512b95c5e6e992223b6c24bbb53dc7f1dee766736c",
+  "internal/data/sandbox/postgres_integration_test.go": "84ba836c884656e09ac8ce3633b05b5b50e8900579d7945be79f7c1ab28744ec",
+  "migrations/sandbox/002_workspace_bindings.sql": "f8e4ffe18f7c003374f53da68aff4c1e56903d47142eb6a4fc2fc2b34a4bb0c8",
+  "migrations/sandbox/embed.go": "747320163bb5430537a9cb35888a635f833386820e66abcc545804326045b172",
+  "migrations/sandbox/003_recovery_and_create_intent.sql": "5b4391896c28ecfa743f4ed376d50fcac272c3bc427464a475610055879fc662",
+  "migrations/sandbox/001_sandbox.sql": "95dd41f0b9f420973a9fc209a65a20d546c34b070aa41f6996bc7ca56f61fbf0",
+  "go.mod": "83737a930f230fd210a0d2f2d32f9ee91b2b080da886488f2e91c18b4e611361",
+  "go.sum": "ea4437a3d55b58ea0bad675b6ac8757aa2bc292743048795e5f98d6022957a90"
+}

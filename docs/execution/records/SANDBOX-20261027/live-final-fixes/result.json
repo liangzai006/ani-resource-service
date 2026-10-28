@@ -1,0 +1,344 @@
+{
+  "recordedAtUTC": "2026-10-27T13:31:13.973558+00:00",
+  "compactedAtUTC": "2026-10-27T14:02:47.307394+00:00",
+  "executionHost": "ubuntu",
+  "context": "kubernetes-admin@ani-kcn-full",
+  "result": "pass_for_isolated_Sandbox_core_acceptance",
+  "scope": "正常 Gov HTTP 主链及单独的生产组件故障验证；完整主 Resource 发布兼容性不属于本轮 Sandbox 验收结论。",
+  "normalHTTP": {
+    "result": "pass",
+    "parentID": "feb87957-5611-4639-93fd-76fa33b794bd",
+    "parentNetworkRequested": false,
+    "sandbox": {
+      "id": "b958b052-5ec3-53f1-b043-85450d95bd29",
+      "finalVersion": 4,
+      "desired": "deleted",
+      "observed": "deleted",
+      "operations": [
+        {
+          "action": "create",
+          "id": "995d1ae5-2d38-56b7-99a5-19cd534bbd25",
+          "state": "succeeded",
+          "version": 1
+        },
+        {
+          "action": "pause",
+          "id": "92f559b3-52f4-4511-975e-949c17e9c97c",
+          "state": "succeeded",
+          "version": 2
+        },
+        {
+          "action": "resume",
+          "id": "7c76170d-143b-47f6-b2b2-cbee758674bc",
+          "state": "succeeded",
+          "version": 3
+        },
+        {
+          "action": "delete",
+          "id": "243beb98-4fbb-475a-8526-92fa0d728be9",
+          "state": "succeeded",
+          "version": 4
+        }
+      ]
+    },
+    "steps": [
+      "platform login",
+      "temporary tenant/minimal Sandbox authorization/INSTANCE plan",
+      "legal CPU parent",
+      "create",
+      "idempotent replay",
+      "pause",
+      "candidate process restart while paused",
+      "resume",
+      "same workspace UID and file SHA/new Pod UID",
+      "delete",
+      "deleted create replay cannot resurrect"
+    ],
+    "replay": "create/pause/resume/delete 首投 false、重放 true；operation/版本不变；删除后 create 重放不复活",
+    "negativeChecks": [
+      "6项跨租户404",
+      "异意图409",
+      "过期版本409",
+      "path/body不一致400",
+      "零页码400",
+      "SANDBOX目录 compute_type=gpu 拒绝400（不是GPU Create）"
+    ],
+    "workspace": {
+      "originalPodUID": "58d9f4b4-f90a-4cbc-9593-1dfecf2ebf09",
+      "resumedPodUID": "6810f8ab-21c9-40a2-ba2e-4b1ce6e2b207",
+      "PVCUID": "05dbd31f-c4a0-44c3-91fc-69e853c3c761",
+      "PVUID": "cfa61182-08e9-4650-ad03-8411f5e5a1f5",
+      "markerSHA256": "e5de0132aefe76f0ae582de1c3de6e8770e43e2b71839a8929102f26b3e67a69",
+      "method": "bounded kubectl exec test proof; product P3 Exec not exercised"
+    },
+    "finalDatabase": "四个operation succeeded；pending_mutation=null；work due infinity、lease清空",
+    "evidence": {
+      "archive": "externalArchive",
+      "member": "live-final-fixes/happy-result.json",
+      "sha256": "ba9f5f464cfcee14e8b53109160cb60a91e17d067cc18e883b11e39420cc7447"
+    }
+  },
+  "faultValidation": {
+    "result": "pass",
+    "passedCases": 5,
+    "productFailuresObservedInTestedScope": 0,
+    "method": "isolated PG17.11 standard Sandbox migrations1-3, shared real Compute Resolver/catalog, production Resource Service/Repository/Worker/KubernetesProvider, real owned K8s objects with restricted SA",
+    "httpBoundary": "这些故障用隔离驱动直接组合生产组件，不是 Gov HTTP 全链故障测试。",
+    "cases": [
+      {
+        "name": "wrong-cluster",
+        "result": "pass",
+        "sandboxID": "e74a2dc0-9694-5bce-bf22-405bea2b2abb",
+        "assertions": [
+          {
+            "name": "wrong cluster rejected before actual API IO",
+            "pass": true
+          }
+        ]
+      },
+      {
+        "name": "late-pod",
+        "result": "pass",
+        "sandboxID": "e8b93b38-cfa6-5042-b8b2-f785cea1d031",
+        "assertions": [
+          {
+            "name": "unknown create holds pause before late arrival",
+            "pass": true
+          },
+          {
+            "name": "late real Pod observed and UID-deleted before pause succeeds",
+            "pass": true
+          }
+        ]
+      },
+      {
+        "name": "wffc",
+        "result": "pass",
+        "sandboxID": "adec7fd3-1e64-5309-871d-09fba1ddb70c",
+        "assertions": [
+          {
+            "name": "actual WFFC Pending workspace permits pause",
+            "pass": true
+          },
+          {
+            "name": "resume consumer binds original WFFC claim",
+            "pass": true
+          },
+          {
+            "name": "pause tolerates Lost Provider API view",
+            "pass": true,
+            "limitation": "controlled read projection; real CSI and PVC remain Bound"
+          }
+        ]
+      },
+      {
+        "name": "late-delete",
+        "result": "pass",
+        "sandboxID": "1b0d3bfc-25a7-5642-8580-e0adc162c0f2",
+        "assertions": [
+          {
+            "name": "old negative receipt cannot clear successor unknown",
+            "pass": true
+          },
+          {
+            "name": "new negative attempt cannot clear preceding uncertain dispatch",
+            "pass": true
+          },
+          {
+            "name": "positive UID-delete cannot complete newer Resume from old Ready",
+            "pass": true
+          },
+          {
+            "name": "resume succeeds only after fresh real Pod readiness",
+            "pass": true
+          }
+        ]
+      },
+      {
+        "name": "pv-reclaim",
+        "result": "pass",
+        "sandboxID": "7a16df13-3546-5d3b-8bfd-a7d3ae2fe157",
+        "assertions": [
+          {
+            "name": "delete remains incomplete while original PV UID remains",
+            "pass": true
+          },
+          {
+            "name": "delete succeeds only after original PV UID is absent",
+            "pass": true,
+            "limitation": "PV API absence; physical RBD wipe requires backend evidence"
+          }
+        ]
+      }
+    ],
+    "invalidHarnessAttemptsExcluded": {
+      "wrong-cluster-first": "host in-cluster DNS URL unusable from ubuntu; no pending/Pod/PVC; normal-lifecycle deleted; fault-first-infra-error.json",
+      "late-pod-first": "legacy Request.Cancel canceled detached request; conservative barrier held correctly; exact authorized original pending Provider.Apply used ONLY for fixture cleanup, normal Delete afterward; not counted PASS; fault-second-infra-error.json + late-pod-infra-attempt-result.json"
+    },
+    "evidence": {
+      "archive": "externalArchive",
+      "member": "live-final-fixes/fault/fault-matrix-results.json",
+      "sha256": "d4a795c1a5da423e980d8bbe8c027ce87012c0efbdeebf17c341078813f8e04e"
+    }
+  },
+  "cleanup": {
+    "result": "pass",
+    "parent": {
+      "id": "feb87957-5611-4639-93fd-76fa33b794bd",
+      "deleteOperationID": "ca84f61a-5cfe-493f-b228-50776f88fac3",
+      "deleteHTTP": 202,
+      "finalVersion": 2,
+      "observed": "deleted",
+      "operationState": "completed",
+      "cleanupFlags": {
+        "computeCleaned": true,
+        "workspaceCleaned": true,
+        "quotaReturned": true,
+        "networkCleaned": true,
+        "volumeReferencesReleased": true
+      },
+      "NotebookPodPVCPVGone": true,
+      "knownCephRBDActiveAndTrashAbsent": true,
+      "newTenantNamespaceGoneWithOriginalUIDPrecondition": true
+    },
+    "CPUQuotaBoundary": {
+      "createDeleteOperations": "both ACKED",
+      "chargeCount": 0,
+      "remainingChargeUnits": 0,
+      "tenantOccupiedUnits": 0,
+      "scope": "CPU0charge contract; no dedicated Compute reservation ledger; no GPU or monetary refund claim"
+    },
+    "management": {
+      "primaryTenant5": "OFF, retained because normal DELETE409 QUOTA_HISTORY_PRESENT",
+      "primaryUser6": "DISABLED, retained for tenant/history metadata",
+      "isolationTenant6": "deleted by normal API; read-only database confirms absent",
+      "isolationUser7": "deleted by normal API after tenant deletion left it present; read-only database confirms absent",
+      "taskPlan5": "metadata retained for tenant5; zero modules",
+      "taskRoles8And9": "protected status remains ON under existing service contract; zero grants; role9 orphan metadata retained",
+      "sandboxPermissions288Through295": "all restored original OFF; API mappings unchanged",
+      "foreignRoleSandboxPermissionReferences": 0,
+      "permissionRestoreGuard": "all 9 roles scanned after clearing task roles, no external reference; snapshot guard cannot lock future concurrent management writes"
+    },
+    "sessions": "三个正常登出会话 revoked；旧 access token均401",
+    "newInfrastructure": "两候选部署/服务、3个Secret、Provider RBAC/空namespace、两专用DB均 absent；使用原UID约束，无FORCE",
+    "dedicatedDatabases": [
+      {
+        "name": "sandbox_fault_verify_20261027",
+        "result": "already_absent",
+        "force": false
+      },
+      {
+        "name": "sandbox_network_verify_20261027",
+        "connectionsBeforeDrop": 0,
+        "result": "absent",
+        "force": false
+      }
+    ],
+    "retained": {
+      "SandboxMigration003": "共享 Sandbox schema从2迁移至3，保留不回退",
+      "oldSandboxWorker": "旧r9 replicas=0，禁止旧journal worker重新同库运行",
+      "history": "deleted tombstones/operations/cleanup receipts保留",
+      "imageSpace": "无正常删除API，保留元数据；不宣称Harbor项目/存储为空",
+      "sharedInfrastructure": "原有Kata/runtime、ani-block及镜像缓存保留"
+    },
+    "credentials": "任务口令与私有配置副本已移除；原凭据扫描172文件0命中",
+    "businessEvidence": {
+      "archive": "externalArchive",
+      "member": "live-final-fixes/cleanup-result.json",
+      "sha256": "0be4d55c4d2e125122ef4c952da057d20b587357286d4999a97b11f30263fef2"
+    },
+    "infrastructureEvidence": {
+      "archive": "externalArchive",
+      "member": "live-final-fixes/owned-infra-cleanup.json",
+      "sha256": "1746f9bea7ef6c0d05381f6e17c3d7b8feab0d99f05bda7b7e52a907744183d2"
+    }
+  },
+  "independentReviews": [
+    {
+      "result": "pass_happy_scope_only",
+      "checksPassed": 22,
+      "failedChecks": [],
+      "method": "independent read-only comparison of frozen happy HTTP journal/state, DB snapshot, workspace/backend receipts, source/runtime manifests; no HTTP or test reruns",
+      "evidence": {
+        "archive": "externalArchive",
+        "member": "live-final-fixes/happy-cross-review.json",
+        "sha256": "a2137ac607acabcf3861e201e416c066cffcf79593c3399dff31acc1c9a5b0cd"
+      }
+    },
+    {
+      "result": "pass_fault_scope_only",
+      "checksPassed": 26,
+      "failedChecks": [],
+      "method": "independent read-only raw scenario journals/state/assertions plus final DB/K8s/cleanup/source receipts; no tests, fault requests, or mutations rerun",
+      "evidence": {
+        "archive": "externalArchive",
+        "member": "live-final-fixes/fault-final-cross-review.json",
+        "sha256": "fb6fa2c973543cf7a85787296d03f34517c5da6019ea94f7a3eed9846f5910f6"
+      }
+    },
+    {
+      "result": "pass_cleanup_scope_with_contract_retention",
+      "checksPassed": 25,
+      "failedChecks": [],
+      "method": "independent read-only receipt/script/raw HTTP journal review plus local process, port and private-path absence; no tests, API lifecycle requests, cluster mutations or DB requests rerun",
+      "evidence": {
+        "archive": "externalArchive",
+        "member": "live-final-fixes/cleanup-cross-review.json",
+        "sha256": "76722f05429d7ca2c65f4c69e5faa481e6cd8eba98f42bbec9342240afba7513"
+      }
+    },
+    {
+      "result": "pass_stopped_no_trigger",
+      "checksPassed": 9,
+      "failedChecks": [],
+      "method": "local read-only inspection of full immutable guard journal/state, script and process absence; no new cluster or DB requests",
+      "evidence": {
+        "archive": "externalArchive",
+        "member": "live-final-fixes/instance-network-guard-final-proof.json",
+        "sha256": "a9b5549fedd517f35a6a4eb8fdb10fb8fde8ba5a84e04af002bac5ba65bd234a"
+      }
+    }
+  ],
+  "instanceNetworkGuard": {
+    "samples": 2009,
+    "queryErrors": 0,
+    "networkNonNullSamples": 0,
+    "protectiveMutations": 0,
+    "result": "正常退出；采样保护不代表原子Claim过滤"
+  },
+  "failuresAndCorrections": [
+    "resource-start-first-failure.json: shared Network20 versus source19 startup rejection",
+    "resource-start-env-override-failure.log: concrete file configuration retained Network DSN",
+    "fault/fault-first-infra-error.json: host route used in-cluster DNS",
+    "fault/fault-second-infra-error.json: legacy Request.Cancel invalidated detached request; fixed harness, original fixture conservatively cleaned",
+    "sandbox-patch-roundtrip-first-attempt.json: temporary Git index setup; plain patch exact33file reconstruction passed",
+    "owned-infra-cleanup-first-attempt.json: missing explicit namespace in root driver; live connections blocked DROP; corrected UID-scoped retry passed"
+  ],
+  "limitations": [
+    "GPU400 live check was catalog compute_type=gpu rejection, not GPU Sandbox Create",
+    "Lost is controlled GET phase projection; no physical CSI/media failure",
+    "wrong ClusterID checks logical configured identity, not physical-cluster attestation",
+    "PV UID/API Gone and exact RBD active/trash absence are reclamation evidence, not byte-erasure proof",
+    "Instance Network guard is sampled read-only protection, not atomic Claim filtering",
+    "P3-P5 public Exec/files/ports/token/egress/checkpoint not enabled or tested"
+  ],
+  "mainResourceIntegration": {
+    "result": "not_verified",
+    "scope": "后续主Resource整合事项，不作为本轮Sandbox核心验收未完成",
+    "reason": "候选识别Network19，共享库已20；通过候选专用Network库标准迁移1–19完成Sandbox验证，未修改共享Network库或绕版本校验。",
+    "asOfUTC": "2026-10-27T13:28:25.023655+00:00",
+    "observedMainImage": "sha256:b7194ee3ebf9aa349baf4ef9d3f9214a3a610477435708a6027b134a1275061e",
+    "sourceRevisionLabel": "0402f2f",
+    "matchingSourceAvailable": false,
+    "evidence": {
+      "archive": "externalArchive",
+      "member": "live-final-fixes/final-main-resource-source-recheck.json",
+      "sha256": "25bb64c150af05b1f929da3c1c37e51186f07fa38b25c486e22a626d5857c6dd"
+    }
+  },
+  "codeChangeScope": "实测阶段未新增修改原工作区业务实现；候选包含既有Sandbox/Compute修复及入口兼容接线；编写过临时驱动。主Gov/主Resource部署未由本轮替换。",
+  "referenceConvention": "归档内的原文件名均指evidence-index.json定义的externalArchive成员，不是仓内本地文件。",
+  "sourceSummary": "source.json",
+  "evidenceIndex": "evidence-index.json",
+  "statusAuthority": "../../../status.md"
+}

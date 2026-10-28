@@ -1,0 +1,17 @@
+{
+  "namespace": {
+    "name": "tenant-432e7877-7596-48e6-b3a7-daec3ac6a073",
+    "uid": "9a833d21-4bc0-437d-ad1e-39932ccac27f",
+    "labels": {
+      "ani.io/test-run": "sandbox-live-20261027",
+      "kubernetes.io/metadata.name": "tenant-432e7877-7596-48e6-b3a7-daec3ac6a073",
+      "network.ani.io/managed-by": "ani-network-service",
+      "network.ani.io/tenant-id": "432e7877-7596-48e6-b3a7-daec3ac6a073"
+    }
+  },
+  "serviceAccount": {
+    "name": "workload",
+    "uid": "9aee2372-60b2-4599-8d72-68392562513f"
+  },
+  "source": "kubectl task-owned prerequisites; no business SQL mutation"
+}

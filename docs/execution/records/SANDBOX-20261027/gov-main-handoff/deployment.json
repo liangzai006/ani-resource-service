@@ -1,0 +1,8 @@
+{
+  "deployment": "ani-system/ani-governance",
+  "before_image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:6199d3b3f7f5a711f25f95393b972c686f57ed5beaf6940e3cf8603bb4997e8c",
+  "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:ac94b46fe0e81fe6bf5698797a8678fc9c4ebfff265d292439b0f7bd5727be7c",
+  "source_revision": "77e45579f7f77e294144eebd49c3ad39411284ac",
+  "generation": 83,
+  "pod_spec_other_settings_preserved": true
+}

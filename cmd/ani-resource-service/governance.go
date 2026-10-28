@@ -14,6 +14,7 @@ import (
 	imagev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/image/v1"
 	instancev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/instance/v1"
 	networkv1 "github.com/zhangzhe-ctrl/ani-resource-service/api/network/v1"
+	sandboxv1 "github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1"
 	storagev1 "github.com/zhangzhe-ctrl/ani-resource-service/api/storage/v1"
 	vmv1 "github.com/zhangzhe-ctrl/ani-resource-service/api/vm/v1"
 	"github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/network"
@@ -50,6 +51,11 @@ func runGovernance(bc *conf.Bootstrap, logger *slog.Logger) error {
 		return err
 	}
 	defer instances.Close()
+	sandboxes, err := openSandbox(context.Background(), compute, logger)
+	if err != nil {
+		return err
+	}
+	defer sandboxes.Close()
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	repository, err := data.OpenPostgres(ctx, bc.Network.DatabaseDsn, data.Placement{ClusterID: bc.Network.ClusterId, NamespacePrefix: bc.Network.NamespacePrefix})
 	cancel()
@@ -178,6 +184,9 @@ func runGovernance(bc *conf.Bootstrap, logger *slog.Logger) error {
 	if instances != nil {
 		instancev1.RegisterInstanceServiceServer(gs, instances.service)
 	}
+	if sandboxes != nil {
+		sandboxv1.RegisterSandboxServiceServer(gs, sandboxes.service)
+	}
 	if vms != nil {
 		vmv1.RegisterVMServiceServer(gs, vms.service)
 	}
@@ -195,6 +204,9 @@ func runGovernance(bc *conf.Bootstrap, logger *slog.Logger) error {
 	}
 	if imageRuntime != nil {
 		servers = append(servers, imageRuntime)
+	}
+	if sandboxes != nil {
+		servers = append(servers, sandboxes.execution)
 	}
 	if vms != nil && vms.console != nil {
 		servers = append(servers, vms.console)

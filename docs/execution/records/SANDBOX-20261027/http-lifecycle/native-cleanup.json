@@ -1,0 +1,34 @@
+{
+  "checkedAtUTC": "2026-10-27T07:48:25.508655+00:00",
+  "native": {
+    "sandbox-pvc": {
+      "name": "workspace-c7077711-beef-501d-960d-deabe62d415b",
+      "absent": true
+    },
+    "sandbox-pv": {
+      "name": "pvc-b941fc32-1293-40fa-96df-fe8ac9164773",
+      "absent": true
+    },
+    "sandbox-pod": {
+      "name": "sandbox-c7077711-beef-501d-960d-deabe62d415b",
+      "absent": true
+    },
+    "parent-pvc": {
+      "name": "workspace-7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+      "absent": true
+    },
+    "parent-pv": {
+      "name": "pvc-d2aeaa93-9502-40e4-b56c-065a91bacbd5",
+      "absent": true
+    },
+    "parent-pod": {
+      "name": "instance-7f9936af-5372-49bd-ba0a-aa9b6b704c35-0",
+      "absent": true
+    }
+  },
+  "parentNamespaceDeletionRequested": true,
+  "namespace": "tenant-432e7877-7596-48e6-b3a7-daec3ac6a073",
+  "namespaceUID": "9a833d21-4bc0-437d-ad1e-39932ccac27f",
+  "parentNamespaceAbsent": true,
+  "finalCheckedAtUTC": "2026-10-27T07:50:10.830941+00:00"
+}

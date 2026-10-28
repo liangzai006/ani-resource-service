@@ -26,7 +26,7 @@ func TestVirtualMachineScopeIsExplicitAndKeepsExistingUsages(t *testing.T) {
 		{"container cannot borrow VM", VMResolveMethod, ContainerInstance, true},
 		{"training cannot borrow VM", VMResolveMethod, Training, true},
 		{"missing usage", ResolveMethod, UsageUnspecified, true},
-		{"unknown usage", ResolveMethod, VirtualMachine + 1, true},
+		{"unknown usage", ResolveMethod, Sandbox + 1, true},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			ctx := WithScope(context.Background(), Scope{TenantID: tenant, Actor: "governance:user:42", RequestID: request, Workload: "ani-governance", Method: tc.method, Usage: tc.usage})

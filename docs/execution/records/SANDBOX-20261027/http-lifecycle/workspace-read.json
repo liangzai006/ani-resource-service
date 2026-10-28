@@ -1,0 +1,51 @@
+{
+  "atUTC": "2026-10-27T07:46:32.086119+00:00",
+  "method": "kubectl exec as workload UID, observational gate; no public Sandbox data-plane capability claimed",
+  "mode": "read",
+  "pod": {
+    "name": "sandbox-c7077711-beef-501d-960d-deabe62d415b",
+    "uid": "3ecbe98f-b3a9-423f-b44f-892e2b736b59",
+    "node": "node2",
+    "runtimeClass": "kata",
+    "imageID": "docker.changqingyun.cn/ani/sandbox-probe@sha256:66a6306db78bf2dbf3487f293aa8d6990d8e506fdffab9cc43fe422becf886e4"
+  },
+  "pvc": {
+    "name": "workspace-c7077711-beef-501d-960d-deabe62d415b",
+    "uid": "b941fc32-1293-40fa-96df-fe8ac9164773",
+    "volumeName": "pvc-b941fc32-1293-40fa-96df-fe8ac9164773"
+  },
+  "pv": {
+    "name": "pvc-b941fc32-1293-40fa-96df-fe8ac9164773",
+    "uid": "670ffc99-f5fe-47ae-8a56-8387169c8654",
+    "reclaimPolicy": "Delete",
+    "csi": {
+      "controllerExpandSecretRef": {
+        "name": "rook-csi-rbd-provisioner",
+        "namespace": "rook-ceph"
+      },
+      "controllerPublishSecretRef": {
+        "name": "rook-csi-rbd-provisioner",
+        "namespace": "rook-ceph"
+      },
+      "driver": "rook-ceph.rbd.csi.ceph.com",
+      "fsType": "ext4",
+      "nodeStageSecretRef": {
+        "name": "rook-csi-rbd-node",
+        "namespace": "rook-ceph"
+      },
+      "volumeAttributes": {
+        "clusterID": "rook-ceph",
+        "imageFeatures": "layering",
+        "imageFormat": "2",
+        "imageName": "csi-vol-6817d924-71e8-4936-b3b1-1fc4145800e5",
+        "journalPool": "ani-block-pool",
+        "pool": "ani-block-pool",
+        "storage.kubernetes.io/csiProvisionerIdentity": "1792633515311-6780-rook-ceph.rbd.csi.ceph.com"
+      },
+      "volumeHandle": "0001-0009-rook-ceph-0000000000000004-6817d924-71e8-4936-b3b1-1fc4145800e5"
+    }
+  },
+  "markerSHA256": "a4b2e19e48d52e5ecdd4f5f4f1e2f72be3b116f202006bbc426e103b94520b7a",
+  "guestOutput": "uid=10001 gid=10001 groups=10001\n6.18.56\nsandbox-http-f12b039b29f6dad834d3ec6f83bd4ab02d3210ec0963ee1aa81e639c522dcea2\na4b2e19e48d52e5ecdd4f5f4f1e2f72be3b116f202006bbc426e103b94520b7a  /workspace/sandbox-http-marker.txt\n",
+  "pass": true
+}

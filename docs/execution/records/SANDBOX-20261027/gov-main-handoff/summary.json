@@ -1,0 +1,216 @@
+{
+  "result": "PASS",
+  "governance": {
+    "branch": "main",
+    "revision": "77e45579f7f77e294144eebd49c3ad39411284ac",
+    "main_base": "917f623e4a0f42a7bfa30c40822b3046e9c88eea",
+    "worktree_clean": true,
+    "ahead_of_origin_main": 6,
+    "remote_pushed": false
+  },
+  "image": {
+    "tag": "10.10.1.66:30003/ani-gpu-platform/ani-governance:main-77e4557-20261027-112826",
+    "digest": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:ac94b46fe0e81fe6bf5698797a8678fc9c4ebfff265d292439b0f7bd5727be7c",
+    "revision": "77e45579f7f77e294144eebd49c3ad39411284ac",
+    "runtime_base": "gcr.io/distroless/static-debian12@sha256:afa5c872c891853ca7fcf1f12c3edb23f7eeef36189728842dd51042ff57f7ab",
+    "binary_sha256": "42745110bc7ff314c4e6333cb78b593892b7718009fdd3a07c54ed975e30484d",
+    "resource_api_manifest_sha256": "a450462ec50757430ebb845f82afcb0d25059a14ba32fd9cd73d8b5989841280",
+    "user": "65532",
+    "architecture": "amd64"
+  },
+  "deployment": {
+    "deployment": "ani-system/ani-governance",
+    "before_image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:6199d3b3f7f5a711f25f95393b972c686f57ed5beaf6940e3cf8603bb4997e8c",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:ac94b46fe0e81fe6bf5698797a8678fc9c4ebfff265d292439b0f7bd5727be7c",
+    "source_revision": "77e45579f7f77e294144eebd49c3ad39411284ac",
+    "generation": 83,
+    "pod_spec_other_settings_preserved": true
+  },
+  "validation": {
+    "go_test_cases_passed": 163,
+    "go_packages_passed": [
+      "go-wind-admin/pkg/constants",
+      "go-wind-admin/pkg/permcode",
+      "go-wind-admin/app/admin/service/internal/data",
+      "go-wind-admin/app/admin/service/internal/server",
+      "go-wind-admin/app/admin/service/internal/service"
+    ],
+    "openapi_script_tests_passed": 7,
+    "helm_lint_passed": true,
+    "postgres_integration": {
+      "image": "postgres@sha256:721873c34ceb9f8d8fc265984940dc982404c105f19ad51be9fdc5970a6080ea",
+      "container": "gov-main-acceptance-019004c9",
+      "exclusive": true,
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-tags=quota_pg",
+        "-p=1",
+        "-count=1",
+        "-timeout=3m",
+        "-v",
+        "./app/admin/service/internal/service",
+        "./app/admin/service/internal/server",
+        "-run",
+        "^(TestComputeCatalogCurrentUsageAuthorizationPostgres|TestQuotaInternalMTLSAndCumulativeRelease)$"
+      ],
+      "test_exit_code": 0,
+      "container_removed": true,
+      "credential_removed": true,
+      "passed": true
+    },
+    "cluster": {
+      "at": "2026-10-27T11:30:22.775970+00:00",
+      "checks": [
+        {
+          "name": "tenant_login",
+          "passed": true,
+          "http": 200
+        },
+        {
+          "name": "inference_services",
+          "passed": true,
+          "http": 200,
+          "path": "/api/v1/inference/services?page=1&page_size=10"
+        },
+        {
+          "name": "models",
+          "passed": true,
+          "http": 200,
+          "path": "/api/v1/models?page=1&page_size=10"
+        },
+        {
+          "name": "inference_presets",
+          "passed": true,
+          "http": 200,
+          "path": "/api/v1/compute-presets?usage=INFERENCE"
+        },
+        {
+          "name": "completed_refund_operation",
+          "passed": true,
+          "http": 200,
+          "phase": "succeeded",
+          "step": "complete",
+          "response_keys": [
+            "close_operation_id",
+            "completedAt",
+            "createdAt",
+            "errorCode",
+            "errorMessage",
+            "gov_dispatch_state",
+            "id",
+            "kind",
+            "phase",
+            "refund_state",
+            "serviceId",
+            "step",
+            "targetGeneration"
+          ]
+        },
+        {
+          "name": "higress_real_completion",
+          "passed": true,
+          "http": 200,
+          "choices_count": 1
+        },
+        {
+          "name": "higress_management_boundary",
+          "passed": true,
+          "http": 404
+        },
+        {
+          "name": "refund_ledger_unchanged",
+          "passed": true,
+          "charge_count": 1,
+          "original_units": 24570,
+          "released_units": 24570,
+          "receipt_count": 1
+        },
+        {
+          "name": "deployment_ready",
+          "passed": true,
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:ac94b46fe0e81fe6bf5698797a8678fc9c4ebfff265d292439b0f7bd5727be7c",
+          "ready": 1,
+          "updated": 1
+        },
+        {
+          "name": "cert_manager_ready",
+          "passed": true,
+          "certificates": [
+            {
+              "name": "ani-governance-client-tls",
+              "issuer": {
+                "group": "cert-manager.io",
+                "kind": "ClusterIssuer",
+                "name": "ani-ca"
+              },
+              "ready": true
+            },
+            {
+              "name": "ani-governance-server-tls",
+              "issuer": {
+                "group": "cert-manager.io",
+                "kind": "ClusterIssuer",
+                "name": "ani-ca"
+              },
+              "ready": true
+            }
+          ]
+        }
+      ],
+      "sandbox_catalog_observation": {
+        "http": 403,
+        "reason": "FORBIDDEN",
+        "scope": "Gov route and permission observation only; Resource rollout excluded"
+      },
+      "pods": [
+        {
+          "name": "ani-governance-78d57f9b64-bcpl7",
+          "phase": "Running",
+          "containers": [
+            {
+              "name": "governance",
+              "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:ac94b46fe0e81fe6bf5698797a8678fc9c4ebfff265d292439b0f7bd5727be7c",
+              "ready": true,
+              "restarts": 0
+            }
+          ]
+        }
+      ],
+      "credential_file_removed": true,
+      "passed": true
+    },
+    "runtime_logs": {
+      "pod": "ani-governance-78d57f9b64-bcpl7",
+      "selected_error_count": 0,
+      "selected_errors": []
+    }
+  },
+  "resource": {
+    "scope": "local API snapshot used only for Gov image build; no Resource source commit, publication or cluster deployment",
+    "local_api_files_unchanged": true,
+    "api_snapshot": {
+      "resource_base": "33ea63b4699e7d47fd0d86bef86ae8461033c869",
+      "overlays": {
+        "api/compute/v1/compute.proto": "f2220382e3e6a6eeda202cc138fa41fcba2977b168729b6fa0289a85fa51c994",
+        "api/compute/v1/compute.pb.go": "0e315109f86781a482b0d0571e77aaef845f45ba9e4a12141c4d5caeaf7cc578",
+        "api/sandbox/v1/intent.go": "483a424615f4b52b54d43dc9ff35e324587039439fadc1186a810c6110c28b1a",
+        "api/sandbox/v1/sandbox.pb.go": "841d1999e7b24914e0737603f479b9d362302baa6e7101b5ed702779d5f34518",
+        "api/sandbox/v1/sandbox.proto": "5e8f4efe535248334909a7cb6c93ae9d01d4f2bf91dd7d85aa3c2e09561c2db1",
+        "api/sandbox/v1/sandbox_grpc.pb.go": "ffa9f44bcb19f9f0f15ba651c281cde6b3a9f57efff050ede80ca5172a8ea927"
+      },
+      "purpose": "Frozen local API dependency for Gov build; Resource worktree unchanged"
+    }
+  },
+  "sandbox_limit": {
+    "catalog_http": 403,
+    "full_lifecycle_acceptance_performed": false,
+    "reason": "Tenant authorization denies Sandbox catalog; Resource changes explicitly excluded"
+  },
+  "cleanup": {
+    "registry_credentials_removed": true,
+    "tenant_credentials_removed": true,
+    "isolated_postgres_removed": true
+  }
+}

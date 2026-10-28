@@ -1,0 +1,31 @@
+{
+  "host": "ubuntu",
+  "repository": "/root/kubercon/ani-governance",
+  "head": "5eedeb8e31e9582ac9ef60c6249de40cde7355ad",
+  "files": {
+    "app/admin/service/internal/data/sandbox_client.go": "0723dfea6640c4995fc9ab1e1a2e5ca4601602c2943e03b02ca49a14eae34f02",
+    "app/admin/service/internal/service/sandbox_service.go": "9a55305ad4fc9632f875168d3c84461d641438390521954db3f166ba755d115a",
+    "app/admin/service/internal/service/sandbox_service_test.go": "695c24b8efa323a4d403f0d93d786c764c983c83e37723d22606eb53ef00fd0e",
+    "app/admin/service/internal/server/sandbox_http.go": "dfcd18638bcc15d321d9434ac1ebc4a30616ec9248492920d7d31a2a9e7da9df",
+    "app/admin/service/internal/server/sandbox_http_test.go": "eff26a3e96f96aa31f69d725f0c19553a1fb675d822800718f5c7408be45a412",
+    "app/admin/service/internal/server/rest_server.go": "c522bb00610feece4a7d8a857210e7139a3dea38cc24d6c9c558dff964402319",
+    "docs/contracts/frontend-http-api.md": "57fe36eec4b8bd34ed6886318ada7fbf9e09333a9380255fd3f2c687c61fe000",
+    "docs/contracts/service-to-service-calls.md": "156c35f3a8d07391ea1649996ce13af2eb684cafc5e25b627fe74aea8d9e1d6c",
+    "docs/interface-integration-register.md": "24c08fdecfed2b9050b234295781119540746b29caa043166a0efc35d6d62908",
+    "go.mod": "f021e95c0d916af0c3a4d7f24740a91158bba1ac2f5631979e1e799dc79face6",
+    "go.sum": "6175352592782647b5b7edc9605a48d0c09dc162b2627f81007ab478ec72695d"
+  },
+  "resourceAPI": {
+    "api/sandbox/v1/intent.go": "483a424615f4b52b54d43dc9ff35e324587039439fadc1186a810c6110c28b1a",
+    "api/sandbox/v1/sandbox.proto": "5e8f4efe535248334909a7cb6c93ae9d01d4f2bf91dd7d85aa3c2e09561c2db1",
+    "api/sandbox/v1/sandbox.pb.go": "841d1999e7b24914e0737603f479b9d362302baa6e7101b5ed702779d5f34518"
+  },
+  "toolchain": "Go1.26.10 linux/amd64",
+  "environment": {
+    "CGO_ENABLED": "0",
+    "GOTOOLCHAIN": "go1.26.10",
+    "GOWORK": "off",
+    "GOMAXPROCS": "2",
+    "GOFLAGS": "-p=2"
+  }
+}

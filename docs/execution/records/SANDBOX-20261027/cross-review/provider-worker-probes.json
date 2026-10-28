@@ -1,0 +1,32 @@
+{
+  "host": "ubuntu",
+  "source": "/root/kubercon/ani-resource-service",
+  "sourceFiles": {
+    "go.mod": "83737a930f230fd210a0d2f2d32f9ee91b2b080da886488f2e91c18b4e611361",
+    "go.sum": "ea4437a3d55b58ea0bad675b6ac8757aa2bc292743048795e5f98d6022957a90",
+    "internal/data/sandbox/provider.go": "787cdfd79eaad8d6b362b0512b95c5e6e992223b6c24bbb53dc7f1dee766736c",
+    "internal/data/sandbox/provider_test.go": "2ad688d23671d8a31469d57cfacd854eacdbf5acf32bb8b8d64f19bc44327ed7",
+    "internal/biz/sandbox/worker.go": "627d8710a8f7159d1ff3235cc2299ecde92a6d5423858fe7ce39081346ee1cf2",
+    "internal/biz/sandbox/types.go": "a99bc0b279a5acf478ad27a55d23f509cec2fdb0db36058dc290fc409aaec067",
+    "internal/biz/compute/presets.go": "11a48a718756f48b4df3bfdbb7f443467fec007c7a6e3116ed71a024649d1518",
+    "internal/biz/compute/resolution.go": "bafee61aa02a846dbf48803efb8e663309c4b22e6fd359340a2704c7394e2f67"
+  },
+  "command": [
+    "/root/.config/.gvm/go/gopath/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+    "test",
+    "-mod=readonly",
+    "-count=1",
+    "-timeout=45s",
+    "./internal/data/sandbox",
+    "-run",
+    "^TestCrossReview",
+    "-v"
+  ],
+  "probeSHA256": "6fd2fbc4fc3cb5f3ae88138e34296c084e1c6f99ac710d52eef022a78d891404",
+  "exitCode": 0,
+  "stdout": "=== RUN   TestCrossReviewWFFCPauseCannotConverge\n    cross_review_test.go:29: verified: WFFC PVC Pending + accepted pause + no Pod => five cycles remain observed=provisioning, mutations=0, originalPVC=provider-uid-1; no consumer can bind claim\n--- PASS: TestCrossReviewWFFCPauseCannotConverge (0.00s)\n=== RUN   TestCrossReviewLostWorkspaceBlocksPauseOfKnownPod\n    cross_review_test.go:43: verified: original owned ReadyPod UID=provider-uid-3 remains after five pause cycles, mutationCount=0 observed=unknown reason=WORKSPACE_LOST\n--- PASS: TestCrossReviewLostWorkspaceBlocksPauseOfKnownPod (0.00s)\nPASS\nok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/data/sandbox\t0.006s\n",
+  "stderr": "",
+  "elapsedSeconds": 1.317,
+  "sourceUnchanged": true,
+  "temporarySourceRemoved": true
+}

@@ -1,0 +1,39 @@
+{
+  "account": "tenant",
+  "method": "GET",
+  "path": "/api/v1/instances/7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+  "httpStatus": 200,
+  "body": {
+    "id": "7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+    "name": "sandbox-live-20261027-parent",
+    "version": "2",
+    "desiredState": "deleted",
+    "observedState": "deleted",
+    "reason": "",
+    "imageId": "img_23d024b1b5e343cb82b38bae83196ccd",
+    "imageDigest": "sha256:ebac1666cc6e14b91314c4c8ae2be0c5bec5af07ebf26fac5075e55c33b516d5",
+    "presetId": "9f5a0625-1eab-4a65-95af-68962138ef86",
+    "createOperationId": "1bb9e65d-0758-4c96-a22b-fcf1b0baf37f",
+    "lastOperationId": "27b3193d-b84e-4f01-b274-3aa535ee0dc9",
+    "computeCleaned": true,
+    "workspaceCleaned": true,
+    "quotaReturned": true,
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "cpu": "1000m",
+    "memory": "2048Mi",
+    "createdAt": "2026-10-27T07:31:10.877082Z",
+    "workspaceSize": "10Gi",
+    "preset_name": "ModelDev v2.1 CPU 1C 2GiB",
+    "preset_code": "modeldev-v21-cpu-1c-2g",
+    "gpu_summary": null,
+    "scheduling": {
+      "pod_placement": "NONE"
+    },
+    "networkState": "not_requested",
+    "networkReason": "",
+    "networkCleaned": true,
+    "volumeReferencesReleased": true
+  },
+  "requestId": "sandbox-live-261ec603ac90d20add25"
+}

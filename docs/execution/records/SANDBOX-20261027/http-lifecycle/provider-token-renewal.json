@@ -1,0 +1,7 @@
+{
+  "renewedAtUTC": "2026-10-27T07:28:20.876474+00:00",
+  "subject": "system:serviceaccount:ani-sandbox-integration-20261027:sandbox-provider",
+  "expiresAtUTC": "2026-10-27T09:28:18+00:00",
+  "roleUnchanged": true,
+  "context": "kubernetes-admin@ani-kcn-full"
+}

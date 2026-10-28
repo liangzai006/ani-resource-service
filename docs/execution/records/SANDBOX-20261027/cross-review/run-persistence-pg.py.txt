@@ -1,0 +1,55 @@
+from pathlib import Path
+import hashlib,json,os,secrets,socket,subprocess,sys,tempfile,time
+
+base=Path(__file__).resolve().parent
+phase,source=sys.argv[1],Path(sys.argv[2]).resolve()
+image='docker.io/library/postgres@sha256:18cfe3ef5e6815560c98237d6216d1e5119702fb0f3894c8785dd58b8bbe5d73'
+name='sandbox-replay-pg-'+phase+'-'+secrets.token_hex(4)
+private=Path(tempfile.mkdtemp(prefix='sandbox-replay-pg-private-',dir=base))
+private.chmod(0o700)
+envfile=private/'postgres.env'
+dsnfile=private/'admin.dsn'
+password=secrets.token_hex(32)
+envfile.write_text('POSTGRES_PASSWORD='+password+'\n');envfile.chmod(0o600)
+result={'phase':phase,'host':socket.gethostname(),'execution':'direct execution on authorized ubuntu host',
+ 'source':str(source),'postgresImage':image,'container':name,'commands':[],
+ 'sourceFiles':{str(p.relative_to(source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [source/'internal/data/sandbox/postgres.go',source/'internal/data/sandbox/postgres_integration_test.go',source/'migrations/sandbox/003_recovery_and_create_intent.sql',source/'internal/biz/sandbox/types.go']}}
+logpath=base/('sandbox-replay-'+phase+'.log')
+result['log']=str(logpath)
+try:
+ with logpath.open('w') as log:
+  command=['docker','run','-d','--name',name,'--label','ani.task=sandbox-replay-20261027',
+   '--memory=768m','--memory-swap=768m','--cpus=1','--mount','type=tmpfs,destination=/var/lib/postgresql',
+   '--env-file',str(envfile),'-p','127.0.0.1::5432',image]
+  result['commands'].append(command)
+  subprocess.run(command,check=True,stdout=log,stderr=subprocess.STDOUT)
+  deadline=time.monotonic()+45
+  while subprocess.run(['docker','exec',name,'pg_isready','-h','127.0.0.1','-U','postgres'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode:
+   if time.monotonic()>deadline:raise RuntimeError('PostgreSQL readiness deadline exceeded')
+   time.sleep(.5)
+  port=subprocess.check_output(['docker','port',name,'5432/tcp'],text=True).strip().rsplit(':',1)[1]
+  if not port.isdigit():raise RuntimeError('invalid loopback port')
+  result['loopbackPort']=int(port)
+  result['postgresVersion']=subprocess.check_output(['docker','exec',name,'psql','-XAt','-U','postgres','-c','SELECT version()'],text=True).strip()
+  dsnfile.write_text('postgres://postgres:'+password+'@127.0.0.1:'+port+'/postgres?sslmode=disable');dsnfile.chmod(0o600)
+  env=os.environ.copy();env.update({'SANDBOX_TEST_ADMIN_DSN_FILE':str(dsnfile),'GOMAXPROCS':'2','GOFLAGS':'-p=2','GOMEMLIMIT':'1536MiB','GOTOOLCHAIN':'local','GOWORK':'off'})
+  toolchain=Path(subprocess.check_output(['go','env','GOROOT'],cwd=source,text=True).strip())/'bin/go'
+  env['GOROOT']=str(toolchain.parent.parent)
+  env['PATH']=str(toolchain.parent)+os.pathsep+env.get('PATH','')
+  result['goVersion']=subprocess.check_output([str(toolchain),'version'],env=env,text=True).strip()
+  command=[str(toolchain),'test','-tags=sandboxintegration','-count=1','-timeout=3m','./internal/data/sandbox','-run','^TestCrossReview','-v']
+  result['commands'].append(command)
+  completed=subprocess.run(command,cwd=source,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=240)
+  result['testExitCode']=completed.returncode
+  result['result']='pass' if completed.returncode==0 else 'fail'
+except Exception as exc:
+ result['error']=type(exc).__name__+': '+str(exc)
+ result['result']='fail'
+finally:
+ removed=subprocess.run(['docker','rm','-f','-v',name],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+ absent=subprocess.run(['docker','container','inspect',name],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode!=0
+ envfile.unlink(missing_ok=True);dsnfile.unlink(missing_ok=True);private.rmdir()
+ result['cleanup']={'containerRemovalExitCode':removed.returncode,'containerAbsent':absent,'privateDirectoryAbsent':not private.exists(),'credentialFilesAbsent':not envfile.exists() and not dsnfile.exists(),'storage':'task-owned tmpfs; docker rm -v'}
+ (base/('sandbox-replay-'+phase+'-result.json')).write_text(json.dumps(result,indent=2)+'\n')
+ print(json.dumps({'phase':phase,'result':result['result'],'testExitCode':result.get('testExitCode'),'cleanup':result['cleanup'],'log':str(logpath)}))
+sys.exit(result.get('testExitCode',1) if result['cleanup']['containerAbsent'] else 1)

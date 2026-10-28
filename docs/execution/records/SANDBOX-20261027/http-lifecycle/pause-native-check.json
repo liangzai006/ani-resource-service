@@ -1,0 +1,8 @@
+{
+  "atUTC": "2026-10-27T07:40:47.966111+00:00",
+  "oldPodAbsent": true,
+  "oldTargetExecRejected": "Error from server (NotFound): pods \"sandbox-c7077711-beef-501d-960d-deabe62d415b\" not found",
+  "pvcUIDPreserved": true,
+  "pvcUID": "b941fc32-1293-40fa-96df-fe8ac9164773",
+  "pvName": "pvc-b941fc32-1293-40fa-96df-fe8ac9164773"
+}

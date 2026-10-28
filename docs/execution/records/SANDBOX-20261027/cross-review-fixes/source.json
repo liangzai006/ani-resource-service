@@ -1,0 +1,47 @@
+{
+  "host": "ubuntu",
+  "resource": {
+    "head": "3a1c8756fbe1ac24cee5b16a9a1afe0f6b79dfca",
+    "files": {
+      "internal/biz/sandbox/types.go": "0e73c61def03b1b7ef189629b6e1738baaef6e5cbfa68d1535bbda18d956a8f2",
+      "internal/biz/sandbox/worker.go": "855abce0efec77841f407674d808e8ad96cbc979cf141f44bcf2375b2b07abd4",
+      "internal/biz/sandbox/worker_test.go": "35ed3c015833daafe679aca5b91d820853db8f6261b2de5b4dfb0b9acda3a5d3",
+      "internal/data/sandbox/postgres.go": "a5dc505462efaa5d95e53e700cfc35069b84aceddbfebfc85e1eb529dfd2d586",
+      "internal/data/sandbox/postgres_integration_test.go": "67057e8a7e208e187fe10c7847cc89a4631de10c02aeb99615035128b55b070c",
+      "internal/data/sandbox/provider.go": "a71b64db49b58fb25074d423ef1f93e121b9d8746793605aa928fd37c6e06311",
+      "internal/data/sandbox/provider_test.go": "7fb2ac8c4262b2824123059b76fd554175d8d518c9eff01f41c5ff3f1684dbb4",
+      "internal/data/sandbox/provider_worker_test.go": "19364a1df0bfdf66a044bc9a9a54aa185641b970b3010de931caa3417b1998e7",
+      "internal/data/sandbox/lifecycle_integration_test.go": "8c90d312bbc001e2cffff5d4548081eb589a94aa6ebfd906e042d9b960175b35",
+      "cmd/ani-resource-service/sandbox.go": "2e665e45fc19e9ebec032bea51b870ff5f58025859645b0eb640cf7c4980b336",
+      "api/sandbox/v1/sandbox.proto": "5e8f4efe535248334909a7cb6c93ae9d01d4f2bf91dd7d85aa3c2e09561c2db1",
+      "api/sandbox/v1/sandbox.pb.go": "841d1999e7b24914e0737603f479b9d362302baa6e7101b5ed702779d5f34518",
+      "api/sandbox/v1/intent.go": "483a424615f4b52b54d43dc9ff35e324587039439fadc1186a810c6110c28b1a",
+      "go.mod": "83737a930f230fd210a0d2f2d32f9ee91b2b080da886488f2e91c18b4e611361",
+      "go.sum": "ea4437a3d55b58ea0bad675b6ac8757aa2bc292743048795e5f98d6022957a90",
+      "migrations/sandbox/001_sandbox.sql": "95dd41f0b9f420973a9fc209a65a20d546c34b070aa41f6996bc7ca56f61fbf0",
+      "migrations/sandbox/002_workspace_bindings.sql": "f8e4ffe18f7c003374f53da68aff4c1e56903d47142eb6a4fc2fc2b34a4bb0c8",
+      "migrations/sandbox/003_recovery_and_create_intent.sql": "5b4391896c28ecfa743f4ed376d50fcac272c3bc427464a475610055879fc662",
+      "docs/plans/sandbox-runtime-design-20261025.md": "87574359be5675cbcae0c7ba37131a6e4040f45cdf957fca823fb782d019144a"
+    }
+  },
+  "governance": {
+    "head": "5eedeb8e31e9582ac9ef60c6249de40cde7355ad",
+    "files": {
+      "app/admin/service/internal/service/sandbox_service.go": "0d5a585db922896bec630111d1e73bb570cd7148bc6cfd6dd2e90e6cb9257e00",
+      "app/admin/service/internal/service/sandbox_service_test.go": "369beadc43a7552de5985ed410bd83dd320724426c526a4e7ab11c77bad84d64",
+      "app/admin/service/internal/server/sandbox_http.go": "dfcd18638bcc15d321d9434ac1ebc4a30616ec9248492920d7d31a2a9e7da9df",
+      "app/admin/service/internal/server/sandbox_http_test.go": "15137ec4ccfef2704da0496ad55806a0e8af8d367610be25bcc043745bcab880",
+      "app/admin/service/internal/data/sandbox_client.go": "0723dfea6640c4995fc9ab1e1a2e5ca4601602c2943e03b02ca49a14eae34f02",
+      "go.mod": "f021e95c0d916af0c3a4d7f24740a91158bba1ac2f5631979e1e799dc79face6",
+      "go.sum": "6175352592782647b5b7edc9605a48d0c09dc162b2627f81007ab478ec72695d",
+      "docs/contracts/frontend-http-api.md": "62122a2d762bb28a1586c99077624a1f4443ce4a9959bf2e06d12838339f4054"
+    }
+  },
+  "toolchain": "Go1.26.10/CGO_ENABLED=0/GOWORK=off/GOMAXPROCS=2/GOFLAGS=-p=2",
+  "baseSnapshot": "../review-fixes/source.json + source.tar.gz; this archive overlays changed source and tests onto the prior snapshot/dirty repository HEADs",
+  "archive": {
+    "path": "source.tar.gz",
+    "sha256": "3d1a5b0ad4dbfffb51db00020d84dcc6b239a4c608ee416e76625f0a46be22b0",
+    "bytes": 127131
+  }
+}

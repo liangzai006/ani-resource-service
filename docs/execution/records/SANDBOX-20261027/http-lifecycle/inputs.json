@@ -1,0 +1,107 @@
+{
+  "tenantCode": "sandbox-live-20261027",
+  "tenantID": 3,
+  "planID": 4,
+  "grants": [
+    1,
+    23,
+    24,
+    25,
+    28,
+    29,
+    30,
+    288,
+    289,
+    290,
+    291,
+    292,
+    293,
+    294,
+    295
+  ],
+  "parentID": "7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+  "parentCreateBody": {
+    "data": {
+      "idempotencyKey": "83f2a80b-556f-4f9b-aefd-ab45c478a7fc",
+      "name": "sandbox-live-20261027-parent",
+      "imageId": "img_23d024b1b5e343cb82b38bae83196ccd",
+      "imageScope": "platform",
+      "presetId": "9f5a0625-1eab-4a65-95af-68962138ef86"
+    }
+  },
+  "sandboxID": "c7077711-beef-501d-960d-deabe62d415b",
+  "sandboxCreateBody": {
+    "data": {
+      "idempotency_key": "sandbox-live-20261027-create",
+      "name": "sandbox-http-lifecycle",
+      "image_reference": "docker.changqingyun.cn/ani/sandbox-probe:sandbox-20261027-busybox137@sha256:66a6306db78bf2dbf3487f293aa8d6990d8e506fdffab9cc43fe422becf886e4",
+      "preset_id": "9f5a0625-1eab-4a65-95af-68962138ef86",
+      "workspace_size": "10Gi",
+      "instance_id": "7f9936af-5372-49bd-ba0a-aa9b6b704c35"
+    }
+  },
+  "sandboxBase": "/api/v1/instances/7f9936af-5372-49bd-ba0a-aa9b6b704c35/sandbox",
+  "resourceTenantID": "432e7877-7596-48e6-b3a7-daec3ac6a073",
+  "minimalPlanModules": [
+    "INSTANCE"
+  ],
+  "isolationTenantID": 4,
+  "isolationRoleID": 7,
+  "pauseBody": {
+    "data": {
+      "sandbox_id": "c7077711-beef-501d-960d-deabe62d415b",
+      "instance_id": "7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+      "idempotency_key": "sandbox-live-20261027-pause",
+      "expected_version": "1"
+    }
+  },
+  "resumeBody": {
+    "data": {
+      "sandbox_id": "c7077711-beef-501d-960d-deabe62d415b",
+      "instance_id": "7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+      "idempotency_key": "sandbox-live-20261027-resume",
+      "expected_version": "2"
+    }
+  },
+  "deleteBody": {
+    "data": {
+      "sandbox_id": "c7077711-beef-501d-960d-deabe62d415b",
+      "instance_id": "7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+      "idempotency_key": "sandbox-live-20261027-delete",
+      "expected_version": "3"
+    }
+  },
+  "parentDeleteBody": {
+    "data": {
+      "instanceId": "7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+      "idempotencyKey": "5516480f-2acc-41fe-85e3-6e056a6f5625",
+      "expectedVersion": "1"
+    }
+  },
+  "parentDelete": {
+    "account": "tenant",
+    "method": "DELETE",
+    "path": "/api/v1/instances/7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+    "httpStatus": 202,
+    "body": {
+      "operationId": "27b3193d-b84e-4f01-b274-3aa535ee0dc9",
+      "resourceId": "7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+      "replayed": false,
+      "result": "QUEUED_FOR_OWNER"
+    },
+    "requestId": "sandbox-live-c050df3cb0e515a2978c"
+  },
+  "delete": {
+    "account": "tenant",
+    "method": "DELETE",
+    "path": "/api/v1/instances/7f9936af-5372-49bd-ba0a-aa9b6b704c35/sandbox/c7077711-beef-501d-960d-deabe62d415b",
+    "httpStatus": 200,
+    "body": {
+      "operation_id": "247794e8-ba14-4f7e-b929-2f6306e9f04e",
+      "resource_id": "c7077711-beef-501d-960d-deabe62d415b",
+      "accepted": true,
+      "replayed": false
+    },
+    "requestId": "sandbox-live-e78612ea6e42f8a05fb6"
+  }
+}

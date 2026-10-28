@@ -1,0 +1,28 @@
+package sandbox
+import(
+ "context"
+ "testing"
+ biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/sandbox"
+ metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+ "k8s.io/apimachinery/pkg/runtime"
+ "k8s.io/apimachinery/pkg/runtime/schema"
+ "k8s.io/client-go/dynamic/fake"
+)
+func TestCrossReviewDifferentClusterFalselyProvesOriginalCleanup(t *testing.T){
+ original,providerA,s:=providerFixture(t)
+ s.Snapshot.ClusterID="aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+ applyProvider(t,providerA,&s,biz.MutationCreateWorkspace);providerBoundWorkspace(t,original,s);applyProvider(t,providerA,&s,biz.MutationCreatePod);providerPodStatus(t,original,s,"Running","True",true);observeProvider(t,providerA,&s)
+ emptyCluster:=fake.NewSimpleDynamicClientWithCustomListKinds(runtime.NewScheme(),map[schema.GroupVersionResource]string{pvGVR:"PersistentVolumeList"})
+ providerB,err:=NewKubernetesProvider(emptyCluster);if err!=nil{t.Fatal(err)}
+ s.Desired=biz.DesiredDeleted
+ obs,err:=providerB.Observe(context.Background(),s);if err!=nil{t.Fatal(err)}
+ if obs.Observed!=biz.ObservedDeleted||obs.ProviderRefs.CleanupReceipt==""{t.Fatalf("actual behavior changed: %#v",obs)}
+ for _,resource:=range []struct{gvr schema.GroupVersionResource;name,namespace,uid string}{
+  {pvcGVR,s.ProviderRefs.PVCName,s.Snapshot.Namespace,s.ProviderRefs.PVCUID},
+  {podGVR,s.ProviderRefs.PodName,s.Snapshot.Namespace,s.ProviderRefs.PodUID},
+  {pvGVR,s.ProviderRefs.PVName,"",s.ProviderRefs.PVUID},
+ }{
+  object,readErr:=original.Resource(resource.gvr).Namespace(resource.namespace).Get(context.Background(),resource.name,metav1.GetOptions{});if readErr!=nil||string(object.GetUID())!=resource.uid{t.Fatalf("original %s changed: err=%v",resource.gvr.Resource,readErr)}
+ }
+ t.Logf("verified: empty clusterB returned observed=%s cleanupReceipt=%s for frozen clusterA=%s while original Pod/PVC/PV all still exist in A with exact original UIDs",obs.Observed,obs.ProviderRefs.CleanupReceipt,s.Snapshot.ClusterID)
+}

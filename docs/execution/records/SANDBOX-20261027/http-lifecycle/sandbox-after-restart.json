@@ -1,0 +1,50 @@
+{
+  "account": "tenant",
+  "method": "GET",
+  "path": "/api/v1/instances/7f9936af-5372-49bd-ba0a-aa9b6b704c35/sandbox/c7077711-beef-501d-960d-deabe62d415b",
+  "httpStatus": 200,
+  "body": {
+    "id": "c7077711-beef-501d-960d-deabe62d415b",
+    "instance_id": "7f9936af-5372-49bd-ba0a-aa9b6b704c35",
+    "version": "2",
+    "desired_state": "paused",
+    "observed_state": "paused",
+    "reason": "",
+    "create_operation_id": "15ca5240-cf9b-577a-a46c-bb60306b9321",
+    "last_operation_id": "4712a44e-18e9-4ad6-9d7f-52384737cb18",
+    "snapshot": {
+      "name": "sandbox-http-lifecycle",
+      "image_reference": "docker.changqingyun.cn/ani/sandbox-probe:sandbox-20261027-busybox137@sha256:66a6306db78bf2dbf3487f293aa8d6990d8e506fdffab9cc43fe422becf886e4",
+      "preset_id": "9f5a0625-1eab-4a65-95af-68962138ef86",
+      "image_digest": "sha256:66a6306db78bf2dbf3487f293aa8d6990d8e506fdffab9cc43fe422becf886e4",
+      "cpu_millis": "1000",
+      "memory_mib": "2048",
+      "compute_type": "cpu",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "ani-sandbox-integration-20261027",
+      "runtime_class": "kata",
+      "selection_digest": "e21a6d593c0044b7963518fff122f2ce4a1764b8f74d877595c66696d831ff2f",
+      "preset_code": "modeldev-v21-cpu-1c-2g",
+      "preset_name": "ModelDev v2.1 CPU 1C 2GiB",
+      "spec_digest": "dfe9a35823205730bcb5e2630e710a61ce9bd114fb8ae671b8f51a550e69aea6",
+      "workspace": {
+        "mount_path": "/workspace",
+        "size": "10Gi",
+        "storage_class": "ani-block",
+        "reclaim_policy": "Delete"
+      }
+    },
+    "provider_refs": {
+      "pvc_name": "workspace-c7077711-beef-501d-960d-deabe62d415b",
+      "pvc_uid": "b941fc32-1293-40fa-96df-fe8ac9164773",
+      "pod_name": "sandbox-c7077711-beef-501d-960d-deabe62d415b",
+      "pod_uid": "",
+      "resource_version": "4684627",
+      "cleanup_receipt": "",
+      "pvc_resource_version": "4684627",
+      "pod_resource_version": ""
+    },
+    "observed_at": "2026-10-27T07:46:02.222348Z"
+  },
+  "requestId": "sandbox-live-123a20d02d28654b70c5"
+}

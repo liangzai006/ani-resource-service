@@ -1,6 +1,8 @@
 # Governance → Resource 调用登记
 
-本登记覆盖 Network/Image/Instance 用户业务委托，统一规则见 [ANI 服务间调用规范](https://github.com/zhangzhe-ctrl/ani-governance/blob/8724a32ab7dda903e1c67def28ad206a06d09c44/docs/contracts/service-to-service-calls.md)。平台网络及实例使用原业务委托身份；实例 owner 退额另走既有 QuotaReleaseService 的受管 owner 身份。
+本登记覆盖 Network/Image/Instance/Sandbox 用户业务委托，统一规则见 [ANI 服务间调用规范](https://github.com/zhangzhe-ctrl/ani-governance/blob/8724a32ab7dda903e1c67def28ad206a06d09c44/docs/contracts/service-to-service-calls.md)。平台网络及实例使用原业务委托身份；实例 owner 退额另走既有 QuotaReleaseService 的受管 owner 身份。
+
+Sandbox 条目当前表示 Resource 侧已冻结的 RPC 合同和精确接收方 allowlist。Governance BFF 的 HTTP 客户端、路由、权限目录和真实跨仓联调仍待包含 `api/sandbox/v1` 的正式 Resource API module 发布；在该 artifact 发布前，不使用本地 `replace`、复制生成代码或把 Resource 本地工作区当作已完成的 Gov 接入。
 
 ## 身份、范围和入口
 
@@ -70,8 +72,16 @@
 | `/instance.v1.InstanceService/GetInstanceRuntime` | 只读当前owner UID链，不调用Observe/签名 |
 | `/instance.v1.InstanceService/ListInstanceEvents` | 当前Pod UID的core/v1 Events，有限读取，无持久化 |
 | `/instance.v1.InstanceService/ResolveTerminalTarget` | 保存位置 + 当前业务版本与真实 UID |
+| `/sandbox.v1.SandboxService/ResolveCreateSpec` | 解析冻结规格；preset 用途固定 SANDBOX |
+| `/sandbox.v1.SandboxService/AcceptCreate` | operation/resource_id 与持久 ACK；实例 ID 仅作 opaque owner reference |
+| `/sandbox.v1.SandboxService/GetSandbox` | 查询持久快照与 Provider 观察 |
+| `/sandbox.v1.SandboxService/ListSandboxes` | tenant + `instance_id` 父资源范围分页查询 |
+| `/sandbox.v1.SandboxService/GetOperation` | tenant + `instance_id` 父资源范围查询持久操作状态 |
+| `/sandbox.v1.SandboxService/Pause` | `instance_id` + 原键 + expected_version |
+| `/sandbox.v1.SandboxService/Resume` | `instance_id` + 原键 + expected_version |
+| `/sandbox.v1.SandboxService/Delete` | `instance_id` + 原键 + expected_version；等待真实 Provider 清理 |
 
-接收方允许清单实现为 [governance.go](../../internal/server/governance.go)、[image_identity.go](../../internal/server/image_identity.go)、[compute_identity.go](../../internal/server/compute_identity.go) 与 [instance_identity.go](../../internal/server/instance_identity.go)。Instance 普通 unary 调用上限 30s，后台投递继承其更短 deadline；StreamInstanceLogs 使用独立有限生命周期，不套此总期限。修改调用时同时修改登记、允许清单和真实链路测试，不使用 RPC 前缀或通配符授权。
+接收方允许清单实现为 [governance.go](../../internal/server/governance.go)、[image_identity.go](../../internal/server/image_identity.go)、[compute_identity.go](../../internal/server/compute_identity.go) 与 [instance_identity.go](../../internal/server/instance_identity.go) 与 [sandbox_identity.go](../../internal/server/sandbox_identity.go)。Instance 普通 unary 调用上限 30s，后台投递继承其更短 deadline；StreamInstanceLogs 使用独立有限生命周期，不套此总期限。修改调用时同时修改登记、允许清单和真实链路测试，不使用 RPC 前缀或通配符授权。
 
 `/instance.terminal.v1.InstanceTerminalService/ValidateTerminalTarget` 不在 Gov 委托清单中。它由 Resource 同进程独立 mTLS listener 仅授权唯一 SG URI `spiffe://ani.internal/service/ani-session-gateway`，核对持久意图/版本、保存位置、Notebook/Pod UID、容器及当前 provider 观察。详见 [运行与恢复](../runbooks/instance-mvp-fedora.md)。
 
@@ -103,9 +113,9 @@ PlatformNetworkService 的完整 27 方法由 [平台允许清单](../../interna
 
 平台规格方法为 `/compute.v1.ComputePresetService/AdminListPresets`、`AdminGetPreset`、`AdminCreatePreset`、`AdminUpdatePreset`、`AdminSetPresetEnabled`、`AdminDeletePreset`（后五项完整前缀均为 `/compute.v1.ComputePresetService/`）。逐完整方法授权，使用同一 mTLS 的平台互斥委托，不发 tenant_id；接收后注入 compute 专用 Scope。CRUD 仅写 Resource 的 compute.presets，不创建或修改 ACC Profile。Gov 入口 owner=ComputePresetService，既有SYSTEM分类，精确 compute:preset:admin 五码；目录拆分不修改用户套餐或自动补权。
 
-公共 ListPresets/ResolveComputePreset 使用可信租户、actor与request_id，以及明确的 CONTAINER_INSTANCE、TRAINING、INFERENCE 或 VIRTUAL_MACHINE；未知/UNSPECIFIED及未登记调用者用途拒绝。当前唯一直接调用服务是经证书验证的 Gov。受信Scope记录完整RPC、服务身份与用途；报文tenant须与委托一致，平台范围不能调用租户解析。容器完整ResolveCreateSpec内部适配同一范围并固定CONTAINER_INSTANCE；VM完整ResolveCreateSpec固定VIRTUAL_MACHINE（4），两者方法/用途不可互借；compute不依赖实例Caller或业务环境。字段/单位/确定性摘要及错误边界的唯一来源为[算力目录合同](compute-presets.md)。
+公共 ListPresets/ResolveComputePreset 使用可信租户、actor与request_id，以及明确的 CONTAINER_INSTANCE、TRAINING、INFERENCE、VIRTUAL_MACHINE 或 SANDBOX；未知/UNSPECIFIED及未登记调用者用途拒绝。当前唯一直接调用服务是经证书验证的 Gov。受信Scope记录完整RPC、服务身份与用途；报文tenant须与委托一致，平台范围不能调用租户解析。容器完整ResolveCreateSpec内部适配同一范围并固定CONTAINER_INSTANCE；VM完整ResolveCreateSpec固定VIRTUAL_MACHINE（4）；Sandbox 完整 ResolveCreateSpec 固定 SANDBOX（5），三者方法/用途不可互借；compute不依赖实例Caller或业务环境。字段/单位/确定性摘要及错误边界的唯一来源为[算力目录合同](compute-presets.md)。
 
-TRAINING供普通训练与微调共享，INFERENCE只声明公共提供方支持。本次不装配训练或推理创建消费，不修改ModelDev/ACC/Inference，不增加Gov推理路由或依赖。VM执行及冻结合同见[VM v1](../contracts/vm-v1.md)；沙箱仍待另行明确。
+TRAINING供普通训练与微调共享，INFERENCE只声明公共提供方支持。本次不装配训练或推理创建消费，不修改ModelDev/ACC/Inference，不增加Gov推理路由或依赖。VM执行及冻结合同见[VM v1](../contracts/vm-v1.md)；Sandbox 一期生命周期合同见[统一设计方案](../plans/sandbox-runtime-design-20261025.md)，并固定由 Gov 的实例子资源入口承接。
 
 ## 实例日志
 

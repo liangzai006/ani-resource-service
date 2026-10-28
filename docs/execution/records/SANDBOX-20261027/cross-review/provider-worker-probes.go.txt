@@ -1,0 +1,44 @@
+package sandbox
+import (
+ "context"
+ "testing"
+ "time"
+ biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/sandbox"
+ metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+ "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+)
+type crossWorkerRepo struct { work biz.Work; progress biz.Progress; prepared int }
+func(r *crossWorkerRepo)Claim(context.Context,string,time.Duration)(*biz.Work,error){copy:=r.work;return &copy,nil}
+func(r *crossWorkerRepo)PrepareMutation(_ context.Context,_ biz.Work,m biz.Mutation)error{r.prepared++;r.work.Sandbox.Pending=&m;return nil}
+func(r *crossWorkerRepo)Finish(_ context.Context,_ biz.Work,p biz.Progress)error{r.progress=p;r.work.Sandbox=p.Sandbox;return nil}
+func TestCrossReviewWFFCPauseCannotConverge(t *testing.T){
+ client,provider,s:=providerFixture(t)
+ sc,err:=client.Resource(storageClassGVR).Get(context.Background(),"fast",metav1.GetOptions{});if err!=nil{t.Fatal(err)}
+ sc.Object["volumeBindingMode"]="WaitForFirstConsumer"
+ if _,err=client.Resource(storageClassGVR).Update(context.Background(),sc,metav1.UpdateOptions{});err!=nil{t.Fatal(err)}
+ applyProvider(t,provider,&s,biz.MutationCreateWorkspace)
+ pvc,err:=client.Resource(pvcGVR).Namespace(s.Snapshot.Namespace).Get(context.Background(),"workspace-"+s.ID,metav1.GetOptions{});if err!=nil{t.Fatal(err)}
+ if err=unstructured.SetNestedField(pvc.Object,"Pending","status","phase");err!=nil{t.Fatal(err)}
+ if _,err=client.Resource(pvcGVR).Namespace(s.Snapshot.Namespace).Update(context.Background(),pvc,metav1.UpdateOptions{});err!=nil{t.Fatal(err)}
+ s.Desired=biz.DesiredPaused;s.Version++
+ repo:=&crossWorkerRepo{work:biz.Work{Sandbox:s}}
+ worker,err:=biz.NewWorker(repo,provider,"review",time.Minute);if err!=nil{t.Fatal(err)}
+ for i:=0;i<5;i++{worked,err:=worker.Step(context.Background());if err!=nil||!worked{t.Fatal(worked,err)};if repo.progress.Sandbox.Observed!=biz.ObservedProvisioning{t.Fatalf("actual behavior changed: %#v",repo.progress)}}
+ for _,action:=range client.Actions(){if action.GetResource()==podGVR&&action.GetVerb()=="create"{t.Fatal("unexpected consumer created")}}
+ if repo.prepared!=0{t.Fatalf("unexpected pending mutation count=%d",repo.prepared)}
+ t.Logf("verified: WFFC PVC Pending + accepted pause + no Pod => five cycles remain observed=%s, mutations=%d, originalPVC=%s; no consumer can bind claim",repo.progress.Sandbox.Observed,repo.prepared,s.ProviderRefs.PVCUID)
+}
+func TestCrossReviewLostWorkspaceBlocksPauseOfKnownPod(t *testing.T){
+ client,provider,s:=providerFixture(t)
+ applyProvider(t,provider,&s,biz.MutationCreateWorkspace);providerBoundWorkspace(t,client,s);applyProvider(t,provider,&s,biz.MutationCreatePod);providerPodStatus(t,client,s,"Running","True",true);observeProvider(t,provider,&s)
+ pvc,err:=client.Resource(pvcGVR).Namespace(s.Snapshot.Namespace).Get(context.Background(),"workspace-"+s.ID,metav1.GetOptions{});if err!=nil{t.Fatal(err)}
+ if err=unstructured.SetNestedField(pvc.Object,"Lost","status","phase");err!=nil{t.Fatal(err)}
+ if _,err=client.Resource(pvcGVR).Namespace(s.Snapshot.Namespace).Update(context.Background(),pvc,metav1.UpdateOptions{});err!=nil{t.Fatal(err)}
+ s.Desired=biz.DesiredPaused;s.Version++
+ repo:=&crossWorkerRepo{work:biz.Work{Sandbox:s}}
+ worker,err:=biz.NewWorker(repo,provider,"review",time.Minute);if err!=nil{t.Fatal(err)}
+ for i:=0;i<5;i++{if _,err=worker.Step(context.Background());err!=nil{t.Fatal(err)}}
+ pod,err:=client.Resource(podGVR).Namespace(s.Snapshot.Namespace).Get(context.Background(),"sandbox-"+s.ID,metav1.GetOptions{});if err!=nil{t.Fatal(err)}
+ if !podReady(pod)||repo.prepared!=0||repo.progress.Sandbox.Reason!="WORKSPACE_LOST"{t.Fatalf("actual behavior changed: pod=%v prepared=%d progress=%#v",podReady(pod),repo.prepared,repo.progress)}
+ t.Logf("verified: original owned ReadyPod UID=%s remains after five pause cycles, mutationCount=%d observed=%s reason=%s",pod.GetUID(),repo.prepared,repo.progress.Sandbox.Observed,repo.progress.Sandbox.Reason)
+}

@@ -1,0 +1,59 @@
+{
+  "phase": "x01-red",
+  "host": "ubuntu",
+  "execution": "direct execution on authorized ubuntu host",
+  "source": "/root/kubercon/ani-resource-service",
+  "postgresImage": "docker.io/library/postgres@sha256:18cfe3ef5e6815560c98237d6216d1e5119702fb0f3894c8785dd58b8bbe5d73",
+  "container": "sandbox-replay-pg-x01-red-cf716bc0",
+  "commands": [
+    [
+      "docker",
+      "run",
+      "-d",
+      "--name",
+      "sandbox-replay-pg-x01-red-cf716bc0",
+      "--label",
+      "ani.task=sandbox-replay-20261027",
+      "--memory=768m",
+      "--memory-swap=768m",
+      "--cpus=1",
+      "--mount",
+      "type=tmpfs,destination=/var/lib/postgresql",
+      "--env-file",
+      "/tmp/sandbox-followup-fixes-20261027/sandbox-replay-pg-private-gqicyew_/postgres.env",
+      "-p",
+      "127.0.0.1::5432",
+      "docker.io/library/postgres@sha256:18cfe3ef5e6815560c98237d6216d1e5119702fb0f3894c8785dd58b8bbe5d73"
+    ],
+    [
+      "/root/.config/.gvm/go/gopath/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+      "test",
+      "-tags=sandboxintegration",
+      "-count=1",
+      "-timeout=3m",
+      "./internal/data/sandbox",
+      "-run",
+      "^TestSandbox",
+      "-v"
+    ]
+  ],
+  "sourceFiles": {
+    "internal/data/sandbox/postgres.go": "a02ab552f58bc6f11a7ee987a2ae172e0154377277d64bb37d04638c9f670067",
+    "internal/data/sandbox/postgres_integration_test.go": "67057e8a7e208e187fe10c7847cc89a4631de10c02aeb99615035128b55b070c",
+    "migrations/sandbox/003_recovery_and_create_intent.sql": "5b4391896c28ecfa743f4ed376d50fcac272c3bc427464a475610055879fc662",
+    "internal/biz/sandbox/types.go": "0e73c61def03b1b7ef189629b6e1738baaef6e5cbfa68d1535bbda18d956a8f2"
+  },
+  "log": "/tmp/sandbox-followup-fixes-20261027/sandbox-replay-x01-red.log",
+  "loopbackPort": 32808,
+  "postgresVersion": "PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "goVersion": "go version go1.26.10 linux/amd64",
+  "testExitCode": 1,
+  "result": "fail",
+  "cleanup": {
+    "containerRemovalExitCode": 0,
+    "containerAbsent": true,
+    "privateDirectoryAbsent": true,
+    "credentialFilesAbsent": true,
+    "storage": "task-owned tmpfs; docker rm -v"
+  }
+}

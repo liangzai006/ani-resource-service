@@ -1,0 +1,189 @@
+syntax = "proto3";
+
+package sandbox.v1;
+
+option go_package = "github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1;sandboxv1";
+
+import "google/protobuf/timestamp.proto";
+
+// Resource exposes this trusted service only to the Governance BFF. The
+// public HTTP route remains owned by Governance.
+service SandboxService {
+  rpc ResolveCreateSpec(ResolveCreateSpecRequest) returns (ResolveCreateSpecResponse);
+  rpc AcceptCreate(AcceptCreateRequest) returns (AcceptCreateResponse);
+  rpc GetSandbox(GetSandboxRequest) returns (GetSandboxResponse);
+  rpc ListSandboxes(ListSandboxesRequest) returns (ListSandboxesResponse);
+  rpc GetOperation(GetOperationRequest) returns (GetOperationResponse);
+  rpc Pause(PauseRequest) returns (PauseResponse);
+  rpc Resume(ResumeRequest) returns (ResumeResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+}
+
+message CreateSandboxData {
+  string name = 1;
+  // Must be an immutable digest reference; tags are rejected by Resource.
+  string image_reference = 2 [json_name = "image_reference"];
+  string preset_id = 3 [json_name = "preset_id"];
+  string workspace_size = 4 [json_name = "workspace_size"];
+}
+
+message ResolveCreateSpecRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string instance_id = 2 [json_name = "instance_id"];
+  CreateSandboxData data = 3;
+  uint32 contract_version = 4 [json_name = "contract_version"];
+}
+
+message WorkspaceSpec {
+  string mount_path = 1 [json_name = "mount_path"];
+  string size = 2;
+  string storage_class = 3 [json_name = "storage_class"];
+  string reclaim_policy = 4 [json_name = "reclaim_policy"];
+}
+
+message ResolveCreateSpecResponse {
+  string name = 1;
+  string image_reference = 2 [json_name = "image_reference"];
+  string image_digest = 3 [json_name = "image_digest"];
+  string preset_id = 4 [json_name = "preset_id"];
+  string compute_type = 5 [json_name = "compute_type"];
+  int64 cpu_millis = 6 [json_name = "cpu_millis"];
+  int64 memory_mib = 7 [json_name = "memory_mib"];
+  string selection_digest = 8 [json_name = "selection_digest"];
+  string cluster_id = 9 [json_name = "cluster_id"];
+  string namespace = 10;
+  string runtime_class = 11 [json_name = "runtime_class"];
+  WorkspaceSpec workspace = 12;
+  uint32 contract_version = 13 [json_name = "contract_version"];
+  string preset_code = 14 [json_name = "preset_code"];
+  string preset_name = 15 [json_name = "preset_name"];
+  string spec_digest = 16 [json_name = "spec_digest"];
+}
+
+message CommandContext {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string resource_id = 2 [json_name = "resource_id"];
+  string operation_id = 3 [json_name = "operation_id"];
+  // Lowercase SHA-256 digest of the immutable command and frozen spec.
+  string request_digest = 4 [json_name = "request_digest"];
+}
+
+message AcceptCreateRequest {
+  CommandContext context = 1;
+  ResolveCreateSpecResponse spec = 2;
+  string instance_id = 3 [json_name = "instance_id"];
+  string create_intent_digest = 4 [json_name = "create_intent_digest"];
+}
+
+message PauseRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string idempotency_key = 3 [json_name = "idempotency_key"];
+  int64 expected_version = 4 [json_name = "expected_version"];
+  string instance_id = 5 [json_name = "instance_id"];
+}
+message ResumeRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string idempotency_key = 3 [json_name = "idempotency_key"];
+  int64 expected_version = 4 [json_name = "expected_version"];
+  string instance_id = 5 [json_name = "instance_id"];
+}
+message DeleteRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string idempotency_key = 3 [json_name = "idempotency_key"];
+  int64 expected_version = 4 [json_name = "expected_version"];
+  string instance_id = 5 [json_name = "instance_id"];
+}
+
+message AcceptCreateResponse { OperationAck ack = 1; }
+message PauseResponse { OperationAck ack = 1; }
+message ResumeResponse { OperationAck ack = 1; }
+message DeleteResponse { OperationAck ack = 1; }
+message OperationAck {
+  string operation_id = 1 [json_name = "operation_id"];
+  string resource_id = 2 [json_name = "resource_id"];
+  bool accepted = 3;
+  bool replayed = 4;
+}
+
+message GetSandboxRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string instance_id = 3 [json_name = "instance_id"];
+}
+message ListSandboxesRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  uint32 page = 2;
+  uint32 page_size = 3 [json_name = "page_size"];
+  string instance_id = 4 [json_name = "instance_id"];
+}
+message GetSandboxResponse { Sandbox sandbox = 1; }
+message ListSandboxesResponse { repeated Sandbox items = 1; int64 total = 2; }
+message GetOperationRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string operation_id = 2 [json_name = "operation_id"];
+  string instance_id = 3 [json_name = "instance_id"];
+}
+
+message Sandbox {
+  string id = 1;
+  string tenant_id = 2 [json_name = "tenant_id"];
+  string instance_id = 3 [json_name = "instance_id"];
+  int64 version = 4;
+  string desired_state = 5 [json_name = "desired_state"];
+  string observed_state = 6 [json_name = "observed_state"];
+  string reason = 7;
+  string create_operation_id = 8 [json_name = "create_operation_id"];
+  string last_operation_id = 9 [json_name = "last_operation_id"];
+  SandboxSnapshot snapshot = 10;
+  ProviderRefs provider_refs = 11 [json_name = "provider_refs"];
+  google.protobuf.Timestamp observed_at = 12 [json_name = "observed_at"];
+  string create_intent_digest = 13 [json_name = "create_intent_digest"];
+}
+
+message SandboxSnapshot {
+  string name = 1;
+  string image_reference = 2 [json_name = "image_reference"];
+  string preset_id = 3 [json_name = "preset_id"];
+  string image_digest = 4 [json_name = "image_digest"];
+  int64 cpu_millis = 5 [json_name = "cpu_millis"];
+  int64 memory_mib = 6 [json_name = "memory_mib"];
+  string compute_type = 7 [json_name = "compute_type"];
+  string cluster_id = 8 [json_name = "cluster_id"];
+  string namespace = 9;
+  string runtime_class = 10 [json_name = "runtime_class"];
+  WorkspaceSpec workspace = 11;
+  string selection_digest = 12 [json_name = "selection_digest"];
+  string preset_code = 13 [json_name = "preset_code"];
+  string preset_name = 14 [json_name = "preset_name"];
+  string spec_digest = 15 [json_name = "spec_digest"];
+}
+
+message ProviderRefs {
+  string pvc_name = 1 [json_name = "pvc_name"];
+  string pvc_uid = 2 [json_name = "pvc_uid"];
+  string pod_name = 3 [json_name = "pod_name"];
+  string pod_uid = 4 [json_name = "pod_uid"];
+  string resource_version = 5 [json_name = "resource_version"];
+  string cleanup_receipt = 6 [json_name = "cleanup_receipt"];
+  string pvc_resource_version = 7 [json_name = "pvc_resource_version"];
+  string pod_resource_version = 8 [json_name = "pod_resource_version"];
+  string pv_name = 9 [json_name = "pv_name"];
+  string pv_uid = 10 [json_name = "pv_uid"];
+}
+
+message GetOperationResponse {
+  Operation operation = 1;
+}
+message Operation {
+  string id = 1;
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string action = 3;
+  int64 intent_version = 4 [json_name = "intent_version"];
+  string state = 5;
+  string reason = 6;
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+  string instance_id = 8 [json_name = "instance_id"];
+}

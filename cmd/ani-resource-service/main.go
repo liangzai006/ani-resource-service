@@ -29,6 +29,7 @@ var (
 	flagMigrate         bool
 	flagImageMigrate    bool
 	flagInstanceMigrate bool
+	flagSandboxMigrate  bool
 	flagComputeRestore  bool
 	flagVMMigrate       bool
 	flagNodeFacts       bool
@@ -41,6 +42,7 @@ func init() {
 	flag.BoolVar(&flagMigrate, "migrate", false, "apply Network migrations using explicit owner environment")
 	flag.BoolVar(&flagImageMigrate, "image-migrate", false, "apply Image migrations using explicit owner secret file")
 	flag.BoolVar(&flagInstanceMigrate, "instance-migrate", false, "apply Instance migrations using explicit owner secret file")
+	flag.BoolVar(&flagSandboxMigrate, "sandbox-migrate", false, "apply Sandbox migrations using explicit owner secret file")
 	flag.BoolVar(&flagVMMigrate, "vm-migrate", false, "apply VM migrations using explicit owner secret file")
 	flag.BoolVar(&flagComputeRestore, "compute-restore", false, "restore pre-compute metadata with all readers stopped using explicit owner secret file")
 }
@@ -56,22 +58,28 @@ func main() {
 	log.SetDefault(logger)
 	execute := func() error {
 		if flagVMMigrate {
-			if flagComputeRestore || flagInstanceMigrate || flagMigrate || flagImageMigrate || flagNodeFacts || imageAdminAction != "" || baseConnectivityAction != "" {
+			if flagComputeRestore || flagInstanceMigrate || flagSandboxMigrate || flagMigrate || flagImageMigrate || flagNodeFacts || imageAdminAction != "" || baseConnectivityAction != "" {
 				return fmt.Errorf("VM migration is exclusive with other command modes")
 			}
 			return runVMMigration()
 		}
 		if flagComputeRestore {
-			if flagInstanceMigrate || flagMigrate || flagImageMigrate || flagNodeFacts || imageAdminAction != "" || baseConnectivityAction != "" {
+			if flagInstanceMigrate || flagSandboxMigrate || flagMigrate || flagImageMigrate || flagNodeFacts || imageAdminAction != "" || baseConnectivityAction != "" {
 				return fmt.Errorf("compute recovery is exclusive with other command modes")
 			}
 			return runComputeRestore()
 		}
 		if flagInstanceMigrate {
-			if flagMigrate || flagImageMigrate || flagNodeFacts || imageAdminAction != "" || baseConnectivityAction != "" {
+			if flagSandboxMigrate || flagMigrate || flagImageMigrate || flagNodeFacts || imageAdminAction != "" || baseConnectivityAction != "" {
 				return fmt.Errorf("instance migration is exclusive with other command modes")
 			}
 			return runInstanceMigration()
+		}
+		if flagSandboxMigrate {
+			if flagMigrate || flagImageMigrate || flagNodeFacts || imageAdminAction != "" || baseConnectivityAction != "" {
+				return fmt.Errorf("sandbox migration is exclusive with other command modes")
+			}
+			return runSandboxMigration()
 		}
 		if err := validateImageAdminModes(); err != nil {
 			return err

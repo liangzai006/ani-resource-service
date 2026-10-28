@@ -1,0 +1,32 @@
+{
+  "host": "ubuntu",
+  "source": "/root/kubercon/ani-resource-service",
+  "sourceFiles": {
+    "go.mod": "83737a930f230fd210a0d2f2d32f9ee91b2b080da886488f2e91c18b4e611361",
+    "go.sum": "ea4437a3d55b58ea0bad675b6ac8757aa2bc292743048795e5f98d6022957a90",
+    "internal/data/sandbox/provider.go": "787cdfd79eaad8d6b362b0512b95c5e6e992223b6c24bbb53dc7f1dee766736c",
+    "internal/data/sandbox/provider_test.go": "2ad688d23671d8a31469d57cfacd854eacdbf5acf32bb8b8d64f19bc44327ed7",
+    "internal/biz/sandbox/worker.go": "627d8710a8f7159d1ff3235cc2299ecde92a6d5423858fe7ce39081346ee1cf2",
+    "internal/biz/sandbox/types.go": "a99bc0b279a5acf478ad27a55d23f509cec2fdb0db36058dc290fc409aaec067",
+    "internal/biz/compute/presets.go": "11a48a718756f48b4df3bfdbb7f443467fec007c7a6e3116ed71a024649d1518",
+    "internal/biz/compute/resolution.go": "bafee61aa02a846dbf48803efb8e663309c4b22e6fd359340a2704c7394e2f67"
+  },
+  "command": [
+    "/root/.config/.gvm/go/gopath/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+    "test",
+    "-mod=readonly",
+    "-count=1",
+    "-timeout=45s",
+    "./internal/data/sandbox",
+    "-run",
+    "^TestCrossReview",
+    "-v"
+  ],
+  "probeSHA256": "bed147fe22389e509b03a90f0adaad65d7434780aba729b9d23e0acce42e897d",
+  "exitCode": 0,
+  "stdout": "=== RUN   TestCrossReviewDifferentClusterFalselyProvesOriginalCleanup\n    cross_review_test.go:27: verified: empty clusterB returned observed=deleted cleanupReceipt=k8s-delete:11111111-1111-4111-8111-111111111111:1:pvc=provider-uid-1:pv=original-pv-uid for frozen clusterA=aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa while original Pod/PVC/PV all still exist in A with exact original UIDs\n--- PASS: TestCrossReviewDifferentClusterFalselyProvesOriginalCleanup (0.00s)\nPASS\nok  \tgithub.com/zhangzhe-ctrl/ani-resource-service/internal/data/sandbox\t0.005s\n",
+  "stderr": "",
+  "elapsedSeconds": 0.967,
+  "sourceUnchanged": true,
+  "temporarySourceRemoved": true
+}

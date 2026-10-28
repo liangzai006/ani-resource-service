@@ -1,0 +1,302 @@
+{
+  "recordedAtUTC": "2026-10-27T09:32:10.019063+00:00",
+  "host": "ubuntu",
+  "source": "source.json",
+  "inputReview": "../cross-review/result.json",
+  "assessment": "identified_paths_implemented_and_verified; not a claim of exhaustive fault coverage",
+  "findings": [
+    {
+      "id": "SB-X01",
+      "reopens": "SB-R02",
+      "implementation": "implemented",
+      "verification": "pass_for_listed_paths",
+      "change": "Persist each UID deletion retry attempt; reject old attempt receipts, retain prior uncertainty on current negative results, prevent cleared journal resurrection. Successful Apply discards pre-write goal state until fresh Observe.",
+      "formalRegressions": [
+        "TestSandboxDeleteRetryAttemptFenceAndNegativeReceipts",
+        "TestSandboxDeleteRetryPreparationFencesCurrentWorkAndOrigin",
+        "TestSandboxDeleteRetryNewIntentAndAdvancedJournalFences",
+        "TestSandboxWorkerRepositoryOldReceiptCannotCompleteResume"
+      ]
+    },
+    {
+      "id": "SB-X02",
+      "reopens": "SB-R03",
+      "implementation": "implemented",
+      "verification": "pass_for_listed_paths",
+      "change": "Bind Provider to canonical configured ClusterID and reject mismatched frozen cluster before any Kubernetes request.",
+      "formalRegressions": [
+        "TestKubernetesProviderRequiresConfiguredCluster",
+        "TestKubernetesProviderRejectsWrongClusterWithoutRequests"
+      ]
+    },
+    {
+      "id": "SB-X03",
+      "reopens": null,
+      "implementation": "implemented",
+      "verification": "pass_for_listed_paths",
+      "change": "Pause stops the verified original Pod despite storage health faults, preserving original PVC/PV UID and diagnostic reason.",
+      "formalRegressions": [
+        "TestWorkerPauseStopsKnownPodDespiteWorkspaceFault",
+        "TestProviderWorkerPauseStopsKnownPodWithWorkspaceFailure",
+        "TestSandboxWorkerRepositoryPendingPauseLostRecoveryAndReclaim"
+      ]
+    },
+    {
+      "id": "SB-X04",
+      "reopens": null,
+      "implementation": "implemented",
+      "verification": "pass_for_listed_paths",
+      "change": "Pause can complete without requiring retained WFFC claim Bound; Resume creates consumer for original claim; unknown mutations still block completion.",
+      "formalRegressions": [
+        "TestProviderWorkerPausePendingWFFCThenResumeOriginalWorkspace",
+        "TestKubernetesProviderPendingMutationCannotCompletePause",
+        "TestSandboxWorkerRepositoryPendingPauseLostRecoveryAndReclaim"
+      ]
+    },
+    {
+      "id": "SB-X05",
+      "reopens": "SB-R04",
+      "implementation": "implemented",
+      "verification": "pass_for_listed_paths",
+      "change": "Resolve/accept failure or invalid response rereads accepted winner within authorized scope; matching persisted intent replays, missing winner/lookup failure/cancellation keep error semantics.",
+      "formalRegressions": [
+        "TestSandboxFailedDeliveryReplaysPersistedWinner",
+        "TestSandboxFailedDeliveryDoesNotInventAcceptance",
+        "TestSandboxFailedDeliveryDoesNotLookupAfterCancellation",
+        "TestSandboxHTTPFailedResolutionReconcilesAcceptedIntent"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "resource_make_verify",
+      "result": "pass",
+      "exitCode": 0,
+      "command": "env CGO_ENABLED=0 GOTOOLCHAIN=go1.26.10 GOWORK=off GOMAXPROCS=2 GOFLAGS=-p=2 make verify",
+      "log": "resource-make-verify.log",
+      "includes": [
+        "pinned generation/source no drift",
+        "recursive boundaries",
+        "Network build faults",
+        "go mod tidy -diff",
+        "go test -count=1 ./...",
+        "go vet ./...",
+        "go build -trimpath ./...",
+        "go mod verify",
+        "git diff --check"
+      ]
+    },
+    {
+      "name": "exclusive_postgres_final",
+      "result": "pass",
+      "exitCode": 0,
+      "receipt": "sandbox-replay-lifecycle-verified-result.json",
+      "log": "sandbox-replay-lifecycle-verified.log",
+      "caseCount": 14,
+      "source": "source.json",
+      "boundary": "Real PostgreSQL17.11 with distinct owner/runtime, actual Repository/Worker/Provider; Kubernetes scheduler/CSI protocol boundary controlled",
+      "newComposedCoverage": [
+        "Pending WFFC pause/resume -> same PVC binding",
+        "Lost workspace pause stops original Pod; storage recovery remounts original PVC",
+        "Delete waits original PVGone before succeeded/due infinity",
+        "Old negative cannot erase successor unknown; real retry attempt fence",
+        "Successful delete cannot finish Resume, PodCreate ACK cannot finish Resume, only Ready completes it"
+      ]
+    },
+    {
+      "name": "governance_related",
+      "result": "pass",
+      "exitCode": 0,
+      "receipt": "gov-followup-result.json",
+      "log": "gov-sandbox-followup-green.log"
+    },
+    {
+      "name": "provider_worker_composed",
+      "result": "pass",
+      "exitCode": 0,
+      "log": "provider-worker-first.log",
+      "note": "Initial targeted composition run passed; final worker amendments also covered by full make verify."
+    },
+    {
+      "name": "independent_final_review",
+      "result": "no_new_blocker_found_in_reviewed_paths",
+      "receipt": "independent-review.json"
+    }
+  ],
+  "retainedFailures": [
+    {
+      "log": "worker-pause-red.log",
+      "result": "expected_regression_failure_before_fix"
+    },
+    {
+      "log": "sandbox-replay-x01-red.log",
+      "result": "expected_regression_failure_before_attempt_fix"
+    },
+    {
+      "log": "gov-failed-delivery-red.log",
+      "result": "expected_regression_failure_before_recovery_read_fix"
+    },
+    {
+      "log": "sandbox-replay-lifecycle-prewrite-red.log",
+      "result": "new_composed_assertion_exposed_premature_Resume_success; fixed_then_green"
+    }
+  ],
+  "unchangedMigrations": {
+    "migrations/sandbox/001_sandbox.sql": true,
+    "migrations/sandbox/002_workspace_bindings.sql": true,
+    "migrations/sandbox/003_recovery_and_create_intent.sql": true,
+    "migrations/sandbox/embed.go": true
+  },
+  "additionalSchemaMigration": "none; JSON fields default Attempt0/PreviousUncertain=false; deployment still requires original003 and stopping all older workers",
+  "limits": [
+    "Prepared but unobserved unknown creates remain conservative; absence does not prove cancellation. No manual recovery endpoint implemented.",
+    "Configured logical ClusterID guard does not attest kubeconfig physical endpoint mapping.",
+    "No new deployment, live Provider/CSI fault matrix, full Governance or other tagged integration suites.",
+    "Source/test evidence does not supersede prior deployment images; candidate and shared deployments remain unchanged."
+  ],
+  "sideEffects": {
+    "deployment": "unchanged",
+    "candidateSource": "unchanged",
+    "RBAC": "unchanged",
+    "commitPush": "none",
+    "taskPostgresCleanup": [
+      {
+        "phase": "lifecycle-final",
+        "containerAbsent": true,
+        "credentialsAbsent": true
+      },
+      {
+        "phase": "lifecycle-prewrite-red",
+        "containerAbsent": true,
+        "credentialsAbsent": true
+      },
+      {
+        "phase": "lifecycle-verified",
+        "containerAbsent": true,
+        "credentialsAbsent": true
+      },
+      {
+        "phase": "x01-green",
+        "containerAbsent": true,
+        "credentialsAbsent": true
+      },
+      {
+        "phase": "x01-red",
+        "containerAbsent": true,
+        "credentialsAbsent": true
+      }
+    ]
+  },
+  "documentationChecks": {
+    "result": "pass_for_changed_links",
+    "receipt": "documentation-links.json",
+    "diffChecks": [
+      "resource git diff --check exit0",
+      "governance git diff --check exit0"
+    ],
+    "formalRegressionNamesVerifiedInSource": true
+  },
+  "sourceFinalRecheck": "pass; all frozen source hashes match verified input; post-gate edits documentation only",
+  "artifacts": {
+    "additional-r02-prewrite-probe.go.txt": {
+      "sha256": "70c5f89dcb91c199a4ed0d6da02b0b52cc1d3f30fe5ade10c11a67626e743d02",
+      "bytes": 1458
+    },
+    "additional-r02-prewrite-probe.json": {
+      "sha256": "ca652ee71b0648f39a7ba89e33768344268301860d53eb37abec44530b453303",
+      "bytes": 1972
+    },
+    "additional-r02-prewrite-probe.log": {
+      "sha256": "81097da3c412285f58d6c539789f580060a8b9edb49b1c3035a234c94de1082d",
+      "bytes": 503
+    },
+    "documentation-links.json": {
+      "sha256": "b9d2253cd80f918cb2a59f9d266f8c9ceae84eeb259abf88b6f6db3067d55318",
+      "bytes": 577
+    },
+    "gov-failed-delivery-green.log": {
+      "sha256": "a15b87ce651c9ee150363a28c1bb98f1f841aed0af3708034c474afaaf4cda1c",
+      "bytes": 4210
+    },
+    "gov-failed-delivery-red.log": {
+      "sha256": "03dc26fba8973b07077274a7bf417ac29da95b0f0dc5ee997477d5945a07e588",
+      "bytes": 10226
+    },
+    "gov-followup-result.json": {
+      "sha256": "604d2243d6804001c9fd80c047c1126f3a7a0717bf3668e14e3a7bd63468d983",
+      "bytes": 2748
+    },
+    "gov-sandbox-followup-green.log": {
+      "sha256": "95c5fe09b18e2bd6c19efcffa5bfccdf5828f334612646a00a4ff58fd47f439e",
+      "bytes": 13144
+    },
+    "independent-review.json": {
+      "sha256": "6959481077390fa9fe79743677cbc9152fcc025958b2af5c1a5bcbf7c216aeba",
+      "bytes": 1332
+    },
+    "provider-worker-first.log": {
+      "sha256": "477a37f8a0ff8e0a78e2e5209e2e3bbd24442c5e474750256bca0d6c492b7eda",
+      "bytes": 8727
+    },
+    "resource-make-verify.log": {
+      "sha256": "0d8b146370872e1c7ab24ca6acfef4f2017d9ba619aa02b7f68c595f45bde0b2",
+      "bytes": 5825
+    },
+    "sandbox-replay-lifecycle-prewrite-red-result.json": {
+      "sha256": "1a0774df929a1590ebfbc5d82174f0c2f662944c1e9115ad58f3dfdd0a4df852",
+      "bytes": 2264
+    },
+    "sandbox-replay-lifecycle-prewrite-red.log": {
+      "sha256": "add408a62a2a114f539d4c3528c653179c8a4a95398ae101b78a3f72545c7b1b",
+      "bytes": 5728
+    },
+    "sandbox-replay-lifecycle-verified-result.json": {
+      "sha256": "385d83f0161baf3b12426d9831dfaefc7ccd588fc7bf42de7f30e3397c2529e3",
+      "bytes": 2248
+    },
+    "sandbox-replay-lifecycle-verified.log": {
+      "sha256": "67c4eb06a9944ffcd85374cc21e90df390598542abd003e0f43470da638fdb1b",
+      "bytes": 5598
+    },
+    "sandbox-replay-x01-green-result.json": {
+      "sha256": "65089868a8c5b084d3bd63030823501a1f114306a5218728ae0cf42d5728aba7",
+      "bytes": 2212
+    },
+    "sandbox-replay-x01-green.log": {
+      "sha256": "6c8810d8a3072dc34cf7089fdced782476ce6df405b4984c9db2af38051de05c",
+      "bytes": 5302
+    },
+    "sandbox-replay-x01-red-result.json": {
+      "sha256": "50ea4bc767bfccfc494a55ade3fd08361563f83a308996aa2fdfba019fee0965",
+      "bytes": 2204
+    },
+    "sandbox-replay-x01-red.log": {
+      "sha256": "36717553611df948be18cdec4a859365badaf0458fd01e1c12463fd291527ea8",
+      "bytes": 5679
+    },
+    "source.json": {
+      "sha256": "2f3d4032aaa4b6167cf84d3a45a5ef0fc3df99420e58679dbbcba704363a3918",
+      "bytes": 3673
+    },
+    "source.tar.gz": {
+      "sha256": "3d1a5b0ad4dbfffb51db00020d84dcc6b239a4c608ee416e76625f0a46be22b0",
+      "bytes": 127131
+    },
+    "start.json": {
+      "sha256": "7c1b009f0adef3aaf378bec2f5be3add0fc852cb2ea312c9ee05e7a8c1039109",
+      "bytes": 1273
+    },
+    "worker-green.log": {
+      "sha256": "f42cbc928e1f7be529fcf5e7978fd6ea551dfc4a2370814c5b33a252d22bfc3b",
+      "bytes": 2474
+    },
+    "worker-pause-red.log": {
+      "sha256": "3b8334e8ece43585f69ae66be2a210a188ddfd090dde60603a026893300f06bb",
+      "bytes": 2898
+    },
+    "x01-data-verification.json": {
+      "sha256": "6b2d513e7b4edb91ec61397ad9525057a642bbe794ff80e0e60152c900adee30",
+      "bytes": 1333
+    }
+  }
+}

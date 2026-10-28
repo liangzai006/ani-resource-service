@@ -24,7 +24,7 @@ func TestVirtualMachineComputeDelegationKeepsTenantAndMethod(t *testing.T) {
 		{"list", biz.ListMethod, &pb.ListPresetsRequest{TenantId: tenant, Usage: pb.Usage_VIRTUAL_MACHINE}, codes.OK},
 		{"wrong tenant", biz.ResolveMethod, &pb.ResolveComputePresetRequest{TenantId: principal.RequestID, Usage: pb.Usage_VIRTUAL_MACHINE}, codes.PermissionDenied},
 		{"wrong method", biz.ResolveMethod, &pb.ListPresetsRequest{TenantId: tenant, Usage: pb.Usage_VIRTUAL_MACHINE}, codes.PermissionDenied},
-		{"unknown usage", biz.ResolveMethod, &pb.ResolveComputePresetRequest{TenantId: tenant, Usage: pb.Usage(5)}, codes.InvalidArgument},
+		{"unknown usage", biz.ResolveMethod, &pb.ResolveComputePresetRequest{TenantId: tenant, Usage: pb.Usage(6)}, codes.InvalidArgument},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			ctx, err := withComputeGovernanceScope(context.Background(), principal, tc.body, tc.method)

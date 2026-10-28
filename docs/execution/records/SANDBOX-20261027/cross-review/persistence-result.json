@@ -1,0 +1,59 @@
+{
+  "phase": "cross-persistence",
+  "host": "ubuntu",
+  "execution": "direct execution on authorized ubuntu host",
+  "source": "/tmp/sandbox-cross-persistence-20261027/source",
+  "postgresImage": "docker.io/library/postgres@sha256:18cfe3ef5e6815560c98237d6216d1e5119702fb0f3894c8785dd58b8bbe5d73",
+  "container": "sandbox-replay-pg-cross-persistence-3531e3bf",
+  "commands": [
+    [
+      "docker",
+      "run",
+      "-d",
+      "--name",
+      "sandbox-replay-pg-cross-persistence-3531e3bf",
+      "--label",
+      "ani.task=sandbox-replay-20261027",
+      "--memory=768m",
+      "--memory-swap=768m",
+      "--cpus=1",
+      "--mount",
+      "type=tmpfs,destination=/var/lib/postgresql",
+      "--env-file",
+      "/tmp/sandbox-cross-persistence-20261027/sandbox-replay-pg-private-78nw7gt_/postgres.env",
+      "-p",
+      "127.0.0.1::5432",
+      "docker.io/library/postgres@sha256:18cfe3ef5e6815560c98237d6216d1e5119702fb0f3894c8785dd58b8bbe5d73"
+    ],
+    [
+      "/root/.config/.gvm/go/gopath/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+      "test",
+      "-tags=sandboxintegration",
+      "-count=1",
+      "-timeout=3m",
+      "./internal/data/sandbox",
+      "-run",
+      "^TestCrossReview",
+      "-v"
+    ]
+  ],
+  "sourceFiles": {
+    "internal/data/sandbox/postgres.go": "a02ab552f58bc6f11a7ee987a2ae172e0154377277d64bb37d04638c9f670067",
+    "internal/data/sandbox/postgres_integration_test.go": "84ba836c884656e09ac8ce3633b05b5b50e8900579d7945be79f7c1ab28744ec",
+    "migrations/sandbox/003_recovery_and_create_intent.sql": "5b4391896c28ecfa743f4ed376d50fcac272c3bc427464a475610055879fc662",
+    "internal/biz/sandbox/types.go": "a99bc0b279a5acf478ad27a55d23f509cec2fdb0db36058dc290fc409aaec067"
+  },
+  "log": "/tmp/sandbox-cross-persistence-20261027/sandbox-replay-cross-persistence.log",
+  "loopbackPort": 32807,
+  "postgresVersion": "PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "goVersion": "go version go1.26.10 linux/amd64",
+  "testExitCode": 0,
+  "result": "pass",
+  "cleanup": {
+    "containerRemovalExitCode": 0,
+    "containerAbsent": true,
+    "privateDirectoryAbsent": true,
+    "credentialFilesAbsent": true,
+    "storage": "task-owned tmpfs; docker rm -v"
+  }
+}

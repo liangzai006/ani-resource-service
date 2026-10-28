@@ -1,0 +1,133 @@
+//go:build sandboxintegration
+
+package sandbox_test
+
+import (
+	"context"
+	"github.com/google/uuid"
+	biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/sandbox"
+	"strings"
+	"testing"
+	"time"
+)
+
+type crossAbsentProvider struct{ calls int }
+
+func (p *crossAbsentProvider) Observe(_ context.Context, s biz.Sandbox) (biz.Observation, error) {
+	observed := biz.ObservedProvisioning
+	if s.Desired == biz.DesiredDeleted {
+		observed = biz.ObservedDeleting
+	}
+	return biz.Observation{Observed: observed, ProviderRefs: s.ProviderRefs, At: time.Now().UTC()}, nil
+}
+func (p *crossAbsentProvider) Apply(_ context.Context, _ biz.Sandbox, m biz.Mutation) (biz.MutationResult, error) {
+	p.calls++
+	return biz.MutationResult{Mutation: m, Outcome: biz.MutationApplied}, nil
+}
+func crossDue(t *testing.T, f *sandboxFixture, ctx context.Context, c biz.Create, expire bool) {
+	t.Helper()
+	query := "UPDATE sandbox.work SET due_at='-infinity' WHERE tenant_id=$1 AND sandbox_id=$2"
+	if expire {
+		query = "UPDATE sandbox.work SET due_at='-infinity',lease_until='-infinity' WHERE tenant_id=$1 AND sandbox_id=$2"
+	}
+	if _, err := f.runtime.Exec(ctx, query, c.TenantID, c.ID); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestCrossReviewCrashAfterPrepareBeforeDispatch(t *testing.T) {
+	f := sandboxDatabase(t)
+	ctx, c, work := acceptAndClaim(t, f)
+	m := biz.Mutation{ID: uuid.NewString(), Kind: biz.MutationCreateWorkspace, OperationID: c.OperationID, Version: 1}
+	if err := f.repo.PrepareMutation(ctx, *work, m); err != nil {
+		t.Fatal(err)
+	}
+	// The old process dies here; no Provider.Apply invocation ever occurred.
+	crossDue(t, f, ctx, c, true)
+	provider := new(crossAbsentProvider)
+	worker, err := biz.NewWorker(f.repo, provider, "restart", time.Minute)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for range 3 {
+		worked, err := worker.Step(ctx)
+		if err != nil || !worked {
+			t.Fatal(worked, err)
+		}
+		crossDue(t, f, ctx, c, false)
+	}
+	stored, err := f.repo.Get(ctx, c.TenantID, c.ID)
+	if err != nil || stored.Pending == nil || *stored.Pending != m || provider.calls != 0 {
+		t.Fatal(stored, provider.calls, err)
+	}
+	deleteID := uuid.NewString()
+	if _, err := f.repo.Change(ctx, biz.Command{TenantID: c.TenantID, ID: c.ID, InstanceID: c.InstanceID, OperationID: deleteID, Action: "delete", IdempotencyKey: "delete", RequestDigest: strings.Repeat("e", 64), ExpectedVersion: 1}); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := worker.Step(ctx); err != nil {
+		t.Fatal(err)
+	}
+	op, err := f.repo.GetOperation(ctx, c.TenantID, deleteID)
+	if err != nil || op.State != "unknown" {
+		t.Fatal(op, err)
+	}
+	t.Logf("CONFIRMED LIMITATION: 0 dispatches, prepared create remains pending across3 restarts/observations, later delete=%s; no false deletion success", op.State)
+}
+
+func TestCrossReviewOlderNotSentErasesSuccessorUnknownDelete(t *testing.T) {
+	f := sandboxDatabase(t)
+	ctx, c, create := acceptAndClaim(t, f)
+	progress := create.Sandbox
+	progress.Observed = biz.ObservedRunning
+	progress.ProviderRefs = biz.ProviderRefs{PVCUID: "workspace-original", PodUID: "pod-original"}
+	if err := f.repo.Finish(ctx, *create, biz.Progress{Sandbox: progress}); err != nil {
+		t.Fatal(err)
+	}
+	pauseID := uuid.NewString()
+	if _, err := f.repo.Change(ctx, biz.Command{TenantID: c.TenantID, ID: c.ID, InstanceID: c.InstanceID, OperationID: pauseID, Action: "pause", IdempotencyKey: "pause", RequestDigest: strings.Repeat("e", 64), ExpectedVersion: 1}); err != nil {
+		t.Fatal(err)
+	}
+	first := claimWork(t, f, ctx, "first-pause-worker")
+	m := biz.Mutation{ID: uuid.NewString(), Kind: biz.MutationDeletePod, OperationID: pauseID, Version: 2, TargetUID: "pod-original"}
+	if err := f.repo.PrepareMutation(ctx, *first, m); err != nil {
+		t.Fatal(err)
+	}
+	// First Apply definitively does not send; the process is descheduled before Finish.
+	crossDue(t, f, ctx, c, true)
+	successor := claimWork(t, f, ctx, "retry-pause-worker")
+	resumeID := uuid.NewString()
+	if _, err := f.repo.Change(ctx, biz.Command{TenantID: c.TenantID, ID: c.ID, InstanceID: c.InstanceID, OperationID: resumeID, Action: "resume", IdempotencyKey: "resume", RequestDigest: strings.Repeat("f", 64), ExpectedVersion: 2}); err != nil {
+		t.Fatal(err)
+	}
+	// Successor retries the same UID-fenced delete; its request is dispatched but
+	// delayed at the external API, then returns unknown after its deadline.
+	unknown := successor.Sandbox
+	unknown.Observed = biz.ObservedUnknown
+	if err := f.repo.Finish(ctx, *successor, biz.Progress{Sandbox: unknown, Receipt: &biz.MutationResult{Mutation: m, Outcome: biz.MutationUnknown}}); err != nil {
+		t.Fatal(err)
+	}
+	stored, err := f.repo.Get(ctx, c.TenantID, c.ID)
+	if err != nil || stored.Pending == nil {
+		t.Fatal(stored, err)
+	}
+	// The first worker's older not_sent receipt cannot prove the successor's write
+	// was not dispatched, but current Finish treats it as globally conclusive.
+	if err := f.repo.Finish(ctx, *first, biz.Progress{Sandbox: first.Sandbox, Receipt: &biz.MutationResult{Mutation: m, Outcome: biz.MutationNotSent}}); err != nil {
+		t.Fatal(err)
+	}
+	stored, err = f.repo.Get(ctx, c.TenantID, c.ID)
+	if err != nil || stored.Pending != nil {
+		t.Fatal(stored, err)
+	}
+	latest := claimWork(t, f, ctx, "resume-worker")
+	ready := latest.Sandbox
+	ready.Observed = biz.ObservedRunning // delayed delete has not reached the Pod yet
+	if err := f.repo.Finish(ctx, *latest, biz.Progress{Sandbox: ready}); err != nil {
+		t.Fatal(err)
+	}
+	op, err := f.repo.GetOperation(ctx, c.TenantID, resumeID)
+	if err != nil || op.State != "succeeded" {
+		t.Fatal(op, err)
+	}
+	t.Log("CONFIRMED: older not_sent cleared newer dispatched-unknown delete journal; resume marked succeeded before delayed UID-fenced Pod deletion arrives")
+}

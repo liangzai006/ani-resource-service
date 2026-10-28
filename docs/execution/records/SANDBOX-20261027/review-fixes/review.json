@@ -1,0 +1,116 @@
+{
+  "recordedAtUTC": "2026-10-27T08:24:07.853113+00:00",
+  "executionHost": "ubuntu",
+  "sourceHEAD": "3a1c8756fbe1ac24cee5b16a9a1afe0f6b79dfca",
+  "authorization": "User requested record review findings and fix them. Source/generation/isolated tests authorized; no new release or deployment in this repair pass. Preserve unrelated dirty work and prior live evidence.",
+  "findings": [
+    {
+      "id": "SB-R01",
+      "priority": "P1",
+      "requiredChange": "Restore must preserve original workspace; never recreate a missing previously bound PVC",
+      "reviewLocation": {
+        "path": "internal/data/sandbox/provider.go",
+        "line": 250
+      },
+      "sourceSHA256": "0a41a2c502588659acba1345bfdea3d070dea4e578fbe93f6f394680bcf9dab1"
+    },
+    {
+      "id": "SB-R02",
+      "priority": "P1",
+      "requiredChange": "Persist per-mutation intent and receipt; unknown creates must block terminal delete until attribution is recovered",
+      "reviewLocation": {
+        "path": "internal/biz/sandbox/worker.go",
+        "line": 49
+      },
+      "sourceSHA256": "911b0523096a583870e89648a4afbb13ee5bde12b768a6376be046d20a8e30e9"
+    },
+    {
+      "id": "SB-R03",
+      "priority": "P2",
+      "requiredChange": "Validate StorageClass Delete policy; wait for attributable PV disappearance before cleanup receipt",
+      "reviewLocation": {
+        "path": "internal/data/sandbox/provider.go",
+        "line": 224
+      },
+      "sourceSHA256": "0a41a2c502588659acba1345bfdea3d070dea4e578fbe93f6f394680bcf9dab1"
+    },
+    {
+      "id": "SB-R04",
+      "priority": "P2",
+      "requiredChange": "Replay original frozen acceptance before current catalog/config checks",
+      "reviewLocation": {
+        "path": "internal/service/sandbox/service.go",
+        "line": 214
+      },
+      "sourceSHA256": "74a1b9d876c315cb4b89f8a0ebc44cdc618c4ab7e69ce8aa8fe2355aafb60aef"
+    },
+    {
+      "id": "SB-R05",
+      "priority": "P2",
+      "requiredChange": "Require non-deleting Pod Ready and target container ready",
+      "reviewLocation": {
+        "path": "internal/data/sandbox/provider.go",
+        "line": 239
+      },
+      "sourceSHA256": "0a41a2c502588659acba1345bfdea3d070dea4e578fbe93f6f394680bcf9dab1"
+    },
+    {
+      "id": "SB-R06",
+      "priority": "P2",
+      "requiredChange": "One-based public pagination, consistent defaults and snapshot/tie-breaker",
+      "reviewLocation": {
+        "path": "internal/data/sandbox/postgres.go",
+        "line": 243
+      },
+      "sourceSHA256": "2690447be2569f311f322509b64d0101e2b18eaf022cf08d6921c2b5c0c36016"
+    },
+    {
+      "id": "SB-R07",
+      "priority": "P2",
+      "requiredChange": "Preserve succeeded operation outcome during later resource drift",
+      "reviewLocation": {
+        "path": "internal/data/sandbox/postgres.go",
+        "line": 453
+      },
+      "sourceSHA256": "2690447be2569f311f322509b64d0101e2b18eaf022cf08d6921c2b5c0c36016"
+    },
+    {
+      "id": "SB-R08",
+      "priority": "P2",
+      "requiredChange": "Concurrent identical creates must return same ACK, not unique-key503",
+      "reviewLocation": {
+        "path": "internal/data/sandbox/postgres.go",
+        "line": 177
+      },
+      "sourceSHA256": "2690447be2569f311f322509b64d0101e2b18eaf022cf08d6921c2b5c0c36016"
+    },
+    {
+      "id": "SB-R09",
+      "priority": "P2",
+      "requiredChange": "Stable public HTTP reason/status; correct preset NotFound/disabled mapping",
+      "reviewLocation": {
+        "path": "internal/service/sandbox/service.go",
+        "line": 50
+      },
+      "sourceSHA256": "74a1b9d876c315cb4b89f8a0ebc44cdc618c4ab7e69ce8aa8fe2355aafb60aef"
+    },
+    {
+      "id": "SB-D01",
+      "priority": "DOC",
+      "requiredChange": "Clarify dormant expiry field scope; automatic expiry remains P4",
+      "reviewLocation": {
+        "path": "docs/plans/sandbox-runtime-design-20261025.md",
+        "line": 94
+      },
+      "sourceSHA256": "41ebede5bd736e05d09334f004d0312912d1e2979cda42f1160ef0cb2a216b03"
+    }
+  ],
+  "reviewEvidence": {
+    "provider": "four isolated fake Kubernetes scenarios reproduced; production source unchanged in review",
+    "postgres": "/tmp/sandbox-review-20261027/sandbox-replay-review-pg.log: completed outcome regression, first-page omission and concurrent23505 reproduced on dedicated PostgreSQL17.11 (actual SELECT version; image tag is not server version evidence)",
+    "service": "/tmp/sandbox-service-review-result-8d6to01w.json: missing/disabled preset errors and post-config replay failures",
+    "gates": "Sandbox targeted unit tests, recursive boundaries and go mod tidy -diff passed during review; full make verify not run"
+  },
+  "initialImplementationState": "not_started",
+  "verificationPlan": "Regressions for each finding; actual exclusive PostgreSQL with distinct owner/runtime; pinned generation and package/full repository checks where applicable; report source, commands, pass/fail/not_verified separately."
+}

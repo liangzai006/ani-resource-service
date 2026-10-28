@@ -1,0 +1,59 @@
+{
+  "status": "pass",
+  "host": "ubuntu",
+  "toolchain": "go1.26.10 linux/amd64",
+  "head": "5eedeb8e31e9582ac9ef60c6249de40cde7355ad",
+  "files": {
+    "app/admin/service/internal/service/sandbox_service.go": "0d5a585db922896bec630111d1e73bb570cd7148bc6cfd6dd2e90e6cb9257e00",
+    "app/admin/service/internal/service/sandbox_service_test.go": "369beadc43a7552de5985ed410bd83dd320724426c526a4e7ab11c77bad84d64",
+    "app/admin/service/internal/server/sandbox_http_test.go": "15137ec4ccfef2704da0496ad55806a0e8af8d367610be25bcc043745bcab880"
+  },
+  "environment": {
+    "CGO_ENABLED": "0",
+    "GOTOOLCHAIN": "go1.26.10",
+    "GOWORK": "off",
+    "GOMAXPROCS": "2",
+    "GOFLAGS": "-p=2"
+  },
+  "red": {
+    "command": "env CGO_ENABLED=0 GOTOOLCHAIN=go1.26.10 GOWORK=off GOMAXPROCS=2 GOFLAGS=-p=2 go test -count=1 -v ./app/admin/service/internal/service -run TestSandboxFailedDelivery",
+    "exitCode": 1,
+    "productionSourceBeforeFixSHA256": "9a55305ad4fc9632f875168d3c84461d641438390521954db3f166ba755d115a"
+  },
+  "green": {
+    "command": "env CGO_ENABLED=0 GOTOOLCHAIN=go1.26.10 GOWORK=off GOMAXPROCS=2 GOFLAGS=-p=2 go test -count=1 -v ./app/admin/service/internal/service ./app/admin/service/internal/server ./app/admin/service/internal/data -run 'Sandbox|ComputeHTTP|ComputeCatalog|ComputeClientSharedConnection'",
+    "exitCode": 0,
+    "packageSeconds": {
+      "service": 0.065,
+      "server": 0.559,
+      "data": 0.151
+    }
+  },
+  "logs": {
+    "gov-failed-delivery-red.log": {
+      "path": "/tmp/sandbox-followup-fixes-20261027/gov-failed-delivery-red.log",
+      "sha256": "03dc26fba8973b07077274a7bf417ac29da95b0f0dc5ee997477d5945a07e588"
+    },
+    "gov-failed-delivery-green.log": {
+      "path": "/tmp/sandbox-followup-fixes-20261027/gov-failed-delivery-green.log",
+      "sha256": "a15b87ce651c9ee150363a28c1bb98f1f841aed0af3708034c474afaaf4cda1c"
+    },
+    "gov-sandbox-followup-green.log": {
+      "path": "/tmp/sandbox-followup-fixes-20261027/gov-sandbox-followup-green.log",
+      "sha256": "95c5fe09b18e2bd6c19efcffa5bfccdf5828f334612646a00a4ff58fd47f439e"
+    }
+  },
+  "scope": [
+    "failed catalog resolution rereads matching persisted create",
+    "nil resolution, Accept InvalidArgument/Unavailable and nil acknowledgement recover only with matching durable record",
+    "changed intent conflicts; absent record preserves original dependency error; lookup error preserved",
+    "same tenant/parent/resource lookup and invalid foreign response refusal",
+    "canceled request does not issue recovery read",
+    "real Gov HTTP and Service retain 200 replay/404/409/503 behavior"
+  ],
+  "notVerified": [
+    "full Governance checks",
+    "PostgreSQL integration",
+    "new candidate or live provider lifecycle"
+  ]
+}
