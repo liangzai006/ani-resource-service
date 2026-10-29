@@ -30,10 +30,12 @@ import (
 )
 
 type fixture struct {
-	repo    *data.Postgres
-	presets *computedata.Postgres
-	runtime *pgxpool.Pool
-	dsn     string
+	repo        *data.Postgres
+	presets     *computedata.Postgres
+	runtime     *pgxpool.Pool
+	dsn         string
+	ownerDSN    string
+	runtimeRole string
 }
 
 func database(t *testing.T) *fixture {
@@ -88,6 +90,7 @@ func database(t *testing.T) *fixture {
 	if e = computedata.Migrate(ctx, u.String(), role); e != nil {
 		t.Fatal(e)
 	}
+	ownerDSN := u.String()
 	u.User = url.UserPassword(role, password)
 	repo, e := data.OpenPostgres(ctx, u.String())
 	if e != nil {
@@ -104,7 +107,7 @@ func database(t *testing.T) *fixture {
 		t.Fatal("runtime unavailable")
 	}
 	t.Cleanup(runtime.Close)
-	return &fixture{repo: repo, presets: presets, runtime: runtime, dsn: u.String()}
+	return &fixture{repo: repo, presets: presets, runtime: runtime, dsn: u.String(), ownerDSN: ownerDSN, runtimeRole: role}
 }
 func create() biz.Create {
 	tenant, id, op := uuid.NewString(), uuid.NewString(), uuid.NewString()

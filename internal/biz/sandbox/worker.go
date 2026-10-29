@@ -143,7 +143,15 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		case !obs.PodExists:
 			kind = MutationCreatePod
 		case obs.PodTerminated:
-			kind, target = MutationDeletePod, obs.ProviderRefs.PodUID
+			// Preserve the failed workload and its diagnostic facts. Repeatedly
+			// replacing a Pod with a deterministic image/command failure hides
+			// the cause and creates unbounded churn. A later pause followed by
+			// resume explicitly stops the old Pod and starts a new attempt.
+			p.Sandbox.Observed = ObservedUnknown
+			if p.Sandbox.Reason == "" {
+				p.Sandbox.Reason = "POD_TERMINATED"
+			}
+			p.Next = 30 * time.Second
 		case !obs.WorkspaceBound:
 		}
 	case DesiredPaused:

@@ -20,6 +20,62 @@ Fedora Go 1.26.10 的相关单元测试、真实 PG18.6 定向生命周期/故�
 
 本次未新建用户实例或 GPU 账本；没有待恢复的未 ACK 存量事件，因此不能将发布成功及旧 ACK 保留宣称为新一次真实原 charge 退额或 GPU/浏览器产品验收。后续新快照与关闭事实已写入后，不得仅回退旧二进制或与旧 worker 混跑。
 
+## 2026-10-29：Sandbox 现场预检与 RuntimeClass 修正
+
+用户确认以独立创建、暂停、恢复和删除为本次主流程，自动超时、出网白名单及凭据自动刷新放在二期。主 Resource 已更新到 `sha256:c64afac73c156ba3473d85e671cb932c787d0a6d85d1ea15b09450e0c7a8b51f`，主 Gov 更新到 `sha256:3854b45d7e7bea28b10d5ef1dfb9df04f1188f5afb651df981a99ed3f11977d4`；两者 Ready 1/1、重启 0，部署配置仅镜像变更。Resource 的 Gov mTLS 列表和跨租户拒绝通过；切换前后同一租户登录、实例/推理/ModelDev 列表和 Resource 就绪检查均为 HTTP 200，列表各取 1 条，不能代替业务写入验证。Gov 受控同步新建 7 条 Sandbox API 和 7 条权限映射，并在确认无现有角色关联后启用 8 项 Sandbox 权限，原 API 和角色关联未变。
+
+独立测试套餐 7 仅含 INSTANCE/IMAGE，租户 37（Resource UUID `857c0bcf-5fa9-4151-8736-f3f4fe27c6aa`）的专属角色 23 获 Sandbox、Image space 及登录必需权限。首次登录因缺 `sys:access_backend` 返回 403，补到该专属角色后登录 200；其他角色和套餐的前后指纹一致。测试 Image space 和有效 pull 凭据已开通；该租户的 Sandbox 列表 HTTP 200 且为空，Sandbox 算力目录 HTTP 200、4 项 CPU。脱敏回执及后续测试凭据位于仓外仅管理员可读目录 `/root/kubercon/verification-artifacts/sandbox-e2e-8d90066c5742/`。尚未创建 Sandbox，真实创建、暂停、恢复、删除 **not_verified**。测试 Image space、Harbor project 和 pull 身份没有公开删除 API，后续须如实记录遗留并按正式机制处理。
+
+预检发现一个活跃租户的 `resource_tenant_id` 没有对应 Namespace，Gov 两条租户创建路径未发现初始化调用。现已修复 Sandbox 首次创建时按共享命名与归属规则确保 Namespace，不依赖 VPC；受理复核仍只读且校验冻结 UID。最终 Resource 源码清单 SHA-256 `504926cb85a654229c28b101f39328525b44c40dfceadf2fe3ababd6c210dbe9`，完整 `make verify`、隔离 PostgreSQL 的 Sandbox 数据层及共享入口恢复回归通过；构建、推送和验证证据位于 `/tmp/codex-resource-sandbox-integration-20261029-d3MY9sZr/`。正式 Gov Resource `go.mod` 尚未更新，本次镜像由固定双源码工作区构建；可搬运源码快照在 `/root/kubercon/verification-artifacts/sandbox-release-20261029/`。
+
+现场两项增量数据库迁移已执行：Resource Sandbox 004 添加租户列表索引，Gov Atlas `20261028010000` 新增创建意图表及索引；迁移前备份、旧版本校验，迁移后版本与运行角色权限校验均通过。Resource 身份已新增仅允许读取 `kata` / `sandbox-kata` RuntimeClass 的 RBAC。两份数据库备份位于仓外私有目录 `/root/kubercon/verification-artifacts/sandbox-live-backup-20261029-mzp2xt3j/`；Gov 备份 SHA-256 `73cc9284ad3ad0b6dd17cc08577c6b9a7f0bedf01c2e6d01c7420b7a043db617`，Resource Sandbox 备份 SHA-256 `8c0ff817d055fb5d6b7a5a9bdf858b01def72a70c2fb46e49f58fb0eda4dab6a`；均通过归档解码，未做恢复演练。Gov 日志周期性报告历史 ModelDev GPU 命令格式错误：旧候选更新前已有同类日志，相关 9 条历史命令均有 ENDED 且已确认投影；具体历史格式差异仍待另行排查。
+
+以下是执行上述迁移和授权前的预检快照：按用户要求先判断剩余问题是否影响测试；当时未部署、未执行共享库迁移或修改集群配置。只读核验 Kubernetes context 指向 `10.10.1.66–68`：真实 RuntimeClass 有 `kata`（handler `kata-qemu-runtime-rs`）而无 `sandbox-kata`，默认 StorageClass 为 `ani-block`、回收策略 `Delete`。已在 Resource 源码中改为通过现有 Kubernetes 客户端解析受信的 `sandbox-kata` 或 `kata`，新建受理校验冻结的名称，已受理重放不重新解析；需要 Resource 实际 Kubernetes 身份具备对应 `runtimeclasses.get`，已更新[权限清单](../../deployments/sandbox/README.md)，当时该身份无此权限。目标未验证已登记镜像满足固定 shell、非 root 和只读根要求，超时、出网白名单及运行中凭据刷新仍未实现。
+
+现场 Resource 主镜像 `sha256:af46381d3db9f565275cd1e2daa4b78da3d2c2930edcf305a8deee6cfbffd09c` 的二进制哈希、Go build info、OCI revision 和 source-tree 与官方源码 `3309c9fabd5fa670fed07ca197e157fd80f60a46` / tree `c64535c19d9ae7b324d1ad8cc86b37f0cecad03c` 对齐；Deployment 的 `8bd99dde...` 注解已过时。当前 Sandbox 工作区缺线上 Instance restart/PVC 和 ModelDev 改动，不能直接覆盖。已基于 `3309c9f` 在独立临时目录逐块合入 Sandbox，保留现网能力；候选 `make verify`、隔离 PostgreSQL 的 Image 精确查询、Sandbox 数据层和主入口迁移恢复测试 **pass**。候选源码清单 SHA-256 `f0a36898a4b0a263e260fde8bf314b97ac6ee1970f306864435cb959d7a15ae5`，日志在仓外 `/tmp/codex-resource-sandbox-integration-20261029-d3MY9sZr/`；普通工作区对应源码清单 SHA-256 `ec9ec50e2b5f78f9709dc9c5d58018be66a9c97f60643a3af34fd42a7832d3e2`，`make verify` 及同组隔离 PostgreSQL 回归 **pass**。Ubuntu SSH 主机密钥验证失败，均按允许规则回退至当前 `ubuntu` 主机，临时数据库和凭据已清理。
+
+上述 Resource 隔离候选额外在同一执行主机的独立 PostgreSQL 中执行 `go test -p=1 -count=1 -v -tags=instanceintegration ./internal/data/instance -run '^(TestRestartGuardPG|TestRestartMigrationPG|TestRestartVerticalPG|TestBorrowedVolumeReferencesPersistAndReleaseWithCompute)'`：12 个顶层测试 **pass**，覆盖实例重启、PVC 保护与迁移及借用卷引用释放；日志为候选目录外层 `instance-postgres.log`。临时数据库与凭据已清理。该回归不等于已完整验证现场 attach/detach 路径或真实集群。
+
+现网 Resource Sandbox schema 为 1–3，目标需第 4 版；当前主 Gov 与新 Resource Sandbox 协议不兼容。主 Gov 的镜像 `sha256:c8f84e...` 对应源码 `1d2142d` 与现场补丁，已在 `/tmp/codex-gov-sandbox-candidate-9j8jVG9p/source` 准备保留现网 AK/推理/实例行为的隔离候选。固定工具链的 `GOWORK=off make api`、schema 导出和 Atlas 迁移校验 **pass**；公开 Sandbox OpenAPI 已移除弃用的父实例字段。使用临时 Go workspace 连接 Resource 候选，Gov 的 data/service/server 定向测试 **153 pass、1 skip**（真实 Prometheus 未配置），隔离 PostgreSQL 的 4 项 Sandbox 用例 **pass**，同轮另有 19 项单元测试通过。Gov 测试源码清单 SHA-256 `baf3b3a4e4c85056f25cb3104447dd7711e64a8883de595a545c3817063cd6ad`；实际命令、失败尝试、重试与日志在候选目录外层 `evidence/`。正式 `go.mod/go.sum` 未更新；因候选是无 Git 元数据的归档，未完成完整 `check-generated`，Python 全套 23 项有 2 项因依赖 Git HEAD 失败，相关 12 项定向检查通过。上述结果不构成正式可复现发布或真实集群联调。
+
+实际集群上还有运行中的旧 Sandbox 候选 Gov；即使旧候选 Resource 为零副本，也不能假定 Gov 进程静默。用户所设的“无影响才更新”条件目前尚未满足，真实生命周期仍 **not_verified**。以下状态属于先前快照。
+
+## 2026-10-29：Sandbox 全新上线边界
+
+用户明确当前 Sandbox 全新上线，没有待兼容或迁移的历史 Sandbox 数据；先前将历史 Sandbox 或历史命名空间兼容、旧待派发记录 preflight 列为本次上线前置的判断不适用。租户创建时已有命名空间；初始化过程的具体命名、标签及权限绑定仍需在后续现场核验。没有历史数据不排除新请求的结果不确定，因此 Pod/PVC 的未知写入与 UID 删除屏障仍保留。
+
+在 Resource 工作区中将当前租户 Namespace UID 加入新创建规格、摘要及持久快照，首次受理和 worker 操作时复核；已有新请求准确重放仍依据持久事实。Pod 选择 Linux/amd64 节点，与当前镜像解析的平台一致，并允许 RuntimeClass 合并其他节点选择条件。Namespace UID 检查和 Kubernetes 子资源写入不是原子操作；Namespace 替换发生在两次调用之间时，事后发现不一致只能保留 unknown，不能断言写入未发生。命名空间消失或 UID 改变时暂停、删除也可能需要可信证据和受控恢复。Gov 固定的旧 Resource 模块不能处理新增 UID 字段，须在用户安排的后续 Gov 依赖更新中同步并验证；当前未改 Gov、部署或发布。
+
+Resource 基础提交 `018807c938eed568f7c77339a32e6969942a6fb1` 加当前未提交工作区，当前 `ubuntu` 主机 Go 1.26.10 执行 `GOMAXPROCS=1 GOMEMLIMIT=1200MiB GOFLAGS=-p=1 make verify` **pass**；隔离 PostgreSQL 17.11 的 Image 精确查询测试、`go test -p=1 -count=1 -v -tags=sandboxintegration ./internal/data/sandbox` 及共享入口迁移恢复测试均 **pass**。Kubernetes 仍为模拟边界。源码清单 SHA-256 `37d9eea6db19d1c47d64655fa00a186672ef5a25d4028e0a6e63f7b66267dc58`，验证前后文件一致，随后仅追加本执行状态；Ubuntu SSH 主机密钥验证失败，按允许规则本机回退。[命令日志和清单](../../../verification-artifacts/sandbox-new-tenant-20261029/)位于仓外，临时数据库和凭据已清理。
+
+自动启动、超时和出网是新 Sandbox 的功能选择，不能仅凭“没有历史数据”认定不需要；新请求目前尚未承接这些设置。运行中拉取凭据自动同步、Image 轮换期间的凭据切换、真实集群权限及完整生命周期仍未完成或未验证。以下状态属于先前快照。
+
+## 2026-10-29：Sandbox 交叉审查后修复
+
+用户说明租户创建时会初始化命名空间，Sandbox 无需通过新建 VPC 或实例触发初始化；现有 Resource 租户命名和归属标签仍须与该初始化流程核对。此轮修复 Image 精确引用查询，消除模糊结果超过 100 条时拒绝合法镜像的问题；创建前检查租户拉取凭据，已受理命令仍按原事实重放。Pod 观察校验执行命令及安全规格，未知创建仍要求匹配 mutation ID 和 UID；运行失败提供受控原因并保留终止 Pod，避免无限重建。Provider 在观察和写入前后重新检查租户命名空间归属；PV 读取超时时为归属复核保留预算。Sandbox 自身启动时数据库或迁移暂不可用会后台重试，恢复后在同一进程启用服务和 worker。新增[共享身份的 Sandbox RBAC 清单](../../deployments/sandbox/README.md)，未在集群执行。
+
+Resource 基础提交 `018807c938eed568f7c77339a32e6969942a6fb1` 加未提交工作区修改，实际当前 `ubuntu` 主机、Go 1.26.10、`GOMAXPROCS=1 GOMEMLIMIT=1200MiB GOFLAGS=-p=1 make verify` **pass**；独占 PostgreSQL 17.11 中，Image 的 `go test -p=1 -count=1 -v -tags=imageintegration ./internal/data/image -run '^TestReferenceLookupIsExactScopedAndIndependentOfCatalogSize$'`、`go test -p=1 -count=1 -v -tags=sandboxintegration ./internal/data/sandbox`、以及共享入口的 `go test -p=1 -count=1 -v ./cmd/ani-resource-service -run '^(TestBuildAppRegistersSandboxFromSharedConfiguration|TestBuildAppRecoversSandboxAfterMigration)$'` 均 **pass**。入口测试使用模拟 Kubernetes，恢复测试在真实隔离数据库上先启动缺 Sandbox 迁移的进程，再补迁移并在同一进程验证 mTLS List 恢复。源码清单 SHA-256 `3c3cd10a582803764c759625955394b0ad9d1826abb2d3f082a0746f27c571db`；固定快照前后的文件集合及内容一致，随后仅追加本执行状态。Ubuntu SSH 主机密钥验证失败，按允许的本地回退执行；[命令日志和源码清单](../../../verification-artifacts/sandbox-followup-20261029/)位于仓外，临时数据库和凭据已清理。
+
+**未完成与未验证：** 旧创建请求的自动启动、超时及出网设置尚未接入新合同；旧业务出网白名单未找到实际生效证据。新 Pod 仍固定 shell 命令、非 root 和只读根目录，与旧镜像默认命令的兼容取舍待确认；Image 目录登记不保证镜像满足这些运行条件。运行中拉取凭据没有自动刷新；混合架构调度尚未冻结架构；Kubernetes 命名空间检查与子资源写入无法原子化，历史快照也未保存 Namespace UID，旧固定命名空间的兼容须核验。租户初始化的标签与权限绑定、集群准入、真实创建及暂停恢复删除、Gov 正式 Resource 依赖、发布和部署均为 **not_verified**。以下共享入口状态属于先前快照。
+
+## 2026-10-29：Sandbox 共享入口与配置
+
+Resource 工作区移除 `ANI_SANDBOX_CONFIG_FILE` 装配依赖：Sandbox 共用主入口、Compute 数据库及 cluster、Resource Kubernetes 配置和租户命名空间，Compute 与 Network 的 cluster 不一致时 Sandbox 返回不可用。工作盘默认 `5Gi`、运行时默认 `sandbox-kata`，StorageClass 从唯一且满足回收要求的平台默认类读取。Image 使用本进程目录校验，当前仅接受已登记的租户或平台镜像，拉取凭据使用 Image 能力。未知创建观察到的 Pod/PVC 必须带有对应 mutation ID 与非空 UID 才能解除屏障；不符或历史缺失注解时保持 unknown。细节见[当前设计](../plans/sandbox-runtime-design-20261025.md)。
+
+Resource 基础提交 `018807c938eed568f7c77339a32e6969942a6fb1` 加未提交修改，实际在当前 `ubuntu` 主机、Go 1.26.10 执行：`GOMAXPROCS=1 GOMEMLIMIT=1200MiB GOFLAGS=-p=1 make verify` **pass**；隔离 PostgreSQL 17.11 下 `go test -p=1 -count=1 -v -tags=sandboxintegration ./internal/data/sandbox` **pass**；同库及模拟 Kubernetes 下 `go test -p=1 -count=1 -v ./cmd/ani-resource-service -run '^TestBuildAppRegistersSandboxFromSharedConfiguration$'` **pass**。后者验证未设置独立变量时真实主入口的 mTLS 列表与跨租户拒绝，不验证真实集群生命周期。源码清单 SHA-256 `7c0c7e5b2df3332099f18459ecda44f8a1d2d0e73d0ffbf5b202aceaf90d06b1`；测试后仅追加本条执行状态。指定 SSH 配置不存在且默认 `ssh ubuntu` 主机密钥验证失败，按允许的本地回退执行。首次加入未知创建关联后，一个旧 fixture 与新屏障冲突而失败；修正 fixture 后以上测试通过。此前完整校验因补充发现的缺陷而主动中断，不计通过。隔离数据库容器和临时凭据已清理；[测试日志和源码清单](../../../verification-artifacts/sandbox-shared-entry-20261029/)位于仓外。
+
+旧模板镜像是否已登记尚未核实；未登记的旧镜像当前不能直接创建，注册引用查询结果超过 100 条时会保守返回不可用。旧前端自动启动、超时、出网等功能尚未完整迁移；运行中 Pod 的拉取凭据没有后台自动刷新。目标集群默认 StorageClass、RuntimeClass、租户命名空间、Secret 和其他 Kubernetes 权限、新迁移、Gov 正式 Resource 依赖及真实 create/pause/resume/delete 均为 **not_verified**；未部署或发布。以下独立创建结果属于先前快照。
+
+## 2026-10-29：Sandbox 独立创建修正
+
+用户明确 Sandbox 通过 `/api/v1/sandbox/...` 直接创建，不依赖其他 Instance。Resource 和 Gov 工作区已按此修正；Resource 保留历史引用与摘要以校验重放，新请求按租户和 Sandbox ID 操作；Gov 移除父实例检查与删除屏障，保留租户鉴权、持久创建意图及未知结果屏障。切换前必须停止旧创建及投递并执行 Gov 的只读 preflight；有未确认旧创建时阻断，不能改写或假定其未执行。
+
+Resource 基础提交 `018807c` 加未提交修改，实际在当前 `ubuntu` 主机、Go 1.26.10 执行：`make verify TOOLS_DIR=/root/kubercon/ani-resource-service/.tools/bin` **pass**；隔离 PostgreSQL 17.11 的 `go test -tags=sandboxintegration ./internal/data/sandbox` **pass**；隔离联调进程的 Sandbox mTLS 列表探针 **pass**，不代表 Kubernetes 生命周期已通过。源码清单 `resource-source.sha256` SHA-256 `546378252a9a80c917ee7e66df9416eef7a652b7f270acb5c06a3afc2bba1649`，测试后仅追加本条执行状态。指定的 SSH 配置不存在且默认 `ssh ubuntu` 主机密钥验证失败，因此按允许的本地回退执行；初次检查因主机重启中断、另一次因发现第 004 迁移未接线而主动中断，均不计通过。日志与清单位于仓外 `../verification-artifacts/sandbox-independent-20261029-cawhk53z/`（相对仓库根目录）。
+
+Gov 和推理 API 隔离快照清单 SHA-256 `2d585b4add936d494ee18176715be0717daecb02acf50e8a4fa00955a2c6940e`；用临时 Go workspace 连接上述 Resource 源码，Gov 的 Sandbox/Instance/权限定向测试及真实 PostgreSQL 的独立创建与实例删除并发、历史删除派发和创建投递租约测试 **pass**。隔离快照测试前后清单一致；切换前 preflight 在无旧待确认记录时退出 0、存在记录时退出 3。测试进程中的 Kubernetes 边界受控，并非 Gov→Resource→真实集群完整生命周期。临时 PostgreSQL 容器和凭据在测试后清理。
+
+Gov 固定依赖仍指向旧 Resource 模块，旧版摘要要求非空 `instance_id`，因此发布前须先交付新 Resource 模块并更新 Gov 依赖；跨仓验证使用本地工作区，不代表正式依赖可发布。现有 `ANI_SANDBOX_CONFIG_FILE` 仍控制 Resource 装配；配置共用及旧前端的模板、镜像、自动启动、超时和出网等参数兼容未完成。新接口真实集群生命周期、部署和发布为 **not_verified**；下列历史带父实例验收不能作为新业务验收。
+
 ## 2026-10-27：Sandbox 真实集群联调（独立候选）
 
 本轮 **Sandbox 核心验收 pass**：正常登录、临时租户/最小权限/INSTANCE套餐与合法CPU父实例，经 Gov HTTP→Resource mTLS→真实 PostgreSQL/worker/Kata 完成 create→pause→候选进程重启→resume→delete。四个 operation succeeded；重放、冲突、跨租户隔离及原工作盘/文件保持通过。另有五类生产组件故障验证通过，覆盖逻辑 ClusterID、迟到 Pod、WFFC/Lost观察、lease/旧回执和PV回收屏障；故障验证不冒充Gov HTTP全链。详见[验收回执](records/SANDBOX-20261027/live-final-fixes/result.json)。
@@ -1081,3 +1137,9 @@ The first CPU Unix-socket path failure, Network alias/reproof and full-Stop fail
 Fedora 身份/tenant/日志/配置及真实 TLS 连接定向用例通过。
 LIVE/PRODUCT 未验收；CI 对所有 push/PR 的 Ubuntu 全量门禁与用户约束冲突，未推送或发布。
 准确命令、首次失败及修复后结果见[本次证据](records/IMAGE-REGISTRY-20261026/README.md)。
+
+## 2026-10-29：Resource Sandbox 与线上实例能力整合验证
+
+以当前 Resource 分支 `018807c` 和原有未提交 Sandbox 工作区修改为输入，在独立临时 worktree 中合入 `3309c9fabd5fa670fed07ca197e157fd80f60a46`，保留该分支包含的实例重启、PVC 生命周期和 ModelDev 租户镜像凭据代码。隔离验证的合并树为 `221a15071df4e93d959f7041cf856effd2b9621d`；其中原工作区跟踪文件补丁 SHA-256 为 `6ba0448638def8fdc59e64475b65a89a63320a5022b6372a544a012bf747e519`，未跟踪文件逐项 SHA-256 见仓外快照清单。本条文档是在测试后追加，不计入上述树。
+
+指定 `/home/chabking/.ssh/config` 不存在，默认 `ssh ubuntu` 因主机密钥校验失败，按仓库允许的本地回退在当前主机使用 Go 1.26.10、固定 Buf 1.60.0 / sqlc 1.31.1 执行：`GOMAXPROCS=1 GOMEMLIMIT=1200MiB GOFLAGS=-p=1 GOWORK=off make verify` **pass**；使用本任务独占临时 PostgreSQL 17.11，Sandbox `sandboxintegration` 75 个顶层测试 **pass**，实例重启/PVC 定向回归 12 个顶层测试 **pass**，Image 引用定向回归 1 个顶层测试 **pass**。共享入口两项测试首次未配置 `NETWORK_TEST_ADMIN_DSN` 被 **skip**；补充独占数据库环境后单独执行，两项 **pass**。测试使用模拟 Kubernetes，不能代表真实 Sandbox 创建、暂停、恢复、删除已验收。临时数据库与凭据已清理；日志和输入清单位于仓外 `../verification-artifacts/resource-integration-review-20261029/`。GitHub PR 既有失败和新提交的 CI 状态需分别检查。

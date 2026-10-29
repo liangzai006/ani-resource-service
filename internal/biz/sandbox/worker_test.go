@@ -95,6 +95,20 @@ func TestWorkerPauseKeepsWorkspaceAndJournalsOneChild(t *testing.T) {
 		t.Fatalf("calls=%v progress=%+v", p.calls, r.progress)
 	}
 }
+
+func TestWorkerRetainsTerminatedPodUntilExplicitPause(t *testing.T) {
+	w, r, p := testWorker(t, DesiredRunning)
+	p.observe = Observation{Observed: ObservedProvisioning, Reason: "POD_TERMINATED_EXIT_CODE_127", WorkspaceExists: true, WorkspaceBound: true, PodExists: true, PodTerminated: true, ProviderRefs: ProviderRefs{PVCUID: "pvc-1", PodUID: "pod-1"}}
+	step(t, w)
+	if len(p.calls) != 0 || len(r.prepared) != 0 || r.progress.Sandbox.Observed != ObservedUnknown || r.progress.Sandbox.Reason != "POD_TERMINATED_EXIT_CODE_127" || r.progress.Sandbox.ProviderRefs.PodUID != "pod-1" || r.progress.Next != 30*time.Second {
+		t.Fatalf("terminated workload was not retained: progress=%+v mutations=%v", r.progress, p.calls)
+	}
+	r.work.Sandbox.Desired = DesiredPaused
+	step(t, w)
+	if len(p.calls) != 1 || p.calls[0].Kind != MutationDeletePod || p.calls[0].TargetUID != "pod-1" {
+		t.Fatalf("explicit pause did not stop retained pod: %v", p.calls)
+	}
+}
 func TestWorkerDoesNotReplaceMissingOriginalWorkspace(t *testing.T) {
 	w, r, p := testWorker(t, DesiredRunning)
 	r.work.Sandbox.ProviderRefs.PVCUID = "original"

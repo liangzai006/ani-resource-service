@@ -17,19 +17,24 @@ import (
 	"testing"
 	"time"
 
+	"github.com/google/uuid"
 	acc "github.com/zhangzhe-ctrl/ani-accelerator-service/api/gen/go/accelerator/v1"
 	quotapb "github.com/zhangzhe-ctrl/ani-governance/api/quota/gen/go/quota/service/v1"
 	computepb "github.com/zhangzhe-ctrl/ani-resource-service/api/compute/v1"
 	pb "github.com/zhangzhe-ctrl/ani-resource-service/api/instance/v1"
+	sandboxpb "github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1"
 	compute "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/compute"
 	biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance"
 	data "github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance"
+	sandboxdata "github.com/zhangzhe-ctrl/ani-resource-service/internal/data/sandbox"
 	server "github.com/zhangzhe-ctrl/ani-resource-service/internal/server"
 	computeservice "github.com/zhangzhe-ctrl/ani-resource-service/internal/service/compute"
 	service "github.com/zhangzhe-ctrl/ani-resource-service/internal/service/instance"
+	sandboxservice "github.com/zhangzhe-ctrl/ani-resource-service/internal/service/sandbox"
 	"github.com/zhangzhe-ctrl/ani-resource-service/tests/testenv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
@@ -192,6 +197,25 @@ func TestInstanceGovernanceFixture(t *testing.T) {
 		t.Fatal(e)
 	}
 	computepb.RegisterComputePresetServiceServer(transport, catalog)
+	// The joint fixture owns its database. Register the real Sandbox intake on
+	// the same listener; no Kubernetes lifecycle is claimed by this fixture.
+	if e = sandboxdata.Migrate(context.Background(), f.ownerDSN, f.runtimeRole); e != nil {
+		t.Fatal(e)
+	}
+	sandboxRepo, e := sandboxdata.OpenPostgres(context.Background(), f.dsn)
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer sandboxRepo.Close()
+	sandboxHandler, e := sandboxservice.NewService(sandboxRepo, computeResolver(t, f, clusterID), sandboxservice.Config{
+		ClusterID: clusterID, NamespacePrefix: "tenant-", RuntimeClass: "sandbox-kata",
+		StorageClass: "ani-block", WorkspaceSize: "1Gi", ImagePrefixes: []string{"registry.invalid/"},
+		NamespaceResolver: sandboxdata.TenantNamespace{},
+	})
+	if e != nil {
+		t.Fatal(e)
+	}
+	sandboxpb.RegisterSandboxServiceServer(transport, sandboxHandler)
 	done := make(chan error, 1)
 	go func() { done <- transport.Serve(listener) }()
 	defer func() {
@@ -200,6 +224,18 @@ func TestInstanceGovernanceFixture(t *testing.T) {
 			t.Error(e)
 		}
 	}()
+	probe, e := grpc.NewClient(listener.Addr().String(), grpc.WithTransportCredentials(credentials.NewTLS(identity.Client)))
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer probe.Close()
+	tenant := uuid.NewString()
+	probeCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	probeCtx = metadata.NewOutgoingContext(probeCtx, metadata.Pairs("x-ani-tenant-id", tenant, "x-ani-actor", "governance:user:42", "x-ani-request-id", uuid.NewString()))
+	if _, e = sandboxpb.NewSandboxServiceClient(probe).ListSandboxes(probeCtx, &sandboxpb.ListSandboxesRequest{TenantId: tenant}); e != nil {
+		t.Fatalf("sandbox joint fixture RPC unavailable: %v", e)
+	}
 	raw, e := json.Marshal(map[string]string{"PresetID": preset.ID, "ClusterID": clusterID, "Address": listener.Addr().String(), "CAFile": identity.CAFile, "CertFile": identity.ClientCertFile, "KeyFile": identity.ClientKeyFile, "TerminalAddress": terminalAddress, "SGClientCertFile": identity.SGClientCertFile, "SGClientKeyFile": identity.SGClientKeyFile, "SGServerCertFile": identity.SGServerCertFile, "SGServerKeyFile": identity.SGServerKeyFile, "GovControlCertFile": identity.GovControlCertFile, "GovControlKeyFile": identity.GovControlKeyFile})
 	if e != nil {
 		t.Fatal(e)

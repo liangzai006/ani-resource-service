@@ -47,6 +47,39 @@ func (p *Postgres) FindPlatformRegistration(ctx context.Context, id string) (biz
 	}
 	return fromRegistration(row, s)
 }
+
+func (p *Postgres) FindTenantRegistrationsByReference(ctx context.Context, tenant string, ref biz.ReferenceLookup) ([]biz.Registration, error) {
+	if _, err := biz.ParseTenant(tenant); err != nil {
+		return nil, err
+	}
+	rows, err := sqlcgen.New(p.connection(ctx)).FindTenantRegistrationsByReference(ctx, sqlcgen.FindTenantRegistrationsByReferenceParams{TenantID: &tenant, SpaceID: ref.SpaceID, Repository: ref.Repository, IsDigest: ref.IsDigest, Reference: ref.Reference})
+	if err != nil {
+		return nil, databaseError(err)
+	}
+	if len(rows) == 0 {
+		return []biz.Registration{}, nil
+	}
+	s, err := p.FindTenantSpace(ctx, tenant)
+	if err != nil {
+		return nil, err
+	}
+	return registrations(rows, s)
+}
+
+func (p *Postgres) FindPlatformRegistrationsByReference(ctx context.Context, ref biz.ReferenceLookup) ([]biz.Registration, error) {
+	rows, err := sqlcgen.New(p.connection(ctx)).FindPlatformRegistrationsByReference(ctx, sqlcgen.FindPlatformRegistrationsByReferenceParams{SpaceID: ref.SpaceID, Repository: ref.Repository, IsDigest: ref.IsDigest, Reference: ref.Reference})
+	if err != nil {
+		return nil, databaseError(err)
+	}
+	if len(rows) == 0 {
+		return []biz.Registration{}, nil
+	}
+	s, err := p.FindPlatformSpace(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return registrations(rows, s)
+}
 func searchPattern(raw string) string {
 	return "%" + strings.NewReplacer(`\`, `\\`, `%`, `\%`, `_`, `\_`).Replace(raw) + "%"
 }

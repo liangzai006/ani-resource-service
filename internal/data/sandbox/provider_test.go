@@ -5,14 +5,17 @@ import (
 	"errors"
 	"fmt"
 	"testing"
+	"time"
 
 	biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/sandbox"
+	storagebiz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/storage"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/dynamic/fake"
 	ktesting "k8s.io/client-go/testing"
 )
@@ -560,6 +563,326 @@ func TestKubernetesProviderMatchesEquivalentResourceQuantities(t *testing.T) {
 	}
 }
 
+func TestKubernetesProviderMatchesImagePlatformAndRuntimeClassSelectors(t *testing.T) {
+	_, _, s := providerFixture(t)
+	for _, tc := range []struct {
+		name     string
+		selector map[string]any
+		want     bool
+	}{
+		{"image_platform", map[string]any{"kubernetes.io/os": "linux", "kubernetes.io/arch": "amd64"}, true},
+		{"runtime_class_selector_merged", map[string]any{"kubernetes.io/os": "linux", "kubernetes.io/arch": "amd64", "sandbox.example/runtime": "kata"}, true},
+		{"wrong_arch", map[string]any{"kubernetes.io/os": "linux", "kubernetes.io/arch": "arm64"}, false},
+		{"missing_arch", map[string]any{"kubernetes.io/os": "linux"}, false},
+		{"wrong_os", map[string]any{"kubernetes.io/os": "windows", "kubernetes.io/arch": "amd64"}, false},
+		{"missing_os", map[string]any{"kubernetes.io/arch": "amd64"}, false},
+		{"missing_selector", nil, false},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			pod := renderPod(s, "sandbox-"+s.ID, labels(s))
+			if tc.selector == nil {
+				unstructured.RemoveNestedField(pod.Object, "spec", "nodeSelector")
+			} else if err := unstructured.SetNestedMap(pod.Object, tc.selector, "spec", "nodeSelector"); err != nil {
+				t.Fatal(err)
+			}
+			if got := podMatches(pod, s); got != tc.want {
+				t.Fatalf("match = %v, want %v", got, tc.want)
+			}
+		})
+	}
+	// Assert the rendered Pod carries the selected image platform; the test
+	// cases above deliberately replace the selector to cover API admission.
+	pod := renderPod(s, "sandbox-"+s.ID, labels(s))
+	selector, found, err := unstructured.NestedStringMap(pod.Object, "spec", "nodeSelector")
+	if err != nil || !found || selector["kubernetes.io/os"] != "linux" || selector["kubernetes.io/arch"] != "amd64" {
+		t.Fatalf("rendered image platform selector = %v, found=%v, err=%v", selector, found, err)
+	}
+}
+
+func TestKubernetesProviderRejectsPodExecutionAndSecurityDrift(t *testing.T) {
+	_, _, s := providerFixture(t)
+	cases := []struct {
+		name   string
+		change func(map[string]any, map[string]any)
+	}{
+		{"command", func(_ map[string]any, c map[string]any) { c["command"] = []any{"/bin/sh"} }},
+		{"args", func(_ map[string]any, c map[string]any) { c["args"] = []any{"-c", "id"} }},
+		{"environment", func(_ map[string]any, c map[string]any) {
+			c["env"] = []any{map[string]any{"name": "LD_PRELOAD", "value": "/workspace/lib.so"}}
+		}},
+		{"environment_from", func(_ map[string]any, c map[string]any) {
+			c["envFrom"] = []any{map[string]any{"secretRef": map[string]any{"name": "other"}}}
+		}},
+		{"lifecycle_hook", func(_ map[string]any, c map[string]any) {
+			c["lifecycle"] = map[string]any{"postStart": map[string]any{}}
+		}},
+		{"init_container", func(spec map[string]any, _ map[string]any) {
+			spec["initContainers"] = []any{map[string]any{"name": "extra"}}
+		}},
+		{"ephemeral_container", func(spec map[string]any, _ map[string]any) {
+			spec["ephemeralContainers"] = []any{map[string]any{"name": "debug"}}
+		}},
+		{"container_user_root", func(_ map[string]any, c map[string]any) {
+			c["securityContext"].(map[string]any)["runAsUser"] = int64(0)
+		}},
+		{"container_nonroot_override", func(_ map[string]any, c map[string]any) {
+			c["securityContext"].(map[string]any)["runAsNonRoot"] = false
+		}},
+		{"container_seccomp_override", func(_ map[string]any, c map[string]any) {
+			c["securityContext"].(map[string]any)["seccompProfile"] = map[string]any{"type": "Unconfined"}
+		}},
+		{"added_capability", func(_ map[string]any, c map[string]any) {
+			c["securityContext"].(map[string]any)["capabilities"].(map[string]any)["add"] = []any{"SYS_ADMIN"}
+		}},
+		{"supplemental_groups", func(spec map[string]any, _ map[string]any) {
+			spec["securityContext"].(map[string]any)["supplementalGroups"] = []any{int64(0)}
+		}},
+		{"mount_subpath", func(_ map[string]any, c map[string]any) {
+			c["volumeMounts"].([]any)[0].(map[string]any)["subPath"] = "other"
+		}},
+		{"mount_read_only", func(_ map[string]any, c map[string]any) {
+			c["volumeMounts"].([]any)[0].(map[string]any)["readOnly"] = true
+		}},
+		{"volume_additional_source", func(spec map[string]any, _ map[string]any) {
+			spec["volumes"].([]any)[0].(map[string]any)["hostPath"] = map[string]any{"path": "/"}
+		}},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			pod := renderPod(s, "sandbox-"+s.ID, labels(s))
+			spec := pod.Object["spec"].(map[string]any)
+			container := spec["containers"].([]any)[0].(map[string]any)
+			tc.change(spec, container)
+			if podMatches(pod, s) {
+				t.Fatal("modified Pod was accepted")
+			}
+		})
+	}
+	t.Run("kubernetes_defaults", func(t *testing.T) {
+		pod := renderPod(s, "sandbox-"+s.ID, labels(s))
+		spec := pod.Object["spec"].(map[string]any)
+		spec["initContainers"] = []any{}
+		spec["ephemeralContainers"] = []any{}
+		container := spec["containers"].([]any)[0].(map[string]any)
+		container["args"] = []any{}
+		container["imagePullPolicy"] = "IfNotPresent"
+		container["terminationMessagePath"] = "/dev/termination-log"
+		container["terminationMessagePolicy"] = "File"
+		mount := container["volumeMounts"].([]any)[0].(map[string]any)
+		mount["readOnly"], mount["mountPropagation"] = false, "None"
+		claim := spec["volumes"].([]any)[0].(map[string]any)["persistentVolumeClaim"].(map[string]any)
+		claim["readOnly"] = false
+		if !podMatches(pod, s) {
+			t.Fatal("ordinary Kubernetes default fields were rejected")
+		}
+	})
+}
+
+func TestKubernetesProviderPodReasonsExcludeMessages(t *testing.T) {
+	tests := []struct {
+		name   string
+		status map[string]any
+		want   string
+	}{
+		{"image_pull", map[string]any{"phase": "Pending", "containerStatuses": []any{map[string]any{"name": "sandbox", "state": map[string]any{"waiting": map[string]any{"reason": "ImagePullBackOff", "message": "secret registry password"}}}}}, "POD_IMAGE_PULL_BACK_OFF"},
+		{"unschedulable", map[string]any{"phase": "Pending", "conditions": []any{map[string]any{"type": "PodScheduled", "status": "False", "reason": "Unschedulable", "message": "secret node details"}}}, "POD_UNSCHEDULABLE"},
+		{"exit", map[string]any{"phase": "Failed", "containerStatuses": []any{map[string]any{"name": "sandbox", "state": map[string]any{"terminated": map[string]any{"exitCode": int64(137), "message": "secret output"}}}}}, "POD_TERMINATED_EXIT_CODE_137"},
+		{"unrecognized_reason", map[string]any{"phase": "Failed", "reason": "secret", "message": "secret"}, "POD_TERMINATED"},
+		{"arbitrary_exit", map[string]any{"phase": "Failed", "containerStatuses": []any{map[string]any{"name": "sandbox", "state": map[string]any{"terminated": map[string]any{"exitCode": int64(1000000)}}}}}, "POD_TERMINATED"},
+	}
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			client, provider, s := providerFixture(t)
+			applyProvider(t, provider, &s, biz.MutationCreateWorkspace)
+			applyProvider(t, provider, &s, biz.MutationCreatePod)
+			pod, err := client.Resource(podGVR).Namespace(s.Snapshot.Namespace).Get(context.Background(), "sandbox-"+s.ID, metav1.GetOptions{})
+			if err != nil {
+				t.Fatal(err)
+			}
+			pod.Object["status"] = tc.status
+			if _, err := client.Resource(podGVR).Namespace(s.Snapshot.Namespace).Update(context.Background(), pod, metav1.UpdateOptions{}); err != nil {
+				t.Fatal(err)
+			}
+			obs := observeProvider(t, provider, &s)
+			if obs.Reason != tc.want {
+				t.Fatalf("reason = %q, want %q", obs.Reason, tc.want)
+			}
+		})
+	}
+}
+
+func TestKubernetesProviderDriftCannotResolvePendingCreate(t *testing.T) {
+	client, provider, s := providerFixture(t)
+	applyProvider(t, provider, &s, biz.MutationCreateWorkspace)
+	pending := providerMutation(s, biz.MutationCreatePod)
+	s.Pending = &pending
+	pod := renderPod(s, "sandbox-"+s.ID, labels(s))
+	pod.SetAnnotations(map[string]string{providerMutationID: pending.ID})
+	spec := pod.Object["spec"].(map[string]any)
+	spec["containers"].([]any)[0].(map[string]any)["command"] = []any{"/bin/sh", "-c", "unexpected"}
+	if _, err := client.Resource(podGVR).Namespace(s.Snapshot.Namespace).Create(context.Background(), pod, metav1.CreateOptions{}); err != nil {
+		t.Fatal(err)
+	}
+	worker, repo := newProviderWorker(t, provider, s)
+	providerWorkerStep(t, worker)
+	if repo.state.Pending == nil || *repo.state.Pending != pending || repo.state.Observed != biz.ObservedUnknown || len(repo.prepared) != 0 {
+		t.Fatalf("drifted Pod cleared the unknown creation barrier: %#v", repo.state)
+	}
+}
+
+func configuredNamespaceFixture(t *testing.T) (*fake.FakeDynamicClient, *KubernetesProvider, biz.Sandbox) {
+	t.Helper()
+	client, provider, s := providerFixture(t)
+	s.Snapshot.Namespace = "tenant-" + s.TenantID
+	s.Snapshot.NamespaceUID = "namespace-uid"
+	ns := &unstructured.Unstructured{Object: map[string]any{"apiVersion": "v1", "kind": "Namespace", "metadata": map[string]any{"name": s.Snapshot.Namespace, "uid": "namespace-uid", "labels": map[string]any{storagebiz.NamespaceManagedBy: storagebiz.NamespaceOwner, storagebiz.NamespaceTenantID: s.TenantID}}}}
+	if _, err := client.Resource(namespaceGVR).Create(context.Background(), ns, metav1.CreateOptions{}); err != nil {
+		t.Fatal(err)
+	}
+	if err := provider.ConfigureTenantNamespacePrefix("tenant-"); err != nil {
+		t.Fatal(err)
+	}
+	return client, provider, s
+}
+
+func TestKubernetesProviderRejectsChangedTenantNamespaceBeforeWrites(t *testing.T) {
+	for _, change := range []string{"tenant", "owner", "deleting", "name"} {
+		t.Run(change, func(t *testing.T) {
+			client, provider, s := configuredNamespaceFixture(t)
+			ns, err := client.Resource(namespaceGVR).Get(context.Background(), s.Snapshot.Namespace, metav1.GetOptions{})
+			if err != nil {
+				t.Fatal(err)
+			}
+			switch change {
+			case "tenant":
+				ns.SetLabels(map[string]string{storagebiz.NamespaceManagedBy: storagebiz.NamespaceOwner, storagebiz.NamespaceTenantID: "other"})
+			case "owner":
+				ns.SetLabels(map[string]string{storagebiz.NamespaceManagedBy: "other", storagebiz.NamespaceTenantID: s.TenantID})
+			case "deleting":
+				now := metav1.Now()
+				ns.SetDeletionTimestamp(&now)
+			case "name":
+				s.Snapshot.Namespace = "foreign-namespace"
+			}
+			if change != "name" {
+				if _, err = client.Resource(namespaceGVR).Update(context.Background(), ns, metav1.UpdateOptions{}); err != nil {
+					t.Fatal(err)
+				}
+			}
+			before := providerWriteCount(client)
+			result, err := provider.Apply(context.Background(), s, providerMutation(s, biz.MutationCreateWorkspace))
+			if err == nil || result.Outcome != biz.MutationNotSent || providerWriteCount(client) != before {
+				t.Fatalf("changed namespace permitted a write: %#v %v", result, err)
+			}
+			if _, err = provider.Observe(context.Background(), s); err == nil {
+				t.Fatal("changed namespace was observed as authoritative")
+			}
+		})
+	}
+}
+
+func TestKubernetesProviderNamespaceReplacementDuringCreateKeepsUnknown(t *testing.T) {
+	client, provider, s := configuredNamespaceFixture(t)
+	client.PrependReactor("create", "persistentvolumeclaims", func(ktesting.Action) (bool, runtime.Object, error) {
+		object, err := client.Tracker().Get(namespaceGVR, "", s.Snapshot.Namespace)
+		if err != nil {
+			return true, nil, err
+		}
+		ns := object.(*unstructured.Unstructured)
+		ns.SetUID("replacement-uid")
+		if err = client.Tracker().Update(namespaceGVR, ns, ""); err != nil {
+			return true, nil, err
+		}
+		return false, nil, nil
+	})
+	result, err := provider.Apply(context.Background(), s, providerMutation(s, biz.MutationCreateWorkspace))
+	if err == nil || result.Outcome != biz.MutationUnknown || result.Reason != "TENANT_NAMESPACE_CHANGED" || result.Refs.PVCUID != "" {
+		t.Fatalf("replacement yielded a conclusive receipt: %#v %v", result, err)
+	}
+}
+
+func TestKubernetesProviderRejectsReplacementBetweenWorkerSteps(t *testing.T) {
+	client, provider, s := configuredNamespaceFixture(t)
+	applyProvider(t, provider, &s, biz.MutationCreateWorkspace)
+	ns, err := client.Resource(namespaceGVR).Get(context.Background(), s.Snapshot.Namespace, metav1.GetOptions{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	ns.SetUID("replacement-uid")
+	if _, err = client.Resource(namespaceGVR).Update(context.Background(), ns, metav1.UpdateOptions{}); err != nil {
+		t.Fatal(err)
+	}
+	before := providerWriteCount(client)
+	result, err := provider.Apply(context.Background(), s, providerMutation(s, biz.MutationCreatePod))
+	if err == nil || result.Outcome != biz.MutationNotSent || providerWriteCount(client) != before {
+		t.Fatalf("replacement allowed Pod write: %#v %v", result, err)
+	}
+	if _, err = provider.Observe(context.Background(), s); err == nil {
+		t.Fatal("replacement accepted during observation")
+	}
+}
+
+// This wrapper waits for the actual PV child context to expire, unlike a
+// reactor that immediately returns a synthetic timeout error.
+type contextBlockingPVClient struct {
+	dynamic.Interface
+	pvTimedOut             bool
+	rejectNamespaceAfterPV bool
+}
+
+type contextBlockingPVResource struct {
+	dynamic.NamespaceableResourceInterface
+	parent   *contextBlockingPVClient
+	resource schema.GroupVersionResource
+}
+
+func (c *contextBlockingPVClient) Resource(gvr schema.GroupVersionResource) dynamic.NamespaceableResourceInterface {
+	return &contextBlockingPVResource{NamespaceableResourceInterface: c.Interface.Resource(gvr), parent: c, resource: gvr}
+}
+
+func (r *contextBlockingPVResource) Get(ctx context.Context, name string, opts metav1.GetOptions, subresources ...string) (*unstructured.Unstructured, error) {
+	if r.resource == pvGVR {
+		<-ctx.Done()
+		r.parent.pvTimedOut = true
+		return nil, ctx.Err()
+	}
+	if r.resource == namespaceGVR && r.parent.pvTimedOut && r.parent.rejectNamespaceAfterPV {
+		return nil, errors.New("namespace recheck unavailable")
+	}
+	return r.NamespaceableResourceInterface.Get(ctx, name, opts, subresources...)
+}
+
+func TestProviderWorkerNamespaceRecheckAfterRealPVTimeout(t *testing.T) {
+	for _, namespaceUnavailable := range []bool{false, true} {
+		t.Run(fmt.Sprintf("namespace_unavailable_%t", namespaceUnavailable), func(t *testing.T) {
+			client, provider, s := configuredNamespaceFixture(t)
+			applyProvider(t, provider, &s, biz.MutationCreateWorkspace)
+			providerBoundWorkspace(t, client, s)
+			applyProvider(t, provider, &s, biz.MutationCreatePod)
+			original := s.ProviderRefs
+			s.Desired = biz.DesiredPaused
+			blocking := &contextBlockingPVClient{Interface: client, rejectNamespaceAfterPV: namespaceUnavailable}
+			provider.client = blocking
+			worker, repo := newProviderWorker(t, provider, s)
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+			defer cancel()
+			worked, err := worker.Step(ctx)
+			if !worked || err != nil || !blocking.pvTimedOut {
+				t.Fatalf("worker did not reach PV context timeout: worked=%v err=%v", worked, err)
+			}
+			if namespaceUnavailable {
+				if providerActionCount(client, "delete", "pods") != 0 || repo.state.Observed != biz.ObservedUnknown || repo.state.Reason != "PROVIDER_OBSERVATION_FAILED" {
+					t.Fatalf("Pod stopped without namespace recheck: %#v", repo.state)
+				}
+				return
+			}
+			if repo.state.Reason != "WORKSPACE_VOLUME_OBSERVATION_FAILED" || repo.state.Pending != nil || len(repo.prepared) != 1 || repo.prepared[0].Kind != biz.MutationDeletePod || repo.prepared[0].TargetUID != original.PodUID || providerActionCount(client, "delete", "pods") != 1 {
+				t.Fatalf("verified Pod was not stopped after PV timeout: %#v", repo.state)
+			}
+		})
+	}
+}
+
 func TestKubernetesProviderRequiresConfiguredCluster(t *testing.T) {
 	client, _, s := providerFixture(t)
 	for _, clusterID := range []string{"", "not-a-cluster", "00000000-0000-0000-0000-000000000000", "AAAAAAAA-AAAA-4AAA-8AAA-AAAAAAAAAAAA"} {
@@ -669,10 +992,22 @@ func TestKubernetesProviderPausedPreservesWorkspaceFacts(t *testing.T) {
 func TestKubernetesProviderPendingMutationCannotCompletePause(t *testing.T) {
 	for _, kind := range []string{biz.MutationCreateWorkspace, biz.MutationCreatePod} {
 		t.Run(kind, func(t *testing.T) {
-			_, provider, s := providerFixture(t)
+			client, provider, s := providerFixture(t)
 			applyProvider(t, provider, &s, biz.MutationCreateWorkspace)
 			s.Desired = biz.DesiredPaused
 			s.Pending = &biz.Mutation{ID: "55555555-5555-4555-8555-555555555555", Kind: kind, OperationID: s.LastOperationID, Version: s.Version}
+			if kind == biz.MutationCreateWorkspace {
+				// The present workspace must be attributable to the pending create.
+				// Unannotated and different-attempt objects are covered separately.
+				pvc, err := client.Resource(pvcGVR).Namespace(s.Snapshot.Namespace).Get(context.Background(), "workspace-"+s.ID, metav1.GetOptions{})
+				if err != nil {
+					t.Fatal(err)
+				}
+				pvc.SetAnnotations(map[string]string{providerMutationID: s.Pending.ID})
+				if _, err = client.Resource(pvcGVR).Namespace(s.Snapshot.Namespace).Update(context.Background(), pvc, metav1.UpdateOptions{}); err != nil {
+					t.Fatal(err)
+				}
+			}
 			obs, err := provider.Observe(context.Background(), s)
 			if err != nil || obs.Observed != biz.ObservedUnknown || obs.Reason != "PROVIDER_MUTATION_PENDING" || obs.PodExists || obs.ProviderRefs.PVCUID != s.ProviderRefs.PVCUID {
 				t.Fatalf("unresolved create completed pause: %#v %v", obs, err)

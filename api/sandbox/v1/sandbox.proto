@@ -21,7 +21,8 @@ service SandboxService {
 
 message CreateSandboxData {
   string name = 1;
-  // Must be an immutable digest reference; tags are rejected by Resource.
+  // A tenant or platform registered image reference. A tag is resolved to an
+  // immutable digest before accepting the create operation.
   string image_reference = 2 [json_name = "image_reference"];
   string preset_id = 3 [json_name = "preset_id"];
   string workspace_size = 4 [json_name = "workspace_size"];
@@ -29,6 +30,7 @@ message CreateSandboxData {
 
 message ResolveCreateSpecRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
+  // Legacy field; leave empty. Sandbox has no parent instance.
   string instance_id = 2 [json_name = "instance_id"];
   CreateSandboxData data = 3;
   uint32 contract_version = 4 [json_name = "contract_version"];
@@ -58,6 +60,8 @@ message ResolveCreateSpecResponse {
   string preset_code = 14 [json_name = "preset_code"];
   string preset_name = 15 [json_name = "preset_name"];
   string spec_digest = 16 [json_name = "spec_digest"];
+  // UID of the tenant namespace observed when the specification was frozen.
+  string namespace_uid = 17 [json_name = "namespace_uid"];
 }
 
 message CommandContext {
@@ -71,6 +75,7 @@ message CommandContext {
 message AcceptCreateRequest {
   CommandContext context = 1;
   ResolveCreateSpecResponse spec = 2;
+  // Legacy field: set only when replaying an already accepted historical command.
   string instance_id = 3 [json_name = "instance_id"];
   string create_intent_digest = 4 [json_name = "create_intent_digest"];
 }
@@ -80,6 +85,7 @@ message PauseRequest {
   string sandbox_id = 2 [json_name = "sandbox_id"];
   string idempotency_key = 3 [json_name = "idempotency_key"];
   int64 expected_version = 4 [json_name = "expected_version"];
+  // Legacy field; leave empty. Sandbox has no parent instance.
   string instance_id = 5 [json_name = "instance_id"];
 }
 message ResumeRequest {
@@ -87,6 +93,7 @@ message ResumeRequest {
   string sandbox_id = 2 [json_name = "sandbox_id"];
   string idempotency_key = 3 [json_name = "idempotency_key"];
   int64 expected_version = 4 [json_name = "expected_version"];
+  // Legacy field; leave empty. Sandbox has no parent instance.
   string instance_id = 5 [json_name = "instance_id"];
 }
 message DeleteRequest {
@@ -94,6 +101,7 @@ message DeleteRequest {
   string sandbox_id = 2 [json_name = "sandbox_id"];
   string idempotency_key = 3 [json_name = "idempotency_key"];
   int64 expected_version = 4 [json_name = "expected_version"];
+  // Legacy field; leave empty. Sandbox has no parent instance.
   string instance_id = 5 [json_name = "instance_id"];
 }
 
@@ -111,12 +119,14 @@ message OperationAck {
 message GetSandboxRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string sandbox_id = 2 [json_name = "sandbox_id"];
+  // Legacy field; leave empty. Sandbox has no parent instance.
   string instance_id = 3 [json_name = "instance_id"];
 }
 message ListSandboxesRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   uint32 page = 2;
   uint32 page_size = 3 [json_name = "page_size"];
+  // Legacy field; leave empty. Sandbox has no parent instance.
   string instance_id = 4 [json_name = "instance_id"];
 }
 message GetSandboxResponse { Sandbox sandbox = 1; }
@@ -124,12 +134,14 @@ message ListSandboxesResponse { repeated Sandbox items = 1; int64 total = 2; }
 message GetOperationRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string operation_id = 2 [json_name = "operation_id"];
+  // Legacy field; leave empty. Sandbox has no parent instance.
   string instance_id = 3 [json_name = "instance_id"];
 }
 
 message Sandbox {
   string id = 1;
   string tenant_id = 2 [json_name = "tenant_id"];
+  // Historical metadata only; does not identify a parent or confer access.
   string instance_id = 3 [json_name = "instance_id"];
   int64 version = 4;
   string desired_state = 5 [json_name = "desired_state"];
@@ -159,6 +171,7 @@ message SandboxSnapshot {
   string preset_code = 13 [json_name = "preset_code"];
   string preset_name = 14 [json_name = "preset_name"];
   string spec_digest = 15 [json_name = "spec_digest"];
+  string namespace_uid = 16 [json_name = "namespace_uid"];
 }
 
 message ProviderRefs {
@@ -185,5 +198,6 @@ message Operation {
   string state = 5;
   string reason = 6;
   google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+  // Historical metadata only; does not identify a parent or confer access.
   string instance_id = 8 [json_name = "instance_id"];
 }

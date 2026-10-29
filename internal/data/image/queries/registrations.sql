@@ -16,6 +16,22 @@ WHERE owner_scope='tenant' AND tenant_id=sqlc.arg(tenant_id) AND image_id=sqlc.a
 SELECT * FROM image.registrations
 WHERE owner_scope='platform' AND tenant_id IS NULL AND image_id=sqlc.arg(image_id);
 
+-- name: FindTenantRegistrationsByReference :many
+SELECT * FROM image.registrations
+WHERE owner_scope='tenant' AND tenant_id=sqlc.arg(tenant_id) AND space_id=sqlc.arg(space_id)
+ AND unregistered_at IS NULL AND repository=sqlc.arg(repository)
+ AND ((sqlc.arg(is_digest)::boolean AND digest=sqlc.arg(reference)::text)
+   OR (NOT sqlc.arg(is_digest)::boolean AND source_reference=sqlc.arg(reference)::text))
+ORDER BY image_id LIMIT 2;
+
+-- name: FindPlatformRegistrationsByReference :many
+SELECT * FROM image.registrations
+WHERE owner_scope='platform' AND tenant_id IS NULL AND space_id=sqlc.arg(space_id)
+ AND unregistered_at IS NULL AND repository=sqlc.arg(repository)
+ AND ((sqlc.arg(is_digest)::boolean AND digest=sqlc.arg(reference)::text)
+   OR (NOT sqlc.arg(is_digest)::boolean AND source_reference=sqlc.arg(reference)::text))
+ORDER BY image_id LIMIT 2;
+
 -- name: ListTenantRegistrations :many
 SELECT * FROM image.registrations
 WHERE owner_scope='tenant' AND tenant_id=sqlc.arg(tenant_id) AND unregistered_at IS NULL

@@ -16,7 +16,9 @@ import (
 
 const maximumTimeout = 30 * time.Second
 
-func (c *Bootstrap) Validate() error {
+// ValidateServer validates the shared listeners without requiring an unrelated
+// domain to be configured. Domain compositions still validate their own inputs.
+func (c *Bootstrap) ValidateServer() error {
 	if c == nil {
 		return fmt.Errorf("bootstrap config is required")
 	}
@@ -37,6 +39,13 @@ func (c *Bootstrap) Validate() error {
 		return fmt.Errorf("grpc and admin listeners must use distinct ports")
 	}
 	if err := validateDuration("shutdown", c.Server.ShutdownTimeout, maximumTimeout); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Bootstrap) Validate() error {
+	if err := c.ValidateServer(); err != nil {
 		return err
 	}
 	if c.Network == nil || c.Network.Worker == nil || strings.TrimSpace(c.Network.DatabaseDsn) == "" ||

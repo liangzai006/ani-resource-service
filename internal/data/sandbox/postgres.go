@@ -20,7 +20,7 @@ import (
 
 type Postgres struct{ pool *pgxpool.Pool }
 
-var schemaFiles = []string{"001_sandbox.sql", "002_workspace_bindings.sql", "003_recovery_and_create_intent.sql"}
+var schemaFiles = []string{"001_sandbox.sql", "002_workspace_bindings.sql", "003_recovery_and_create_intent.sql", "004_tenant_listing.sql"}
 
 func validDigest(v string) bool {
 	if len(v) != 64 || strings.ToLower(v) != v {
@@ -142,7 +142,7 @@ func (p *Postgres) AcceptCreate(ctx context.Context, c biz.Create) (biz.ACK, err
 	if err := biz.RequireTenant(ctx, c.TenantID); err != nil {
 		return biz.ACK{}, err
 	}
-	if !biz.UUID(c.ID) || !biz.UUID(c.OperationID) || c.InstanceID == "" || len([]rune(c.InstanceID)) > 128 || !validDigest(c.RequestDigest) || (c.IntentDigest != "" && !validDigest(c.IntentDigest)) || c.Spec.ImageDigest == "" {
+	if !biz.UUID(c.ID) || !biz.UUID(c.OperationID) || len([]rune(c.InstanceID)) > 128 || !validDigest(c.RequestDigest) || (c.IntentDigest != "" && !validDigest(c.IntentDigest)) || c.Spec.ImageDigest == "" {
 		return biz.ACK{}, biz.ErrInvalid
 	}
 	raw, _ := json.Marshal(c.Spec)
@@ -224,7 +224,7 @@ func (p *Postgres) List(ctx context.Context, tenant string, f biz.ListFilter) ([
 	if err := biz.RequireTenant(ctx, tenant); err != nil {
 		return nil, 0, err
 	}
-	if strings.TrimSpace(f.InstanceID) == "" || len([]rune(f.InstanceID)) > 128 || f.PageSize > 100 {
+	if f.PageSize > 100 {
 		return nil, 0, biz.ErrInvalid
 	}
 	page, size := int64(f.Page), int64(f.PageSize)
@@ -239,8 +239,8 @@ func (p *Postgres) List(ctx context.Context, tenant string, f biz.ListFilter) ([
 		return nil, 0, err
 	}
 	defer tx.Rollback(ctx)
-	rows, err := tx.Query(ctx, sandboxSelect+` WHERE s.tenant_id=$1 AND s.instance_id=$2
-		ORDER BY s.created_at DESC,s.sandbox_id DESC LIMIT $3 OFFSET $4`, tenant, f.InstanceID, size, (page-1)*size)
+	rows, err := tx.Query(ctx, sandboxSelect+` WHERE s.tenant_id=$1
+		ORDER BY s.created_at DESC,s.sandbox_id DESC LIMIT $2 OFFSET $3`, tenant, size, (page-1)*size)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -258,7 +258,7 @@ func (p *Postgres) List(ctx context.Context, tenant string, f biz.ListFilter) ([
 	}
 	rows.Close()
 	var total int64
-	if err = tx.QueryRow(ctx, "SELECT count(*) FROM sandbox.sandboxes WHERE tenant_id=$1 AND instance_id=$2", tenant, f.InstanceID).Scan(&total); err != nil {
+	if err = tx.QueryRow(ctx, "SELECT count(*) FROM sandbox.sandboxes WHERE tenant_id=$1", tenant).Scan(&total); err != nil {
 		return nil, 0, err
 	}
 	if err = tx.Commit(ctx); err != nil {
@@ -283,7 +283,7 @@ func (p *Postgres) Change(ctx context.Context, c biz.Command) (biz.ACK, error) {
 	if err := biz.RequireTenant(ctx, c.TenantID); err != nil {
 		return biz.ACK{}, err
 	}
-	if !biz.UUID(c.ID) || !biz.UUID(c.OperationID) || c.InstanceID == "" || len([]rune(c.InstanceID)) > 128 || c.IdempotencyKey == "" || len([]rune(c.IdempotencyKey)) > 256 || !validDigest(c.RequestDigest) || c.ExpectedVersion < 0 {
+	if !biz.UUID(c.ID) || !biz.UUID(c.OperationID) || len([]rune(c.InstanceID)) > 128 || c.IdempotencyKey == "" || len([]rune(c.IdempotencyKey)) > 256 || !validDigest(c.RequestDigest) || c.ExpectedVersion < 0 {
 		return biz.ACK{}, biz.ErrInvalid
 	}
 	newDesired := map[string]string{"pause": biz.DesiredPaused, "resume": biz.DesiredRunning, "delete": biz.DesiredDeleted}[c.Action]
@@ -307,8 +307,8 @@ func (p *Postgres) Change(ctx context.Context, c biz.Command) (biz.ACK, error) {
 		return biz.ACK{}, err
 	}
 	var version int64
-	var desired string
-	err = tx.QueryRow(ctx, "SELECT version,desired FROM sandbox.sandboxes WHERE tenant_id=$1 AND sandbox_id=$2 AND instance_id=$3 FOR UPDATE", workTenant, workSandbox, c.InstanceID).Scan(&version, &desired)
+	var desired, historicalInstance string
+	err = tx.QueryRow(ctx, "SELECT version,desired,instance_id FROM sandbox.sandboxes WHERE tenant_id=$1 AND sandbox_id=$2 FOR UPDATE", workTenant, workSandbox).Scan(&version, &desired, &historicalInstance)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return biz.ACK{}, biz.ErrNotFound
 	}
@@ -318,7 +318,11 @@ func (p *Postgres) Change(ctx context.Context, c biz.Command) (biz.ACK, error) {
 	var old, oldDigest string
 	if e := tx.QueryRow(ctx, "SELECT operation_id::text,request_digest FROM sandbox.operations WHERE tenant_id=$1 AND sandbox_id=$2 AND action=$3 AND idempotency_key=$4", c.TenantID, c.ID, c.Action, c.IdempotencyKey).Scan(&old, &oldDigest); e == nil {
 		if oldDigest != c.RequestDigest {
-			return biz.ACK{}, biz.ErrConflict
+			// Historical operations included the stored parent in the digest.
+			// Only the stored historical value may establish equivalent replay.
+			if historicalInstance == "" || c.RequestDigest != biz.ActionDigest("", c.ExpectedVersion, c.Action) || oldDigest != biz.ActionDigest(historicalInstance, c.ExpectedVersion, c.Action) {
+				return biz.ACK{}, biz.ErrConflict
+			}
 		}
 		return biz.ACK{OperationID: old, ResourceID: c.ID, Accepted: true, Replayed: true}, nil
 	} else if !errors.Is(e, pgx.ErrNoRows) {
@@ -330,7 +334,7 @@ func (p *Postgres) Change(ctx context.Context, c biz.Command) (biz.ACK, error) {
 	if desired == biz.DesiredDeleted {
 		return biz.ACK{}, biz.ErrConflict
 	}
-	if _, err = tx.Exec(ctx, "UPDATE sandbox.sandboxes SET version=version+1,desired=$4,last_operation_id=$5,updated_at=clock_timestamp() WHERE tenant_id=$1 AND sandbox_id=$2 AND instance_id=$3", c.TenantID, c.ID, c.InstanceID, newDesired, c.OperationID); err != nil {
+	if _, err = tx.Exec(ctx, "UPDATE sandbox.sandboxes SET version=version+1,desired=$3,last_operation_id=$4,updated_at=clock_timestamp() WHERE tenant_id=$1 AND sandbox_id=$2", c.TenantID, c.ID, newDesired, c.OperationID); err != nil {
 		return biz.ACK{}, err
 	}
 	if _, err = tx.Exec(ctx, `INSERT INTO sandbox.operations(tenant_id,operation_id,sandbox_id,action,idempotency_key,request_digest,intent_version,state) VALUES($1,$2,$3,$4,$5,$6,$7,'queued')`, c.TenantID, c.OperationID, c.ID, c.Action, c.IdempotencyKey, c.RequestDigest, version+1); err != nil {

@@ -10,8 +10,10 @@ import (
 
 // CreateIntentDigest freezes the public request before resolving catalog or
 // deployment defaults. Empty workspace size remains distinct from an explicit size.
+// New requests use an empty instanceID; non-empty values retain the historical
+// digest format solely for replay of already accepted legacy commands.
 func CreateIntentDigest(instanceID string, data *CreateSandboxData) (string, error) {
-	if strings.TrimSpace(instanceID) == "" || data == nil {
+	if data == nil {
 		return "", errors.New("INVALID_SANDBOX_REQUEST")
 	}
 	value := struct {
@@ -26,8 +28,10 @@ func CreateIntentDigest(instanceID string, data *CreateSandboxData) (string, err
 
 // CommandDigest binds the accepted frozen specification and, for new clients,
 // the original public intent. Omitting intent preserves legacy command digests.
+// New requests use an empty instanceID; legacy non-empty values are retained
+// solely to verify a replay of an already accepted historical command.
 func CommandDigest(c *CommandContext, instanceID string, spec *ResolveCreateSpecResponse, intentDigest string) (string, error) {
-	if c == nil || spec == nil || strings.TrimSpace(instanceID) == "" {
+	if c == nil || spec == nil {
 		return "", errors.New("INVALID_SANDBOX_REQUEST")
 	}
 	value := struct {

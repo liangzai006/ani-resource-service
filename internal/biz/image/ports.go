@@ -24,9 +24,18 @@ type CatalogRepository interface {
 	FindPlatformRegistration(context.Context, string) (Registration, error)
 	PageTenantRegistrations(context.Context, string, Filter, *PageKey) ([]Registration, int64, error)
 	PagePlatformRegistrations(context.Context, Filter, *PageKey) ([]Registration, int64, error)
+	FindTenantRegistrationsByReference(context.Context, string, ReferenceLookup) ([]Registration, error)
+	FindPlatformRegistrationsByReference(context.Context, ReferenceLookup) ([]Registration, error)
 	ApplyTenantRegistration(context.Context, Command, Registration) (Registration, error)
 	ApplyTenantMetadata(context.Context, Command, UpdateImage) (Registration, error)
 	ApplyTenantUnregister(context.Context, Command, UnregisterImage) (Registration, error)
+}
+
+// ReferenceLookup identifies an exact repository and tag or immutable digest
+// in one already authorized image space.
+type ReferenceLookup struct {
+	SpaceID, Repository, Reference string
+	IsDigest                       bool
 }
 type CommandRepository interface {
 	FindTenantCommand(context.Context, string, string, string) (Command, error)

@@ -56,7 +56,7 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 		repository.Close()
 		return nil, err
 	}
-	sandboxes, err := openSandbox(context.Background(), compute, logger)
+	sandboxes, err := openSandbox(context.Background(), bc.Network, compute, images, logger)
 	if err != nil {
 		instances.Close()
 		compute.Close()
@@ -218,7 +218,7 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 	if imageRuntime != nil {
 		servers = append(servers, imageRuntime)
 	}
-	if sandboxes != nil {
+	if sandboxes != nil && sandboxes.execution != nil {
 		servers = append(servers, sandboxes.execution)
 	}
 	if vms != nil && vms.console != nil {

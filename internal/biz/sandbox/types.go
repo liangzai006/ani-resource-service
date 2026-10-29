@@ -12,15 +12,16 @@ import (
 )
 
 var (
-	ErrInvalid         = errors.New("INVALID_SANDBOX_REQUEST")
-	ErrDenied          = errors.New("SANDBOX_SCOPE_DENIED")
-	ErrNotFound        = errors.New("SANDBOX_NOT_FOUND")
-	ErrConflict        = errors.New("SANDBOX_IDEMPOTENCY_CONFLICT")
-	ErrVersion         = errors.New("SANDBOX_VERSION_CONFLICT")
-	ErrUnsupported     = errors.New("SANDBOX_CAPABILITY_UNSUPPORTED")
-	ErrOwnership       = errors.New("SANDBOX_PROVIDER_OWNERSHIP_CONFLICT")
-	ErrLease           = errors.New("SANDBOX_WORK_LEASE_LOST")
-	ErrClusterMismatch = errors.New("SANDBOX_PROVIDER_CLUSTER_MISMATCH")
+	ErrInvalid               = errors.New("INVALID_SANDBOX_REQUEST")
+	ErrDenied                = errors.New("SANDBOX_SCOPE_DENIED")
+	ErrNotFound              = errors.New("SANDBOX_NOT_FOUND")
+	ErrConflict              = errors.New("SANDBOX_IDEMPOTENCY_CONFLICT")
+	ErrVersion               = errors.New("SANDBOX_VERSION_CONFLICT")
+	ErrUnsupported           = errors.New("SANDBOX_CAPABILITY_UNSUPPORTED")
+	ErrOwnership             = errors.New("SANDBOX_PROVIDER_OWNERSHIP_CONFLICT")
+	ErrLease                 = errors.New("SANDBOX_WORK_LEASE_LOST")
+	ErrClusterMismatch       = errors.New("SANDBOX_PROVIDER_CLUSTER_MISMATCH")
+	ErrDependencyUnavailable = errors.New("SANDBOX_DEPENDENCY_UNAVAILABLE")
 )
 
 const (
@@ -63,6 +64,20 @@ func UUID(v string) bool {
 }
 
 var digestRE = regexp.MustCompile(`^sha256:[0-9a-f]{64}$`)
+var namespaceRE = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`)
+
+// TenantNamespace follows Resource's tenant namespace convention. The prefix
+// comes from trusted platform configuration, never from a Sandbox request.
+func TenantNamespace(tenant, prefix string) (string, error) {
+	if !UUID(tenant) {
+		return "", ErrInvalid
+	}
+	namespace := prefix + tenant
+	if len(namespace) > 63 || !namespaceRE.MatchString(namespace) {
+		return "", ErrInvalid
+	}
+	return namespace, nil
+}
 
 func ImageDigest(reference string) (string, bool) {
 	i := strings.LastIndex(reference, "@")
@@ -73,16 +88,35 @@ func ImageDigest(reference string) (string, bool) {
 }
 
 type WorkspaceSpec struct{ MountPath, Size, StorageClass, ReclaimPolicy string }
+
+// ImageResolver authorizes a tenant's requested image and returns its immutable
+// runtime reference. It also accepts a frozen reference for reauthorization.
+type ImageResolver interface {
+	ResolveSandboxImage(ctx context.Context, tenantID, requestedReference string) (string, error)
+}
+
+// StorageClassResolver selects the platform's currently permitted default
+// workspace storage class for a tenant.
+type StorageClassResolver interface {
+	ResolveSandboxStorageClass(ctx context.Context, tenantID string) (string, error)
+}
+
+// RuntimeClassResolver selects an approved isolation runtime from the cluster.
+type RuntimeClassResolver interface {
+	ResolveSandboxRuntimeClass(context.Context) (string, error)
+	ValidateSandboxRuntimeClass(context.Context, string) error
+}
+
 type CreateSpec struct {
 	Name, ImageReference, ImageDigest, PresetID, PresetCode, PresetName, ComputeType string
 	CPUMillis, MemoryMiB                                                             int64
-	SelectionDigest, SpecDigest, ClusterID, Namespace, RuntimeClass                  string
+	SelectionDigest, SpecDigest, ClusterID, Namespace, NamespaceUID, RuntimeClass    string
 	Workspace                                                                        WorkspaceSpec
 }
 type Snapshot struct {
-	Name, ImageReference, PresetID, PresetCode, PresetName, ImageDigest, ComputeType, ClusterID, Namespace, RuntimeClass, SelectionDigest, SpecDigest string
-	CPUMillis, MemoryMiB                                                                                                                              int64
-	Workspace                                                                                                                                         WorkspaceSpec
+	Name, ImageReference, PresetID, PresetCode, PresetName, ImageDigest, ComputeType, ClusterID, Namespace, NamespaceUID, RuntimeClass, SelectionDigest, SpecDigest string
+	CPUMillis, MemoryMiB                                                                                                                                            int64
+	Workspace                                                                                                                                                       WorkspaceSpec
 }
 type ProviderRefs struct {
 	PVCName, PVCUID, PodName, PodUID, PVName, PVUID string
@@ -179,6 +213,13 @@ type Provider interface {
 // Sandbox never calls a Compute RPC or imports a storage adapter.
 type SelectionResolver interface {
 	Resolve(context.Context, string, string, compute.Usage) (compute.Selection, error)
+}
+
+// NamespaceResolver prepares a namespace only for initial resolution. Accepted
+// commands must use the read-only method to check their frozen UID.
+type NamespaceResolver interface {
+	EnsureSandboxNamespaceUID(context.Context, string) (string, error)
+	ResolveSandboxNamespaceUID(context.Context, string) (string, error)
 }
 
 type Repository interface {

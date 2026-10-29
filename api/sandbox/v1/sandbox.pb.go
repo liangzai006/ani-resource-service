@@ -25,7 +25,8 @@ const (
 type CreateSandboxData struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	Name  string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// Must be an immutable digest reference; tags are rejected by Resource.
+	// A tenant or platform registered image reference. A tag is resolved to an
+	// immutable digest before accepting the create operation.
 	ImageReference string `protobuf:"bytes,2,opt,name=image_reference,proto3" json:"image_reference,omitempty"`
 	PresetId       string `protobuf:"bytes,3,opt,name=preset_id,proto3" json:"preset_id,omitempty"`
 	WorkspaceSize  string `protobuf:"bytes,4,opt,name=workspace_size,proto3" json:"workspace_size,omitempty"`
@@ -92,11 +93,12 @@ func (x *CreateSandboxData) GetWorkspaceSize() string {
 }
 
 type ResolveCreateSpecRequest struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	TenantId        string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
-	InstanceId      string                 `protobuf:"bytes,2,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
-	Data            *CreateSandboxData     `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
-	ContractVersion uint32                 `protobuf:"varint,4,opt,name=contract_version,proto3" json:"contract_version,omitempty"`
+	state    protoimpl.MessageState `protogen:"open.v1"`
+	TenantId string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
+	// Legacy field; leave empty. Sandbox has no parent instance.
+	InstanceId      string             `protobuf:"bytes,2,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
+	Data            *CreateSandboxData `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
+	ContractVersion uint32             `protobuf:"varint,4,opt,name=contract_version,proto3" json:"contract_version,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -245,8 +247,10 @@ type ResolveCreateSpecResponse struct {
 	PresetCode      string                 `protobuf:"bytes,14,opt,name=preset_code,proto3" json:"preset_code,omitempty"`
 	PresetName      string                 `protobuf:"bytes,15,opt,name=preset_name,proto3" json:"preset_name,omitempty"`
 	SpecDigest      string                 `protobuf:"bytes,16,opt,name=spec_digest,proto3" json:"spec_digest,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	// UID of the tenant namespace observed when the specification was frozen.
+	NamespaceUid  string `protobuf:"bytes,17,opt,name=namespace_uid,proto3" json:"namespace_uid,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ResolveCreateSpecResponse) Reset() {
@@ -391,6 +395,13 @@ func (x *ResolveCreateSpecResponse) GetSpecDigest() string {
 	return ""
 }
 
+func (x *ResolveCreateSpecResponse) GetNamespaceUid() string {
+	if x != nil {
+		return x.NamespaceUid
+	}
+	return ""
+}
+
 type CommandContext struct {
 	state       protoimpl.MessageState `protogen:"open.v1"`
 	TenantId    string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
@@ -461,11 +472,12 @@ func (x *CommandContext) GetRequestDigest() string {
 }
 
 type AcceptCreateRequest struct {
-	state              protoimpl.MessageState     `protogen:"open.v1"`
-	Context            *CommandContext            `protobuf:"bytes,1,opt,name=context,proto3" json:"context,omitempty"`
-	Spec               *ResolveCreateSpecResponse `protobuf:"bytes,2,opt,name=spec,proto3" json:"spec,omitempty"`
-	InstanceId         string                     `protobuf:"bytes,3,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
-	CreateIntentDigest string                     `protobuf:"bytes,4,opt,name=create_intent_digest,proto3" json:"create_intent_digest,omitempty"`
+	state   protoimpl.MessageState     `protogen:"open.v1"`
+	Context *CommandContext            `protobuf:"bytes,1,opt,name=context,proto3" json:"context,omitempty"`
+	Spec    *ResolveCreateSpecResponse `protobuf:"bytes,2,opt,name=spec,proto3" json:"spec,omitempty"`
+	// Legacy field: set only when replaying an already accepted historical command.
+	InstanceId         string `protobuf:"bytes,3,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
+	CreateIntentDigest string `protobuf:"bytes,4,opt,name=create_intent_digest,proto3" json:"create_intent_digest,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -534,9 +546,10 @@ type PauseRequest struct {
 	SandboxId       string                 `protobuf:"bytes,2,opt,name=sandbox_id,proto3" json:"sandbox_id,omitempty"`
 	IdempotencyKey  string                 `protobuf:"bytes,3,opt,name=idempotency_key,proto3" json:"idempotency_key,omitempty"`
 	ExpectedVersion int64                  `protobuf:"varint,4,opt,name=expected_version,proto3" json:"expected_version,omitempty"`
-	InstanceId      string                 `protobuf:"bytes,5,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	// Legacy field; leave empty. Sandbox has no parent instance.
+	InstanceId    string `protobuf:"bytes,5,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PauseRequest) Reset() {
@@ -610,9 +623,10 @@ type ResumeRequest struct {
 	SandboxId       string                 `protobuf:"bytes,2,opt,name=sandbox_id,proto3" json:"sandbox_id,omitempty"`
 	IdempotencyKey  string                 `protobuf:"bytes,3,opt,name=idempotency_key,proto3" json:"idempotency_key,omitempty"`
 	ExpectedVersion int64                  `protobuf:"varint,4,opt,name=expected_version,proto3" json:"expected_version,omitempty"`
-	InstanceId      string                 `protobuf:"bytes,5,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	// Legacy field; leave empty. Sandbox has no parent instance.
+	InstanceId    string `protobuf:"bytes,5,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ResumeRequest) Reset() {
@@ -686,9 +700,10 @@ type DeleteRequest struct {
 	SandboxId       string                 `protobuf:"bytes,2,opt,name=sandbox_id,proto3" json:"sandbox_id,omitempty"`
 	IdempotencyKey  string                 `protobuf:"bytes,3,opt,name=idempotency_key,proto3" json:"idempotency_key,omitempty"`
 	ExpectedVersion int64                  `protobuf:"varint,4,opt,name=expected_version,proto3" json:"expected_version,omitempty"`
-	InstanceId      string                 `protobuf:"bytes,5,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	// Legacy field; leave empty. Sandbox has no parent instance.
+	InstanceId    string `protobuf:"bytes,5,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DeleteRequest) Reset() {
@@ -1001,10 +1016,11 @@ func (x *OperationAck) GetReplayed() bool {
 }
 
 type GetSandboxRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
-	SandboxId     string                 `protobuf:"bytes,2,opt,name=sandbox_id,proto3" json:"sandbox_id,omitempty"`
-	InstanceId    string                 `protobuf:"bytes,3,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	TenantId  string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
+	SandboxId string                 `protobuf:"bytes,2,opt,name=sandbox_id,proto3" json:"sandbox_id,omitempty"`
+	// Legacy field; leave empty. Sandbox has no parent instance.
+	InstanceId    string `protobuf:"bytes,3,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1061,11 +1077,12 @@ func (x *GetSandboxRequest) GetInstanceId() string {
 }
 
 type ListSandboxesRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
-	Page          uint32                 `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize      uint32                 `protobuf:"varint,3,opt,name=page_size,proto3" json:"page_size,omitempty"`
-	InstanceId    string                 `protobuf:"bytes,4,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
+	state    protoimpl.MessageState `protogen:"open.v1"`
+	TenantId string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
+	Page     uint32                 `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize uint32                 `protobuf:"varint,3,opt,name=page_size,proto3" json:"page_size,omitempty"`
+	// Legacy field; leave empty. Sandbox has no parent instance.
+	InstanceId    string `protobuf:"bytes,4,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1225,10 +1242,11 @@ func (x *ListSandboxesResponse) GetTotal() int64 {
 }
 
 type GetOperationRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
-	OperationId   string                 `protobuf:"bytes,2,opt,name=operation_id,proto3" json:"operation_id,omitempty"`
-	InstanceId    string                 `protobuf:"bytes,3,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
+	state       protoimpl.MessageState `protogen:"open.v1"`
+	TenantId    string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
+	OperationId string                 `protobuf:"bytes,2,opt,name=operation_id,proto3" json:"operation_id,omitempty"`
+	// Legacy field; leave empty. Sandbox has no parent instance.
+	InstanceId    string `protobuf:"bytes,3,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1285,9 +1303,10 @@ func (x *GetOperationRequest) GetInstanceId() string {
 }
 
 type Sandbox struct {
-	state              protoimpl.MessageState `protogen:"open.v1"`
-	Id                 string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	TenantId           string                 `protobuf:"bytes,2,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
+	state    protoimpl.MessageState `protogen:"open.v1"`
+	Id       string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	TenantId string                 `protobuf:"bytes,2,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
+	// Historical metadata only; does not identify a parent or confer access.
 	InstanceId         string                 `protobuf:"bytes,3,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
 	Version            int64                  `protobuf:"varint,4,opt,name=version,proto3" json:"version,omitempty"`
 	DesiredState       string                 `protobuf:"bytes,5,opt,name=desired_state,proto3" json:"desired_state,omitempty"`
@@ -1441,6 +1460,7 @@ type SandboxSnapshot struct {
 	PresetCode      string                 `protobuf:"bytes,13,opt,name=preset_code,proto3" json:"preset_code,omitempty"`
 	PresetName      string                 `protobuf:"bytes,14,opt,name=preset_name,proto3" json:"preset_name,omitempty"`
 	SpecDigest      string                 `protobuf:"bytes,15,opt,name=spec_digest,proto3" json:"spec_digest,omitempty"`
+	NamespaceUid    string                 `protobuf:"bytes,16,opt,name=namespace_uid,proto3" json:"namespace_uid,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -1576,6 +1596,13 @@ func (x *SandboxSnapshot) GetPresetName() string {
 func (x *SandboxSnapshot) GetSpecDigest() string {
 	if x != nil {
 		return x.SpecDigest
+	}
+	return ""
+}
+
+func (x *SandboxSnapshot) GetNamespaceUid() string {
+	if x != nil {
+		return x.NamespaceUid
 	}
 	return ""
 }
@@ -1749,7 +1776,8 @@ type Operation struct {
 	State         string                 `protobuf:"bytes,5,opt,name=state,proto3" json:"state,omitempty"`
 	Reason        string                 `protobuf:"bytes,6,opt,name=reason,proto3" json:"reason,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=created_at,proto3" json:"created_at,omitempty"`
-	InstanceId    string                 `protobuf:"bytes,8,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
+	// Historical metadata only; does not identify a parent or confer access.
+	InstanceId    string `protobuf:"bytes,8,opt,name=instance_id,proto3" json:"instance_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1862,7 +1890,7 @@ const file_sandbox_v1_sandbox_proto_rawDesc = "" +
 	"mount_path\x12\x12\n" +
 	"\x04size\x18\x02 \x01(\tR\x04size\x12$\n" +
 	"\rstorage_class\x18\x03 \x01(\tR\rstorage_class\x12&\n" +
-	"\x0ereclaim_policy\x18\x04 \x01(\tR\x0ereclaim_policy\"\xda\x04\n" +
+	"\x0ereclaim_policy\x18\x04 \x01(\tR\x0ereclaim_policy\"\x80\x05\n" +
 	"\x19ResolveCreateSpecResponse\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12(\n" +
 	"\x0fimage_reference\x18\x02 \x01(\tR\x0fimage_reference\x12\"\n" +
@@ -1886,7 +1914,8 @@ const file_sandbox_v1_sandbox_proto_rawDesc = "" +
 	"\x10contract_version\x18\r \x01(\rR\x10contract_version\x12 \n" +
 	"\vpreset_code\x18\x0e \x01(\tR\vpreset_code\x12 \n" +
 	"\vpreset_name\x18\x0f \x01(\tR\vpreset_name\x12 \n" +
-	"\vspec_digest\x18\x10 \x01(\tR\vspec_digest\"\x9c\x01\n" +
+	"\vspec_digest\x18\x10 \x01(\tR\vspec_digest\x12$\n" +
+	"\rnamespace_uid\x18\x11 \x01(\tR\rnamespace_uid\"\x9c\x01\n" +
 	"\x0eCommandContext\x12\x1c\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\x12 \n" +
 	"\vresource_id\x18\x02 \x01(\tR\vresource_id\x12\"\n" +
@@ -1968,7 +1997,7 @@ const file_sandbox_v1_sandbox_proto_rawDesc = "" +
 	" \x01(\v2\x1b.sandbox.v1.SandboxSnapshotR\bsnapshot\x12>\n" +
 	"\rprovider_refs\x18\v \x01(\v2\x18.sandbox.v1.ProviderRefsR\rprovider_refs\x12<\n" +
 	"\vobserved_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\vobserved_at\x122\n" +
-	"\x14create_intent_digest\x18\r \x01(\tR\x14create_intent_digest\"\xa4\x04\n" +
+	"\x14create_intent_digest\x18\r \x01(\tR\x14create_intent_digest\"\xca\x04\n" +
 	"\x0fSandboxSnapshot\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12(\n" +
 	"\x0fimage_reference\x18\x02 \x01(\tR\x0fimage_reference\x12\x1c\n" +
@@ -1991,7 +2020,8 @@ const file_sandbox_v1_sandbox_proto_rawDesc = "" +
 	"\x10selection_digest\x18\f \x01(\tR\x10selection_digest\x12 \n" +
 	"\vpreset_code\x18\r \x01(\tR\vpreset_code\x12 \n" +
 	"\vpreset_name\x18\x0e \x01(\tR\vpreset_name\x12 \n" +
-	"\vspec_digest\x18\x0f \x01(\tR\vspec_digest\"\xea\x02\n" +
+	"\vspec_digest\x18\x0f \x01(\tR\vspec_digest\x12$\n" +
+	"\rnamespace_uid\x18\x10 \x01(\tR\rnamespace_uid\"\xea\x02\n" +
 	"\fProviderRefs\x12\x1a\n" +
 	"\bpvc_name\x18\x01 \x01(\tR\bpvc_name\x12\x18\n" +
 	"\apvc_uid\x18\x02 \x01(\tR\apvc_uid\x12\x1a\n" +

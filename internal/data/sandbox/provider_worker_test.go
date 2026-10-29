@@ -235,6 +235,53 @@ func TestProviderWorkerUnknownCreateStillBlocksPause(t *testing.T) {
 	}
 }
 
+func TestProviderWorkerPendingCreateRequiresMatchingMutationAnnotation(t *testing.T) {
+	for _, kind := range []string{biz.MutationCreateWorkspace, biz.MutationCreatePod} {
+		for _, annotation := range []string{"", "different-attempt"} {
+			t.Run(kind+"/"+annotation, func(t *testing.T) {
+				client, provider, s := providerFixture(t)
+				if kind == biz.MutationCreatePod {
+					applyProvider(t, provider, &s, biz.MutationCreateWorkspace)
+				}
+				pending := biz.Mutation{ID: uuid.NewString(), Kind: kind, OperationID: s.LastOperationID, Version: s.Version}
+				s.Pending, s.Desired = &pending, biz.DesiredDeleted
+				resource, name := pvcGVR, "workspace-"+s.ID
+				object := renderWorkspace(s, name)
+				if kind == biz.MutationCreatePod {
+					resource, name = podGVR, "sandbox-"+s.ID
+					object = renderPod(s, name, labels(s))
+				}
+				if annotation != "" {
+					object.SetAnnotations(map[string]string{providerMutationID: annotation})
+				}
+				if _, err := client.Resource(resource).Namespace(s.Snapshot.Namespace).Create(context.Background(), object, metav1.CreateOptions{}); err != nil {
+					t.Fatal(err)
+				}
+				worker, repo := newProviderWorker(t, provider, s)
+				providerWorkerStep(t, worker)
+				if repo.state.Pending == nil || *repo.state.Pending != pending || repo.state.Observed != biz.ObservedUnknown || len(repo.prepared) != 0 {
+					t.Fatal("unattributable object cleared the unknown create barrier")
+				}
+				if result, err := provider.Apply(context.Background(), s, pending); !errors.Is(err, biz.ErrOwnership) || result.Outcome != biz.MutationNotSent {
+					t.Fatalf("unattributable object was accepted during create: result=%#v err=%v", result, err)
+				}
+				observed, err := client.Resource(resource).Namespace(s.Snapshot.Namespace).Get(context.Background(), name, metav1.GetOptions{})
+				if err != nil {
+					t.Fatal(err)
+				}
+				observed.SetAnnotations(map[string]string{providerMutationID: pending.ID})
+				if _, err = client.Resource(resource).Namespace(s.Snapshot.Namespace).Update(context.Background(), observed, metav1.UpdateOptions{}); err != nil {
+					t.Fatal(err)
+				}
+				providerWorkerStep(t, worker)
+				if repo.state.Pending != nil || len(repo.prepared) != 0 {
+					t.Fatal("object from the matching mutation did not resolve the barrier")
+				}
+			})
+		}
+	}
+}
+
 func TestProviderWorkerStopsPodDespiteVolumeReadFailure(t *testing.T) {
 	for _, failure := range []struct {
 		name string

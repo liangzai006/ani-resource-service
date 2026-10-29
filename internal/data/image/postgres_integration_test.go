@@ -262,6 +262,86 @@ func TestCatalogCASAndPagination(t *testing.T) {
 	}
 }
 
+func TestReferenceLookupIsExactScopedAndIndependentOfCatalogSize(t *testing.T) {
+	f, _, _, _, ctx := lifecycleFixture(t)
+	a, b := uuid.NewString(), uuid.NewString()
+	sa, sb := reserve(t, f, a, "t-alpha"), reserve(t, f, b, "t-beta")
+	platform, err := f.Repo.FindPlatformSpace(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// More than 100 registrations share the same repository. The exact tag
+	// query must return the requested row, not fail because of other tags.
+	_, err = f.Owner.Exec(ctx, `
+INSERT INTO image.registrations
+ (image_id,space_id,owner_scope,tenant_id,display_name,repository,source_reference,digest,media_type,platforms,purposes,accelerator,created_by,updated_by)
+SELECT 'img_' || md5(i::text), $1, 'tenant', $2, 'image', 'repo',
+ 'registry.invalid/t-alpha/repo:v' || i, 'sha256:' || lpad(to_hex(i),64,'0'),
+ 'application/vnd.oci.image.manifest.v1+json', '[{"os":"linux","architecture":"amd64"}]'::jsonb,
+ ARRAY['container'], 'none', 'test', 'test' FROM generate_series(1,120) i`, sa.ID, a)
+	if err != nil {
+		t.Fatal(err)
+	}
+	ref := biz.ReferenceLookup{SpaceID: sa.ID, Repository: "repo", Reference: "registry.invalid/t-alpha/repo:v120"}
+	rows, err := f.Repo.FindTenantRegistrationsByReference(ctx, a, ref)
+	if err != nil || len(rows) != 1 || rows[0].SourceReference != ref.Reference {
+		t.Fatalf("exact tag = %#v, %v", rows, err)
+	}
+	ref.IsDigest, ref.Reference = true, rows[0].Digest
+	byDigest, err := f.Repo.FindTenantRegistrationsByReference(ctx, a, ref)
+	if err != nil || len(byDigest) != 1 || byDigest[0].ID != rows[0].ID {
+		t.Fatalf("exact digest = %#v, %v", byDigest, err)
+	}
+	other, err := f.Repo.FindTenantRegistrationsByReference(ctx, b, ref)
+	if err != nil || len(other) != 0 {
+		t.Fatalf("cross-tenant lookup = %#v, %v", other, err)
+	}
+	ref.SpaceID = sb.ID
+	other, err = f.Repo.FindTenantRegistrationsByReference(ctx, a, ref)
+	if err != nil || len(other) != 0 {
+		t.Fatalf("wrong space lookup = %#v, %v", other, err)
+	}
+	ref.SpaceID = platform.ID
+	other, err = f.Repo.FindPlatformRegistrationsByReference(ctx, ref)
+	if err != nil || len(other) != 0 {
+		t.Fatalf("tenant digest in platform space = %#v, %v", other, err)
+	}
+	_, err = f.Owner.Exec(ctx, `INSERT INTO image.registrations
+ (image_id,space_id,owner_scope,tenant_id,display_name,repository,source_reference,digest,media_type,platforms,purposes,accelerator,created_by,updated_by)
+ VALUES ('img_' || md5('platform'), $1, 'platform', NULL, 'image', 'repo', 'registry.invalid/platform/repo:v120', $2,
+ 'application/vnd.oci.image.manifest.v1+json', '[{"os":"linux","architecture":"amd64"}]'::jsonb,
+ ARRAY['container'], 'none', 'test', 'test')`, platform.ID, ref.Reference)
+	if err != nil {
+		t.Fatal(err)
+	}
+	other, err = f.Repo.FindPlatformRegistrationsByReference(ctx, ref)
+	if err != nil || len(other) != 1 || other[0].Scope != biz.PlatformImages {
+		t.Fatalf("platform digest = %#v, %v", other, err)
+	}
+	// Two active registrations with the same tag and different digests are
+	// ambiguous. The bounded query must return enough rows to detect it.
+	_, err = f.Owner.Exec(ctx, `INSERT INTO image.registrations
+ (image_id,space_id,owner_scope,tenant_id,display_name,repository,source_reference,digest,media_type,platforms,purposes,accelerator,created_by,updated_by)
+ VALUES ('img_' || md5('conflict'), $1, 'tenant', $2, 'image', 'repo', 'registry.invalid/t-alpha/repo:v120', 'sha256:' || repeat('f',64),
+ 'application/vnd.oci.image.manifest.v1+json', '[{"os":"linux","architecture":"amd64"}]'::jsonb,
+ ARRAY['container'], 'none', 'test', 'test')`, sa.ID, a)
+	if err != nil {
+		t.Fatal(err)
+	}
+	ref = biz.ReferenceLookup{SpaceID: sa.ID, Repository: "repo", Reference: "registry.invalid/t-alpha/repo:v120"}
+	rows, err = f.Repo.FindTenantRegistrationsByReference(ctx, a, ref)
+	if err != nil || len(rows) != 2 {
+		t.Fatalf("ambiguous tag = %#v, %v", rows, err)
+	}
+	if _, err = f.Owner.Exec(ctx, `UPDATE image.registrations SET unregistered_at=now() WHERE image_id='img_' || md5('conflict')`); err != nil {
+		t.Fatal(err)
+	}
+	rows, err = f.Repo.FindTenantRegistrationsByReference(ctx, a, ref)
+	if err != nil || len(rows) != 1 {
+		t.Fatalf("unregistered row visible = %#v, %v", rows, err)
+	}
+}
+
 func TestConcurrentSpaceSlug(t *testing.T) {
 	f := database(t)
 	ctx := context.Background()

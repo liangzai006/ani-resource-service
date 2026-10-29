@@ -110,7 +110,7 @@ func TestSandboxCreateReplayAcrossWorkerProgress(t *testing.T) {
 			ImageDigest: "sha256:" + strings.Repeat("b", 64), PresetID: uuid.NewString(), PresetCode: "cpu-small",
 			PresetName: "CPU small", ComputeType: "cpu", CPUMillis: 200, MemoryMiB: 128,
 			SelectionDigest: strings.Repeat("c", 64), SpecDigest: strings.Repeat("d", 64), ClusterID: uuid.NewString(),
-			Namespace: "sandbox-replay", RuntimeClass: "kata", Workspace: biz.WorkspaceSpec{
+			Namespace: "sandbox-replay", NamespaceUID: "original-namespace-uid", RuntimeClass: "kata", Workspace: biz.WorkspaceSpec{
 				MountPath: "/workspace", Size: "1Gi", StorageClass: "sandbox-block", ReclaimPolicy: "Delete"},
 		}}
 	ack, err := f.repo.AcceptCreate(ctx, c)
@@ -122,6 +122,9 @@ func TestSandboxCreateReplayAcrossWorkerProgress(t *testing.T) {
 		before, err := f.repo.Get(ctx, tenant, id)
 		if err != nil {
 			t.Fatal(err)
+		}
+		if before.Snapshot.NamespaceUID != c.Spec.NamespaceUID {
+			t.Fatalf("namespace UID was not durably frozen: %q", before.Snapshot.NamespaceUID)
 		}
 		var beforeWork, afterWork []byte
 		if err = f.runtime.QueryRow(ctx, `SELECT to_jsonb(w) FROM sandbox.work w WHERE tenant_id=$1 AND sandbox_id=$2`, tenant, id).Scan(&beforeWork); err != nil {
@@ -219,7 +222,7 @@ func fixtureCreate() (context.Context, biz.Create) {
 			Name: "sandbox-durable", ImageReference: "registry.invalid/work@sha256:" + strings.Repeat("a", 64),
 			ImageDigest: "sha256:" + strings.Repeat("a", 64), PresetID: uuid.NewString(), PresetCode: "cpu-small", PresetName: "CPU Small",
 			ComputeType: "cpu", CPUMillis: 200, MemoryMiB: 128, SelectionDigest: strings.Repeat("c", 64), SpecDigest: strings.Repeat("d", 64),
-			ClusterID: uuid.NewString(), Namespace: "sandbox-durable", RuntimeClass: "sandbox-kata",
+			ClusterID: uuid.NewString(), Namespace: "sandbox-durable", NamespaceUID: "original-namespace-uid", RuntimeClass: "sandbox-kata",
 			Workspace: biz.WorkspaceSpec{MountPath: "/workspace", Size: "1Gi", StorageClass: "sandbox-rwo", ReclaimPolicy: "Delete"},
 		}}
 }
@@ -705,5 +708,71 @@ func TestSandboxDeleteRetryNewIntentAndAdvancedJournalFences(t *testing.T) {
 	stored, err := f.repo.Get(ctx, c.TenantID, c.ID)
 	if err != nil || stored.Pending == nil || *stored.Pending != retry {
 		t.Fatal("advanced journal changed", stored, err)
+	}
+}
+
+func TestIndependentSandboxAndHistoricalRows(t *testing.T) {
+	f := sandboxDatabase(t)
+	ctx, legacy := fixtureCreate()
+	legacy.InstanceID = "old-parent"
+	if _, err := f.repo.AcceptCreate(ctx, legacy); err != nil {
+		t.Fatal(err)
+	}
+	independent := legacy
+	independent.ID, independent.OperationID, independent.InstanceID = uuid.NewString(), uuid.NewString(), ""
+	if _, err := f.repo.AcceptCreate(ctx, independent); err != nil {
+		t.Fatal("independent create:", err)
+	}
+	if ack, err := f.repo.AcceptCreate(ctx, independent); err != nil || !ack.Replayed {
+		t.Fatal("independent replay:", ack, err)
+	}
+	items, total, err := f.repo.List(ctx, legacy.TenantID, biz.ListFilter{})
+	if err != nil || total != 2 || len(items) != 2 {
+		t.Fatal("tenant list:", len(items), total, err)
+	}
+	for _, c := range []biz.Create{legacy, independent} {
+		if _, err := f.repo.Change(ctx, biz.Command{TenantID: c.TenantID, ID: c.ID, OperationID: uuid.NewString(), Action: "pause", IdempotencyKey: "pause", RequestDigest: biz.ActionDigest("", 1, "pause"), ExpectedVersion: 1}); err != nil {
+			t.Fatal("action without parent:", c.ID, err)
+		}
+	}
+	// Convert one persisted action to its pre-upgrade digest, then replay it
+	// using the standalone contract. The old parent is read from the row only.
+	if _, err := f.runtime.Exec(ctx, "UPDATE sandbox.operations SET request_digest=$3 WHERE tenant_id=$1 AND sandbox_id=$2 AND action='pause'", legacy.TenantID, legacy.ID, biz.ActionDigest(legacy.InstanceID, 1, "pause")); err != nil {
+		t.Fatal(err)
+	}
+	retry := biz.Command{TenantID: legacy.TenantID, ID: legacy.ID, OperationID: uuid.NewString(), Action: "pause", IdempotencyKey: "pause", RequestDigest: biz.ActionDigest("", 1, "pause"), ExpectedVersion: 1}
+	if ack, err := f.repo.Change(ctx, retry); err != nil || !ack.Replayed {
+		t.Fatal("historical action replay:", ack, err)
+	}
+	retry.ExpectedVersion = 2
+	retry.RequestDigest = biz.ActionDigest("", 2, "pause")
+	if _, err := f.repo.Change(ctx, retry); !errors.Is(err, biz.ErrConflict) {
+		t.Fatal("changed historical action replay:", err)
+	}
+	otherTenant := uuid.NewString()
+	otherCtx := biz.WithCaller(context.Background(), biz.Caller{TenantID: otherTenant, Actor: "governance:user:other"})
+	if _, err := f.repo.Get(otherCtx, otherTenant, legacy.ID); !errors.Is(err, biz.ErrNotFound) {
+		t.Fatal("cross tenant get:", err)
+	}
+	if _, total, err := f.repo.List(otherCtx, otherTenant, biz.ListFilter{}); err != nil || total != 0 {
+		t.Fatal("cross tenant list:", total, err)
+	}
+	if _, err := f.repo.Change(otherCtx, biz.Command{TenantID: otherTenant, ID: legacy.ID, OperationID: uuid.NewString(), Action: "delete", IdempotencyKey: "delete", RequestDigest: strings.Repeat("f", 64)}); !errors.Is(err, biz.ErrNotFound) {
+		t.Fatal("cross tenant change:", err)
+	}
+}
+
+func TestTenantListingMigrationIsAppliedAndReady(t *testing.T) {
+	f := sandboxDatabase(t) // runs Migrate twice and opens with CheckReady
+	ctx := context.Background()
+	var registered, indexExists bool
+	if err := f.runtime.QueryRow(ctx, `SELECT EXISTS(SELECT 1 FROM sandbox.schema_version WHERE version=4), to_regclass('sandbox.sandbox_tenant_created') IS NOT NULL`).Scan(&registered, &indexExists); err != nil {
+		t.Fatal(err)
+	}
+	if !registered || !indexExists {
+		t.Fatalf("tenant listing migration missing: version=%v index=%v", registered, indexExists)
+	}
+	if err := f.repo.CheckReady(ctx); err != nil {
+		t.Fatal("migrated schema not ready:", err)
 	}
 }

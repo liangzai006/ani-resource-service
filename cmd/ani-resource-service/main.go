@@ -154,6 +154,8 @@ func run(logger *slog.Logger) error {
 		return runVPCRead(&bc, logger)
 	case "governance":
 		return runGovernance(&bc, logger)
+	case "compute":
+		return runComputeOnly(&bc, logger)
 	default:
 		return fmt.Errorf("unknown ANI_NETWORK_MODE %q", mode)
 	}

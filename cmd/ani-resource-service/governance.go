@@ -51,7 +51,7 @@ func runGovernance(bc *conf.Bootstrap, logger *slog.Logger) error {
 		return err
 	}
 	defer instances.Close()
-	sandboxes, err := openSandbox(context.Background(), compute, logger)
+	sandboxes, err := openSandbox(context.Background(), bc.Network, compute, images, logger)
 	if err != nil {
 		return err
 	}
@@ -205,7 +205,7 @@ func runGovernance(bc *conf.Bootstrap, logger *slog.Logger) error {
 	if imageRuntime != nil {
 		servers = append(servers, imageRuntime)
 	}
-	if sandboxes != nil {
+	if sandboxes != nil && sandboxes.execution != nil {
 		servers = append(servers, sandboxes.execution)
 	}
 	if vms != nil && vms.console != nil {

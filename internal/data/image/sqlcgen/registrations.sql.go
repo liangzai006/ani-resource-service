@@ -68,6 +68,130 @@ func (q *Queries) CountTenantRegistrations(ctx context.Context, arg CountTenantR
 	return count, err
 }
 
+const findPlatformRegistrationsByReference = `-- name: FindPlatformRegistrationsByReference :many
+SELECT image_id, space_id, owner_scope, tenant_id, display_name, description, repository, source_reference, digest, media_type, platforms, purposes, accelerator, version, created_by, updated_by, created_at, updated_at, unregistered_at FROM image.registrations
+WHERE owner_scope='platform' AND tenant_id IS NULL AND space_id=$1
+ AND unregistered_at IS NULL AND repository=$2
+ AND (($3::boolean AND digest=$4::text)
+   OR (NOT $3::boolean AND source_reference=$4::text))
+ORDER BY image_id LIMIT 2
+`
+
+type FindPlatformRegistrationsByReferenceParams struct {
+	SpaceID    string
+	Repository string
+	IsDigest   bool
+	Reference  string
+}
+
+func (q *Queries) FindPlatformRegistrationsByReference(ctx context.Context, arg FindPlatformRegistrationsByReferenceParams) ([]ImageRegistration, error) {
+	rows, err := q.db.Query(ctx, findPlatformRegistrationsByReference,
+		arg.SpaceID,
+		arg.Repository,
+		arg.IsDigest,
+		arg.Reference,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []ImageRegistration{}
+	for rows.Next() {
+		var i ImageRegistration
+		if err := rows.Scan(
+			&i.ImageID,
+			&i.SpaceID,
+			&i.OwnerScope,
+			&i.TenantID,
+			&i.DisplayName,
+			&i.Description,
+			&i.Repository,
+			&i.SourceReference,
+			&i.Digest,
+			&i.MediaType,
+			&i.Platforms,
+			&i.Purposes,
+			&i.Accelerator,
+			&i.Version,
+			&i.CreatedBy,
+			&i.UpdatedBy,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.UnregisteredAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const findTenantRegistrationsByReference = `-- name: FindTenantRegistrationsByReference :many
+SELECT image_id, space_id, owner_scope, tenant_id, display_name, description, repository, source_reference, digest, media_type, platforms, purposes, accelerator, version, created_by, updated_by, created_at, updated_at, unregistered_at FROM image.registrations
+WHERE owner_scope='tenant' AND tenant_id=$1 AND space_id=$2
+ AND unregistered_at IS NULL AND repository=$3
+ AND (($4::boolean AND digest=$5::text)
+   OR (NOT $4::boolean AND source_reference=$5::text))
+ORDER BY image_id LIMIT 2
+`
+
+type FindTenantRegistrationsByReferenceParams struct {
+	TenantID   *string
+	SpaceID    string
+	Repository string
+	IsDigest   bool
+	Reference  string
+}
+
+func (q *Queries) FindTenantRegistrationsByReference(ctx context.Context, arg FindTenantRegistrationsByReferenceParams) ([]ImageRegistration, error) {
+	rows, err := q.db.Query(ctx, findTenantRegistrationsByReference,
+		arg.TenantID,
+		arg.SpaceID,
+		arg.Repository,
+		arg.IsDigest,
+		arg.Reference,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []ImageRegistration{}
+	for rows.Next() {
+		var i ImageRegistration
+		if err := rows.Scan(
+			&i.ImageID,
+			&i.SpaceID,
+			&i.OwnerScope,
+			&i.TenantID,
+			&i.DisplayName,
+			&i.Description,
+			&i.Repository,
+			&i.SourceReference,
+			&i.Digest,
+			&i.MediaType,
+			&i.Platforms,
+			&i.Purposes,
+			&i.Accelerator,
+			&i.Version,
+			&i.CreatedBy,
+			&i.UpdatedBy,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.UnregisteredAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getPlatformRegistration = `-- name: GetPlatformRegistration :one
 SELECT image_id, space_id, owner_scope, tenant_id, display_name, description, repository, source_reference, digest, media_type, platforms, purposes, accelerator, version, created_by, updated_by, created_at, updated_at, unregistered_at FROM image.registrations
 WHERE owner_scope='platform' AND tenant_id IS NULL AND image_id=$1

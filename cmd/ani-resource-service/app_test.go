@@ -25,10 +25,14 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/durationpb"
 
+	sandboxpb "github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1"
 	conf "github.com/zhangzhe-ctrl/ani-resource-service/internal/conf/v1"
 )
 
 func TestBuildAppRunsProductionComposition(t *testing.T) {
+	t.Setenv("ANI_COMPUTE_CONFIG_FILE", "")
+	t.Setenv("ANI_SANDBOX_CONFIG_FILE", "")
+	t.Setenv("ANI_INSTANCE_CONFIG_FILE", "")
 	tlsFixture := testenv.NewServiceTLS(t)
 	t.Setenv("ANI_NETWORK_CLIENT_CA", tlsFixture.CAFile)
 	t.Setenv("ANI_NETWORK_TLS_CERT", tlsFixture.CertFile)
@@ -67,6 +71,7 @@ func TestBuildAppRunsProductionComposition(t *testing.T) {
 	waitForHTTP(t, "http://"+adminAddress+"/readyz")
 	assertProductionAdmin(t, adminAddress)
 	assertProductionGRPCBoundary(t, grpcAddress, tlsFixture.Client)
+	assertSandboxUnavailableWithoutCompute(t, grpcAddress, tlsFixture.Client)
 
 	if err := app.Stop(); err != nil {
 		t.Fatalf("Stop() error = %v", err)
@@ -87,6 +92,22 @@ func TestBuildAppRunsProductionComposition(t *testing.T) {
 	}
 	if !regexp.MustCompile(`"span_id":"[0-9a-f]{16}"`).MatchString(logs.String()) {
 		t.Fatalf("request span correlation missing from logs: %s", logs.String())
+	}
+}
+
+func assertSandboxUnavailableWithoutCompute(t *testing.T, address string, clientTLS *tls.Config) {
+	t.Helper()
+	const tenant = "11111111-1111-4111-8111-111111111111"
+	ctx, cancel := context.WithTimeout(metadata.NewOutgoingContext(context.Background(), metadata.Pairs("x-ani-tenant-id", tenant, "x-ani-actor", "governance:user:7", "x-ani-request-id", "22222222-2222-4222-8222-222222222222")), time.Second)
+	defer cancel()
+	connection, err := grpc.NewClient(address, grpc.WithTransportCredentials(credentials.NewTLS(clientTLS)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer connection.Close()
+	_, err = sandboxpb.NewSandboxServiceClient(connection).ListSandboxes(ctx, &sandboxpb.ListSandboxesRequest{TenantId: tenant})
+	if status.Code(err) != codes.Unavailable {
+		t.Fatalf("Sandbox without compute status = %s, want unavailable: %v", status.Code(err), err)
 	}
 }
 
