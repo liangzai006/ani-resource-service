@@ -1,0 +1,445 @@
+{
+  "schema": "container-restart-legacy-storage-cutover-v1",
+  "observed_at": "2026-10-28T09:59:54.028878+00:00",
+  "result": "OLD_STORAGE_REQUEST_CONVERGENCE_NOT_PROVEN",
+  "scope": {
+    "entry": "ssh kubercloud@100.64.128.12",
+    "entry_node": "node1",
+    "context": "kubernetes-admin@ani-kcn-full",
+    "endpoint": "https://lb.kubesphere.local:6443",
+    "read_only": true,
+    "platform_login": false,
+    "sql_access": false,
+    "cluster_mutations": false,
+    "A36": "DEFERRED_USER_SCOPE_NOT_REEXAMINED"
+  },
+  "conclusions": {
+    "historical_pending_or_unknown_storage_deletes": "NOT_PROVEN_ZERO",
+    "active_instance_operations_or_work_leases": "NOT_A_STORAGE_DRAIN_PROOF",
+    "existing_tenant_pvc_count": 4,
+    "existing_attach_eligible_pvc_count": 0,
+    "existing_storage_owned_pvc_count": 0,
+    "positive_legacy_delete_requests_identified": 0,
+    "import_delete_tickets": "NOT_AUTHORIZED_WITHOUT_ACTUAL_REQUEST_AND_IDENTITY_EVIDENCE",
+    "cp01": "MAY_CONTINUE_WITH_BORROWED_PVC_WRITE_GATE_CLOSED",
+    "cp02": "ONLY_POST_CUTOVER_NEW_UNIQUE_NAME_AND_UID_FILESYSTEM_TEST_PVC_UNTIL_OLD_NAMES_HAVE_POSITIVE_QUALIFICATION"
+  },
+  "apiserver_audit": {
+    "actual_pod_configuration": [
+      {
+        "name": "kube-apiserver-node1",
+        "uid": "d5fd178f-d604-48be-b66d-a3bde48ca16a",
+        "node": "node1",
+        "containers": [
+          {
+            "name": "kube-apiserver",
+            "image": "10.10.1.66:5001/kubernetes/kube-apiserver:v1.35.8",
+            "audit_flags": [],
+            "audit_mounts": []
+          }
+        ]
+      },
+      {
+        "name": "kube-apiserver-node2",
+        "uid": "af6a15b7-67db-4ef5-a08b-cb1aba37f5a3",
+        "node": "node2",
+        "containers": [
+          {
+            "name": "kube-apiserver",
+            "image": "10.10.1.66:5001/kubernetes/kube-apiserver:v1.35.8",
+            "audit_flags": [],
+            "audit_mounts": []
+          }
+        ]
+      },
+      {
+        "name": "kube-apiserver-node3",
+        "uid": "f549894c-926e-44fb-8549-c897d67dae51",
+        "node": "node3",
+        "containers": [
+          {
+            "name": "kube-apiserver",
+            "image": "10.10.1.66:5001/kubernetes/kube-apiserver:v1.35.8",
+            "audit_flags": [],
+            "audit_mounts": []
+          }
+        ]
+      }
+    ],
+    "observation": "No --audit* argument or audit mount in any of the three actual apiserver Pod command/args.",
+    "entry_node_paths": [
+      {
+        "path": "/etc/kubernetes/manifests/kube-apiserver.yaml",
+        "exists": true,
+        "readable": false,
+        "size": 3984
+      },
+      {
+        "path": "/etc/kubernetes/audit-policy.yaml",
+        "exists": false,
+        "readable": false
+      },
+      {
+        "path": "/var/log/kubernetes",
+        "exists": false,
+        "readable": false
+      },
+      {
+        "path": "/var/log/kubernetes/audit",
+        "exists": false,
+        "readable": false
+      },
+      {
+        "path": "/var/log/kubernetes/audit.log",
+        "exists": false,
+        "readable": false
+      },
+      {
+        "path": "/var/log/kube-apiserver",
+        "exists": false,
+        "readable": false
+      },
+      {
+        "path": "/var/log/audit/kube-apiserver-audit.log",
+        "exists": false,
+        "readable": false
+      }
+    ],
+    "limitation": "Entry-node path checks do not inspect node2/node3 files or rule out separate historical archives. No historical PVC DELETE RequestReceived/ResponseComplete audit record was obtained."
+  },
+  "resource_runtime": {
+    "pods": [
+      {
+        "name": "ani-resource-service-6b8f956495-dwtqf",
+        "namespace": "ani-system",
+        "uid": "663395da-f0ff-4aa8-ac26-67dd5ed2eb5f",
+        "created": "2026-10-27T15:47:44Z",
+        "owners": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "ani-resource-service-6b8f956495",
+            "uid": "57924056-48d1-4c65-974f-28d113a913ee"
+          }
+        ],
+        "phase": "Running",
+        "containers": [
+          {
+            "name": "resource",
+            "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:5a211f66a6eff0f7fb0df0e0bacec13bee0764f8f9d2759c19ba9e97c2cb53e7"
+          }
+        ],
+        "statuses": [
+          {
+            "name": "resource",
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-27T15:47:46Z"
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    ],
+    "deployment": [
+      {
+        "name": "ani-resource-service",
+        "uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+        "replicas": 1,
+        "source_annotations": {
+          "deployment.kubernetes.io/revision": "47"
+        }
+      }
+    ],
+    "logs": {
+      "current": {
+        "command": "kubectl --request-timeout=20s logs -n ani-system ani-resource-service-6b8f956495-dwtqf -c resource --timestamps=true --limit-bytes=16777216",
+        "returncode": 0,
+        "bytes": 258082,
+        "sha256": "cb7a8dd87d8eb58c1aee51d10a940f57fb48bd45e41e46a2742a6ac206334e57",
+        "line_count": 362,
+        "first_timestamp": "2026-10-28T17:40:20.880397446+08:00",
+        "last_timestamp": "2026-10-28T17:57:25.878984692+08:00",
+        "storage_delete_matches": 0,
+        "records": []
+      },
+      "previous": {
+        "returncode": 1,
+        "error_class": "NO_PREVIOUS_CONTAINER"
+      },
+      "request_fields_observed": [
+        "args",
+        "code",
+        "component",
+        "kind",
+        "latency",
+        "level",
+        "msg",
+        "operation",
+        "reason",
+        "span_id",
+        "time",
+        "trace_id"
+      ],
+      "rotated_host_log_access": [
+        {
+          "pod": "ani-resource-service-6b8f956495-dwtqf",
+          "node": "node3",
+          "directory": "/var/log/pods/ani-system_ani-resource-service-6b8f956495-dwtqf_663395da-f0ff-4aa8-ac26-67dd5ed2eb5f/resource",
+          "exists_on_entry_node": false,
+          "readable_on_entry_node": false,
+          "files": []
+        }
+      ],
+      "central_log_backend": {
+        "kind": "OpenSearch",
+        "namespace": "ani-observability",
+        "pod": "ani-opensearch-master-0",
+        "secret_references": [
+          "ani-opensearch-node-tls",
+          "ani-opensearch-security-config"
+        ],
+        "state": "NOT_QUERIED_NO_EXISTING_AUTHENTICATED_READ_SESSION",
+        "output_auth_configuration_present": true,
+        "output_tls_configuration_present": true,
+        "fluent_bit_pipeline": [
+          {
+            "name": "ani-fluent-bit",
+            "keys": [
+              "custom_parsers.conf",
+              "fluent-bit.conf"
+            ],
+            "safe_pipeline_lines": [
+              "Name docker_no_time",
+              "[INPUT]",
+              "Name tail",
+              "Path /var/log/containers/*.log",
+              "Tag kube.*",
+              "Name kubernetes",
+              "Match kube.*",
+              "[OUTPUT]",
+              "Name opensearch",
+              "Match kube.*",
+              "Host ani-opensearch-master.ani-observability.svc.cluster.local",
+              "Port 9200",
+              "tls On"
+            ]
+          }
+        ],
+        "limitation": "Authenticated central-log queries were not established in this narrow read-only probe; credentials were not read and TLS was not bypassed. Central historical logs are NOT_VERIFIED, not absent."
+      },
+      "limitation": "The current container started 2026-10-27T15:47:46Z, but the accessible kubectl log output covers only about 17 minutes on 2026-10-28. Zero matches in this window cannot establish historical begin/end pairs, target UID, or absence of unknown writes."
+    }
+  },
+  "source_evidence": {
+    "reference": "55092dbf05c284875555d422e75eeb5691cb9cfd",
+    "immutable_deployed_image_to_source_binding": {
+      "result": "VERIFIED_IMAGE_LABELS_AND_EXACT_SOURCE_UID_PRECONDITION",
+      "image_digest": "sha256:5a211f66a6eff0f7fb0df0e0bacec13bee0764f8f9d2759c19ba9e97c2cb53e7",
+      "image_inspection": "Root pulled the same digest from Harbor to Fedora task localbase and read Config.Labels using docker image inspect; reported to this probe by the root integrator.",
+      "labels": {
+        "org.opencontainers.image.revision": "f6d7f7b8e90f5def80e937cf2d40780da96f0d50",
+        "org.opencontainers.image.source": "https://github.com/zhangzhe-ctrl/ani-resource-service",
+        "release.parents": "45d8f0ee3f8f51af66cebc94a13711565278e813,7755f6f4b8514cca80ad99886c4e1019fa276eea"
+      },
+      "exact_source_confirmation": {
+        "command": "git show f6d7f7b8e90f5def80e937cf2d40780da96f0d50:internal/data/storage/k8s.go",
+        "file": "internal/data/storage/k8s.go",
+        "line": 153,
+        "uid_precondition_line": 155,
+        "code": "metav1.DeleteOptions{Preconditions: &metav1.Preconditions{UID: &expected}}",
+        "result": "CONFIRMED_READ_ONLY_IN_LOCAL_GIT_OBJECT"
+      },
+      "limitation": "This binds the installed old image digest through OCI revision metadata to the exact source UID-precondition implementation; it does not provide historical request targets, begin/end pairs or convergence evidence."
+    },
+    "facts": [
+      {
+        "file": "internal/biz/storage/usecase.go",
+        "line": 276,
+        "fact": "Old synchronous DeleteVolume performs namespace/Get/ownership/UID/usage checks, direct Delete, then Get; no durable delete request or dedicated begin/end log."
+      },
+      {
+        "file": "internal/data/storage/k8s.go",
+        "line": 153,
+        "fact": "Old adapter sends Kubernetes DeleteOptions.Preconditions.UID using the expected UID."
+      },
+      {
+        "file": "internal/service/storage/service.go",
+        "line": 163,
+        "fact": "Synchronous adapter only; no durable request/UID ledger."
+      },
+      {
+        "file": "internal/server/observability.go",
+        "line": 132,
+        "fact": "Server registers requestLogging middleware."
+      },
+      {
+        "file": "internal/server/image_identity.go",
+        "line": 46,
+        "fact": "Storage request body is [REDACTED], so framework completion logging cannot reconstruct target tenant/PVC/expected UID or missing begin records."
+      }
+    ],
+    "candidate_qualification": {
+      "reference": "8fe1b0ce8f10f97c34b2d7106599fcfbf487ca5d",
+      "file": "internal/data/instance/pvc.go",
+      "dedicated_pvc_line": 94,
+      "filesystem_required_line": 121
+    }
+  },
+  "tenant_namespaces": [
+    {
+      "name": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "uid": "a8d8a472-8a8a-43cf-abf0-0e805bbe67b0",
+      "labels": {
+        "kubernetes.io/metadata.name": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "network.ani.io/managed-by": "ani-network-service",
+        "network.ani.io/tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420"
+      }
+    },
+    {
+      "name": "tenant-bf244b5d-eb29-4350-8530-cefb29f72d8d",
+      "uid": "58b8d1a4-5699-42f0-9005-f362804d3861",
+      "labels": {
+        "kubernetes.io/metadata.name": "tenant-bf244b5d-eb29-4350-8530-cefb29f72d8d",
+        "network.ani.io/managed-by": "ani-network-service",
+        "network.ani.io/tenant-id": "bf244b5d-eb29-4350-8530-cefb29f72d8d"
+      }
+    }
+  ],
+  "existing_name_scope": [
+    {
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "vd-3777ccb7-b596-5ecf-9bd8-8e3cfc8158c8",
+      "uid": "54737fcd-d951-4f16-976a-102727cb253d",
+      "volumeMode": "Block",
+      "accessModes": [
+        "ReadWriteOnce"
+      ],
+      "deletionTimestamp": null,
+      "ownerReferences": [
+        {
+          "apiVersion": "cdi.kubevirt.io/v1beta1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "DataVolume",
+          "name": "vd-3777ccb7-b596-5ecf-9bd8-8e3cfc8158c8",
+          "uid": "177d5347-56c4-4f58-bef9-a62c3926e4fd"
+        }
+      ],
+      "labels": {
+        "ani.io/tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "app": "containerized-data-importer",
+        "app.kubernetes.io/component": "storage",
+        "app.kubernetes.io/managed-by": "cdi-controller",
+        "vm.ani.io/create-digest": "QLUMY4IY6KU2D32GT5FHARK76RNAJHJANB22RXLZJUSUZ4Z43PBQ",
+        "vm.ani.io/vm-id": "3be21c33-31be-4e7c-93b5-b8e91bd9b855"
+      },
+      "storage_owner_labels_present": false,
+      "legacy_storage_owned_at_snapshot": false,
+      "attach_eligible_at_snapshot": false,
+      "attach_exclusion_reason": "PVC_FILESYSTEM_REQUIRED",
+      "preserve": true
+    },
+    {
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "vd-8970a778-45d7-56a7-bf7d-ba6deabd6fb5",
+      "uid": "6a6f0e3f-224c-4b4c-8b9d-b28ddb9918a9",
+      "volumeMode": "Block",
+      "accessModes": [
+        "ReadWriteOnce"
+      ],
+      "deletionTimestamp": null,
+      "ownerReferences": [
+        {
+          "apiVersion": "cdi.kubevirt.io/v1beta1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "DataVolume",
+          "name": "vd-8970a778-45d7-56a7-bf7d-ba6deabd6fb5",
+          "uid": "b738312b-893e-4e6c-acb0-062947651944"
+        }
+      ],
+      "labels": {
+        "ani.io/tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "app": "containerized-data-importer",
+        "app.kubernetes.io/component": "storage",
+        "app.kubernetes.io/managed-by": "cdi-controller",
+        "vm.ani.io/create-digest": "QLUMY4IY6KU2D32GT5FHARK76RNAJHJANB22RXLZJUSUZ4Z43PBQ",
+        "vm.ani.io/vm-id": "3be21c33-31be-4e7c-93b5-b8e91bd9b855"
+      },
+      "storage_owner_labels_present": false,
+      "legacy_storage_owned_at_snapshot": false,
+      "attach_eligible_at_snapshot": false,
+      "attach_exclusion_reason": "PVC_FILESYSTEM_REQUIRED",
+      "preserve": true
+    },
+    {
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "workspace-63b52ff4-e489-4df6-b6fb-be10a36e2eb9",
+      "uid": "6f5842af-52c8-4431-9bfa-bbbd2eafc0e3",
+      "volumeMode": "Filesystem",
+      "accessModes": [
+        "ReadWriteOnce"
+      ],
+      "deletionTimestamp": null,
+      "ownerReferences": [],
+      "labels": {
+        "accelerator.ani.io/create-operation-id": "21e864c4-aac4-4e49-bd4b-d4c5ad9db7fe",
+        "accelerator.ani.io/owner-service": "ani-resource-service",
+        "accelerator.ani.io/resource-id": "63b52ff4-e489-4df6-b6fb-be10a36e2eb9",
+        "accelerator.ani.io/resource-tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "ani.io/instance-id": "63b52ff4-e489-4df6-b6fb-be10a36e2eb9",
+        "ani.io/tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420"
+      },
+      "storage_owner_labels_present": false,
+      "legacy_storage_owned_at_snapshot": false,
+      "attach_eligible_at_snapshot": false,
+      "attach_exclusion_reason": "DEDICATED_INSTANCE_WORKSPACE",
+      "preserve": true
+    },
+    {
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "workspace-d2b9ea58-98d6-4acd-bac1-3210ac46fdaa",
+      "uid": "c8aa8cc3-5844-49a7-9f72-b67bb650fd66",
+      "volumeMode": "Filesystem",
+      "accessModes": [
+        "ReadWriteOnce"
+      ],
+      "deletionTimestamp": null,
+      "ownerReferences": [],
+      "labels": {
+        "accelerator.ani.io/create-operation-id": "f8f79961-981a-473e-9271-6861dd33be0d",
+        "accelerator.ani.io/owner-service": "ani-resource-service",
+        "accelerator.ani.io/resource-id": "d2b9ea58-98d6-4acd-bac1-3210ac46fdaa",
+        "accelerator.ani.io/resource-tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "ani.io/instance-id": "d2b9ea58-98d6-4acd-bac1-3210ac46fdaa",
+        "ani.io/tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420"
+      },
+      "storage_owner_labels_present": false,
+      "legacy_storage_owned_at_snapshot": false,
+      "attach_eligible_at_snapshot": false,
+      "attach_exclusion_reason": "DEDICATED_INSTANCE_WORKSPACE",
+      "preserve": true
+    }
+  ],
+  "minimum_forward_operation": [
+    "Keep all four inventoried names excluded from borrowed Attach; preserve their UID, ownership and existing workload data. The second tenant namespace has zero PVCs at this observation.",
+    "Quiesce Storage entry and positively stop every incompatible old Resource writer/strict reader before the new service serves write intents. Exit/timeout alone is not historical convergence evidence.",
+    "After that cutover, create the test PVC through the normal authorized Storage API, with a new unique name and freshly observed UID, Filesystem volume mode, trusted tenant namespace and verified Storage ownership. Freeze that UID via the normal resolver.",
+    "Use only this post-cutover new test identity for CP02 initially. The old image digest is now bound through OCI revision f6d7f7b8e90f5def80e937cf2d40780da96f0d50 to the exact UID-precondition implementation. Old workers must still have no chance to select the new object; the binding does not prove that they have exited or that historical requests converged.",
+    "Do not import a guessed request as a write_started ticket: recovery would obtain deletion authority over a PVC without a real authorized request. Historical old names remain unqualified unless actual request/identity evidence resolves their state."
+  ],
+  "queries": [
+    "kubectl config view --minify -o jsonpath={.current-context}/{.clusters[0].cluster.server}",
+    "kubectl get pods -n kube-system -l component=kube-apiserver -o json (project command/args audit flags and audit mounts)",
+    "kubectl get pods -A -o json (project Resource runtime identity)",
+    "kubectl get namespaces -o json; kubectl get persistentvolumeclaims -A -o json (project trusted tenant scope and PVC UID/owner/mode only)",
+    "kubectl logs current/previous Resource container with timestamps and 16 MiB bound; remote filter Storage DELETE method matches",
+    "Read/stat only fixed entry-node audit paths and the exact Resource Pod's rotated-log directory; no recursive disk scan",
+    "kubectl get pods/services/configmaps -n ani-observability (project Fluent Bit output location/auth presence and backend references only; no Secret reads)"
+  ]
+}

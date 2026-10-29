@@ -1,0 +1,29 @@
+{
+  "added_api_routes": [
+    "GET /api/v1/instances/{instance_id}/mountable-pvcs",
+    "POST /api/v1/instances/{data.instance_id}:attach-pvc",
+    "POST /api/v1/instances/{data.instance_id}:detach-pvc",
+    "POST /api/v1/instances/{data.instance_id}:restart"
+  ],
+  "added_counts": {
+    "apis": 4,
+    "permission_apis": 4,
+    "permissions": 3,
+    "plan_modules": 0,
+    "role_permissions": 3,
+    "roles": 0
+  },
+  "added_permission_codes": [
+    "instance:pvc:attach",
+    "instance:pvc:detach",
+    "instance:restart"
+  ],
+  "after_sha256": "2a30d7754c5c6f95e50f9e6706b6302cedf4502f93c4e7eaf19ff53b335382f3",
+  "before_sha256": "05febc19250a054c1fde8df10a1a12a526c3f0b711a16ca37cf3cf16dbc338ed",
+  "existing_rows_preserved": true,
+  "private_after": "/home/chabking/workspace/ani-resource-service-runs/container-restart-pvc-20261028/private-live-01/governance-permission-apply-01-after.json",
+  "private_apply_log": "/home/chabking/workspace/ani-resource-service-runs/container-restart-pvc-20261028/private-live-01/governance-permission-apply-20261028T124417Z.private.log",
+  "protected_identity_role_plan_modules_unchanged": true,
+  "result": "PASS_NARROW_APPLY",
+  "sql_sha256": "0eb241be9668a8cf2fbb5a7718aa5507ade36209ae87a44cb21b6da0bb6101c8"
+}

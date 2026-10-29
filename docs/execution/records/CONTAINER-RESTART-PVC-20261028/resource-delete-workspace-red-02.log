@@ -1,0 +1,5 @@
+--- FAIL: TestDeleteCleansEntireInstanceBeforeQuotaDelivery (0.00s)
+    worker_cleanup_test.go:44: unreturned quota blocked workspace deletion or completed it prematurely
+FAIL
+FAIL	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.004s
+FAIL

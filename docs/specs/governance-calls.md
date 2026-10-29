@@ -65,6 +65,11 @@ Sandbox 条目定义 Resource RPC 合同和精确接收方 allowlist。Governanc
 | `/instance.v1.InstanceService/AcceptDelete` | 原 CREATE + delete operation，expected_version |
 | `/instance.v1.InstanceService/Start` | 原键 + expected_version |
 | `/instance.v1.InstanceService/Stop` | 原键 + expected_version |
+| `/instance.v1.InstanceService/Restart` | 独立持久 operation；原键 + expected_version，默认能力关闭 |
+| `/instance.v1.InstanceService/AttachPVC` | borrowed PVC/path/readonly + 显式 restart_if_running；原键 + expected_version |
+| `/instance.v1.InstanceService/DetachPVC` | 当前 mount_path + 显式 restart_if_running；原键 + expected_version |
+| `/instance.v1.InstanceService/ListInstanceMountablePVCs` | 持久实例 placement 的只读候选；删除 guard 活跃时不可选 |
+| `/instance.v1.InstanceService/LookupCommandReplay` | 当前授权后只读原命令 ACK；固定 canonical 数组、无 Kubernetes 解析、无副作用 |
 | `/instance.v1.InstanceService/GetInstance` | 查询 |
 | `/instance.v1.InstanceService/ResolveInstanceMetricScope` | 仅持久化范围读取；历史查询不要求当前运行对象 |
 | `/instance.v1.InstanceService/ListInstances` | page/page_size，默认1/20、最大100，items/total；同RR快照Count/List |

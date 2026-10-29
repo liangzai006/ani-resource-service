@@ -151,6 +151,9 @@ func (k *Kubernetes) ResizeVolume(ctx context.Context, namespace, name, expected
 }
 
 func (k *Kubernetes) DeleteVolume(ctx context.Context, namespace, name, uid string) error {
+	if namespace == "" || name == "" || uid == "" {
+		return biz.ErrInvalid
+	}
 	expected := types.UID(uid)
 	err := k.client.Resource(pvcGVR).Namespace(namespace).Delete(ctx, name, metav1.DeleteOptions{Preconditions: &metav1.Preconditions{UID: &expected}})
 	if err != nil {

@@ -1,0 +1,19 @@
+127.0.0.1:5432 - accepting connections
+2026/10/28 18:20:48 INFO [gRPC] server listening addr=127.0.0.1:33679
+2026/10/28 18:20:48 INFO [gRPC] server stopping
+--- FAIL: TestBorrowedVolumeReferencesPersistAndReleaseWithCompute (0.21s)
+    configuration_integration_test.go:43: reference state pending <nil>
+--- FAIL: TestGpuExecutionPersistenceAndDeletedCatalogReplay (0.67s)
+    --- FAIL: TestGpuExecutionPersistenceAndDeletedCatalogReplay/shared_f1 (0.23s)
+        gpu_execution_integration_test.go:71: rpc error: code = Unavailable desc = INSTANCE_ACTION_UNAVAILABLE
+    --- FAIL: TestGpuExecutionPersistenceAndDeletedCatalogReplay/whole_f1 (0.23s)
+        gpu_execution_integration_test.go:71: rpc error: code = Unavailable desc = INSTANCE_ACTION_UNAVAILABLE
+    --- FAIL: TestGpuExecutionPersistenceAndDeletedCatalogReplay/shared_f10 (0.21s)
+        gpu_execution_integration_test.go:71: rpc error: code = Unavailable desc = INSTANCE_ACTION_UNAVAILABLE
+--- FAIL: TestInstanceSupersededMutationAndLeaseFencing (0.25s)
+    postgres_integration_test.go:687: {false   false} INSTANCE_OPERATION_IN_PROGRESS
+--- FAIL: TestDatabaseCPUFreezeSurvivesPresetMutationAndDeletion (0.24s)
+    presets_integration_test.go:186: rpc error: code = Unavailable desc = INSTANCE_ACTION_UNAVAILABLE
+FAIL
+FAIL	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	12.172s
+FAIL

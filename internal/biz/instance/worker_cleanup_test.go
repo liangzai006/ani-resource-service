@@ -9,15 +9,15 @@ import (
 
 func TestDeleteCleansEntireInstanceBeforeQuotaDelivery(t *testing.T) {
 	repo := &cleanupWorkerRepo{instance: Instance{
-		Spec:    Spec{ComputeType: TypeGPU, NotebookName: "notebook"},
-		Desired: Deleted, Version: 2, LastOperationID: "delete-operation",
+		Spec:           Spec{ComputeType: TypeGPU, NotebookName: "notebook"},
+		RuntimeDesired: Deleted, Desired: Deleted, Version: 2, LastOperationID: "delete-operation",
 		ExternalComputeStarted: true,
 	}}
 	provider := &cleanupWorkerProvider{observation: Observation{
 		NotebookExists: true, NotebookUID: "notebook-uid", PodExists: true,
 		StatefulSetUID: "controller-uid", PVCExists: true, PVCUID: "workspace-uid", VolumeExists: true,
 	}}
-	w, err := NewWorker(repo, provider, "cleanup-worker")
+	w, err := NewWorker(repo, &identityCleanupProvider{cleanupWorkerProvider: provider}, "cleanup-worker")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -56,7 +56,7 @@ func TestDeleteCleansEntireInstanceBeforeQuotaDelivery(t *testing.T) {
 
 func TestDeleteWaitsForNetworkReleaseBeforeOwnerCleanup(t *testing.T) {
 	repo := &cleanupWorkerRepo{instance: Instance{
-		Spec: Spec{ComputeType: TypeGPU, NotebookName: "notebook"}, Desired: Deleted,
+		Spec: Spec{ComputeType: TypeGPU, NotebookName: "notebook"}, RuntimeDesired: Deleted, Desired: Deleted,
 		ComputeCleaned: true, WorkspaceCleaned: true, VolumeReferencesReleased: true,
 		Network: &NetworkRuntime{State: "closed", DesiredRunState: Deleted, AttachmentID: "attachment", ReleaseStarted: true},
 	}}
@@ -80,9 +80,25 @@ func TestDeleteWaitsForNetworkReleaseBeforeOwnerCleanup(t *testing.T) {
 	}
 }
 
+func TestUnknownWorkspaceCreateUsesWorkspaceObservation(t *testing.T) {
+	repo := &cleanupWorkerRepo{instance: Instance{
+		Spec:    Spec{ComputeType: TypeCPU, NotebookName: "notebook"},
+		Desired: Running, RuntimeDesired: Running, Pending: &Mutation{Kind: "create_workspace"},
+	}}
+	provider := &cleanupWorkerProvider{observation: Observation{PVCExists: true, PVCUID: "workspace-uid"}}
+	w, err := NewWorker(repo, &identityCleanupProvider{cleanupWorkerProvider: provider}, "workspace-recovery-worker")
+	if err != nil {
+		t.Fatal(err)
+	}
+	stepCleanupWorker(t, w)
+	if repo.instance.Pending != nil || repo.instance.PVCUID != "workspace-uid" || repo.progress.Receipt == nil || repo.progress.Receipt.Outcome != "recovered_by_observation" {
+		t.Fatal("an existing workspace was hidden by identity-only observation", repo.instance, repo.progress.Receipt)
+	}
+}
+
 func TestDurableOwnerCleanupSkipsExternalObservation(t *testing.T) {
 	repo := &cleanupWorkerRepo{instance: Instance{
-		Spec: Spec{ComputeType: TypeGPU, NotebookName: "notebook"}, Desired: Deleted,
+		Spec: Spec{ComputeType: TypeGPU, NotebookName: "notebook"}, RuntimeDesired: Deleted, Desired: Deleted,
 		ComputeCleaned: true, WorkspaceCleaned: true, VolumeReferencesReleased: true,
 		CleanupCompletedAt: time.Now().UTC(), Network: &NetworkRuntime{Cleaned: true},
 	}}
@@ -99,7 +115,7 @@ func TestDurableOwnerCleanupSkipsExternalObservation(t *testing.T) {
 
 func TestFailedObservationCannotSealStoredCleanupFlags(t *testing.T) {
 	repo := &cleanupWorkerRepo{instance: Instance{
-		Spec: Spec{ComputeType: TypeGPU, NotebookName: "notebook"}, Desired: Deleted,
+		Spec: Spec{ComputeType: TypeGPU, NotebookName: "notebook"}, RuntimeDesired: Deleted, Desired: Deleted,
 		ComputeCleaned: true, WorkspaceCleaned: true, VolumeReferencesReleased: true,
 	}}
 	provider := &cleanupWorkerProvider{observeError: errors.New("Kubernetes unavailable")}
@@ -117,7 +133,7 @@ func TestUnknownCreateStillBlocksOwnerCleanup(t *testing.T) {
 	for _, kind := range []string{"create_notebook", "create_workspace"} {
 		t.Run(kind, func(t *testing.T) {
 			repo := &cleanupWorkerRepo{instance: Instance{
-				Spec: Spec{ComputeType: TypeGPU, NotebookName: "notebook"}, Desired: Deleted,
+				Spec: Spec{ComputeType: TypeGPU, NotebookName: "notebook"}, RuntimeDesired: Deleted, Desired: Deleted,
 				Pending: &Mutation{Kind: kind}, CleanupCompletedAt: time.Now().UTC(),
 				ComputeCleaned: true, WorkspaceCleaned: true, VolumeReferencesReleased: true,
 			}}
@@ -138,7 +154,7 @@ func TestOnlyFinalCPUDeleteCompletesWithoutQuotaDelivery(t *testing.T) {
 	for _, desired := range []string{Running, Stopped, Deleted} {
 		t.Run(desired, func(t *testing.T) {
 			repo := &cleanupWorkerRepo{instance: Instance{
-				Spec: Spec{ComputeType: TypeCPU, NotebookName: "notebook"}, Desired: desired,
+				Spec: Spec{ComputeType: TypeCPU, NotebookName: "notebook"}, RuntimeDesired: desired, Desired: desired,
 				ComputeCleaned: true, WorkspaceCleaned: true, VolumeReferencesReleased: true,
 			}}
 			provider := &cleanupWorkerProvider{}
@@ -193,6 +209,20 @@ type cleanupWorkerProvider struct {
 	observation                                 Observation
 	observeError                                error
 	observes, notebookDeletes, workspaceDeletes int
+}
+
+// The real lifecycle adapter keeps identity-only stopping independent from
+// workspace availability. DELETE must use its full workspace observation.
+type identityCleanupProvider struct {
+	*cleanupWorkerProvider
+	LifecycleProvider
+}
+
+func (p *identityCleanupProvider) ObserveIdentity(ctx context.Context, i Instance) (Observation, error) {
+	out, err := p.cleanupWorkerProvider.Observe(ctx, i)
+	out.PVCExists, out.VolumeExists = false, false
+	out.PVCUID, out.VolumeName, out.VolumeUID, out.WorkspaceReason = "", "", "", ""
+	return out, err
 }
 
 func (p *cleanupWorkerProvider) Observe(context.Context, Instance) (Observation, error) {

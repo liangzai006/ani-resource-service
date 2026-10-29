@@ -362,7 +362,13 @@ func step(t *testing.T, f *fixture, w *biz.Worker, c biz.Create) biz.Instance {
 func command(t *testing.T, f *fixture, c biz.Create, i biz.Instance, action string) biz.Command {
 	t.Helper()
 	r := biz.Command{TenantID: c.TenantID, ID: c.ID, OperationID: uuid.NewString(), Key: uuid.NewString(), RequestHash: strings.Repeat("e", 64), Action: action, ExpectedVersion: i.Version}
-	a, e := f.repo.AcceptCommand(context.Background(), r)
+	var a biz.ACK
+	var e error
+	if action == "delete" {
+		a, e = f.repo.AcceptDelete(context.Background(), biz.Delete{TenantID: r.TenantID, ID: r.ID, OperationID: r.OperationID, CreateOperationID: c.OperationID, RequestHash: r.RequestHash, ExpectedVersion: r.ExpectedVersion, InstanceKind: c.Spec.InstanceKind, ComputeType: c.Spec.ComputeType})
+	} else {
+		a, e = f.repo.AcceptCommand(context.Background(), r)
+	}
 	if e != nil || !a.Accepted {
 		t.Fatal(a, e)
 	}
@@ -681,16 +687,20 @@ func TestInstanceSupersededMutationAndLeaseFencing(t *testing.T) {
 	if e = f.repo.BeginMutation(ctx, *work, mutation); e != nil {
 		t.Fatal(e)
 	}
-	stop := command(t, f, c, work.Instance, "stop")
+	stopRequest := biz.Command{TenantID: c.TenantID, ID: c.ID, OperationID: uuid.NewString(), Key: uuid.NewString(), RequestHash: strings.Repeat("f", 64), Action: "stop", ExpectedVersion: work.Instance.Version}
+	if _, err := f.repo.AcceptCommand(ctx, stopRequest); !errors.Is(err, biz.ErrOperationInProgress) {
+		t.Fatal("Stop superseded an unfinished CREATE mutation", err)
+	}
+	deletion := command(t, f, c, work.Instance, "delete")
 	result := work.Instance
-	result.NotebookUID = "notebook-created-before-new-stop"
+	result.NotebookUID = "notebook-created-before-delete-takeover"
 	result.Observed = biz.Running
 	if e = f.repo.Finish(ctx, *work, biz.Progress{Instance: result, Receipt: &biz.MutationReceipt{Mutation: mutation, Outcome: "succeeded"}, Next: time.Millisecond}); e != nil {
 		t.Fatal("attributable late result lost", e)
 	}
 	current, e := f.repo.Get(ctx, c.TenantID, c.ID)
-	if e != nil || current.Desired != biz.Stopped || current.Version != 2 || current.LastOperationID != stop.OperationID || current.Observed == biz.Running || current.Pending != nil || current.NotebookUID != result.NotebookUID {
-		t.Fatal("late result overwrote current intent", e)
+	if e != nil || current.Desired != biz.Deleted || current.Version != 2 || current.LastOperationID != deletion.OperationID || current.Observed == biz.Running || !biz.SameMutation(current.Pending, &mutation) || current.NotebookUID != result.NotebookUID {
+		t.Fatalf("late result lost identity or overwrote DELETE/Pending: desired=%s version=%d pending=%+v notebook=%s error=%v", current.Desired, current.Version, current.Pending, current.NotebookUID, e)
 	}
 	var receipt []byte
 	if e = f.runtime.QueryRow(ctx, "SELECT external_result FROM instance.instance_operations WHERE tenant_id=$1 AND operation_id=$2", c.TenantID, c.OperationID).Scan(&receipt); e != nil || !strings.Contains(string(receipt), "succeeded") {
@@ -703,7 +713,7 @@ func TestInstanceSupersededMutationAndLeaseFencing(t *testing.T) {
 	if e != nil || old == nil {
 		t.Fatal(e)
 	}
-	command(t, f, c, old.Instance, "start")
+	command(t, f, c, old.Instance, "delete")
 	if e = f.repo.BeginMutation(ctx, *old, biz.Mutation{Kind: "set_stopped", OperationID: old.Instance.LastOperationID, Version: old.Instance.Version}); !errors.Is(e, biz.ErrVersion) {
 		t.Fatal("old mutation crossed intent fence", e)
 	}
@@ -720,7 +730,7 @@ func TestInstanceSupersededMutationAndLeaseFencing(t *testing.T) {
 		t.Fatal("expired worker overwrote current state", e)
 	}
 	current, e = f.repo.Get(ctx, c.TenantID, c.ID)
-	if e != nil || current.Desired != biz.Running || current.Version != 3 {
+	if e != nil || current.Desired != biz.Deleted || current.Version != 3 {
 		t.Fatal("lease fence lost newest intent", e)
 	}
 }

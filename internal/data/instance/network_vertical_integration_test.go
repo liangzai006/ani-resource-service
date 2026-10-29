@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http/httptest"
+	"reflect"
 	"testing"
 	"time"
 
@@ -16,6 +17,7 @@ import (
 	data "github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance"
 	networkdata "github.com/zhangzhe-ctrl/ani-resource-service/internal/data/network"
 	"github.com/zhangzhe-ctrl/ani-resource-service/tests/testenv"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -36,10 +38,12 @@ var verticalPVGVR = schema.GroupVersionResource{Version: "v1", Resource: "persis
 // Instance/Network use cases, both repositories, leases, snapshots and release
 // decisions are production implementations with separate real PostgreSQL data.
 type notebookNetworkBoundary struct {
-	client     *fake.FakeDynamicClient
-	api        *testenv.KC
-	notebook   *unstructured.Unstructured
-	generation int
+	client                *fake.FakeDynamicClient
+	api                   *testenv.KC
+	notebook              *unstructured.Unstructured
+	generation            int
+	statefulSetGeneration int64
+	statefulSetSpec       map[string]any
 }
 
 func newNotebookNetworkBoundary(t *testing.T, api *testenv.KC) *notebookNetworkBoundary {
@@ -64,6 +68,7 @@ func newNotebookNetworkBoundary(t *testing.T, api *testenv.KC) *notebookNetworkB
 		obj := action.(ktesting.CreateAction).GetObject().(*unstructured.Unstructured).DeepCopy()
 		obj.SetUID("notebook-uid")
 		obj.SetResourceVersion("1")
+		obj.SetGeneration(1)
 		b.notebook = obj
 		if err := b.client.Tracker().Create(verticalNotebookGVR, obj, obj.GetNamespace()); err != nil {
 			return true, nil, err
@@ -113,7 +118,23 @@ func (b *notebookNetworkBoundary) project() error {
 	obj := b.notebook
 	ns, name := obj.GetNamespace(), obj.GetName()
 	controller := true
+	template, _, _ := unstructured.NestedMap(obj.Object, "spec", "template")
+	replicas := int64(1)
+	if _, stopped := obj.GetAnnotations()["kubeflow-resource-stopped"]; stopped {
+		replicas = 0
+	}
+	// The controller boundary must project the actual template/replica intent
+	// and an observed generation; absence of Pods alone is not a stop receipt.
+	setSpec := map[string]any{"replicas": replicas, "template": runtime.DeepCopyJSONValue(template)}
+	if !reflect.DeepEqual(b.statefulSetSpec, setSpec) {
+		b.statefulSetGeneration++
+		b.statefulSetSpec = runtime.DeepCopyJSONValue(setSpec).(map[string]any)
+	}
 	set := &unstructured.Unstructured{Object: map[string]any{"apiVersion": "apps/v1", "kind": "StatefulSet", "metadata": map[string]any{"name": name, "namespace": ns, "uid": "set-uid", "resourceVersion": "1"}}}
+	set.SetGeneration(b.statefulSetGeneration)
+	set.SetResourceVersion(fmt.Sprint(b.statefulSetGeneration))
+	set.Object["spec"] = setSpec
+	set.Object["status"] = map[string]any{"observedGeneration": b.statefulSetGeneration}
 	set.SetOwnerReferences([]metav1.OwnerReference{{APIVersion: "kubeflow.org/v1", Kind: "Notebook", Name: name, UID: obj.GetUID(), Controller: &controller}})
 	_ = b.client.Tracker().Delete(verticalSTSGVR, ns, name)
 	if err := b.client.Tracker().Create(verticalSTSGVR, set, ns); err != nil {
@@ -132,7 +153,6 @@ func (b *notebookNetworkBoundary) project() error {
 	uid := fmt.Sprintf("pod-%d", b.generation)
 	nicUID := fmt.Sprintf("nic-%d", b.generation)
 	address := fmt.Sprintf("10.42.1.%d", b.generation+10)
-	template, _, _ := unstructured.NestedMap(obj.Object, "spec", "template")
 	pod := &unstructured.Unstructured{Object: template}
 	pod.SetAPIVersion("v1")
 	pod.SetKind("Pod")
@@ -349,6 +369,10 @@ func runInstanceNetworkVertical(t *testing.T, confirmFaults bool) {
 			t.Fatal("new Stop snapshot retained the prior Running qualification", stopping.Network)
 		}
 		i = drive(biz.Stopped)
+		claim, err := boundary.client.Resource(verticalPVCGVR).Namespace(c.Spec.Namespace).Get(ctx, c.Spec.PVCName, metav1.GetOptions{})
+		if err != nil || string(claim.GetUID()) != workspace {
+			t.Fatal("Stop lost the real workspace PVC identity", claim, err)
+		}
 		if i.Network.State != "open" || i.Network.Cleaned {
 			t.Fatal("Stop finalized attachment")
 		}
@@ -387,6 +411,12 @@ func runInstanceNetworkVertical(t *testing.T, confirmFaults bool) {
 	i = drive(biz.Deleted)
 	if !i.ComputeCleaned || !i.WorkspaceCleaned || !i.QuotaReturned || !i.Network.Cleaned || !i.Network.ReleaseAcknowledged || i.Network.State != "closed" {
 		t.Fatal("final release omitted real cleanup or called GPU quota", i.Network)
+	}
+	if _, err := boundary.client.Resource(verticalPVCGVR).Namespace(c.Spec.Namespace).Get(ctx, c.Spec.PVCName, metav1.GetOptions{}); !apierrors.IsNotFound(err) {
+		t.Fatal("final DELETE claimed workspace cleanup without removing the PVC", err)
+	}
+	if _, err := boundary.client.Resource(verticalPVGVR).Get(ctx, "workspace-volume", metav1.GetOptions{}); !apierrors.IsNotFound(err) {
+		t.Fatal("final DELETE claimed workspace cleanup before CSI reclaimed the PV", err)
 	}
 	a, err := attachments.Get(ctx, c.TenantID, binding)
 	if err != nil || a.State != networkbiz.Released || a.FinalizationID != i.Network.FinalizationID {

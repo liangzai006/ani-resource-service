@@ -78,14 +78,14 @@ func (w *Worker) observeNetwork(ctx context.Context, i *Instance) bool {
 		n.Reason = ""
 		return false
 	}
-	return i.Desired == Running && n.State == "open" && o.State == "attached" && o.Reason == "" && o.PodUID != "" && o.PodUID == i.PodUID && o.SnapshotRevision == n.SnapshotRevision && n.ConfirmedSnapshotRevision == n.SnapshotRevision
+	return i.RuntimeDesired == Running && n.State == "open" && o.State == "attached" && o.Reason == "" && o.PodUID != "" && o.PodUID == i.PodUID && o.SnapshotRevision == n.SnapshotRevision && n.ConfirmedSnapshotRevision == n.SnapshotRevision
 }
 
 // Confirm only a revision already published by a successful Instance Finish.
 // Version conflicts are normal races with Network's observer and remain retryable.
 func (w *Worker) confirmNetwork(ctx context.Context, i *Instance) (bool, error) {
 	n := i.Network
-	if n == nil || n.State != "open" || i.Desired != Running || i.PodUID == "" || n.ConfirmedSnapshotRevision == n.SnapshotRevision {
+	if n == nil || n.State != "open" || i.RuntimeDesired != Running || i.PodUID == "" || n.ConfirmedSnapshotRevision == n.SnapshotRevision {
 		return false, nil
 	}
 	if w.network == nil || n.AttachmentID == "" {

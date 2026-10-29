@@ -14,6 +14,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 
@@ -51,9 +52,134 @@ func (fixtureEnvironment) ValidateEnvironment(context.Context, string, string, s
 	return nil
 }
 
-// A subprocess with actual Resource intake, tenant identity and restricted PG.
-// It verifies the cross-service durable ACK slice only. Image metadata and
-// external environment availability are controlled; no GPU/cleanup is claimed.
+// Only Kubernetes/Controller/PVC facts are controlled here. Each instance has
+// its own external object state; service admission, PG, references and all
+// execution phases continue through the real Resource implementation.
+type governanceFixtureProvider struct {
+	mu        sync.Mutex
+	clusterID string
+	instances map[string]*restartGuardBoundary
+}
+
+func (p *governanceFixtureProvider) state(i biz.Instance) *restartGuardBoundary {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	key := i.TenantID + "/" + i.ID
+	if p.instances[key] == nil {
+		p.instances[key] = newRestartGuardBoundary()
+	}
+	return p.instances[key]
+}
+
+func (p *governanceFixtureProvider) ValidateEnvironment(_ context.Context, tenant, namespace, _, _ string) error {
+	if !biz.UUID(tenant) || namespace != "tenant-"+tenant {
+		return biz.ErrOwnership
+	}
+	return nil
+}
+
+func (p *governanceFixtureProvider) volumeScope(tenant, cluster, namespace string) bool {
+	return biz.UUID(tenant) && cluster == p.clusterID && namespace == "tenant-"+tenant
+}
+
+func (p *governanceFixtureProvider) borrowedUID(namespace string) string {
+	return uuid.NewSHA1(uuid.NameSpaceOID, []byte(p.clusterID+"/"+namespace+"/research-data")).String()
+}
+
+func (p *governanceFixtureProvider) ResolveVolumes(_ context.Context, tenant, cluster, namespace string, mounts []biz.VolumeMount) ([]biz.VolumeMount, error) {
+	if !p.volumeScope(tenant, cluster, namespace) {
+		return nil, biz.ErrPVCNotFound
+	}
+	out := make([]biz.VolumeMount, 0, len(mounts))
+	for _, mount := range mounts {
+		if mount.PVCName != "research-data" {
+			return nil, biz.ErrPVCNotFound
+		}
+		if mount.ClusterID != "" || mount.Namespace != "" || mount.PVCUID != "" || mount.Ownership != "" || mount.ReferenceGeneration != 0 {
+			return nil, biz.ErrInvalid
+		}
+		mount.ClusterID, mount.Namespace, mount.PVCUID, mount.Ownership = cluster, namespace, p.borrowedUID(namespace), "borrowed"
+		out = append(out, mount)
+	}
+	return out, nil
+}
+
+func (p *governanceFixtureProvider) ListMountablePVCs(_ context.Context, tenant, cluster, namespace string, page, size uint32, name string) ([]biz.MountablePVC, int64, error) {
+	if !p.volumeScope(tenant, cluster, namespace) {
+		return nil, 0, biz.ErrPVCNotFound
+	}
+	_, _, offset, err := biz.PageWindow(page, size)
+	if err != nil {
+		return nil, 0, err
+	}
+	if !strings.Contains("research-data", name) {
+		return []biz.MountablePVC{}, 0, nil
+	}
+	if offset > 0 {
+		return []biz.MountablePVC{}, 1, nil
+	}
+	return []biz.MountablePVC{{PVCName: "research-data", Phase: "Bound", RequestedCapacity: "20Gi", AccessModes: []string{"ReadWriteOnce"}, VolumeMode: "Filesystem", Selectable: true}}, 1, nil
+}
+
+func (p *governanceFixtureProvider) VerifyAddedMounts(_ context.Context, i biz.Instance, target []biz.VolumeMount) error {
+	for _, mount := range target {
+		present := false
+		for _, current := range i.CurrentMounts {
+			present = present || mount == current
+		}
+		if !present && (!p.volumeScope(i.TenantID, mount.ClusterID, mount.Namespace) || mount.PVCName != "research-data" || mount.PVCUID != p.borrowedUID(mount.Namespace) || mount.Ownership != "borrowed") {
+			return biz.ErrPVCReferenceChanged
+		}
+	}
+	return nil
+}
+
+func (p *governanceFixtureProvider) Observe(ctx context.Context, i biz.Instance) (biz.Observation, error) {
+	return p.state(i).Observe(ctx, i)
+}
+func (p *governanceFixtureProvider) ObserveIdentity(ctx context.Context, i biz.Instance) (biz.Observation, error) {
+	return p.state(i).ObserveIdentity(ctx, i)
+}
+func (p *governanceFixtureProvider) VerifyRuntime(ctx context.Context, i biz.Instance, o biz.Observation) (biz.Observation, error) {
+	return p.state(i).VerifyRuntime(ctx, i, o)
+}
+func (p *governanceFixtureProvider) VerifyMountTemplate(ctx context.Context, i biz.Instance, before, target []biz.VolumeMount) (biz.MountTemplateProof, error) {
+	return p.state(i).VerifyMountTemplate(ctx, i, before, target)
+}
+func (p *governanceFixtureProvider) ApplyMutation(ctx context.Context, i biz.Instance, m biz.Mutation) error {
+	if m.StoppedTarget == nil {
+		return biz.ErrInvalid
+	}
+	if err := p.state(i).ApplyMutation(ctx, i, m); err != nil {
+		return err
+	}
+	return nil
+}
+func (p *governanceFixtureProvider) UpdateMounts(ctx context.Context, i biz.Instance, m biz.Mutation, target []biz.VolumeMount) error {
+	if err := p.VerifyAddedMounts(ctx, i, target); err != nil {
+		return err
+	}
+	return p.state(i).UpdateMounts(ctx, i, m, target)
+}
+func (p *governanceFixtureProvider) EnsureWorkspace(ctx context.Context, i biz.Instance) (string, error) {
+	return p.state(i).EnsureWorkspace(ctx, i)
+}
+func (p *governanceFixtureProvider) CreateNotebook(ctx context.Context, i biz.Instance) (string, error) {
+	return p.state(i).CreateNotebook(ctx, i)
+}
+func (p *governanceFixtureProvider) SetStopped(ctx context.Context, i biz.Instance, o biz.Observation, stopped bool) error {
+	return p.state(i).SetStopped(ctx, i, o, stopped)
+}
+func (p *governanceFixtureProvider) DeleteNotebook(ctx context.Context, i biz.Instance, o biz.Observation) error {
+	return p.state(i).DeleteNotebook(ctx, i, o)
+}
+func (p *governanceFixtureProvider) DeleteWorkspace(ctx context.Context, i biz.Instance, o biz.Observation) error {
+	return p.state(i).DeleteWorkspace(ctx, i, o)
+}
+
+// A subprocess with actual Resource intake, tenant identity, restricted PG and
+// lifecycle worker. Image metadata and Kubernetes/Controller/PVC facts are
+// controlled external boundaries; this fixture provides no LIVE/GPU evidence.
 func TestInstanceGovernanceFixture(t *testing.T) {
 	dir := os.Getenv("INSTANCE_JOINT_FIXTURE_DIR")
 	if dir == "" {
@@ -91,7 +217,8 @@ func TestInstanceGovernanceFixture(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	providerState := &provider{}
+	f.repo.UseIntentGate(true)
+	providerState := &governanceFixtureProvider{clusterID: clusterID, instances: map[string]*restartGuardBoundary{}}
 	cpuQuota := &releaseEndpoint{immediateReceipt: true}
 	var reporter *data.Quota
 	if gpu == nil {
@@ -131,14 +258,17 @@ func TestInstanceGovernanceFixture(t *testing.T) {
 			t.Fatal(e)
 		}
 	}
-	if reporter != nil {
+	{
 		// Only the external Kubernetes boundary is controlled in this ledger
 		// slice. Admission, worker, cleanup decisions, outbox and Gov RPC are real.
 		worker, e := biz.NewWorker(f.repo, providerState, "cross-service-worker")
 		if e != nil {
 			t.Fatal(e)
 		}
-		execution := server.NewInstanceWorkerServer(worker, slog.New(slog.NewTextHandler(io.Discard, nil)), reporter)
+		execution := server.NewInstanceWorkerServer(worker, slog.New(slog.NewTextHandler(io.Discard, nil)))
+		if reporter != nil {
+			execution = server.NewInstanceWorkerServer(worker, slog.New(slog.NewTextHandler(io.Discard, nil)), reporter)
+		}
 		done := make(chan error, 1)
 		go func() { done <- execution.Start(context.Background()) }()
 		defer func() {
@@ -155,7 +285,7 @@ func TestInstanceGovernanceFixture(t *testing.T) {
 			}
 		}()
 	}
-	handler, e := service.NewService(f.repo, computeResolver(t, f, clusterID), fixtureImage{}, fixtureEnvironment{}, service.Config{NamespacePrefix: "tenant-", ClusterID: clusterID, ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", Shell: "/bin/sh", UID: 1000, GID: 1000})
+	handler, e := service.NewService(f.repo, computeResolver(t, f, clusterID), fixtureImage{}, providerState, service.Config{NamespacePrefix: "tenant-", ClusterID: clusterID, ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", Shell: "/bin/sh", UID: 1000, GID: 1000, NewIntentsEnabled: true, RestartEnabled: true, PVCMutationsEnabled: true})
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -248,3 +378,8 @@ func TestInstanceGovernanceFixture(t *testing.T) {
 		t.Fatal("fixture shutdown command required")
 	}
 }
+
+var _ biz.Provider = (*governanceFixtureProvider)(nil)
+var _ biz.LifecycleProvider = (*governanceFixtureProvider)(nil)
+var _ biz.VolumeResolver = (*governanceFixtureProvider)(nil)
+var _ biz.EnvironmentValidator = (*governanceFixtureProvider)(nil)

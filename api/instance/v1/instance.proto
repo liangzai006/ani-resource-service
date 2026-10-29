@@ -20,6 +20,11 @@ service InstanceService {
   rpc AcceptDelete(AcceptDeleteRequest) returns (OperationResponse);
   rpc Start(ChangeInstanceRequest) returns (OperationResponse);
   rpc Stop(ChangeInstanceRequest) returns (OperationResponse);
+  rpc Restart(ChangeInstanceRequest) returns (OperationResponse);
+  rpc AttachPVC(AttachPVCRequest) returns (OperationResponse);
+  rpc DetachPVC(DetachPVCRequest) returns (OperationResponse);
+  rpc ListInstanceMountablePVCs(ListInstanceMountablePVCsRequest) returns (ListMountablePVCsResponse);
+  rpc LookupCommandReplay(LookupCommandReplayRequest) returns (OperationResponse);
   rpc GetInstance(GetInstanceRequest) returns (Instance);
   rpc ResolveInstanceMetricScope(GetInstanceRequest) returns (InstanceMetricScope);
   rpc ListInstances(ListInstancesRequest) returns (ListInstancesResponse);
@@ -85,6 +90,9 @@ message InstanceConfiguration {
   NetworkSelection network = 5;
   map<string,string> labels = 6; map<string,string> annotations = 7;
   repeated InstanceEnvVar env = 8;
+  int64 version = 9;
+  int64 applied_mount_version = 10 [json_name = "applied_mount_version"];
+  PendingMountChange pending_change = 11 [json_name = "pending_change"];
 }
 // Trusted, managed reference; never accepted directly from public JSON.
 message GpuPresetReference {
@@ -168,7 +176,29 @@ message ChangeInstanceRequest {
   string idempotency_key = 3;
   int64 expected_version = 4;
 }
-message OperationResponse { accelerator.command.v1.DurableOwnerAck durable_owner_ack = 1; }
+message AttachPVCRequest {
+  string tenant_id = 1; string instance_id = 2; string idempotency_key = 3;
+  int64 expected_version = 4; string pvc_name = 5; string mount_path = 6;
+  bool read_only = 7; bool restart_if_running = 8;
+}
+message DetachPVCRequest {
+  string tenant_id = 1; string instance_id = 2; string idempotency_key = 3;
+  int64 expected_version = 4; string mount_path = 5; bool restart_if_running = 6;
+}
+message ListInstanceMountablePVCsRequest {
+  string tenant_id = 1; string instance_id = 2; uint32 page = 3; uint32 page_size = 4; string name = 5;
+}
+message LookupCommandReplayRequest {
+  string tenant_id = 1; string instance_id = 2; string action = 3; string idempotency_key = 4;
+  bytes canonical_intent = 5;
+}
+message MountConfiguration { repeated VolumeMount volume_mounts = 1 [json_name = "volume_mounts"]; }
+message PendingMountChange {
+  string operation_id = 1 [json_name = "operation_id"];
+  int64 intent_version = 2 [json_name = "intent_version"]; string phase = 3;
+  MountConfiguration target_configuration = 4 [json_name = "target_configuration"];
+}
+message OperationResponse { accelerator.command.v1.DurableOwnerAck durable_owner_ack = 1; bool replayed = 2; }
 message GetInstanceRequest { string tenant_id = 1; string instance_id = 2; }
 message ListInstancesRequest {
   string tenant_id = 1;
@@ -204,6 +234,9 @@ message Instance {
   string network_reason = 28;
   bool network_cleaned = 29;
   bool volume_references_released = 30;
+  string active_operation_id = 31;
+  string execution_run_state = 32;
+  int64 applied_mount_version = 33;
 }
 message EnvironmentSource { string name = 1; string source_type = 2; }
 message RuntimeMount { string name = 1; string volume_type = 2; string mount_path = 3; bool read_only = 4; }
@@ -228,7 +261,15 @@ message InstanceLogFrame {
   Kind kind = 1; bytes data = 2; string reason = 3;
 }
 message GetOperationRequest { string tenant_id = 1; string operation_id = 2; }
-message Operation { string id = 1; string instance_id = 2; string action = 3; int64 intent_version = 4; string state = 5; string reason = 6; }
+message Operation {
+  string id = 1; string instance_id = 2; string action = 3; int64 intent_version = 4; string state = 5; string reason = 6;
+  string phase = 7;
+  MountConfiguration target_configuration = 8 [json_name = "target_configuration"];
+  string final_run_state = 9 [json_name = "final_run_state"];
+  int64 applied_mount_version = 10 [json_name = "applied_mount_version"];
+  string completion_scope = 11 [json_name = "completion_scope"];
+  string failure_reason = 12 [json_name = "failure_reason"];
+}
 message ResolveTerminalTargetRequest { string tenant_id = 1; string instance_id = 2; int64 expected_version = 3; }
 
 // Persisted scope for historical metrics, independent of current runtime state.

@@ -1,0 +1,16 @@
+=== RUN   TestLifecycleDeadlinePersistsRecoveryBeforeMutation
+    lifecycle_network_test.go:84: worker did not advance: worked=true error=INSTANCE_VERSION_CONFLICT
+--- FAIL: TestLifecycleDeadlinePersistsRecoveryBeforeMutation (0.00s)
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-stop
+    lifecycle_network_test.go:146: deadline transition attempted recovery before persisting its phase [{original-pending stopping 6 0x2868a3c89b20   true set_stopped restart-operation notebook-uid notebook-rv 7}]
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-start
+    lifecycle_network_test.go:141: worker did not advance: worked=true error=INSTANCE_VERSION_CONFLICT
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/recovery-fence
+--- FAIL: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites (0.00s)
+    --- FAIL: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-stop (0.00s)
+    --- FAIL: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-start (0.00s)
+    --- PASS: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/recovery-fence (0.00s)
+FAIL
+FAIL	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.005s
+FAIL

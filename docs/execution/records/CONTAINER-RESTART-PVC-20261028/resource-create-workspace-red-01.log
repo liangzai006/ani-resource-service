@@ -1,0 +1,5 @@
+--- FAIL: TestUnknownWorkspaceCreateUsesWorkspaceObservation (0.00s)
+    worker_cleanup_test.go:95: an existing workspace was hidden by identity-only observation {[] false 0 running <nil> <nil> [] <nil>      {0  [] <nil> map[] map[] []  cpu         { <nil>} <nil>   0 0        notebook  {    map[] map[] map[]}} 0 running  WORKSPACE_CREATE_RESULT_UNKNOWN          false false false false 0001-01-01 00:00:00 +0000 UTC false [] 0001-01-01 00:00:00 +0000 UTC  0x374687918b40 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC} <nil>
+FAIL
+FAIL	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.005s
+FAIL

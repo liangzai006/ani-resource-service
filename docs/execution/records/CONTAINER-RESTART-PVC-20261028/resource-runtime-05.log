@@ -1,0 +1,6 @@
+resource-runtime-04-source.tar.gz: 成功
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.004s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	1.169s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/instance	1.012s
+127.0.0.1:5432 - accepting connections
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	3.476s

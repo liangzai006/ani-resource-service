@@ -64,7 +64,7 @@ func ReconcileSubmission(i *Instance, o Observation) bool {
 	}
 	old := CloneNetwork(i.Network)
 	n := i.Network
-	n.DesiredRunState = i.Desired
+	n.DesiredRunState = i.RuntimeDesired
 	if o.NotebookUID != "" && n.RootController.UID == "" {
 		n.RootController = WorkloadReference{"kubeflow.org/v1", "Notebook", i.Spec.Namespace, i.Spec.NotebookName, o.NotebookUID}
 	}

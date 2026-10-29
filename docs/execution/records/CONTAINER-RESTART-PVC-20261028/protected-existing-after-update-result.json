@@ -1,0 +1,254 @@
+{
+  "schema": "protected-existing-platform-update-observation-v1",
+  "observed_at": "2026-10-28T12:58:25.908885+00:00",
+  "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+  "instance_ids": [
+    "63b52ff4-e489-4df6-b6fb-be10a36e2eb9",
+    "d2b9ea58-98d6-4acd-bac1-3210ac46fdaa"
+  ],
+  "source_snapshot_sha256": "49eea13bf14a1182770e49ba1c1b321a8a899cab829c5713342b4df736013ff9",
+  "entry": "ssh control private-live-01/c.sock kubercloud@100.64.128.12",
+  "batch_kubectl_get_count": 1,
+  "cluster_writes": 0,
+  "pod_exec_calls": 0,
+  "objects": [
+    {
+      "kind": "Notebook",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "instance-63b52ff4-e489-4df6-b6fb-be10a36e2eb9",
+      "before_uid": "92fe6748-7a43-460f-b4b2-000a0721be2d",
+      "after_uid": "92fe6748-7a43-460f-b4b2-000a0721be2d",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "volume_configuration_unchanged": true,
+      "result": "PASS"
+    },
+    {
+      "kind": "Notebook",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "instance-d2b9ea58-98d6-4acd-bac1-3210ac46fdaa",
+      "before_uid": "047a9d29-480f-4394-89e7-2dc4cf26ba5a",
+      "after_uid": "047a9d29-480f-4394-89e7-2dc4cf26ba5a",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "volume_configuration_unchanged": true,
+      "result": "PASS"
+    },
+    {
+      "kind": "StatefulSet",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "instance-63b52ff4-e489-4df6-b6fb-be10a36e2eb9",
+      "before_uid": "385596ad-31a7-4dec-8038-5bc3251a6cd8",
+      "after_uid": "385596ad-31a7-4dec-8038-5bc3251a6cd8",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "volume_configuration_unchanged": true,
+      "result": "PASS"
+    },
+    {
+      "kind": "StatefulSet",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "instance-d2b9ea58-98d6-4acd-bac1-3210ac46fdaa",
+      "before_uid": "475c9a6f-3099-41f4-a183-41efb6c7a2fd",
+      "after_uid": "475c9a6f-3099-41f4-a183-41efb6c7a2fd",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "volume_configuration_unchanged": true,
+      "result": "PASS"
+    },
+    {
+      "kind": "Pod",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "hp-volume-rkpmb",
+      "before_uid": "23f256ab-3d3f-4e98-b88b-e980356e9643",
+      "after_uid": "23f256ab-3d3f-4e98-b88b-e980356e9643",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "volume_configuration_unchanged": true,
+      "before_phase": "Running",
+      "after_phase": "Running",
+      "before_ready": true,
+      "after_ready": true,
+      "target_instance_pod": false,
+      "ready_preserved": true,
+      "result": "PASS"
+    },
+    {
+      "kind": "Pod",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "instance-63b52ff4-e489-4df6-b6fb-be10a36e2eb9-0",
+      "before_uid": "af4cd92a-9352-4001-9697-d937bb767ec7",
+      "after_uid": "af4cd92a-9352-4001-9697-d937bb767ec7",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "volume_configuration_unchanged": true,
+      "before_phase": "Running",
+      "after_phase": "Running",
+      "before_ready": true,
+      "after_ready": true,
+      "target_instance_pod": true,
+      "ready_preserved": true,
+      "result": "PASS"
+    },
+    {
+      "kind": "Pod",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "instance-d2b9ea58-98d6-4acd-bac1-3210ac46fdaa-0",
+      "before_uid": "ce90eb86-8af7-4842-a6c9-c56ed9dbc250",
+      "after_uid": "ce90eb86-8af7-4842-a6c9-c56ed9dbc250",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "volume_configuration_unchanged": true,
+      "before_phase": "Running",
+      "after_phase": "Running",
+      "before_ready": true,
+      "after_ready": true,
+      "target_instance_pod": true,
+      "ready_preserved": true,
+      "result": "PASS"
+    },
+    {
+      "kind": "Pod",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "virt-launcher-vm-3be21c33-31be-4e7c-93b5-b8e91bd9b855-w97hb",
+      "before_uid": "3b965bcb-e851-42ae-a0c0-85ae82b8e855",
+      "after_uid": "3b965bcb-e851-42ae-a0c0-85ae82b8e855",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "volume_configuration_unchanged": true,
+      "before_phase": "Running",
+      "after_phase": "Running",
+      "before_ready": true,
+      "after_ready": true,
+      "target_instance_pod": false,
+      "ready_preserved": true,
+      "result": "PASS"
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "vd-3777ccb7-b596-5ecf-9bd8-8e3cfc8158c8",
+      "before_uid": "54737fcd-d951-4f16-976a-102727cb253d",
+      "after_uid": "54737fcd-d951-4f16-976a-102727cb253d",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "before_volume": {
+        "volumeName": "pvc-dc1213fe-92a2-4892-a22f-98a7ecefbdf2",
+        "volumeMode": "Block",
+        "accessModes": [
+          "ReadWriteOnce"
+        ]
+      },
+      "after_volume": {
+        "volumeName": "pvc-dc1213fe-92a2-4892-a22f-98a7ecefbdf2",
+        "volumeMode": "Block",
+        "accessModes": [
+          "ReadWriteOnce"
+        ]
+      },
+      "volume_identity_unchanged": true,
+      "result": "PASS"
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "vd-8970a778-45d7-56a7-bf7d-ba6deabd6fb5",
+      "before_uid": "6a6f0e3f-224c-4b4c-8b9d-b28ddb9918a9",
+      "after_uid": "6a6f0e3f-224c-4b4c-8b9d-b28ddb9918a9",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "before_volume": {
+        "volumeName": "pvc-e598083b-a1e1-4ab8-a3de-7e5d0fe251a2",
+        "volumeMode": "Block",
+        "accessModes": [
+          "ReadWriteOnce"
+        ]
+      },
+      "after_volume": {
+        "volumeName": "pvc-e598083b-a1e1-4ab8-a3de-7e5d0fe251a2",
+        "volumeMode": "Block",
+        "accessModes": [
+          "ReadWriteOnce"
+        ]
+      },
+      "volume_identity_unchanged": true,
+      "result": "PASS"
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "workspace-63b52ff4-e489-4df6-b6fb-be10a36e2eb9",
+      "before_uid": "6f5842af-52c8-4431-9bfa-bbbd2eafc0e3",
+      "after_uid": "6f5842af-52c8-4431-9bfa-bbbd2eafc0e3",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "before_volume": {
+        "volumeName": "pvc-6f5842af-52c8-4431-9bfa-bbbd2eafc0e3",
+        "volumeMode": "Filesystem",
+        "accessModes": [
+          "ReadWriteOnce"
+        ]
+      },
+      "after_volume": {
+        "volumeName": "pvc-6f5842af-52c8-4431-9bfa-bbbd2eafc0e3",
+        "volumeMode": "Filesystem",
+        "accessModes": [
+          "ReadWriteOnce"
+        ]
+      },
+      "volume_identity_unchanged": true,
+      "result": "PASS"
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "name": "workspace-d2b9ea58-98d6-4acd-bac1-3210ac46fdaa",
+      "before_uid": "c8aa8cc3-5844-49a7-9f72-b67bb650fd66",
+      "after_uid": "c8aa8cc3-5844-49a7-9f72-b67bb650fd66",
+      "present": true,
+      "before_deleting": false,
+      "after_deleting": false,
+      "uid_unchanged": true,
+      "before_volume": {
+        "volumeName": "pvc-c8aa8cc3-5844-49a7-9f72-b67bb650fd66",
+        "volumeMode": "Filesystem",
+        "accessModes": [
+          "ReadWriteOnce"
+        ]
+      },
+      "after_volume": {
+        "volumeName": "pvc-c8aa8cc3-5844-49a7-9f72-b67bb650fd66",
+        "volumeMode": "Filesystem",
+        "accessModes": [
+          "ReadWriteOnce"
+        ]
+      },
+      "volume_identity_unchanged": true,
+      "result": "PASS"
+    }
+  ],
+  "result": "PASS",
+  "scope": "Point-in-time preservation of the original snapshot identities/readiness/deletion flags and volume configuration only; no workload IO, file-data or new Restart acceptance claim."
+}

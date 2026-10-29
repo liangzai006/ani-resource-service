@@ -1,0 +1,4663 @@
+{
+  "observedAtUTC": "2026-10-28T07:11:48.701579+00:00",
+  "deleteOrClaimMutationBindings": [
+    {
+      "kind": "RoleBinding",
+      "namespace": "ani-modeldev-tenant-a-v21",
+      "name": "ani-modeldev-v21-step",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "Role",
+        "name": "ani-modeldev-v21-step"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "modeldev-step",
+          "namespace": "ani-modeldev-tenant-a-v21"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "create"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "RoleBinding",
+      "namespace": "ani-sandbox-integration-20261027",
+      "name": "sandbox-provider",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "Role",
+        "name": "sandbox-provider"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "sandbox-provider",
+          "namespace": "ani-sandbox-integration-20261027"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "pods",
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "create",
+            "delete"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "RoleBinding",
+      "namespace": "ani-system",
+      "name": "ani-inference-runtime",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "Role",
+        "name": "ani-inference-runtime"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ani-inference",
+          "namespace": "ani-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "services",
+            "persistentvolumeclaims",
+            "secrets"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "create",
+            "update",
+            "patch",
+            "delete"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "RoleBinding",
+      "namespace": "ani-system",
+      "name": "ani-model-v21-import-controller",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "Role",
+        "name": "ani-model-v21-import-controller"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ani-model-service",
+          "namespace": "ani-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "create",
+            "get",
+            "list",
+            "watch",
+            "delete"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "RoleBinding",
+      "namespace": "rook-ceph",
+      "name": "rook-ceph-mgr",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "Role",
+        "name": "rook-ceph-mgr"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "rook-ceph-mgr",
+          "namespace": "rook-ceph"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "delete"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "RoleBinding",
+      "namespace": "rook-ceph",
+      "name": "rook-ceph-purge-osd",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "Role",
+        "name": "rook-ceph-purge-osd"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "rook-ceph-purge-osd",
+          "namespace": "rook-ceph"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "update",
+            "delete",
+            "list"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "RoleBinding",
+      "namespace": "tenant-bf244b5d-eb29-4350-8530-cefb29f72d8d",
+      "name": "ani-resource-instance",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "Role",
+        "name": "ani-resource-instance"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ani-resource-service",
+          "namespace": "ani-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "create",
+            "delete"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "RoleBinding",
+      "namespace": "tenant-bf244b5d-eb29-4350-8530-cefb29f72d8d",
+      "name": "ani-storage-tenant",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "ani-storage-tenant"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ani-resource-service",
+          "namespace": "ani-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "create",
+            "update",
+            "delete"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "ani-network-egress-ani-system",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "ani-network-egress"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ani-resource-service",
+          "namespace": "ani-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "namespaces"
+          ],
+          "verbs": [
+            "get",
+            "create"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "ani-snapshot-controller-role",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "ani-snapshot-controller-runner"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ani-snapshot-controller",
+          "namespace": "kube-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "update"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "ani-vm-resource-20261025",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "ani-vm-resource-20261025"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ani-resource-service",
+          "namespace": "ani-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "pods",
+            "persistentvolumeclaims",
+            "secrets"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "create",
+            "update",
+            "patch",
+            "delete"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "ani-volcano-controllers-role",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "ani-volcano-controllers"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ani-volcano-controllers",
+          "namespace": "volcano-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "create"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "ani-volcano-scheduler-role",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "ani-volcano-scheduler"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ani-volcano-scheduler",
+          "namespace": "volcano-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "list",
+            "watch",
+            "update"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "argo-binding",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "argo-cluster-role"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "argo",
+          "namespace": "kubeflow"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims",
+            "persistentvolumeclaims/finalizers"
+          ],
+          "verbs": [
+            "create",
+            "update",
+            "delete",
+            "get"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "cdi-operator",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "cdi-operator-cluster"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "cdi-operator",
+          "namespace": "cdi"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "create",
+            "update",
+            "delete",
+            "deletecollection",
+            "patch"
+          ]
+        },
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims/finalizers",
+            "pods/finalizers"
+          ],
+          "verbs": [
+            "update"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "cdi-sa",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "cdi"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "cdi-sa",
+          "namespace": "cdi"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "create",
+            "update",
+            "delete",
+            "deletecollection",
+            "patch"
+          ]
+        },
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims/finalizers",
+            "pods/finalizers"
+          ],
+          "verbs": [
+            "update"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "ceph-csi-cephfs-ctrlplugin-crb",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-cephfs-ctrlplugin-cr"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ceph-csi-cephfs-ctrlplugin-sa",
+          "namespace": "rook-ceph"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "patch",
+            "update"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "ceph-csi-nfs-ctrlplugin-crb",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-nfs-ctrlplugin-cr"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ceph-csi-nfs-ctrlplugin-sa",
+          "namespace": "rook-ceph"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "patch",
+            "update"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "ceph-csi-nvmeof-ctrlplugin-crb",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-nvmeof-ctrlplugin-cr"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ceph-csi-nvmeof-ctrlplugin-sa",
+          "namespace": "rook-ceph"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "update"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "ceph-csi-rbd-ctrlplugin-crb",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-rbd-ctrlplugin-cr"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ceph-csi-rbd-ctrlplugin-sa",
+          "namespace": "rook-ceph"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "update"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "cluster-admin",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "cluster-admin"
+      },
+      "subjects": [
+        {
+          "apiGroup": "rbac.authorization.k8s.io",
+          "kind": "Group",
+          "name": "system:masters"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            "*"
+          ],
+          "resources": [
+            "*"
+          ],
+          "verbs": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "kcn-manager-rolebinding",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "kcn-manager-role"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "kcn-controller",
+          "namespace": "kcn-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "endpoints",
+            "namespaces",
+            "nodes",
+            "services"
+          ],
+          "verbs": [
+            "create",
+            "delete",
+            "get",
+            "list",
+            "patch",
+            "update",
+            "watch"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "kubeadm:cluster-admins",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "cluster-admin"
+      },
+      "subjects": [
+        {
+          "apiGroup": "rbac.authorization.k8s.io",
+          "kind": "Group",
+          "name": "kubeadm:cluster-admins"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            "*"
+          ],
+          "resources": [
+            "*"
+          ],
+          "verbs": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "kubevirt-controller",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "kubevirt-controller"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "kubevirt-controller",
+          "namespace": "kubevirt"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "namespaces"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "patch"
+          ]
+        },
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "create",
+            "update",
+            "delete",
+            "patch"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "kubevirt-operator",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "kubevirt-operator"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "kubevirt-operator",
+          "namespace": "kubevirt"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "namespaces"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "patch"
+          ]
+        },
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "namespaces"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "patch"
+          ]
+        },
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "create",
+            "update",
+            "delete",
+            "patch"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "rook-ceph-global",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "rook-ceph-global"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "rook-ceph-system",
+          "namespace": "rook-ceph"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            "",
+            "discovery.k8s.io"
+          ],
+          "resources": [
+            "events",
+            "persistentvolumes",
+            "persistentvolumeclaims",
+            "endpoints",
+            "services",
+            "endpointslices",
+            "endpointslices/restricted"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "watch",
+            "patch",
+            "create",
+            "update",
+            "delete"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "system:controller:ephemeral-volume-controller",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "system:controller:ephemeral-volume-controller"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "ephemeral-volume-controller",
+          "namespace": "kube-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "create",
+            "get",
+            "list",
+            "watch"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "system:controller:generic-garbage-collector",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "system:controller:generic-garbage-collector"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "generic-garbage-collector",
+          "namespace": "kube-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            "*"
+          ],
+          "resources": [
+            "*"
+          ],
+          "verbs": [
+            "delete",
+            "get",
+            "list",
+            "patch",
+            "update",
+            "watch"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "system:controller:namespace-controller",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "system:controller:namespace-controller"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "namespace-controller",
+          "namespace": "kube-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "namespaces"
+          ],
+          "verbs": [
+            "delete",
+            "get",
+            "list",
+            "watch"
+          ]
+        },
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "namespaces/finalize",
+            "namespaces/status"
+          ],
+          "verbs": [
+            "update"
+          ]
+        },
+        {
+          "apiGroups": [
+            "*"
+          ],
+          "resources": [
+            "*"
+          ],
+          "verbs": [
+            "delete",
+            "deletecollection",
+            "get",
+            "list",
+            "watch"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "system:controller:persistent-volume-binder",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "system:controller:persistent-volume-binder"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "persistent-volume-binder",
+          "namespace": "kube-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "update",
+            "watch"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "system:controller:pvc-protection-controller",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "system:controller:pvc-protection-controller"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "pvc-protection-controller",
+          "namespace": "kube-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "update",
+            "watch"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "system:controller:statefulset-controller",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "system:controller:statefulset-controller"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "statefulset-controller",
+          "namespace": "kube-system"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "create",
+            "get",
+            "list",
+            "watch"
+          ]
+        },
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "delete",
+            "update"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "ClusterRoleBinding",
+      "namespace": null,
+      "name": "system:volume-scheduler",
+      "roleRef": {
+        "apiGroup": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "system:volume-scheduler"
+      },
+      "subjects": [
+        {
+          "apiGroup": "rbac.authorization.k8s.io",
+          "kind": "User",
+          "name": "system:kube-scheduler"
+        }
+      ],
+      "rules": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "resources": [
+            "persistentvolumeclaims"
+          ],
+          "verbs": [
+            "get",
+            "list",
+            "patch",
+            "update",
+            "watch"
+          ]
+        }
+      ]
+    }
+  ],
+  "validatingAdmissionPolicies": [
+    {
+      "name": "ani-kfp-trainjob",
+      "spec": {
+        "failurePolicy": "Fail",
+        "matchConstraints": {
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "resourceRules": [
+            {
+              "apiGroups": [
+                "trainer.kubeflow.org"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "trainjobs"
+              ],
+              "scope": "*"
+            }
+          ]
+        },
+        "paramKind": {
+          "apiVersion": "v1",
+          "kind": "ConfigMap"
+        },
+        "validations": [
+          {
+            "expression": "object.spec.runtimeRef.name == params.data.runtimeName && (!has(object.spec.runtimeRef.kind) || object.spec.runtimeRef.kind == 'ClusterTrainingRuntime') && (!has(object.spec.runtimeRef.apiGroup) || object.spec.runtimeRef.apiGroup == 'trainer.kubeflow.org')",
+            "message": "Use the fixed versioned runtime"
+          },
+          {
+            "expression": "!has(object.spec.managedBy) || object.spec.managedBy == 'trainer.kubeflow.org/trainjob-controller'",
+            "message": "Use the installed TrainJob controller"
+          },
+          {
+            "expression": "!has(object.spec.trainer) || !has(object.spec.trainer.numNodes) || object.spec.trainer.numNodes == 1",
+            "message": "This runtime supports one node"
+          },
+          {
+            "expression": "!has(object.spec.trainer) || !has(object.spec.trainer.numProcPerNode) || object.spec.trainer.numProcPerNode == 1",
+            "message": "This runtime supports one process"
+          },
+          {
+            "expression": "!has(object.spec.initializer)",
+            "message": "This runtime does not provision initializer credentials or jobs"
+          },
+          {
+            "expression": "!has(object.spec.trainer) || !has(object.spec.trainer.resourcesPerNode) || ((!has(object.spec.trainer.resourcesPerNode.requests) || object.spec.trainer.resourcesPerNode.requests.all(k, k in ['cpu', 'memory'])) && (!has(object.spec.trainer.resourcesPerNode.limits) || object.spec.trainer.resourcesPerNode.limits.all(k, k in ['cpu', 'memory'])))",
+            "message": "Only CPU and memory resource overrides are supported"
+          },
+          {
+            "expression": "!has(object.spec.trainer) || !has(object.spec.trainer.resourcesPerNode) || !has(object.spec.trainer.resourcesPerNode.requests) || object.spec.trainer.resourcesPerNode.requests.all(k, quantity(string(object.spec.trainer.resourcesPerNode.requests[k])).compareTo(quantity('0')) > 0 && quantity(string(object.spec.trainer.resourcesPerNode.requests[k])).compareTo(quantity(k == 'cpu' ? '2' : '4Gi')) <= 0)",
+            "message": "Training resource requests exceed the administrator bound"
+          },
+          {
+            "expression": "!has(object.spec.trainer) || !has(object.spec.trainer.resourcesPerNode) || !has(object.spec.trainer.resourcesPerNode.limits) || object.spec.trainer.resourcesPerNode.limits.all(k, quantity(string(object.spec.trainer.resourcesPerNode.limits[k])).compareTo(quantity('0')) > 0 && quantity(string(object.spec.trainer.resourcesPerNode.limits[k])).compareTo(quantity(k == 'cpu' ? '2' : '4Gi')) <= 0)",
+            "message": "Training resource limits exceed the administrator bound"
+          },
+          {
+            "expression": "!has(object.spec.trainer) || !has(object.spec.trainer.image) || object.spec.trainer.image == params.data.image",
+            "message": "Runtime image overrides must preserve the approved digest"
+          },
+          {
+            "expression": "!has(object.spec.trainer) || !has(object.spec.trainer.env) || object.spec.trainer.env.all(e, !has(e.valueFrom))",
+            "message": "Training containers cannot acquire Secret or token references"
+          },
+          {
+            "expression": "!has(object.spec.labels) || object.spec.labels.all(k, k in ['ani.io/execution-id'])",
+            "message": "Training labels cannot impersonate pipeline control pods"
+          },
+          {
+            "expression": "!has(object.spec.podTemplateOverrides) || object.spec.podTemplateOverrides.all(p, !has(p.metadata) || (!has(p.metadata.labels) || p.metadata.labels.all(k, k in ['ani.io/execution-id'])))",
+            "message": "Pod overrides cannot acquire control network labels"
+          },
+          {
+            "expression": "!has(object.spec.podTemplateOverrides) || object.spec.podTemplateOverrides.all(p, !has(p.spec) || !has(p.spec.serviceAccountName) || p.spec.serviceAccountName == 'trainer-workload')",
+            "message": "Training service account is fixed and unprivileged"
+          },
+          {
+            "expression": "!has(object.spec.podTemplateOverrides) || object.spec.podTemplateOverrides.all(p, !has(p.spec) || ((!has(p.spec.initContainers) || size(p.spec.initContainers) == 0) && (!has(p.spec.imagePullSecrets) || size(p.spec.imagePullSecrets) == 0)))",
+            "message": "Training overrides cannot acquire initializer or image-pull Secrets"
+          },
+          {
+            "expression": "!has(object.spec.podTemplateOverrides) || object.spec.podTemplateOverrides.all(p, !has(p.spec) || !has(p.spec.volumes) || p.spec.volumes.all(v, has(v.persistentVolumeClaim) && v.persistentVolumeClaim.claimName.startsWith('ani-kfp-workspace-')))",
+            "message": "Only explicit execution PVC volumes are allowed"
+          },
+          {
+            "expression": "!has(object.spec.podTemplateOverrides) || object.spec.podTemplateOverrides.all(p, !has(p.spec) || !has(p.spec.containers) || p.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.valueFrom))))",
+            "message": "Container overrides cannot acquire Secret or token references"
+          }
+        ]
+      },
+      "status": {
+        "observedGeneration": 1,
+        "typeChecking": {}
+      }
+    },
+    {
+      "name": "ani-kfp-workspace",
+      "spec": {
+        "failurePolicy": "Fail",
+        "matchConstraints": {
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "resourceRules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "persistentvolumeclaims"
+              ],
+              "scope": "*"
+            }
+          ]
+        },
+        "paramKind": {
+          "apiVersion": "v1",
+          "kind": "ConfigMap"
+        },
+        "validations": [
+          {
+            "expression": "object.metadata.name.startsWith('ani-kfp-workspace-')",
+            "message": "Use a managed per-execution workspace claim"
+          },
+          {
+            "expression": "has(object.spec.storageClassName) && object.spec.storageClassName == params.data.storageClass",
+            "message": "Workspace StorageClass is administrator-controlled"
+          },
+          {
+            "expression": "quantity(string(dyn(object.spec.resources).requests['storage'])).compareTo(quantity('0')) > 0 && quantity(string(dyn(object.spec.resources).requests['storage'])).compareTo(quantity(params.data.maxSize)) <= 0",
+            "message": "Workspace storage exceeds the administrator bound"
+          },
+          {
+            "expression": "object.spec.accessModes == ['ReadWriteMany']",
+            "message": "Workspace requires declared RWX storage"
+          },
+          {
+            "expression": "!has(object.metadata.ownerReferences) || size(object.metadata.ownerReferences) == 0",
+            "message": "Workspace must survive Workflow garbage collection"
+          }
+        ]
+      },
+      "status": {
+        "observedGeneration": 1,
+        "typeChecking": {}
+      }
+    },
+    {
+      "name": "kubevirt-node-restriction-policy",
+      "spec": {
+        "failurePolicy": "Fail",
+        "matchConditions": [
+          {
+            "expression": "request.userInfo.username == \"system:serviceaccount:kubevirt:kubevirt-handler\"",
+            "name": "virt-handler-user-only"
+          }
+        ],
+        "matchConstraints": {
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "resourceRules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "*"
+              ],
+              "operations": [
+                "UPDATE"
+              ],
+              "resources": [
+                "nodes"
+              ],
+              "scope": "*"
+            }
+          ]
+        },
+        "validations": [
+          {
+            "expression": "variables.hasNode && variables.requestMatchNode",
+            "message": "this user cannot modify this node",
+            "reason": "Forbidden"
+          },
+          {
+            "expression": "object.spec == oldObject.spec",
+            "message": "this user cannot modify spec of node",
+            "reason": "Forbidden"
+          },
+          {
+            "expression": "oldObject.metadata.filter(k, k != \"labels\" && k != \"annotations\" && k != \"managedFields\" && k != \"resourceVersion\").all(k, k in object.metadata) && object.metadata.filter(k, k != \"labels\" && k != \"annotations\" && k != \"managedFields\" && k != \"resourceVersion\").all(k, k in oldObject.metadata && oldObject.metadata[k] == object.metadata[k])",
+            "message": "this user can only change allowed metadata fields",
+            "reason": "Forbidden"
+          },
+          {
+            "expression": "size(variables.newNonKubevirtLabels) == size(variables.oldNonKubevirtLabels)",
+            "message": "this user cannot add/delete non kubevirt-owned labels",
+            "reason": "Forbidden"
+          },
+          {
+            "expression": "variables.newNonKubevirtLabels.all(k, k in variables.oldNonKubevirtLabels && variables.newLabels[k] == variables.oldLabels[k])",
+            "message": "this user cannot update non kubevirt-owned labels",
+            "reason": "Forbidden"
+          },
+          {
+            "expression": "size(variables.newNonKubevirtAnnotations) == size(variables.oldNonKubevirtAnnotations)",
+            "message": "this user cannot add/delete non kubevirt-owned annotations",
+            "reason": "Forbidden"
+          },
+          {
+            "expression": "variables.newNonKubevirtAnnotations.all(k, k in variables.oldNonKubevirtAnnotations && variables.newAnnotations[k] == variables.oldAnnotations[k])",
+            "message": "this user cannot update non kubevirt-owned annotations",
+            "reason": "Forbidden"
+          }
+        ],
+        "variables": [
+          {
+            "expression": "oldObject.metadata.labels.filter(k, !k.contains(\"kubevirt.io\") && k != \"cpumanager\")",
+            "name": "oldNonKubevirtLabels"
+          },
+          {
+            "expression": "oldObject.metadata.labels",
+            "name": "oldLabels"
+          },
+          {
+            "expression": "object.metadata.labels.filter(k, !k.contains(\"kubevirt.io\") && k != \"cpumanager\")",
+            "name": "newNonKubevirtLabels"
+          },
+          {
+            "expression": "object.metadata.labels",
+            "name": "newLabels"
+          },
+          {
+            "expression": "oldObject.metadata.annotations.filter(k, !k.contains(\"kubevirt.io\"))",
+            "name": "oldNonKubevirtAnnotations"
+          },
+          {
+            "expression": "object.metadata.annotations.filter(k, !k.contains(\"kubevirt.io\"))",
+            "name": "newNonKubevirtAnnotations"
+          },
+          {
+            "expression": "oldObject.metadata.annotations",
+            "name": "oldAnnotations"
+          },
+          {
+            "expression": "object.metadata.annotations",
+            "name": "newAnnotations"
+          },
+          {
+            "expression": "object.metadata.name == request.userInfo.extra['authentication.kubernetes.io/node-name'][0]",
+            "name": "requestMatchNode"
+          },
+          {
+            "expression": "('authentication.kubernetes.io/node-name' in request.userInfo.extra)",
+            "name": "hasNode"
+          }
+        ]
+      },
+      "status": {
+        "observedGeneration": 1,
+        "typeChecking": {}
+      }
+    },
+    {
+      "name": "safe-upgrades.gateway.networking.k8s.io",
+      "spec": {
+        "failurePolicy": "Fail",
+        "matchConstraints": {
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "resourceRules": [
+            {
+              "apiGroups": [
+                "apiextensions.k8s.io"
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "*"
+              ],
+              "scope": "*"
+            }
+          ]
+        },
+        "validations": [
+          {
+            "expression": "object.spec.group != 'gateway.networking.k8s.io' || oldObject == null || ( has(object.metadata.annotations) && object.metadata.annotations.exists(k, k == 'gateway.networking.k8s.io/channel') && object.metadata.annotations['gateway.networking.k8s.io/channel'] == 'standard' ) || ( oldObject != null && has(oldObject.metadata.annotations) && oldObject.metadata.annotations.exists(k, k == 'gateway.networking.k8s.io/channel') && oldObject.metadata.annotations['gateway.networking.k8s.io/channel'] == 'experimental' )",
+            "message": "Installing experimental CRDs on top of standard channel CRDs is prohibited by default. Uninstall ValidatingAdmissionPolicy safe-upgrades.gateway.networking.k8s.io to install experimental CRDs on top of standard channel CRDs.",
+            "reason": "Invalid"
+          },
+          {
+            "expression": "object.spec.group != 'gateway.networking.k8s.io' || (has(object.metadata.annotations) && object.metadata.annotations.exists(k, k == 'gateway.networking.k8s.io/bundle-version') && !matches(object.metadata.annotations['gateway.networking.k8s.io/bundle-version'], 'v1.[0-4].\\\\d+') && !matches(object.metadata.annotations['gateway.networking.k8s.io/bundle-version'], 'v0'))",
+            "message": "Installing CRDs with version before v1.5.0 is prohibited by default. Uninstall ValidatingAdmissionPolicy safe-upgrades.gateway.networking.k8s.io to install older versions.",
+            "reason": "Invalid"
+          }
+        ]
+      },
+      "status": {
+        "observedGeneration": 1,
+        "typeChecking": {}
+      }
+    }
+  ],
+  "validatingAdmissionPolicyBindings": [
+    {
+      "name": "ani-kfp-trainjob",
+      "spec": {
+        "matchResources": {
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {
+            "matchExpressions": [
+              {
+                "key": "kubernetes.io/metadata.name",
+                "operator": "NotIn",
+                "values": [
+                  "ani-modeldev-tenant-a-v21"
+                ]
+              }
+            ],
+            "matchLabels": {
+              "ani.io/kubeflow-tenant": "true"
+            }
+          },
+          "objectSelector": {}
+        },
+        "paramRef": {
+          "name": "ani-workspace-policy",
+          "parameterNotFoundAction": "Deny"
+        },
+        "policyName": "ani-kfp-trainjob",
+        "validationActions": [
+          "Deny"
+        ]
+      }
+    },
+    {
+      "name": "ani-kfp-workspace",
+      "spec": {
+        "matchResources": {
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {
+            "matchLabels": {
+              "ani.io/kubeflow-tenant": "true"
+            }
+          },
+          "objectSelector": {}
+        },
+        "paramRef": {
+          "name": "ani-workspace-policy",
+          "parameterNotFoundAction": "Deny"
+        },
+        "policyName": "ani-kfp-workspace",
+        "validationActions": [
+          "Deny"
+        ]
+      }
+    },
+    {
+      "name": "kubevirt-node-restriction-binding",
+      "spec": {
+        "matchResources": {
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "resourceRules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "*"
+              ],
+              "operations": [
+                "*"
+              ],
+              "resources": [
+                "nodes"
+              ],
+              "scope": "*"
+            }
+          ]
+        },
+        "policyName": "kubevirt-node-restriction-policy",
+        "validationActions": [
+          "Deny"
+        ]
+      }
+    },
+    {
+      "name": "safe-upgrades.gateway.networking.k8s.io",
+      "spec": {
+        "matchResources": {
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "resourceRules": [
+            {
+              "apiGroups": [
+                "apiextensions.k8s.io"
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "customresourcedefinitions"
+              ],
+              "scope": "*"
+            }
+          ]
+        },
+        "policyName": "safe-upgrades.gateway.networking.k8s.io",
+        "validationActions": [
+          "Deny"
+        ]
+      }
+    }
+  ],
+  "webhooks": [
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "ani-metrics-admission",
+      "webhooks": [
+        {
+          "name": "prometheusrulevalidate.monitoring.coreos.com",
+          "failurePolicy": "Ignore",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "monitoring.coreos.com"
+              ],
+              "apiVersions": [
+                "*"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "prometheusrules"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "ani-metrics-operator",
+            "namespace": "ani-observability",
+            "path": "/admission-prometheusrules/validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "alertmanagerconfigsvalidate.monitoring.coreos.com",
+          "failurePolicy": "Ignore",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "monitoring.coreos.com"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "alertmanagerconfigs"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "ani-metrics-operator",
+            "namespace": "ani-observability",
+            "path": "/admission-alertmanagerconfigs/validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "cdi-api-dataimportcron-validate",
+      "webhooks": [
+        {
+          "name": "dataimportcron-validate.cdi.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "cdi.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "dataimportcrons"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "cdi-api",
+            "namespace": "cdi",
+            "path": "/dataimportcron-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "cdi-api-datavolume-validate",
+      "webhooks": [
+        {
+          "name": "datavolume-validate.cdi.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "cdi.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "datavolumes"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "cdi-api",
+            "namespace": "cdi",
+            "path": "/datavolume-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "cdi-api-populator-validate",
+      "webhooks": [
+        {
+          "name": "populator-validate.cdi.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "cdi.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "volumeimportsources",
+                "volumeuploadsources"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "cdi-api",
+            "namespace": "cdi",
+            "path": "/populator-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "cdi-api-validate",
+      "webhooks": [
+        {
+          "name": "cdi-validate.cdi.kubevirt.io",
+          "failurePolicy": "Ignore",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "cdi.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "DELETE"
+              ],
+              "resources": [
+                "cdis"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "cdi-api",
+            "namespace": "cdi",
+            "path": "/cdi-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "cert-manager-webhook",
+      "webhooks": [
+        {
+          "name": "webhook.cert-manager.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {
+            "matchExpressions": [
+              {
+                "key": "cert-manager.io/disable-validation",
+                "operator": "NotIn",
+                "values": [
+                  "true"
+                ]
+              }
+            ]
+          },
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "cert-manager.io",
+                "acme.cert-manager.io"
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "*/*"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "cert-manager-webhook",
+            "namespace": "cert-manager",
+            "path": "/validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "clusterservingruntime.serving.kserve.io",
+      "webhooks": [
+        {
+          "name": "clusterservingruntime.kserve-webhook-server.validator",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "serving.kserve.io"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "clusterservingruntimes"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kserve-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/validate-serving-kserve-io-v1alpha1-clusterservingruntime",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "inferencegraph.serving.kserve.io",
+      "webhooks": [
+        {
+          "name": "inferencegraph.kserve-webhook-server.validator",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "serving.kserve.io"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "inferencegraphs"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kserve-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/validate-serving-kserve-io-v1alpha1-inferencegraph",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "inferenceservice.serving.kserve.io",
+      "webhooks": [
+        {
+          "name": "inferenceservice.kserve-webhook-server.validator",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "serving.kserve.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "inferenceservices"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kserve-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/validate-serving-kserve-io-v1beta1-inferenceservice",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "jobset-validating-webhook-configuration",
+      "webhooks": [
+        {
+          "name": "vjobset.kb.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "jobset.x-k8s.io"
+              ],
+              "apiVersions": [
+                "v1alpha2"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "jobsets"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "jobset-webhook-service",
+            "namespace": "kubeflow-system",
+            "path": "/validate-jobset-x-k8s-io-v1alpha2-jobset",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "vpod.kb.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {
+            "matchExpressions": [
+              {
+                "key": "jobset.sigs.k8s.io/jobset-name",
+                "operator": "Exists"
+              }
+            ]
+          },
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "pods"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "jobset-webhook-service",
+            "namespace": "kubeflow-system",
+            "path": "/validate--v1-pod",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "llminferenceservice.serving.kserve.io",
+      "webhooks": [
+        {
+          "name": "llminferenceservice.kserve-webhook-server.v1alpha2.validator",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "serving.kserve.io"
+              ],
+              "apiVersions": [
+                "v1alpha2"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "llminferenceservices"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "llmisvc-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/validate-serving-kserve-io-v1alpha2-llminferenceservice",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "llminferenceservice.kserve-webhook-server.v1alpha1.validator",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "serving.kserve.io"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "llminferenceservices"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "llmisvc-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/validate-serving-kserve-io-v1alpha1-llminferenceservice",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "llminferenceserviceconfig.serving.kserve.io",
+      "webhooks": [
+        {
+          "name": "llminferenceserviceconfig.kserve-webhook-server.v1alpha2.validator",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "serving.kserve.io"
+              ],
+              "apiVersions": [
+                "v1alpha2"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE",
+                "DELETE"
+              ],
+              "resources": [
+                "llminferenceserviceconfigs"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "llmisvc-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/validate-serving-kserve-io-v1alpha2-llminferenceserviceconfig",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "llminferenceserviceconfig.kserve-webhook-server.v1alpha1.validator",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "serving.kserve.io"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE",
+                "DELETE"
+              ],
+              "resources": [
+                "llminferenceserviceconfigs"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "llmisvc-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/validate-serving-kserve-io-v1alpha1-llminferenceserviceconfig",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "localmodelcache.serving.kserve.io",
+      "webhooks": [
+        {
+          "name": "localmodelcache.kserve-webhook-server.validator",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "serving.kserve.io"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE",
+                "DELETE"
+              ],
+              "resources": [
+                "localmodelcaches"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kserve-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/validate-serving-kserve-io-v1alpha1-localmodelcache",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "lws-validating-webhook-configuration",
+      "webhooks": [
+        {
+          "name": "vleaderworkerset.kb.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "leaderworkerset.x-k8s.io"
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "leaderworkersets"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "lws-webhook-service",
+            "namespace": "lws-system",
+            "path": "/validate-leaderworkerset-x-k8s-io-v1-leaderworkerset",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "vpod.kb.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {
+            "matchExpressions": [
+              {
+                "key": "leaderworkerset.sigs.k8s.io/name",
+                "operator": "Exists"
+              }
+            ]
+          },
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "pods"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "lws-webhook-service",
+            "namespace": "lws-system",
+            "path": "/validate--v1-pod",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "objecttransfer-api-validate",
+      "webhooks": [
+        {
+          "name": "objecttransfer-validate.cdi.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "cdi.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "objecttransfers"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "cdi-api",
+            "namespace": "cdi",
+            "path": "/objecttransfer-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "servingruntime.serving.kserve.io",
+      "webhooks": [
+        {
+          "name": "servingruntime.kserve-webhook-server.validator",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "serving.kserve.io"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "servingruntimes"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kserve-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/validate-serving-kserve-io-v1alpha1-servingruntime",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "trainedmodel.serving.kserve.io",
+      "webhooks": [
+        {
+          "name": "trainedmodel.kserve-webhook-server.validator",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "serving.kserve.io"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "trainedmodels"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kserve-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/validate-serving-kserve-io-v1alpha1-trainedmodel",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "validator.trainer.kubeflow.org",
+      "webhooks": [
+        {
+          "name": "validator.clustertrainingruntime.trainer.kubeflow.org",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "trainer.kubeflow.org"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "clustertrainingruntimes"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kubeflow-trainer-controller-manager",
+            "namespace": "kubeflow-system",
+            "path": "/validate-trainer-kubeflow-org-v1alpha1-clustertrainingruntime",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "validator.trainingruntime.trainer.kubeflow.org",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "trainer.kubeflow.org"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "trainingruntimes"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kubeflow-trainer-controller-manager",
+            "namespace": "kubeflow-system",
+            "path": "/validate-trainer-kubeflow-org-v1alpha1-trainingruntime",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "validator.trainjob.trainer.kubeflow.org",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "trainer.kubeflow.org"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "trainjobs"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kubeflow-trainer-controller-manager",
+            "namespace": "kubeflow-system",
+            "path": "/validate-trainer-kubeflow-org-v1alpha1-trainjob",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "virt-api-validator",
+      "webhooks": [
+        {
+          "name": "virt-launcher-eviction-interceptor.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": [
+            {
+              "expression": "object.metadata.name.startsWith(\"virt-launcher\")",
+              "name": "only-vms"
+            }
+          ],
+          "rules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "*"
+              ],
+              "resources": [
+                "pods/eviction"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/pod-eviction-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "hotplug-pod-eviction-interceptor.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": [
+            {
+              "expression": "object.metadata.name.startsWith(\"hp-volume-\")",
+              "name": "only-hotplug-pods"
+            }
+          ],
+          "rules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "*"
+              ],
+              "resources": [
+                "pods/eviction"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/pod-eviction-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachineinstances-create-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "virtualmachineinstances"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachineinstances-validate-create",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachineinstances-update-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachineinstances"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachineinstances-validate-update",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachine-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachines"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachines-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachinereplicaset-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachineinstancereplicasets"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachinereplicaset-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachinepool-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "pool.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachinepools"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachinepool-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachinepreset-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachineinstancepresets"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/vmipreset-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "migration-create-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "virtualmachineinstancemigrations"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/migration-validate-create",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "migration-update-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachineinstancemigrations"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/migration-validate-update",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachinesnapshot-validator.snapshot.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "snapshot.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachinesnapshots"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachinesnapshots-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachinerestore-validator.snapshot.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "snapshot.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachinerestores"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachinerestores-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachinebackup-validator.backup.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "backup.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachinebackups"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachinebackups-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachinebackuptracker-validator.backup.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "backup.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachinebackuptrackers"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachinebackuptrackers-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachineexport-validator.export.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "export.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachineexports"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachineexports-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachineinstancetype-validator.instancetype.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "instancetype.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachineinstancetypes"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachineinstancetypes-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachineclusterinstancetype-validator.instancetype.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "instancetype.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachineclusterinstancetypes"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachineclusterinstancetypes-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachinepreference-validator.instancetype.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "instancetype.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachinepreferences"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachinepreferences-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachineclusterpreference-validator.instancetype.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "instancetype.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachineclusterpreferences"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachineclusterpreferences-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "kubevirt-crd-status-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachines/status",
+                "virtualmachineinstancereplicasets/status",
+                "virtualmachineinstancemigrations/status"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/status-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "migration-policy-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "migrations.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "migrationpolicies"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/migration-policy-validate-create",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "vm-clone-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "clone.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachineclones"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/vm-clone-validate-create",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "plugin-validator.plugin.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "plugin.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "plugins"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/plugin-validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "virt-operator-validator",
+      "webhooks": [
+        {
+          "name": "kubevirt-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "DELETE"
+              ],
+              "resources": [
+                "kubevirts"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kubevirt-operator-webhook",
+            "namespace": "kubevirt",
+            "path": "/kubevirt-validate-delete",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "kubevirt-update-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "UPDATE"
+              ],
+              "resources": [
+                "kubevirts"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kubevirt-operator-webhook",
+            "namespace": "kubevirt",
+            "path": "/kubevirt-validate-update",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "kubevirt-create-validator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "kubevirts"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kubevirt-operator-webhook",
+            "namespace": "kubevirt",
+            "path": "/kubevirt-validate-create",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "volcano-admission-service-cronjobs-validate",
+      "webhooks": [
+        {
+          "name": "validatecronjob.volcano.sh",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {
+            "matchExpressions": [
+              {
+                "key": "kubernetes.io/metadata.name",
+                "operator": "NotIn",
+                "values": [
+                  "volcano-system",
+                  "kube-system"
+                ]
+              }
+            ]
+          },
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "batch.volcano.sh"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "cronjobs"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "ani-volcano-admission-service",
+            "namespace": "volcano-system",
+            "path": "/cronjobs/validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "volcano-admission-service-hypernodes-validate",
+      "webhooks": [
+        {
+          "name": "validatehypernodes.volcano.sh",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "topology.volcano.sh"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "hypernodes"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "ani-volcano-admission-service",
+            "namespace": "volcano-system",
+            "path": "/hypernodes/validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "volcano-admission-service-jobs-validate",
+      "webhooks": [
+        {
+          "name": "validatejob.volcano.sh",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {
+            "matchExpressions": [
+              {
+                "key": "kubernetes.io/metadata.name",
+                "operator": "NotIn",
+                "values": [
+                  "volcano-system",
+                  "kube-system"
+                ]
+              }
+            ]
+          },
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "batch.volcano.sh"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "jobs"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "ani-volcano-admission-service",
+            "namespace": "volcano-system",
+            "path": "/jobs/validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "volcano-admission-service-podgroups-validate",
+      "webhooks": [
+        {
+          "name": "validatepodgroup.volcano.sh",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {
+            "matchExpressions": [
+              {
+                "key": "kubernetes.io/metadata.name",
+                "operator": "NotIn",
+                "values": [
+                  "volcano-system",
+                  "kube-system"
+                ]
+              }
+            ]
+          },
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "scheduling.volcano.sh"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "podgroups"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "ani-volcano-admission-service",
+            "namespace": "volcano-system",
+            "path": "/podgroups/validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "ValidatingWebhookConfiguration",
+      "name": "volcano-admission-service-queues-validate",
+      "webhooks": [
+        {
+          "name": "validatequeue.volcano.sh",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {
+            "matchExpressions": [
+              {
+                "key": "kubernetes.io/metadata.name",
+                "operator": "NotIn",
+                "values": [
+                  "volcano-system",
+                  "kube-system"
+                ]
+              }
+            ]
+          },
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "scheduling.volcano.sh"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE",
+                "DELETE"
+              ],
+              "resources": [
+                "queues"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "ani-volcano-admission-service",
+            "namespace": "volcano-system",
+            "path": "/queues/validate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "ani-metrics-admission",
+      "webhooks": [
+        {
+          "name": "prometheusrulemutate.monitoring.coreos.com",
+          "failurePolicy": "Ignore",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "monitoring.coreos.com"
+              ],
+              "apiVersions": [
+                "*"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "prometheusrules"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "ani-metrics-operator",
+            "namespace": "ani-observability",
+            "path": "/admission-prometheusrules/mutate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "ani-modeldev-webhook",
+      "webhooks": [
+        {
+          "name": "ani-modeldev-tenant-a-v21.modeldev.ani.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {
+            "matchLabels": {
+              "ani.io/managed-by": "modeldev-execution-v21",
+              "kubernetes.io/metadata.name": "ani-modeldev-tenant-a-v21"
+            }
+          },
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "pods"
+              ],
+              "scope": "Namespaced"
+            }
+          ],
+          "service": {
+            "name": "ani-modeldev-webhook",
+            "namespace": "ani-system",
+            "path": "/mutate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "cdi-api-datavolume-mutate",
+      "webhooks": [
+        {
+          "name": "datavolume-mutate.cdi.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "cdi.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "datavolumes"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "cdi-api",
+            "namespace": "cdi",
+            "path": "/datavolume-mutate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "cdi-api-pvc-mutate",
+      "webhooks": [
+        {
+          "name": "pvc-mutate.cdi.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Exact",
+          "namespaceSelector": {},
+          "objectSelector": {
+            "matchLabels": {
+              "cdi.kubevirt.io/applyStorageProfile": "true"
+            }
+          },
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "persistentvolumeclaims"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "cdi-api",
+            "namespace": "cdi",
+            "path": "/pvc-mutate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "cert-manager-webhook",
+      "webhooks": [
+        {
+          "name": "webhook.cert-manager.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "cert-manager.io"
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "certificaterequests"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "cert-manager-webhook",
+            "namespace": "cert-manager",
+            "path": "/mutate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "envoy-gateway-topology-injector.envoy-gateway-system",
+      "webhooks": [
+        {
+          "name": "topology.webhook.gateway.envoyproxy.io",
+          "failurePolicy": "Ignore",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {
+            "matchExpressions": [
+              {
+                "key": "kubernetes.io/metadata.name",
+                "operator": "In",
+                "values": [
+                  "envoy-gateway-system"
+                ]
+              }
+            ]
+          },
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "pods/binding"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "envoy-gateway",
+            "namespace": "envoy-gateway-system",
+            "path": "/inject-pod-topology",
+            "port": 9443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "inferenceservice.serving.kserve.io",
+      "webhooks": [
+        {
+          "name": "inferenceservice.kserve-webhook-server.defaulter",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "serving.kserve.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "inferenceservices"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kserve-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/mutate-serving-kserve-io-v1beta1-inferenceservice",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "inferenceservice.kserve-webhook-server.pod-mutator",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {
+            "matchExpressions": [
+              {
+                "key": "serving.kserve.io/inferenceservice",
+                "operator": "Exists"
+              }
+            ]
+          },
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "pods"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "kserve-webhook-server-service",
+            "namespace": "kserve",
+            "path": "/mutate-pods",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "jobset-mutating-webhook-configuration",
+      "webhooks": [
+        {
+          "name": "mjobset.kb.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "jobset.x-k8s.io"
+              ],
+              "apiVersions": [
+                "v1alpha2"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "jobsets"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "jobset-webhook-service",
+            "namespace": "kubeflow-system",
+            "path": "/mutate-jobset-x-k8s-io-v1alpha2-jobset",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "mpod.kb.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {
+            "matchExpressions": [
+              {
+                "key": "jobset.sigs.k8s.io/jobset-name",
+                "operator": "Exists"
+              }
+            ]
+          },
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "pods"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "jobset-webhook-service",
+            "namespace": "kubeflow-system",
+            "path": "/mutate--v1-pod",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "lws-mutating-webhook-configuration",
+      "webhooks": [
+        {
+          "name": "mleaderworkerset.kb.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "leaderworkerset.x-k8s.io"
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "leaderworkersets"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "lws-webhook-service",
+            "namespace": "lws-system",
+            "path": "/mutate-leaderworkerset-x-k8s-io-v1-leaderworkerset",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "mpod.kb.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {
+            "matchExpressions": [
+              {
+                "key": "leaderworkerset.sigs.k8s.io/name",
+                "operator": "Exists"
+              }
+            ]
+          },
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                ""
+              ],
+              "apiVersions": [
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "pods"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "lws-webhook-service",
+            "namespace": "lws-system",
+            "path": "/mutate--v1-pod",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "virt-api-mutator",
+      "webhooks": [
+        {
+          "name": "virtualmachines-mutator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachines"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachines-mutate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachineinstances-mutator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "CREATE",
+                "UPDATE"
+              ],
+              "resources": [
+                "virtualmachineinstances"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/virtualmachineinstances-mutate",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "migrations-mutator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1alpha3",
+                "v1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "virtualmachineinstancemigrations"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/migration-mutate-create",
+            "port": 443
+          },
+          "urlPresent": false
+        },
+        {
+          "name": "virtualmachineclones-mutator.kubevirt.io",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {},
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "clone.kubevirt.io"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "virtualmachineclones"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "virt-api",
+            "namespace": "kubevirt",
+            "path": "/vm-clone-mutate-create",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "volcano-admission-service-jobs-mutate",
+      "webhooks": [
+        {
+          "name": "mutatejob.volcano.sh",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {
+            "matchExpressions": [
+              {
+                "key": "kubernetes.io/metadata.name",
+                "operator": "NotIn",
+                "values": [
+                  "volcano-system",
+                  "kube-system"
+                ]
+              }
+            ]
+          },
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "batch.volcano.sh"
+              ],
+              "apiVersions": [
+                "v1alpha1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "jobs"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "ani-volcano-admission-service",
+            "namespace": "volcano-system",
+            "path": "/jobs/mutate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    },
+    {
+      "kind": "MutatingWebhookConfiguration",
+      "name": "volcano-admission-service-queues-mutate",
+      "webhooks": [
+        {
+          "name": "mutatequeue.volcano.sh",
+          "failurePolicy": "Fail",
+          "matchPolicy": "Equivalent",
+          "namespaceSelector": {
+            "matchExpressions": [
+              {
+                "key": "kubernetes.io/metadata.name",
+                "operator": "NotIn",
+                "values": [
+                  "volcano-system",
+                  "kube-system"
+                ]
+              }
+            ]
+          },
+          "objectSelector": {},
+          "matchConditions": null,
+          "rules": [
+            {
+              "apiGroups": [
+                "scheduling.volcano.sh"
+              ],
+              "apiVersions": [
+                "v1beta1"
+              ],
+              "operations": [
+                "CREATE"
+              ],
+              "resources": [
+                "queues"
+              ],
+              "scope": "*"
+            }
+          ],
+          "service": {
+            "name": "ani-volcano-admission-service",
+            "namespace": "volcano-system",
+            "path": "/queues/mutate",
+            "port": 443
+          },
+          "urlPresent": false
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "canI": [
+    {
+      "subject": "system:serviceaccount:ani-system:ani-resource-service",
+      "verb": "get",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "yes",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:ani-system:ani-resource-service",
+      "verb": "list",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "yes",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:ani-system:ani-resource-service",
+      "verb": "create",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "yes",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:ani-system:ani-resource-service",
+      "verb": "delete",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "yes",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:ani-system:ani-resource-service",
+      "verb": "patch",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "yes",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:ani-modeldev-tenant-a-v21:default",
+      "verb": "get",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:ani-modeldev-tenant-a-v21:default",
+      "verb": "list",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:ani-modeldev-tenant-a-v21:default",
+      "verb": "create",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:ani-modeldev-tenant-a-v21:default",
+      "verb": "delete",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:ani-modeldev-tenant-a-v21:default",
+      "verb": "patch",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420:default",
+      "verb": "get",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420:default",
+      "verb": "list",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420:default",
+      "verb": "create",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420:default",
+      "verb": "delete",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420:default",
+      "verb": "patch",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:notebook-controller-system:notebook-controller-service-account",
+      "verb": "get",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:notebook-controller-system:notebook-controller-service-account",
+      "verb": "list",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:notebook-controller-system:notebook-controller-service-account",
+      "verb": "create",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:notebook-controller-system:notebook-controller-service-account",
+      "verb": "delete",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    },
+    {
+      "subject": "system:serviceaccount:notebook-controller-system:notebook-controller-service-account",
+      "verb": "patch",
+      "resource": "persistentvolumeclaims",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "answer": "no",
+      "exitCode": 1,
+      "error": ""
+    }
+  ]
+}

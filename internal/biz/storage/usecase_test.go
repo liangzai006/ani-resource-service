@@ -174,7 +174,7 @@ func (f *fakeObjects) PresignGetObject(context.Context, string, string, time.Dur
 
 func newUseCase(t *testing.T, volumes VolumePort, objects ObjectPort) *UseCase {
 	t.Helper()
-	uc, err := NewUseCase(volumes, objects, Config{NamespacePrefix: testPrefix, Buckets: []BucketConfig{
+	uc, err := NewUseCase(volumes, objects, Config{NamespacePrefix: testPrefix, ClusterID: testTenant, DeleteExecutor: "storage-tests", BorrowedPVCGuard: newTestDeleteGuard(), Buckets: []BucketConfig{
 		{ID: "files", TenantID: testTenant, Name: "文件", Bucket: "tenant-files"},
 		{ID: "other", TenantID: otherTenant, Name: "别人", Bucket: "other-files"},
 	}})

@@ -1,0 +1,9 @@
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.006s
+127.0.0.1:5432 - accepting connections
+--- FAIL: TestInstanceNetworkVerticalPGNotebookTwoRestartsAndRecreation (1.66s)
+    network_vertical_integration_test.go:218: {false   false} INVALID_INSTANCE_REQUEST
+--- FAIL: TestInstanceNetworkVerticalConfirmRetryRequiresDurableAck (1.49s)
+    network_vertical_integration_test.go:221: {false   false} INVALID_INSTANCE_REQUEST
+FAIL
+FAIL	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	3.176s
+FAIL

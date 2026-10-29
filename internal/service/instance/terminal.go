@@ -26,7 +26,7 @@ func (s *TerminalValidation) ValidateTerminalTarget(ctx context.Context, t *pb.T
 		return nil, rpcError(e)
 	}
 	valid := func(i biz.Instance) bool {
-		return i.Desired == biz.Running && i.Observed == biz.Running && i.Version == t.Version && i.Pending == nil && i.Spec.ClusterID == t.ClusterId && i.Spec.Namespace == t.Namespace && i.Spec.NotebookName == t.NotebookName && i.NotebookUID == t.NotebookUid && i.PodName == t.PodName && i.PodUID == t.PodUid && t.ContainerName == biz.Container && i.Spec.Shell == t.Shell && t.PodUid != "" && t.NotebookUid != ""
+		return i.Desired == biz.Running && i.RuntimeDesired == biz.Running && i.ActiveOperation == nil && i.RecoveryFence == nil && i.Observed == biz.Running && i.Version == t.Version && i.Pending == nil && i.Spec.ClusterID == t.ClusterId && i.Spec.Namespace == t.Namespace && i.Spec.NotebookName == t.NotebookName && i.NotebookUID == t.NotebookUid && i.PodName == t.PodName && i.PodUID == t.PodUid && t.ContainerName == biz.Container && i.Spec.Shell == t.Shell && t.PodUid != "" && t.NotebookUid != ""
 	}
 	if !valid(i) {
 		return nil, status.Error(codes.FailedPrecondition, "INSTANCE_TERMINAL_TARGET_STALE")

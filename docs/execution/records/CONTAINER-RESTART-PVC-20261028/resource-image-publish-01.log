@@ -1,0 +1,19 @@
+Getting image source signatures
+Copying blob sha256:af5aa97ebe6ce1604747ec1e21af7136ded391bcabe4acef882e718a87c86bcc
+Copying blob sha256:8fa10c0194df9b7c054c90dbe482585f768a54428fc90a5b78a0066a123b1bba
+Copying blob sha256:114dde0fefebbca13165d0da9c500a66190e497a82a53dcaabc3172d630be1e9
+Copying blob sha256:7223ea1323e8c1159ec17f07d35acc27bdd1cc2bc3ed425b44ef21dac9915db0
+Copying blob sha256:35b5ba6e08cdd034b8d1920f9c7203e5d66f258e1915f164a01de0af14f34710
+Copying blob sha256:4d049f83d9cf21d1f5cc0e11deaf36df02790d0e60c1a3829538fb4b61685368
+Copying blob sha256:6f1cdceb6a3146f0ccb986521156bef8a422cdbb0863396f7f751f575ba308f4
+Copying blob sha256:bd3cdfae1d3fdd83a2231d608969b38b82349777c2fff9a7c12d54f8ac5c9b38
+Copying blob sha256:4cde6b0bb6f50a5f255eef7b2a42162c661cf776b803225dcac9a659e396bb6b
+Copying blob sha256:ad51d0769d16ba578106a177987dfe3d2e02c1668c852b795b2f6b024068242a
+Copying blob sha256:6e7fbcf090d09b73a4aa85f9dce690d0ace73877c150b7c56955487b6e7a822a
+Copying blob sha256:5904c32f457c96a16c8c68f5ccdf518c8138cd9e5971de9ce6d564fc481af222
+Copying blob sha256:711366c2b0b5eec8a4123869e55e8769fce9e7524b1456d7f411e4000d1a126f
+Copying blob sha256:59ad06d0b953ba81df9c67a4647bbf1dd232a805af6b291b5c64cdfd88df6f13
+Copying blob sha256:ed53ec560e0d4ba84a86abdb26de5098c5f0c0e8783ff6d092bb6daf035bf08d
+Copying blob sha256:a4c919b7c8e34e9216d925e0c9438da71f37508293e9bf615865be351e40ea12
+time="2026-10-28T17:45:21+08:00" level=fatal msg="writing blob: initiating layer upload to /v2/ani-restart-pvc/resource-service/blobs/uploads/ in 10.10.1.66:5001: StatusCode: 405, \"Method not allowed\\n\""
+time="2026-10-28T17:45:22+08:00" level=fatal msg="Error parsing image name \"docker://10.10.1.66:5001/ani-restart-pvc/resource-service:cp01-8fe1b0ce8f10-01a18156\": reading manifest cp01-8fe1b0ce8f10-01a18156 in 10.10.1.66:5001/ani-restart-pvc/resource-service: manifest unknown"

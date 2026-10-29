@@ -45,3 +45,8 @@ docs/execution/records/RESOURCE-MOD-20260922/control-plane-20260922/evidence/cle
 docs/execution/records/RESOURCE-MOD-20260922/control-plane-20260922/evidence/cleanup-platform-foundation.console whitespace=-blank-at-eof
 docs/execution/records/RESOURCE-MOD-20260922/control-plane-20260922/evidence/cleanup-platform-pods.console whitespace=-blank-at-eof
 docs/execution/records/RESOURCE-MOD-20260922/control-plane-20260922/evidence/cleanup-platform-pools.console whitespace=-blank-at-eof
+
+# Reviewed source input retains its Markdown hard breaks and approved hash.
+docs/plans/container-instance-restart-pvc-20261028.md whitespace=-blank-at-eol
+# Preserve the tool-produced trailing tab in the immutable build-info receipt.
+docs/execution/records/CONTAINER-RESTART-PVC-20261028/resource-image-build-01-buildinfo.txt whitespace=-blank-at-eol

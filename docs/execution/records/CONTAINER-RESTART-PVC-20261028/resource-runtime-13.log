@@ -1,0 +1,8 @@
+127.0.0.1:5432 - accepting connections
+2026/10/28 18:25:39 INFO [gRPC] server listening addr=127.0.0.1:40073
+2026/10/28 18:25:40 INFO [gRPC] server stopping
+--- FAIL: TestInstanceSupersededMutationAndLeaseFencing (0.26s)
+    postgres_integration_test.go:700: late result overwrote current intent <nil>
+FAIL
+FAIL	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	13.013s
+FAIL

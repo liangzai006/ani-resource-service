@@ -13,6 +13,8 @@ GPU 容器实例 v1.5：[规格](specs/instance-mvp.md)、[实施计划](plans/i
 
 [ani-resource-service 改名与模块整理计划](plans/resource-service-modularization.md)：原R0–R5沿用现有仓库和Kratos分层整理Network，并验证旧客户端、旧数据、资源接管和回退；本次Compute增量以[算力目录合同](specs/compute-presets.md)为准，Storage仍待后续切片。
 
+容器重启与已有 PVC 挂卸：[生命周期](specs/instance-mvp.md#84-restart-与挂卸操作)、[五个 RPC 与动作权限](specs/instance-mvp.md#111-用户-api)、[当前配置/引用代际/Storage 删除保护](specs/instance-configuration-network.md#43-持久化和投影)、[008 切换与向前恢复](runbooks/instance-mvp-fedora.md)、[精确服务调用登记](specs/governance-calls.md)。实施输入仍为[已审 v2.0 方案](plans/container-instance-restart-pvc-20261028.md)，来源 SHA-256 `b6dfb17aef74f3d99cc969ecd2ef51b19c77b0a984f82fbe6afd28aa94d41f7a`；部署、A35/A36 边界和实际验收只见[唯一执行状态](execution/status.md#container-restart-pvc-20261028)。
+
 ## 阅读顺序
 
 1. [领域词汇](../CONTEXT.md)：网络资源、消费者、操作、资源状态与身份角色。

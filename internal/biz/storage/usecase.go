@@ -18,9 +18,13 @@ const (
 
 // Config 是 Storage 用例的静态配置；新增租户桶需要改配置并重启。
 type Config struct {
-	NamespacePrefix string
-	Buckets         []BucketConfig
-	DownloadTTL     time.Duration
+	NamespacePrefix    string
+	ClusterID          string
+	DeleteExecutor     string
+	BorrowedPVCGuard   BorrowedPVCGuard
+	ObserveDeleteWrite func(string)
+	Buckets            []BucketConfig
+	DownloadTTL        time.Duration
 }
 
 // UseCase 编排独立盘与只读对象用例，不直接依赖 Kratos、Proto 或 SDK。
@@ -272,54 +276,9 @@ func (u *UseCase) UpdateVolume(ctx context.Context, tenant, name, expectedUID st
 	return toVolume(updated), nil
 }
 
-// DeleteVolume 先查引用再以原 UID 为前置条件删除；查询失败不放行。
+// DeleteVolume reserves the durable name barrier before any Kubernetes DELETE.
 func (u *UseCase) DeleteVolume(ctx context.Context, tenant, name, expectedUID string) (DeleteResult, error) {
-	namespace, err := u.ensureNamespace(ctx, tenant)
-	if err != nil {
-		return DeleteResult{}, err
-	}
-	record, err := u.volumes.GetVolume(ctx, namespace, name)
-	if err != nil {
-		if errors.Is(err, ErrNotFound) {
-			return DeleteResult{State: DeletionGone}, nil
-		}
-		return DeleteResult{}, err
-	}
-	if !owned(record, tenant) {
-		return DeleteResult{}, ErrNotFound
-	}
-	if record.UID != expectedUID {
-		return DeleteResult{}, ErrIdentityChanged
-	}
-	consumers, err := u.usage(ctx, namespace, name)
-	if err != nil {
-		return DeleteResult{}, err
-	}
-	if len(consumers) > 0 {
-		return DeleteResult{}, &InUseError{Consumers: consumers}
-	}
-	if err := u.volumes.DeleteVolume(ctx, namespace, name, expectedUID); err != nil {
-		if errors.Is(err, ErrNotFound) {
-			return DeleteResult{State: DeletionGone}, nil
-		}
-		return DeleteResult{}, err
-	}
-	current, err := u.volumes.GetVolume(ctx, namespace, name)
-	if err != nil {
-		if errors.Is(err, ErrNotFound) {
-			return DeleteResult{State: DeletionGone}, nil
-		}
-		return DeleteResult{}, err
-	}
-	// 删除后再次读取必须仍是原对象：若旧卷删除期间同名新卷被 Create 重建，不能把新对象当作本次删除结果返回。
-	if current.UID != expectedUID {
-		return DeleteResult{}, ErrIdentityChanged
-	}
-	state := DeletionSubmitted
-	if current.Deleting {
-		state = DeletionTerminating
-	}
-	return DeleteResult{State: state, Volume: toVolume(current)}, nil
+	return u.deleteVolumeGuarded(ctx, tenant, name, expectedUID)
 }
 
 // usage 只统计引用目标 PVC 的 Pod 直接引用与 Notebook 模板引用；

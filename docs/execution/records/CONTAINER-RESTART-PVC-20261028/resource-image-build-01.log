@@ -1,0 +1,59 @@
+resource-build-8fe1b0ce8f10.tar.gz: 成功
+Getting image source signatures
+Copying blob sha256:c1f4ff7724f7f15a187d5ec633a1d59cfcd376d636ba58704475c09c7d00f0dc
+Copying blob sha256:12b98db1f9a3daa07eca266140274100405e2ba33684a9cfed19227d8214a491
+Copying blob sha256:156feddf55001fe5c9fe753ad7ab8fea1f84e95b1d2e589ff3c8b0b55dee25b7
+Copying blob sha256:864c4fb7c1f3a443ce0386a9cb14c81e4a029660e0e844e278b707839c73a5f2
+Copying blob sha256:02c91f6b395a6b06d17b8985a2db90aef7b09feedff77eff1f7c269161263a9b
+Copying blob sha256:ffdf8cfdbafeabe2762d2dde33e36f1b87dfa967ae34811ff5342ebe8233eb4b
+Copying blob sha256:818beb2a6ac52d3cfb90a96d84cff5123ade753aac5adc2dd8f43347f6fa74eb
+Copying blob sha256:a0ce62815afcb344f5e245b1fe8026bef515df1fa3446ecc272057ba74be8bed
+Copying blob sha256:83717d7c33ed99f82afbd90b8a13fe29f05c433b7c55c2d7e1f2c2df18dfd5d5
+Copying blob sha256:88d89c9f554ae39742eb60ef19cc0198899514f6c95ebf216d7fc3249973e680
+Copying blob sha256:4eb6e32233edf636593de3be3c09079eb36e5bc5d405f77f6a943dc65834d8c5
+Copying blob sha256:752c3ee82ca8986fc2f87501573e664789781c520de5f6b630728b7537e8ff94
+Copying blob sha256:5a5b71a75ecfe0f1ba024db4595ae34fc33c159e7cc360011198e34013b98220
+Copying blob sha256:13dc8b09e005043f36f2a51d63f5f03cc140ddee3eca2bbe3f033c2d2671ffc1
+Copying blob sha256:c34b3fd275048188b77c34fe86974f4df2d34414fa4c3c9f4dface72b718b37e
+Copying config sha256:245123746398a8a26dc1fb3b604451eacbbfc82a3a2f209f971a9251efc75b87
+Writing manifest to image destination
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile:
+#1 transferring dockerfile: 287B done
+#1 DONE 0.2s
+
+#2 [internal] load metadata for localhost/ani-restart-base:5a211f66a6ef
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [1/2] FROM localhost/ani-restart-base:5a211f66a6ef@sha256:5fdac3ec2ad59f6f1e2e7601a32713f8f1eb5513e8988c25f437f8b68d8b5068
+#4 resolve localhost/ani-restart-base:5a211f66a6ef@sha256:5fdac3ec2ad59f6f1e2e7601a32713f8f1eb5513e8988c25f437f8b68d8b5068 0.1s done
+#4 ...
+
+#5 [internal] load build context
+#5 transferring context: 88.44MB 0.9s done
+#5 DONE 1.2s
+
+#4 [1/2] FROM localhost/ani-restart-base:5a211f66a6ef@sha256:5fdac3ec2ad59f6f1e2e7601a32713f8f1eb5513e8988c25f437f8b68d8b5068
+#4 DONE 2.7s
+
+#6 [2/2] COPY --chmod=0755 ani-resource-service /ani-resource-service
+#6 DONE 4.1s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 6.2s done
+#7 exporting manifest sha256:9a095da6544628cbd3ffb3995e184bf3a2da9a479c240785c08728c2452cd762 0.0s done
+#7 exporting config sha256:a9e20000440254a06e780aa154c2a5379c3b0a963c680151f993d16021b4fba8 0.0s done
+#7 exporting attestation manifest sha256:176321a6e86af0ae3e2e8775439ba9fac9676b0a450bb831ac4986a4dba959e1 0.0s done
+#7 exporting manifest list sha256:c90f0ac0dabdd80be660463acef2c79eb23deb68f59e0e2bec101ba050f8a808
+#7 exporting manifest list sha256:c90f0ac0dabdd80be660463acef2c79eb23deb68f59e0e2bec101ba050f8a808 0.0s done
+#7 naming to localhost/ani-resource-service:restart-pvc-8fe1b0ce8f10 0.0s done
+#7 unpacking to localhost/ani-resource-service:restart-pvc-8fe1b0ce8f10
+#7 unpacking to localhost/ani-resource-service:restart-pvc-8fe1b0ce8f10 3.5s done
+#7 DONE 9.9s

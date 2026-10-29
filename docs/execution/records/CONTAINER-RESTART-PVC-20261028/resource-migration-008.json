@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "rc": 0,
+  "source": "1498c0b20005c39e0724290e2898cfa8d5f7ad59",
+  "execution_host": "fedora",
+  "owner": "resource_migrate",
+  "runtime_role": "resource_runtime"
+}

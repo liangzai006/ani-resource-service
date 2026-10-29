@@ -14,7 +14,7 @@ func initialNetworkSubmission(i biz.Instance) *biz.NetworkRuntime {
 		return nil
 	}
 	id := uuid.NewSHA1(uuid.NameSpaceOID, []byte("instance-network-v2\n"+i.TenantID+"\n"+i.ID+"\n"+i.CreateOperationID)).String()
-	n := &biz.NetworkRuntime{SubmissionID: id, RequestKey: "instance-primary:" + id, Generation: 1, SnapshotRevision: 1, State: "open", DesiredRunState: i.Desired, NetworkState: "pending"}
+	n := &biz.NetworkRuntime{SubmissionID: id, RequestKey: "instance-primary:" + id, Generation: 1, SnapshotRevision: 1, State: "open", DesiredRunState: i.RuntimeDesired, NetworkState: "pending"}
 	if i.Desired == biz.Deleted {
 		n.State = "closed"
 		n.FinalizationID = networkFinalization(i)
@@ -36,8 +36,8 @@ func networkIntent(i *biz.Instance) {
 		return
 	}
 	n := i.Network
-	changed := n.DesiredRunState != i.Desired
-	n.DesiredRunState = i.Desired
+	changed := n.DesiredRunState != i.RuntimeDesired
+	n.DesiredRunState = i.RuntimeDesired
 	if i.Desired == biz.Deleted && n.State == "open" {
 		n.State = "closing"
 		n.FinalizationID = networkFinalization(*i)

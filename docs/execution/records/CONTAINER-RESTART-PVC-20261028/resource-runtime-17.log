@@ -1,0 +1,78 @@
+resource-runtime-17-code.tar.gz: 成功
+test "$(/home/chabking/workspace/ani-resource-service-runs/container-restart-pvc-20261028/resource-runtime-17/.tools/bin/buf --version)" = "1.60.0"
+test "$(go version -m /home/chabking/workspace/ani-resource-service-runs/container-restart-pvc-20261028/resource-runtime-17/.tools/bin/buf | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/bufbuild/buf@v1.60.0"
+test "$(/home/chabking/workspace/ani-resource-service-runs/container-restart-pvc-20261028/resource-runtime-17/.tools/bin/sqlc version)" = "v1.31.1"
+test "$(go version -m /home/chabking/workspace/ani-resource-service-runs/container-restart-pvc-20261028/resource-runtime-17/.tools/bin/sqlc | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/sqlc-dev/sqlc@v1.31.1"
+./scripts/verify-source /home/chabking/workspace/ani-resource-service-runs/container-restart-pvc-20261028/resource-runtime-17/.tools/bin/buf /home/chabking/workspace/ani-resource-service-runs/container-restart-pvc-20261028/resource-runtime-17/.tools/bin/sqlc
+./scripts/verify-boundaries
+boundary fixture rejected: internal/biz/network/nested -> database/sql
+boundary fixture rejected: internal/biz/image/nested -> net/http
+boundary fixture rejected: internal/biz/image/nested -> example.invalid/boundary-fixture/internal/data/image
+boundary fixture rejected: internal/data/image -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/service/image -> example.invalid/boundary-fixture/internal/service/network
+boundary fixture rejected: internal/biz/network/nested -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/service/network -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/data/network -> example.invalid/boundary-fixture/internal/service/network
+boundary fixture rejected: internal/data/network -> example.invalid/boundary-fixture/internal/data/storage
+boundary fixture rejected: internal/service/network -> example.invalid/boundary-fixture/internal/service/storage
+recursive domain and repository ownership boundaries verified
+./scripts/net05a-build-faults.py --network-only
+{"fault_build": "/home/chabking/workspace/ani-resource-service-runs/container-restart-pvc-20261028/resource-runtime-17/.work/fault-build", "status": "pass"}
+go mod tidy -diff
+go test -count=1 ./...
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/compute/v1	0.007s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/image/v1	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/instance/v1	0.010s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/network/v1	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/storage/v1	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/vm/v1	0.015s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/cmd/ani-resource-service	0.053s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/docs/execution/records/VM-MVP/checks/legacy-network-pg-01	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/compute	0.005s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/image	0.007s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.010s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/network	0.014s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/sandbox	0.005s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/storage	0.006s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/vm	0.017s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/conf/v1	0.030s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/compute	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/image	0.616s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/image/sqlcgen	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	1.206s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance/sqlcgen	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/network	0.183s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/network/sqlcgen	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/sandbox	0.022s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/storage	0.012s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/vm	0.081s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/server	2.362s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/compute	0.009s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/image	0.009s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/instance	1.011s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/network	0.007s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/sandbox	0.015s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/storage	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/vm	0.017s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations/compute	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations/image	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations/instance	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations/sandbox	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations/vm	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/pkg/instanceconfig	0.006s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/scripts/image-smoke-runtime	0.048s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/scripts/lb-api	0.017s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/scripts/vpc-read-probe	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/tests/net05	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/tests/net05/relay	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/tests/net05/rpc	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/tests/net05a/provider	0.017s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/tests/runtime	0.071s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/tests/testenv	0.012s
+go vet ./...
+go build -trimpath ./...
+go mod verify
+all modules verified
+git diff --check

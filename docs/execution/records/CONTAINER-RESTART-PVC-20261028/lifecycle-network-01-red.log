@@ -1,0 +1,5 @@
+--- FAIL: TestLifecycleRestartConfirmsFreshNetworkVersion (0.00s)
+    lifecycle_network_test.go:17: fresh attachment version was not confirmed: confirmed=0 revision=2 reason=
+FAIL
+FAIL	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.004s
+FAIL

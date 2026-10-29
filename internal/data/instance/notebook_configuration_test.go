@@ -21,6 +21,7 @@ func configuredInstance(t *testing.T) biz.Instance {
 		{ClusterID: i.Spec.ClusterID, Namespace: i.Spec.Namespace, PVCName: "dataset", PVCUID: "dataset-original", MountPath: "/datasets", Ownership: "borrowed"},
 		{ClusterID: i.Spec.ClusterID, Namespace: i.Spec.Namespace, PVCName: "models", PVCUID: "models-original", MountPath: "/models", ReadOnly: true, Ownership: "borrowed"},
 	}
+	i.CurrentMounts = append([]biz.VolumeMount{}, i.Spec.VolumeMounts...)
 	i.Spec.Labels = map[string]string{"team.example/app": "research"}
 	i.Spec.Annotations = map[string]string{"team.example/note": "literal note"}
 	i.Spec.Env = []biz.EnvVar{{Name: "BASE", Value: "  literal  "}, {Name: "DEPENDENT", Value: "$(BASE)/child"}, {Name: "EMPTY", Value: ""}, {Name: "DOLLARS", Value: "$$"}}

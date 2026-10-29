@@ -164,7 +164,7 @@ func TestDatabaseCPUFreezeSurvivesPresetMutationAndDeletion(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	s, e := service.NewService(f.repo, computeResolver(t, f, uuid.NewString()), fixtureImage{}, fixtureEnvironment{}, service.Config{NamespacePrefix: "tenant-", ClusterID: uuid.NewString(), ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", Shell: "/bin/sh", UID: 1000, GID: 1000})
+	s, e := service.NewService(f.repo, computeResolver(t, f, uuid.NewString()), fixtureImage{}, fixtureEnvironment{}, service.Config{NewIntentsEnabled: true, NamespacePrefix: "tenant-", ClusterID: uuid.NewString(), ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", Shell: "/bin/sh", UID: 1000, GID: 1000})
 	if e != nil {
 		t.Fatal(e)
 	}

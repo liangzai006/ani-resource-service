@@ -90,13 +90,19 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 		return nil, err
 	}
 	var execution *server.WorkerServer
-	readiness := server.NewReadiness(func() bool { return execution != nil && execution.Ready() })
+	var storageRecovery *server.StorageDeleteWorker
+	readiness := server.NewReadiness(func() bool { return execution != nil && execution.Ready() }, func() bool { return storageRecovery == nil || storageRecovery.Ready() })
 	observability, err := server.NewObservability(Name, Version, readiness)
 	if err != nil {
 		return nil, err
 	}
 	if err = observability.RegisterObservation(observation); err != nil {
 		return nil, err
+	}
+	if instances != nil {
+		if err = observability.RegisterStorageDeleteMetrics(instances.repo.PVCDeleteStats); err != nil {
+			return nil, err
+		}
 	}
 	worker, err := biz.NewWorker(repository, provider, uuid.NewString(), policy, func(ctx context.Context, work biz.Work, progress biz.Progress, err error) {
 		observability.ObserveWork(ctx, logger, work, progress, err)
@@ -169,11 +175,12 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 	if err != nil {
 		return nil, err
 	}
-	storageComponents, err := openStorage(ctx, bc)
+	storageComponents, err := openStorage(ctx, bc, instances)
 	if err != nil {
 		return nil, err
 	}
 	storagev1.RegisterStorageServiceServer(grpcServer, storageComponents.service)
+	storageRecovery = storageComponents.worker
 	networkv1.RegisterNetworkServiceServer(grpcServer, service.NewNetworkService(network, attachments))
 	repository.UseEgressInfrastructure(provider)
 	egress, err := biz.NewEgress(repository, provider, biz.ContextEgressAuthorization{}, key, policy.StaleAfter, time.Now)
@@ -211,6 +218,9 @@ func buildApp(bc *conf.Bootstrap, logger *slog.Logger) (*kratos.App, error) {
 	}
 	adminServer := server.NewAdminServer(bc.Server.Admin, readiness, observability.Gatherer(), middlewares...)
 	servers := []transport.Server{grpcServer, adminServer, observation, execution}
+	if storageComponents.worker != nil {
+		servers = append(servers, storageComponents.worker)
+	}
 	imageRuntime, err := openImageRuntime(images, middlewares...)
 	if err != nil {
 		return nil, err

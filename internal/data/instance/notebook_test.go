@@ -20,7 +20,7 @@ import (
 
 func TestCPUNotebookProjectionAndPodBinding(t *testing.T) {
 	const id = "11111111-1111-4111-8111-111111111111"
-	i := biz.Instance{TenantID: id, ID: id, CreateOperationID: id, CreateRequestHash: strings.Repeat("a", 64), BusinessDigest: strings.Repeat("b", 64), Version: 1, Desired: biz.Running, Spec: biz.Spec{ContractVersion: 2, WorkspaceMountPath: "/workspace", InstanceKind: biz.KindContainer, Scheduling: biz.Scheduling{PodPlacement: "NONE"}, ComputeType: biz.TypeCPU, ImageReference: "registry.invalid/work@sha256:" + strings.Repeat("c", 64), ImageDigest: "sha256:" + strings.Repeat("c", 64), CPU: "1", Memory: "2Gi", UID: 1000, GID: 1000, Shell: "/bin/bash", ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", ClusterID: id, Namespace: "tenant-" + id, NotebookName: "instance-" + id, PVCName: "workspace-" + id}}
+	i := biz.Instance{TenantID: id, ID: id, CreateOperationID: id, CreateRequestHash: strings.Repeat("a", 64), BusinessDigest: strings.Repeat("b", 64), Version: 1, Desired: biz.Running, RuntimeDesired: biz.Running, MountsInitialized: true, CurrentMounts: []biz.VolumeMount{}, Spec: biz.Spec{ContractVersion: 2, WorkspaceMountPath: "/workspace", InstanceKind: biz.KindContainer, Scheduling: biz.Scheduling{PodPlacement: "NONE"}, ComputeType: biz.TypeCPU, ImageReference: "registry.invalid/work@sha256:" + strings.Repeat("c", 64), ImageDigest: "sha256:" + strings.Repeat("c", 64), CPU: "1", Memory: "2Gi", UID: 1000, GID: 1000, Shell: "/bin/bash", ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", ClusterID: id, Namespace: "tenant-" + id, NotebookName: "instance-" + id, PVCName: "workspace-" + id}}
 	notebook, err := RenderNotebook(i)
 	if err != nil {
 		t.Fatal(err)
@@ -116,7 +116,7 @@ func TestCPUNotebookProjectionAndPodBinding(t *testing.T) {
 
 func TestNotebookMappingAndConditionalStop(t *testing.T) {
 	const id = "11111111-1111-4111-8111-111111111111"
-	i := biz.Instance{TenantID: id, ID: id, CreateOperationID: id, CreateRequestHash: strings.Repeat("a", 64), BusinessDigest: strings.Repeat("b", 64), Version: 1, Desired: biz.Running, Spec: biz.Spec{ContractVersion: 2, WorkspaceMountPath: "/workspace", InstanceKind: biz.KindContainer, ComputeType: biz.TypeGPU, Scheduling: biz.Scheduling{PodPlacement: "NONE"}, Name: "work", ImageReference: "registry.invalid/work@sha256:" + strings.Repeat("c", 64), ImageDigest: "sha256:" + strings.Repeat("c", 64), CPU: "1", Memory: "2Gi", UID: 1000, GID: 1000, Shell: "/bin/sh", ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", ClusterID: id, Namespace: "tenant-" + id, NotebookName: "instance-" + id, PVCName: "workspace-" + id, GPU: biz.GPU{Scheduler: "volcano", RuntimeClass: "nvidia", Queue: "test-queue", Digest: strings.Repeat("d", 64), NodeLabels: map[string]string{"accelerator.ani.io/supply-group": id}, Annotations: map[string]string{"volcano.sh/vgpu-mode": "hami-core"}, Limits: map[string]string{"volcano.sh/vgpu-number": "1", "volcano.sh/vgpu-memory": "6144", "volcano.sh/vgpu-cores": "25"}}}}
+	i := biz.Instance{TenantID: id, ID: id, CreateOperationID: id, CreateRequestHash: strings.Repeat("a", 64), BusinessDigest: strings.Repeat("b", 64), Version: 1, Desired: biz.Running, RuntimeDesired: biz.Running, MountsInitialized: true, CurrentMounts: []biz.VolumeMount{}, Spec: biz.Spec{ContractVersion: 2, WorkspaceMountPath: "/workspace", InstanceKind: biz.KindContainer, ComputeType: biz.TypeGPU, Scheduling: biz.Scheduling{PodPlacement: "NONE"}, Name: "work", ImageReference: "registry.invalid/work@sha256:" + strings.Repeat("c", 64), ImageDigest: "sha256:" + strings.Repeat("c", 64), CPU: "1", Memory: "2Gi", UID: 1000, GID: 1000, Shell: "/bin/sh", ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", ClusterID: id, Namespace: "tenant-" + id, NotebookName: "instance-" + id, PVCName: "workspace-" + id, GPU: biz.GPU{Scheduler: "volcano", RuntimeClass: "nvidia", Queue: "test-queue", Digest: strings.Repeat("d", 64), NodeLabels: map[string]string{"accelerator.ani.io/supply-group": id}, Annotations: map[string]string{"volcano.sh/vgpu-mode": "hami-core"}, Limits: map[string]string{"volcano.sh/vgpu-number": "1", "volcano.sh/vgpu-memory": "6144", "volcano.sh/vgpu-cores": "25"}}}}
 	obj, e := RenderNotebook(i)
 	if e != nil {
 		t.Fatal(e)
@@ -253,7 +253,7 @@ func TestNotebookMappingAndConditionalStop(t *testing.T) {
 	_ = observations.Resource(notebookGVR).Namespace(i.Spec.Namespace).Delete(context.Background(), i.Spec.NotebookName, metav1.DeleteOptions{})
 	_ = observations.Resource(podGVR).Namespace(i.Spec.Namespace).Delete(context.Background(), pod.GetName(), metav1.DeleteOptions{})
 	obs, e = observer.Observe(context.Background(), i)
-	if e != nil || !obs.PodExists || obs.StatefulSetUID != "set-original" {
+	if e != nil || !obs.StatefulSetExists || obs.StatefulSetUID != "set-original" {
 		t.Fatal("unlabelled controller StatefulSet allowed premature compute cleanup", obs, e)
 	}
 	refs := set.GetOwnerReferences()

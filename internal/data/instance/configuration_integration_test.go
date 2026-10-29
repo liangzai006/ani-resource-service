@@ -8,7 +8,6 @@ import (
 	"github.com/google/uuid"
 	biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance"
 	"testing"
-	"time"
 )
 
 func TestBorrowedVolumeReferencesPersistAndReleaseWithCompute(t *testing.T) {
@@ -40,34 +39,60 @@ func TestBorrowedVolumeReferencesPersistAndReleaseWithCompute(t *testing.T) {
 			t.Fatal("reference state", state, e)
 		}
 	}
-	check("active")
+	check("pending")
 	if _, e = f.runtime.Exec(ctx, "INSERT INTO instance.borrowed_volume_references(tenant_id,instance_id,mount_path,cluster_id,namespace,pvc_name,pvc_uid,read_only) VALUES($1,$2,'/other',$3,$4,'other',$5,false)", uuid.NewString(), c.ID, c.Spec.ClusterID, c.Spec.Namespace, uuid.NewString()); e == nil {
 		t.Fatal("cross-tenant reference accepted")
 	}
 	if _, e = f.repo.Get(ctx, uuid.NewString(), c.ID); !errors.Is(e, biz.ErrNotFound) {
 		t.Fatal("cross-tenant instance visible", e)
 	}
-	work, e := f.repo.Claim(ctx, "config-test", time.Minute)
-	if e != nil || work == nil {
+	// Only the Kubernetes/controller boundary is substituted. The real worker
+	// must prove the CREATE template before PostgreSQL activates its references.
+	boundary := &lifecycleBoundary{}
+	worker, e := biz.NewWorker(f.repo, boundary, "config-test")
+	if e != nil {
 		t.Fatal(e)
 	}
-	progress := biz.Progress{Instance: work.Instance, Next: time.Millisecond}
-	progress.Instance.Desired = biz.Deleted
-	// Before compute release, a delete intent cannot drop the borrowed reference.
-	if e = f.repo.Finish(ctx, *work, progress); e != nil {
-		t.Fatal(e)
+	for n := 0; n < 8; n++ {
+		got = step(t, f, worker, c)
+		if got.Observed == biz.Running && got.AppliedMountVersion == 1 && got.ActiveOperation == nil {
+			break
+		}
+	}
+	if got.Observed != biz.Running || got.AppliedMountVersion != 1 || got.ActiveOperation != nil {
+		t.Fatalf("CREATE template was not proven: state=%s applied=%d reason=%s", got.Observed, got.AppliedMountVersion, got.Reason)
 	}
 	check("active")
-	time.Sleep(3 * time.Millisecond)
-	work, e = f.repo.Claim(ctx, "config-test", time.Minute)
-	if e != nil || work == nil {
-		t.Fatal(e)
+	command(t, f, c, got, "delete")
+	check("active")
+	for n := 0; n < 8; n++ {
+		got = step(t, f, worker, c)
+		observation, err := boundary.Observe(ctx, got)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !observation.NotebookExists {
+			break
+		}
 	}
-	progress = biz.Progress{Instance: work.Instance}
-	progress.Instance.Desired = biz.Deleted
-	progress.Instance.ComputeCleaned = true
-	if e = f.repo.Finish(ctx, *work, progress); e != nil {
-		t.Fatal(e)
+	// The accepted DELETE and external deletion call cannot release references
+	// before the following worker observation commits compute cleanup.
+	if got.ComputeCleaned {
+		t.Fatal("compute cleanup was claimed without the later observation")
+	}
+	check("active")
+	for n := 0; n < 12; n++ {
+		got = step(t, f, worker, c)
+		if got.Observed == biz.Deleted && got.VolumeReferencesReleased && got.WorkspaceCleaned {
+			break
+		}
+	}
+	if got.Observed != biz.Deleted || !got.ComputeCleaned || !got.WorkspaceCleaned || !got.VolumeReferencesReleased {
+		t.Fatal("DELETE did not release through real worker cleanup", got.Reason)
+	}
+	observation, e := boundary.Observe(ctx, got)
+	if e != nil || observation.NotebookExists || observation.PodExists || observation.PVCExists || observation.VolumeExists {
+		t.Fatal("DELETE left external compute or workspace behind", observation, e)
 	}
 	check("released")
 	got, e = f.repo.Get(ctx, c.TenantID, c.ID)

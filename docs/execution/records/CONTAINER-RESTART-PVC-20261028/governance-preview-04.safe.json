@@ -1,0 +1,43 @@
+{
+  "after_sha256": "05febc19250a054c1fde8df10a1a12a526c3f0b711a16ca37cf3cf16dbc338ed",
+  "before_sha256": "05febc19250a054c1fde8df10a1a12a526c3f0b711a16ca37cf3cf16dbc338ed",
+  "catalog_changes": {
+    "add": 4,
+    "review_retained": 14,
+    "update": 0
+  },
+  "dev": "3b3424140e746e7d6f1ec6d0ecedca374870ab51",
+  "evidence_dir": "/home/chabking/workspace/ani-resource-service-runs/container-restart-pvc-20261028/private-live-01/governance-permission-preview-20261028T123600Z-e51665ab242b44aa",
+  "narrow_dry_run_locks": "FOR SHARE plus five SHARE ROW EXCLUSIVE table locks; 10s lock and 30s statement limits; apply=false; no inserts/sequence allocation.",
+  "pg18_image_id": "a6638641707cdf047e5d5c2781f437e2e809323cab22c70b280be8389fbb7878",
+  "pg18_version": "psql (PostgreSQL) 18.6 (Debian 18.6-1.pgdg13+2)",
+  "private_evidence_sha256": {
+    "admin-sync-apis.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "admin-sync-apis.stdout.txt": "b0c6fe1757ca6eb6629ecde77aa6b458cc7227e7768f2dd909ced1cf9d7b0e95",
+    "after.json": "05febc19250a054c1fde8df10a1a12a526c3f0b711a16ca37cf3cf16dbc338ed",
+    "after.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "before.json": "05febc19250a054c1fde8df10a1a12a526c3f0b711a16ca37cf3cf16dbc338ed",
+    "before.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "narrow-sql.stderr.txt": "252eb0319a5006af371096a4ecee60a647032e7a0a92ac3b1b05fa1b30f99e66",
+    "narrow-sql.stdout.txt": "92e6a07b28ecf618df17972b72d686da76c84f798b4a3d1a73df74ab1a101e2b",
+    "psql-version.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "result": "PASS_PREVIEW_ONLY",
+  "rows_before": {
+    "apis": 0,
+    "permission_apis": 0,
+    "permissions": 111,
+    "plan_modules": 12,
+    "role_permissions": 111,
+    "roles": 1
+  },
+  "stages": {
+    "admin_sync_apis_dry_run": 0,
+    "backup_after": 0,
+    "backup_before": 0,
+    "client_identity": 0,
+    "narrow_sql_default_dry_run": 0,
+    "psql_version": 0
+  },
+  "target_rows_unchanged": true
+}

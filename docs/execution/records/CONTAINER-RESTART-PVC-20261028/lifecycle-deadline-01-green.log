@@ -1,0 +1,12 @@
+=== RUN   TestLifecycleDeadlinePersistsRecoveryBeforeMutation
+--- PASS: TestLifecycleDeadlinePersistsRecoveryBeforeMutation (0.00s)
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-stop
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-start
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/recovery-fence
+--- PASS: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites (0.00s)
+    --- PASS: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-stop (0.00s)
+    --- PASS: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-start (0.00s)
+    --- PASS: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/recovery-fence (0.00s)
+PASS
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.007s

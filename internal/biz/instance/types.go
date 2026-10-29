@@ -13,6 +13,15 @@ import (
 )
 
 var (
+	ErrOperationInProgress = errors.New("INSTANCE_OPERATION_IN_PROGRESS")
+	ErrState               = errors.New("INSTANCE_STATE_CONFLICT")
+	ErrRequiresStop        = errors.New("INSTANCE_REQUIRES_STOP")
+	ErrDeleting            = errors.New("INSTANCE_DELETING")
+	ErrMountPathInUse      = errors.New("INSTANCE_MOUNT_PATH_IN_USE")
+	ErrMountNotFound       = errors.New("INSTANCE_MOUNT_NOT_FOUND")
+	ErrWorkspaceDetach     = errors.New("INSTANCE_WORKSPACE_DETACH_FORBIDDEN")
+	ErrPVCDeleting         = errors.New("INSTANCE_PVC_DELETION_IN_PROGRESS")
+	ErrActionUnavailable   = errors.New("INSTANCE_ACTION_UNAVAILABLE")
 	ErrInvalid             = errors.New("INVALID_INSTANCE_REQUEST")
 	ErrDenied              = errors.New("INSTANCE_SCOPE_DENIED")
 	ErrNotFound            = errors.New("INSTANCE_NOT_FOUND")
@@ -100,6 +109,7 @@ func (g GPU) Empty() bool {
 }
 
 type VolumeMount struct {
+	ReferenceGeneration                              int64 `json:"-"`
 	ClusterID, Namespace, PVCName, PVCUID, MountPath string
 	ReadOnly                                         bool
 	Ownership                                        string
@@ -161,20 +171,33 @@ type Delete struct {
 }
 
 type Command struct {
+	CanonicalIntent                                     []byte
+	Mount                                               *VolumeMount
+	MountPath                                           string
+	RestartIfRunning                                    bool
 	TenantID, ID, OperationID, Key, RequestHash, Action string
 	ExpectedVersion                                     int64
 }
 type ACK struct {
+	Replayed                bool `json:"-"`
 	OperationID, ResourceID string
 	Accepted                bool
 }
 type Operation struct {
+	Execution                                                         *Execution
 	TenantID, ID, InstanceID, Action, RequestHash, Key, State, Reason string
 	Version                                                           int64
 	ACK                                                               ACK
 	CreatedAt                                                         time.Time
 }
 type Instance struct {
+	CurrentMounts                                                      []VolumeMount `json:"-"`
+	MountsInitialized                                                  bool          `json:"-"`
+	AppliedMountVersion                                                int64         `json:"-"`
+	RuntimeDesired                                                     string        `json:"-"`
+	RecoveryFence                                                      *Mutation     `json:"-"`
+	ActiveOperation                                                    *Operation    `json:"-"`
+	TrackedPods                                                        []PodRef
 	Network                                                            *NetworkRuntime
 	TenantID, ID, CreateOperationID, CreateRequestHash, BusinessDigest string
 	Spec                                                               Spec
@@ -199,16 +222,28 @@ type Instance struct {
 	CreatedAt, UpdatedAt time.Time
 }
 type Mutation struct {
+	ID, Phase                                     string
+	PhaseSequence                                 int64
+	StoppedTarget                                 *bool
+	TargetMountDigest, FencedMutationID           string
+	ProviderMarkerExpected                        bool
 	Kind, OperationID, TargetUID, ResourceVersion string
 	Version                                       int64
 }
 type Work struct {
+	Operation  *Operation
 	Instance   Instance
 	Owner      string
 	Epoch      int64
 	LeaseUntil time.Time
 }
 type Observation struct {
+	Pods                                                    []PodRef
+	SafeStopped, StatefulSetExists                          bool
+	NotebookGeneration                                      int64
+	StatefulSetGeneration, StatefulSetObservedGeneration    int64
+	StatefulSetReplicas                                     int32
+	MutationID                                              string
 	NotebookExists, PVCExists, PodExists, PodReady, Stopped bool
 	NotebookUID, NotebookRV, PVCUID, PodUID, PodName        string
 	StatefulSetUID                                          string
@@ -225,7 +260,7 @@ type PodRef struct {
 // this fact and the stable Gov notification in the same transaction.
 func OwnerCleanupReady(i Instance) bool {
 	return (i.Spec.ComputeType == TypeCPU || i.Spec.ComputeType == TypeGPU) &&
-		i.Desired == Deleted && i.Pending == nil && i.ComputeCleaned &&
+		i.Desired == Deleted && i.Pending == nil && i.RecoveryFence == nil && i.ComputeCleaned &&
 		i.WorkspaceCleaned && i.VolumeReferencesReleased &&
 		(i.Network == nil || i.Network.Cleaned)
 }
@@ -252,9 +287,11 @@ type MutationReceipt struct {
 	Outcome  string
 }
 type Progress struct {
-	Instance Instance
-	Next     time.Duration
-	Receipt  *MutationReceipt
+	Operation    *Operation
+	FenceReceipt *MutationReceipt
+	Instance     Instance
+	Next         time.Duration
+	Receipt      *MutationReceipt
 	// CleanupComplete records this turn's successful owner cleanup decision.
 	// Stored cleanup flags alone are insufficient after a failed observation.
 	CleanupComplete bool

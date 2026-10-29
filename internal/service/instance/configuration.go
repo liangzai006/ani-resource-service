@@ -47,7 +47,12 @@ func (s *Service) GetInstanceConfiguration(ctx context.Context, r *pb.GetInstanc
 		return nil, rpcError(e)
 	}
 	out := &pb.InstanceConfiguration{InstanceId: i.ID, InstanceContractVersion: i.Spec.ContractVersion, WorkspaceMountPath: i.Spec.WorkspaceMountPath, Labels: i.Spec.Labels, Annotations: i.Spec.Annotations}
-	for _, m := range i.Spec.VolumeMounts {
+	out.Version = i.Version
+	out.AppliedMountVersion = i.AppliedMountVersion
+	if o := i.ActiveOperation; o != nil && o.Execution != nil && (o.Action == "attach-pvc" || o.Action == "detach-pvc") {
+		out.PendingChange = &pb.PendingMountChange{OperationId: o.ID, IntentVersion: o.Version, Phase: o.Execution.Phase, TargetConfiguration: wireMountTarget(o.Execution.TargetConfiguration)}
+	}
+	for _, m := range i.CurrentMounts {
 		out.VolumeMounts = append(out.VolumeMounts, &pb.VolumeMount{PvcName: m.PVCName, MountPath: m.MountPath, ReadOnly: m.ReadOnly})
 	}
 	for _, v := range i.Spec.Env {

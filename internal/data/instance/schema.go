@@ -11,7 +11,7 @@ import (
 
 // Instance retains every historical checksum, including its original catalog DDL.
 // It does not require the catalog relation to remain in the instance schema.
-var instanceSchemaFiles = []string{"002_compute_presets.sql", "003_whole_gpu_quantity.sql", "004_gpu_execution.sql", "005_instance_configuration.sql", "006_instance_network_submissions.sql", "007_owner_cleanup_release.sql"}
+var instanceSchemaFiles = []string{"002_compute_presets.sql", "003_whole_gpu_quantity.sql", "004_gpu_execution.sql", "005_instance_configuration.sql", "006_instance_network_submissions.sql", "007_owner_cleanup_release.sql", "008_restart_pvc.sql"}
 
 func (p *Postgres) checkInstanceSchema(ctx context.Context) error {
 	for i, name := range instanceSchemaFiles {

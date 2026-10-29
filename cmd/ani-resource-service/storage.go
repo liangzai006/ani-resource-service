@@ -3,6 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/google/uuid"
+	"github.com/zhangzhe-ctrl/ani-resource-service/internal/server"
+	"log/slog"
 	"time"
 
 	bizstorage "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/storage"
@@ -17,11 +20,12 @@ const storageDownloadTTL = 10 * time.Minute
 
 type storageComponents struct {
 	service *servicestorage.Service
+	worker  *server.StorageDeleteWorker
 }
 
 // openStorage 装配 Storage 用例。Kubernetes 客户端复用现有 kubeconfig 配置；
 // 对象存储未配置 endpoint 时只关闭对象浏览，不影响 PVC 管理。
-func openStorage(_ context.Context, bc *conf.Bootstrap) (*storageComponents, error) {
+func openStorage(_ context.Context, bc *conf.Bootstrap, instances *instanceComponents) (*storageComponents, error) {
 	kube, err := clientcmd.BuildConfigFromFlags("", bc.GetNetwork().GetKubeconfig())
 	if err != nil {
 		return nil, fmt.Errorf("storage Kubernetes configuration invalid")
@@ -53,10 +57,18 @@ func openStorage(_ context.Context, bc *conf.Bootstrap) (*storageComponents, err
 			objects = s3
 		}
 	}
+	var guard bizstorage.BorrowedPVCGuard
+	var observeDeleteWrite func(string)
+	if instances != nil {
+		guard = instances.repo
+		observeDeleteWrite = instances.repo.ObservePVCDeleteWrite
+	}
 	useCase, err := bizstorage.NewUseCase(volumes, objects, bizstorage.Config{
-		NamespacePrefix: bc.GetNetwork().GetNamespacePrefix(),
-		Buckets:         bc.GetObjectStorage().Buckets(),
-		DownloadTTL:     storageDownloadTTL,
+		ClusterID: bc.GetNetwork().GetClusterId(), DeleteExecutor: uuid.NewString(), BorrowedPVCGuard: guard,
+		ObserveDeleteWrite: observeDeleteWrite,
+		NamespacePrefix:    bc.GetNetwork().GetNamespacePrefix(),
+		Buckets:            bc.GetObjectStorage().Buckets(),
+		DownloadTTL:        storageDownloadTTL,
 	})
 	if err != nil {
 		return nil, err
@@ -65,5 +77,9 @@ func openStorage(_ context.Context, bc *conf.Bootstrap) (*storageComponents, err
 	if err != nil {
 		return nil, err
 	}
-	return &storageComponents{service: handler}, nil
+	out := &storageComponents{service: handler}
+	if instances != nil {
+		out.worker = server.NewStorageDeleteWorker(useCase, instances.repo.CheckReady, slog.Default())
+	}
+	return out, nil
 }

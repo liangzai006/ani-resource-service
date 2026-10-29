@@ -1,0 +1,62 @@
+resource-build-7b97863157f9.tar.gz: 成功
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile:
+#1 transferring dockerfile: 540B done
+#1 DONE 0.4s
+
+#2 [internal] load metadata for localhost/ani-restart-base:5a211f66a6ef
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [1/2] FROM localhost/ani-restart-base:5a211f66a6ef@sha256:5fdac3ec2ad59f6f1e2e7601a32713f8f1eb5513e8988c25f437f8b68d8b5068
+#4 resolve localhost/ani-restart-base:5a211f66a6ef@sha256:5fdac3ec2ad59f6f1e2e7601a32713f8f1eb5513e8988c25f437f8b68d8b5068
+#4 resolve localhost/ani-restart-base:5a211f66a6ef@sha256:5fdac3ec2ad59f6f1e2e7601a32713f8f1eb5513e8988c25f437f8b68d8b5068 0.1s done
+#4 DONE 0.2s
+
+#5 [internal] load build context
+#5 transferring context: 88.44MB 0.9s done
+#5 DONE 1.3s
+
+#4 [1/2] FROM localhost/ani-restart-base:5a211f66a6ef@sha256:5fdac3ec2ad59f6f1e2e7601a32713f8f1eb5513e8988c25f437f8b68d8b5068
+#4 CACHED
+
+#6 [2/2] COPY --chmod=0755 ani-resource-service /ani-resource-service
+#6 DONE 6.9s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 7.8s done
+#7 exporting manifest sha256:f1867972bba3251d7202af3564ce4f7dad3e63d5a4d92e365cb06c2d1917ea7b 0.0s done
+#7 exporting config sha256:b7a2a46f31e8e4f48939dcf46b739171c92f11ca1ecb446c04a22929e39f64c7 0.0s done
+#7 exporting attestation manifest sha256:6010939d37a1e539f758e2d92b3d357ed34ea95c8d7c442156265b9711eff2f3 0.0s done
+#7 exporting manifest list sha256:ad68ce398a0f84f2165f89d4f61a4af5ffaac16661640ef8810c90cbf408fc2c 0.0s done
+#7 naming to localhost/ani-resource-service:restart-pvc-7b97863157f9 done
+#7 unpacking to localhost/ani-resource-service:restart-pvc-7b97863157f9
+#7 unpacking to localhost/ani-resource-service:restart-pvc-7b97863157f9 1.7s done
+#7 DONE 9.6s
+Getting image source signatures
+Copying blob sha256:7223ea1323e8c1159ec17f07d35acc27bdd1cc2bc3ed425b44ef21dac9915db0
+Copying blob sha256:8fa10c0194df9b7c054c90dbe482585f768a54428fc90a5b78a0066a123b1bba
+Copying blob sha256:35b5ba6e08cdd034b8d1920f9c7203e5d66f258e1915f164a01de0af14f34710
+Copying blob sha256:114dde0fefebbca13165d0da9c500a66190e497a82a53dcaabc3172d630be1e9
+Copying blob sha256:4d049f83d9cf21d1f5cc0e11deaf36df02790d0e60c1a3829538fb4b61685368
+Copying blob sha256:af5aa97ebe6ce1604747ec1e21af7136ded391bcabe4acef882e718a87c86bcc
+Copying blob sha256:6f1cdceb6a3146f0ccb986521156bef8a422cdbb0863396f7f751f575ba308f4
+Copying blob sha256:bd3cdfae1d3fdd83a2231d608969b38b82349777c2fff9a7c12d54f8ac5c9b38
+Copying blob sha256:4cde6b0bb6f50a5f255eef7b2a42162c661cf776b803225dcac9a659e396bb6b
+Copying blob sha256:ad51d0769d16ba578106a177987dfe3d2e02c1668c852b795b2f6b024068242a
+Copying blob sha256:6e7fbcf090d09b73a4aa85f9dce690d0ace73877c150b7c56955487b6e7a822a
+Copying blob sha256:5904c32f457c96a16c8c68f5ccdf518c8138cd9e5971de9ce6d564fc481af222
+Copying blob sha256:711366c2b0b5eec8a4123869e55e8769fce9e7524b1456d7f411e4000d1a126f
+Copying blob sha256:59ad06d0b953ba81df9c67a4647bbf1dd232a805af6b291b5c64cdfd88df6f13
+Copying blob sha256:ed53ec560e0d4ba84a86abdb26de5098c5f0c0e8783ff6d092bb6daf035bf08d
+Copying blob sha256:d235ad6b3ead075d18eb8ae7aa4fcd840db9c76d4f7ee3c1b7cea38f085781f2
+Copying config sha256:b7a2a46f31e8e4f48939dcf46b739171c92f11ca1ecb446c04a22929e39f64c7
+Writing manifest to image destination
+sha256:f8130f44e5f6d7a0cde7f1c3e79b6bd5656ca06b4344eb246998d51df818a3f9
+{"ani.io.goal.thread":"01a18156-1172-7c22-b5fd-3048a5d895a0","ani.io.release.parents":"1498c0b20005c39e0724290e2898cfa8d5f7ad59","org.opencontainers.image.base.digest":"sha256:5a211f66a6eff0f7fb0df0e0bacec13bee0764f8f9d2759c19ba9e97c2cb53e7","org.opencontainers.image.revision":"7b97863157f99b23913418e6281ddac2db4a3547","org.opencontainers.image.source":"https://github.com/zhangzhe-ctrl/ani-resource-service"}

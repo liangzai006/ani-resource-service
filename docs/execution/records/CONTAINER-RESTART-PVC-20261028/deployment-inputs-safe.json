@@ -1,0 +1,1331 @@
+{
+  "workloads": [
+    {
+      "kind": "Deployment",
+      "name": "ani-governance",
+      "uid": "4ae87828-5f2c-4b27-a8b8-d348aeb86ee5",
+      "rv": "9417977",
+      "replicas": 1,
+      "containers": [
+        {
+          "name": "governance",
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:31b7b4a50ec45ec17f9dadfaf779bfe7865848259b8ea57885cede5005e4bc80",
+          "command": [
+            "/app/bin/server"
+          ],
+          "argsCount": 2,
+          "env": [
+            {
+              "name": "ANI_OBSERVABILITY_GRPC_ADDR"
+            },
+            {
+              "name": "ANI_OBSERVABILITY_CA_FILE",
+              "value": "/tmp/observability-mtls/ca.crt"
+            },
+            {
+              "name": "ANI_OBSERVABILITY_CLIENT_CERT_FILE",
+              "value": "/tmp/observability-mtls/tls.crt"
+            },
+            {
+              "name": "ANI_OBSERVABILITY_CLIENT_KEY_FILE",
+              "value": "/tmp/observability-mtls/tls.key"
+            },
+            {
+              "name": "ANI_ACCESS_KEY_ENCRYPTION_KEY_FILE",
+              "value": "/app/runtime/identity/access-key-encryption-key"
+            },
+            {
+              "name": "ANI_ACCELERATOR_ADDR"
+            },
+            {
+              "name": "ANI_ACCELERATOR_SERVER_NAME"
+            },
+            {
+              "name": "ANI_ACCELERATOR_CA"
+            },
+            {
+              "name": "ANI_ACCELERATOR_CERT"
+            },
+            {
+              "name": "ANI_ACCELERATOR_KEY"
+            },
+            {
+              "name": "ANI_QUOTA_ENABLED",
+              "value": "true"
+            },
+            {
+              "name": "GWA_AUTH_CONSOLE_ORIGINS"
+            },
+            {
+              "name": "GWA_AUTH_BOSS_ORIGINS"
+            },
+            {
+              "name": "GWA_AUTH_REFRESH_COOKIE_INSECURE"
+            },
+            {
+              "name": "ZONEINFO"
+            },
+            {
+              "name": "ANI_INSTANCE_ADDR"
+            },
+            {
+              "name": "ANI_INSTANCE_CA"
+            },
+            {
+              "name": "ANI_INSTANCE_CERT"
+            },
+            {
+              "name": "ANI_INSTANCE_KEY"
+            },
+            {
+              "name": "ANI_INSTANCE_CLUSTER_ID"
+            },
+            {
+              "name": "ANI_INSTANCE_CONFIG_V2_WRITES"
+            },
+            {
+              "name": "ANI_QUOTA_INTERNAL_ADDR"
+            },
+            {
+              "name": "ANI_QUOTA_CA_FILE",
+              "value": "/app/runtime/modeldev-trust/governance-quota-client-ca-bundle.pem"
+            },
+            {
+              "name": "ANI_QUOTA_CERT_FILE",
+              "value": "/app/runtime/identity/gov-server.crt"
+            },
+            {
+              "name": "ANI_QUOTA_KEY_FILE",
+              "value": "/app/runtime/identity/gov-server.key"
+            },
+            {
+              "name": "ANI_QUOTA_RESOURCE_DNS_SAN"
+            },
+            {
+              "name": "ANI_IMAGE_ADDR"
+            },
+            {
+              "name": "ANI_IMAGE_CA"
+            },
+            {
+              "name": "ANI_IMAGE_CERT"
+            },
+            {
+              "name": "ANI_IMAGE_KEY"
+            },
+            {
+              "name": "ANI_MODELDEV_ADDR"
+            },
+            {
+              "name": "ANI_MODELDEV_CA"
+            },
+            {
+              "name": "ANI_MODELDEV_CERT"
+            },
+            {
+              "name": "ANI_MODELDEV_KEY"
+            },
+            {
+              "name": "ANI_MODELDEV_TIMEOUT"
+            },
+            {
+              "name": "ANI_QUOTA_MODELDEV_ENABLED",
+              "value": "true"
+            },
+            {
+              "name": "ANI_MODEL_ADDR"
+            },
+            {
+              "name": "ANI_MODEL_CA"
+            },
+            {
+              "name": "ANI_MODEL_CERT"
+            },
+            {
+              "name": "ANI_MODEL_KEY"
+            },
+            {
+              "name": "ANI_MODEL_SERVER_NAME"
+            },
+            {
+              "name": "ANI_MODEL_TIMEOUT"
+            },
+            {
+              "name": "ANI_NETWORK_ADDR"
+            },
+            {
+              "name": "ANI_NETWORK_CA"
+            },
+            {
+              "name": "ANI_NETWORK_CERT"
+            },
+            {
+              "name": "ANI_NETWORK_KEY"
+            },
+            {
+              "name": "ANI_VM_V1_WRITES"
+            },
+            {
+              "name": "ANI_INSTANCE_SG_ADDR"
+            },
+            {
+              "name": "ANI_INSTANCE_SG_SERVER_NAME"
+            },
+            {
+              "name": "ANI_INSTANCE_SG_CA_FILE",
+              "value": "/tmp/vm-sg-mtls/ca.crt"
+            },
+            {
+              "name": "ANI_INSTANCE_SG_CERT_FILE",
+              "value": "/tmp/vm-sg-mtls/tls.crt"
+            },
+            {
+              "name": "ANI_INSTANCE_SG_KEY_FILE",
+              "value": "/tmp/vm-sg-mtls/tls.key"
+            },
+            {
+              "name": "ANI_INFERENCE_ADDR"
+            },
+            {
+              "name": "ANI_INFERENCE_CA_FILE",
+              "value": "/app/runtime/modeldev-trust/modeldev-server-ca.pem"
+            },
+            {
+              "name": "ANI_INFERENCE_CERT_FILE",
+              "value": "/app/runtime/identity/gov-client.crt"
+            },
+            {
+              "name": "ANI_INFERENCE_KEY_FILE",
+              "value": "/app/runtime/identity/gov-client.key"
+            },
+            {
+              "name": "ANI_INFERENCE_SERVER_NAME"
+            },
+            {
+              "name": "ANI_INFERENCE_INVOCATION_ENDPOINT"
+            },
+            {
+              "name": "ANI_INFERENCE_RUNTIME_NAMESPACE"
+            },
+            {
+              "name": "ANI_INFERENCE_PROMETHEUS_URL"
+            },
+            {
+              "name": "ANI_QUOTA_INFERENCE_ENABLED",
+              "value": "true"
+            }
+          ],
+          "envFrom": [
+            {
+              "secretRef": {
+                "name": "ani-governance-environment"
+              }
+            }
+          ],
+          "volumeMounts": [
+            {
+              "mountPath": "/tmp/observability-mtls",
+              "name": "observability-mtls",
+              "readOnly": true
+            },
+            {
+              "mountPath": "/app/runtime",
+              "name": "runtime",
+              "readOnly": true
+            },
+            {
+              "mountPath": "/tmp",
+              "name": "tmp"
+            },
+            {
+              "mountPath": "/app/zoneinfo",
+              "name": "zoneinfo",
+              "readOnly": true
+            },
+            {
+              "mountPath": "/app/runtime/modeldev-trust",
+              "name": "modeldev-public-trust",
+              "readOnly": true
+            },
+            {
+              "mountPath": "/tmp/vm-sg-mtls",
+              "name": "vm-sg-mtls",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "volumes": [
+        {
+          "name": "observability-mtls",
+          "secret": {
+            "defaultMode": 288,
+            "secretName": "ani-observability-governance-client-tls"
+          }
+        },
+        {
+          "name": "runtime-input",
+          "projected": {
+            "defaultMode": 288,
+            "sources": [
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "runtime.yaml",
+                      "path": "runtime.yaml"
+                    },
+                    {
+                      "key": "access-key-encryption-key",
+                      "path": "access-key-encryption-key"
+                    }
+                  ],
+                  "name": "ani-governance-runtime"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "ca.crt"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              },
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "gov-client.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "gov-client.key"
+                    }
+                  ],
+                  "name": "ani-governance-client-tls"
+                }
+              },
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "gov-server.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "gov-server.key"
+                    }
+                  ],
+                  "name": "ani-governance-server-tls"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "emptyDir": {},
+          "name": "runtime"
+        },
+        {
+          "emptyDir": {},
+          "name": "tmp"
+        },
+        {
+          "configMap": {
+            "defaultMode": 292,
+            "items": [
+              {
+                "key": "Asia-Shanghai",
+                "path": "Asia/Shanghai"
+              }
+            ],
+            "name": "ani-governance-zoneinfo"
+          },
+          "name": "zoneinfo"
+        },
+        {
+          "name": "modeldev-public-trust",
+          "projected": {
+            "defaultMode": 292,
+            "sources": [
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "accelerator-client-ca-bundle.pem"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "governance-quota-client-ca-bundle.pem"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "modeldev-server-ca.pem"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "vm-sg-mtls",
+          "projected": {
+            "defaultMode": 288,
+            "sources": [
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "tls.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "tls.key"
+                    }
+                  ],
+                  "name": "ani-governance-session-client-tls"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "ca.crt"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "ani-governance-sandbox-20261027",
+      "uid": "d3db8e14-df99-4fd3-80f4-d10c3ad00915",
+      "rv": "5074638",
+      "replicas": 1,
+      "containers": [
+        {
+          "name": "governance",
+          "image": "docker.changqingyun.cn/ani/governance@sha256:96f13f7da5cb3c0bfe463263ec078451932bd428e9ab109d18e3980b5478eada",
+          "command": [
+            "/app/bin/server"
+          ],
+          "argsCount": 2,
+          "env": [
+            {
+              "name": "ANI_OBSERVABILITY_GRPC_ADDR"
+            },
+            {
+              "name": "ANI_OBSERVABILITY_CA_FILE",
+              "value": "/tmp/observability-mtls/ca.crt"
+            },
+            {
+              "name": "ANI_OBSERVABILITY_CLIENT_CERT_FILE",
+              "value": "/tmp/observability-mtls/tls.crt"
+            },
+            {
+              "name": "ANI_OBSERVABILITY_CLIENT_KEY_FILE",
+              "value": "/tmp/observability-mtls/tls.key"
+            },
+            {
+              "name": "ANI_ACCESS_KEY_ENCRYPTION_KEY_FILE",
+              "value": "/app/runtime/identity/access-key-encryption-key"
+            },
+            {
+              "name": "ANI_ACCELERATOR_ADDR"
+            },
+            {
+              "name": "ANI_ACCELERATOR_SERVER_NAME"
+            },
+            {
+              "name": "ANI_ACCELERATOR_CA"
+            },
+            {
+              "name": "ANI_ACCELERATOR_CERT"
+            },
+            {
+              "name": "ANI_ACCELERATOR_KEY"
+            },
+            {
+              "name": "ANI_QUOTA_ENABLED",
+              "value": "true"
+            },
+            {
+              "name": "GWA_AUTH_CONSOLE_ORIGINS"
+            },
+            {
+              "name": "GWA_AUTH_BOSS_ORIGINS"
+            },
+            {
+              "name": "GWA_AUTH_REFRESH_COOKIE_INSECURE"
+            },
+            {
+              "name": "ZONEINFO"
+            },
+            {
+              "name": "ANI_INSTANCE_ADDR"
+            },
+            {
+              "name": "ANI_INSTANCE_CA"
+            },
+            {
+              "name": "ANI_INSTANCE_CERT"
+            },
+            {
+              "name": "ANI_INSTANCE_KEY"
+            },
+            {
+              "name": "ANI_INSTANCE_CLUSTER_ID"
+            },
+            {
+              "name": "ANI_INSTANCE_CONFIG_V2_WRITES"
+            },
+            {
+              "name": "ANI_QUOTA_INTERNAL_ADDR"
+            },
+            {
+              "name": "ANI_QUOTA_CA_FILE",
+              "value": "/app/runtime/modeldev-trust/governance-quota-client-ca-bundle.pem"
+            },
+            {
+              "name": "ANI_QUOTA_CERT_FILE",
+              "value": "/app/runtime/identity/gov-server.crt"
+            },
+            {
+              "name": "ANI_QUOTA_KEY_FILE",
+              "value": "/app/runtime/identity/gov-server.key"
+            },
+            {
+              "name": "ANI_QUOTA_RESOURCE_DNS_SAN"
+            },
+            {
+              "name": "ANI_IMAGE_ADDR"
+            },
+            {
+              "name": "ANI_IMAGE_CA"
+            },
+            {
+              "name": "ANI_IMAGE_CERT"
+            },
+            {
+              "name": "ANI_IMAGE_KEY"
+            },
+            {
+              "name": "ANI_MODELDEV_ADDR"
+            },
+            {
+              "name": "ANI_MODELDEV_CA"
+            },
+            {
+              "name": "ANI_MODELDEV_CERT"
+            },
+            {
+              "name": "ANI_MODELDEV_KEY"
+            },
+            {
+              "name": "ANI_MODELDEV_TIMEOUT"
+            },
+            {
+              "name": "ANI_QUOTA_MODELDEV_ENABLED",
+              "value": "true"
+            },
+            {
+              "name": "ANI_MODEL_ADDR"
+            },
+            {
+              "name": "ANI_MODEL_CA"
+            },
+            {
+              "name": "ANI_MODEL_CERT"
+            },
+            {
+              "name": "ANI_MODEL_KEY"
+            },
+            {
+              "name": "ANI_MODEL_SERVER_NAME"
+            },
+            {
+              "name": "ANI_MODEL_TIMEOUT"
+            },
+            {
+              "name": "ANI_NETWORK_ADDR"
+            },
+            {
+              "name": "ANI_NETWORK_CA"
+            },
+            {
+              "name": "ANI_NETWORK_CERT"
+            },
+            {
+              "name": "ANI_NETWORK_KEY"
+            },
+            {
+              "name": "ANI_VM_V1_WRITES"
+            },
+            {
+              "name": "ANI_INSTANCE_SG_ADDR"
+            },
+            {
+              "name": "ANI_INSTANCE_SG_SERVER_NAME"
+            },
+            {
+              "name": "ANI_INSTANCE_SG_CA_FILE",
+              "value": "/tmp/vm-sg-mtls/ca.crt"
+            },
+            {
+              "name": "ANI_INSTANCE_SG_CERT_FILE",
+              "value": "/tmp/vm-sg-mtls/tls.crt"
+            },
+            {
+              "name": "ANI_INSTANCE_SG_KEY_FILE",
+              "value": "/tmp/vm-sg-mtls/tls.key"
+            },
+            {
+              "name": "ANI_INFERENCE_ADDR"
+            },
+            {
+              "name": "ANI_INFERENCE_CA_FILE",
+              "value": "/app/runtime/modeldev-trust/modeldev-server-ca.pem"
+            },
+            {
+              "name": "ANI_INFERENCE_CERT_FILE",
+              "value": "/app/runtime/identity/gov-client.crt"
+            },
+            {
+              "name": "ANI_INFERENCE_KEY_FILE",
+              "value": "/app/runtime/identity/gov-client.key"
+            },
+            {
+              "name": "ANI_INFERENCE_SERVER_NAME"
+            },
+            {
+              "name": "ANI_INFERENCE_INVOCATION_ENDPOINT"
+            },
+            {
+              "name": "ANI_INFERENCE_RUNTIME_NAMESPACE"
+            },
+            {
+              "name": "ANI_INFERENCE_PROMETHEUS_URL"
+            }
+          ],
+          "envFrom": [
+            {
+              "secretRef": {
+                "name": "ani-governance-environment"
+              }
+            }
+          ],
+          "volumeMounts": [
+            {
+              "mountPath": "/tmp/observability-mtls",
+              "name": "observability-mtls",
+              "readOnly": true
+            },
+            {
+              "mountPath": "/app/runtime",
+              "name": "runtime",
+              "readOnly": true
+            },
+            {
+              "mountPath": "/tmp",
+              "name": "tmp"
+            },
+            {
+              "mountPath": "/app/zoneinfo",
+              "name": "zoneinfo",
+              "readOnly": true
+            },
+            {
+              "mountPath": "/app/runtime/modeldev-trust",
+              "name": "modeldev-public-trust",
+              "readOnly": true
+            },
+            {
+              "mountPath": "/tmp/vm-sg-mtls",
+              "name": "vm-sg-mtls",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "volumes": [
+        {
+          "name": "observability-mtls",
+          "secret": {
+            "defaultMode": 288,
+            "secretName": "ani-observability-governance-client-tls"
+          }
+        },
+        {
+          "name": "runtime-input",
+          "projected": {
+            "defaultMode": 288,
+            "sources": [
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "runtime.yaml",
+                      "path": "runtime.yaml"
+                    },
+                    {
+                      "key": "access-key-encryption-key",
+                      "path": "access-key-encryption-key"
+                    }
+                  ],
+                  "name": "ani-governance-runtime"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "ca.crt"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              },
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "gov-client.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "gov-client.key"
+                    }
+                  ],
+                  "name": "ani-governance-client-tls"
+                }
+              },
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "gov-server.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "gov-server.key"
+                    }
+                  ],
+                  "name": "ani-governance-server-tls"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "emptyDir": {},
+          "name": "runtime"
+        },
+        {
+          "emptyDir": {},
+          "name": "tmp"
+        },
+        {
+          "configMap": {
+            "defaultMode": 292,
+            "items": [
+              {
+                "key": "Asia-Shanghai",
+                "path": "Asia/Shanghai"
+              }
+            ],
+            "name": "ani-governance-zoneinfo"
+          },
+          "name": "zoneinfo"
+        },
+        {
+          "name": "modeldev-public-trust",
+          "projected": {
+            "defaultMode": 292,
+            "sources": [
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "accelerator-client-ca-bundle.pem"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "governance-quota-client-ca-bundle.pem"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "modeldev-server-ca.pem"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "vm-sg-mtls",
+          "projected": {
+            "defaultMode": 288,
+            "sources": [
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "tls.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "tls.key"
+                    }
+                  ],
+                  "name": "ani-governance-session-client-tls"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "ca.crt"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "ani-resource-sandbox-20261027",
+      "uid": "81ec6bc5-c5b5-4535-af42-bb8d96b70864",
+      "rv": "5485872",
+      "replicas": 0,
+      "containers": [
+        {
+          "name": "resource",
+          "image": "docker.changqingyun.cn/ani/resource-service@sha256:2f831c6c04f95b44c2da11b182fc4c1176807d57d2317924e443b7dfa2833e43",
+          "command": [
+            "/ani-resource-service",
+            "-conf",
+            "/private/config.yaml"
+          ],
+          "argsCount": 0,
+          "env": [
+            {
+              "name": "ANI_VM_CONFIG_FILE",
+              "value": "/private/vm.json"
+            },
+            {
+              "name": "ANI_NETWORK_MODE"
+            },
+            {
+              "name": "ANI_NETWORK_CLIENT_CA"
+            },
+            {
+              "name": "ANI_NETWORK_TLS_CERT"
+            },
+            {
+              "name": "ANI_NETWORK_TLS_KEY"
+            },
+            {
+              "name": "ANI_INSTANCE_CONFIG_FILE",
+              "value": "/private/instance.json"
+            },
+            {
+              "name": "ANI_COMPUTE_CONFIG_FILE",
+              "value": "/private/compute.json"
+            },
+            {
+              "name": "ANI_IMAGE_RUNTIME_ADDR"
+            },
+            {
+              "name": "ANI_IMAGE_RUNTIME_CA"
+            },
+            {
+              "name": "ANI_IMAGE_RUNTIME_CERT"
+            },
+            {
+              "name": "ANI_IMAGE_RUNTIME_KEY"
+            },
+            {
+              "name": "ANI_SANDBOX_CONFIG_FILE",
+              "value": "/private/sandbox.json"
+            }
+          ],
+          "envFrom": [],
+          "volumeMounts": [
+            {
+              "mountPath": "/private",
+              "name": "private",
+              "readOnly": true
+            },
+            {
+              "mountPath": "/image-runtime-tls",
+              "name": "image-runtime-tls",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "volumes": [
+        {
+          "name": "input",
+          "projected": {
+            "defaultMode": 288,
+            "sources": [
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "compute.json",
+                      "path": "compute.json"
+                    },
+                    {
+                      "key": "config.yaml",
+                      "path": "config.yaml"
+                    },
+                    {
+                      "key": "harbor-ca.crt",
+                      "path": "harbor-ca.crt"
+                    },
+                    {
+                      "key": "harbor.password",
+                      "path": "harbor.password"
+                    },
+                    {
+                      "key": "image-cursor.key",
+                      "path": "image-cursor.key"
+                    },
+                    {
+                      "key": "image-keyring.json",
+                      "path": "image-keyring.json"
+                    },
+                    {
+                      "key": "image-runtime.dsn",
+                      "path": "image-runtime.dsn"
+                    },
+                    {
+                      "key": "instance.json",
+                      "path": "instance.json"
+                    },
+                    {
+                      "key": "owner.key",
+                      "path": "owner.key"
+                    },
+                    {
+                      "key": "runtime.dsn",
+                      "path": "runtime.dsn"
+                    }
+                  ],
+                  "name": "ani-resource-private"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "ca.crt"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              },
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "client.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "client.key"
+                    }
+                  ],
+                  "name": "ani-resource-client-tls"
+                }
+              },
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "server.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "server.key"
+                    }
+                  ],
+                  "name": "ani-resource-server-tls"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "emptyDir": {
+            "medium": "Memory",
+            "sizeLimit": "4Mi"
+          },
+          "name": "private"
+        },
+        {
+          "name": "vm-input",
+          "secret": {
+            "defaultMode": 288,
+            "secretName": "ani-vm-resource-runtime-20261025"
+          }
+        },
+        {
+          "name": "vm-client-ca-input",
+          "projected": {
+            "defaultMode": 288,
+            "sources": [
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "client-ca.crt"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "image-runtime-tls",
+          "projected": {
+            "defaultMode": 288,
+            "sources": [
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "tls.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "tls.key"
+                    }
+                  ],
+                  "name": "ani-resource-server-tls"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "ca.crt"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "sandbox-input",
+          "secret": {
+            "defaultMode": 288,
+            "secretName": "resource-sandbox-settings-20261027"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "Deployment",
+      "name": "ani-resource-service",
+      "uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+      "rv": "6228965",
+      "replicas": 1,
+      "containers": [
+        {
+          "name": "resource",
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:5a211f66a6eff0f7fb0df0e0bacec13bee0764f8f9d2759c19ba9e97c2cb53e7",
+          "command": [
+            "/ani-resource-service",
+            "-conf",
+            "/private/config.yaml"
+          ],
+          "argsCount": 0,
+          "env": [
+            {
+              "name": "ANI_VM_CONFIG_FILE",
+              "value": "/private/vm.json"
+            },
+            {
+              "name": "ANI_NETWORK_MODE"
+            },
+            {
+              "name": "ANI_NETWORK_CLIENT_CA"
+            },
+            {
+              "name": "ANI_NETWORK_TLS_CERT"
+            },
+            {
+              "name": "ANI_NETWORK_TLS_KEY"
+            },
+            {
+              "name": "ANI_INSTANCE_CONFIG_FILE",
+              "value": "/private/instance.json"
+            },
+            {
+              "name": "ANI_COMPUTE_CONFIG_FILE",
+              "value": "/private/compute.json"
+            },
+            {
+              "name": "ANI_IMAGE_RUNTIME_ADDR"
+            },
+            {
+              "name": "ANI_IMAGE_RUNTIME_CA"
+            },
+            {
+              "name": "ANI_IMAGE_RUNTIME_CERT"
+            },
+            {
+              "name": "ANI_IMAGE_RUNTIME_KEY"
+            }
+          ],
+          "envFrom": [],
+          "volumeMounts": [
+            {
+              "mountPath": "/private",
+              "name": "private",
+              "readOnly": true
+            },
+            {
+              "mountPath": "/image-runtime-tls",
+              "name": "image-runtime-tls",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "volumes": [
+        {
+          "name": "input",
+          "projected": {
+            "defaultMode": 288,
+            "sources": [
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "compute.json",
+                      "path": "compute.json"
+                    },
+                    {
+                      "key": "config.yaml",
+                      "path": "config.yaml"
+                    },
+                    {
+                      "key": "harbor-ca.crt",
+                      "path": "harbor-ca.crt"
+                    },
+                    {
+                      "key": "harbor.password",
+                      "path": "harbor.password"
+                    },
+                    {
+                      "key": "image-cursor.key",
+                      "path": "image-cursor.key"
+                    },
+                    {
+                      "key": "image-keyring.json",
+                      "path": "image-keyring.json"
+                    },
+                    {
+                      "key": "image-runtime.dsn",
+                      "path": "image-runtime.dsn"
+                    },
+                    {
+                      "key": "instance.json",
+                      "path": "instance.json"
+                    },
+                    {
+                      "key": "owner.key",
+                      "path": "owner.key"
+                    },
+                    {
+                      "key": "runtime.dsn",
+                      "path": "runtime.dsn"
+                    }
+                  ],
+                  "name": "ani-resource-private"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "ca.crt"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              },
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "client.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "client.key"
+                    }
+                  ],
+                  "name": "ani-resource-client-tls"
+                }
+              },
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "server.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "server.key"
+                    }
+                  ],
+                  "name": "ani-resource-server-tls"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "emptyDir": {
+            "medium": "Memory",
+            "sizeLimit": "4Mi"
+          },
+          "name": "private"
+        },
+        {
+          "name": "vm-input",
+          "secret": {
+            "defaultMode": 288,
+            "secretName": "ani-vm-resource-runtime-20261025"
+          }
+        },
+        {
+          "name": "vm-client-ca-input",
+          "projected": {
+            "defaultMode": 288,
+            "sources": [
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "client-ca.crt"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "image-runtime-tls",
+          "projected": {
+            "defaultMode": 288,
+            "sources": [
+              {
+                "secret": {
+                  "items": [
+                    {
+                      "key": "tls.crt",
+                      "path": "tls.crt"
+                    },
+                    {
+                      "key": "tls.key",
+                      "path": "tls.key"
+                    }
+                  ],
+                  "name": "ani-resource-server-tls"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "ca.crt"
+                    }
+                  ],
+                  "name": "ani-internal-service-ca"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

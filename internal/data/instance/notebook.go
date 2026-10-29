@@ -35,10 +35,19 @@ const createLabel = "accelerator.ani.io/create-operation-id"
 
 type Notebook struct {
 	client     dynamic.Interface
+	clusterID  string
 	signingKey ed25519.PrivateKey
 	images     imagebiz.RuntimeImages
 	logSource  podLogSource
 	logLimits  biz.LogLimits
+}
+
+func (n *Notebook) ConfigureClusterID(id string) error {
+	if !biz.UUID(id) {
+		return biz.ErrInvalid
+	}
+	n.clusterID = id
+	return nil
 }
 
 func NewNotebook(client dynamic.Interface) (*Notebook, error) {
@@ -115,7 +124,10 @@ func RenderNotebook(i biz.Instance) (*unstructured.Unstructured, error) {
 	if e := biz.ValidateCreate(biz.Create{TenantID: i.TenantID, ID: i.ID, OperationID: i.CreateOperationID, RequestHash: i.CreateRequestHash, BusinessDigest: i.BusinessDigest, Spec: i.Spec}); e != nil {
 		return nil, e
 	}
-	s := i.Spec
+	s, err := runtimeSpec(i)
+	if err != nil {
+		return nil, err
+	}
 	if s.Network != nil && (i.Network == nil || i.Network.AttachmentID == "" || i.Network.PrimaryNetworkRef == "" || i.Network.BindingRevision == "") {
 		return nil, biz.ErrNetworkUnavailable
 	}
@@ -175,7 +187,10 @@ func RenderNotebook(i biz.Instance) (*unstructured.Unstructured, error) {
 	// controller copies Notebook metadata to the new StatefulSet Pod template.
 	metaAnn := ann
 	metaAnn[versionAnnotation] = strconv.FormatInt(i.Version, 10)
-	if i.Desired == biz.Stopped {
+	if i.Pending != nil && i.Pending.ID != "" && i.Pending.Kind == "create_notebook" {
+		metaAnn[mutationAnnotation] = i.Pending.ID
+	}
+	if executionTarget(i) == biz.Stopped {
 		metaAnn[stoppedAnnotation] = "true"
 	}
 	metadataLabels := labels(i)
@@ -188,154 +203,19 @@ func RenderNotebook(i biz.Instance) (*unstructured.Unstructured, error) {
 	return &unstructured.Unstructured{Object: map[string]any{"apiVersion": "kubeflow.org/v1", "kind": "Notebook", "metadata": map[string]any{"name": s.NotebookName, "namespace": s.Namespace, "labels": stringMap(metadataLabels), "annotations": stringMap(metaAnn)}, "spec": map[string]any{"template": map[string]any{"spec": pod}}}}, nil
 }
 func (n *Notebook) Observe(ctx context.Context, i biz.Instance) (biz.Observation, error) {
-	var out biz.Observation
-	obj, e := n.client.Resource(notebookGVR).Namespace(i.Spec.Namespace).Get(ctx, i.Spec.NotebookName, metav1.GetOptions{})
-	if e == nil {
-		if !owned(obj, i, i.NotebookUID) {
-			return out, biz.ErrOwnership
-		}
-		out.NotebookExists = true
-		out.NotebookUID = string(obj.GetUID())
-		out.NotebookRV = obj.GetResourceVersion()
-		_, out.Stopped = obj.GetAnnotations()[stoppedAnnotation]
-		out.IntentVersion, _ = strconv.ParseInt(obj.GetAnnotations()[versionAnnotation], 10, 64)
-	} else if !apierrors.IsNotFound(e) {
-		return out, e
+	out, err := n.ObserveIdentity(ctx, i)
+	if err != nil {
+		return out, err
 	}
 	n.observeWorkspace(ctx, i, &out)
-	// The controller uses the Notebook name for its StatefulSet but does not
-	// copy ANI labels to the StatefulSet object. Verify the immutable owner chain.
-	set, e := n.client.Resource(stsGVR).Namespace(i.Spec.Namespace).Get(ctx, i.Spec.NotebookName, metav1.GetOptions{})
-	setUID := i.StatefulSetUID
-	if e == nil {
-		notebookUID := i.NotebookUID
-		if out.NotebookExists {
-			notebookUID = out.NotebookUID
-		}
-		if !controlledBy(set, "kubeflow.org", "Notebook", i.Spec.NotebookName, notebookUID) {
-			return out, biz.ErrOwnership
-		}
-		setUID = string(set.GetUID())
-		out.StatefulSetUID = setUID
-		if !out.NotebookExists {
-			out.PodExists = true
-		}
-	} else if !apierrors.IsNotFound(e) {
-		return out, e
-	}
-	pods, e := n.client.Resource(podGVR).Namespace(i.Spec.Namespace).List(ctx, metav1.ListOptions{LabelSelector: resourceLabel + "=" + i.ID})
-	if e != nil {
-		return out, e
-	}
-	seenPodUIDs := make(map[string]struct{}, len(pods.Items))
-	for j := range pods.Items {
-		p := &pods.Items[j]
-		if !owned(p, i, "") {
-			return out, biz.ErrOwnership
-		}
-		if !controlledBy(p, "apps", "StatefulSet", i.Spec.NotebookName, setUID) {
-			return out, biz.ErrOwnership
-		}
-		seenPodUIDs[string(p.GetUID())] = struct{}{}
-		out.PodExists = true
-		if e := verifyPod(p, i); e != nil {
-			return out, e
-		}
-		if i.Desired == biz.Running {
-			if e := n.verifyBorrowedVolumes(ctx, i); e != nil {
-				return out, e
-			}
-		}
-		if e := n.verifyPodGroupPriority(ctx, p, i); e != nil {
-			return out, e
-		}
-		if i.Spec.ComputeType == biz.TypeGPU {
-			out.GPUPods = append(out.GPUPods, biz.PodRef{ClusterID: i.Spec.ClusterID, Namespace: i.Spec.Namespace, Name: p.GetName(), UID: string(p.GetUID()), ContainerName: biz.Container})
-		}
-		if p.GetDeletionTimestamp() == nil {
-			if out.PodUID != "" && out.PodUID != string(p.GetUID()) {
-				return out, biz.ErrOwnership
-			}
-			out.PodName = p.GetName()
-			out.PodUID = string(p.GetUID())
-		}
-		if i.Spec.ComputeType == biz.TypeGPU && len(n.signingKey) == ed25519.PrivateKeySize {
-			if e := n.signPod(ctx, p, i); e != nil {
-				return out, e
-			}
-		}
-		if p.GetDeletionTimestamp() == nil {
-			phase, _, _ := unstructured.NestedString(p.Object, "status", "phase")
-			conditions, _, _ := unstructured.NestedSlice(p.Object, "status", "conditions")
-			podReady := false
-			for _, v := range conditions {
-				c, _ := v.(map[string]any)
-				if c["type"] == "Ready" && c["status"] == "True" {
-					podReady = true
-				}
-			}
-			cs, _, _ := unstructured.NestedSlice(p.Object, "status", "containerStatuses")
-			for _, v := range cs {
-				c, _ := v.(map[string]any)
-				ready, _ := c["ready"].(bool)
-				name, _ := c["name"].(string)
-				if phase == "Running" && podReady && name == biz.Container && ready {
-					out.PodReady = true
-				}
-			}
-		}
-	}
-	if i.Desired == biz.Deleted {
-		if err := n.observeHistoricalPods(ctx, i, seenPodUIDs, &out); err != nil {
-			return out, err
-		}
+	if executionTarget(i) == biz.Running {
+		runtime, err := n.VerifyRuntime(ctx, i, out)
+		runtime.PVCExists, runtime.PVCUID = out.PVCExists, out.PVCUID
+		runtime.VolumeExists, runtime.VolumeName, runtime.VolumeUID = out.VolumeExists, out.VolumeName, out.VolumeUID
+		runtime.WorkspaceReason = out.WorkspaceReason
+		return runtime, err
 	}
 	return out, nil
-}
-
-// Labels are mutable, so an empty managed Pod list cannot prove that every
-// previously observed UID is gone. Read each original identity during DELETE;
-// a same-name replacement is not the original Pod and is never mutated here.
-func (n *Notebook) observeHistoricalPods(ctx context.Context, i biz.Instance, seen map[string]struct{}, out *biz.Observation) error {
-	refs := append([]biz.PodRef(nil), i.GPUPods...)
-	if i.PodName != "" || i.PodUID != "" {
-		found := false
-		for _, ref := range refs {
-			if ref.Name == i.PodName && ref.UID == i.PodUID {
-				found = true
-				break
-			}
-		}
-		if !found {
-			refs = append(refs, biz.PodRef{ClusterID: i.Spec.ClusterID, Namespace: i.Spec.Namespace, Name: i.PodName, UID: i.PodUID, ContainerName: biz.Container})
-		}
-	}
-	for _, ref := range refs {
-		if ref.ClusterID == "" || ref.ClusterID != i.Spec.ClusterID || ref.Namespace == "" || ref.Namespace != i.Spec.Namespace || ref.Name == "" || ref.UID == "" {
-			return biz.ErrOwnership
-		}
-		if _, exists := seen[ref.UID]; exists {
-			continue
-		}
-		pod, err := n.client.Resource(podGVR).Namespace(ref.Namespace).Get(ctx, ref.Name, metav1.GetOptions{})
-		if apierrors.IsNotFound(err) {
-			seen[ref.UID] = struct{}{}
-			continue
-		}
-		if err != nil {
-			return err
-		}
-		seen[ref.UID] = struct{}{}
-		if string(pod.GetUID()) == ref.UID {
-			out.PodExists = true
-			// Preserve the fallback identity across worker turns, including CPU
-			// instances that have no historical GPU Pod list.
-			if out.PodUID == "" {
-				out.PodName, out.PodUID = ref.Name, ref.UID
-			}
-		}
-	}
-	return nil
 }
 
 func controlledBy(o *unstructured.Unstructured, group, kind, name, uid string) bool {
@@ -441,6 +321,11 @@ func (n *Notebook) observeWorkspace(ctx context.Context, i biz.Instance, out *bi
 	}
 }
 func verifyPod(p *unstructured.Unstructured, i biz.Instance) error {
+	spec, err := runtimeSpec(i)
+	if err != nil {
+		return err
+	}
+	i.Spec = spec
 	if i.Spec.Network != nil {
 		if i.Network == nil || i.Network.PrimaryNetworkRef == "" || p.GetAnnotations()["networking.kubercloud.com/subnet"] != i.Network.PrimaryNetworkRef {
 			return biz.ErrOwnership
@@ -688,6 +573,12 @@ func (n *Notebook) ensurePullSecret(ctx context.Context, i biz.Instance) error {
 	return mutationError(e)
 }
 func (n *Notebook) SetStopped(ctx context.Context, i biz.Instance, o biz.Observation, stopped bool) error {
+	if i.Pending != nil && i.Pending.Kind == "set_stopped" && i.Pending.ID != "" {
+		if i.Pending.StoppedTarget == nil || *i.Pending.StoppedTarget != stopped {
+			return biz.ErrInvalid
+		}
+		return n.ApplyMutation(ctx, i, *i.Pending)
+	}
 	if !stopped {
 		if err := n.verifyBorrowedVolumes(ctx, i); err != nil {
 			return err
@@ -709,6 +600,9 @@ func (n *Notebook) SetStopped(ctx context.Context, i biz.Instance, o biz.Observa
 		return biz.ErrVersion
 	}
 	ann[versionAnnotation] = strconv.FormatInt(i.Version, 10)
+	if i.Pending != nil && i.Pending.ID != "" && i.Pending.Kind == "set_stopped" {
+		ann[mutationAnnotation] = i.Pending.ID
+	}
 	if stopped {
 		ann[stoppedAnnotation] = "true"
 	} else {
@@ -732,7 +626,7 @@ func (n *Notebook) DeleteWorkspace(ctx context.Context, i biz.Instance, o biz.Ob
 	if o.PVCUID == "" || o.PodExists || o.NotebookExists {
 		return biz.ErrInvalid
 	}
-	for _, mount := range i.Spec.VolumeMounts {
+	for _, mount := range i.CurrentMounts {
 		if mount.PVCName == i.Spec.PVCName || mount.PVCUID == o.PVCUID {
 			return biz.ErrOwnership
 		}

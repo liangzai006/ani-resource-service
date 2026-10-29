@@ -2,6 +2,8 @@
 
 日期：2026-10-19。状态：**增量实现合同；实际交付与未验证范围只见[执行状态](../execution/status.md#instance-configuration-and-network-2026-10-19)**。原固定输入的哈希保留在任务源清单中。
 
+2026-10-28 增量以[已审 Restart/PVC v2.0 方案](../plans/container-instance-restart-pvc-20261028.md)为输入；以下当前挂载、引用代际和 Storage 删除协调规则替代旧的创建后卷配置不变与双态引用。当前实施/真实验收只见[唯一状态](../execution/status.md#container-restart-pvc-20261028)，迁移和向前恢复见[运行手册](../runbooks/instance-mvp-fedora.md)。
+
 目标是让用户通过 Gov 创建容器实例时选择已有 PVC 和挂载路径、VPC/Subnet，以及标签、注解和环境变量；配置经过授权、校验、冻结和持久化后进入真实 Notebook/Pod，启停和重建继续生效，最终删除正确处理卷引用和网络关联。
 
 本文只定义新增行为。现有实例、GPU 执行和原账退额规则继续引用[实例规格](instance-mvp.md)，网络资源所有权继续引用 [ADR-0001](../adr/0001-own-network-lifecycle.md)，租户数据约束继续引用 [ADR-0002](../adr/0002-use-tenant-owned-data-without-rls.md)。实施顺序见[改造计划](../plans/instance-configuration-network.md)，实际交付结果只记入[执行状态](../execution/status.md)。
@@ -39,7 +41,7 @@ flowchart LR
 
 ## 2. 范围和所有权
 
-本次支持创建时配置，CPU/GPU 共用。创建后的配置冻结；后续在线修改、换网、扩盘、卷创建/快照/克隆不属于这次增量。标签/注解/env 若以后需要修改，再定义带版本检查的更新行为。
+CPU/GPU 共用创建配置；原 CREATE 始终冻结。已有 borrowed PVC 支持停止态挂卸，以及显式 `restart_if_running=true` 的运行态同操作停止/改模板/恢复。工作盘路径、镜像、规格、网络、标签/注解/env 仍不提供修改入口；不停机热挂载、扩盘、卷创建/快照/克隆不属于实例挂卸范围。
 
 | 所有者 | 本次职责 |
 |---|---|
@@ -104,7 +106,9 @@ Instance 在 `internal/biz` 声明自己需要的窄 Network 和卷查询 Interf
 
 VPC/Subnet 继续复用现有租户列表，前端按 VPC 筛选 Subnet；CPU/GPU 规格解析出的 cluster 必须与所选网络 placement 一致。用户看不到或不能使用的卷/网络不作为可猜测的跨租户详情返回。
 
-新增授权配置查询 `GET /api/v1/instances/{instance_id}/configuration`：返回已保存的生效工作目录、卷挂载、网络产品 ID、用户标签/注解/env；采用实例详情读取权限，明确该权限可以读取字面环境值。列表、操作状态、审计和错误不回显 env 值；运行诊断继续只返回环境变量名称/来源。若产品未来需要 Secret，另定义受控引用和读取权限，不能把字面值字段标成密文存储能力。
+授权配置查询 `GET /api/v1/instances/{instance_id}/configuration` 返回当前 `CurrentMounts`、`version/applied_mount_version/pending_change`，以及原冻结的工作目录、网络产品 ID、用户标签/注解/env；待提交目标不能提前覆盖当前挂载。采用实例详情读取权限，该权限可以读取字面环境值。列表、操作状态、审计和错误不回显 env 值；运行诊断只返回环境变量名称/来源。字段及映射见 [Proto](../../api/instance/v1/instance.proto)和[配置查询](../../internal/service/instance/configuration.go)。
+
+创建范围候选沿用原入口；实例范围候选 `GET /api/v1/instances/{instance_id}/mountable-pvcs` 只使用实例已保存的 cluster/namespace，活跃删除 guard 对应名称不可选。三个新动作和候选的权限、五个 Resource RPC 及精确 mTLS 登记见[实例 API 合同](instance-mvp.md#111-用户-api)；只读 Lookup 不访问 Kubernetes、不产生受理或占额副作用。
 
 实例详情增加独立的 `network_state/network_reason/network_cleaned` 和卷引用状态；无网络选择为 `not_requested`。显式联网实例只有当前 Pod Ready 且 Network 核验 attached 后才展示整体 running；部分就绪保留 pending/reason，暂停后不保留旧 IP 的地址资格。
 
@@ -114,23 +118,31 @@ VPC/Subnet 继续复用现有租户列表，前端按 VPC 筛选 Subnet；CPU/GP
 
 系统工作盘继续由实例创建、保存 PVC/PV 身份和最终回收。用户已有卷以 borrowed 引用挂载：停止保留引用，删除实例只解除引用，不删除其 PVC/PV，不给用户卷添加指向 Notebook 的可回收 ownerReference。用户卷丢失不触发自动补造，也不阻挡已终止实例解除该引用。
 
-冻结挂载项包含 `cluster_id、namespace、pvc_name、pvc_uid、mount_path、read_only、ownership=borrowed`。用户输入和服务器解析结果分开保存；重放及 Start 使用原冻结引用，不重新选择同名卷。
+当前冻结挂载项包含 `cluster_id、namespace、pvc_name、pvc_uid、mount_path、read_only、ownership=borrowed`，引用另有内部 `reference_generation`；UID/代际不是公开可写字段。重放及 Start 使用当前配置已冻结的身份，不重选同名卷；原 CREATE 中的挂载仍只表示首次受理内容。
 
 ### 4.2 校验与竞态
 
 1. 先解析可信租户 Namespace，再检查 PVC 的 Filesystem 模式、归属、未删除及非 Lost；不接受其他实例专属工作盘。
 2. 合法 Pending PVC 可以使用，包含 WaitForFirstConsumer；不能要求所有候选先 Bound。绑定、调度及 CSI 挂载问题作为真实状态和原因返回。
 3. 挂载路径必须绝对、规范，拒绝 `/`、系统关键目录、重复路径及与工作目录相互遮盖的路径；具体受保护目录集中在 adapter 校验，不提供任意 volume source 或 hostPath。
-4. 创建 Notebook 前、Start 前检查原 PVC UID；运行观察核对每个冻结 claimName/mountPath/readOnly。卷替换或访问失败给出明确原因，不静默切换数据。
+4. 创建 Notebook 前、Start 前检查当前冻结 PVC UID，运行观察核对当前 claimName/mountPath/readOnly。运行态 Attach 首次停止前只复核新增冻结身份；Detach 不因剩余失效 PVC 阻塞安全移除。卷替换或访问失败明确返回原因，不重选数据。
 5. RWO/RWOP/RWX 按实际存储和调度能力解释，不用无锁计数宣称独占。候选可选不保证并发挂载成功；访问模式及占用原因需可见。
 
-Pod PVC 引用只有 claimName，没有 UID 前置条件。应用层 UID 冻结和 GET 复核不能消除“检查后被外部删除并同名重建”的竞态。受支持部署需让 PVC 删除权限/准入尊重使用中的引用；在此保障未就绪时不得声称严格防替换已完成。实现验收须包含同名重建负例及实际授权配置。
+Pod PVC 引用只有 claimName，没有 UID 前置条件。应用层 UID 冻结、GET 和平台内部 name guard 不能消除绕过平台删除后同名重建的竞态，不能宣称严格防替换。当前 Goal 的 A36 外部准入/RBAC 保护按用户决定为 **DEFERRED_USER_SCOPE**，不记 PASS；这不削减本节 UID 校验及以下平台内部引用/删除保护。
 
 ### 4.3 持久化和投影
 
-不可变挂载进入 Instance Spec JSON 快照；新增窄引用关系表，按 `(tenant_id, instance_id, mount_path)` 保存原 PVC UID 和 active/released 状态，并对实例使用租户复合 FK。系统 `workspace_bindings` 继续只管理专属盘，不混用 borrowed 引用。跨域 Kubernetes PVC 没有数据库 FK，引用身份由上述校验保证。
+`Spec` 和 CREATE 摘要保持原 JSON；`current_mounts/mounts_initialized/applied_mount_version` 是独立列。渲染、运行验证、配置查询使用 `CurrentMounts`，显式 `[]` 绝不回退 `Spec.VolumeMounts`；未初始化不能渲染成猜测配置。迁移只冻结旧 UID/顺序/readonly，不凭当前同名卷重新选择；`applied_mount_version=0` 仍需 worker 取得模板基线证明。
 
-RenderNotebook、workingDir、verifyPod 和镜像目录约定一起改为读取冻结值。Notebook 主容器仍名为 `workspace`，避免改变 SG 的容器目标。SG、日志、运行详情继续使用同一 owner/UID 目标核验；不能为接受新挂载而绕过原受管容器验证。
+引用键为 `(tenant_id, instance_id, mount_path)`，保存 PVC UID、operation/intent_version 和 `reference_generation`，对实例/操作使用租户复合 FK。CREATE/Attach 受理产生 `pending`，模板提交后为 `active`；Detach 受理先置 `retiring`，旧模板/Pod 不再可能消费后才 `released`。`pending/active/retiring` 全部保护名称。同路径重新挂载递增代际，旧回执不能释放新引用。当前配置、应用版本、引用状态及对应操作在同一事务提交；系统 `workspace_bindings` 只管理专属盘。
+
+挂卸的模板证明须覆盖 Notebook 与仍存在的 StatefulSet 的目标卷、replicas/observedGeneration 和安全停止；StatefulSet 不存在时，仍须证明 Notebook 已停止、旧控制链/Pod 已退出且后续重建只能来自目标 Notebook 模板。old/target/mixed 分类不确定时保留保护，不能因一次 Update 成功释放 retiring。运行态启动失败后的安全停止保留已提交配置，不回滚 CREATE。持久化落点为[008](../../migrations/instance/008_restart_pvc.sql)及[阶段提交事务](../../internal/data/instance/lifecycle.go)，外部证明见[Notebook adapter](../../internal/data/instance/notebook_lifecycle.go)。主容器仍名 `workspace`，SG、日志与诊断继续核验 owner/Pod UID。
+
+### 4.4 Storage 名称 guard 与删除恢复
+
+原 CREATE、Attach 和 Storage DELETE 共用 `(cluster_id, namespace, pvc_name)` 物理名称 guard，键不含 UID；guard 固定 tenant，不能以跨租户相同物理名绕过。名称正处于删除时拒绝新引用；三个保护态中的任一引用都拒绝 Storage 删除。Instance 提供[窄 BorrowedPVCGuard 端口](../../internal/biz/storage/delete_guard.go)，Storage 不跨域查询 Instance 私表。
+
+Storage 前台与恢复 worker 共用[有限推进](../../internal/biz/storage/delete_recovery.go)：先持久 ticket 和原 UID，再在外部 DELETE 前提交 `write_started`；Kubernetes 删除始终带该 UID precondition。同 UID 有效 lease 的重放没有第二份推进权，过期 token 不能完成；write_started 后不能当作未发送取消。结果未知保留名称屏障和原身份；直接观察 absent 或同名新 UID 只完成旧 ticket，不删除新对象。[guard CAS](../../internal/data/instance/pvc_guard.go)约束 ticket/guard epoch/lease，缺 guard 或依赖失败时不放行删除，绝不回退旧直删；开放入口前还须验证[恢复 worker readiness](../../internal/server/storage_worker.go)。
 
 ## 5. 标签 注解和环境变量
 
@@ -193,13 +205,13 @@ Network 持久保存最高已接受 snapshot_revision、固定根 UID、相应�
 |---|---|---|
 | 创建 | 本地事务保存网络选择、稳定 request_key/submission/generation；Prepare 后保存 attachment、binding revision 和投影，再创建 Notebook，登记真实 owner 链并 Confirm | Prepare 复用现有同租户、VPC/Subnet 关系及 placement 校验；独立核验后 attached |
 | Stop | 持久停止意图，条件停止 Notebook；保留逻辑网络选择，报告 stopped 和实际 Pod 集合 | 无 Pod 是正常暂停；撤销旧地址资格，继续观察旧 VNic/IP 清理，保留 Attachment 占用 |
-| Start | 使用原 Spec 和网络投影，登记新 Pod；不重占 GPU 原账 | 验证同一根 owner 链后更新当前 Pod，旧关系进入历史清理 |
+| Start | 使用冻结规格、CurrentMounts 和网络投影，登记新 Pod；不重占 GPU 原账 | 验证同一根 owner 链后更新当前 Pod，旧关系进入历史清理 |
 | Pod 自动重建 | Notebook/StatefulSet 自行造新 Pod，Instance 更新提交快照 | 未确认候选先等待；通过 owner 链后接替，不依赖每代提前改模板 |
 | 删除或放弃创建 | 先保存 closing 和禁止继续发送；删除已知 Notebook，查明未知 CREATE；确认控制器退出后最终 closed，再持久请求 Release | 独立确认当前、历史和待核验候选 Pod/VNic/VNicIP 等关系全部消失后 released |
 
 同一动作使用稳定幂等身份。Prepare/Confirm/Release 丢回执或进程重启后由持久步骤重试，不依赖内存调用链。发出但结果未知的 Notebook CREATE 不能因为一次 404 就 closed 或释放网络；未知关系也不能被重置为“无资源”。
 
-Stop 完成需要确认无运行 Pod；旧网络清理状态独立显示。最终删除与 GPU 退额时机统一遵循[实例规格 §8.3](instance-mvp.md#83-最终删除)和[完整释放规则](instance-mvp.md#10-完整释放及-gov-原账退额)：计算、专属盘、borrowed 引用与网络占用完整清理后才提交原账释放事件；清理失败保留原操作和具体原因，Gov 通知独立重试且不得重复退额。
+Stop 完成使用[完整安全停止证明](instance-mvp.md#82-普通停止与启动)，旧网络清理独立显示。组合挂卸时 Network 消费阶段 `RuntimeDesired`，不能误用最终 `Desired=running` 保留旧地址资格。最终删除与 GPU 退额时机遵循[实例规格 §8.3](instance-mvp.md#83-最终删除)和[完整释放规则](instance-mvp.md#10-完整释放及-gov-原账退额)；失败保留原操作与原因，Gov 通知独立重试。
 
 ### 6.4 数据与运行装配
 
@@ -215,12 +227,13 @@ Attachment 的独立地址证明只消费 Pod、VNic、VNicIP 和 EIP 事实；�
 
 ## 7. 当前配置合同与原账
 
-按用户后续修订，清理完成后只接受显式 `instance_contract_version=2`；缺省、0 和 1 均拒绝，不保留旧实例配置读取、摘要投影或恢复分支。版本由服务端确定并贯穿 Gov 幂等记录、冻结载荷、Res 命令与实例快照，用户不填写或选择版本。正常新请求的缺省工作目录等配置仍在 Resolve 时解析一次，并显式冻结。
+新创建仍只接受显式 `instance_contract_version=2`，缺省、0 和 1 均拒绝；版本由服务端确定，用户不选择。正常新请求的缺省配置只在 Resolve 时解析一次。008 对历史持久结构的有证据前向转换不重新开放旧公开请求、旧 CREATE 摘要或旧版本解码。
 
 | 数据 | 当前规则 |
 |---|---|
 | 原始请求意图 | 包括用户输入的全部新增字段；metadata 稳定按键编码，挂载按规范路径排序，env 保持原顺序；固定缺省/空值规则 |
-| 生效 CreateSpec | 保存实际工作目录、PVC UID、网络选择、用户 metadata/env 和既有受管字段；默认只解析一次 |
+| 冻结 CreateSpec | 保存原工作目录、首次 PVC UID、网络选择、用户 metadata/env 和受管字段；默认只解析一次 |
+| 当前配置 | 独立 CurrentMounts；挂卸提交不修改 CREATE、原镜像、GPU execution 或 charges |
 | 命令摘要 | 使用独立 `resource-create-v2` 域和显式字段集合覆盖完整冻结配置；GPU Execution 仍用它原有摘要 |
 | 动态观察 | Attachment 投影、当前 Pod、地址和清理进展单独保存，不能回写并改变原 CREATE 摘要 |
 
@@ -230,9 +243,11 @@ Gov 先做当前授权，再按租户/主体/action/幂等键查已受理的当�
 
 CPU frozen decoder 只校验当前合同的规范编码及原 business_payload 字节摘要，不做旧字段投影、HTML 反转义或旧 envelope 恢复。GPU 当前唯一冻结 Execution、原始 charges 与稳定退额事件保持原合同；它们自身的协议版本不因实例配置清理而改写。关闭资格使用[实例完整释放规则](instance-mvp.md#10-完整释放及-gov-原账退额)，不依赖 ACC ObserveRelease 或历史物理摘要。
 
-部署只读当前合同的候选前，先用仍能处理旧记录的产品入口正常删除旧实例，核对计算、工作盘、网络及原账，再清除已终结的旧实例/操作/幂等记录。保留删除及退额证据；不能用删库、改账或注入完成状态代替实际释放。历史 migration/checksum 不改写，必要结构变化追加显式迁移。
+切换先排空入口并退出不兼容旧 Instance/Storage writer、worker 和严格读取进程，再由 owner 显式执行[008](../../migrations/instance/008_restart_pvc.sql)，应用启动只校验。历史 checksum、CREATE、version、ACK 和 replay 保留，不以清库重建迁就新结构；缺引用、身份冲突会阻止迁移，不能猜补保护。旧 Pending 不猜停止 payload，旧 DELETE 由真实 worker 补齐最小执行元数据；恢复规则见[运行手册](../runbooks/instance-mvp-fedora.md)。
 
-例：T0 创建时缺省路径解析为 `/workspace`，PVC UID 为 U1。T1 平台改了路径默认值，原 key 重放仍返回 T0 的实例和快照；T2 卷同名换成 U2，Start 返回引用已变，不重新选择 U2；T3 原 key 增加新的 env，返回幂等冲突。更换网络、env 或卷必须是新意图，不能通过重试改旧实例。
+`ANI_INSTANCE_NEW_INTENTS_ENABLED`、`ANI_INSTANCE_RESTART_ENABLED`、`ANI_INSTANCE_PVC_MUTATIONS_ENABLED` 缺省均为 false，装配见[instance composition](../../cmd/ani-resource-service/instance.go)。关闭闸门不抹除原键回执，也不停止已受理任务/真实删除 ticket 的恢复；查询、候选和 Lookup 保持只读。启用挂卸前须完成平台内部 guard、恢复 worker 和模板传播前提，不能把 Ready 或候选可选当成真实挂载验收。
+
+例：T0 创建时冻结 PVC UID=U1；平台修改缺省后原 key 仍返回原结果。同名变为 U2 时 Start 不重选；原 key 增加 env 返回冲突。挂卸必须使用新键和当前版本，更换网络/env 没有本批入口；不能通过重放修改旧 CREATE。
 
 ## 8. 错误 状态和前端交接
 

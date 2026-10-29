@@ -77,7 +77,7 @@ func TestTrustedCPUAndGPUIntake(t *testing.T) {
 				repo.preset.GPU = &compute.GPUReference{ProfileID: resource, ProfileVersion: 1, SpecDigest: strings.Repeat("b", 64), DevicesPerInstance: 1, ClusterID: tenant, PoolID: tenant, Mode: "SHARED_FIXED", ModelKey: "t4", MemoryMiBPerDevice: 8192, CoreLimitPercent: 25}
 			}
 			images, environment := &cpuImageBoundary{}, &cpuEnvironmentBoundary{}
-			s, e := NewService(repo, newTestComputeResolver(t, repo, tenant), images, environment, Config{NamespacePrefix: "tenant-", ClusterID: tenant, ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", Shell: "/bin/bash", UID: 1000, GID: 1000})
+			s, e := NewService(repo, newTestComputeResolver(t, repo, tenant), images, environment, Config{NewIntentsEnabled: true, NamespacePrefix: "tenant-", ClusterID: tenant, ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", Shell: "/bin/bash", UID: 1000, GID: 1000})
 			if e != nil {
 				t.Fatal(e)
 			}

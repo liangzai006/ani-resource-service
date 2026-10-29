@@ -37,6 +37,10 @@ func NewImageRuntimeServiceTLS(t testing.TB) ServiceTLS {
 	return serviceTLSForClient(t, false, "ani-inference-service")
 }
 
+func NewModelDevImageRuntimeServiceTLS(t testing.TB) ServiceTLS {
+	return serviceTLSForClient(t, false, "ani-modeldev-service")
+}
+
 func serviceTLSForClient(t testing.TB, instance bool, clientName string) ServiceTLS {
 	t.Helper()
 	dir := t.TempDir()

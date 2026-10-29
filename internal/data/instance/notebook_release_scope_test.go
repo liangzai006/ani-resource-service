@@ -19,7 +19,7 @@ func TestNotebookDeleteChecksHistoricalPodUIDs(t *testing.T) {
 		}
 		t.Run(name, func(t *testing.T) {
 			provider, i, client, pod := diagnosticFixture(t, !useFallback)
-			i.Desired = biz.Deleted
+			i.Desired, i.RuntimeDesired = biz.Deleted, biz.Deleted
 			if useFallback {
 				i.PodName, i.PodUID = pod.GetName(), string(pod.GetUID())
 			} else {
@@ -76,7 +76,7 @@ func TestNotebookDeleteChecksHistoricalPodUIDs(t *testing.T) {
 
 func TestNotebookDeleteHistoricalPodReadFailsClosed(t *testing.T) {
 	provider, i, client, pod := diagnosticFixture(t, true)
-	i.Desired = biz.Deleted
+	i.Desired, i.RuntimeDesired = biz.Deleted, biz.Deleted
 	i.GPUPods = []biz.PodRef{{ClusterID: i.Spec.ClusterID, Namespace: i.Spec.Namespace, Name: pod.GetName(), UID: string(pod.GetUID()), ContainerName: biz.Container}}
 	pod.SetLabels(nil)
 	if _, err := client.Resource(podGVR).Namespace(i.Spec.Namespace).Update(context.Background(), pod, metav1.UpdateOptions{}); err != nil {
@@ -104,7 +104,7 @@ func TestNotebookDeleteHistoricalPodScopeIsFrozen(t *testing.T) {
 	} {
 		t.Run(name, func(t *testing.T) {
 			provider, i, client, pod := diagnosticFixture(t, true)
-			i.Desired = biz.Deleted
+			i.Desired, i.RuntimeDesired = biz.Deleted, biz.Deleted
 			ref := biz.PodRef{ClusterID: i.Spec.ClusterID, Namespace: i.Spec.Namespace, Name: pod.GetName(), UID: string(pod.GetUID()), ContainerName: biz.Container}
 			mutate(&ref)
 			i.GPUPods = []biz.PodRef{ref}
@@ -121,17 +121,18 @@ func TestNotebookDeleteHistoricalPodScopeIsFrozen(t *testing.T) {
 	}
 }
 
-func TestNotebookDeleteDoesNotReadListedPodUIDAgain(t *testing.T) {
+func TestNotebookDeleteDirectlyReadsListedHistoricalPodUID(t *testing.T) {
 	provider, i, client, pod := diagnosticFixture(t, true)
-	i.Desired = biz.Deleted
+	i.Desired, i.RuntimeDesired = biz.Deleted, biz.Deleted
 	i.GPUPods = []biz.PodRef{{ClusterID: i.Spec.ClusterID, Namespace: i.Spec.Namespace, Name: pod.GetName(), UID: string(pod.GetUID()), ContainerName: biz.Container}}
+	reads := 0
 	client.PrependReactor("get", "pods", func(ktesting.Action) (bool, runtime.Object, error) {
-		t.Fatal("current listed Pod UID was redundantly fetched")
+		reads++
 		return false, nil, nil
 	})
 	out, err := provider.Observe(context.Background(), i)
-	if err != nil || !out.PodExists {
-		t.Fatal("current listed Pod was not preserved", out, err)
+	if err != nil || !out.PodExists || reads == 0 {
+		t.Fatal("persisted Pod UID was not directly read", out, reads, err)
 	}
 }
 

@@ -1,0 +1,4 @@
+# runtime/cgo
+cgo: write /tmp/cgo-gcc-input-3270832699.c: disk quota exceeded
+FAIL	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance [build failed]
+FAIL

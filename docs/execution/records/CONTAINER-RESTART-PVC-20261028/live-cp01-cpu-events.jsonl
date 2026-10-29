@@ -1,0 +1,11 @@
+{"application":"console","at":"2026-10-28T12:49:39.073115Z","event":"authenticated","http_status":200}
+{"at":"2026-10-28T12:49:39.820493Z","event":"http_error","http_status":503,"method":"POST","path":"/api/v1/instances","reason":"INSTANCE_NETWORK_NOT_ENABLED"}
+{"at":"2026-10-28T12:49:39.820646Z","code":"HTTP_REQUEST_REJECTED","event":"stopped","http_status":503,"reason":"INSTANCE_NETWORK_NOT_ENABLED"}
+{"application":"console","at":"2026-10-28T12:49:40.345572Z","event":"session_cleanup","local":"CLEARED","remote":"CONFIRMED"}
+{"application":"console","at":"2026-10-28T12:55:51.921202Z","event":"authenticated","http_status":200}
+{"action":"create","at":"2026-10-28T12:55:52.478573Z","event":"acceptance","operationId":"4b687e97-70cf-48b7-b973-2bb70616f003","replayed":false,"resourceId":"e3dd2bc7-1c6a-429b-a401-e175c287d5cf","result":"ACCEPTED","step":"create"}
+{"action":"create","applied_mount_version":"0","at":"2026-10-28T12:55:52.963099Z","completion_scope":"","event":"operation","failure_reason":"","final_run_state":"running","id":"4b687e97-70cf-48b7-b973-2bb70616f003","instanceId":"e3dd2bc7-1c6a-429b-a401-e175c287d5cf","intentVersion":"1","phase":"creating","reason":"","state":"accepted","step":"create"}
+{"action":"create","applied_mount_version":"0","at":"2026-10-28T12:56:16.410549Z","completion_scope":"","event":"operation","failure_reason":"","final_run_state":"running","id":"4b687e97-70cf-48b7-b973-2bb70616f003","instanceId":"e3dd2bc7-1c6a-429b-a401-e175c287d5cf","intentVersion":"1","phase":"creating","reason":"WAITING_FOR_NETWORK","state":"accepted","step":"create"}
+{"action":"create","applied_mount_version":"0","at":"2026-10-28T12:56:29.035997Z","completion_scope":"","event":"operation","failure_reason":"","final_run_state":"running","id":"4b687e97-70cf-48b7-b973-2bb70616f003","instanceId":"e3dd2bc7-1c6a-429b-a401-e175c287d5cf","intentVersion":"1","phase":"done","reason":"","state":"completed","step":"create"}
+{"at":"2026-10-28T12:56:50.568109Z","code":"LIVE_HOOK_FAILED","event":"stopped"}
+{"application":"console","at":"2026-10-28T12:56:51.009947Z","event":"session_cleanup","local":"CLEARED","remote":"CONFIRMED"}

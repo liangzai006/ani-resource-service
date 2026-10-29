@@ -107,6 +107,9 @@ func openInstance(ctx context.Context, network *conf.Network, images *imageCompo
 	}
 	// Namespace configuration is shared by value only, never Network tables.
 	cfg.Service.NamespacePrefix = network.NamespacePrefix
+	cfg.Service.NewIntentsEnabled = os.Getenv("ANI_INSTANCE_NEW_INTENTS_ENABLED") == "true"
+	cfg.Service.RestartEnabled = os.Getenv("ANI_INSTANCE_RESTART_ENABLED") == "true"
+	cfg.Service.PVCMutationsEnabled = os.Getenv("ANI_INSTANCE_PVC_MUTATIONS_ENABLED") == "true"
 	if e = validateInstanceSettings(cfg); e != nil {
 		return nil, e
 	}
@@ -119,6 +122,7 @@ func openInstance(ctx context.Context, network *conf.Network, images *imageCompo
 	if e != nil {
 		return nil, e
 	}
+	repo.UseIntentGate(cfg.Service.NewIntentsEnabled)
 	c := &instanceComponents{repo: repo}
 	ready := false
 	defer func() {
@@ -147,6 +151,9 @@ func openInstance(ctx context.Context, network *conf.Network, images *imageCompo
 	}
 	provider, e := data.NewNotebook(client)
 	if e != nil {
+		return nil, e
+	}
+	if e = provider.ConfigureClusterID(cfg.Service.ClusterID); e != nil {
 		return nil, e
 	}
 	if e = provider.ConfigureLogs(kube, cfg.Service.LogLimits); e != nil {

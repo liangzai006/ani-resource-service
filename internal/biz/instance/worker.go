@@ -3,6 +3,7 @@ package instance
 import (
 	"context"
 	"errors"
+	"github.com/google/uuid"
 	"time"
 )
 
@@ -20,11 +21,36 @@ func NewWorker(r Repository, p Provider, owner string) (*Worker, error) {
 	return &Worker{repo: r, provider: p, owner: owner}, nil
 }
 func (w *Worker) Step(ctx context.Context) (bool, error) {
+	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
+	defer cancel()
 	work, err := w.repo.Claim(ctx, w.owner, 45*time.Second)
 	if err != nil || work == nil {
 		return false, err
 	}
 	i := work.Instance
+	if work.Operation != nil && work.Operation.Action == "delete" && work.Operation.Execution == nil {
+		if repo, ok := w.repo.(LegacyDeleteRepository); ok {
+			return true, repo.InitializeLegacyDeleteExecution(ctx, *work)
+		}
+	}
+	if i.Pending != nil && i.Pending.Kind == "set_stopped" && i.Pending.ID == "" {
+		if repo, ok := w.repo.(LegacyPendingRepository); ok {
+			_, err := repo.TrackLegacyPending(ctx, *work)
+			return true, err
+		}
+	}
+	if lp, ok := w.provider.(LifecycleProvider); ok {
+		if work.Operation != nil && NewLifecycleAction(work.Operation.Action) {
+			return w.stepLifecycle(ctx, *work, lp)
+		}
+		if i.MountsInitialized && i.AppliedMountVersion == 0 && i.Desired != Deleted && i.NotebookUID != "" {
+			proof, e := lp.VerifyMountTemplate(ctx, i, i.CurrentMounts, i.CurrentMounts)
+			if e == nil && proof.Class == "target" && (i.RuntimeDesired != Stopped || proof.SafeStopped) {
+				i.AppliedMountVersion = 1
+				return true, w.repo.Finish(ctx, *work, Progress{Instance: i, Next: time.Millisecond})
+			}
+		}
+	}
 	p := Progress{Instance: i, Next: 5 * time.Second}
 	p.Instance.Network = CloneNetwork(i.Network)
 	if !i.CleanupCompletedAt.IsZero() && OwnerCleanupReady(i) {
@@ -37,7 +63,15 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 	// A DELETE-first tombstone has never accepted an external creation. Its
 	// admission lock prevents any later CREATE from enabling external writes.
 	if i.Spec.NotebookName != "" {
-		obs, err = w.provider.Observe(ctx, i)
+		// Stopping must remain possible without runtime eligibility. DELETE
+		// additionally requires fresh workspace/PV evidence before it may seal
+		// cleanup; identity-only observation deliberately omits those fields.
+		workspaceRecovery := i.Pending != nil && i.Pending.Kind == "create_workspace"
+		if lp, ok := w.provider.(LifecycleProvider); ok && i.Desired != Deleted && !workspaceRecovery && (i.Pending != nil || i.RecoveryFence != nil || i.RuntimeDesired != Running) {
+			obs, err = lp.ObserveIdentity(ctx, i)
+		} else {
+			obs, err = w.provider.Observe(ctx, i)
+		}
 	}
 	p.Instance.GPUPods = MergePodRefs(i.GPUPods, obs.GPUPods)
 	if i.Spec.ComputeType == TypeGPU && obs.PodUID != "" {
@@ -76,6 +110,18 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 	}
 	p.Instance.PodUID = obs.PodUID
 	p.Instance.PodName = obs.PodName
+	p.Instance.TrackedPods = MergePodRefs(p.Instance.TrackedPods, obs.Pods)
+	if lp, ok := w.provider.(LifecycleProvider); ok && (i.RecoveryFence != nil || (i.Pending != nil && i.Pending.Kind == "set_stopped" && i.Pending.ID != "") || (i.Pending != nil && i.Pending.Kind == "update_mounts")) {
+		p.Operation = cloneOperation(work.Operation)
+		if p.Operation == nil || p.Operation.Execution == nil {
+			p.Instance.Reason = "LEGACY_EXECUTION_RECOVERY_REQUIRED"
+			return true, w.repo.Finish(ctx, *work, p)
+		}
+		if err := w.resolveLifecycleWrites(ctx, *work, &p, obs, lp); err != nil {
+			return true, err
+		}
+		return true, w.repo.Finish(ctx, *work, p)
+	}
 	if i.Pending != nil {
 		switch i.Pending.Kind {
 		case "create_notebook":
@@ -103,7 +149,7 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		return true, w.repo.Finish(ctx, *work, p)
 	}
 	if ReconcileSubmission(&p.Instance, obs) {
-		if i.Desired == Running {
+		if i.RuntimeDesired == Running {
 			p.Instance.Observed = "pending"
 			p.Instance.Reason = "WAITING_FOR_NETWORK"
 		}
@@ -121,13 +167,23 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		p.Instance.Observed = "pending"
 		p.Instance.Reason = "WAITING_FOR_NETWORK"
 	}
-	if i.Desired == Running && i.Network != nil {
+	if i.RuntimeDesired == Running && i.Network != nil {
 		if changed, e := w.confirmNetwork(ctx, &p.Instance); changed || e != nil {
 			return true, w.repo.Finish(ctx, *work, p)
 		}
 	}
 	mutate := func(kind string, call func() error) (bool, error) {
 		m := Mutation{Kind: kind, OperationID: i.LastOperationID, Version: i.Version, TargetUID: obs.NotebookUID, ResourceVersion: obs.NotebookRV}
+		if work.Operation != nil && work.Operation.Execution != nil {
+			m.ID = uuid.NewString()
+			m.Phase = work.Operation.Execution.Phase
+			m.PhaseSequence = work.Operation.Execution.PhaseSequence
+			m.ProviderMarkerExpected = true
+			if kind == "set_stopped" {
+				stopped := i.RuntimeDesired == Stopped
+				m.StoppedTarget = &stopped
+			}
+		}
 		if kind == "delete_workspace" {
 			m.TargetUID = obs.PVCUID
 		}
@@ -213,11 +269,11 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		completeOwnerCleanup(&p)
 		return true, w.repo.Finish(ctx, *work, p)
 	}
-	if i.Desired == Stopped && obs.NotebookExists {
+	if i.RuntimeDesired == Stopped && obs.NotebookExists {
 		if !obs.Stopped || obs.IntentVersion != i.Version {
 			return mutate("set_stopped", func() error { return w.provider.SetStopped(ctx, p.Instance, obs, true) })
 		}
-		if !obs.PodExists {
+		if !obs.PodExists && stoppedProof(w.provider, obs) {
 			p.Instance.Observed = Stopped
 			p.Instance.Reason = ""
 			p.Next = 30 * time.Second
@@ -247,11 +303,11 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 			return e
 		})
 	}
-	stopped := i.Desired == Stopped
+	stopped := i.RuntimeDesired == Stopped
 	if obs.Stopped != stopped || obs.IntentVersion != i.Version {
 		return mutate("set_stopped", func() error { return w.provider.SetStopped(ctx, p.Instance, obs, stopped) })
 	}
-	if stopped && !obs.PodExists {
+	if stopped && !obs.PodExists && stoppedProof(w.provider, obs) {
 		p.Instance.Observed = Stopped
 		p.Instance.Reason = ""
 		p.Next = 30 * time.Second
@@ -279,4 +335,11 @@ func completeOwnerCleanup(p *Progress) {
 		p.Instance.Reason = "QUOTA_RETURN_PENDING"
 	}
 	p.Next = 0
+}
+
+func stoppedProof(provider Provider, obs Observation) bool {
+	if _, ok := provider.(LifecycleProvider); ok {
+		return obs.SafeStopped
+	}
+	return !obs.PodExists
 }

@@ -1,0 +1,88 @@
+=== RUN   TestCurrentConfigurationRejectsRetiredVersions
+--- PASS: TestCurrentConfigurationRejectsRetiredVersions (0.00s)
+=== RUN   TestLifecycleRestartConfirmsFreshNetworkVersion
+--- PASS: TestLifecycleRestartConfirmsFreshNetworkVersion (0.00s)
+=== RUN   TestLifecycleNetworkObservationFailureDoesNotConfirm
+--- PASS: TestLifecycleNetworkObservationFailureDoesNotConfirm (0.00s)
+=== RUN   TestLifecycleNetworkCompletionRequiresCurrentPodAndSnapshot
+=== RUN   TestLifecycleNetworkCompletionRequiresCurrentPodAndSnapshot/network-pod
+=== RUN   TestLifecycleNetworkCompletionRequiresCurrentPodAndSnapshot/network-snapshot
+=== RUN   TestLifecycleNetworkCompletionRequiresCurrentPodAndSnapshot/old-runtime-pod
+--- PASS: TestLifecycleNetworkCompletionRequiresCurrentPodAndSnapshot (0.00s)
+    --- PASS: TestLifecycleNetworkCompletionRequiresCurrentPodAndSnapshot/network-pod (0.00s)
+    --- PASS: TestLifecycleNetworkCompletionRequiresCurrentPodAndSnapshot/network-snapshot (0.00s)
+    --- PASS: TestLifecycleNetworkCompletionRequiresCurrentPodAndSnapshot/old-runtime-pod (0.00s)
+=== RUN   TestLifecycleNetworkPublishesChangedPodBeforeConfirmation
+--- PASS: TestLifecycleNetworkPublishesChangedPodBeforeConfirmation (0.00s)
+=== RUN   TestLifecycleDeadlinePersistsRecoveryBeforeMutation
+--- PASS: TestLifecycleDeadlinePersistsRecoveryBeforeMutation (0.00s)
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-stop
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-start
+=== RUN   TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/recovery-fence
+--- PASS: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites (0.00s)
+    --- PASS: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-stop (0.00s)
+    --- PASS: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/pending-start (0.00s)
+    --- PASS: TestLifecycleDeadlinePreservesAndResolvesUnknownWrites/recovery-fence (0.00s)
+=== RUN   TestCPUAdmissionRejectsGPUState
+=== RUN   TestCPUAdmissionRejectsGPUState/selector
+=== RUN   TestCPUAdmissionRejectsGPUState/annotation
+=== RUN   TestCPUAdmissionRejectsGPUState/scheduler
+=== RUN   TestCPUAdmissionRejectsGPUState/queue
+=== RUN   TestCPUAdmissionRejectsGPUState/unknown_type
+=== RUN   TestCPUAdmissionRejectsGPUState/empty_compute_type
+=== RUN   TestCPUAdmissionRejectsGPUState/limit
+--- PASS: TestCPUAdmissionRejectsGPUState (0.00s)
+    --- PASS: TestCPUAdmissionRejectsGPUState/selector (0.00s)
+    --- PASS: TestCPUAdmissionRejectsGPUState/annotation (0.00s)
+    --- PASS: TestCPUAdmissionRejectsGPUState/scheduler (0.00s)
+    --- PASS: TestCPUAdmissionRejectsGPUState/queue (0.00s)
+    --- PASS: TestCPUAdmissionRejectsGPUState/unknown_type (0.00s)
+    --- PASS: TestCPUAdmissionRejectsGPUState/empty_compute_type (0.00s)
+    --- PASS: TestCPUAdmissionRejectsGPUState/limit (0.00s)
+=== RUN   TestOwnerCleanupReadyRequiresEntireClosedInstance
+=== RUN   TestOwnerCleanupReadyRequiresEntireClosedInstance/borrowed_references_remain
+=== RUN   TestOwnerCleanupReadyRequiresEntireClosedInstance/unknown_compute_type
+=== RUN   TestOwnerCleanupReadyRequiresEntireClosedInstance/missing_compute_type
+=== RUN   TestOwnerCleanupReadyRequiresEntireClosedInstance/network_remains
+=== RUN   TestOwnerCleanupReadyRequiresEntireClosedInstance/running
+=== RUN   TestOwnerCleanupReadyRequiresEntireClosedInstance/stopped
+=== RUN   TestOwnerCleanupReadyRequiresEntireClosedInstance/pending_write
+=== RUN   TestOwnerCleanupReadyRequiresEntireClosedInstance/compute_remains
+=== RUN   TestOwnerCleanupReadyRequiresEntireClosedInstance/workspace_remains
+--- PASS: TestOwnerCleanupReadyRequiresEntireClosedInstance (0.00s)
+    --- PASS: TestOwnerCleanupReadyRequiresEntireClosedInstance/borrowed_references_remain (0.00s)
+    --- PASS: TestOwnerCleanupReadyRequiresEntireClosedInstance/unknown_compute_type (0.00s)
+    --- PASS: TestOwnerCleanupReadyRequiresEntireClosedInstance/missing_compute_type (0.00s)
+    --- PASS: TestOwnerCleanupReadyRequiresEntireClosedInstance/network_remains (0.00s)
+    --- PASS: TestOwnerCleanupReadyRequiresEntireClosedInstance/running (0.00s)
+    --- PASS: TestOwnerCleanupReadyRequiresEntireClosedInstance/stopped (0.00s)
+    --- PASS: TestOwnerCleanupReadyRequiresEntireClosedInstance/pending_write (0.00s)
+    --- PASS: TestOwnerCleanupReadyRequiresEntireClosedInstance/compute_remains (0.00s)
+    --- PASS: TestOwnerCleanupReadyRequiresEntireClosedInstance/workspace_remains (0.00s)
+=== RUN   TestDeleteCleansEntireInstanceBeforeQuotaDelivery
+--- PASS: TestDeleteCleansEntireInstanceBeforeQuotaDelivery (0.00s)
+=== RUN   TestDeleteWaitsForNetworkReleaseBeforeOwnerCleanup
+--- PASS: TestDeleteWaitsForNetworkReleaseBeforeOwnerCleanup (0.00s)
+=== RUN   TestUnknownWorkspaceCreateUsesWorkspaceObservation
+--- PASS: TestUnknownWorkspaceCreateUsesWorkspaceObservation (0.00s)
+=== RUN   TestDurableOwnerCleanupSkipsExternalObservation
+--- PASS: TestDurableOwnerCleanupSkipsExternalObservation (0.00s)
+=== RUN   TestFailedObservationCannotSealStoredCleanupFlags
+--- PASS: TestFailedObservationCannotSealStoredCleanupFlags (0.00s)
+=== RUN   TestUnknownCreateStillBlocksOwnerCleanup
+=== RUN   TestUnknownCreateStillBlocksOwnerCleanup/create_notebook
+=== RUN   TestUnknownCreateStillBlocksOwnerCleanup/create_workspace
+--- PASS: TestUnknownCreateStillBlocksOwnerCleanup (0.00s)
+    --- PASS: TestUnknownCreateStillBlocksOwnerCleanup/create_notebook (0.00s)
+    --- PASS: TestUnknownCreateStillBlocksOwnerCleanup/create_workspace (0.00s)
+=== RUN   TestOnlyFinalCPUDeleteCompletesWithoutQuotaDelivery
+=== RUN   TestOnlyFinalCPUDeleteCompletesWithoutQuotaDelivery/running
+=== RUN   TestOnlyFinalCPUDeleteCompletesWithoutQuotaDelivery/stopped
+=== RUN   TestOnlyFinalCPUDeleteCompletesWithoutQuotaDelivery/deleted
+--- PASS: TestOnlyFinalCPUDeleteCompletesWithoutQuotaDelivery (0.00s)
+    --- PASS: TestOnlyFinalCPUDeleteCompletesWithoutQuotaDelivery/running (0.00s)
+    --- PASS: TestOnlyFinalCPUDeleteCompletesWithoutQuotaDelivery/stopped (0.00s)
+    --- PASS: TestOnlyFinalCPUDeleteCompletesWithoutQuotaDelivery/deleted (0.00s)
+PASS
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.010s

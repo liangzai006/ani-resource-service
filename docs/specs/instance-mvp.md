@@ -4,6 +4,8 @@
 
 > 2026-10-27 释放合同调整：明确 DELETE 后，由 Resource 完成整个实例的计算、专属工作盘、网络与借用引用清理，再持久化最终 owner 清理事实和退额 outbox。Resource 与 ModelDev 共用 Gov 现有 `ReportResourceReleased`，不调用 ACC `ObserveRelease`；旧 ACC 摘要是 Resource 本地门槛，从未作为 Gov 请求字段。以下 §8.3、§9.1 和 §10 是当前释放规则；实施顺序见[整改方案](../plans/container-instance-release-without-acc-20261027.md)，实际结果只见[执行状态](../execution/status.md#container-instance-owner-refund-2026-10-27)。
 
+> 2026-10-28 生命周期增量：以下 §8.4、§9.2 与[当前挂载及 Storage 协调合同](instance-configuration-network.md#43-持久化和投影)替代历史的创建后卷配置不变、双态引用和简单启停恢复说法。实施输入为[已审 v2.0 方案](../plans/container-instance-restart-pvc-20261028.md)，迁移与恢复见[运行手册](../runbooks/instance-mvp-fedora.md)，部署和 LIVE 结果只见[唯一状态](../execution/status.md#container-restart-pvc-20261028)。
+
 > 本版基于 v1.4 和后续讨论修订，面向当前受控实验环境。文中接口、字段及工作包是实施约定，不代表已经修改代码、部署或通过验收。
 
 **主线保持不变：Res 管实例，Notebook 承载运行，SG 提供浏览器终端；Gov 创建时占额一次，普通启停不动账本，最终由 Res 决定何时通知退额。** 这沿用 v1.4 已明确的配额生命周期与服务分工。[1]
@@ -62,7 +64,7 @@ Notebook 运行，通过 SG 浏览器终端使用
 
 | 项目 | 本轮范围 |
 |---|---|
-| 实例操作 | 创建、列表、详情、操作查询、启动、停止、删除 |
+| 实例操作 | 创建、列表、详情、操作查询、启动、停止、重启、已有 PVC 挂卸、删除 |
 | GPU | 已开放的共享规格和整卡规格；一个主容器、一个 GPU 设备 |
 | 规格 | 固定 CPU／内存／GPU 配置，创建后不变配 |
 | 镜像 | 平台预置镜像、已登记且遵守平台约定的租户自定义镜像 |
@@ -74,7 +76,7 @@ Notebook 运行，通过 SG 浏览器终端使用
 
 **共享 GPU 不能后置，也不能用“CPU 路径通过”代替产品验收。**
 
-不做容器日志产品、JupyterLab／VS Code 网页、原生 SSH、任意应用端口、变配、多卷、多集群、批量和定时回收。服务自身日志及实例失败原因保留。后续功能不预建空接口或占位实现。
+不做额外容器日志产品、JupyterLab／VS Code 网页、原生 SSH、任意应用端口、变配、不停机热挂载、多集群、批量和定时回收。已有 PVC 的受控挂卸按增量合同执行；服务日志、只读诊断及实例失败原因保留。
 
 ### 1.2 两条必须展示的产品提示
 
@@ -211,7 +213,7 @@ UID/GID、shell 和镜像 digest 在 MVP-01 根据实际基础镜像填写，不
 
 | 动作 | 专属工作盘 |
 |---|---|
-| 创建 | 创建一个受管 PVC，固定容量，挂载 `/workspace` |
+| 创建 | 创建一个受管 PVC，固定容量，挂载冻结的 `workspace_mount_path` |
 | 停止 | 保留 |
 | 再次启动 | 挂载原 PVC，保留原文件 |
 | 最终删除 | 删除这个实例专属的 PVC，并由存储系统按策略回收 |
@@ -259,11 +261,11 @@ Res 对同一命令也返回原持久 ACK，不重复建资源。已接受的后
 
 ### 8.2 普通停止与启动
 
-保留一个 Notebook。Stop 使用它的原生停止机制，Start 恢复同一个 Notebook；实际 Pod 可以变化，但 instance_id、原 CREATE、execution、Gov 原账和工作盘不变。
+保留一个 Notebook。Stop 使用它的原生停止机制，Start 恢复同一个 Notebook 并消费当前挂载配置；实际 Pod 可以变化，但 instance_id、原 CREATE、execution、Gov 原账和工作盘不变。
 
 沿用 v1.4 所选的 `kubeflow-resource-stopped` 注解适配：停止添加，启动移除，不将值写为 `false` 冒充移除。该机制的既有来源是 v1.4 引用的上游版本，仍须以实验集群实际控制器验证，不假设部署版本。[1]
 
-停止完成需要观察停止意图已经被执行、运行 Pod 已结束，而不只看 RPC 成功。启动等待容器可运行，再允许申请终端。两者均不产生新的占额或退额。
+停止证明由 [ObserveIdentity](../../internal/data/instance/notebook_lifecycle.go) 提供：Notebook 有停止注解，StatefulSet 若存在则须 replicas=0 且 observedGeneration 覆盖 generation；持久化历史 Pod 的直接 GET 和完整 controller 链 LIST 均确认无旧 Pod，再复核 Notebook/StatefulSet 身份或确认 StatefulSet 仍不存在。terminating 对象仍算存在；卷缺失、挂载资格或 GPU 运行资格不能阻挡已证 owner 的安全停止。启动须取得当前 Pod 的运行与网络证明后才可申请终端；启停均不占退额。
 
 ### 8.3 最终删除
 
@@ -293,6 +295,14 @@ Res 的正常退额规则是上述自有生命周期检查。Gov 不重新执行
 
 本服务仅在明确最终 DELETE 且完整清理后退额。创建已受理但启动失败、一直 Pending 时仍需明确 DELETE；从未开始外部创建的取消可以使用内部未执行事实，但仍须完成已经准备的其他资源清理。普通运行阶段查不到 Pod，不能直接退款；保留实例与占额，显示异常并进入相应业务操作。CPU 实例不创建 GPU 释放事件，不调用 Gov GPU 退额 RPC。
 
+### 8.4 Restart 与挂卸操作
+
+`Spec`、原 CREATE 摘要、GPU execution 与原账保持冻结；当前 borrowed 挂载独立保存为 `CurrentMounts`，空数组不能回退到 `Spec.VolumeMounts`。`AppliedMountVersion` 只记录已证明应用的模板版本，初始化和原子提交规则见[配置合同 §4.3](instance-configuration-network.md#43-持久化和投影)。`Desired` 表示最终目标，`RuntimeDesired` 表示当前阶段运行目标；Network 使用后者，不能在组合操作的停止阶段继续发布旧 Running 资格。
+
+独立 Restart 只在稳定 Running 受理。停止态挂卸应用模板后保持停止；运行态必须显式 `restart_if_running=true`，由同一 operation 完成停止、应用和恢复运行。Gov 不串联两个独立 Stop/Start。只有新意图持久受理才增加一次业务 version；phase、重放、观察和模板提交不增加。当前授权先于只读重放，重放先于当前版本、状态、维护/能力闸门和 PVC 解析；原键须携带原版本与原正文。
+
+`accepted/blocked` 操作、Pending 或 RecoveryFence 保持互斥，普通 Start/Stop 也不能覆盖它们；DELETE 可接管未终态操作，但保留其执行和未知写证据。`completed/failed/superseded` 终态单调。失败只有在未知写已封闭、当前模板已分类并证明安全停止后才可结束并释放互斥；已提交配置不静默回滚，无安全证明则保持 blocked。新键修复使用当前版本与当前配置。[阶段执行](../../internal/biz/instance/lifecycle_worker.go)和[受理/提交事务](../../internal/data/instance/lifecycle.go)是对应实现落点；停止态结果为 `template_applied`，运行态须 `runtime_verified`，均不能单凭 ACK 判断完成。
+
 ## 9. worker 不改架构，只补必要的请求正确性
 
 ### 9.1 执行组织
@@ -309,13 +319,13 @@ PG 持久工作 → Step → Claim → Observe / BeginMutation → Finish
 
 ### 9.2 迟到启停请求：使用条件更新
 
-这项保留为 Res Notebook 适配器的实现细节，不扩建框架。建议明确 `SetStopped` 输入包含目标 UID 和本次意图版本。
+Notebook 条件写使用持久 Mutation：原 operation/version、mutation ID、phase/phase_sequence、目标 UID/RV 和明确停止 payload；卷写另绑定目标摘要。先由 `BeginMutation` 复核当前意图和 lease，再调用 [LifecycleProvider](../../internal/biz/instance/lifecycle.go)；不直接 patch StatefulSet。
 
 一次外部写的顺序是：读取 Notebook 及 resourceVersion，随后在 `BeginMutation` 复核当前数据库意图和执行资格，再提交带条件的更新。将本次业务意图版本与停止状态一起写入 Notebook。
 
-旧版本发生冲突后，结束旧动作、重新读取当前持久意图；不能只换一个最新 resourceVersion 继续重试旧 Start。新意图即使与现有启停值相同，也要保存其意图版本，避免“无需更新”跳过必要的版本推进。
+结果未知时保持原 UID/RV/mutation/payload；Pending 与唯一 RecoveryFence 不因到期或进程退出清空，也不能刷新 RV 冒充原尝试。只有取得可归因的确定回执、匹配原写标记，或证明原条件不再可能生效，才能记录回执并继续。DELETE 继承原证据与 Pod 历史，由当前操作取得恢复推进资格，不改写旧尝试的身份。
 
-Kubernetes 支持通过 resourceVersion 检测并拒绝基于旧对象版本的更新；具体实现仍需将该机制与 Res 意图校验配合，不能只加一条普通注解就认为外部顺序已经保证。[7]
+Kubernetes resourceVersion 条件与数据库版本/lease 同时约束外部顺序；具体未知写分类与 fence 收敛见 [resolveLifecycleWrites](../../internal/biz/instance/lifecycle_worker.go)。单条注解或一次 NotFound 不能替代这组证明。[7]
 
 ### 9.3 未知创建结果：允许阻塞，不假装自动恢复
 
@@ -355,11 +365,16 @@ Gov 独立异步同步 ACC 的薄 Usage 投影；失败重试不回滚已经完�
 | `GET /api/v1/instances/{id}` | 详情、失败原因与清理进度 | 无 |
 | `POST /api/v1/instances/{id}:start` | 原配置启动 | 无 |
 | `POST /api/v1/instances/{id}:stop` | 停止 | 无 |
+| `POST /api/v1/instances/{id}:restart` | 独立持久重启 | 无 |
+| `POST /api/v1/instances/{id}:attach-pvc` | 挂载已有 borrowed PVC | 无 |
+| `POST /api/v1/instances/{id}:detach-pvc` | 卸载当前 borrowed 路径 | 无 |
+| `GET /api/v1/instances/{id}/mountable-pvcs` | 实例保存 placement 下的候选 | 无 |
+| `GET /api/v1/instances/{id}/configuration` | 当前配置、应用版本与待提交变更 | 无 |
 | `DELETE /api/v1/instances/{id}` | 删除实例和专属工作盘 | Res 按规则通知最终归还 |
 | `GET /api/v1/instance-operations/{id}` | 异步操作状态 | 无 |
 | `POST /api/v1/instances/{id}/exec` | 申请浏览器终端 | 无 |
 
-路径是拟定合同，沿用 Gov 报文封装。创建公开字段仍只有 `idempotency_key`、`name`、镜像范围／ID、规格 ID／版本。启停删除带幂等键与期望业务版本；namespace 只在可信内部上下文中可选提供。
+正式字段以 [Instance Proto](../../api/instance/v1/instance.proto)及[配置输入](instance-configuration-network.md#3-创建输入和查询合同)为准。新增五个 Resource RPC 为 `Restart/AttachPVC/DetachPVC/ListInstanceMountablePVCs/LookupCommandReplay`，精确受信方法登记见[调用合同](governance-calls.md)及[接收方白名单](../../internal/server/instance_identity.go)。Gov 三个动作权限为 `instance:restart`、`instance:pvc:attach`、`instance:pvc:detach`，实例候选使用 attach 权限；运行态组合操作不额外要求独立 Start/Stop 权限。权限源表、增量注册及 INSTANCE 能力关联按[已审方案 §3.1/代码落点](../plans/container-instance-restart-pvc-20261028.md)核对，不以全局同步删除其他模块权限。启停、重启、挂卸及删除均使用原幂等身份和期望版本；namespace 只来自可信内部上下文。
 
 删除接口默认删除专属盘，不另开 `retain_workspace` 分支；UI 必须明确数据删除提示。本文是在设计接口，不授权执行任何现有资源删除。
 
@@ -367,8 +382,9 @@ Gov 独立异步同步 ACC 的薄 Usage 投影；失败重试不回滚已经完�
 
 | 记录 | 保存内容 |
 |---|---|
-| `instances` | 租户、原 CREATE、唯一 execution／展示、冻结规格镜像、保存的 cluster／namespace、Notebook 身份、期望与观察状态 |
-| `instance_operations` | 请求指纹、幂等 ACK、命令意图版本、外部调用待定结果 |
+| `instances` | 原 CREATE 与冻结规格；独立 current_mounts/mounts_initialized/applied_mount_version/runtime_desired/recovery_fence；外部身份和观察 |
+| `instance_operations` | 请求指纹、幂等 ACK、命令意图版本、execution 阶段/模板证明和外部待定结果 |
+| `borrowed_volume_references` / `borrowed_pvc_guards` | 挂载代际及四态引用、物理名称 guard 与 Storage 持久删除票据 |
 | `instance_work` | 到期时间、租约、Owner/Epoch、失败与重试信息 |
 | `workspace_bindings` | 实例专属 PVC 身份和删除进度，不提供独立保留卷生命周期 |
 | `instance_quota_release_outbox` | 稳定事件、原 CREATE、resource、reason、最终 owner 清理资格与匹配 Gov ACK |
@@ -377,7 +393,7 @@ Gov 独立异步同步 ACC 的薄 Usage 投影；失败重试不回滚已经完�
 
 ### 11.3 方法与目录
 
-关键方法包括：`ResolveNamespace`、`ResolveCreateSpec`、四个 `Accept*`、`RenderNotebook`、带意图版本的 `SetStopped`、`Exists`、`EnsureWorkspace/DeleteWorkspace`、`DecideQuotaReturn/ReportPendingQuotaReturn`，以及 SG 申请／建连的目标解析。
+创建、命令及重放接口以 Proto 为准；[受理/阶段提交](../../internal/data/instance/lifecycle.go)、[Notebook 安全身份与条件写](../../internal/data/instance/notebook_lifecycle.go)、[Storage 删除窄端口](../../internal/biz/storage/delete_guard.go)及[008 迁移](../../migrations/instance/008_restart_pvc.sql)分别拥有其持久化与适配规则。SG 仍通过原目标解析接入。
 
 ```text
 api/instance/v1/instance.proto
@@ -429,7 +445,7 @@ SG 复用原 terminal／exec；只补当前实例目标和申请／建连时检�
 
 仓库落点继续使用现有规则：`docs/specs/instance-mvp.md` 放业务与接口合同，`docs/plans/instance-mvp-v1.5.md` 放工作包，进度只维护在 `docs/execution/status.md`，证据进入对应 records。旧文档标明被替代，不改写历史验收记录。
 
-执行时记录真实服务版本与契约版本；本次只形成方案和附件，没有提交仓库、修改集群或执行资源删除。
+历史 v1.5 方案的成文记录不代表后续代码、部署或验收状态。执行时记录真实版本；当前增量只链接[唯一执行状态](../execution/status.md#container-restart-pvc-20261028)，本文不维护第二份结果账。
 
 **v1.5 的交付对象是：使用缺省 Namespace 规则、平台兼容镜像、单个专属工作盘的 GPU 容器；通过 Notebook 启停、SG 终端使用，实例最终删除时回收工作盘，Gov 完成一次原配额归还。**
 

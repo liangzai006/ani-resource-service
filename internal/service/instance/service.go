@@ -2,16 +2,12 @@ package instance
 
 import (
 	"context"
-	"crypto/sha256"
-	"encoding/hex"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"strings"
 	"sync"
 
-	"github.com/google/uuid"
 	command "github.com/zhangzhe-ctrl/ani-accelerator-service/api/gen/go/accelerator/command/v1"
 	terminal "github.com/zhangzhe-ctrl/ani-resource-service/api/instance/terminal/v1"
 	pb "github.com/zhangzhe-ctrl/ani-resource-service/api/instance/v1"
@@ -27,6 +23,7 @@ type Config struct {
 	LogLimits                                                                      biz.LogLimits
 	UID, GID                                                                       int64
 	NetworkV2Writes                                                                bool
+	NewIntentsEnabled, RestartEnabled, PVCMutationsEnabled                         bool
 }
 type Service struct {
 	pb.UnimplementedInstanceServiceServer
@@ -97,6 +94,12 @@ func rpcError(e error) error {
 		return status.Error(codes.NotFound, "INSTANCE_NOT_FOUND")
 	case errors.Is(e, biz.ErrConflict):
 		return status.Error(codes.AlreadyExists, "INSTANCE_IDEMPOTENCY_CONFLICT")
+	case errors.Is(e, biz.ErrActionUnavailable):
+		return status.Error(codes.Unavailable, e.Error())
+	case errors.Is(e, biz.ErrOperationInProgress), errors.Is(e, biz.ErrState), errors.Is(e, biz.ErrRequiresStop), errors.Is(e, biz.ErrDeleting), errors.Is(e, biz.ErrMountPathInUse), errors.Is(e, biz.ErrWorkspaceDetach), errors.Is(e, biz.ErrPVCDeleting):
+		return status.Error(codes.FailedPrecondition, e.Error())
+	case errors.Is(e, biz.ErrMountNotFound):
+		return status.Error(codes.NotFound, e.Error())
 	case errors.Is(e, biz.ErrVersion):
 		return status.Error(codes.FailedPrecondition, "INSTANCE_VERSION_CONFLICT")
 	default:
@@ -182,7 +185,7 @@ func (s *Service) ResolveCreateSpec(ctx context.Context, r *pb.ResolveCreateSpec
 	return out, nil
 }
 func ack(a biz.ACK) *pb.OperationResponse {
-	return &pb.OperationResponse{DurableOwnerAck: &command.DurableOwnerAck{OperationId: a.OperationID, ResourceId: a.ResourceID, Accepted: a.Accepted}}
+	return &pb.OperationResponse{Replayed: a.Replayed, DurableOwnerAck: &command.DurableOwnerAck{OperationId: a.OperationID, ResourceId: a.ResourceID, Accepted: a.Accepted}}
 }
 func (s *Service) AcceptCreate(ctx context.Context, r *pb.AcceptCreateRequest) (*pb.OperationResponse, error) {
 	if r == nil || r.Context == nil || r.Spec == nil || len(r.ProtoReflect().GetUnknown()) != 0 {
@@ -198,6 +201,21 @@ func (s *Service) AcceptCreate(ctx context.Context, r *pb.AcceptCreateRequest) (
 	digest, e := pb.CommandDigest(c, f)
 	if e != nil || digest != c.RequestDigest || f.ClusterId != s.config.ClusterID {
 		return nil, rpcError(biz.ErrInvalid)
+	}
+	if !s.config.NewIntentsEnabled {
+		original, err := s.repo.GetOperation(ctx, c.TenantId, c.OperationId)
+		if err == nil {
+			if original.Action != "create" || original.InstanceID != c.ResourceId || original.RequestHash != c.RequestDigest {
+				return nil, rpcError(biz.ErrConflict)
+			}
+			a := original.ACK
+			a.Replayed = true
+			return ack(a), nil
+		}
+		if !errors.Is(err, biz.ErrNotFound) {
+			return nil, rpcError(err)
+		}
+		return nil, rpcError(biz.ErrActionUnavailable)
 	}
 	image := strings.LastIndex(f.ImageReference, "@sha256:")
 	if image < 1 {
@@ -247,10 +265,7 @@ func (s *Service) change(ctx context.Context, r *pb.ChangeInstanceRequest, actio
 	if e := biz.RequireTenant(ctx, r.TenantId); e != nil {
 		return nil, rpcError(e)
 	}
-	raw, _ := json.Marshal([]any{r.InstanceId, r.ExpectedVersion, action})
-	sum := sha256.Sum256(raw)
-	accepted, e := s.repo.AcceptCommand(ctx, biz.Command{TenantID: r.TenantId, ID: r.InstanceId, OperationID: uuid.NewString(), Key: r.IdempotencyKey, RequestHash: hex.EncodeToString(sum[:]), Action: action, ExpectedVersion: r.ExpectedVersion})
-	return ack(accepted), rpcError(e)
+	return s.lifecycleCommand(ctx, biz.Command{TenantID: r.TenantId, ID: r.InstanceId, Key: r.IdempotencyKey, ExpectedVersion: r.ExpectedVersion, Action: action})
 }
 func (s *Service) Start(ctx context.Context, r *pb.ChangeInstanceRequest) (*pb.OperationResponse, error) {
 	return s.change(ctx, r, "start")
@@ -260,6 +275,11 @@ func (s *Service) Stop(ctx context.Context, r *pb.ChangeInstanceRequest) (*pb.Op
 }
 func wire(i biz.Instance) *pb.Instance {
 	out := &pb.Instance{InstanceKind: i.Spec.InstanceKind, ComputeType: i.Spec.ComputeType, Id: i.ID, Name: i.Spec.Name, Version: i.Version, DesiredState: i.Desired, ObservedState: i.Observed, Reason: i.Reason, ImageId: i.Spec.ImageID, ImageDigest: i.Spec.ImageDigest, PresetId: i.Spec.PresetID, CreateOperationId: i.CreateOperationID, LastOperationId: i.LastOperationID, ComputeCleaned: i.ComputeCleaned, WorkspaceCleaned: i.WorkspaceCleaned, QuotaReturned: i.QuotaReturned, Cpu: i.Spec.CPU, Memory: i.Spec.Memory, CreatedAt: timestamppb.New(i.CreatedAt), WorkspaceSize: i.Spec.WorkspaceSize, PresetName: i.Spec.PresetName, PresetCode: i.Spec.PresetCode, GpuSummary: wireSummary(i.Spec.GPUSummary, i.Spec.GPU), Scheduling: wireScheduling(i.Spec.Scheduling)}
+	out.ExecutionRunState = i.RuntimeDesired
+	out.AppliedMountVersion = i.AppliedMountVersion
+	if i.ActiveOperation != nil && !biz.TerminalOperation(i.ActiveOperation.State) {
+		out.ActiveOperationId = i.ActiveOperation.ID
+	}
 	out.NetworkState = "not_requested"
 	out.NetworkCleaned = true
 	out.VolumeReferencesReleased = i.VolumeReferencesReleased
@@ -306,7 +326,7 @@ func (s *Service) GetOperation(ctx context.Context, r *pb.GetOperationRequest) (
 		return nil, rpcError(e)
 	}
 	o, e := s.repo.GetOperation(ctx, r.TenantId, r.OperationId)
-	return &pb.Operation{Id: o.ID, InstanceId: o.InstanceID, Action: o.Action, IntentVersion: o.Version, State: o.State, Reason: o.Reason}, rpcError(e)
+	return wireOperation(o), rpcError(e)
 }
 func (s *Service) ResolveTerminalTarget(ctx context.Context, r *pb.ResolveTerminalTargetRequest) (*terminal.TerminalTarget, error) {
 	if r == nil {
@@ -319,7 +339,7 @@ func (s *Service) ResolveTerminalTarget(ctx context.Context, r *pb.ResolveTermin
 	if e != nil {
 		return nil, rpcError(e)
 	}
-	if i.Desired != biz.Running || i.Observed != biz.Running || i.Version != r.ExpectedVersion || i.NotebookUID == "" || i.PodUID == "" || i.Pending != nil {
+	if i.Desired != biz.Running || i.RuntimeDesired != biz.Running || i.ActiveOperation != nil || i.RecoveryFence != nil || i.Observed != biz.Running || i.Version != r.ExpectedVersion || i.NotebookUID == "" || i.PodUID == "" || i.Pending != nil {
 		return nil, status.Error(codes.FailedPrecondition, "INSTANCE_TERMINAL_NOT_READY")
 	}
 	return &terminal.TerminalTarget{TenantId: i.TenantID, InstanceId: i.ID, Version: i.Version, ClusterId: i.Spec.ClusterID, Namespace: i.Spec.Namespace, NotebookName: i.Spec.NotebookName, NotebookUid: i.NotebookUID, PodName: i.PodName, PodUid: i.PodUID, ContainerName: biz.Container, Shell: i.Spec.Shell}, nil

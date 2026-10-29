@@ -41,7 +41,7 @@ func TestGpuExecutionPersistenceAndDeletedCatalogReplay(t *testing.T) {
 			if e != nil {
 				t.Fatal(e)
 			}
-			handler, e := service.NewService(f.repo, computeResolver(t, f, cluster), fixtureImage{}, fixtureEnvironment{}, service.Config{NamespacePrefix: "tenant-", ClusterID: cluster, ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", Shell: "/bin/sh", UID: 1000, GID: 1000})
+			handler, e := service.NewService(f.repo, computeResolver(t, f, cluster), fixtureImage{}, fixtureEnvironment{}, service.Config{NewIntentsEnabled: true, NamespacePrefix: "tenant-", ClusterID: cluster, ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", Shell: "/bin/sh", UID: 1000, GID: 1000})
 			if e != nil {
 				t.Fatal(e)
 			}
@@ -76,7 +76,7 @@ func TestGpuExecutionPersistenceAndDeletedCatalogReplay(t *testing.T) {
 			if e = f.presets.DeletePreset(admin, preset.ID); e != nil {
 				t.Fatal(e)
 			}
-			handler, e = service.NewService(f.repo, computeResolver(t, f, cluster), fixtureImage{}, fixtureEnvironment{}, service.Config{NamespacePrefix: "tenant-", ClusterID: cluster, ServiceAccount: "changed", StorageClass: "changed", WorkspaceSize: "2Gi", Shell: "/bin/bash", UID: 1001, GID: 1001})
+			handler, e = service.NewService(f.repo, computeResolver(t, f, cluster), fixtureImage{}, fixtureEnvironment{}, service.Config{NewIntentsEnabled: true, NamespacePrefix: "tenant-", ClusterID: cluster, ServiceAccount: "changed", StorageClass: "changed", WorkspaceSize: "2Gi", Shell: "/bin/bash", UID: 1001, GID: 1001})
 			if e != nil {
 				t.Fatal(e)
 			}

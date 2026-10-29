@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "sha256": "bee36b31e984bc6758a3e125a7eabdf1d17248ea664188c0ad41b7e46fb1cf69",
+  "bytes": 73819,
+  "schemas": [
+    "instance",
+    "compute"
+  ],
+  "client": "18.6",
+  "old_runtime_clients": 0,
+  "active_operations": 0,
+  "live_work_leases": 0
+}
