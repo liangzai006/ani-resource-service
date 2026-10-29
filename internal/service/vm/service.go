@@ -4,12 +4,14 @@ import (
 	"context"
 	"errors"
 	"strings"
+	"sync"
 	"time"
 
 	compute "github.com/zhangzhe-ctrl/ani-resource-service/api/compute/v1"
 	console "github.com/zhangzhe-ctrl/ani-resource-service/api/vm/console/v1"
 	pb "github.com/zhangzhe-ctrl/ani-resource-service/api/vm/v1"
 	biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/vm"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
@@ -25,6 +27,7 @@ type Config struct {
 	ClusterID, ServiceAccount, StorageClass, StorageClassUID, BackendStorageClass, MediaStorageClass string
 	Media                                                                                            []*pb.MediaReference
 	DefaultDNSServers                                                                                []string
+	LogLimits                                                                                        biz.LogLimits
 }
 type Service struct {
 	pb.UnimplementedVMServiceServer
@@ -36,6 +39,11 @@ type Service struct {
 	config      Config
 	media       map[string]*pb.MediaReference
 	addresses   AddressReader
+	logs        biz.LogPort
+	logMu       sync.Mutex
+	logTotal    int
+	logTenants  map[string]int
+	logVMs      map[string]int
 }
 
 func (s *Service) SetAddressReader(r AddressReader) { s.addresses = r }
@@ -51,10 +59,11 @@ func (s *Service) project(ctx context.Context, v biz.VM) (*pb.VirtualMachine, er
 	return wireVM(v)
 }
 func NewService(r biz.Repository, c ComputeResolver, e biz.EnvironmentPort, n biz.NativePort, cfg Config) (*Service, error) {
-	if r == nil || c == nil || e == nil || n == nil || !biz.UUID(cfg.ClusterID) || cfg.ServiceAccount == "" || cfg.StorageClass == "" || cfg.StorageClassUID == "" {
+	if r == nil || c == nil || e == nil || n == nil || !biz.UUID(cfg.ClusterID) || cfg.ServiceAccount == "" || cfg.StorageClass == "" || cfg.StorageClassUID == "" || biz.ValidateLogLimits(cfg.LogLimits) != nil {
 		return nil, biz.ErrInvalid
 	}
-	s := &Service{repo: r, compute: c, environment: e, native: n, config: cfg, media: map[string]*pb.MediaReference{}}
+	logs, _ := n.(biz.LogPort)
+	s := &Service{repo: r, compute: c, environment: e, native: n, config: cfg, media: map[string]*pb.MediaReference{}, logs: logs, logTenants: map[string]int{}, logVMs: map[string]int{}}
 	for _, m := range cfg.Media {
 		if m == nil || m.MediaKey == "" || s.media[m.MediaKey] != nil {
 			return nil, biz.ErrInvalid
@@ -79,6 +88,10 @@ func rpcError(e error) error {
 		code = codes.AlreadyExists
 	case errors.Is(e, biz.ErrVersion), errors.Is(e, biz.ErrBusy), errors.Is(e, biz.ErrOwnership), errors.Is(e, biz.ErrChanged), errors.Is(e, biz.ErrConsole):
 		code = codes.FailedPrecondition
+	case errors.Is(e, biz.ErrLogTarget):
+		code = codes.FailedPrecondition
+	case errors.Is(e, biz.ErrLogLimit):
+		code = codes.ResourceExhausted
 	}
 	if code == codes.Unavailable {
 		return status.Error(code, "VM_DEPENDENCY_NOT_READY")
@@ -545,4 +558,93 @@ func (s *Service) ValidateConsoleSession(ctx context.Context, r *console.VMConso
 		return nil, rpcError(biz.ErrConsole)
 	}
 	return &console.ConsoleSessionValidation{Valid: true}, nil
+}
+
+func (s *Service) acquireLog(v biz.VM) (func(), error) {
+	limits := s.config.LogLimits.Defaults()
+	key := v.TenantID + ":" + v.ID
+	s.logMu.Lock()
+	defer s.logMu.Unlock()
+	if s.logTotal >= limits.ProcessConnections || s.logTenants[v.TenantID] >= limits.TenantConnections || s.logVMs[key] >= limits.InstanceConnections {
+		return nil, biz.ErrLogLimit
+	}
+	s.logTotal++
+	s.logTenants[v.TenantID]++
+	s.logVMs[key]++
+	return func() {
+		s.logMu.Lock()
+		defer s.logMu.Unlock()
+		s.logTotal--
+		s.logTenants[v.TenantID]--
+		s.logVMs[key]--
+		if s.logTenants[v.TenantID] == 0 {
+			delete(s.logTenants, v.TenantID)
+		}
+		if s.logVMs[key] == 0 {
+			delete(s.logVMs, key)
+		}
+	}, nil
+}
+
+// StreamVMLogs serves the guest serial console of the running launcher. The
+// caller's lifetime owns the stream; frames are only released after READY.
+func (s *Service) StreamVMLogs(r *pb.StreamVMLogsRequest, stream grpc.ServerStreamingServer[pb.VMLogFrame]) error {
+	if r == nil || r.TailLines < 1 || r.TailLines > 1000 {
+		return rpcError(biz.ErrInvalid)
+	}
+	ctx := stream.Context()
+	if e := biz.RequireTenant(ctx, r.TenantId); e != nil {
+		return rpcError(e)
+	}
+	if !biz.UUID(r.VmId) {
+		return rpcError(biz.ErrInvalid)
+	}
+	v, e := s.repo.Get(ctx, r.TenantId, r.VmId)
+	if e != nil {
+		return rpcError(e)
+	}
+	if v.TenantID != r.TenantId || v.ID != r.VmId {
+		return rpcError(biz.ErrDenied)
+	}
+	if v.Spec.ClusterID != s.config.ClusterID || s.logs == nil {
+		return rpcError(biz.ErrLogTarget)
+	}
+	release, e := s.acquireLog(v)
+	if e != nil {
+		return rpcError(e)
+	}
+	defer release()
+	var x biz.Observation
+	if native, ok := s.native.(biz.ConsoleNativePort); ok {
+		x, e = native.ObserveConsole(ctx, v)
+	} else {
+		x, e = s.native.Observe(ctx, v)
+	}
+	if e != nil {
+		return rpcError(e)
+	}
+	if !x.Running || x.VMI == nil || x.VM.UID != v.Native.UID {
+		return rpcError(biz.ErrLogTarget)
+	}
+	limits := s.config.LogLimits.Defaults()
+	call, cancel := context.WithTimeout(ctx, time.Duration(limits.LifetimeSeconds)*time.Second)
+	defer cancel()
+	return s.logs.StreamLogs(call, v, x, r.TailLines, r.Follow, func(frame biz.LogFrame) error {
+		if len(frame.Data) > limits.FrameBytes {
+			return biz.ErrInvalid
+		}
+		out := &pb.VMLogFrame{Kind: pb.VMLogFrame_Kind(pb.VMLogFrame_Kind_value[frame.Kind]), Data: frame.Data, Reason: frame.Reason}
+		done := make(chan error, 1)
+		go func() { done <- stream.Send(out) }()
+		timer := time.NewTimer(time.Duration(limits.WriteTimeoutSeconds) * time.Second)
+		defer timer.Stop()
+		select {
+		case sendErr := <-done:
+			return sendErr
+		case <-stream.Context().Done():
+			return stream.Context().Err()
+		case <-timer.C:
+			return status.Error(codes.DeadlineExceeded, "VM_LOG_WRITE_TIMEOUT")
+		}
+	})
 }

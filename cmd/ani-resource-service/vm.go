@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -114,6 +115,9 @@ func wireVM(ctx context.Context, c *conf.Network, compute *computeComponents, re
 		return nil, nil, e
 	}
 	native.SetGuestCredentialReader(repo.GuestPasswordHash)
+	if e = native.ConfigureLogs(clientConfig, cfg.Service.LogLimits); e != nil {
+		return nil, nil, e
+	}
 	networkPort, e := data.NewNetwork(attachments, repo, native)
 	if e != nil {
 		return nil, nil, e
@@ -140,6 +144,18 @@ func wireVM(ctx context.Context, c *conf.Network, compute *computeComponents, re
 		return nil, nil, e
 	}
 	handler.SetAddressReader(networkPort)
+	if instances != nil && instances.service != nil {
+		instances.service.SetVMMetricScope(func(ctx context.Context, tenant, id string) (string, string, bool, error) {
+			v, e := repo.Get(ctx, tenant, id)
+			if errors.Is(e, biz.ErrNotFound) {
+				return "", "", false, nil
+			}
+			if e != nil {
+				return "", "", false, e
+			}
+			return v.Spec.ClusterID, v.Spec.Namespace, true, nil
+		})
+	}
 	worker, e := biz.NewWorker(repo, native, networkPort)
 	if e != nil {
 		return nil, nil, e

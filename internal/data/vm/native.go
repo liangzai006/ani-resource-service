@@ -31,6 +31,8 @@ type Native struct {
 	client            dynamic.Interface
 	control           rest.Interface
 	guestPasswordHash func(context.Context, biz.VM) (string, error)
+	logSource         podLogSource
+	logLimits         biz.LogLimits
 }
 
 func NewNative(c dynamic.Interface, config *rest.Config) (*Native, error) {

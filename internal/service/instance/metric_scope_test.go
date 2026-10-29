@@ -58,6 +58,71 @@ func TestMetricScopePersistedReadOnlyHistory(t *testing.T) {
 	}
 }
 
+func TestMetricScopeVMFallback(t *testing.T) {
+	tenant, id, cluster := uuid.NewString(), uuid.NewString(), uuid.NewString()
+	ctx := biz.WithCaller(context.Background(), biz.Caller{TenantID: tenant, Actor: "governance:user:42"})
+	repo := &metricScopeRepository{item: biz.Instance{TenantID: tenant, ID: uuid.NewString()}}
+	s, err := NewService(repo, newTestComputeResolver(t, repo, cluster), &cpuImageBoundary{}, &cpuEnvironmentBoundary{}, Config{ClusterID: cluster, ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", Shell: "/bin/sh"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	calls := 0
+	s.SetVMMetricScope(func(_ context.Context, gotTenant, gotID string) (string, string, bool, error) {
+		calls++
+		if gotTenant != tenant || gotID != id {
+			t.Fatal("vm resolver received a different identity")
+		}
+		return cluster, "tenant-vm", true, nil
+	})
+	got, err := s.ResolveInstanceMetricScope(ctx, &pb.GetInstanceRequest{TenantId: tenant, InstanceId: id})
+	if err != nil || got.GetTenantId() != tenant || got.GetInstanceId() != id || got.GetClusterId() != cluster || got.GetNamespace() != "tenant-vm" || got.GetContainerName() != "compute" {
+		t.Fatal("vm metric scope wrong", got, err)
+	}
+	if calls != 1 {
+		t.Fatalf("vm resolver calls=%d", calls)
+	}
+
+	for _, tc := range []struct {
+		name  string
+		scope func(context.Context, string, string) (string, string, bool, error)
+		code  codes.Code
+	}{
+		{"vm not found", func(context.Context, string, string) (string, string, bool, error) { return "", "", false, nil }, codes.NotFound},
+		{"vm reader failure", func(context.Context, string, string) (string, string, bool, error) {
+			return "", "", false, errors.New("storage failure")
+		}, codes.Unavailable},
+		{"vm bad cluster", func(context.Context, string, string) (string, string, bool, error) {
+			return "bad", "tenant-vm", true, nil
+		}, codes.FailedPrecondition},
+		{"vm bad namespace", func(context.Context, string, string) (string, string, bool, error) {
+			return cluster, "Bad_Namespace", true, nil
+		}, codes.FailedPrecondition},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			reader := &metricScopeRepository{item: biz.Instance{TenantID: tenant, ID: uuid.NewString()}}
+			svc, err := NewService(reader, newTestComputeResolver(t, reader, cluster), &cpuImageBoundary{}, &cpuEnvironmentBoundary{}, Config{ClusterID: cluster, ServiceAccount: "workload", StorageClass: "ani-block", WorkspaceSize: "1Gi", Shell: "/bin/sh"})
+			if err != nil {
+				t.Fatal(err)
+			}
+			svc.SetVMMetricScope(tc.scope)
+			got, err := svc.ResolveInstanceMetricScope(ctx, &pb.GetInstanceRequest{TenantId: tenant, InstanceId: id})
+			if got != nil || status.Code(err) != tc.code {
+				t.Fatal(got, err)
+			}
+			if tc.code == codes.FailedPrecondition {
+				details := status.Convert(err).Details()
+				if len(details) != 1 {
+					t.Fatal("missing machine readable reason", details)
+				}
+				info, ok := details[0].(*errdetails.ErrorInfo)
+				if !ok || info.Reason != "INSTANCE_METRIC_SCOPE_UNAVAILABLE" {
+					t.Fatal("incorrect machine readable reason", details)
+				}
+			}
+		})
+	}
+}
+
 func TestMetricScopeRejectsInvalidAndUnavailableRanges(t *testing.T) {
 	tenant, id, cluster := uuid.NewString(), uuid.NewString(), uuid.NewString()
 	valid := &pb.GetInstanceRequest{TenantId: tenant, InstanceId: id}

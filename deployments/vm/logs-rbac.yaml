@@ -1,0 +1,24 @@
+# The VM log stream reads the guest serial console of virt-launcher Pods in
+# tenant namespaces whose VMI ownership was verified by the Resource service.
+# Only Pod logs are granted here; Pod mutation stays with the workload role.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ani-resource-vm-logs
+rules:
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ani-resource-vm-logs-ani-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ani-resource-vm-logs
+subjects:
+  - kind: ServiceAccount
+    name: ani-resource-service
+    namespace: ani-system

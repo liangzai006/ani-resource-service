@@ -38,6 +38,7 @@ type Service struct {
 	network                  biz.NetworkPort
 	volumes                  biz.VolumeResolver
 	config                   Config
+	vmScope                  func(context.Context, string, string) (string, string, bool, error)
 }
 
 func NewService(r biz.Repository, resolver *compute.Resolver, images biz.ImageResolver, environment biz.EnvironmentValidator, c Config) (*Service, error) {
@@ -52,6 +53,14 @@ func NewService(r biz.Repository, resolver *compute.Resolver, images biz.ImageRe
 	diagnostics, _ := environment.(biz.Diagnostics)
 	volumes, _ := environment.(biz.VolumeResolver)
 	return &Service{repo: r, compute: resolver, images: images, environment: environment, volumes: volumes, diagnostics: diagnostics, config: c, logTenants: map[string]int{}, logInstances: map[string]int{}}, nil
+}
+
+// SetVMMetricScope wires the VM fallback for ResolveInstanceMetricScope. The
+// resolver returns the persisted VM cluster/namespace and whether the VM exists
+// in the caller tenant. Container instances always win; VM is only consulted on
+// a container-instance NotFound.
+func (s *Service) SetVMMetricScope(resolve func(context.Context, string, string) (string, string, bool, error)) {
+	s.vmScope = resolve
 }
 func rpcError(e error) error {
 	if e == nil {

@@ -36,6 +36,8 @@ service VMService {
   rpc PreviewRestore(PreviewRestoreRequest) returns (RestorePreview);
   rpc RestoreSnapshot(RestoreSnapshotRequest) returns (Operation);
   rpc ResolveConsoleTarget(ResolveConsoleTargetRequest) returns (vm.console.v1.VMConsoleBinding);
+  // Guest serial console of the live launcher, same framing as instance logs.
+  rpc StreamVMLogs(StreamVMLogsRequest) returns (stream VMLogFrame);
 }
 
 message NetworkSelection { string vpc_id = 1; string subnet_id = 2; }
@@ -200,4 +202,10 @@ message RestoreDiskImpact { string disk_id = 1; string action = 2; string reason
 message RestorePreview {
   int64 version = 1; string snapshot_id = 2; string snapshot_uid = 3;
   repeated RestoreDiskImpact disks = 4; string preview_digest = 5;
+}
+
+message StreamVMLogsRequest { string tenant_id = 1; string vm_id = 2; uint32 tail_lines = 3; bool follow = 4; }
+message VMLogFrame {
+  enum Kind { KIND_UNSPECIFIED = 0; READY = 1; DATA = 2; END = 3; ERROR = 4; }
+  Kind kind = 1; bytes data = 2; string reason = 3;
 }

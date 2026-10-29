@@ -48,6 +48,7 @@ const (
 	VMService_PreviewRestore_FullMethodName       = "/vm.v1.VMService/PreviewRestore"
 	VMService_RestoreSnapshot_FullMethodName      = "/vm.v1.VMService/RestoreSnapshot"
 	VMService_ResolveConsoleTarget_FullMethodName = "/vm.v1.VMService/ResolveConsoleTarget"
+	VMService_StreamVMLogs_FullMethodName         = "/vm.v1.VMService/StreamVMLogs"
 )
 
 // VMServiceClient is the client API for VMService service.
@@ -85,6 +86,8 @@ type VMServiceClient interface {
 	PreviewRestore(ctx context.Context, in *PreviewRestoreRequest, opts ...grpc.CallOption) (*RestorePreview, error)
 	RestoreSnapshot(ctx context.Context, in *RestoreSnapshotRequest, opts ...grpc.CallOption) (*Operation, error)
 	ResolveConsoleTarget(ctx context.Context, in *ResolveConsoleTargetRequest, opts ...grpc.CallOption) (*v1.VMConsoleBinding, error)
+	// Guest serial console of the live launcher, same framing as instance logs.
+	StreamVMLogs(ctx context.Context, in *StreamVMLogsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[VMLogFrame], error)
 }
 
 type vMServiceClient struct {
@@ -375,6 +378,25 @@ func (c *vMServiceClient) ResolveConsoleTarget(ctx context.Context, in *ResolveC
 	return out, nil
 }
 
+func (c *vMServiceClient) StreamVMLogs(ctx context.Context, in *StreamVMLogsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[VMLogFrame], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &VMService_ServiceDesc.Streams[0], VMService_StreamVMLogs_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[StreamVMLogsRequest, VMLogFrame]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type VMService_StreamVMLogsClient = grpc.ServerStreamingClient[VMLogFrame]
+
 // VMServiceServer is the server API for VMService service.
 // All implementations must embed UnimplementedVMServiceServer
 // for forward compatibility.
@@ -410,6 +432,8 @@ type VMServiceServer interface {
 	PreviewRestore(context.Context, *PreviewRestoreRequest) (*RestorePreview, error)
 	RestoreSnapshot(context.Context, *RestoreSnapshotRequest) (*Operation, error)
 	ResolveConsoleTarget(context.Context, *ResolveConsoleTargetRequest) (*v1.VMConsoleBinding, error)
+	// Guest serial console of the live launcher, same framing as instance logs.
+	StreamVMLogs(*StreamVMLogsRequest, grpc.ServerStreamingServer[VMLogFrame]) error
 	mustEmbedUnimplementedVMServiceServer()
 }
 
@@ -503,6 +527,9 @@ func (UnimplementedVMServiceServer) RestoreSnapshot(context.Context, *RestoreSna
 }
 func (UnimplementedVMServiceServer) ResolveConsoleTarget(context.Context, *ResolveConsoleTargetRequest) (*v1.VMConsoleBinding, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResolveConsoleTarget not implemented")
+}
+func (UnimplementedVMServiceServer) StreamVMLogs(*StreamVMLogsRequest, grpc.ServerStreamingServer[VMLogFrame]) error {
+	return status.Errorf(codes.Unimplemented, "method StreamVMLogs not implemented")
 }
 func (UnimplementedVMServiceServer) mustEmbedUnimplementedVMServiceServer() {}
 func (UnimplementedVMServiceServer) testEmbeddedByValue()                   {}
@@ -1029,6 +1056,17 @@ func _VMService_ResolveConsoleTarget_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _VMService_StreamVMLogs_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(StreamVMLogsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(VMServiceServer).StreamVMLogs(m, &grpc.GenericServerStream[StreamVMLogsRequest, VMLogFrame]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type VMService_StreamVMLogsServer = grpc.ServerStreamingServer[VMLogFrame]
+
 // VMService_ServiceDesc is the grpc.ServiceDesc for VMService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1149,6 +1187,12 @@ var VMService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _VMService_ResolveConsoleTarget_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "StreamVMLogs",
+			Handler:       _VMService_StreamVMLogs_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "vm/v1/vm.proto",
 }
