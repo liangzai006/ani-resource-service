@@ -16,3 +16,23 @@ image:
   publisher_days: 30
   pull_days: 365
   allow_never_expires: false
+  # The only cluster Image may write shared pull Secrets into. Empty keeps the
+  # unified Ensure unavailable (Resolve and the catalog stay usable).
+  pull_secret_cluster_id: "<deployment-cluster-id>"
+  # Empty uses the pod's in-cluster ServiceAccount. The identity needs the
+  # Secret write and Namespace read grants in deployments/image/rbac.yaml.
+  pull_secret_kubeconfig: ""
+  # Per-runtime-identity authorization. Never accepted from a request body.
+  # Inference uses one deployment-wide shared namespace; training requires a
+  # one-tenant namespace carrying both resource-tenant-id and managed-by.
+  pull_secret_callers:
+    - subject: ani-inference-service
+      cluster_ids: ["<deployment-cluster-id>"]
+      namespaces: ["<ANI_INFERENCE_NAMESPACE>"]
+      owner_labels: []
+      require_tenant_label: false
+    - subject: ani-modeldev-service
+      cluster_ids: ["<deployment-cluster-id>"]
+      namespaces: ["<modeldev-training-namespace>"]
+      owner_labels: ["<bindings[].owner_label.value>"]
+      require_tenant_label: true

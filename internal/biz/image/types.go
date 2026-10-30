@@ -150,6 +150,9 @@ type ResolvedImage struct {
 	Scope                                ImageScope
 	Version                              int64
 	Platform                             ImagePlatform
+	// RegistryAuthority is the credential record's authoritative value. It is
+	// the only source consumers may use; never re-derive it from Reference.
+	RegistryAuthority string
 }
 
 // Candidate and CommandResult deliberately have no provider-body or plaintext

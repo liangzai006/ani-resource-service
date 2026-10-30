@@ -7,7 +7,13 @@ import "google/protobuf/timestamp.proto";
 
 service ImageRuntimeService {
   rpc ResolveImageForWorkload(ResolveImageForWorkloadRequest) returns (ResolveImageForWorkloadResponse);
+  // GetTenantPullMaterial is retained for the pre-unification contract but no
+  // runtime identity is authorized to call it. Only the unified Secret writer
+  // touches plaintext credentials.
   rpc GetTenantPullMaterial(GetTenantPullMaterialRequest) returns (GetTenantPullMaterialResponse);
+  // EnsureTenantPullSecret is the single synchronous writer for the shared
+  // tenant pull Secret. It returns only a non-sensitive reference.
+  rpc EnsureTenantPullSecret(EnsureTenantPullSecretRequest) returns (EnsureTenantPullSecretResponse);
 }
 message ResolveImageForWorkloadRequest {
   string tenant_id = 1;
@@ -23,6 +29,9 @@ message ResolveImageForWorkloadResponse {
   string digest = 5;
   int64 image_version = 6;
   ImagePlatform selected_platform = 7;
+  // Authoritative registry authority from the credential record. Consumers must
+  // never re-derive it from resolved_reference.
+  string registry_authority = 8;
 }
 message GetTenantPullMaterialRequest { string tenant_id = 1; }
 message GetTenantPullMaterialResponse {
@@ -33,4 +42,23 @@ message GetTenantPullMaterialResponse {
   string secret = 5; // Sensitive: no logs/traces/public response/cache.
   int64 generation = 6;
   google.protobuf.Timestamp expires_at = 7; // absent only for explicitly never-expiring identity
+}
+// The shared Secret is scoped by tenant, cluster, namespace and registry
+// authority; the service kind never participates in its name.
+message EnsureTenantPullSecretRequest {
+  string tenant_id = 1;
+  string cluster_id = 2;
+  string namespace = 3;
+  string namespace_uid = 4;
+  string registry_authority = 5;
+  string space_id = 6;
+}
+// No username, password or dockerconfig is ever returned. Consumers freeze
+// secret_ref before acceptance and compare it with this echo afterwards.
+message EnsureTenantPullSecretResponse {
+  string secret_ref = 1;
+  int64 generation = 2;
+  google.protobuf.Timestamp expires_at = 3;
+  string registry_authority = 4;
+  string space_id = 5;
 }

@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	ImageRuntimeService_ResolveImageForWorkload_FullMethodName = "/image.v1.ImageRuntimeService/ResolveImageForWorkload"
 	ImageRuntimeService_GetTenantPullMaterial_FullMethodName   = "/image.v1.ImageRuntimeService/GetTenantPullMaterial"
+	ImageRuntimeService_EnsureTenantPullSecret_FullMethodName  = "/image.v1.ImageRuntimeService/EnsureTenantPullSecret"
 )
 
 // ImageRuntimeServiceClient is the client API for ImageRuntimeService service.
@@ -30,7 +31,13 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ImageRuntimeServiceClient interface {
 	ResolveImageForWorkload(ctx context.Context, in *ResolveImageForWorkloadRequest, opts ...grpc.CallOption) (*ResolveImageForWorkloadResponse, error)
+	// GetTenantPullMaterial is retained for the pre-unification contract but no
+	// runtime identity is authorized to call it. Only the unified Secret writer
+	// touches plaintext credentials.
 	GetTenantPullMaterial(ctx context.Context, in *GetTenantPullMaterialRequest, opts ...grpc.CallOption) (*GetTenantPullMaterialResponse, error)
+	// EnsureTenantPullSecret is the single synchronous writer for the shared
+	// tenant pull Secret. It returns only a non-sensitive reference.
+	EnsureTenantPullSecret(ctx context.Context, in *EnsureTenantPullSecretRequest, opts ...grpc.CallOption) (*EnsureTenantPullSecretResponse, error)
 }
 
 type imageRuntimeServiceClient struct {
@@ -61,12 +68,28 @@ func (c *imageRuntimeServiceClient) GetTenantPullMaterial(ctx context.Context, i
 	return out, nil
 }
 
+func (c *imageRuntimeServiceClient) EnsureTenantPullSecret(ctx context.Context, in *EnsureTenantPullSecretRequest, opts ...grpc.CallOption) (*EnsureTenantPullSecretResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EnsureTenantPullSecretResponse)
+	err := c.cc.Invoke(ctx, ImageRuntimeService_EnsureTenantPullSecret_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ImageRuntimeServiceServer is the server API for ImageRuntimeService service.
 // All implementations must embed UnimplementedImageRuntimeServiceServer
 // for forward compatibility.
 type ImageRuntimeServiceServer interface {
 	ResolveImageForWorkload(context.Context, *ResolveImageForWorkloadRequest) (*ResolveImageForWorkloadResponse, error)
+	// GetTenantPullMaterial is retained for the pre-unification contract but no
+	// runtime identity is authorized to call it. Only the unified Secret writer
+	// touches plaintext credentials.
 	GetTenantPullMaterial(context.Context, *GetTenantPullMaterialRequest) (*GetTenantPullMaterialResponse, error)
+	// EnsureTenantPullSecret is the single synchronous writer for the shared
+	// tenant pull Secret. It returns only a non-sensitive reference.
+	EnsureTenantPullSecret(context.Context, *EnsureTenantPullSecretRequest) (*EnsureTenantPullSecretResponse, error)
 	mustEmbedUnimplementedImageRuntimeServiceServer()
 }
 
@@ -82,6 +105,9 @@ func (UnimplementedImageRuntimeServiceServer) ResolveImageForWorkload(context.Co
 }
 func (UnimplementedImageRuntimeServiceServer) GetTenantPullMaterial(context.Context, *GetTenantPullMaterialRequest) (*GetTenantPullMaterialResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTenantPullMaterial not implemented")
+}
+func (UnimplementedImageRuntimeServiceServer) EnsureTenantPullSecret(context.Context, *EnsureTenantPullSecretRequest) (*EnsureTenantPullSecretResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnsureTenantPullSecret not implemented")
 }
 func (UnimplementedImageRuntimeServiceServer) mustEmbedUnimplementedImageRuntimeServiceServer() {}
 func (UnimplementedImageRuntimeServiceServer) testEmbeddedByValue()                             {}
@@ -140,6 +166,24 @@ func _ImageRuntimeService_GetTenantPullMaterial_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ImageRuntimeService_EnsureTenantPullSecret_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EnsureTenantPullSecretRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ImageRuntimeServiceServer).EnsureTenantPullSecret(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ImageRuntimeService_EnsureTenantPullSecret_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ImageRuntimeServiceServer).EnsureTenantPullSecret(ctx, req.(*EnsureTenantPullSecretRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ImageRuntimeService_ServiceDesc is the grpc.ServiceDesc for ImageRuntimeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -154,6 +198,10 @@ var ImageRuntimeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTenantPullMaterial",
 			Handler:    _ImageRuntimeService_GetTenantPullMaterial_Handler,
+		},
+		{
+			MethodName: "EnsureTenantPullSecret",
+			Handler:    _ImageRuntimeService_EnsureTenantPullSecret_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -38,6 +38,9 @@ type Runtime struct {
 	registry    Registry
 	cipher      SecretCipher
 	now         func() time.Time
+	writer      PullSecretWriter
+	namespaces  NamespaceAuthority
+	callers     map[string]PullSecretCaller
 }
 
 func NewRuntime(catalog CatalogRepository, spaces SpaceRepository, credentials CredentialRepository, registry Registry, cipher SecretCipher, now func() time.Time) (*Runtime, error) {
@@ -102,7 +105,7 @@ func (r *Runtime) ResolveImageForWorkload(ctx context.Context, in ResolveImage) 
 	if len(matches) != 1 {
 		return ResolvedImage{}, Fail(PlatformMismatch, "image does not confirm one matching target platform")
 	}
-	return ResolvedImage{TenantID: in.TenantID, ImageID: registration.ID, Scope: in.Scope, Reference: registration.ResolvedReference, Digest: registration.Digest, Version: registration.Version, Platform: matches[0]}, nil
+	return ResolvedImage{TenantID: in.TenantID, ImageID: registration.ID, Scope: in.Scope, Reference: registration.ResolvedReference, Digest: registration.Digest, Version: registration.Version, Platform: matches[0], RegistryAuthority: space.RegistryAuthority}, nil
 }
 func (r *Runtime) GetTenantPullMaterial(ctx context.Context, tenant string) (PullMaterial, error) {
 	if _, err := RequireRuntime(ctx, tenant); err != nil {

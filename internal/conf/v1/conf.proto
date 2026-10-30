@@ -50,6 +50,21 @@ message Image {
   int64 publisher_days = 13;
   int64 pull_days = 14;
   bool allow_never_expires = 15;
+  // The only cluster Image may write pull Secrets into, and its Kubernetes
+  // access. An empty kubeconfig uses in-cluster credentials.
+  string pull_secret_cluster_id = 16;
+  string pull_secret_kubeconfig = 17;
+  // Per-runtime-caller allowlists. Never accepted from a request body.
+  repeated PullSecretCaller pull_secret_callers = 18;
+}
+
+// PullSecretCaller is one trusted runtime identity's namespace authorization.
+message PullSecretCaller {
+  string subject = 1;
+  repeated string cluster_ids = 2;
+  repeated string namespaces = 3;
+  repeated string owner_labels = 4;
+  bool require_tenant_label = 5;
 }
 
 message Network {

@@ -46,3 +46,38 @@ func TestImageConfigurationAdmission(t *testing.T) {
 		t.Fatal("Bootstrap ignored invalid enabled Image")
 	}
 }
+
+func TestImagePullSecretWriterConfiguration(t *testing.T) {
+	c := validImageConfig()
+	// No writer configured keeps Ensure unavailable; that is a valid deployment.
+	if err := c.Validate(); err != nil {
+		t.Fatal(err)
+	}
+	c.PullSecretKubeconfig = "/private/kubeconfig"
+	if err := c.Validate(); err == nil {
+		t.Fatal("kubeconfig without cluster identity accepted")
+	}
+	c = validImageConfig()
+	c.PullSecretClusterId = "cluster-a"
+	c.PullSecretCallers = []*PullSecretCaller{{Subject: "ani-modeldev-service", ClusterIds: []string{"cluster-a"}, Namespaces: []string{"tenant-training"}, OwnerLabels: []string{"ani-modeldev-service"}, RequireTenantLabel: true}}
+	if err := c.Validate(); err != nil {
+		t.Fatal(err)
+	}
+	for name, mutate := range map[string]func(*Image){
+		"caller cluster mismatch": func(c *Image) { c.PullSecretCallers[0].ClusterIds = []string{"cluster-b"} },
+		"duplicate caller": func(c *Image) {
+			c.PullSecretCallers = append(c.PullSecretCallers, &PullSecretCaller{Subject: "ani-modeldev-service", ClusterIds: []string{"cluster-a"}, Namespaces: []string{"other"}})
+		},
+		"empty namespace":        func(c *Image) { c.PullSecretCallers[0].Namespaces = []string{""} },
+		"tenant label unlabeled": func(c *Image) { c.PullSecretCallers[0].OwnerLabels = nil },
+		"relative kubeconfig":    func(c *Image) { c.PullSecretKubeconfig = "kubeconfig" },
+	} {
+		t.Run(name, func(t *testing.T) {
+			v := proto.Clone(c).(*Image)
+			mutate(v)
+			if err := v.Validate(); err == nil {
+				t.Fatal("unsafe pull secret configuration accepted")
+			}
+		})
+	}
+}

@@ -9,6 +9,7 @@ import (
 type RuntimeImages interface {
 	ResolveImageForWorkload(context.Context, ResolveImage) (ResolvedImage, error)
 	GetTenantPullMaterial(context.Context, string) (PullMaterial, error)
+	EnsureTenantPullSecret(context.Context, EnsurePullSecret) (EnsuredPullSecret, error)
 }
 type SecretCipher interface {
 	Seal(context.Context, SecretAAD, Secret) (EncryptedSecret, error)

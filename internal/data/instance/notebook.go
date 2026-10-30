@@ -512,17 +512,19 @@ func (n *Notebook) EnsureWorkspace(ctx context.Context, i biz.Instance) (string,
 	return string(created.GetUID()), nil
 }
 func (n *Notebook) CreateNotebook(ctx context.Context, i biz.Instance) (string, error) {
-	obj, e := RenderNotebook(i)
-	if e != nil {
-		return "", e
-	}
 	if err := n.verifyBorrowedVolumes(ctx, i); err != nil {
 		return "", err
 	}
-	if i.Spec.ImagePullSecret != "" {
-		if e := n.ensurePullSecret(ctx, i); e != nil {
-			return "", e
-		}
+	// The unified writer derives the name; the instance never invents one, and
+	// nothing is created when Ensure is unavailable.
+	name, e := n.ensurePullSecret(ctx, i)
+	if e != nil {
+		return "", e
+	}
+	i.Spec.ImagePullSecret = name
+	obj, e := RenderNotebook(i)
+	if e != nil {
+		return "", e
 	}
 	created, e := n.client.Resource(notebookGVR).Namespace(i.Spec.Namespace).Create(ctx, obj, metav1.CreateOptions{})
 	if e != nil {
@@ -530,47 +532,22 @@ func (n *Notebook) CreateNotebook(ctx context.Context, i biz.Instance) (string, 
 	}
 	return string(created.GetUID()), nil
 }
-func (n *Notebook) ensurePullSecret(ctx context.Context, i biz.Instance) error {
+
+// ensurePullSecret delegates to the single Image Ensure use case, so instances,
+// inference and training share one naming rule, one generation and one writer.
+func (n *Notebook) ensurePullSecret(ctx context.Context, i biz.Instance) (string, error) {
 	if n.images == nil {
-		return biz.ErrInvalid
+		return "", biz.ErrInvalid
 	}
 	call := imagebiz.WithCaller(ctx, imagebiz.Caller{Kind: imagebiz.RuntimeCaller, Subject: biz.Owner, TenantID: i.TenantID})
-	m, e := n.images.GetTenantPullMaterial(call, i.TenantID)
+	ensured, e := n.images.EnsureTenantPullSecret(call, imagebiz.EnsurePullSecret{PullSecretScope: imagebiz.PullSecretScope{TenantID: i.TenantID, ClusterID: i.Spec.ClusterID, Namespace: i.Spec.Namespace}})
 	if e != nil {
-		return e
+		return "", e
 	}
-	defer clear(m.Secret)
-	if m.TenantID != i.TenantID || m.SpaceID == "" || m.RegistryAuthority == "" || m.Generation < 1 {
-		return biz.ErrInvalid
+	if ensured.SecretRef == "" || ensured.RegistryAuthority == "" || ensured.Generation < 1 {
+		return "", biz.ErrInvalid
 	}
-	config, e := json.Marshal(map[string]any{"auths": map[string]any{m.RegistryAuthority: map[string]string{"username": m.Username, "password": string(m.Secret)}}})
-	if e != nil {
-		return e
-	}
-	defer clear(config)
-	gvr := schema.GroupVersionResource{Version: "v1", Resource: "secrets"}
-	api := n.client.Resource(gvr).Namespace(i.Spec.Namespace)
-	old, e := api.Get(ctx, i.Spec.ImagePullSecret, metav1.GetOptions{})
-	if e != nil && !apierrors.IsNotFound(e) {
-		return e
-	}
-	ownedLabels := map[string]string{"image.ani.io/tenant-id": i.TenantID, "image.ani.io/space-id": m.SpaceID, "app.kubernetes.io/managed-by": "ani-resource-instance"}
-	if e == nil {
-		for k, v := range ownedLabels {
-			if old.GetLabels()[k] != v {
-				return biz.ErrOwnership
-			}
-		}
-	}
-	obj := &unstructured.Unstructured{Object: map[string]any{"apiVersion": "v1", "kind": "Secret", "metadata": map[string]any{"name": i.Spec.ImagePullSecret, "namespace": i.Spec.Namespace, "labels": stringMap(ownedLabels), "annotations": map[string]any{"image.ani.io/credential-generation": strconv.FormatInt(m.Generation, 10)}}, "type": "kubernetes.io/dockerconfigjson", "data": map[string]any{".dockerconfigjson": base64.StdEncoding.EncodeToString(config)}}}
-	if e == nil {
-		obj.SetUID(old.GetUID())
-		obj.SetResourceVersion(old.GetResourceVersion())
-		_, e = api.Update(ctx, obj, metav1.UpdateOptions{})
-	} else {
-		_, e = api.Create(ctx, obj, metav1.CreateOptions{})
-	}
-	return mutationError(e)
+	return ensured.SecretRef, nil
 }
 func (n *Notebook) SetStopped(ctx context.Context, i biz.Instance, o biz.Observation, stopped bool) error {
 	if i.Pending != nil && i.Pending.Kind == "set_stopped" && i.Pending.ID != "" {

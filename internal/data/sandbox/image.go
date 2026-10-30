@@ -12,7 +12,7 @@ import (
 // ImageRuntime supplies the same image and pull material used by the provider.
 type ImageRuntime interface {
 	image.ReferenceRuntimeImages
-	image.RuntimeImages
+	ResolveImageForWorkload(context.Context, image.ResolveImage) (image.ResolvedImage, error)
 	GetTenantPullMaterial(context.Context, string) (image.PullMaterial, error)
 }
 

@@ -271,8 +271,14 @@ type Image struct {
 	PublisherDays        int64                  `protobuf:"varint,13,opt,name=publisher_days,json=publisherDays,proto3" json:"publisher_days,omitempty"`
 	PullDays             int64                  `protobuf:"varint,14,opt,name=pull_days,json=pullDays,proto3" json:"pull_days,omitempty"`
 	AllowNeverExpires    bool                   `protobuf:"varint,15,opt,name=allow_never_expires,json=allowNeverExpires,proto3" json:"allow_never_expires,omitempty"`
-	unknownFields        protoimpl.UnknownFields
-	sizeCache            protoimpl.SizeCache
+	// The only cluster Image may write pull Secrets into, and its Kubernetes
+	// access. An empty kubeconfig uses in-cluster credentials.
+	PullSecretClusterId  string `protobuf:"bytes,16,opt,name=pull_secret_cluster_id,json=pullSecretClusterId,proto3" json:"pull_secret_cluster_id,omitempty"`
+	PullSecretKubeconfig string `protobuf:"bytes,17,opt,name=pull_secret_kubeconfig,json=pullSecretKubeconfig,proto3" json:"pull_secret_kubeconfig,omitempty"`
+	// Per-runtime-caller allowlists. Never accepted from a request body.
+	PullSecretCallers []*PullSecretCaller `protobuf:"bytes,18,rep,name=pull_secret_callers,json=pullSecretCallers,proto3" json:"pull_secret_callers,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *Image) Reset() {
@@ -410,6 +416,104 @@ func (x *Image) GetAllowNeverExpires() bool {
 	return false
 }
 
+func (x *Image) GetPullSecretClusterId() string {
+	if x != nil {
+		return x.PullSecretClusterId
+	}
+	return ""
+}
+
+func (x *Image) GetPullSecretKubeconfig() string {
+	if x != nil {
+		return x.PullSecretKubeconfig
+	}
+	return ""
+}
+
+func (x *Image) GetPullSecretCallers() []*PullSecretCaller {
+	if x != nil {
+		return x.PullSecretCallers
+	}
+	return nil
+}
+
+// PullSecretCaller is one trusted runtime identity's namespace authorization.
+type PullSecretCaller struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Subject            string                 `protobuf:"bytes,1,opt,name=subject,proto3" json:"subject,omitempty"`
+	ClusterIds         []string               `protobuf:"bytes,2,rep,name=cluster_ids,json=clusterIds,proto3" json:"cluster_ids,omitempty"`
+	Namespaces         []string               `protobuf:"bytes,3,rep,name=namespaces,proto3" json:"namespaces,omitempty"`
+	OwnerLabels        []string               `protobuf:"bytes,4,rep,name=owner_labels,json=ownerLabels,proto3" json:"owner_labels,omitempty"`
+	RequireTenantLabel bool                   `protobuf:"varint,5,opt,name=require_tenant_label,json=requireTenantLabel,proto3" json:"require_tenant_label,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *PullSecretCaller) Reset() {
+	*x = PullSecretCaller{}
+	mi := &file_conf_v1_conf_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PullSecretCaller) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PullSecretCaller) ProtoMessage() {}
+
+func (x *PullSecretCaller) ProtoReflect() protoreflect.Message {
+	mi := &file_conf_v1_conf_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PullSecretCaller.ProtoReflect.Descriptor instead.
+func (*PullSecretCaller) Descriptor() ([]byte, []int) {
+	return file_conf_v1_conf_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *PullSecretCaller) GetSubject() string {
+	if x != nil {
+		return x.Subject
+	}
+	return ""
+}
+
+func (x *PullSecretCaller) GetClusterIds() []string {
+	if x != nil {
+		return x.ClusterIds
+	}
+	return nil
+}
+
+func (x *PullSecretCaller) GetNamespaces() []string {
+	if x != nil {
+		return x.Namespaces
+	}
+	return nil
+}
+
+func (x *PullSecretCaller) GetOwnerLabels() []string {
+	if x != nil {
+		return x.OwnerLabels
+	}
+	return nil
+}
+
+func (x *PullSecretCaller) GetRequireTenantLabel() bool {
+	if x != nil {
+		return x.RequireTenantLabel
+	}
+	return false
+}
+
 type Network struct {
 	state       protoimpl.MessageState `protogen:"open.v1"`
 	DatabaseDsn string                 `protobuf:"bytes,1,opt,name=database_dsn,json=databaseDsn,proto3" json:"database_dsn,omitempty"`
@@ -437,7 +541,7 @@ type Network struct {
 
 func (x *Network) Reset() {
 	*x = Network{}
-	mi := &file_conf_v1_conf_proto_msgTypes[4]
+	mi := &file_conf_v1_conf_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -449,7 +553,7 @@ func (x *Network) String() string {
 func (*Network) ProtoMessage() {}
 
 func (x *Network) ProtoReflect() protoreflect.Message {
-	mi := &file_conf_v1_conf_proto_msgTypes[4]
+	mi := &file_conf_v1_conf_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -462,7 +566,7 @@ func (x *Network) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Network.ProtoReflect.Descriptor instead.
 func (*Network) Descriptor() ([]byte, []int) {
-	return file_conf_v1_conf_proto_rawDescGZIP(), []int{4}
+	return file_conf_v1_conf_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Network) GetDatabaseDsn() string {
@@ -554,7 +658,7 @@ type PlatformDefaultVPCEgress struct {
 
 func (x *PlatformDefaultVPCEgress) Reset() {
 	*x = PlatformDefaultVPCEgress{}
-	mi := &file_conf_v1_conf_proto_msgTypes[5]
+	mi := &file_conf_v1_conf_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -566,7 +670,7 @@ func (x *PlatformDefaultVPCEgress) String() string {
 func (*PlatformDefaultVPCEgress) ProtoMessage() {}
 
 func (x *PlatformDefaultVPCEgress) ProtoReflect() protoreflect.Message {
-	mi := &file_conf_v1_conf_proto_msgTypes[5]
+	mi := &file_conf_v1_conf_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -579,7 +683,7 @@ func (x *PlatformDefaultVPCEgress) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlatformDefaultVPCEgress.ProtoReflect.Descriptor instead.
 func (*PlatformDefaultVPCEgress) Descriptor() ([]byte, []int) {
-	return file_conf_v1_conf_proto_rawDescGZIP(), []int{5}
+	return file_conf_v1_conf_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *PlatformDefaultVPCEgress) GetClusterUid() string {
@@ -624,7 +728,7 @@ type LoadBalancer struct {
 
 func (x *LoadBalancer) Reset() {
 	*x = LoadBalancer{}
-	mi := &file_conf_v1_conf_proto_msgTypes[6]
+	mi := &file_conf_v1_conf_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -636,7 +740,7 @@ func (x *LoadBalancer) String() string {
 func (*LoadBalancer) ProtoMessage() {}
 
 func (x *LoadBalancer) ProtoReflect() protoreflect.Message {
-	mi := &file_conf_v1_conf_proto_msgTypes[6]
+	mi := &file_conf_v1_conf_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -649,7 +753,7 @@ func (x *LoadBalancer) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoadBalancer.ProtoReflect.Descriptor instead.
 func (*LoadBalancer) Descriptor() ([]byte, []int) {
-	return file_conf_v1_conf_proto_rawDescGZIP(), []int{6}
+	return file_conf_v1_conf_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *LoadBalancer) GetEnableIsolatedApi() bool {
@@ -710,7 +814,7 @@ type Observation struct {
 
 func (x *Observation) Reset() {
 	*x = Observation{}
-	mi := &file_conf_v1_conf_proto_msgTypes[7]
+	mi := &file_conf_v1_conf_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -722,7 +826,7 @@ func (x *Observation) String() string {
 func (*Observation) ProtoMessage() {}
 
 func (x *Observation) ProtoReflect() protoreflect.Message {
-	mi := &file_conf_v1_conf_proto_msgTypes[7]
+	mi := &file_conf_v1_conf_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -735,7 +839,7 @@ func (x *Observation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Observation.ProtoReflect.Descriptor instead.
 func (*Observation) Descriptor() ([]byte, []int) {
-	return file_conf_v1_conf_proto_rawDescGZIP(), []int{7}
+	return file_conf_v1_conf_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *Observation) GetAuditInterval() *durationpb.Duration {
@@ -809,7 +913,7 @@ type Worker struct {
 
 func (x *Worker) Reset() {
 	*x = Worker{}
-	mi := &file_conf_v1_conf_proto_msgTypes[8]
+	mi := &file_conf_v1_conf_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -821,7 +925,7 @@ func (x *Worker) String() string {
 func (*Worker) ProtoMessage() {}
 
 func (x *Worker) ProtoReflect() protoreflect.Message {
-	mi := &file_conf_v1_conf_proto_msgTypes[8]
+	mi := &file_conf_v1_conf_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -834,7 +938,7 @@ func (x *Worker) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Worker.ProtoReflect.Descriptor instead.
 func (*Worker) Descriptor() ([]byte, []int) {
-	return file_conf_v1_conf_proto_rawDescGZIP(), []int{8}
+	return file_conf_v1_conf_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *Worker) GetLease() *durationpb.Duration {
@@ -897,7 +1001,7 @@ type Server struct {
 
 func (x *Server) Reset() {
 	*x = Server{}
-	mi := &file_conf_v1_conf_proto_msgTypes[9]
+	mi := &file_conf_v1_conf_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -909,7 +1013,7 @@ func (x *Server) String() string {
 func (*Server) ProtoMessage() {}
 
 func (x *Server) ProtoReflect() protoreflect.Message {
-	mi := &file_conf_v1_conf_proto_msgTypes[9]
+	mi := &file_conf_v1_conf_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -922,7 +1026,7 @@ func (x *Server) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Server.ProtoReflect.Descriptor instead.
 func (*Server) Descriptor() ([]byte, []int) {
-	return file_conf_v1_conf_proto_rawDescGZIP(), []int{9}
+	return file_conf_v1_conf_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *Server) GetGrpc() *Server_GRPC {
@@ -957,7 +1061,7 @@ type Server_GRPC struct {
 
 func (x *Server_GRPC) Reset() {
 	*x = Server_GRPC{}
-	mi := &file_conf_v1_conf_proto_msgTypes[10]
+	mi := &file_conf_v1_conf_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -969,7 +1073,7 @@ func (x *Server_GRPC) String() string {
 func (*Server_GRPC) ProtoMessage() {}
 
 func (x *Server_GRPC) ProtoReflect() protoreflect.Message {
-	mi := &file_conf_v1_conf_proto_msgTypes[10]
+	mi := &file_conf_v1_conf_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -982,7 +1086,7 @@ func (x *Server_GRPC) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Server_GRPC.ProtoReflect.Descriptor instead.
 func (*Server_GRPC) Descriptor() ([]byte, []int) {
-	return file_conf_v1_conf_proto_rawDescGZIP(), []int{9, 0}
+	return file_conf_v1_conf_proto_rawDescGZIP(), []int{10, 0}
 }
 
 func (x *Server_GRPC) GetNetwork() string {
@@ -1017,7 +1121,7 @@ type Server_Admin struct {
 
 func (x *Server_Admin) Reset() {
 	*x = Server_Admin{}
-	mi := &file_conf_v1_conf_proto_msgTypes[11]
+	mi := &file_conf_v1_conf_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1029,7 +1133,7 @@ func (x *Server_Admin) String() string {
 func (*Server_Admin) ProtoMessage() {}
 
 func (x *Server_Admin) ProtoReflect() protoreflect.Message {
-	mi := &file_conf_v1_conf_proto_msgTypes[11]
+	mi := &file_conf_v1_conf_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1042,7 +1146,7 @@ func (x *Server_Admin) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Server_Admin.ProtoReflect.Descriptor instead.
 func (*Server_Admin) Descriptor() ([]byte, []int) {
-	return file_conf_v1_conf_proto_rawDescGZIP(), []int{9, 1}
+	return file_conf_v1_conf_proto_rawDescGZIP(), []int{10, 1}
 }
 
 func (x *Server_Admin) GetNetwork() string {
@@ -1089,7 +1193,7 @@ const file_conf_v1_conf_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1b\n" +
 	"\ttenant_id\x18\x02 \x01(\tR\btenantId\x12\x12\n" +
 	"\x04name\x18\x03 \x01(\tR\x04name\x12\x16\n" +
-	"\x06bucket\x18\x04 \x01(\tR\x06bucket\"\x8e\x05\n" +
+	"\x06bucket\x18\x04 \x01(\tR\x06bucket\"\xc4\x06\n" +
 	"\x05Image\x12\x18\n" +
 	"\aenabled\x18\x01 \x01(\bR\aenabled\x12*\n" +
 	"\x11database_dsn_file\x18\x02 \x01(\tR\x0fdatabaseDsnFile\x12'\n" +
@@ -1107,7 +1211,19 @@ const file_conf_v1_conf_proto_rawDesc = "" +
 	"\x0frequest_timeout\x18\f \x01(\v2\x19.google.protobuf.DurationR\x0erequestTimeout\x12%\n" +
 	"\x0epublisher_days\x18\r \x01(\x03R\rpublisherDays\x12\x1b\n" +
 	"\tpull_days\x18\x0e \x01(\x03R\bpullDays\x12.\n" +
-	"\x13allow_never_expires\x18\x0f \x01(\bR\x11allowNeverExpires\"\xab\x04\n" +
+	"\x13allow_never_expires\x18\x0f \x01(\bR\x11allowNeverExpires\x123\n" +
+	"\x16pull_secret_cluster_id\x18\x10 \x01(\tR\x13pullSecretClusterId\x124\n" +
+	"\x16pull_secret_kubeconfig\x18\x11 \x01(\tR\x14pullSecretKubeconfig\x12I\n" +
+	"\x13pull_secret_callers\x18\x12 \x03(\v2\x19.conf.v1.PullSecretCallerR\x11pullSecretCallers\"\xc2\x01\n" +
+	"\x10PullSecretCaller\x12\x18\n" +
+	"\asubject\x18\x01 \x01(\tR\asubject\x12\x1f\n" +
+	"\vcluster_ids\x18\x02 \x03(\tR\n" +
+	"clusterIds\x12\x1e\n" +
+	"\n" +
+	"namespaces\x18\x03 \x03(\tR\n" +
+	"namespaces\x12!\n" +
+	"\fowner_labels\x18\x04 \x03(\tR\vownerLabels\x120\n" +
+	"\x14require_tenant_label\x18\x05 \x01(\bR\x12requireTenantLabel\"\xab\x04\n" +
 	"\aNetwork\x12!\n" +
 	"\fdatabase_dsn\x18\x01 \x01(\tR\vdatabaseDsn\x12\x1e\n" +
 	"\n" +
@@ -1181,54 +1297,56 @@ func file_conf_v1_conf_proto_rawDescGZIP() []byte {
 	return file_conf_v1_conf_proto_rawDescData
 }
 
-var file_conf_v1_conf_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_conf_v1_conf_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_conf_v1_conf_proto_goTypes = []any{
 	(*Bootstrap)(nil),                // 0: conf.v1.Bootstrap
 	(*ObjectStorage)(nil),            // 1: conf.v1.ObjectStorage
 	(*ManagedBucket)(nil),            // 2: conf.v1.ManagedBucket
 	(*Image)(nil),                    // 3: conf.v1.Image
-	(*Network)(nil),                  // 4: conf.v1.Network
-	(*PlatformDefaultVPCEgress)(nil), // 5: conf.v1.PlatformDefaultVPCEgress
-	(*LoadBalancer)(nil),             // 6: conf.v1.LoadBalancer
-	(*Observation)(nil),              // 7: conf.v1.Observation
-	(*Worker)(nil),                   // 8: conf.v1.Worker
-	(*Server)(nil),                   // 9: conf.v1.Server
-	(*Server_GRPC)(nil),              // 10: conf.v1.Server.GRPC
-	(*Server_Admin)(nil),             // 11: conf.v1.Server.Admin
-	(*durationpb.Duration)(nil),      // 12: google.protobuf.Duration
+	(*PullSecretCaller)(nil),         // 4: conf.v1.PullSecretCaller
+	(*Network)(nil),                  // 5: conf.v1.Network
+	(*PlatformDefaultVPCEgress)(nil), // 6: conf.v1.PlatformDefaultVPCEgress
+	(*LoadBalancer)(nil),             // 7: conf.v1.LoadBalancer
+	(*Observation)(nil),              // 8: conf.v1.Observation
+	(*Worker)(nil),                   // 9: conf.v1.Worker
+	(*Server)(nil),                   // 10: conf.v1.Server
+	(*Server_GRPC)(nil),              // 11: conf.v1.Server.GRPC
+	(*Server_Admin)(nil),             // 12: conf.v1.Server.Admin
+	(*durationpb.Duration)(nil),      // 13: google.protobuf.Duration
 }
 var file_conf_v1_conf_proto_depIdxs = []int32{
-	9,  // 0: conf.v1.Bootstrap.server:type_name -> conf.v1.Server
-	4,  // 1: conf.v1.Bootstrap.network:type_name -> conf.v1.Network
+	10, // 0: conf.v1.Bootstrap.server:type_name -> conf.v1.Server
+	5,  // 1: conf.v1.Bootstrap.network:type_name -> conf.v1.Network
 	3,  // 2: conf.v1.Bootstrap.image:type_name -> conf.v1.Image
 	1,  // 3: conf.v1.Bootstrap.object_storage:type_name -> conf.v1.ObjectStorage
 	2,  // 4: conf.v1.ObjectStorage.managed_buckets:type_name -> conf.v1.ManagedBucket
-	12, // 5: conf.v1.Image.request_timeout:type_name -> google.protobuf.Duration
-	8,  // 6: conf.v1.Network.worker:type_name -> conf.v1.Worker
-	7,  // 7: conf.v1.Network.observation:type_name -> conf.v1.Observation
-	6,  // 8: conf.v1.Network.load_balancer:type_name -> conf.v1.LoadBalancer
-	5,  // 9: conf.v1.Network.platform_default_vpc_egress:type_name -> conf.v1.PlatformDefaultVPCEgress
-	12, // 10: conf.v1.Observation.audit_interval:type_name -> google.protobuf.Duration
-	12, // 11: conf.v1.Observation.audit_jitter:type_name -> google.protobuf.Duration
-	12, // 12: conf.v1.Observation.audit_timeout:type_name -> google.protobuf.Duration
-	12, // 13: conf.v1.Observation.flush_interval:type_name -> google.protobuf.Duration
-	12, // 14: conf.v1.Worker.lease:type_name -> google.protobuf.Duration
-	12, // 15: conf.v1.Worker.request_timeout:type_name -> google.protobuf.Duration
-	12, // 16: conf.v1.Worker.observe_every:type_name -> google.protobuf.Duration
-	12, // 17: conf.v1.Worker.stale_after:type_name -> google.protobuf.Duration
-	12, // 18: conf.v1.Worker.retry_min:type_name -> google.protobuf.Duration
-	12, // 19: conf.v1.Worker.retry_max:type_name -> google.protobuf.Duration
-	12, // 20: conf.v1.Worker.poll_interval:type_name -> google.protobuf.Duration
-	10, // 21: conf.v1.Server.grpc:type_name -> conf.v1.Server.GRPC
-	11, // 22: conf.v1.Server.admin:type_name -> conf.v1.Server.Admin
-	12, // 23: conf.v1.Server.shutdown_timeout:type_name -> google.protobuf.Duration
-	12, // 24: conf.v1.Server.GRPC.timeout:type_name -> google.protobuf.Duration
-	12, // 25: conf.v1.Server.Admin.timeout:type_name -> google.protobuf.Duration
-	26, // [26:26] is the sub-list for method output_type
-	26, // [26:26] is the sub-list for method input_type
-	26, // [26:26] is the sub-list for extension type_name
-	26, // [26:26] is the sub-list for extension extendee
-	0,  // [0:26] is the sub-list for field type_name
+	13, // 5: conf.v1.Image.request_timeout:type_name -> google.protobuf.Duration
+	4,  // 6: conf.v1.Image.pull_secret_callers:type_name -> conf.v1.PullSecretCaller
+	9,  // 7: conf.v1.Network.worker:type_name -> conf.v1.Worker
+	8,  // 8: conf.v1.Network.observation:type_name -> conf.v1.Observation
+	7,  // 9: conf.v1.Network.load_balancer:type_name -> conf.v1.LoadBalancer
+	6,  // 10: conf.v1.Network.platform_default_vpc_egress:type_name -> conf.v1.PlatformDefaultVPCEgress
+	13, // 11: conf.v1.Observation.audit_interval:type_name -> google.protobuf.Duration
+	13, // 12: conf.v1.Observation.audit_jitter:type_name -> google.protobuf.Duration
+	13, // 13: conf.v1.Observation.audit_timeout:type_name -> google.protobuf.Duration
+	13, // 14: conf.v1.Observation.flush_interval:type_name -> google.protobuf.Duration
+	13, // 15: conf.v1.Worker.lease:type_name -> google.protobuf.Duration
+	13, // 16: conf.v1.Worker.request_timeout:type_name -> google.protobuf.Duration
+	13, // 17: conf.v1.Worker.observe_every:type_name -> google.protobuf.Duration
+	13, // 18: conf.v1.Worker.stale_after:type_name -> google.protobuf.Duration
+	13, // 19: conf.v1.Worker.retry_min:type_name -> google.protobuf.Duration
+	13, // 20: conf.v1.Worker.retry_max:type_name -> google.protobuf.Duration
+	13, // 21: conf.v1.Worker.poll_interval:type_name -> google.protobuf.Duration
+	11, // 22: conf.v1.Server.grpc:type_name -> conf.v1.Server.GRPC
+	12, // 23: conf.v1.Server.admin:type_name -> conf.v1.Server.Admin
+	13, // 24: conf.v1.Server.shutdown_timeout:type_name -> google.protobuf.Duration
+	13, // 25: conf.v1.Server.GRPC.timeout:type_name -> google.protobuf.Duration
+	13, // 26: conf.v1.Server.Admin.timeout:type_name -> google.protobuf.Duration
+	27, // [27:27] is the sub-list for method output_type
+	27, // [27:27] is the sub-list for method input_type
+	27, // [27:27] is the sub-list for extension type_name
+	27, // [27:27] is the sub-list for extension extendee
+	0,  // [0:27] is the sub-list for field type_name
 }
 
 func init() { file_conf_v1_conf_proto_init() }
@@ -1242,7 +1360,7 @@ func file_conf_v1_conf_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_conf_v1_conf_proto_rawDesc), len(file_conf_v1_conf_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

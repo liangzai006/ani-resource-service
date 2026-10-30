@@ -161,6 +161,9 @@ func TestCreateNotebookChecksBorrowedPVCUIDWithoutMutatingBorrowedClaims(t *test
 		return true, notebook, nil
 	})
 	n, _ := NewNotebook(client)
+	if e := n.ConfigureImages(pullSecretStub{}); e != nil {
+		t.Fatal(e)
+	}
 	if _, err := n.CreateNotebook(context.Background(), i); err != nil {
 		t.Fatal("original Pending claims rejected", err)
 	}

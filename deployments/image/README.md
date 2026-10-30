@@ -42,15 +42,52 @@ Resource 端 `CERT/KEY` 为 serverAuth 证书，DNS SAN 包含 `ani-network-serv
 只读挂载到相应服务，不将私钥写 ConfigMap、源码、证据或命令行；沿用已有签发/轮换责任。
 
 运行协议和受信 tenant metadata 见[内部合同](../../docs/specs/image-api.md#4-内部-imageruntimeservice)。
-Resource 仍只用原 Image 数据库权限读取凭据，不新增 Secret 写入 RBAC。Inference 的已有
-控制器身份是其共享 pull Secret 的唯一写入 owner，只在已授权 namespace 获得 Secrets 的
-get/create/update 权限；普通 runtime SA 不增加 API 权限，Pod 显式引用本租户 Secret。
-Instance 原 `ani-instance-image-pull` 及 `ani-resource-instance` owner 不受此入口接管。
+Resource Image 是共享租户拉取 Secret 的**唯一同步写入者**：它以自己的运行身份在目标 namespace
+对 `ani-pull-<32hex>` 做 get/create/update/patch，因此必须获得
+[deployments/image/rbac.yaml](rbac.yaml) 的 Secret 写权限和 namespace 只读权限；
+缺少这些授权时 Ensure 在运行时不可用，不能声称已接通。Inference 与 ModelDev 只被授权
+`ResolveImageForWorkload` 与 `EnsureTenantPullSecret`，**不再**取得 `GetTenantPullMaterial`
+明文、也不再自行写 Secret。原 Inference `ani-inference-pull-*` 写者与实例固定名
+`ani-instance-image-pull` 均已由统一 Secret 入口接管。
+
+mTLS 身份白名单为两个精确 DNS SAN：`ani-inference-service` 与 `ani-modeldev-service`；
+陌生身份、额外 SAN、URI/IP、通配符均拒绝。两个身份对 `GetTenantPullMaterial` 的调用都返回
+`PermissionDenied`（方法不在白名单内），这是代码层授权收敛，与集群/证书层撤销分开安排。
+ModelDev 访问 runtime 端口还需要 NetworkPolicy 放行和客户端证书信任；两者属环境前置。
+
+### 统一 Secret 的授权来源（按调用方分型，不存在统一推导）
+
+| 调用方 | 目标 namespace | Resource 侧校验 |
+|---|---|---|
+| Resource 实例 | `prefix + tenantUUID`（或请求显式合法 DNS 名） | 仅 cluster 归属；实例在本进程内推导并冻结名称 |
+| Inference | 部署期 `ANI_INFERENCE_NAMESPACE` 共享 namespace | mTLS 身份 + namespace 与 cluster 在部署 allowlist 内 + `namespace_uid` 一致 |
+| ModelDev 训练 | `admissionfacts` 的 `EnvironmentBinding`（一租户一 namespace） | 名称、UID、`ani.io/resource-tenant-id`=<tenant>、`ani.io/managed-by` 在 binding 的 `owner_label` 允许清单内 |
+
+allowlist 与 owner_label 只来自 Resource 部署配置（`image.pull_secret_callers`），
+**不从请求体接收**。共享 namespace 的租户隔离由 Inference 创建入口、RBAC 与 admission 保证，
+不由 Secret 名哈希保证；Secret 名只用于避免命名冲突。Ensure 目标 cluster 必须是 Resource
+配置可写的 cluster（`image.pull_secret_cluster_id`），不一致直接拒绝。
+
+### Secret 语义
+
+- 命名 `ani-pull-` + `sha256(tenant_id + "\x00" + cluster_id + "\x00" + namespace + "\x00" + registry_authority)`
+  前 16 字节的 32 位小写十六进制；四项先规范化为小写，registry 去 scheme/path/默认端口。
+  `cluster_id` 必须在哈希内，否则多集群同名 namespace 会算出同一名称。
+- 作用域 `(tenant, cluster, namespace, registry)`，服务类型不参与命名。
+- Ensure 幂等：同作用域/同引用重试不产生第二份对象；已存在对象若标签归属不符或
+  `image.ani.io/credential-generation` 更高则拒绝（不降代、不覆盖他人对象），并发用
+  resourceVersion（冲突返回可重试错误）。
+- 响应只含 `secret_ref`/`generation`/`expires_at`/`registry_authority`/`space_id`，
+  不含 username/password/dockerconfig；generation/密码轮换不改变 execution hash；
+  单任务 stop/delete 不删共享 Secret。
+- `ResolveImageForWorkloadResponse.registry_authority` 是消费方唯一的权威来源；
+  不得从 `resolved_reference` 解析 host。
 
 API 使用根模块 `github.com/zhangzhe-ctrl/ani-resource-service` 的正式版本及其
-`api/image/v1` 生成合同，当前两 RPC 不需要变更 protobuf。不得复制 DTO 或用本地 replace/go.work
+`api/image/v1` 生成合同；本轮新增 `EnsureTenantPullSecret` 与
+`ResolveImageForWorkloadResponse.registry_authority`。不得复制 DTO 或用本地 replace/go.work
 替代发布。仓库 CI 对所有 push/PR 在 Ubuntu 运行全量 verify/integration/race；在用户禁止
-全量及非 Fedora 重任务的本轮，push、PR 和新 tag 发布均停止，保留本地候选与 Fedora 定向证据，
+全量及非 Fedora 重任务的本轮，push、PR 和新 tag 发布均停止，保留本地候选与定向证据，
 不修改或绕过 CI。已存在正式基线版本可供消费者锁定。
 
 镜像外部调用有界；配置 `server.grpc.timeout` 时需给空间/凭证写入留下足够时间，

@@ -101,6 +101,9 @@ type ResolveImageForWorkloadResponse struct {
 	Digest            string                 `protobuf:"bytes,5,opt,name=digest,proto3" json:"digest,omitempty"`
 	ImageVersion      int64                  `protobuf:"varint,6,opt,name=image_version,json=imageVersion,proto3" json:"image_version,omitempty"`
 	SelectedPlatform  *ImagePlatform         `protobuf:"bytes,7,opt,name=selected_platform,json=selectedPlatform,proto3" json:"selected_platform,omitempty"`
+	// Authoritative registry authority from the credential record. Consumers must
+	// never re-derive it from resolved_reference.
+	RegistryAuthority string `protobuf:"bytes,8,opt,name=registry_authority,json=registryAuthority,proto3" json:"registry_authority,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -182,6 +185,13 @@ func (x *ResolveImageForWorkloadResponse) GetSelectedPlatform() *ImagePlatform {
 		return x.SelectedPlatform
 	}
 	return nil
+}
+
+func (x *ResolveImageForWorkloadResponse) GetRegistryAuthority() string {
+	if x != nil {
+		return x.RegistryAuthority
+	}
+	return ""
 }
 
 type GetTenantPullMaterialRequest struct {
@@ -320,6 +330,170 @@ func (x *GetTenantPullMaterialResponse) GetExpiresAt() *timestamppb.Timestamp {
 	return nil
 }
 
+// The shared Secret is scoped by tenant, cluster, namespace and registry
+// authority; the service kind never participates in its name.
+type EnsureTenantPullSecretRequest struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	TenantId          string                 `protobuf:"bytes,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	ClusterId         string                 `protobuf:"bytes,2,opt,name=cluster_id,json=clusterId,proto3" json:"cluster_id,omitempty"`
+	Namespace         string                 `protobuf:"bytes,3,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	NamespaceUid      string                 `protobuf:"bytes,4,opt,name=namespace_uid,json=namespaceUid,proto3" json:"namespace_uid,omitempty"`
+	RegistryAuthority string                 `protobuf:"bytes,5,opt,name=registry_authority,json=registryAuthority,proto3" json:"registry_authority,omitempty"`
+	SpaceId           string                 `protobuf:"bytes,6,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *EnsureTenantPullSecretRequest) Reset() {
+	*x = EnsureTenantPullSecretRequest{}
+	mi := &file_image_v1_runtime_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EnsureTenantPullSecretRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EnsureTenantPullSecretRequest) ProtoMessage() {}
+
+func (x *EnsureTenantPullSecretRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_image_v1_runtime_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EnsureTenantPullSecretRequest.ProtoReflect.Descriptor instead.
+func (*EnsureTenantPullSecretRequest) Descriptor() ([]byte, []int) {
+	return file_image_v1_runtime_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *EnsureTenantPullSecretRequest) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *EnsureTenantPullSecretRequest) GetClusterId() string {
+	if x != nil {
+		return x.ClusterId
+	}
+	return ""
+}
+
+func (x *EnsureTenantPullSecretRequest) GetNamespace() string {
+	if x != nil {
+		return x.Namespace
+	}
+	return ""
+}
+
+func (x *EnsureTenantPullSecretRequest) GetNamespaceUid() string {
+	if x != nil {
+		return x.NamespaceUid
+	}
+	return ""
+}
+
+func (x *EnsureTenantPullSecretRequest) GetRegistryAuthority() string {
+	if x != nil {
+		return x.RegistryAuthority
+	}
+	return ""
+}
+
+func (x *EnsureTenantPullSecretRequest) GetSpaceId() string {
+	if x != nil {
+		return x.SpaceId
+	}
+	return ""
+}
+
+// No username, password or dockerconfig is ever returned. Consumers freeze
+// secret_ref before acceptance and compare it with this echo afterwards.
+type EnsureTenantPullSecretResponse struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	SecretRef         string                 `protobuf:"bytes,1,opt,name=secret_ref,json=secretRef,proto3" json:"secret_ref,omitempty"`
+	Generation        int64                  `protobuf:"varint,2,opt,name=generation,proto3" json:"generation,omitempty"`
+	ExpiresAt         *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	RegistryAuthority string                 `protobuf:"bytes,4,opt,name=registry_authority,json=registryAuthority,proto3" json:"registry_authority,omitempty"`
+	SpaceId           string                 `protobuf:"bytes,5,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *EnsureTenantPullSecretResponse) Reset() {
+	*x = EnsureTenantPullSecretResponse{}
+	mi := &file_image_v1_runtime_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EnsureTenantPullSecretResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EnsureTenantPullSecretResponse) ProtoMessage() {}
+
+func (x *EnsureTenantPullSecretResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_image_v1_runtime_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EnsureTenantPullSecretResponse.ProtoReflect.Descriptor instead.
+func (*EnsureTenantPullSecretResponse) Descriptor() ([]byte, []int) {
+	return file_image_v1_runtime_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *EnsureTenantPullSecretResponse) GetSecretRef() string {
+	if x != nil {
+		return x.SecretRef
+	}
+	return ""
+}
+
+func (x *EnsureTenantPullSecretResponse) GetGeneration() int64 {
+	if x != nil {
+		return x.Generation
+	}
+	return 0
+}
+
+func (x *EnsureTenantPullSecretResponse) GetExpiresAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return nil
+}
+
+func (x *EnsureTenantPullSecretResponse) GetRegistryAuthority() string {
+	if x != nil {
+		return x.RegistryAuthority
+	}
+	return ""
+}
+
+func (x *EnsureTenantPullSecretResponse) GetSpaceId() string {
+	if x != nil {
+		return x.SpaceId
+	}
+	return ""
+}
+
 var File_image_v1_runtime_proto protoreflect.FileDescriptor
 
 const file_image_v1_runtime_proto_rawDesc = "" +
@@ -329,7 +503,7 @@ const file_image_v1_runtime_proto_rawDesc = "" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12*\n" +
 	"\x05scope\x18\x02 \x01(\x0e2\x14.image.v1.ImageScopeR\x05scope\x12\x19\n" +
 	"\bimage_id\x18\x03 \x01(\tR\aimageId\x12@\n" +
-	"\x0ftarget_platform\x18\x04 \x01(\v2\x17.image.v1.ImagePlatformR\x0etargetPlatform\"\xb7\x02\n" +
+	"\x0ftarget_platform\x18\x04 \x01(\v2\x17.image.v1.ImagePlatformR\x0etargetPlatform\"\xe6\x02\n" +
 	"\x1fResolveImageForWorkloadResponse\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12\x19\n" +
 	"\bimage_id\x18\x02 \x01(\tR\aimageId\x12*\n" +
@@ -337,7 +511,8 @@ const file_image_v1_runtime_proto_rawDesc = "" +
 	"\x12resolved_reference\x18\x04 \x01(\tR\x11resolvedReference\x12\x16\n" +
 	"\x06digest\x18\x05 \x01(\tR\x06digest\x12#\n" +
 	"\rimage_version\x18\x06 \x01(\x03R\fimageVersion\x12D\n" +
-	"\x11selected_platform\x18\a \x01(\v2\x17.image.v1.ImagePlatformR\x10selectedPlatform\";\n" +
+	"\x11selected_platform\x18\a \x01(\v2\x17.image.v1.ImagePlatformR\x10selectedPlatform\x12-\n" +
+	"\x12registry_authority\x18\b \x01(\tR\x11registryAuthority\";\n" +
 	"\x1cGetTenantPullMaterialRequest\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\"\x95\x02\n" +
 	"\x1dGetTenantPullMaterialResponse\x12\x1b\n" +
@@ -350,10 +525,29 @@ const file_image_v1_runtime_proto_rawDesc = "" +
 	"generation\x18\x06 \x01(\x03R\n" +
 	"generation\x129\n" +
 	"\n" +
-	"expires_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt2\xef\x01\n" +
+	"expires_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"\xe8\x01\n" +
+	"\x1dEnsureTenantPullSecretRequest\x12\x1b\n" +
+	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12\x1d\n" +
+	"\n" +
+	"cluster_id\x18\x02 \x01(\tR\tclusterId\x12\x1c\n" +
+	"\tnamespace\x18\x03 \x01(\tR\tnamespace\x12#\n" +
+	"\rnamespace_uid\x18\x04 \x01(\tR\fnamespaceUid\x12-\n" +
+	"\x12registry_authority\x18\x05 \x01(\tR\x11registryAuthority\x12\x19\n" +
+	"\bspace_id\x18\x06 \x01(\tR\aspaceId\"\xe4\x01\n" +
+	"\x1eEnsureTenantPullSecretResponse\x12\x1d\n" +
+	"\n" +
+	"secret_ref\x18\x01 \x01(\tR\tsecretRef\x12\x1e\n" +
+	"\n" +
+	"generation\x18\x02 \x01(\x03R\n" +
+	"generation\x129\n" +
+	"\n" +
+	"expires_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12-\n" +
+	"\x12registry_authority\x18\x04 \x01(\tR\x11registryAuthority\x12\x19\n" +
+	"\bspace_id\x18\x05 \x01(\tR\aspaceId2\xdc\x02\n" +
 	"\x13ImageRuntimeService\x12n\n" +
 	"\x17ResolveImageForWorkload\x12(.image.v1.ResolveImageForWorkloadRequest\x1a).image.v1.ResolveImageForWorkloadResponse\x12h\n" +
-	"\x15GetTenantPullMaterial\x12&.image.v1.GetTenantPullMaterialRequest\x1a'.image.v1.GetTenantPullMaterialResponseBDZBgithub.com/zhangzhe-ctrl/ani-resource-service/api/image/v1;imagev1b\x06proto3"
+	"\x15GetTenantPullMaterial\x12&.image.v1.GetTenantPullMaterialRequest\x1a'.image.v1.GetTenantPullMaterialResponse\x12k\n" +
+	"\x16EnsureTenantPullSecret\x12'.image.v1.EnsureTenantPullSecretRequest\x1a(.image.v1.EnsureTenantPullSecretResponseBDZBgithub.com/zhangzhe-ctrl/ani-resource-service/api/image/v1;imagev1b\x06proto3"
 
 var (
 	file_image_v1_runtime_proto_rawDescOnce sync.Once
@@ -367,31 +561,36 @@ func file_image_v1_runtime_proto_rawDescGZIP() []byte {
 	return file_image_v1_runtime_proto_rawDescData
 }
 
-var file_image_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_image_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_image_v1_runtime_proto_goTypes = []any{
 	(*ResolveImageForWorkloadRequest)(nil),  // 0: image.v1.ResolveImageForWorkloadRequest
 	(*ResolveImageForWorkloadResponse)(nil), // 1: image.v1.ResolveImageForWorkloadResponse
 	(*GetTenantPullMaterialRequest)(nil),    // 2: image.v1.GetTenantPullMaterialRequest
 	(*GetTenantPullMaterialResponse)(nil),   // 3: image.v1.GetTenantPullMaterialResponse
-	(ImageScope)(0),                         // 4: image.v1.ImageScope
-	(*ImagePlatform)(nil),                   // 5: image.v1.ImagePlatform
-	(*timestamppb.Timestamp)(nil),           // 6: google.protobuf.Timestamp
+	(*EnsureTenantPullSecretRequest)(nil),   // 4: image.v1.EnsureTenantPullSecretRequest
+	(*EnsureTenantPullSecretResponse)(nil),  // 5: image.v1.EnsureTenantPullSecretResponse
+	(ImageScope)(0),                         // 6: image.v1.ImageScope
+	(*ImagePlatform)(nil),                   // 7: image.v1.ImagePlatform
+	(*timestamppb.Timestamp)(nil),           // 8: google.protobuf.Timestamp
 }
 var file_image_v1_runtime_proto_depIdxs = []int32{
-	4, // 0: image.v1.ResolveImageForWorkloadRequest.scope:type_name -> image.v1.ImageScope
-	5, // 1: image.v1.ResolveImageForWorkloadRequest.target_platform:type_name -> image.v1.ImagePlatform
-	4, // 2: image.v1.ResolveImageForWorkloadResponse.scope:type_name -> image.v1.ImageScope
-	5, // 3: image.v1.ResolveImageForWorkloadResponse.selected_platform:type_name -> image.v1.ImagePlatform
-	6, // 4: image.v1.GetTenantPullMaterialResponse.expires_at:type_name -> google.protobuf.Timestamp
-	0, // 5: image.v1.ImageRuntimeService.ResolveImageForWorkload:input_type -> image.v1.ResolveImageForWorkloadRequest
-	2, // 6: image.v1.ImageRuntimeService.GetTenantPullMaterial:input_type -> image.v1.GetTenantPullMaterialRequest
-	1, // 7: image.v1.ImageRuntimeService.ResolveImageForWorkload:output_type -> image.v1.ResolveImageForWorkloadResponse
-	3, // 8: image.v1.ImageRuntimeService.GetTenantPullMaterial:output_type -> image.v1.GetTenantPullMaterialResponse
-	7, // [7:9] is the sub-list for method output_type
-	5, // [5:7] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	6, // 0: image.v1.ResolveImageForWorkloadRequest.scope:type_name -> image.v1.ImageScope
+	7, // 1: image.v1.ResolveImageForWorkloadRequest.target_platform:type_name -> image.v1.ImagePlatform
+	6, // 2: image.v1.ResolveImageForWorkloadResponse.scope:type_name -> image.v1.ImageScope
+	7, // 3: image.v1.ResolveImageForWorkloadResponse.selected_platform:type_name -> image.v1.ImagePlatform
+	8, // 4: image.v1.GetTenantPullMaterialResponse.expires_at:type_name -> google.protobuf.Timestamp
+	8, // 5: image.v1.EnsureTenantPullSecretResponse.expires_at:type_name -> google.protobuf.Timestamp
+	0, // 6: image.v1.ImageRuntimeService.ResolveImageForWorkload:input_type -> image.v1.ResolveImageForWorkloadRequest
+	2, // 7: image.v1.ImageRuntimeService.GetTenantPullMaterial:input_type -> image.v1.GetTenantPullMaterialRequest
+	4, // 8: image.v1.ImageRuntimeService.EnsureTenantPullSecret:input_type -> image.v1.EnsureTenantPullSecretRequest
+	1, // 9: image.v1.ImageRuntimeService.ResolveImageForWorkload:output_type -> image.v1.ResolveImageForWorkloadResponse
+	3, // 10: image.v1.ImageRuntimeService.GetTenantPullMaterial:output_type -> image.v1.GetTenantPullMaterialResponse
+	5, // 11: image.v1.ImageRuntimeService.EnsureTenantPullSecret:output_type -> image.v1.EnsureTenantPullSecretResponse
+	9, // [9:12] is the sub-list for method output_type
+	6, // [6:9] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_image_v1_runtime_proto_init() }
@@ -406,7 +605,7 @@ func file_image_v1_runtime_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_image_v1_runtime_proto_rawDesc), len(file_image_v1_runtime_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

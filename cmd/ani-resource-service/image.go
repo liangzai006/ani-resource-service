@@ -159,6 +159,21 @@ func openImage(ctx context.Context, c *conf.Image) (*imageComponents, error) {
 	if err != nil {
 		return nil, err
 	}
+	if c.PullSecretClusterId != "" {
+		writer, err := imagedata.NewPullSecrets(c.PullSecretClusterId, c.PullSecretKubeconfig)
+		if err != nil {
+			return nil, err
+		}
+		callers := make([]imagebiz.PullSecretCaller, 0, len(c.PullSecretCallers))
+		for _, caller := range c.PullSecretCallers {
+			callers = append(callers, imagebiz.PullSecretCaller{Subject: caller.GetSubject(), ClusterIDs: caller.GetClusterIds(), Namespaces: caller.GetNamespaces(), OwnerLabels: caller.GetOwnerLabels(), RequireTenantLabel: caller.GetRequireTenantLabel()})
+		}
+		// Instance composition writes through the same use case; only the
+		// runtime RPC callers need an explicit deployment allowlist entry.
+		if err = runtime.UsePullSecretWriter(writer, writer, callers); err != nil {
+			return nil, err
+		}
+	}
 	ready = true
 	return &imageComponents{tenant: imageservice.NewTenantService(lifecycle, catalog), lifecycle: lifecycle, catalog: catalog, repository: repo, harbor: harbor, runtime: runtime}, nil
 }

@@ -230,7 +230,7 @@ func (s *Service) AcceptCreate(ctx context.Context, r *pb.AcceptCreateRequest) (
 	if image < 1 {
 		return nil, rpcError(biz.ErrInvalid)
 	}
-	spec := biz.Spec{InstanceKind: f.InstanceKind, ComputeType: f.ComputeType, Name: f.Name, ImageID: f.ImageId, ImageScope: f.ImageScope, ImageReference: f.ImageReference, ImageDigest: f.ImageReference[image+1:], PresetID: f.PresetId, PresetName: f.PresetName, PresetCode: f.PresetCode, Scheduling: domainScheduling(f.Scheduling), CPU: f.Cpu, Memory: f.Memory, UID: f.Uid, GID: f.Gid, Shell: f.Shell, ServiceAccount: f.ServiceAccount, StorageClass: f.StorageClass, WorkspaceSize: f.WorkspaceSize, ClusterID: f.ClusterId, Namespace: f.Namespace, NotebookName: "instance-" + c.ResourceId, PVCName: "workspace-" + c.ResourceId, ImagePullSecret: "ani-instance-image-pull"}
+	spec := biz.Spec{InstanceKind: f.InstanceKind, ComputeType: f.ComputeType, Name: f.Name, ImageID: f.ImageId, ImageScope: f.ImageScope, ImageReference: f.ImageReference, ImageDigest: f.ImageReference[image+1:], PresetID: f.PresetId, PresetName: f.PresetName, PresetCode: f.PresetCode, Scheduling: domainScheduling(f.Scheduling), CPU: f.Cpu, Memory: f.Memory, UID: f.Uid, GID: f.Gid, Shell: f.Shell, ServiceAccount: f.ServiceAccount, StorageClass: f.StorageClass, WorkspaceSize: f.WorkspaceSize, ClusterID: f.ClusterId, Namespace: f.Namespace, NotebookName: "instance-" + c.ResourceId, PVCName: "workspace-" + c.ResourceId}
 	spec.ContractVersion = f.InstanceContractVersion
 	spec.WorkspaceMountPath = f.WorkspaceMountPath
 	spec.Labels = f.Labels

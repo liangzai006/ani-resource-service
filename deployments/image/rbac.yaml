@@ -1,0 +1,77 @@
+# Image runtime Secret writer (single writer for shared tenant pull Secrets).
+#
+# Resource Image is the only synchronous writer of `ani-pull-<32hex>` Secrets.
+# Inference and ModelDev no longer write them; they call EnsureTenantPullSecret.
+# These grants are namespaced-agnostic: the Role is bound per target namespace
+# so the deployment can grant only the namespaces its callers are allowed to
+# use. Applying this file does NOT grant cluster-wide write; repeat the Role and
+# RoleBinding for every tenant/inference/training namespace that Ensure serves.
+# Reading the authorizing Namespace itself is cluster-scoped, so it uses the
+# ClusterRole at the end of this file (a namespaced Role cannot grant it).
+#
+# Cluster application is NOT part of the code delivery: the manifests are
+# delivered, applying them stays an environment step (see README).
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ani-image-pull-secret-writer
+  labels:
+    app.kubernetes.io/name: ani-resource-service
+    app.kubernetes.io/component: image-pull-secret
+rules:
+  # The unified writer only touches its own derived object name, but RBAC has no
+  # name-prefix matching for secrets, so resourceName scoping is documented here
+  # as intent rather than enforced. Keep verb scope minimal: no delete and no
+  # list/watch, so a stopped workload can never remove a shared Secret.
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "create", "update", "patch"]
+---
+# Example binding for one authorizing namespace. Replace the namespace and the
+# subject with the deployment's actual values; do not reuse a guessed name.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ani-image-pull-secret-writer
+  namespace: REPLACE_WITH_TARGET_NAMESPACE
+  labels:
+    app.kubernetes.io/name: ani-resource-service
+    app.kubernetes.io/component: image-pull-secret
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ani-image-pull-secret-writer
+subjects:
+  - kind: ServiceAccount
+    name: ani-resource-service
+    namespace: ani-system
+---
+# Namespace objects live at cluster scope, so reading them needs a ClusterRole.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ani-image-namespace-reader
+  labels:
+    app.kubernetes.io/name: ani-resource-service
+    app.kubernetes.io/component: image-pull-secret
+rules:
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ani-image-namespace-reader
+  labels:
+    app.kubernetes.io/name: ani-resource-service
+    app.kubernetes.io/component: image-pull-secret
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ani-image-namespace-reader
+subjects:
+  - kind: ServiceAccount
+    name: ani-resource-service
+    namespace: ani-system
