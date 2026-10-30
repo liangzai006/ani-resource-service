@@ -1,0 +1,174 @@
+{
+  "base_c64_diff_ids_are_prefix": false,
+  "binary_extracted": false,
+  "business_image_built": false,
+  "ca_sha256": "65f1a1d14d21fed31b89f25b143e78b16605b82d32c56ef6bf8167fe78bab871",
+  "config_digest": "sha256:28fb26a229c76260b6271f93e6ffc8d383960286385fb47835e943c3927499e9",
+  "deployment_after": {
+    "containers": [
+      {
+        "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:gpuvm-20261029",
+        "name": "resource"
+      }
+    ],
+    "generation": 60,
+    "resource_version": "13911765",
+    "source_annotations": {
+      "ani.io/source-revision": "1498c0b20005c39e0724290e2898cfa8d5f7ad59",
+      "deployment.kubernetes.io/revision": "56"
+    },
+    "template_source_annotations": {
+      "ani.io/source-revision": "8bd99dde33ae95209647ef9ac322b949c57fd6f2",
+      "ani.io/vm-nad-dns-source": "0cb7df8ea5ca3ab3b50bc1e68b754959d4a51d0b"
+    },
+    "uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501"
+  },
+  "deployment_before": {
+    "containers": [
+      {
+        "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:gpuvm-20261029",
+        "name": "resource"
+      }
+    ],
+    "generation": 60,
+    "resource_version": "13911765",
+    "source_annotations": {
+      "ani.io/source-revision": "1498c0b20005c39e0724290e2898cfa8d5f7ad59",
+      "deployment.kubernetes.io/revision": "56"
+    },
+    "template_source_annotations": {
+      "ani.io/source-revision": "8bd99dde33ae95209647ef9ac322b949c57fd6f2",
+      "ani.io/vm-nad-dns-source": "0cb7df8ea5ca3ab3b50bc1e68b754959d4a51d0b"
+    },
+    "uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501"
+  },
+  "deployment_changed": false,
+  "deployment_spec_unchanged": true,
+  "diff_id_count": 13,
+  "history": [
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build @bookworm//media-types/amd64:data_statusd",
+      "empty_layer": false,
+      "index": 3
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:rootfs",
+      "empty_layer": false,
+      "index": 4
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:passwd",
+      "empty_layer": false,
+      "index": 5
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:home",
+      "empty_layer": false,
+      "index": 6
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:group",
+      "empty_layer": false,
+      "index": 7
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:tmp",
+      "empty_layer": false,
+      "index": 8
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //static:nsswitch",
+      "empty_layer": false,
+      "index": 9
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:os_release_debian12",
+      "empty_layer": false,
+      "index": 10
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:cacerts_debian12_amd64_tar",
+      "empty_layer": false,
+      "index": 11
+    },
+    {
+      "created": "2026-10-29T16:18:52.73966873+08:00",
+      "created_by": "COPY /out/ani-resource-service /ani-resource-service # buildkit",
+      "empty_layer": false,
+      "index": 12
+    },
+    {
+      "created": "2026-10-29T16:18:52.73966873+08:00",
+      "created_by": "USER 65532:65532",
+      "empty_layer": true,
+      "index": 13
+    },
+    {
+      "created": "2026-10-29T16:18:52.73966873+08:00",
+      "created_by": "ENTRYPOINT [\"/ani-resource-service\"]",
+      "empty_layer": true,
+      "index": 14
+    }
+  ],
+  "history_count": 15,
+  "image_created": "2026-10-29T16:18:52.73966873+08:00",
+  "image_pulled": false,
+  "label_keys": [],
+  "layers_downloaded": false,
+  "live_image_bindings": [
+    {
+      "digest": "sha256:86206cba4c38c3ca2bf698522a098f2ac27b0487a2b9a1a5e759d65f84209df1",
+      "imageID": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:86206cba4c38c3ca2bf698522a098f2ac27b0487a2b9a1a5e759d65f84209df1",
+      "matches_registry_tag_or_platform": true,
+      "pod_name": "ani-resource-service-7cff6576d7-qfkpn",
+      "pod_uid": "2409f9d3-2b3f-46ca-9544-663d4dc323b8"
+    }
+  ],
+  "observed_from": "2026-10-29T08:58:07.599696+00:00",
+  "observed_to": "2026-10-29T08:58:10.402753+00:00",
+  "old_c64_diff_id_count": 18,
+  "platform_manifest_digest": "sha256:86206cba4c38c3ca2bf698522a098f2ac27b0487a2b9a1a5e759d65f84209df1",
+  "pods": [
+    {
+      "containers": [
+        {
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:gpuvm-20261029",
+          "name": "resource"
+        }
+      ],
+      "deleting": false,
+      "name": "ani-resource-service-7cff6576d7-qfkpn",
+      "node": "node3",
+      "status": [
+        {
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:gpuvm-20261029",
+          "imageID": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:86206cba4c38c3ca2bf698522a098f2ac27b0487a2b9a1a5e759d65f84209df1",
+          "name": "resource",
+          "ready": true,
+          "restart_count": 0
+        }
+      ],
+      "uid": "2409f9d3-2b3f-46ca-9544-663d4dc323b8"
+    }
+  ],
+  "private_artifacts": "/root/ani-runs/container-restart-pvc-20261028/private/artifacts/resource-gpuvm-metadata-01",
+  "push_performed": false,
+  "result": "MANIFEST_AND_LIVE_BOUND_SOURCE_NOT_PROVEN",
+  "source_label_changes_from_c64": {},
+  "source_label_claims": {},
+  "source_status": "NOT_PROVEN_FROM_REGISTRY_METADATA",
+  "tag": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:gpuvm-20261029",
+  "tag_digest": "sha256:86206cba4c38c3ca2bf698522a098f2ac27b0487a2b9a1a5e759d65f84209df1",
+  "tag_digest_after": "sha256:86206cba4c38c3ca2bf698522a098f2ac27b0487a2b9a1a5e759d65f84209df1",
+  "tag_stable_during_read": true,
+  "tls_verified": true
+}

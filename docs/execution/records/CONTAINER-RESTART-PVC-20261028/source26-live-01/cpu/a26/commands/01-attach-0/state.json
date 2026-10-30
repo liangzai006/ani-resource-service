@@ -1,0 +1,59 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "591d2fa8-b94c-50c5-80bf-43e7c7709ab3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "attach-pvc",
+      "idempotency_key": "d17dfbc8-65f2-4572-a69a-c962e226cfe0",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "2",
+      "request_body_sha256": "4354ad95c7f75e7c4ea03cb32d20812a412ceca4d88107d3307cd20fd9c673ac",
+      "ack": {
+        "operationId": "83b5a7f8-7e7b-4828-8738-f065623a9034",
+        "resourceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "83b5a7f8-7e7b-4828-8738-f065623a9034",
+        "instanceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "action": "attach-pvc",
+        "intentVersion": "3",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "stopped",
+        "applied_mount_version": "3",
+        "completion_scope": "template_applied",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+  "after_instance": {
+    "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "3",
+    "desiredState": "stopped",
+    "observedState": "stopped",
+    "activeOperationId": "",
+    "executionRunState": "stopped",
+    "appliedMountVersion": "3",
+    "lastOperationId": "83b5a7f8-7e7b-4828-8738-f065623a9034",
+    "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "attach-pvc",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "83b5a7f8-7e7b-4828-8738-f065623a9034"
+  }
+}

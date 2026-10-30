@@ -1,0 +1,30 @@
+{
+  "_evidence_source": {
+    "projection": "Existing file only; secret/env/ticket values and raw Deployment bodies redacted",
+    "raw_remote_sha256": "7838b4b92194b1106623669166867d1b7d494b302d58c0ecf081ba80bdffb79d",
+    "redactions": [],
+    "remote_path": "/root/ani-runs/container-restart-pvc-20261028/a30-stage-exit-live-01/mark-before-send/clear/state.json"
+  },
+  "base_url": "http://127.0.0.1:39586",
+  "control_receipts": [
+    {
+      "at": "2026-10-29T20:00:32.773373Z",
+      "command": [
+        "clear",
+        "db543080-a75b-461d-9322-a0618aab426c"
+      ],
+      "pod_uid": "01a2f898-c24b-4689-821b-5b3656c667e7",
+      "reply": "CLEARED db543080-a75b-461d-9322-a0618aab426c"
+    }
+  ],
+  "intents": {},
+  "result": "CLEARED_STAGE_ARM_MARKERS_PRESERVED",
+  "run_id": "fc9a653a-e646-5560-b6fd-dedf46ef4bfd",
+  "schema": "container-restart-pvc-http-v1",
+  "session_cleanup": [
+    {
+      "remote": "NOT_STARTED",
+      "step": "clear"
+    }
+  ]
+}

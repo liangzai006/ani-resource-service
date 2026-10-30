@@ -1,0 +1,26 @@
+{
+  "code": "HTTP_REJECTED",
+  "cuda_requested": false,
+  "driver_sha256": "d8322da3e62e54f3328e38608570c847e7f638b810c1275cdef459e13ac53860",
+  "expected_marker_sha256": "9df8c355f11f1f2bf277957b03c48786ad094fc9c7d7e5b44deae9a9c0dd7df3",
+  "expected_pod_uid": "6d803bbf-b117-4707-924a-daffb489b194",
+  "expected_version": "5",
+  "finished_at": "2026-10-29T17:03:03.629502538Z",
+  "http_status": 503,
+  "instance_id": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+  "login": "CONFIRMED",
+  "logout": "CONFIRMED",
+  "marker_path": "/datasets/post-delete-readonly/.ani-restart-142d3ae2-b613-5649-85db-a2dd9fffc76a.txt",
+  "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE",
+  "result": "FAIL",
+  "runtime_before": {
+    "instance_id": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+    "phase": "Running",
+    "pod_uid": "6d803bbf-b117-4707-924a-daffb489b194",
+    "ready": true,
+    "version": "5"
+  },
+  "schema": "container-restart-terminal-live-v1",
+  "started_at": "2026-10-29T17:03:00.536293634Z",
+  "websocket_close": "NOT_CONNECTED"
+}

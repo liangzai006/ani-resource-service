@@ -100,6 +100,31 @@ func sandboxDatabase(t *testing.T) *sandboxFixture {
 	return &sandboxFixture{repo: repo, runtime: runtime, dsn: u.String()}
 }
 
+func TestSandboxRegisteredImageIdentityPersistsAndReplayRemainsExact(t *testing.T) {
+	f := sandboxDatabase(t)
+	tenant, id, operation := uuid.NewString(), uuid.NewString(), uuid.NewString()
+	ctx := biz.WithCaller(context.Background(), biz.Caller{TenantID: tenant, Actor: "governance:user:42"})
+	c := biz.Create{TenantID: tenant, ID: id, OperationID: operation, RequestDigest: strings.Repeat("a", 64), IntentDigest: strings.Repeat("b", 64), Spec: biz.CreateSpec{
+		Name: "registered-image", ImageID: "img_" + strings.Repeat("c", 32), ImageScope: "platform",
+		ImageReference: "registry.invalid/platform/image@sha256:" + strings.Repeat("d", 64), ImageDigest: "sha256:" + strings.Repeat("d", 64),
+	}}
+	if _, err := f.repo.AcceptCreate(ctx, c); err != nil {
+		t.Fatal(err)
+	}
+	got, err := f.repo.Get(ctx, tenant, id)
+	if err != nil || got.Snapshot.ImageID != c.Spec.ImageID || got.Snapshot.ImageScope != c.Spec.ImageScope || got.Snapshot.ImageReference != c.Spec.ImageReference {
+		t.Fatalf("registered image identity was not frozen: %#v %v", got.Snapshot, err)
+	}
+	ack, err := f.repo.AcceptCreate(ctx, c)
+	if err != nil || !ack.Replayed {
+		t.Fatalf("same command did not replay: %#v %v", ack, err)
+	}
+	c.Spec.ImageScope = "tenant"
+	if _, err = f.repo.AcceptCreate(ctx, c); !errors.Is(err, biz.ErrConflict) {
+		t.Fatalf("changed image scope did not conflict: %v", err)
+	}
+}
+
 func TestSandboxCreateReplayAcrossWorkerProgress(t *testing.T) {
 	f := sandboxDatabase(t)
 	tenant, id, operation := uuid.NewString(), uuid.NewString(), uuid.NewString()
@@ -116,6 +141,10 @@ func TestSandboxCreateReplayAcrossWorkerProgress(t *testing.T) {
 	ack, err := f.repo.AcceptCreate(ctx, c)
 	if err != nil || ack != (biz.ACK{OperationID: operation, ResourceID: id, Accepted: true}) {
 		t.Fatal("create failed", ack, err)
+	}
+	var hasImageID, hasImageScope bool
+	if err = f.runtime.QueryRow(ctx, `SELECT snapshot ? 'ImageID', snapshot ? 'ImageScope' FROM sandbox.sandboxes WHERE tenant_id=$1 AND sandbox_id=$2`, tenant, id).Scan(&hasImageID, &hasImageScope); err != nil || hasImageID || hasImageScope {
+		t.Fatalf("legacy snapshot representation changed: id=%v scope=%v err=%v", hasImageID, hasImageScope, err)
 	}
 	assertReplay := func(t *testing.T) {
 		t.Helper()

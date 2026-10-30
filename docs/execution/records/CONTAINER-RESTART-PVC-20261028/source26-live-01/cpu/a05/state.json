@@ -1,0 +1,141 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "f52e86e8-0752-4ab8-8593-c6cda3a9043a",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "admin-start": {
+      "action": "start",
+      "idempotency_key": "0b126e0b-a91e-4c63-97c6-7210ace8d66f",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "22",
+      "request_body_sha256": "564fbbc62ea08d422b3bfa032c39d19e83fcddeb6f6ff4d55366767ce00dacf6",
+      "ack": {
+        "operationId": "c01638b1-4fe9-4757-a2cd-6c79d9b36cf0",
+        "resourceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "c01638b1-4fe9-4757-a2cd-6c79d9b36cf0",
+        "instanceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "action": "start",
+        "intentVersion": "23",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "22",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    },
+    "limited-running-detach": {
+      "action": "detach-pvc",
+      "idempotency_key": "c9d8a23e-3ec6-4009-952b-b570a60027f5",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "23",
+      "request_body_sha256": "28c132256ff8faa0faded34d75aa7668b91f11a285bd06709c72db8152c2a4e1",
+      "ack": {
+        "operationId": "0510495f-2b9e-4291-a078-071187f76d9c",
+        "resourceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "0510495f-2b9e-4291-a078-071187f76d9c",
+        "instanceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "action": "detach-pvc",
+        "intentVersion": "24",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "24",
+        "completion_scope": "runtime_verified",
+        "reason": "",
+        "failure_reason": ""
+      }
+    },
+    "admin-running-restore": {
+      "action": "attach-pvc",
+      "idempotency_key": "dcfeb721-22b5-4fe9-ad85-54f4ccb50e7a",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "24",
+      "request_body_sha256": "8aa47bce95421e2396584b7729fd4c7d4c990fece00202a4c1de2ce4e0bba169",
+      "ack": {
+        "operationId": "7ec29b32-e96c-4db4-87fd-2c8ffd7356dc",
+        "resourceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "7ec29b32-e96c-4db4-87fd-2c8ffd7356dc",
+        "instanceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "action": "attach-pvc",
+        "intentVersion": "25",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "25",
+        "completion_scope": "runtime_verified",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "cp04_session_cleanup": [
+    {
+      "phase": "fixtures",
+      "sessions": [
+        {
+          "application": "boss",
+          "remote": "CONFIRMED"
+        }
+      ]
+    },
+    {
+      "phase": "start",
+      "sessions": [
+        {
+          "application": "console",
+          "remote": "CONFIRMED"
+        }
+      ]
+    },
+    {
+      "phase": "detach",
+      "sessions": [
+        {
+          "application": "console",
+          "remote": "CONFIRMED"
+        },
+        {
+          "application": "boss",
+          "remote": "CONFIRMED"
+        }
+      ]
+    },
+    {
+      "phase": "restore",
+      "sessions": [
+        {
+          "application": "console",
+          "remote": "CONFIRMED"
+        }
+      ]
+    },
+    {
+      "phase": "cleanup",
+      "sessions": [
+        {
+          "application": "boss",
+          "remote": "CONFIRMED"
+        }
+      ]
+    }
+  ],
+  "a05_last_result": {
+    "phase": "cleanup",
+    "result": "PASS_CLEANUP"
+  },
+  "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877"
+}

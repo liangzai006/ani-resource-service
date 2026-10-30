@@ -1,0 +1,59 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "591d2fa8-b94c-50c5-80bf-43e7c7709ab3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "detach-pvc",
+      "idempotency_key": "a59c387b-15d3-4310-8f1e-6b7a2445bbd5",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "19",
+      "request_body_sha256": "f793738c7a3b95807a03275f2505d986dfc858745631d86ab39c1841b265415e",
+      "ack": {
+        "operationId": "27ce1de0-6f5b-4cad-b94d-78c942443707",
+        "resourceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "27ce1de0-6f5b-4cad-b94d-78c942443707",
+        "instanceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "action": "detach-pvc",
+        "intentVersion": "20",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "stopped",
+        "applied_mount_version": "20",
+        "completion_scope": "template_applied",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+  "after_instance": {
+    "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "20",
+    "desiredState": "stopped",
+    "observedState": "stopped",
+    "activeOperationId": "",
+    "executionRunState": "stopped",
+    "appliedMountVersion": "20",
+    "lastOperationId": "27ce1de0-6f5b-4cad-b94d-78c942443707",
+    "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "detach-pvc",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "27ce1de0-6f5b-4cad-b94d-78c942443707"
+  }
+}

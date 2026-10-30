@@ -1,0 +1,64 @@
+{
+  "after_instance": {
+    "activeOperationId": "",
+    "appliedMountVersion": "1",
+    "computeCleaned": false,
+    "compute_type": "gpu",
+    "createOperationId": "96ef1b95-b695-44cf-a61b-0a83bba682c4",
+    "desiredState": "running",
+    "executionRunState": "running",
+    "id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+    "instance_kind": "container",
+    "lastOperationId": "a9f9cd0b-51c2-4c79-860b-db4efda8ea0e",
+    "networkCleaned": false,
+    "observedState": "running",
+    "quotaReturned": false,
+    "version": "2",
+    "volumeReferencesReleased": true,
+    "workspaceCleaned": false
+  },
+  "command": {
+    "ack": {
+      "operationId": "a9f9cd0b-51c2-4c79-860b-db4efda8ea0e",
+      "replayed": false,
+      "resourceId": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+      "result": "ACCEPTED"
+    },
+    "action": "restart",
+    "expected_version": "1",
+    "operation": {
+      "action": "restart",
+      "applied_mount_version": "1",
+      "completion_scope": "runtime_verified",
+      "failure_reason": "",
+      "final_run_state": "running",
+      "id": "a9f9cd0b-51c2-4c79-860b-db4efda8ea0e",
+      "instanceId": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+      "intentVersion": "2",
+      "phase": "done",
+      "reason": "",
+      "state": "completed"
+    },
+    "request_body_sha256": "44d6d8ddc012f9838f71653a2e5c78389f17d2bee0be4ba39cdc1fa5c1f196d9"
+  },
+  "driver_sha256": "51257002af3e49ccf00b485fa4b91c9612a9274bef8c312337a053e48bef2634",
+  "idempotency_key_sha256": "634b376b30c0abdc26acfee2762094d096f8a1204a809f8287a312f240e3f84d",
+  "instance_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+  "mode": "command",
+  "run_id": "212e4e29-c200-4bcd-98cc-034d2d322b3d",
+  "scenario_result": {
+    "action": "restart",
+    "operation_id": "a9f9cd0b-51c2-4c79-860b-db4efda8ea0e",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "scenario": "INDIVIDUAL_COMMAND"
+  },
+  "schema": "container-restart-pvc-http-v1",
+  "session_cleanup": [
+    {
+      "application": "console",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "source_state_sha256": "a659b92e0aa02f0824ee3fd5ae8e1ddc6e2dc9c7c41b8622bde6f074aed849c3"
+}

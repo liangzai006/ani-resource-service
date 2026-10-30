@@ -62,3 +62,17 @@ Sandbox 拉取 Secret；Kubernetes RBAC 无法按名称限制 create。Storage �
 授权和 Pod 创建能力受 RoleBinding 所在租户命名空间约束，不能通过集群级绑定授予
 `ani-sandbox-tenant`。Pod 创建能力可能间接访问命名空间中的其他 Secret；Kubernetes
 RBAC 不能按 Pod 内容限制这项能力，需要结合实际准入策略评估。
+
+### Sandbox Token 签名密钥
+
+Token 与数据库连接、命名空间和 Resource 入口共用既有配置；另外需要一份**稳定的签名密钥文件**，通过 `ANI_SANDBOX_TOKEN_KEYS_FILE` 指向受保护的普通文件。它只存令牌签名密钥，不是 Sandbox 服务配置文件。密钥缺失或非法时 Token 接口返回不可用，其他 Sandbox 能力继续使用；生产环境不能用随机进程密钥兜底。
+
+文件为 JSON，`current` 指向当前签发密钥，`keys` 是密钥 ID 到标准 Base64 编码密钥的映射，每个解码后至少 32 字节、最多 128 字节，最多保留 16 个 ID：
+
+```json
+{"current":"key-2026-a","keys":{"key-2026-a":"<base64-encoded-secret>"}}
+```
+
+示例占位符不能直接使用；实际内容应使用密码学安全随机数生成、通过受管 Secret 注入，禁止写入仓库或日志。服务读取文件时要求普通文件、权限不宽于 `0600`，且不能是符号链接；Kubernetes 默认 Secret 目录条目通常是符号链接，须采用符合该要求的受管文件挂载方式（例如经过验证的单文件 subPath），并确保服务运行用户可读。部署前先以实际运行身份验证权限。签名密钥读取于启动时，修改后需滚动重启。
+
+轮换应分三步：先让所有副本都持有新旧密钥且仍以旧密钥签发；再将 `current` 切到新密钥并滚动重启；最后至少等待最长 Token 有效期一小时和滚动窗口，确认不再需要旧 Token 后才移除旧密钥。旧密钥提前移除会使其签发的 Token 无法验证和幂等重放。密钥泄露时应按事件处置立即移除受影响密钥并使相关 Token 失效。Token 吊销及 Sandbox 版本变化对后续请求生效，已在执行中的请求不保证被中断。

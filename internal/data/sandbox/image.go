@@ -12,6 +12,7 @@ import (
 // ImageRuntime supplies the same image and pull material used by the provider.
 type ImageRuntime interface {
 	image.ReferenceRuntimeImages
+	image.RuntimeImages
 	GetTenantPullMaterial(context.Context, string) (image.PullMaterial, error)
 }
 
@@ -25,6 +26,19 @@ func (i Image) ResolveSandboxImage(ctx context.Context, tenant, reference string
 	}
 	ctx = image.WithCaller(ctx, image.Caller{Kind: image.RuntimeCaller, Subject: "ani-resource-service", TenantID: tenant})
 	resolved, err := i.Runtime.ResolveImageReferenceForWorkload(ctx, image.ResolveImageReference{TenantID: tenant, Reference: reference, TargetPlatform: image.ImagePlatform{OS: "linux", Architecture: "amd64"}})
+	return i.checkedImage(ctx, tenant, resolved, err)
+}
+
+func (i Image) ResolveSandboxImageID(ctx context.Context, tenant, id, scope string) (string, error) {
+	if i.Runtime == nil {
+		return "", biz.ErrDependencyUnavailable
+	}
+	ctx = image.WithCaller(ctx, image.Caller{Kind: image.RuntimeCaller, Subject: "ani-resource-service", TenantID: tenant})
+	resolved, err := i.Runtime.ResolveImageForWorkload(ctx, image.ResolveImage{TenantID: tenant, ImageID: id, Scope: image.ImageScope(scope), TargetPlatform: image.ImagePlatform{OS: "linux", Architecture: "amd64"}})
+	return i.checkedImage(ctx, tenant, resolved, err)
+}
+
+func (i Image) checkedImage(ctx context.Context, tenant string, resolved image.ResolvedImage, err error) (string, error) {
 	if err != nil {
 		switch image.ReasonOf(err) {
 		case image.TrustedCallerRequired, image.PermissionDenied:

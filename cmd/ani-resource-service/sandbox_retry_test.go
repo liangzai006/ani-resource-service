@@ -48,6 +48,32 @@ func (s retryTestService) Delete(context.Context, *sandboxpb.DeleteRequest) (*sa
 	return nil, s.failure()
 }
 
+func (s retryTestService) RunCode(context.Context, *sandboxpb.RunCodeRequest) (*sandboxpb.RunCodeResponse, error) {
+	return nil, s.failure()
+}
+func (s retryTestService) GetCodeRun(context.Context, *sandboxpb.GetCodeRunRequest) (*sandboxpb.GetCodeRunResponse, error) {
+	return nil, s.failure()
+}
+func (s retryTestService) QueryFiles(context.Context, *sandboxpb.QueryFilesRequest) (*sandboxpb.QueryFilesResponse, error) {
+	return nil, s.failure()
+}
+func (s retryTestService) MutateFiles(context.Context, *sandboxpb.MutateFilesRequest) (*sandboxpb.MutateFilesResponse, error) {
+	return nil, s.failure()
+}
+func (s retryTestService) GetFileOperation(context.Context, *sandboxpb.GetFileOperationRequest) (*sandboxpb.GetFileOperationResponse, error) {
+	return nil, s.failure()
+}
+
+func (s retryTestService) CreateToken(context.Context, *sandboxpb.CreateTokenRequest) (*sandboxpb.CreateTokenResponse, error) {
+	return nil, s.failure()
+}
+func (s retryTestService) ValidateToken(context.Context, *sandboxpb.ValidateTokenRequest) (*sandboxpb.ValidateTokenResponse, error) {
+	return nil, s.failure()
+}
+func (s retryTestService) RevokeToken(context.Context, *sandboxpb.RevokeTokenRequest) (*sandboxpb.RevokeTokenResponse, error) {
+	return nil, s.failure()
+}
+
 type retryTestWorker struct{ started chan struct{} }
 
 func (w retryTestWorker) Start(ctx context.Context) error { close(w.started); <-ctx.Done(); return nil }
@@ -63,7 +89,15 @@ func sandboxRetryStatusChecks(r *sandboxRetry) []error {
 	_, f := r.Pause(ctx, &sandboxpb.PauseRequest{})
 	_, g := r.Resume(ctx, &sandboxpb.ResumeRequest{})
 	_, h := r.Delete(ctx, &sandboxpb.DeleteRequest{})
-	return []error{a, b, c, d, e, f, g, h}
+	_, i := r.RunCode(ctx, &sandboxpb.RunCodeRequest{})
+	_, j := r.GetCodeRun(ctx, &sandboxpb.GetCodeRunRequest{})
+	_, k := r.QueryFiles(ctx, &sandboxpb.QueryFilesRequest{})
+	_, l := r.MutateFiles(ctx, &sandboxpb.MutateFilesRequest{})
+	_, m := r.GetFileOperation(ctx, &sandboxpb.GetFileOperationRequest{})
+	_, n := r.CreateToken(ctx, &sandboxpb.CreateTokenRequest{})
+	_, o := r.ValidateToken(ctx, &sandboxpb.ValidateTokenRequest{})
+	_, p := r.RevokeToken(ctx, &sandboxpb.RevokeTokenRequest{})
+	return []error{a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p}
 }
 
 func TestSandboxRetryRecoversAllMethodsAndStopsWorker(t *testing.T) {
@@ -94,7 +128,7 @@ func TestSandboxRetryRecoversAllMethodsAndStopsWorker(t *testing.T) {
 			t.Fatalf("recovered handler not called: %v", err)
 		}
 	}
-	if calls.Load() != 8 || attempts.Load() != 2 {
+	if calls.Load() != 16 || attempts.Load() != 2 {
 		t.Fatalf("calls=%d attempts=%d", calls.Load(), attempts.Load())
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)

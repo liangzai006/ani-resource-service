@@ -1,0 +1,48 @@
+{
+  "action": "update",
+  "automatic_rollback": false,
+  "before_image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:0195ed6b599d3bcd904793b388d89ea66a79c43d289252120f9834069d279ca0",
+  "business_api_writes": 0,
+  "database_writes": 0,
+  "deployment_patch_applied": true,
+  "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+  "elapsed_seconds": 9.566,
+  "finished_at": "2026-10-29T18:39:18.260300+00:00",
+  "generation": 80,
+  "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:eb1a1fa618e2a8bd04b7dbbeb8e3195cbf67a7a44691bbb6d046e1cf821f5a94",
+  "late_queue_timing_owned_by_root": true,
+  "namespace_uid": "8c2bde09-06bb-4e4c-8f6d-65cdc9bb735a",
+  "observed_generation": 80,
+  "pods": [
+    {
+      "containers": [
+        {
+          "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:eb1a1fa618e2a8bd04b7dbbeb8e3195cbf67a7a44691bbb6d046e1cf821f5a94",
+          "name": "resource",
+          "ready": true
+        }
+      ],
+      "deleting": false,
+      "name": "ani-resource-service-65b48c54b8-sp6c4",
+      "uid": "6c220e68-b960-4a11-8f36-14d0d52fc8a4"
+    }
+  ],
+  "ready_replicas": 1,
+  "release_gates_run": false,
+  "result": "DEPLOYED_TASK_FAULT_OVERLAY",
+  "source_binding": {
+    "archive_sha256": "618e37ef7600d31110fa6aa79a35e50cf9155a8a7b1b37ca1ac982da2be3747a",
+    "base_revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4",
+    "base_tree": "1043e34e2a0cb26dd20af1292a471c828e3ec52c",
+    "binary_sha256": "4987a6a10fca211e0dbdc18edeff18f5e52906227bd02a47180c5b8bd3694855",
+    "build_receipt_sha256": "6d72e5a40fc5f5fa8e2a647da115419d28675f06c93f5f7e1ac907634b0063ac",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:eb1a1fa618e2a8bd04b7dbbeb8e3195cbf67a7a44691bbb6d046e1cf821f5a94",
+    "manifest_sha256": "aea90ed9cc1c68af133a9857865bd8f2bdae689e92b40d59b64a5e2d0ada838c",
+    "overlay_sha256": "4cef219b5fcaa6bf0a90542f97696b43f94dfcb1ae5337a66b381731a3e45c08",
+    "revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4+fault.4cef219b5fca",
+    "source_mode": "task-kube-transport-fault-overlay",
+    "source_tree": "NOT_A_GIT_TREE:task-overlay"
+  },
+  "started_at": "2026-10-29T18:39:08.694321+00:00",
+  "tests_run": false
+}

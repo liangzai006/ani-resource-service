@@ -3,6 +3,7 @@ package instance
 import (
 	"context"
 	"errors"
+	"reflect"
 	"strconv"
 	"time"
 
@@ -103,18 +104,26 @@ func (n *Notebook) ObserveIdentity(ctx context.Context, i biz.Instance) (biz.Obs
 		tracked = biz.MergePodRefs(tracked, []biz.PodRef{{ClusterID: i.Spec.ClusterID, Namespace: i.Spec.Namespace, Name: i.PodName, UID: i.PodUID, ContainerName: biz.Container}})
 	}
 	// Persisted identities are directly read even when labels have disappeared.
+	// StatefulSet replacements keep the same name. Read that object once per
+	// observation, then compare every persisted UID against the same result.
+	trackedObjects := map[string]*unstructured.Unstructured{}
 	for _, ref := range tracked {
 		if ref.ClusterID != i.Spec.ClusterID || ref.ClusterID == "" || ref.Namespace != i.Spec.Namespace || ref.Namespace == "" || ref.Name == "" || ref.UID == "" {
 			return out, biz.ErrOwnership
 		}
-		pod, e := n.lifecycleGet(ctx, podGVR, ref.Namespace, ref.Name)
-		if apierrors.IsNotFound(e) {
-			continue
+		pod, read := trackedObjects[ref.Name]
+		if !read {
+			var e error
+			pod, e = n.lifecycleGet(ctx, podGVR, ref.Namespace, ref.Name)
+			if e != nil && !apierrors.IsNotFound(e) {
+				return out, e
+			}
+			if apierrors.IsNotFound(e) {
+				pod = nil
+			}
+			trackedObjects[ref.Name] = pod
 		}
-		if e != nil {
-			return out, e
-		}
-		if string(pod.GetUID()) == ref.UID {
+		if pod != nil && string(pod.GetUID()) == ref.UID {
 			identityPod(&out, i, pod)
 		}
 	}
@@ -139,21 +148,26 @@ func (n *Notebook) ObserveIdentity(ctx context.Context, i biz.Instance) (biz.Obs
 		}
 		identityPod(&out, i, pod)
 	}
-	if !out.NotebookExists || !out.Stopped || out.PodExists || (out.StatefulSetUID != "" && (!setGenerationObserved || out.StatefulSetGeneration < 1 || out.StatefulSetReplicas != 0 || out.StatefulSetObservedGeneration < out.StatefulSetGeneration)) {
+	if !out.NotebookExists {
 		return out, nil
 	}
-	// A controller update during Pod inspection invalidates this turn's proof.
+	// Pod inspection can take longer than a status probe interval. Refresh the
+	// write RV only after proving that the complete control object is unchanged.
 	last, err := n.lifecycleGet(ctx, notebookGVR, i.Spec.Namespace, i.Spec.NotebookName)
 	if err != nil {
 		if apierrors.IsNotFound(err) {
-			return out, nil
+			return out, biz.ErrVersion
 		}
 		return out, err
 	}
 	if !owned(last, i, out.NotebookUID) {
 		return out, biz.ErrOwnership
 	}
-	if last.GetResourceVersion() != out.NotebookRV || last.GetGeneration() != out.NotebookGeneration {
+	if !sameMountTemplateRead(obj, last) {
+		return out, biz.ErrVersion
+	}
+	out.NotebookRV = last.GetResourceVersion()
+	if !out.Stopped || out.PodExists || (out.StatefulSetUID != "" && (!setGenerationObserved || out.StatefulSetGeneration < 1 || out.StatefulSetReplicas != 0 || out.StatefulSetObservedGeneration < out.StatefulSetGeneration)) {
 		return out, nil
 	}
 	if _, stopped := last.GetAnnotations()[stoppedAnnotation]; !stopped {
@@ -174,7 +188,8 @@ func (n *Notebook) ObserveIdentity(ctx context.Context, i biz.Instance) (biz.Obs
 		if !controlledBy(lastSet, "kubeflow.org", "Notebook", i.Spec.NotebookName, out.NotebookUID) {
 			return out, biz.ErrOwnership
 		}
-		if lastSet.GetUID() != set.GetUID() || lastSet.GetResourceVersion() != set.GetResourceVersion() || lastSet.GetGeneration() != set.GetGeneration() {
+		lastObserved, present, err := unstructured.NestedInt64(lastSet.Object, "status", "observedGeneration")
+		if err != nil || !present || lastObserved < lastSet.GetGeneration() || lastObserved != out.StatefulSetObservedGeneration || !sameMountTemplateRead(set, lastSet) {
 			return out, nil
 		}
 	}
@@ -370,6 +385,17 @@ func (n *Notebook) updateNotebookMutation(ctx context.Context, i biz.Instance, m
 // live PVCs; SafeStopped separately gates stopped template commits.
 func (n *Notebook) VerifyMountTemplate(ctx context.Context, i biz.Instance, before, target []biz.VolumeMount) (biz.MountTemplateProof, error) {
 	proof := biz.MountTemplateProof{Class: "mixed"}
+	// Anchor the complete templates before identity inspection. Observation only
+	// retains part of their metadata, so reading the templates afterwards would
+	// miss a concurrent change to another field during Pod inspection.
+	notebook, notebookErr := n.lifecycleGet(ctx, notebookGVR, i.Spec.Namespace, i.Spec.NotebookName)
+	if notebookErr != nil && !apierrors.IsNotFound(notebookErr) {
+		return proof, notebookErr
+	}
+	set, setErr := n.lifecycleGet(ctx, stsGVR, i.Spec.Namespace, i.Spec.NotebookName)
+	if setErr != nil && !apierrors.IsNotFound(setErr) {
+		return proof, setErr
+	}
 	identity, err := n.ObserveIdentity(ctx, i)
 	if err != nil {
 		return proof, err
@@ -382,11 +408,12 @@ func (n *Notebook) VerifyMountTemplate(ctx context.Context, i biz.Instance, befo
 	if !identity.NotebookExists {
 		return proof, nil
 	}
-	notebook, err := n.lifecycleGet(ctx, notebookGVR, i.Spec.Namespace, i.Spec.NotebookName)
-	if err != nil {
-		return proof, err
+	if notebookErr != nil || !owned(notebook, i, identity.NotebookUID) || notebook.GetGeneration() != identity.NotebookGeneration {
+		return proof, biz.ErrVersion
 	}
-	if !owned(notebook, i, identity.NotebookUID) || notebook.GetResourceVersion() != identity.NotebookRV {
+	_, stopped := notebook.GetAnnotations()[stoppedAnnotation]
+	intentVersion, _ := strconv.ParseInt(notebook.GetAnnotations()[versionAnnotation], 10, 64)
+	if stopped != identity.Stopped || intentVersion != identity.IntentVersion || notebook.GetAnnotations()[mutationAnnotation] != identity.MutationID {
 		return proof, biz.ErrVersion
 	}
 	notebookSpec, present, err := unstructured.NestedMap(notebook.Object, "spec", "template", "spec")
@@ -394,46 +421,79 @@ func (n *Notebook) VerifyMountTemplate(ctx context.Context, i biz.Instance, befo
 		return proof, biz.ErrOwnership
 	}
 	class := mountContentClass(notebookSpec, i.Spec, before, target)
-	set, err := n.lifecycleGet(ctx, stsGVR, i.Spec.Namespace, i.Spec.NotebookName)
-	if apierrors.IsNotFound(err) {
-		if identity.StatefulSetUID == "" && identity.SafeStopped {
-			proof.Class = class
+	observed := int64(0)
+	if apierrors.IsNotFound(setErr) {
+		if identity.StatefulSetUID != "" || !identity.SafeStopped {
+			return proof, nil
 		}
+	} else {
+		if string(set.GetUID()) != identity.StatefulSetUID || !controlledBy(set, "kubeflow.org", "Notebook", i.Spec.NotebookName, identity.NotebookUID) {
+			return proof, biz.ErrOwnership
+		}
+		setSpec, present, err := unstructured.NestedMap(set.Object, "spec", "template", "spec")
+		if err != nil || !present {
+			return proof, biz.ErrOwnership
+		}
+		observed, present, err = unstructured.NestedInt64(set.Object, "status", "observedGeneration")
+		if err != nil || !present || observed < set.GetGeneration() || set.GetGeneration() != identity.StatefulSetGeneration || observed != identity.StatefulSetObservedGeneration {
+			return proof, nil
+		}
+		if class != mountContentClass(setSpec, i.Spec, before, target) {
+			return proof, nil
+		}
+	}
+	if class == "mixed" {
 		return proof, nil
 	}
+	lastNotebook, err := n.lifecycleGet(ctx, notebookGVR, i.Spec.Namespace, i.Spec.NotebookName)
 	if err != nil {
 		return proof, err
 	}
-	if string(set.GetUID()) != identity.StatefulSetUID || !controlledBy(set, "kubeflow.org", "Notebook", i.Spec.NotebookName, identity.NotebookUID) {
-		return proof, biz.ErrOwnership
-	}
-	setSpec, present, err := unstructured.NestedMap(set.Object, "spec", "template", "spec")
-	if err != nil || !present {
-		return proof, biz.ErrOwnership
-	}
-	observed, present, err := unstructured.NestedInt64(set.Object, "status", "observedGeneration")
-	if err != nil || !present || observed < set.GetGeneration() || set.GetGeneration() != identity.StatefulSetGeneration || observed != identity.StatefulSetObservedGeneration {
-		return proof, nil
-	}
-	if class != "mixed" && class == mountContentClass(setSpec, i.Spec, before, target) {
-		lastNotebook, err := n.lifecycleGet(ctx, notebookGVR, i.Spec.Namespace, i.Spec.NotebookName)
+	lastSet, err := n.lifecycleGet(ctx, stsGVR, i.Spec.Namespace, i.Spec.NotebookName)
+	if apierrors.IsNotFound(setErr) {
+		if !apierrors.IsNotFound(err) {
+			if err != nil {
+				return proof, err
+			}
+			proof.SafeStopped = false
+			return proof, nil
+		}
+	} else {
 		if err != nil {
 			return proof, err
 		}
-		lastSet, err := n.lifecycleGet(ctx, stsGVR, i.Spec.Namespace, i.Spec.NotebookName)
-		if err != nil {
-			return proof, err
-		}
-		if !owned(lastNotebook, i, identity.NotebookUID) || !controlledBy(lastSet, "kubeflow.org", "Notebook", i.Spec.NotebookName, identity.NotebookUID) {
+		if !controlledBy(lastSet, "kubeflow.org", "Notebook", i.Spec.NotebookName, identity.NotebookUID) {
 			return proof, biz.ErrOwnership
 		}
-		if lastNotebook.GetResourceVersion() == notebook.GetResourceVersion() && lastNotebook.GetGeneration() == notebook.GetGeneration() && lastSet.GetUID() == set.GetUID() && lastSet.GetResourceVersion() == set.GetResourceVersion() && lastSet.GetGeneration() == set.GetGeneration() {
-			proof.Class = class
-		} else {
+		lastObserved, present, err := unstructured.NestedInt64(lastSet.Object, "status", "observedGeneration")
+		if err != nil || !present || lastObserved < lastSet.GetGeneration() || lastObserved != observed || !sameMountTemplateRead(set, lastSet) {
 			proof.SafeStopped = false
+			return proof, nil
 		}
 	}
+	if !owned(lastNotebook, i, identity.NotebookUID) {
+		return proof, biz.ErrOwnership
+	}
+	if !sameMountTemplateRead(notebook, lastNotebook) {
+		proof.SafeStopped = false
+		return proof, nil
+	}
+	proof.NotebookRV = lastNotebook.GetResourceVersion()
+	proof.Class = class
 	return proof, nil
+}
+
+// Template proofs compare the complete read, including ownership and control
+// annotations. Controller status probes change RV without changing that proof.
+// Conditional writes still use their original UID/resourceVersion unchanged.
+func sameMountTemplateRead(before, after *unstructured.Unstructured) bool {
+	left, right := before.DeepCopy(), after.DeepCopy()
+	for _, obj := range []*unstructured.Unstructured{left, right} {
+		delete(obj.Object, "status")
+		unstructured.RemoveNestedField(obj.Object, "metadata", "resourceVersion")
+		unstructured.RemoveNestedField(obj.Object, "metadata", "managedFields")
+	}
+	return reflect.DeepEqual(left.Object, right.Object)
 }
 
 func mountContentClass(podSpec map[string]any, spec biz.Spec, before, target []biz.VolumeMount) string {

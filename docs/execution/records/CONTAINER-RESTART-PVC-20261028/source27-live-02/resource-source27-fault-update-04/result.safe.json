@@ -1,0 +1,48 @@
+{
+  "action": "update",
+  "automatic_rollback": false,
+  "before_image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:5108362e031a7287bbe4a61f508e6183f4c149085d47a91459df078159ba1304",
+  "business_api_writes": 0,
+  "database_writes": 0,
+  "deployment_patch_applied": true,
+  "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+  "elapsed_seconds": 9.298,
+  "finished_at": "2026-10-29T19:05:49.972593+00:00",
+  "generation": 82,
+  "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+  "late_queue_timing_owned_by_root": true,
+  "namespace_uid": "8c2bde09-06bb-4e4c-8f6d-65cdc9bb735a",
+  "observed_generation": 82,
+  "pods": [
+    {
+      "containers": [
+        {
+          "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+          "name": "resource",
+          "ready": true
+        }
+      ],
+      "deleting": false,
+      "name": "ani-resource-service-548bdd5bff-czqmx",
+      "uid": "92e95c0b-f3ed-46f8-bcae-004b64441c45"
+    }
+  ],
+  "ready_replicas": 1,
+  "release_gates_run": false,
+  "result": "DEPLOYED_TASK_FAULT_OVERLAY",
+  "source_binding": {
+    "archive_sha256": "b9c96338f9ebac9c5db23a7ce9def21ceffc25a33cf0d719ae390ec8a4f1c0e2",
+    "base_revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4",
+    "base_tree": "1043e34e2a0cb26dd20af1292a471c828e3ec52c",
+    "binary_sha256": "6489684afe3238bd92ae612b14e8243eb0e496f0b5b5c61699067556927ae0a5",
+    "build_receipt_sha256": "fcb33f71a89d787fdd1d45980536b1766e251467196313adbbbf1bd453473dbb",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+    "manifest_sha256": "ae121624c9dc138e1de3e0ab4a66a20906596a3d04e213ed14688e893420cd25",
+    "overlay_sha256": "825f05e9c97927eb3430c689867ac8a3f2895aae642350c6a10905d32604b219",
+    "revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4+fault.825f05e9c979",
+    "source_mode": "task-kube-and-pg-stage-exit-overlay",
+    "source_tree": "NOT_A_GIT_TREE:task-overlay"
+  },
+  "started_at": "2026-10-29T19:05:40.674268+00:00",
+  "tests_run": false
+}

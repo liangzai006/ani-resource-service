@@ -1,0 +1,56 @@
+{
+  "result": "STATIC_BUILDINFO_READ_SOURCE_NOT_PROVEN",
+  "image_digest": "sha256:259554ca3ac7c93a66d7eaf25c86a92e780bcdb0e05d79ebd1ff7fcf0105e508",
+  "selected_layer_digest": "sha256:cbc7a655db2e90a46b4a0f23a824cbee1e0d8dd0469af9895fef32fcb732507b",
+  "compressed_read_cap_bytes": 134217728,
+  "started_at_utc": "2026-10-29T12:34:53.938822+00:00",
+  "registry_tls_verified": true,
+  "binary_executed": false,
+  "docker_run_or_pull": false,
+  "deployment_changed": false,
+  "other_layers_read": false,
+  "source_binding": "NOT_PROVEN",
+  "contains_7fc_read_proof_fix": "NOT_PROVEN",
+  "layer_descriptor": {
+    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+    "size": 19227049,
+    "digest": "sha256:cbc7a655db2e90a46b4a0f23a824cbee1e0d8dd0469af9895fef32fcb732507b"
+  },
+  "selected_history": {
+    "created": "0001-01-01T00:00:00Z"
+  },
+  "selection": "highest-precedence layer; smaller than prior COPY layer; no fallback layer will be read",
+  "compressed_bytes_read": 19227049,
+  "uncompressed_layer_bytes": 63293440,
+  "layer_diff_id": "sha256:bed75af547d3c6b4adcb46070ab870380d1f7f81ace9b748ae34d1058eb91e4b",
+  "command": [
+    "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+    "version",
+    "-m",
+    "/root/ani-runs/container-restart-pvc-20261028/resource-259554-buildinfo-01/ani-resource-service"
+  ],
+  "binary_path": "/root/ani-runs/container-restart-pvc-20261028/resource-259554-buildinfo-01/ani-resource-service",
+  "binary_mode": "0600",
+  "binary_sha256": "4da76c772f6e0bb6e31cbd00e2830b6de797f9bffd2fc6c72f3c531c0ab952a4",
+  "binary_bytes": 63291554,
+  "buildinfo_sha256": "1b3cd6fde35e322a34d5e1a3b6379db607b85b62442bce346d64a18ebe53d9bf",
+  "main_package": "github.com/zhangzhe-ctrl/ani-resource-service/cmd/ani-resource-service",
+  "main_module": {
+    "path": "github.com/zhangzhe-ctrl/ani-resource-service",
+    "version": "(devel)"
+  },
+  "buildflags": {
+    "-buildmode": "exe",
+    "-compiler": "gc",
+    "-trimpath": "true",
+    "CGO_ENABLED": "0",
+    "GOARCH": "amd64",
+    "GOOS": "linux",
+    "GOAMD64": "v1"
+  },
+  "vcs_revision": null,
+  "vcs_modified": null,
+  "other_buildflag_names": [],
+  "stop_reason": "NO_VCS_REVISION; bounded source diagnosis ends here",
+  "finished_at_utc": "2026-10-29T12:34:56.449609+00:00"
+}

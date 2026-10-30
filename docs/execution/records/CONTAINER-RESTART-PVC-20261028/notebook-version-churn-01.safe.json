@@ -1,0 +1,34 @@
+{
+  "annotations_equal": true,
+  "changed_json_paths": [
+    "/metadata/managedFields/1/time",
+    "/metadata/resourceVersion",
+    "/status/conditions/0/lastProbeTime",
+    "/status/conditions/1/lastProbeTime",
+    "/status/conditions/2/lastProbeTime",
+    "/status/conditions/3/lastProbeTime",
+    "/status/conditions/4/lastProbeTime"
+  ],
+  "changed_path_count": 7,
+  "labels_equal": true,
+  "live_business_mutations": 0,
+  "owner_references_equal": true,
+  "raw_objects_private": true,
+  "recorded_at": "2026-10-29T09:35:19.408635+00:00",
+  "samples": [
+    {
+      "generation": 2,
+      "owned_labels_match": true,
+      "resource_version": "14104874",
+      "uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0"
+    },
+    {
+      "generation": 2,
+      "owned_labels_match": true,
+      "resource_version": "14104926",
+      "uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0"
+    }
+  ],
+  "schema": "notebook-version-churn-readonly-v1",
+  "spec_equal": true
+}

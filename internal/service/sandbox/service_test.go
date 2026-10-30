@@ -5,6 +5,7 @@ import (
 	"errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/proto"
 	"testing"
 
 	pb "github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1"
@@ -85,6 +86,13 @@ func (r *testImageResolver) ResolveSandboxImage(_ context.Context, tenant, reque
 		return ref, nil
 	}
 	return "", biz.ErrDenied
+}
+
+func (r *testImageResolver) ResolveSandboxImageID(ctx context.Context, tenant, id, scope string) (string, error) {
+	if scope != "tenant" && scope != "platform" {
+		return "", biz.ErrInvalid
+	}
+	return r.ResolveSandboxImage(ctx, tenant, id)
 }
 
 type testStorageResolver struct {
@@ -431,6 +439,51 @@ func TestResolvedDependenciesAreFrozenAndReauthorizedOnAccept(t *testing.T) {
 	storage.err = errors.New("storage resolver unavailable")
 	if _, err = s.AcceptCreate(serviceContext(), accept); status.Code(err) != codes.Unavailable {
 		t.Fatalf("unavailable storage resolver accepted: %v", err)
+	}
+}
+
+func TestSandboxImageIDIsFrozenAndReauthorized(t *testing.T) {
+	s := newTestService(t, validSelection())
+	ref := "registry/tenant/demo@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+	images := &testImageResolver{refs: map[string]string{"img_registered": ref}}
+	s.config.ImageResolver = images
+	req := validResolveRequest()
+	req.Data.ImageReference = ""
+	req.Data.ImageId = "img_registered"
+	req.Data.ImageScope = "platform"
+	spec, err := s.ResolveCreateSpec(serviceContext(), req)
+	if err != nil || spec.ImageId != req.Data.ImageId || spec.ImageScope != "platform" || spec.ImageReference != ref {
+		t.Fatalf("resolve registered image: spec=%v err=%v", spec, err)
+	}
+	accept := &pb.AcceptCreateRequest{Context: &pb.CommandContext{TenantId: testTenant, ResourceId: testSandbox, OperationId: testOp}, Spec: spec}
+	accept.Context.RequestDigest, err = commandDigest(accept.Context, "", spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err = s.AcceptCreate(serviceContext(), accept); err != nil || images.calls != 2 {
+		t.Fatalf("accept must reauthorize image ID: calls=%d err=%v", images.calls, err)
+	}
+	tamperedAccept := proto.Clone(accept).(*pb.AcceptCreateRequest)
+	tamperedAccept.Spec.ImageId = "img_other"
+	tamperedAccept.Context.RequestDigest, err = commandDigest(tamperedAccept.Context, "", tamperedAccept.Spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err = s.AcceptCreate(serviceContext(), tamperedAccept); status.Code(err) != codes.InvalidArgument {
+		t.Fatalf("image identity not bound to frozen specification: %v", err)
+	}
+	images.refs["img_registered"] = "registry/tenant/other@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+	if _, err = s.AcceptCreate(serviceContext(), accept); status.Code(err) != codes.InvalidArgument {
+		t.Fatalf("changed digest accepted: %v", err)
+	}
+	req.Data.ImageReference = ref
+	if _, err = s.ResolveCreateSpec(serviceContext(), req); status.Code(err) != codes.InvalidArgument {
+		t.Fatalf("mixed ID and reference accepted: %v", err)
+	}
+	req.Data.ImageReference = ""
+	req.Data.ImageScope = ""
+	if _, err = s.ResolveCreateSpec(serviceContext(), req); status.Code(err) != codes.InvalidArgument {
+		t.Fatalf("image ID without scope accepted: %v", err)
 	}
 }
 

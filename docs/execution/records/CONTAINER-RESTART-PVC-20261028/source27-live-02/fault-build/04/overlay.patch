@@ -1,0 +1,890 @@
+--- /dev/null
++++ b/cmd/ani-resource-service/goal_kube_fault.go
+@@ -0,0 +1,284 @@
++//go:build ani_goal_kubefault
++
++package main
++
++// Source27 input: 123e66c0daf6fdd946abada44d3ff9507d5127e4. Apply only
++// in a task build directory or go -overlay mapping, never the source checkout.
++// Task-only diagnostic overlay. Disabled unless compiled with ani_goal_kubefault
++// AND ANI_GOAL_KUBE_FAULT_DIR=/run/ani-goal-kube-fault/control. The Pod
++// mounts only the emptyDir parent; the actual UID creates an owned 0700 child. arm.json and
++// <nonce>.release / <nonce>.cancel are owned 0600 files containing the nonce.
++// arm.json is atomically replaced; cancel also stops a queued late write.
++// Never enable on a shared worker: only the separately scoped diagnostic process.
++//
++// Arm fields: nonce,client(instance|storage),namespace,name,uid,method(PUT|DELETE),
++// resource(notebooks|persistentvolumeclaims|pods),instance_id,intent_version,stopped(true|false),
++// mode(before|after-hold|after-drop|late-forward),max_wait_seconds(1..120).
++// Notebook PUT requires the exact UID plus a nonempty original RV and mutation
++// annotation. PVC DELETE requires exact DeleteOptions.preconditions.uid.
++// No POST/CREATE, PATCH, arbitrary GET/LIST, subresource, credential or body logging.
++// The sole LIST exception is exact namespace Pod LIST carrying the explicit
++// ObserveIdentity task context: instanceID/namespace/NotebookName/NotebookUID.
++// Its real request is gated/forwarded unchanged; no response object is fabricated.
++// No fabricated empty lists, deleted labels, terminating Pods or STS status.
++// PG-only reserve/usage/config-commit boundaries likewise need a separate hook.
++//
++// before: hit -> wait release using ORIGINAL context -> forward unchanged.
++// after-hold: real write -> response marker -> hold original response; cancellation
++//             or process exit loses the reply while the real write is preserved.
++// after-drop: real write and actual 2xx -> drain/close -> injected EOF to caller.
++// late-forward: freeze exact original bytes/UID/RV, queue beyond caller cancellation
++//               under independent bounded context; release sends it ONCE. This is
++//               intentional delayed delivery, not a new intent or refreshed CAS.
++//               Queue dies on process exit; expiry explicitly records NOT_SENT.
++// For A15, late-forward stopped=false and pass stopped=true fence, or rearm a
++// distinct nonce for after-drop stopped=true. Release original before/after actual
++// fence evidence as chosen by Root. Missing release never forwards after TTL.
++// Markers prove observed transport order only, not Kubernetes/controller outcome.
++
++import (
++	"bytes"
++	"context"
++	"crypto/sha256"
++	"encoding/hex"
++	"encoding/json"
++	"errors"
++	"io"
++	"net/http"
++	"net/url"
++	"os"
++	"path/filepath"
++	"regexp"
++	"strconv"
++	"syscall"
++	"time"
++
++	"k8s.io/client-go/rest"
++)
++
++type goalFaultPlan struct {
++	Nonce string `json:"nonce"`
++	Client string `json:"client"`
++	Namespace string `json:"namespace"`
++	Name string `json:"name"`
++	UID string `json:"uid"`
++	InstanceID string `json:"instance_id"`
++	Method string `json:"method"`
++	Resource string `json:"resource"`
++	IntentVersion string `json:"intent_version"`
++	Stopped string `json:"stopped"`
++	Mode string `json:"mode"`
++	MaxWaitSeconds int `json:"max_wait_seconds"`
++}
++type goalFaultTransport struct { next http.RoundTripper; dir, client, authority string }
++var goalFaultID = regexp.MustCompile(`^[a-z0-9][a-z0-9-]{0,62}$`)
++
++const goalFaultParent = "/run/ani-goal-kube-fault"
++const goalFaultDirectory = goalFaultParent+"/control"
++
++func goalFaultDirectoryReady() (string,error) {
++	if os.Getenv("ANI_GOAL_KUBE_FAULT_DIR")!=goalFaultDirectory { return "",errors.New("TASK_CONTROL_DIRECTORY_NOT_FIXED") }
++	parent,e:=os.Lstat(goalFaultParent)
++	if e!=nil || !parent.IsDir() || parent.Mode()&os.ModeSymlink!=0 { return "",errors.New("TASK_EMPTYDIR_PARENT_REQUIRED") }
++	// The Pod fsGroup supplies parent write permission. The actual service UID
++	// owns its newly created child; neither OCI UID nor root is hardcoded.
++	if e=os.Mkdir(goalFaultDirectory,0700); e!=nil && !errors.Is(e,os.ErrExist) { return "",errors.New("TASK_CONTROL_DIRECTORY_CREATE_FAILED") }
++	st,e:=os.Lstat(goalFaultDirectory); if e!=nil { return "",errors.New("TASK_CONTROL_DIRECTORY_UNAVAILABLE") }
++	u,ok:=st.Sys().(*syscall.Stat_t)
++	if !ok || !st.IsDir() || st.Mode()&os.ModeSymlink!=0 || st.Mode().Perm()!=0700 || u.Uid!=uint32(os.Geteuid()) { return "",errors.New("TASK_CONTROL_DIRECTORY_OWNER_MODE_INVALID") }
++	return goalFaultDirectory,nil
++}
++func taskKubeFault(c *rest.Config, client string) error {
++	if os.Getenv("ANI_GOAL_KUBE_FAULT_DIR")=="" { return nil }
++	dir,err:=goalFaultDirectoryReady(); if err!=nil { return err }
++	host, err := url.Parse(c.Host)
++	if err!=nil || host.Scheme!="https" || host.Host=="" { return errors.New("task fault requires unchanged HTTPS endpoint") }
++	prev := c.WrapTransport
++	c.WrapTransport = func(rt http.RoundTripper) http.RoundTripper {
++		if prev!=nil { rt=prev(rt) }
++		return &goalFaultTransport{next:rt,dir:dir,client:client,authority:host.Host}
++	}
++	return nil
++}
++
++// This task-tag CLI exits before main; it opens no listener and calls no API.
++// Syntax: /ani-resource-service goal-kube-fault-control arm < plan.json
++//         /ani-resource-service goal-kube-fault-control release|cancel|events NONCE
++//         /ani-resource-service goal-kube-fault-control clear-arm
++func init() {
++	if len(os.Args)<2 || os.Args[1]!="goal-kube-fault-control" { return }
++	result,err:=goalFaultControl(os.Args[2:]); code:=0
++	if err!=nil { result=map[string]any{"result":"CONTROL_FAILED","code":err.Error()}; code=2 }
++	_ = json.NewEncoder(os.Stdout).Encode(result)
++	os.Exit(code)
++}
++func goalFaultControl(args []string) (map[string]any,error) {
++	if len(args)<1 { return nil,errors.New("CONTROL_SUBCOMMAND_REQUIRED") }
++	dir,e:=goalFaultDirectoryReady(); if e!=nil { return nil,e }
++	t:=&goalFaultTransport{dir:dir}
++	fail:=func()(map[string]any,error){return nil,errors.New("CONTROL_INVALID_ARGUMENTS")}
++	switch args[0] {
++	case "arm":
++		if len(args)!=1 { return fail() }
++		b,e:=io.ReadAll(io.LimitReader(os.Stdin,8193)); if e!=nil || len(b)>8192 { return nil,errors.New("CONTROL_STDIN_LIMIT_OR_READ_FAILED") }
++		var plan goalFaultPlan; d:=json.NewDecoder(bytes.NewReader(b)); d.DisallowUnknownFields()
++		if d.Decode(&plan)!=nil || d.Decode(new(any))!=io.EOF || !goalFaultArmValid(plan) { return nil,errors.New("CONTROL_INVALID_PLAN") }
++		// Canonicalize only the known, credential-free plan fields; atomic rename
++		// never exposes a partially written arm. Temporary basename is internal.
++		b,e=json.Marshal(plan); if e!=nil { return nil,errors.New("CONTROL_PLAN_ENCODE_FAILED") }
++		f,e:=os.CreateTemp(dir,".arm-"); if e!=nil { return nil,errors.New("CONTROL_ATOMIC_CREATE_FAILED") }
++		tmp:=f.Name(); defer os.Remove(tmp)
++		if _,e=f.Write(append(b,'\n')); e==nil { e=f.Sync() }; closeErr:=f.Close()
++		if e!=nil || closeErr!=nil { return nil,errors.New("CONTROL_ATOMIC_WRITE_FAILED") }
++		if e=os.Rename(tmp,filepath.Join(dir,"arm.json")); e!=nil { return nil,errors.New("CONTROL_ATOMIC_RENAME_FAILED") }
++		return map[string]any{"result":"ARMED","nonce":plan.Nonce},nil
++	case "release","cancel":
++		if len(args)!=2 || !goalFaultID.MatchString(args[1]) { return fail() }
++		name:=args[1]+"."+args[0]; b:=[]byte(args[1]+"\n")
++		f,e:=os.OpenFile(filepath.Join(dir,name),os.O_WRONLY|os.O_CREATE|os.O_EXCL|syscall.O_NOFOLLOW,0600)
++		if errors.Is(e,os.ErrExist) {
++			prior,readErr:=t.private(name); if readErr!=nil || !bytes.Equal(prior,b) { return nil,errors.New("CONTROL_EXISTING_SIGNAL_INVALID") }
++		} else {
++			if e!=nil { return nil,errors.New("CONTROL_SIGNAL_CREATE_FAILED") }
++			_,e=f.Write(b); if e==nil { e=f.Sync() }; closeErr:=f.Close()
++			if e!=nil || closeErr!=nil { return nil,errors.New("CONTROL_SIGNAL_WRITE_FAILED") }
++		}
++		return map[string]any{"result":"SIGNALLED","signal":args[0],"nonce":args[1]},nil
++	case "events":
++		if len(args)!=2 || !goalFaultID.MatchString(args[1]) { return fail() }
++		events:=[]map[string]any{}
++		allowed:=map[string]bool{"at":true,"mode":true,"nonce":true,"event":true,"request_sha256":true,"client":true,"method":true,"resource":true,"namespace":true,"name":true,"uid":true,"http_status":true,"transport_error":true}
++		for _,suffix:=range []string{"hit","forward","real-response","late-result","expired","not-sent","dropped"} {
++			b,e:=t.private(args[1]+"."+suffix+".json"); if errors.Is(e,os.ErrNotExist) { continue }; if e!=nil { return nil,errors.New("CONTROL_EVENT_READ_FAILED") }
++			var raw map[string]any; if json.Unmarshal(b,&raw)!=nil || raw["nonce"]!=args[1] { return nil,errors.New("CONTROL_EVENT_INVALID") }
++			v:=map[string]any{}; for k,x:=range raw { if allowed[k] { v[k]=x } }; events=append(events,v)
++		}
++		return map[string]any{"result":"EVENTS","nonce":args[1],"events":events},nil
++	case "clear-arm":
++		if len(args)!=1 { return fail() }
++		if _,e:=t.private("arm.json"); errors.Is(e,os.ErrNotExist) { return map[string]any{"result":"ARM_CLEARED"},nil } else if e!=nil { return nil,errors.New("CONTROL_ARM_READ_FAILED") }
++		if os.Remove(filepath.Join(dir,"arm.json"))!=nil { return nil,errors.New("CONTROL_ARM_REMOVE_FAILED") }
++		return map[string]any{"result":"ARM_CLEARED"},nil
++	default:
++		return fail()
++	}
++}
++func goalFaultArmValid(p goalFaultPlan) bool {
++	if !goalFaultID.MatchString(p.Nonce) || !goalFaultID.MatchString(p.Namespace) || !goalFaultID.MatchString(p.Name) || p.UID=="" || p.MaxWaitSeconds<1 || p.MaxWaitSeconds>120 { return false }
++	if p.Mode!="before" && p.Mode!="after-hold" && p.Mode!="after-drop" && p.Mode!="late-forward" { return false }
++	if p.Client=="storage" { return p.Resource=="persistentvolumeclaims" && p.Method=="DELETE" && p.IntentVersion=="" && p.Stopped=="" && p.InstanceID=="" }
++	if p.Client!="instance" { return false }
++	if p.Resource=="pods" { return p.Method=="GET" && p.InstanceID!="" && p.Mode!="late-forward" && p.IntentVersion=="" && p.Stopped=="" }
++	v,e:=strconv.ParseInt(p.IntentVersion,10,64)
++	return p.Resource=="notebooks" && p.Method=="PUT" && e==nil && v>0 && (p.Stopped=="true" || p.Stopped=="false")
++}
++func (t *goalFaultTransport) private(name string) ([]byte,error) {
++	f,e:=os.OpenFile(filepath.Join(t.dir,name),os.O_RDONLY|syscall.O_NOFOLLOW,0)
++	if e!=nil { return nil,e }; defer f.Close()
++	st,e:=f.Stat(); if e!=nil { return nil,e }; u,ok:=st.Sys().(*syscall.Stat_t)
++	if !ok || !st.Mode().IsRegular() || st.Mode().Perm()!=0600 || u.Uid!=uint32(os.Geteuid()) || st.Size()>8192 { return nil,errors.New("invalid task control file") }
++	return io.ReadAll(io.LimitReader(f,8193))
++}
++func (t *goalFaultTransport) event(p goalFaultPlan, suffix string, v map[string]any) error {
++	v["at"]=time.Now().UTC().Format(time.RFC3339Nano); v["mode"]=p.Mode; v["nonce"]=p.Nonce
++	b,e:=json.Marshal(v); if e!=nil { return e }
++	f,e:=os.OpenFile(filepath.Join(t.dir,p.Nonce+"."+suffix+".json"),os.O_WRONLY|os.O_CREATE|os.O_EXCL|syscall.O_NOFOLLOW,0600)
++	if e!=nil { return e }; defer f.Close(); _,e=f.Write(append(b,'\n')); return e
++}
++func (t *goalFaultTransport) wait(ctx context.Context,p goalFaultPlan) bool {
++	tick:=time.NewTicker(100*time.Millisecond); defer tick.Stop()
++	for {
++		if b,e:=t.private(p.Nonce+".cancel"); e==nil && string(bytes.TrimSpace(b))==p.Nonce { return false }
++		if b,e:=t.private(p.Nonce+".release"); e==nil && string(bytes.TrimSpace(b))==p.Nonce { return true }
++		select { case <-ctx.Done(): return false; case <-tick.C: }
++	}
++}
++func (t *goalFaultTransport) plan(req *http.Request) (goalFaultPlan,bool) {
++	var p goalFaultPlan
++	b,e:=t.private("arm.json"); if e!=nil { return p,false }
++	d:=json.NewDecoder(bytes.NewReader(b)); d.DisallowUnknownFields()
++	if d.Decode(&p)!=nil || d.Decode(new(any))!=io.EOF { return p,false }
++	if !goalFaultArmValid(p) || p.Client!=t.client { return p,false }
++	if p.Mode!="before" && p.Mode!="after-hold" && p.Mode!="after-drop" && p.Mode!="late-forward" { return p,false }
++	if req.URL.Scheme!="https" || req.URL.Host!=t.authority || req.Method!=p.Method { return p,false }
++	prefix:="/api/v1/namespaces/"
++	if p.Client=="instance" && p.Resource=="pods" && p.Method=="GET" {
++		tag,ok:=req.Context().Value("ani.goal.01a18156.kube-target").([4]string)
++		if !ok || p.InstanceID=="" || tag!=[4]string{p.InstanceID,p.Namespace,p.Name,p.UID} || p.Mode=="late-forward" { return p,false }
++		return p,req.URL.Path==prefix+p.Namespace+"/pods" && (req.URL.RawQuery=="" || req.URL.RawQuery=="timeout=15s")
++	}
++	if p.Client=="instance" && p.Resource=="notebooks" && p.Method=="PUT" {
++		prefix="/apis/kubeflow.org/v1/namespaces/"
++		v,e:=strconv.ParseInt(p.IntentVersion,10,64); if e!=nil || v<=0 || (p.Stopped!="true" && p.Stopped!="false") { return p,false }
++	} else if !(p.Client=="storage" && p.Resource=="persistentvolumeclaims" && p.Method=="DELETE") { return p,false }
++	return p,req.URL.Path==prefix+p.Namespace+"/"+p.Resource+"/"+p.Name && (req.URL.RawQuery=="" || req.URL.RawQuery=="timeout=15s")
++}
++func (t *goalFaultTransport) RoundTrip(req *http.Request) (*http.Response,error) {
++	p,ok:=t.plan(req); if !ok { return t.next.RoundTrip(req) }
++	// Named-object candidate only. Buffer/replay exact small serialized bytes;
++	// no transport/auth/TLS headers, body fields or UID/RV are changed.
++	isList:=p.Resource=="pods"
++	var body []byte
++	var e error
++	r:=req.Clone(req.Context())
++	if !isList {
++		if req.Body==nil || req.ContentLength<=0 || req.ContentLength>1<<20 { return t.next.RoundTrip(req) }
++		body,e=io.ReadAll(req.Body); req.Body.Close()
++		if e!=nil { return nil,e }
++		r.Body=io.NopCloser(bytes.NewReader(body))
++		r.GetBody=func()(io.ReadCloser,error){return io.NopCloser(bytes.NewReader(body)),nil}
++	}
++	var obj struct {
++		Metadata struct { Name,Namespace,UID,ResourceVersion string; Annotations map[string]string }
++		Preconditions struct { UID string }
++	}
++	if !isList && json.Unmarshal(body,&obj)!=nil { return t.next.RoundTrip(r) }
++	uid:=obj.Preconditions.UID
++	if isList { uid=p.UID }
++	if p.Client=="instance" && !isList {
++		uid=obj.Metadata.UID; _,stopped:=obj.Metadata.Annotations["kubeflow-resource-stopped"]
++		if obj.Metadata.Name!=p.Name || obj.Metadata.Namespace!=p.Namespace || obj.Metadata.ResourceVersion=="" || obj.Metadata.Annotations["instance.ani.io/mutation-id"]=="" || obj.Metadata.Annotations["instance.ani.io/intent-version"]!=p.IntentVersion || strconv.FormatBool(stopped)!=p.Stopped { return t.next.RoundTrip(r) }
++	}
++	if uid!=p.UID { return t.next.RoundTrip(r) }
++	h:=sha256.Sum256(body)
++	if e=t.event(p,"hit",map[string]any{"event":"matched_exact_uid_request","request_sha256":hex.EncodeToString(h[:]),"client":p.Client,"method":p.Method,"resource":p.Resource,"namespace":p.Namespace,"name":p.Name,"uid":uid}); e!=nil {
++		// Hold matched retries too until arm.json is removed/replaced; never allow
++		// an unobserved duplicate while the first exact request is queued.
++		return nil,errors.New("task fault plan already claimed or marker unavailable")
++	}
++	if p.Mode=="late-forward" {
++		// Isolated task queue deliberately outlives caller cancellation, bounded
++		// by TTL. All original request bytes/preconditions and TLS remain intact.
++		ctx,cancel:=context.WithTimeout(context.WithoutCancel(req.Context()),time.Duration(p.MaxWaitSeconds)*time.Second)
++		late:=r.Clone(ctx); late.Cancel=nil; late.Body=io.NopCloser(bytes.NewReader(body)); late.GetBody=r.GetBody
++		// The same private cancel control also interrupts an already-forwarded
++		// network call; cancellation is not evidence of apiserver non-commit.
++		go func(){
++			tick:=time.NewTicker(100*time.Millisecond); defer tick.Stop()
++			for {
++				if b,e:=t.private(p.Nonce+".cancel"); e==nil && string(bytes.TrimSpace(b))==p.Nonce { cancel(); return }
++				select { case <-ctx.Done(): return; case <-tick.C: }
++			}
++		}()
++		go func(){
++			defer cancel()
++			if !t.wait(ctx,p) { _=t.event(p,"expired",map[string]any{"event":"not_forwarded_cancel_or_ttl_expired"}); return }
++			_=t.event(p,"forward",map[string]any{"event":"forwarding_original_request"})
++			res,err:=t.next.RoundTrip(late); status:=0
++			if res!=nil { status=res.StatusCode; if res.Body!=nil { _,_=io.Copy(io.Discard,res.Body); res.Body.Close() } }
++			_=t.event(p,"late-result",map[string]any{"event":"original_request_result","http_status":status,"transport_error":err!=nil})
++		}()
++		select { case <-req.Context().Done(): return nil,req.Context().Err(); case <-ctx.Done(): return nil,context.DeadlineExceeded }
++	}
++	ctx,cancel:=context.WithTimeout(req.Context(),time.Duration(p.MaxWaitSeconds)*time.Second); defer cancel()
++	if p.Mode=="before" && !t.wait(ctx,p) { _=t.event(p,"not-sent",map[string]any{"event":"not_forwarded_context_ended"}); if ctx.Err()!=nil { return nil,ctx.Err() }; return nil,context.Canceled }
++	_=t.event(p,"forward",map[string]any{"event":"forwarding_original_request"})
++	res,err:=t.next.RoundTrip(r)
++	if err!=nil || res==nil || res.StatusCode<200 || res.StatusCode>=300 { return res,err }
++	if e=t.event(p,"real-response",map[string]any{"event":"real_success_response_received","http_status":res.StatusCode}); e!=nil { if res.Body!=nil { res.Body.Close() }; return nil,e }
++	if p.Mode=="before" { return res,nil }
++	if p.Mode=="after-hold" && t.wait(ctx,p) { return res,nil }
++	if res.Body!=nil { _,_=io.Copy(io.Discard,res.Body); res.Body.Close() }
++	_=t.event(p,"dropped",map[string]any{"event":"real_response_withheld","http_status":res.StatusCode})
++	return nil,io.ErrUnexpectedEOF
++}
+--- /dev/null
++++ b/cmd/ani-resource-service/goal_kube_fault_disabled.go
+@@ -0,0 +1,7 @@
++//go:build !ani_goal_kubefault
++
++package main
++
++import "k8s.io/client-go/rest"
++
++func taskKubeFault(_ *rest.Config, _ string) error { return nil }
+--- /dev/null
++++ b/cmd/ani-resource-service/goal_stage_exit_control.go
+@@ -0,0 +1,15 @@
++//go:build ani_goal_kubefault
++
++package main
++
++import (
++	"os"
++
++	instanceData "github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance"
++)
++
++func init() {
++	if len(os.Args) > 1 && os.Args[1] == "goal-stage-exit-control" {
++		os.Exit(instanceData.GoalStageExitControl(os.Args[2:], os.Stdin, os.Stdout))
++	}
++}
+--- a/cmd/ani-resource-service/instance.go
++++ b/cmd/ani-resource-service/instance.go
+@@ -148,6 +148,9 @@
+ 	kube.QPS = 20
+ 	kube.Burst = 40
+ 	kube.Timeout = 15 * time.Second
++	if e = taskKubeFault(kube, "instance"); e != nil {
++		return nil, e
++	}
+ 	client, e := dynamic.NewForConfig(kube)
+ 	if e != nil {
+ 		return nil, e
+--- a/cmd/ani-resource-service/storage.go
++++ b/cmd/ani-resource-service/storage.go
+@@ -32,6 +32,9 @@
+ 	}
+ 	kube.QPS, kube.Burst = 5, 10
+ 	kube.Timeout = 15 * time.Second
++	if err = taskKubeFault(kube, "storage"); err != nil {
++		return nil, err
++	}
+ 	client, err := dynamic.NewForConfig(kube)
+ 	if err != nil {
+ 		return nil, err
+--- /dev/null
++++ b/internal/data/instance/goal_stage_exit.go
+@@ -0,0 +1,429 @@
++//go:build ani_goal_kubefault
++
++package instance
++
++// Task-only Source27 diagnostic overlay. Nothing is armed by default. The
++// mutex covers only the explicitly armed tuple's final commit and post-commit
++// marker/exit, not SQL execution or a business lock. No business state is read
++// from these markers. A single Resource process and Root's same-Pod restart
++// evidence are required; these files alone are not business acceptance.
++
++import (
++	"encoding/json"
++	"errors"
++	"fmt"
++	"io"
++	"os"
++	"path/filepath"
++	"sort"
++	"sync"
++	"syscall"
++	"time"
++
++	biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance"
++	storage "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/storage"
++)
++
++const goalStageDir = "/run/ani-goal-kube-fault/control"
++const goalStageTenant = "64c5c35a-f554-432c-b4bc-7b4f36f08420"
++const goalStageCluster = "f39bf6e2-f3ed-4191-ada3-caeebf86c220"
++const goalStageNamespace = "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420"
++const goalStageArm = "stage-exit-arm.json"
++const goalStageExitCode = 86
++
++var goalStageMu sync.Mutex
++var goalStagePoints = []string{"01-admission", "02-pending-before-write", "03-stop-write", "04-old-pods-absent", "05-template-write", "06-current-config", "07-start-write"}
++
++type goalStagePlan struct {
++	Nonce         string    `json:"nonce"`
++	Kind          string    `json:"kind"`
++	TenantID      string    `json:"tenant_id"`
++	ClusterID     string    `json:"cluster_id"`
++	Namespace     string    `json:"namespace"`
++	InstanceID    string    `json:"instance_id,omitempty"`
++	IntentVersion int64     `json:"intent_version,omitempty"`
++	Action        string    `json:"action,omitempty"`
++	PVCName       string    `json:"pvc_name,omitempty"`
++	PVCUID        string    `json:"pvc_uid,omitempty"`
++	ExpiresAt     time.Time `json:"expires_at"`
++}
++
++type goalStageRecord struct {
++	Schema                  int                  `json:"schema"`
++	Nonce                   string               `json:"nonce"`
++	Kind                    string               `json:"kind"`
++	Point                   string               `json:"point"`
++	Site                    string               `json:"site"`
++	At                      time.Time            `json:"at"`
++	PID                     int                  `json:"pid"`
++	UID                     int                  `json:"uid"`
++	ExitCode                int                  `json:"exit_code"`
++	TenantID                string               `json:"tenant_id"`
++	ClusterID               string               `json:"cluster_id"`
++	Namespace               string               `json:"namespace"`
++	InstanceID              string               `json:"instance_id,omitempty"`
++	OperationID             string               `json:"operation_id,omitempty"`
++	Action                  string               `json:"action,omitempty"`
++	IntentVersion           int64                `json:"intent_version,omitempty"`
++	Phase                   string               `json:"phase,omitempty"`
++	PhaseSequence           int64                `json:"phase_sequence,omitempty"`
++	PriorPhase              string               `json:"prior_phase,omitempty"`
++	PriorPhaseSequence      int64                `json:"prior_phase_sequence,omitempty"`
++	Desired                 string               `json:"desired,omitempty"`
++	RuntimeDesired          string               `json:"runtime_desired,omitempty"`
++	Observed                string               `json:"observed,omitempty"`
++	AppliedMountVersion     int64                `json:"applied_mount_version,omitempty"`
++	CurrentMountDigest      string               `json:"current_mount_digest,omitempty"`
++	TargetMountDigest       string               `json:"target_mount_digest,omitempty"`
++	TemplateCommitCompleted bool                 `json:"template_commit_completed"`
++	Pending                 *biz.Mutation        `json:"pending"`
++	Fence                   *biz.Mutation        `json:"fence"`
++	Receipt                 *biz.MutationReceipt `json:"receipt,omitempty"`
++	BeforePods              []biz.PodRef         `json:"before_pods,omitempty"`
++	DeleteIdentity          *storage.PVCIdentity `json:"delete_identity,omitempty"`
++	DeleteToken             *storage.DeleteToken `json:"delete_token,omitempty"`
++	DeletePhase             string               `json:"delete_phase,omitempty"`
++	DeleteWriteStarted      bool                 `json:"delete_write_started,omitempty"`
++	Commit                  string               `json:"commit"`
++}
++
++func goalStageValidate(p goalStagePlan) error {
++	if !biz.UUID(p.Nonce) || p.TenantID != goalStageTenant || p.ClusterID != goalStageCluster || p.Namespace != goalStageNamespace || !p.ExpiresAt.After(time.Now()) || p.ExpiresAt.After(time.Now().Add(2*time.Hour)) {
++		return errors.New("stage plan identity or expiry invalid")
++	}
++	switch p.Kind {
++	case "instance-attach-seven":
++		if !biz.UUID(p.InstanceID) || p.IntentVersion < 2 || p.Action != "attach-pvc" || p.PVCName != "" || p.PVCUID != "" {
++			return errors.New("stage instance plan invalid")
++		}
++	case "storage-reserve", "storage-mark":
++		if p.InstanceID != "" || p.IntentVersion != 0 || p.Action != "" || p.PVCName == "" || filepath.Base(p.PVCName) != p.PVCName || !biz.UUID(p.PVCUID) {
++			return errors.New("stage storage plan invalid")
++		}
++	default:
++		return errors.New("stage plan kind invalid")
++	}
++	return nil
++}
++
++func goalStageDirectory(create bool) error {
++	if os.Getenv("ANI_GOAL_KUBE_FAULT_DIR") != goalStageDir {
++		return errors.New("stage control disabled")
++	}
++	parent, err := os.Lstat(filepath.Dir(goalStageDir))
++	if err != nil || !parent.IsDir() || parent.Mode()&os.ModeSymlink != 0 {
++		return errors.New("stage parent invalid")
++	}
++	if create {
++		if err = os.Mkdir(goalStageDir, 0700); err != nil && !os.IsExist(err) {
++			return err
++		}
++	}
++	st, err := os.Lstat(goalStageDir)
++	if err != nil {
++		return err
++	}
++	sys, ok := st.Sys().(*syscall.Stat_t)
++	if !ok || !st.IsDir() || st.Mode()&os.ModeSymlink != 0 || st.Mode().Perm() != 0700 || int(sys.Uid) != os.Geteuid() {
++		return errors.New("stage directory owner or mode invalid")
++	}
++	return nil
++}
++
++func goalStageRead(name string, out any) error {
++	if filepath.Base(name) != name {
++		return errors.New("stage filename invalid")
++	}
++	f, err := os.OpenFile(filepath.Join(goalStageDir, name), os.O_RDONLY|syscall.O_NOFOLLOW, 0)
++	if err != nil {
++		return err
++	}
++	defer f.Close()
++	st, err := f.Stat()
++	if err != nil {
++		return err
++	}
++	sys, ok := st.Sys().(*syscall.Stat_t)
++	if !ok || !st.Mode().IsRegular() || st.Mode().Perm() != 0600 || int(sys.Uid) != os.Geteuid() || st.Size() > 65536 {
++		return errors.New("stage file owner, mode or size invalid")
++	}
++	dec := json.NewDecoder(io.LimitReader(f, 65537))
++	dec.DisallowUnknownFields()
++	if err = dec.Decode(out); err != nil {
++		return err
++	}
++	if err = dec.Decode(new(any)); err != io.EOF {
++		return errors.New("stage trailing input")
++	}
++	return nil
++}
++
++func goalStageCreate(name string, value any) error {
++	raw, err := json.MarshalIndent(value, "", "  ")
++	if err != nil {
++		return err
++	}
++	if len(raw) > 65535 || filepath.Base(name) != name {
++		return errors.New("stage marker invalid")
++	}
++	f, err := os.OpenFile(filepath.Join(goalStageDir, name), os.O_WRONLY|os.O_CREATE|os.O_EXCL|syscall.O_NOFOLLOW, 0600)
++	if err != nil {
++		return err
++	}
++	if err = f.Chmod(0600); err != nil {
++		f.Close()
++		return err
++	}
++	if _, err = f.Write(append(raw, '\n')); err != nil {
++		f.Close()
++		return err
++	}
++	if err = f.Sync(); err != nil {
++		f.Close()
++		return err
++	}
++	if err = f.Close(); err != nil {
++		return err
++	}
++	d, err := os.Open(goalStageDir)
++	if err != nil {
++		return err
++	}
++	defer d.Close()
++	return d.Sync()
++}
++
++func goalStageLoad() (goalStagePlan, bool) {
++	var p goalStagePlan
++	if goalStageDirectory(false) != nil || goalStageRead(goalStageArm, &p) != nil || goalStageValidate(p) != nil {
++		return p, false
++	}
++	return p, true
++}
++
++func goalStageName(p goalStagePlan, point string) string {
++	return "stage-exit-" + p.Nonce + "." + point + ".json"
++}
++
++func goalStageSame(r goalStageRecord, p goalStagePlan, op string) bool {
++	if r.Schema != 1 || r.Nonce != p.Nonce || r.Kind != p.Kind || r.TenantID != p.TenantID || r.ClusterID != p.ClusterID || r.Namespace != p.Namespace || r.ExitCode != goalStageExitCode {
++		return false
++	}
++	if p.Kind == "instance-attach-seven" {
++		return r.InstanceID == p.InstanceID && r.OperationID == op && r.Action == p.Action && r.IntentVersion == p.IntentVersion
++	}
++	return r.DeleteIdentity != nil && r.DeleteIdentity.TenantID == p.TenantID && r.DeleteIdentity.ClusterID == p.ClusterID && r.DeleteIdentity.Namespace == p.Namespace && r.DeleteIdentity.PVCName == p.PVCName && r.DeleteIdentity.TargetUID == p.PVCUID
++}
++
++func goalStageExit(p goalStagePlan, r goalStageRecord) {
++	if !p.ExpiresAt.After(time.Now()) {
++		return
++	}
++	points := []string{r.Point}
++	if p.Kind == "instance-attach-seven" {
++		points = goalStagePoints
++	}
++	index := -1
++	for k, point := range points {
++		if point == r.Point {
++			index = k
++		}
++	}
++	if index < 0 {
++		return
++	}
++	for k, point := range points {
++		var old goalStageRecord
++		err := goalStageRead(goalStageName(p, point), &old)
++		if k < index {
++			if err != nil || old.Point != point || !goalStageSame(old, p, r.OperationID) {
++				fmt.Fprintln(os.Stderr, "goal stage exit: prior marker invalid; injection not performed")
++				return
++			}
++		} else if err == nil {
++			if k == index && old.Point == point && goalStageSame(old, p, r.OperationID) {
++				return
++			}
++			fmt.Fprintln(os.Stderr, "goal stage exit: marker sequence conflict; injection not performed")
++			return
++		} else if !os.IsNotExist(err) {
++			fmt.Fprintln(os.Stderr, "goal stage exit: marker unreadable; injection not performed")
++			return
++		}
++	}
++	if err := goalStageCreate(goalStageName(p, r.Point), r); err != nil {
++		fmt.Fprintln(os.Stderr, "goal stage exit: marker not durable; injection not performed")
++		return
++	}
++	os.Exit(goalStageExitCode)
++}
++
++// The caller invokes done only after the real Commit returns, including on
++// failure. The mutex is taken immediately before Commit, after all business SQL.
++func goalStageExitInstanceCommit(site string, i biz.Instance, o, before *biz.Operation, receipt *biz.MutationReceipt) func(bool) {
++	p, ok := goalStageLoad()
++	if !ok || p.Kind != "instance-attach-seven" || i.TenantID != p.TenantID || i.ID != p.InstanceID || i.Version != p.IntentVersion || i.Spec.ClusterID != p.ClusterID || i.Spec.Namespace != p.Namespace {
++		return func(bool) {}
++	}
++	goalStageMu.Lock()
++	return func(committed bool) {
++		defer goalStageMu.Unlock()
++		if !committed || site == "claim" || o == nil || o.Execution == nil || o.ID != i.LastOperationID || o.TenantID != p.TenantID || o.InstanceID != p.InstanceID || o.Version != p.IntentVersion || o.Action != p.Action || biz.TerminalOperation(o.State) || o.Execution.BeforeRunState != biz.Running || o.Execution.FinalRunState != biz.Running || o.Execution.FailureReason != "" {
++			return
++		}
++		e := o.Execution
++		point := ""
++		if site == "admission" && e.Phase == "validating" && e.PhaseSequence == 1 && i.Pending == nil && i.RecoveryFence == nil {
++			point = goalStagePoints[0]
++		}
++		if site == "pending" && e.Phase == "stopping" && i.RecoveryFence == nil && i.Pending != nil && i.Pending.Kind == "set_stopped" && i.Pending.OperationID == o.ID && i.Pending.Version == o.Version && i.Pending.Phase == e.Phase && i.Pending.PhaseSequence == e.PhaseSequence && i.Pending.StoppedTarget != nil && *i.Pending.StoppedTarget {
++			point = goalStagePoints[1]
++		}
++		if site == "finish" && before != nil && before.ID == o.ID && before.Version == o.Version && before.Execution != nil && i.Pending == nil && i.RecoveryFence == nil && e.PhaseSequence == before.Execution.PhaseSequence+1 {
++			prior := before.Execution.Phase
++			written := receipt != nil && (receipt.Outcome == "succeeded" || receipt.Outcome == "condition_observed") && receipt.Mutation.OperationID == o.ID && receipt.Mutation.Version == o.Version && receipt.Mutation.Phase == prior && receipt.Mutation.PhaseSequence == before.Execution.PhaseSequence
++			if written && receipt.Mutation.Kind == "set_stopped" && receipt.Mutation.StoppedTarget != nil && *receipt.Mutation.StoppedTarget && prior == "stopping" && e.Phase == "waiting_stopped" {
++				point = goalStagePoints[2]
++			}
++			if prior == "waiting_stopped" && e.Phase == "applying_mounts" && i.RuntimeDesired == biz.Stopped {
++				point = goalStagePoints[3]
++			}
++			if written && receipt.Mutation.Kind == "update_mounts" && receipt.Mutation.TargetMountDigest == e.TargetMountDigest && prior == "applying_mounts" && e.Phase == "waiting_template" {
++				point = goalStagePoints[4]
++			}
++			if prior == "committing_mounts" && e.Phase == "starting" && !before.Execution.TemplateCommitCompleted && e.TemplateCommitCompleted && i.AppliedMountVersion == o.Version && biz.MountDigest(i.CurrentMounts) == e.TargetMountDigest {
++				point = goalStagePoints[5]
++			}
++			if written && receipt.Mutation.Kind == "set_stopped" && receipt.Mutation.StoppedTarget != nil && !*receipt.Mutation.StoppedTarget && prior == "starting" && e.Phase == "waiting_ready" {
++				point = goalStagePoints[6]
++			}
++		}
++		if point == "" {
++			return
++		}
++		r := goalStageRecord{Schema: 1, Nonce: p.Nonce, Kind: p.Kind, Point: point, Site: site, At: time.Now().UTC(), PID: os.Getpid(), UID: os.Geteuid(), ExitCode: goalStageExitCode, TenantID: i.TenantID, ClusterID: i.Spec.ClusterID, Namespace: i.Spec.Namespace, InstanceID: i.ID, OperationID: o.ID, Action: o.Action, IntentVersion: o.Version, Phase: e.Phase, PhaseSequence: e.PhaseSequence, Desired: i.Desired, RuntimeDesired: i.RuntimeDesired, Observed: i.Observed, AppliedMountVersion: i.AppliedMountVersion, CurrentMountDigest: biz.MountDigest(i.CurrentMounts), TargetMountDigest: e.TargetMountDigest, TemplateCommitCompleted: e.TemplateCommitCompleted, Pending: i.Pending, Fence: i.RecoveryFence, Receipt: receipt, BeforePods: e.BeforePods, Commit: "explicit_pg_tx_commit_success"}
++		if before != nil && before.Execution != nil {
++			r.PriorPhase = before.Execution.Phase
++			r.PriorPhaseSequence = before.Execution.PhaseSequence
++		}
++		goalStageExit(p, r)
++	}
++}
++
++func goalStageExitDeleteCommit(site string, record storage.DeleteRecord) func(bool) {
++	p, ok := goalStageLoad()
++	id := record.Identity
++	if !ok || (p.Kind != "storage-reserve" && p.Kind != "storage-mark") || id.TenantID != p.TenantID || id.ClusterID != p.ClusterID || id.Namespace != p.Namespace || id.PVCName != p.PVCName || id.TargetUID != p.PVCUID {
++		return func(bool) {}
++	}
++	goalStageMu.Lock()
++	return func(committed bool) {
++		defer goalStageMu.Unlock()
++		if !committed || !biz.UUID(record.Token.TicketID) || record.Token.GuardEpoch < 1 || record.Token.LeaseEpoch < 1 || record.Token.LeaseOwner == "" || !record.Token.LeaseUntil.After(time.Now()) {
++			return
++		}
++		point, commit := "", "explicit_pg_tx_commit_success"
++		if p.Kind == "storage-reserve" && site == "reserve" && record.Phase == "reserved" && !record.WriteStarted && record.LastWriteOutcome == "not_sent" {
++			point = "01-reserve-before-usage"
++		}
++		if p.Kind == "storage-mark" && site == "mark" && record.Phase == "deleting" && record.WriteStarted {
++			point = "01-mark-before-send"
++			commit = "single_statement_pg_autocommit_success_rows_1"
++		}
++		if point == "" {
++			return
++		}
++		r := goalStageRecord{Schema: 1, Nonce: p.Nonce, Kind: p.Kind, Point: point, Site: site, At: time.Now().UTC(), PID: os.Getpid(), UID: os.Geteuid(), ExitCode: goalStageExitCode, TenantID: id.TenantID, ClusterID: id.ClusterID, Namespace: id.Namespace, DeleteIdentity: &id, DeleteToken: &record.Token, DeletePhase: record.Phase, DeleteWriteStarted: record.WriteStarted, Commit: commit}
++		goalStageExit(p, r)
++	}
++}
++
++// GoalStageExitControl is a task-build-only local-file command. It performs no
++// API, PG, service-listener, credential or business operation.
++func GoalStageExitControl(args []string, input io.Reader, output io.Writer) int {
++	fail := func(err error) int { fmt.Fprintln(output, err); return 2 }
++	if len(args) < 1 {
++		return fail(errors.New("usage: arm | events NONCE | clear NONCE"))
++	}
++	if err := goalStageDirectory(true); err != nil {
++		return fail(err)
++	}
++	switch args[0] {
++	case "arm":
++		if len(args) != 1 {
++			return fail(errors.New("arm takes plan JSON on stdin"))
++		}
++		var p goalStagePlan
++		dec := json.NewDecoder(io.LimitReader(input, 65537))
++		dec.DisallowUnknownFields()
++		if err := dec.Decode(&p); err != nil {
++			return fail(err)
++		}
++		if err := dec.Decode(new(any)); err != io.EOF {
++			return fail(errors.New("trailing plan input"))
++		}
++		if err := goalStageValidate(p); err != nil {
++			return fail(err)
++		}
++		if _, err := os.Lstat(filepath.Join(goalStageDir, "arm.json")); err == nil || !os.IsNotExist(err) {
++			return fail(errors.New("clear HTTP fault arm before stage arm"))
++		}
++		names, err := filepath.Glob(filepath.Join(goalStageDir, "stage-exit-"+p.Nonce+".*.json"))
++		if err != nil || len(names) != 0 {
++			return fail(errors.New("nonce already has markers"))
++		}
++		if err = goalStageCreate(goalStageArm, p); err != nil {
++			return fail(err)
++		}
++		fmt.Fprintln(output, "ARMED", p.Nonce, p.Kind)
++		return 0
++	case "events", "clear":
++		if len(args) != 2 || !biz.UUID(args[1]) {
++			return fail(errors.New("explicit UUID nonce required"))
++		}
++		if args[0] == "clear" {
++			var p goalStagePlan
++			if err := goalStageRead(goalStageArm, &p); err != nil {
++				return fail(err)
++			}
++			if p.Nonce != args[1] {
++				return fail(errors.New("armed nonce mismatch"))
++			}
++			if err := os.Remove(filepath.Join(goalStageDir, goalStageArm)); err != nil {
++				return fail(err)
++			}
++			d, err := os.Open(goalStageDir)
++			if err != nil {
++				return fail(err)
++			}
++			err = d.Sync()
++			d.Close()
++			if err != nil {
++				return fail(err)
++			}
++			fmt.Fprintln(output, "CLEARED", p.Nonce)
++			return 0
++		}
++		names, err := filepath.Glob(filepath.Join(goalStageDir, "stage-exit-"+args[1]+".*.json"))
++		if err != nil {
++			return fail(err)
++		}
++		sort.Strings(names)
++		result := []goalStageRecord{}
++		for _, name := range names {
++			var r goalStageRecord
++			if err = goalStageRead(filepath.Base(name), &r); err != nil {
++				return fail(err)
++			}
++			result = append(result, r)
++		}
++		raw, err := json.MarshalIndent(result, "", "  ")
++		if err != nil {
++			return fail(err)
++		}
++		fmt.Fprintln(output, string(raw))
++		return 0
++	default:
++		return fail(errors.New("unknown stage control command"))
++	}
++}
+--- /dev/null
++++ b/internal/data/instance/goal_stage_exit_disabled.go
+@@ -0,0 +1,15 @@
++//go:build !ani_goal_kubefault
++
++package instance
++
++import (
++	biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance"
++	storage "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/storage"
++)
++
++func goalStageExitInstanceCommit(string, biz.Instance, *biz.Operation, *biz.Operation, *biz.MutationReceipt) func(bool) {
++	return func(bool) {}
++}
++func goalStageExitDeleteCommit(string, storage.DeleteRecord) func(bool) {
++	return func(bool) {}
++}
+--- a/internal/data/instance/lifecycle.go
++++ b/internal/data/instance/lifecycle.go
+@@ -365,7 +365,10 @@
+ 	if _, err = tx.Exec(ctx, `UPDATE instance.instance_work SET due_at=clock_timestamp() WHERE tenant_id=$1 AND instance_id=$2`, i.TenantID, i.ID); err != nil {
+ 		return ack, err
+ 	}
+-	return ack, tx.Commit(ctx)
++	goalDone := goalStageExitInstanceCommit("admission", i, i.ActiveOperation, nil, nil)
++	err = tx.Commit(ctx)
++	goalDone(err == nil)
++	return ack, err
+ }
+ func lockMountGuards(ctx context.Context, tx pgx.Tx, tenant string, mounts []biz.VolumeMount) error {
+ 	sorted := append([]biz.VolumeMount(nil), mounts...)
+--- a/internal/data/instance/notebook_lifecycle.go
++++ b/internal/data/instance/notebook_lifecycle.go
+@@ -47,6 +47,8 @@
+ // eligibility. A lost borrowed PVC, invalid Pod configuration, or unavailable
+ // GPU signer must never prevent stopping an object whose owner is proven.
+ func (n *Notebook) ObserveIdentity(ctx context.Context, i biz.Instance) (biz.Observation, error) {
++	// Task go-overlay only: explicit target identity for this observation LIST.
++	ctx = context.WithValue(ctx, "ani.goal.01a18156.kube-target", [4]string{i.ID, i.Spec.Namespace, i.Spec.NotebookName, i.NotebookUID})
+ 	var out biz.Observation
+ 	if n.clusterID != "" && n.clusterID != i.Spec.ClusterID {
+ 		return out, biz.ErrNetworkUnavailable
+--- a/internal/data/instance/postgres.go
++++ b/internal/data/instance/postgres.go
+@@ -467,7 +467,10 @@
+ 	if e != nil {
+ 		return nil, e
+ 	}
+-	if e = tx.Commit(ctx); e != nil {
++	goalDone := goalStageExitInstanceCommit("claim", i, nil, nil, nil)
++	e = tx.Commit(ctx)
++	goalDone(e == nil)
++	if e != nil {
+ 		return nil, e
+ 	}
+ 	if e = p.loadActiveOperation(ctx, p.pool, &i); e != nil {
+@@ -525,7 +528,10 @@
+ 	if _, e = tx.Exec(ctx, "UPDATE instance.instances SET snapshot=$3 WHERE tenant_id=$1 AND instance_id=$2", i.TenantID, i.ID, raw); e != nil {
+ 		return e
+ 	}
+-	return tx.Commit(ctx)
++	goalDone := goalStageExitInstanceCommit("pending", i, w.Operation, nil, nil)
++	e = tx.Commit(ctx)
++	goalDone(e == nil)
++	return e
+ }
+ func (p *Postgres) Finish(ctx context.Context, w biz.Work, progress biz.Progress) error {
+ 	tx, e := p.pool.Begin(ctx)
+@@ -675,7 +681,10 @@
+ 	if _, e = tx.Exec(ctx, "UPDATE instance.instance_work SET lease_until='-infinity',lease_owner='',due_at=clock_timestamp()+($3::bigint*interval '1 millisecond') WHERE tenant_id=$1 AND instance_id=$2", i.TenantID, i.ID, delay); e != nil {
+ 		return e
+ 	}
+-	return tx.Commit(ctx)
++	goalDone := goalStageExitInstanceCommit("finish", i, progress.Operation, w.Operation, progress.Receipt)
++	e = tx.Commit(ctx)
++	goalDone(e == nil)
++	return e
+ }
+ 
+ var _ biz.Repository = (*Postgres)(nil)
+--- a/internal/data/instance/pvc_guard.go
++++ b/internal/data/instance/pvc_guard.go
+@@ -74,7 +74,10 @@
+ 		if err != nil {
+ 			return r, false, err
+ 		}
+-		return r, true, tx.Commit(ctx)
++		goalDone := goalStageExitDeleteCommit("reserve", r)
++		err = tx.Commit(ctx)
++		goalDone(err == nil)
++		return r, true, err
+ 	}
+ 	if r.Phase == "completed" && r.Token.TicketID != "" && r.Identity.TargetUID == id.TargetUID {
+ 		return r, false, nil
+@@ -94,7 +97,10 @@
+ 	if err != nil {
+ 		return r, false, err
+ 	}
+-	return r, true, tx.Commit(ctx)
++	goalDone := goalStageExitDeleteCommit("reserve", r)
++	err = tx.Commit(ctx)
++	goalDone(err == nil)
++	return r, true, err
+ }
+ func (p *Postgres) ClaimDeleteRecovery(ctx context.Context, executor string, ttl time.Duration) (*storage.DeleteRecord, error) {
+ 	if executor == "" || ttl != 45*time.Second {
+@@ -140,7 +146,10 @@
+ 	return nil
+ }
+ func (p *Postgres) MarkDeleteWriteStarted(ctx context.Context, id storage.PVCIdentity, t storage.DeleteToken) error {
+-	return p.guardCAS(ctx, id, t, `phase='deleting',write_started=true`, "")
++	goalDone := goalStageExitDeleteCommit("mark", storage.DeleteRecord{Identity: id, Token: t, Phase: "deleting", WriteStarted: true})
++	err := p.guardCAS(ctx, id, t, `phase='deleting',write_started=true`, "")
++	goalDone(err == nil)
++	return err
+ }
+ func (p *Postgres) RecordDeleteObservation(ctx context.Context, id storage.PVCIdentity, t storage.DeleteToken, o storage.DeleteObservation) error {
+ 	if o.State == "absent" || o.State == "identity_changed" {

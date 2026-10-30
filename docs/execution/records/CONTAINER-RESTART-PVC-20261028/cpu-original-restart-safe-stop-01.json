@@ -1,0 +1,1 @@
+{"desired_replicas": 0, "generation": 4, "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf", "matching_pods": 0, "observation": "SSH cluster kubectl direct GET/list; no writes", "observed_generation": 4, "observed_replicas": 0, "result": "PASS_SAFE_STOP_OBSERVED", "statefulset_uid": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c"}

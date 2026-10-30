@@ -1,0 +1,28 @@
+{
+  "cuda": {
+    "checksum": 8589803520,
+    "elements": 65536,
+    "event": "CUDA_VECTOR_ADD_PASS",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "memory_limit": "24570m",
+    "sm_limit": "50",
+    "uuid_hex": "4e7a0d189e7150ac2de305245d7d89b5",
+    "visible_total_mib": 24570
+  },
+  "cuda_probe_source_sha256": "c040d56b7a857237b3cfabe2e51604108fbb25b3c36b7a23852c0f99e3ea4c57",
+  "exec_calls": 1,
+  "finished_at": "2026-10-29T13:45:39.959329+00:00",
+  "formal_terminal": "FAIL_HTTP503_WS_NOT_CONNECTED",
+  "instance_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+  "instance_version": "2",
+  "kubectl_exit_code": 0,
+  "lifecycle_writes": 0,
+  "marker_sha256": "36ed05fc21865dbc8eb653ca543704d20b208d87e44f800e3f0c44da48570dc9",
+  "marker_writes": 0,
+  "pod_uid": "e708ece1-b445-4035-9009-bd39b1e91dd7",
+  "restart_after_proof_sha256": "b267db409e80126c72a530738506537ba3f549c5107c04e891966b36f5aa5697",
+  "result": "PASS_DIRECT_CUDA_HARDWARE_ONLY",
+  "schema": "ani.gpu-direct-cuda-01.safe.v1",
+  "scope": "DIRECT_KUBE_HARDWARE_ONLY_NOT_GOV_SG_PASS",
+  "started_at": "2026-10-29T13:45:37.958843+00:00"
+}

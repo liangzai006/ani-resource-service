@@ -1,0 +1,19 @@
+{
+  "control_error_code": "RUNTIME_UNAVAILABLE",
+  "control_error_received": true,
+  "driver_sha256": "e15991853fddc3a5cf7eb3f9ba8991235f7f2145055cee96018c5817aa348629",
+  "expires_at": "2026-10-29T17:24:11.847Z",
+  "finished_at": "2026-10-29T17:23:54.077419891Z",
+  "gov_requests": 0,
+  "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+  "old_pod_uid": "31673229-b700-41f5-a39a-8490e7714685",
+  "old_session_id": "c37deabd-3fb7-4d1f-9ff4-e8da479b65b5",
+  "old_version": "1",
+  "result": "PASS_OLD_TICKET_CONTROL_REJECTED_NO_RUNTIME",
+  "runtime_frames_received": 0,
+  "schema": "old-terminal-ticket-live-v1",
+  "started_at": "2026-10-29T17:23:53.992806844Z",
+  "stdin_frames_sent": 0,
+  "ws_close_code": 1011,
+  "ws_http_status": 101
+}

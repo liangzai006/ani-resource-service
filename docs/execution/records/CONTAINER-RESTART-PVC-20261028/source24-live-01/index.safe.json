@@ -1,0 +1,201 @@
+{
+  "cpu": {
+    "borrowed_post_delete_files_and_identity": "PASS",
+    "charge_vector": [],
+    "delete28_and_replay": "PASS",
+    "protective_references": 0,
+    "running_attach26": "PASS",
+    "running_detach25": "PASS",
+    "state": "deleted",
+    "version": "28"
+  },
+  "gov_revision": "a863ebc1639491bf4cf5c0acc02b0dbe9275a5ad",
+  "gpu": {
+    "borrowed_post_delete_files_and_identity": "PASS_FORMAL_READONLY_READER",
+    "delete_and_refund_once": "PASS",
+    "formal_terminal": "FAIL_CREATE_SESSION_UNAVAILABLE_CAUSE_NOT_PROVEN",
+    "new_pod_cuda": "PASS_DIRECT_HARDWARE_ONLY",
+    "original_charge_unchanged": "PASS",
+    "original_units_mib": 24570,
+    "protective_references": 0,
+    "release_events": 1,
+    "released_units": 24570,
+    "running_attach_ro9_and_EROFS": "PASS",
+    "running_detach8": "PASS",
+    "state": "deleted",
+    "version": "11"
+  },
+  "new_receipts": [
+    {
+      "path": "a05-live-attach-reader-01/state.json",
+      "sha256": "34e9edc97effea952c3e9b39d82c38887b5515b88cbf0d2fafe75eb21bd3c49b"
+    },
+    {
+      "path": "a25-empty-current-mounts-01/state.json",
+      "sha256": "34399c798c737308d042ead7befc6e7b7f2b137241d0a1a171164da9846223b2"
+    },
+    {
+      "path": "a25-resource-restart-01/result.safe.json",
+      "sha256": "ba38a5b5f63dc8b3b722082f3d09640c33daec5d73bbaac7909b5fa68fa87ae8"
+    },
+    {
+      "path": "cpu-source24-running-mount-02/00-before24.safe.json",
+      "sha256": "daa0c0afbba1dc7fdfb33065cfb15fde0c1a0f3e4f84b387f62e9d3b95d1166d"
+    },
+    {
+      "path": "cpu-source24-running-mount-02/01-start24/state.json",
+      "sha256": "2c013249d5fb3c38cf39182bc82c95984847c6b43a1d84af77229cdd71b03dca"
+    },
+    {
+      "path": "cpu-source24-running-mount-02/02-detach25/state.json",
+      "sha256": "937c56f9eee196998ea629e29bf1fd5f3c8991aac166dc89a24f8c163621fe0d"
+    },
+    {
+      "path": "cpu-source24-running-mount-02/03-detached25.safe.json",
+      "sha256": "1181feff011bafedb594d055fc4f7fc2772d35424d91d9cee701889983ff8014"
+    },
+    {
+      "path": "cpu-source24-running-mount-02/04-attach26/state.json",
+      "sha256": "770a0c0219e2fea95ee4ddbef09113d025916028837494a654a56d452c45ad2c"
+    },
+    {
+      "path": "cpu-source24-running-mount-02/05-attached26.safe.json",
+      "sha256": "041d1d1adebb57268065ebfa7552f7cbc3359be442c2e5cf7e7e85ae377922d6"
+    },
+    {
+      "path": "cpu-source24-running-mount-02/06-stop27/state.json",
+      "sha256": "3e0a6266bbc0188ca587f0cef9b28e769e701ba045781c4bb20e3a51124fac61"
+    },
+    {
+      "path": "cpu-source24-running-mount-02/07-stopped27.safe.json",
+      "sha256": "2ac9b1a00891d244d04288726126268f0262da1076eaee2b418973875e3a5597"
+    },
+    {
+      "path": "final-delete-source24-01/cpu/state.json",
+      "sha256": "8978c3e2dbc7fff56bf617037499c9c34cc729b59d54879cbf08bc138efcd62b"
+    },
+    {
+      "path": "final-delete-source24-01/gpu/state.json",
+      "sha256": "72148f67a73d68ba69f19176e6d10b30f232ad9abf7877b75335d8a2afbd3e4a"
+    },
+    {
+      "path": "gov-direct-release-a863-01/result.safe.json",
+      "sha256": "c7c42e719ee11c2e3c4ee4c20195d960329c12f0ad7eeb1174c0573554af394e"
+    },
+    {
+      "path": "gpu-source24-after-delete11-ledger-01/receipt.safe.json",
+      "sha256": "1258c816462eba88f3b5d873e54240da880b3f69cb8047ef540ded91b5b1b36b"
+    },
+    {
+      "path": "gpu-source24-after-delete11-ledger-01/snapshot.safe.json",
+      "sha256": "2dacff88243a395aeb141986615e3cf23c81517b19a008d9a1c15084e4e6078b"
+    },
+    {
+      "path": "gpu-source24-cuda9-01/result.safe.json",
+      "sha256": "18f142582f446db9bae260bb52d6446b4c6a4509ca3e38cf937467d85925167c"
+    },
+    {
+      "path": "gpu-source24-runtime-01/01-start/proof-dispatch.safe.json",
+      "sha256": "50066ca357bb68a4b12a64db82142c2c7c823cd8d7dc85363f42b8907dbe01df"
+    },
+    {
+      "path": "gpu-source24-runtime-01/01-start/proof.safe.json",
+      "sha256": "37ed41718fd9cf3f990d3f1253c9000e9f19ec5f13453c0846c750af516ae32e"
+    },
+    {
+      "path": "gpu-source24-runtime-01/01-start/state.json",
+      "sha256": "970fa8a847f836b5039e6f5fbfdbc0787e5377a1999bac23f4166435a25675b2"
+    },
+    {
+      "path": "gpu-source24-runtime-01/02-detach/proof-dispatch.safe.json",
+      "sha256": "700c1b79ce498093d97a24e33e82e2eb2dc6db2a9b93618ee74452154117b237"
+    },
+    {
+      "path": "gpu-source24-runtime-01/02-detach/proof.safe.json",
+      "sha256": "903cb476abd6121df0672804d9466a23f8f190a3ad8319363e34c2baa0114d01"
+    },
+    {
+      "path": "gpu-source24-runtime-01/02-detach/state.json",
+      "sha256": "c1b3b419bcba78cc4c02512710f1abe87139fd273ab6f3d5ac32d3885a95f4e4"
+    },
+    {
+      "path": "gpu-source24-runtime-01/03-attach-ro/proof-dispatch.safe.json",
+      "sha256": "77b0b42cf25db46bb658d79c57493cd504c633998da708de217de647de11238a"
+    },
+    {
+      "path": "gpu-source24-runtime-01/03-attach-ro/proof.safe.json",
+      "sha256": "e8c07afb524bf3fe492b33743f667dc94907396fbdbebb571f63dde92a755ef7"
+    },
+    {
+      "path": "gpu-source24-runtime-01/03-attach-ro/state.json",
+      "sha256": "1964365543e1227e940580a6a55125f3d20e915cb5be192a99eaab8945183477"
+    },
+    {
+      "path": "gpu-source24-runtime-01/04-stop/proof.safe.json",
+      "sha256": "259521e6f923c1133230619c9e80e3a3924f781c100c2960c18de00bb2d14d39"
+    },
+    {
+      "path": "gpu-source24-runtime-01/04-stop/state.json",
+      "sha256": "8d4040da0568f89901236b0cb6c0f4e4ea8be44fc421b071eeb2b8f2e05fd534"
+    },
+    {
+      "path": "gpu-source24-terminal9-after-sg-restart-01/result.safe.json",
+      "sha256": "1edf9b020d33d9de82edd2824271b718f06daceca9ad76ecd8d2ead586a35712"
+    },
+    {
+      "path": "post-cpu-delete28-proof-01/refs.safe.json",
+      "sha256": "d43701810ade64ffa21a1c03df136b4b7ba69437cea8b8dea4c270d6a588c11c"
+    },
+    {
+      "path": "post-cpu-delete28-proof-01/result.safe.json",
+      "sha256": "1d342d15fede5cc53d6a0a99901e9b5e41b3db64636d0d9e4233708ad096d3ce"
+    },
+    {
+      "path": "post-delete-borrowed-reader-01/state-after-create-read1.safe.json",
+      "sha256": "1adc088971deb1475971b7b4ec713e71beb642b3a954fff57de53b76e5fd97a1"
+    },
+    {
+      "path": "post-delete-borrowed-reader-01/state.json",
+      "sha256": "b5728f441b089820aaf73b8bb541c9ea9082ffe13725d1c2eee0f039da0e9f80"
+    },
+    {
+      "path": "post-gpu-delete11-proof-01/refs.safe.json",
+      "sha256": "dbdae7736157bb782bc6e34191382319fbbf8cbaded52763a74401c041b3b0aa"
+    },
+    {
+      "path": "post-gpu-delete11-proof-01/result.safe.json",
+      "sha256": "e85134299b8d02a1cfc2c7a8893597347bded8b14b55d9928e773fe22d70f54e"
+    },
+    {
+      "path": "reader-terminal1-after-sg-restart-01/result.safe.json",
+      "sha256": "bb3daa20df4a03074007ff11165020f82ef0b7d84a5118fae47a545238b89a7f"
+    },
+    {
+      "path": "reader-terminal5-after-running-attach-01/result.safe.json",
+      "sha256": "869ab55b400dc0b1b9f507a06d6ead49061f2983ced204758b6bd6457304d87f"
+    },
+    {
+      "path": "sg-store-restart-01/result.safe.json",
+      "sha256": "63d891ce17831d33d77efc54caa06911d042166179b81700e11d2cfe00aa8714"
+    }
+  ],
+  "reader": {
+    "a05_attach_without_create_start_stop_restart": "PASS",
+    "a05_role_user_cleanup": "PASS",
+    "a25_empty_restart_replay_start": "PASS",
+    "borrowed_original_files": "PASS_READONLY_TWO_HASHES",
+    "cleanup": "DEFERRED_FOR_ACTIVE_TERMINAL_REPRO",
+    "formal_terminal": "PASS_HTTP202_WS101_CAT_CLOSE1000",
+    "formal_terminal_after_running_attach5": "FAIL_HTTP503_CAUSE_NOT_PROVEN",
+    "formal_terminal_initial1": "PASS",
+    "instance_id": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+    "pod_uid": "6d803bbf-b117-4707-924a-daffb489b194",
+    "state": "running",
+    "version": "5"
+  },
+  "release_tests_and_gates": "NOT_RUN_USER_PROHIBITED",
+  "resource_revision": "2dbde6411d612e3749bf86652da9b1f7ec7bcc09",
+  "result": "PARTIAL_REAL_BUSINESS_PROGRESS",
+  "schema": "source24-live-progress-v1",
+  "scope": "Individual states/proofs under this directory are authoritative; no claim all acceptance rows passed."
+}

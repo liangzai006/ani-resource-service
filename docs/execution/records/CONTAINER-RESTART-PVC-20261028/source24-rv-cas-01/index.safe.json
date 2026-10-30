@@ -1,0 +1,66 @@
+{
+  "base_revision": "972c8e3af8e1b38b90415a32c47176a9b7d8049a",
+  "composed_required_components_result": "PASS",
+  "files": [
+    {
+      "name": "red.result.safe.json",
+      "sha256": "90169bd9aebefee83fa911f339627c61ad0335928997c24f8ad62f1766eeb8d0"
+    },
+    {
+      "name": "green.result.safe.json",
+      "sha256": "f521cb6d19975ed6b35d14939c8f37213f2a644c529db3d2de74caab6cdd7c92"
+    },
+    {
+      "name": "make-verify-original.safe.json",
+      "sha256": "674042b62fe0334d3c33944e26dae0a1a8811d9d78e00a0bb5a8260c0044593f"
+    },
+    {
+      "name": "make-verify-retry-01.safe.json",
+      "sha256": "7b37e2b56a6ee4d3c62f3104c9d743735f049ae41d424fadec07e15aa43fc174"
+    },
+    {
+      "name": "verify-composed.safe.json",
+      "sha256": "519ffe1352ff0a91418b9aa258bd5298293c900e3d7dac763e358791438de4f0"
+    },
+    {
+      "name": "pg.safe.json",
+      "sha256": "db3385c03179541c2dfb8256d8d1106951dc64d1868046cc6ecb1972b1e1d7f3"
+    },
+    {
+      "name": "pg.log",
+      "sha256": "bb010feac28dfb54762114565959c3e8540c6f3244323f81aeedcfe2ad4a844c"
+    },
+    {
+      "name": "local-input-comparison.safe.json",
+      "sha256": "aa35b06c49b74ab19393c7c1052de1623d265a33a2680676a6c0e08d8291f1de"
+    },
+    {
+      "name": "worker.red.log.jsonl",
+      "sha256": "8e3466bd42896a712cd1a3b48255b1dae1b82b347c8e4ef22be8c3a865591f93"
+    },
+    {
+      "name": "data.red.log.jsonl",
+      "sha256": "c143aae316b5aeb9a414ca795ada4cc227b4b17e79b77f9a79ff7c888dd885a8"
+    },
+    {
+      "name": "worker-target.green.log.jsonl",
+      "sha256": "4fd7f5dbdbee413ac0af533fcde477883f4eacad4f5d8365e77ccd7970b1333f"
+    },
+    {
+      "name": "data-target.green.log.jsonl",
+      "sha256": "de9037c85e46a9e0b2d51ec7e0d066acc1b5cb0de34eb323ffea542c2ff2eaac"
+    },
+    {
+      "name": "worker-package.green.log.jsonl",
+      "sha256": "c2183c776de653a346ea1a1156e37356c967d9ce8087ad18089c5cd3c4a46362"
+    },
+    {
+      "name": "data-package.green.log.jsonl",
+      "sha256": "9f4fb514203b26c6def6095350dbdcb83543f64cd430c0ff3d8fc5ad96d44557"
+    }
+  ],
+  "green_manifest_sha256": "bada655797918148b626573bf67038e24303c6d08c0ad16716b6c98f733478ff",
+  "original_make_verify_result": "FAIL_ENVIRONMENT; retained",
+  "schema": "source24-rv-cas-evidence-v1",
+  "scope": "CODE/required check components and narrow private PG; runtime acceptance separate"
+}

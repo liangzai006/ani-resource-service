@@ -1,0 +1,227 @@
+{
+  "cleanup": {
+    "original_marker_read_session": [
+      {
+        "application": "console",
+        "remote": "CONFIRMED"
+      }
+    ],
+    "resource_cleanup_flags": {
+      "computeCleaned": false,
+      "networkCleaned": false,
+      "quotaReturned": false,
+      "volumeReferencesReleased": true,
+      "workspaceCleaned": false
+    },
+    "restart_session": [
+      {
+        "application": "console",
+        "remote": "CONFIRMED"
+      }
+    ],
+    "safe_start_session": [
+      {
+        "application": "console",
+        "remote": "CONFIRMED"
+      }
+    ]
+  },
+  "execution_host": "fedora",
+  "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+  "original_marker_readonly": {
+    "observation": {
+      "hook_sha256": "a531defa8d7160dbc213f2b7b35a4e146565c22fda02663b92fb4a6705badcb6",
+      "markers": [
+        {
+          "marker_name": ".ani-restart-01a18156-1172-7c22-b5fd-3048a5d895a0.txt",
+          "mount_path": "/workspace",
+          "read_verified": true,
+          "sha256": "c585861c832f11bb6cdad3b1533e0acc551b1f88058833c0508dab5682a44f48"
+        }
+      ],
+      "mount_identities": {
+        "/workspace": {
+          "pvc_uid": "879bc064-f1d6-4054-aae3-c140c2c2abac"
+        }
+      },
+      "notebook_uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0",
+      "observed_at": "2026-10-28T14:11:52.960047Z",
+      "old_pod_get": {
+        "expected_uid": "f4898213-eb37-4e80-a238-e46cde574a15",
+        "method": "direct_get",
+        "name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "not_found": false,
+        "observed_uid": "f41f9582-b106-48ba-b034-24d30fbaad62"
+      },
+      "pod_name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+      "pod_uid": "f41f9582-b106-48ba-b034-24d30fbaad62",
+      "source": "live",
+      "workspace_pvc_uid": "879bc064-f1d6-4054-aae3-c140c2c2abac"
+    },
+    "original_markers": [
+      {
+        "marker_name": ".ani-restart-01a18156-1172-7c22-b5fd-3048a5d895a0.txt",
+        "mount_path": "/workspace",
+        "read_verified": true,
+        "sha256": "c585861c832f11bb6cdad3b1533e0acc551b1f88058833c0508dab5682a44f48"
+      }
+    ],
+    "read_only": true,
+    "scenario_result": {
+      "result": "PASS_DATA_READ_ONLY",
+      "scenario": "ORIGINAL_CPU_MARKER_AFTER_FAILED_RESTART"
+    }
+  },
+  "original_restart": {
+    "operation_id": "d8d5fd6d-c9c6-4c7b-aaa6-e000fb1b85e8",
+    "result": "FAILED_DEADLINE_SAFE_STOP",
+    "safe_stop": {
+      "desired_replicas": 0,
+      "generation": 4,
+      "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "matching_pods": 0,
+      "observation": "SSH cluster kubectl direct GET/list; no writes",
+      "observed_generation": 4,
+      "observed_replicas": 0,
+      "result": "PASS_SAFE_STOP_OBSERVED",
+      "statefulset_uid": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c"
+    },
+    "safe_stop_evidence": "cpu-original-restart-safe-stop-01.json"
+  },
+  "restart": {
+    "after": {
+      "instance": {
+        "activeOperationId": "",
+        "appliedMountVersion": "1",
+        "compute_type": "cpu",
+        "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+        "desiredState": "running",
+        "executionRunState": "running",
+        "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "lastOperationId": "f152b1f3-dba1-480d-b203-9132d92efc41",
+        "observedState": "running",
+        "version": "4"
+      },
+      "observation": {
+        "hook_sha256": "a531defa8d7160dbc213f2b7b35a4e146565c22fda02663b92fb4a6705badcb6",
+        "markers": [
+          {
+            "marker_name": ".ani-restart-01a18156-1172-7c22-b5fd-3048a5d895a0.txt",
+            "mount_path": "/workspace",
+            "read_verified": true,
+            "sha256": "c585861c832f11bb6cdad3b1533e0acc551b1f88058833c0508dab5682a44f48"
+          }
+        ],
+        "mount_identities": {
+          "/workspace": {
+            "pvc_uid": "879bc064-f1d6-4054-aae3-c140c2c2abac"
+          }
+        },
+        "notebook_uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0",
+        "observed_at": "2026-10-28T14:14:12.954387Z",
+        "old_pod_get": {
+          "expected_uid": "f41f9582-b106-48ba-b034-24d30fbaad62",
+          "method": "direct_get",
+          "name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+          "not_found": false,
+          "observed_uid": "6c618d12-2287-4857-8745-6d3f92380752"
+        },
+        "pod_name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "pod_uid": "6c618d12-2287-4857-8745-6d3f92380752",
+        "source": "live",
+        "workspace_pvc_uid": "879bc064-f1d6-4054-aae3-c140c2c2abac"
+      }
+    },
+    "before": {
+      "instance": {
+        "activeOperationId": "",
+        "appliedMountVersion": "1",
+        "compute_type": "cpu",
+        "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+        "desiredState": "running",
+        "executionRunState": "running",
+        "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "lastOperationId": "0cff877e-93c0-4b62-b984-f5e6cc05211f",
+        "observedState": "running",
+        "version": "3"
+      },
+      "observation": {
+        "hook_sha256": "a531defa8d7160dbc213f2b7b35a4e146565c22fda02663b92fb4a6705badcb6",
+        "markers": [
+          {
+            "marker_name": ".ani-restart-01a18156-1172-7c22-b5fd-3048a5d895a0.txt",
+            "mount_path": "/workspace",
+            "read_verified": true,
+            "sha256": "c585861c832f11bb6cdad3b1533e0acc551b1f88058833c0508dab5682a44f48"
+          }
+        ],
+        "mount_identities": {
+          "/workspace": {
+            "pvc_uid": "879bc064-f1d6-4054-aae3-c140c2c2abac"
+          }
+        },
+        "notebook_uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0",
+        "observed_at": "2026-10-28T14:12:28.139936Z",
+        "pod_name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "pod_uid": "f41f9582-b106-48ba-b034-24d30fbaad62",
+        "source": "live",
+        "workspace_pvc_uid": "879bc064-f1d6-4054-aae3-c140c2c2abac"
+      }
+    },
+    "operation": {
+      "action": "restart",
+      "applied_mount_version": "1",
+      "completion_scope": "runtime_verified",
+      "failure_reason": "",
+      "final_run_state": "running",
+      "id": "f152b1f3-dba1-480d-b203-9132d92efc41",
+      "instanceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "intentVersion": "4",
+      "phase": "done",
+      "reason": "",
+      "state": "completed"
+    }
+  },
+  "run_id": "01a18156-1172-7c22-b5fd-3048a5d895a0",
+  "safe_start": {
+    "instance": {
+      "activeOperationId": "",
+      "appliedMountVersion": "1",
+      "compute_type": "cpu",
+      "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+      "desiredState": "running",
+      "executionRunState": "running",
+      "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "lastOperationId": "0cff877e-93c0-4b62-b984-f5e6cc05211f",
+      "observedState": "running",
+      "version": "3"
+    },
+    "operation": {
+      "action": "start",
+      "applied_mount_version": "1",
+      "completion_scope": "",
+      "failure_reason": "",
+      "final_run_state": "running",
+      "id": "0cff877e-93c0-4b62-b984-f5e6cc05211f",
+      "instanceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "intentVersion": "3",
+      "phase": "done",
+      "reason": "",
+      "state": "completed"
+    }
+  },
+  "scenario_result": {
+    "operation": "COMPLETED",
+    "result": "PASS",
+    "runtime_data_proof": "VERIFIED",
+    "scenario": "CP01_CPU_RESTART"
+  },
+  "schema": "container-restart-cpu-live-evidence-v1",
+  "source": "live",
+  "source_state_sha256": {
+    "live-cp01-cpu-02/state.json": "881f14ecd34b36ef9bca0384664034a1edb775aa2dba4486ce286cf40390bc1f",
+    "live-cp01-cpu-06/state.json": "3511f9ae834dce3205f53cdfd0605984717c33031515e23f13bf13be216ac09d",
+    "live-cp01-data-after-deadline-01/state.json": "e891855bc5b6dda47203b75f09117bb0efc8e5c7dbd5a816ae7e11007e3fdefb",
+    "live-cp01-safe-start-01/state.json": "0537d06c324bf06e49101c15107a03a5ae66d2da506af7f13f01c97c7f6fd575"
+  }
+}

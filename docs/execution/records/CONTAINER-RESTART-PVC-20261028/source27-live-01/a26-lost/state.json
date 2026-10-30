@@ -1,0 +1,136 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "591d2fa8-b94c-50c5-80bf-43e7c7709ab3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {},
+  "persistent_identities": {
+    "notebook_uid": "bee12b6f-a8f3-45b7-af76-ec29704609d3",
+    "statefulset_uid": "d4177ea8-a3db-4806-924d-cfab7c80dec5",
+    "workspace_pvc_uid": "dae0ff83-dc9c-4a40-8dbb-1a59c32bf6e6",
+    "workspace_pv_name": "pvc-dae0ff83-dc9c-4a40-8dbb-1a59c32bf6e6",
+    "workspace_pv_uid": "48f29457-26e8-4393-a2ff-ce64a1c937c0"
+  },
+  "original_workspace_identities": {
+    "notebook_uid": "bee12b6f-a8f3-45b7-af76-ec29704609d3",
+    "statefulset_uid": "d4177ea8-a3db-4806-924d-cfab7c80dec5",
+    "workspace_pvc_uid": "dae0ff83-dc9c-4a40-8dbb-1a59c32bf6e6",
+    "workspace_pv_name": "pvc-dae0ff83-dc9c-4a40-8dbb-1a59c32bf6e6",
+    "workspace_pv_uid": "48f29457-26e8-4393-a2ff-ce64a1c937c0"
+  },
+  "storage_create_body": {
+    "data": {
+      "create_token": "fda6f338-6932-4182-b5ca-697eb75a2591",
+      "display_name": "a26-lost-01a18156-fda6f338",
+      "capacity_gb": "1",
+      "storage_class_name": "ani-block",
+      "volume_mode": "Filesystem",
+      "access_modes": [
+        "ReadWriteOnce"
+      ]
+    }
+  },
+  "volume": {
+    "pvc_name": "ani-vol-fda6f33869324182b5ca697eb75a2591",
+    "uid": "d5cf17b3-3955-4a67-9a00-312265a2c596",
+    "volume_mode": "Filesystem",
+    "storage_class_name": "ani-block",
+    "access_modes": [
+      "ReadWriteOnce"
+    ]
+  },
+  "initial_binding": {
+    "pvc_uid": "d5cf17b3-3955-4a67-9a00-312265a2c596",
+    "pvc_rv": "15712881",
+    "pv_name": "pvc-d5cf17b3-3955-4a67-9a00-312265a2c596",
+    "pv_uid": "05504377-6dc7-4ebd-a904-1c0ed3422b97"
+  },
+  "phase_results": {
+    "create": {
+      "result": "PASS_STORAGE_CREATED_BOUND",
+      "volume": {
+        "pvc_name": "ani-vol-fda6f33869324182b5ca697eb75a2591",
+        "uid": "d5cf17b3-3955-4a67-9a00-312265a2c596",
+        "volume_mode": "Filesystem",
+        "storage_class_name": "ani-block",
+        "access_modes": [
+          "ReadWriteOnce"
+        ]
+      },
+      "binding": {
+        "pvc_uid": "d5cf17b3-3955-4a67-9a00-312265a2c596",
+        "pvc_rv": "15712881",
+        "pv_name": "pvc-d5cf17b3-3955-4a67-9a00-312265a2c596",
+        "pv_uid": "05504377-6dc7-4ebd-a904-1c0ed3422b97"
+      }
+    },
+    "lost-reject": {
+      "result": "NOT_VERIFIED",
+      "reason": "CONTROLLER_DID_NOT_RETAIN_OBSERVABLE_LOST",
+      "injection": "ARTIFICIAL_STATUS_FAULT"
+    },
+    "cleanup": {
+      "result": "PASS_NORMAL_STORAGE_DELETE_GONE",
+      "expected_uid": "d5cf17b3-3955-4a67-9a00-312265a2c596",
+      "original_workspace_preserved": true
+    }
+  },
+  "session_cleanup": [
+    {
+      "phase": "create",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "lost-reject",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "cleanup",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "status_fault_attempt": {
+    "pvc_name": "ani-vol-fda6f33869324182b5ca697eb75a2591",
+    "uid": "d5cf17b3-3955-4a67-9a00-312265a2c596",
+    "resource_version": "15712881",
+    "patch": [
+      {
+        "op": "test",
+        "path": "/metadata/uid",
+        "value": "d5cf17b3-3955-4a67-9a00-312265a2c596"
+      },
+      {
+        "op": "test",
+        "path": "/metadata/resourceVersion",
+        "value": "15712881"
+      },
+      {
+        "op": "replace",
+        "path": "/status/phase",
+        "value": "Lost"
+      }
+    ],
+    "injection": "TEST_ONLY_EXTERNAL_BOUNDARY_STATUS_FAULT_NOT_NATURAL_CSI_DAMAGE",
+    "finalizers_modified": false,
+    "business_sql_modified": false
+  },
+  "status_fault_patch_reply": {
+    "uid": "d5cf17b3-3955-4a67-9a00-312265a2c596",
+    "resource_version": "15713288",
+    "phase": "Lost"
+  },
+  "status_fault_actual_get": {
+    "uid": "d5cf17b3-3955-4a67-9a00-312265a2c596",
+    "resource_version": "15713290",
+    "phase": "Bound"
+  },
+  "storage_delete_body": {
+    "data": {
+      "pvc_name": "ani-vol-fda6f33869324182b5ca697eb75a2591",
+      "expected_uid": "d5cf17b3-3955-4a67-9a00-312265a2c596"
+    }
+  },
+  "last_storage_delete": {
+    "state": "GONE",
+    "expected_uid": "d5cf17b3-3955-4a67-9a00-312265a2c596"
+  }
+}

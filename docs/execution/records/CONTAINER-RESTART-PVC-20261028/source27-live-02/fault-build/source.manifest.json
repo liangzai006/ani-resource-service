@@ -1,0 +1,3778 @@
+{
+  ".gitattributes": {
+    "executable": false,
+    "sha256": "f60c76028feea913389d1ab693bb8e99bdb367a6d52e55104b9bed4aaa79c721"
+  },
+  ".github/workflows/ci.yml": {
+    "executable": false,
+    "sha256": "de07a19c07c23bf5f7cdc2f818e1f30c34c31d044ea15a715bf0a928f2cc2f62"
+  },
+  ".gitignore": {
+    "executable": false,
+    "sha256": "7fbdf880750c37294072be6370298cce15e81fa2cee7a9b945ea232063041a64"
+  },
+  ".gitleaks.toml": {
+    "executable": false,
+    "sha256": "e447e006c41bc4959d3cd324cd361f2e56d9c2635302eb904a418ea6e7e3445b"
+  },
+  "AGENTS.md": {
+    "executable": false,
+    "sha256": "237be795b944f8d9f88a6788553579d913b2398aa7dff057915a510c696291bb"
+  },
+  "CONTEXT.md": {
+    "executable": false,
+    "sha256": "912c6448e623db02747a544842a81e18e71d074c0a07c9e5cc5fcc4bf1e3f956"
+  },
+  "Makefile": {
+    "executable": false,
+    "sha256": "819b1e4f2881985c6861717be64ec9a6f01e88dc70596f99bb26adc4b73c129d"
+  },
+  "README.md": {
+    "executable": false,
+    "sha256": "057ef310918b9d752d0f137d7a79e7a6e7186a21942ba8dcef8188747995db2a"
+  },
+  "THIRD_PARTY_NOTICES.go-kratos-layout.txt": {
+    "executable": false,
+    "sha256": "3b44929bdd575a570c42165d4fd4eac57a5055745d2ecf3f121aa6a084cf9230"
+  },
+  "api/compute/v1/business.go": {
+    "executable": false,
+    "sha256": "b71bcb5b089905fe86fccf97a121620a4f6b728e53a615222d9532bea2947201"
+  },
+  "api/compute/v1/business_test.go": {
+    "executable": false,
+    "sha256": "3d74f8aa77c6ed552951b5ba2af53a1de61190bf04e51c1c1222596e1f579edf"
+  },
+  "api/compute/v1/compute.pb.go": {
+    "executable": false,
+    "sha256": "0e315109f86781a482b0d0571e77aaef845f45ba9e4a12141c4d5caeaf7cc578"
+  },
+  "api/compute/v1/compute.proto": {
+    "executable": false,
+    "sha256": "f2220382e3e6a6eeda202cc138fa41fcba2977b168729b6fa0289a85fa51c994"
+  },
+  "api/compute/v1/compute_grpc.pb.go": {
+    "executable": false,
+    "sha256": "d95df394eff9d4eac382bbd0e0b5d726a789bcc96ec13d88f6b23b61489d2ab5"
+  },
+  "api/image/v1/image.pb.go": {
+    "executable": false,
+    "sha256": "88f5e75ea2d83bf37f01787a3fc09ff9d8dfe5a147b88718047946f68810ff61"
+  },
+  "api/image/v1/image.proto": {
+    "executable": false,
+    "sha256": "fccbf32f130126c2eafaa4ab917b6c961ecf6c6dd3cf052aafabfb2d1479322f"
+  },
+  "api/image/v1/image_grpc.pb.go": {
+    "executable": false,
+    "sha256": "7a5f4591dcec325831990c844e6963f403edef3e3d2dd82233d7de760a13c650"
+  },
+  "api/image/v1/runtime.pb.go": {
+    "executable": false,
+    "sha256": "2633d5b34331fe4d4dc08a56387e75b34e24c232cf1578c2b1eaec9730c6ffee"
+  },
+  "api/image/v1/runtime.proto": {
+    "executable": false,
+    "sha256": "de44bd5a6f22f74f478f27d941d17c74265135b488826c194e660fd23789b3c9"
+  },
+  "api/image/v1/runtime_grpc.pb.go": {
+    "executable": false,
+    "sha256": "fa2c8cda2cd8d3c78fe62a0b40a7f2d568645733276c694eb0d04a88029f3b89"
+  },
+  "api/instance/terminal/go.mod": {
+    "executable": false,
+    "sha256": "97044aa1a66a0ccf45c29ed91845a18f1aa4d85edcb82da758389ea6236a9072"
+  },
+  "api/instance/terminal/go.sum": {
+    "executable": false,
+    "sha256": "959eff84945a118fd71c9da8a6a22f8d6362d2213bd1b601f6e9f3f9e503bcd5"
+  },
+  "api/instance/terminal/v1/terminal.pb.go": {
+    "executable": false,
+    "sha256": "4d9f6a1b9e9c11308d86bb6749b6e15ff1950335604f246628722e26a284606e"
+  },
+  "api/instance/terminal/v1/terminal.proto": {
+    "executable": false,
+    "sha256": "a6f697ae50a318b1fb0b77528255d4a780c8882135020bcb5c10c38ae7bc7503"
+  },
+  "api/instance/terminal/v1/terminal_grpc.pb.go": {
+    "executable": false,
+    "sha256": "23eecd7004d3de98c6cc4b6ad721b9e5a06a0df3c45720a4661945dc579bff4a"
+  },
+  "api/instance/v1/business.go": {
+    "executable": false,
+    "sha256": "d8a07e481d68b68912b9db8b78b765bf124d1abf5163b02de7c881722f4759d7"
+  },
+  "api/instance/v1/business_test.go": {
+    "executable": false,
+    "sha256": "a3162506e2fa6aaa4d9c3ad99c4770c0bee9287af9e1828334ab97bcfd171415"
+  },
+  "api/instance/v1/command.go": {
+    "executable": false,
+    "sha256": "ba36d4bf0a001005061ebdd5cd2deb5bed3bed37d4bd70d438ac7f4a4debbffc"
+  },
+  "api/instance/v1/command_test.go": {
+    "executable": false,
+    "sha256": "909bbe502c82de2ba30995698b4144337317dd1271831c9aaf4390241c7f0951"
+  },
+  "api/instance/v1/configuration.go": {
+    "executable": false,
+    "sha256": "bea24a20ab67e90caaac46e276189638329c648124d3d685285a29d33734a63c"
+  },
+  "api/instance/v1/configuration_test.go": {
+    "executable": false,
+    "sha256": "efcb6495ed98ddcbfbf84758faae4f31c2158397c6ec67b57b65db7d6b76d3fa"
+  },
+  "api/instance/v1/current_contract_test.go": {
+    "executable": false,
+    "sha256": "022d1d40f54238203a1bf0f04b13da559413756d7d04942a004c9ec20c0f7d95"
+  },
+  "api/instance/v1/gpu_business.go": {
+    "executable": false,
+    "sha256": "e1c3112212b953ef6e0a2d6e7f561f34321320458bd1995e0e17ed3cc2e0f8f0"
+  },
+  "api/instance/v1/gpu_business_test.go": {
+    "executable": false,
+    "sha256": "9302be0318e43c5cd94786f56dbcead378216e31d39096201dcb2a7917c74109"
+  },
+  "api/instance/v1/gpu_factor_test.go": {
+    "executable": false,
+    "sha256": "ffeb49f62a2034fca5d410de0c70d975c36e5295f79681e0ca4b4fa697818598"
+  },
+  "api/instance/v1/instance.pb.go": {
+    "executable": false,
+    "sha256": "ccff2d239fc851ea24b5ac7f561468bf2c6759a0b81954e74dc9896373fc4ceb"
+  },
+  "api/instance/v1/instance.proto": {
+    "executable": false,
+    "sha256": "36a5e50e4bbf7768cab43f2b2ababfc98e374c72b6915d45d8a35ef93c6f799e"
+  },
+  "api/instance/v1/instance_grpc.pb.go": {
+    "executable": false,
+    "sha256": "f021f160b3edc3d9b8ae3c808276695440c8f25ae7d26e670971aed76622061a"
+  },
+  "api/instance/v1/runtime_class_test.go": {
+    "executable": false,
+    "sha256": "a66779e6d2690cd4735c7f3377c8815a6e5996182531539708f4fc38aea697a3"
+  },
+  "api/network/v1/default_vpc_egress.pb.go": {
+    "executable": false,
+    "sha256": "4c0ee7fb67c6e37c4d9aa540cd94eef1012e4a2f36b34061d003e1831a2dbcf8"
+  },
+  "api/network/v1/default_vpc_egress.proto": {
+    "executable": false,
+    "sha256": "c66b9ded1217454dcecc83e55445ae351ce918392ee59fa2380649bf4e6bfa88"
+  },
+  "api/network/v1/default_vpc_egress_grpc.pb.go": {
+    "executable": false,
+    "sha256": "5638a17c586021d88d3777ce09e9e2d26134cba46c3f5393e4a03807856cc9be"
+  },
+  "api/network/v1/device_retirement.pb.go": {
+    "executable": false,
+    "sha256": "6904648b171a3504bb97fbe08ad5db2e772324e0da6270eaef03760250e39b18"
+  },
+  "api/network/v1/device_retirement.proto": {
+    "executable": false,
+    "sha256": "d3a0cd7fddc50c3f70084dcb4d44e8d6c25c6f6a5ffd8a844087da49d41f0598"
+  },
+  "api/network/v1/device_retirement_grpc.pb.go": {
+    "executable": false,
+    "sha256": "2a7b0ddd2e45d3d10d358400f6703aa41146da911e2dada1b93f146051b2121f"
+  },
+  "api/network/v1/egress.pb.go": {
+    "executable": false,
+    "sha256": "63bcf6907453dc2f24f27e0da35cb47ede2c18cf9de0519950e13cc307663ace"
+  },
+  "api/network/v1/egress.proto": {
+    "executable": false,
+    "sha256": "97bb764ece97065b790297855db651ea1ecedda2887ba46c475905ef8f297232"
+  },
+  "api/network/v1/egress_grpc.pb.go": {
+    "executable": false,
+    "sha256": "162b2d8aaa4e5679b4e3ae0534e4160790239aee785d187db8d3a2a7cfb43527"
+  },
+  "api/network/v1/load_balancer.pb.go": {
+    "executable": false,
+    "sha256": "e7f177ea9dd6c043d099322c725408a1fe3abef17c0a05a764b0c74cfe207364"
+  },
+  "api/network/v1/load_balancer.proto": {
+    "executable": false,
+    "sha256": "89aa03fc649e18a55f9942a9a76cd64b0595258637836f0691774d32fb4e873b"
+  },
+  "api/network/v1/load_balancer_grpc.pb.go": {
+    "executable": false,
+    "sha256": "b6ce2f525ab83abcc1c6783ee186d10822d77530bcfb361e3f25daf35861d675"
+  },
+  "api/network/v1/network.pb.go": {
+    "executable": false,
+    "sha256": "b1e6ab4154ddcf773369114b52b0002521f3fefc989196d901eb52c6cc0f188c"
+  },
+  "api/network/v1/network.proto": {
+    "executable": false,
+    "sha256": "19c3dc6225dc0f44592f2824402639c83c445f8be85e8e9083fe3ec01ed4ba21"
+  },
+  "api/network/v1/network_grpc.pb.go": {
+    "executable": false,
+    "sha256": "5cd71f50afd43fc152a12dd466df0f2cf66747245156aabcb150919861dbdcca"
+  },
+  "api/network/v1/platform_eip.pb.go": {
+    "executable": false,
+    "sha256": "620ad752882f84e6e163f7931e53ed4d4d0b364cf1f65d53e294fa81a46fc46a"
+  },
+  "api/network/v1/platform_eip.proto": {
+    "executable": false,
+    "sha256": "52b35734ddbfdfed162079a19a1b4db29ae17b699a734a2e57d91af70d37afbf"
+  },
+  "api/network/v1/platform_eip_grpc.pb.go": {
+    "executable": false,
+    "sha256": "1b60b9d994e1c2c31506dc58ef43a5ce5dfce73ac30fac5d7ac799d388b5fe75"
+  },
+  "api/sandbox/v1/intent.go": {
+    "executable": false,
+    "sha256": "a0d10b3c1f9054754c89860bab88b665d072f04b55ad593ba761a747b5c8fed8"
+  },
+  "api/sandbox/v1/sandbox.pb.go": {
+    "executable": false,
+    "sha256": "9b952cbc3700d2c49a85052c95bb3d47ef0915d77247f09c98a456dae98c4a1e"
+  },
+  "api/sandbox/v1/sandbox.proto": {
+    "executable": false,
+    "sha256": "7dab4b23dcbd777a88657db85eed416694e4b0fab4dfe5342e1238016bacb044"
+  },
+  "api/sandbox/v1/sandbox_grpc.pb.go": {
+    "executable": false,
+    "sha256": "ffa9f44bcb19f9f0f15ba651c281cde6b3a9f57efff050ede80ca5172a8ea927"
+  },
+  "api/storage/v1/storage.pb.go": {
+    "executable": false,
+    "sha256": "cd3d1cba800a3b9cea9a4e2f0abec4355a481710b8ca0f0a9bd1094ddf1e0f07"
+  },
+  "api/storage/v1/storage.proto": {
+    "executable": false,
+    "sha256": "30298bf258a1ebfb6cd9dcdf914bd095127f445c1afa78d66bac2cb7120edce2"
+  },
+  "api/storage/v1/storage_grpc.pb.go": {
+    "executable": false,
+    "sha256": "5767a12ba45466cebb1acd3688729e4412c3cd892aca652f537c237c349971fe"
+  },
+  "api/vm/console/go.mod": {
+    "executable": false,
+    "sha256": "039c332865d8331f73206eb5824edbe778c3e9fd9d2fe1d601ae4b5428c47812"
+  },
+  "api/vm/console/go.sum": {
+    "executable": false,
+    "sha256": "959eff84945a118fd71c9da8a6a22f8d6362d2213bd1b601f6e9f3f9e503bcd5"
+  },
+  "api/vm/console/v1/console.pb.go": {
+    "executable": false,
+    "sha256": "b0edae10fdab04c61fa26cb89d59ecd0fe7d6df64e7d6cab0d1ae82d2b028f10"
+  },
+  "api/vm/console/v1/console.proto": {
+    "executable": false,
+    "sha256": "3e1c20b1d008869016f13f66b37da34e1e64c3f95317e2584be49be23bb0311d"
+  },
+  "api/vm/console/v1/console_grpc.pb.go": {
+    "executable": false,
+    "sha256": "aec1d71008701fd7c62fc92c9963d80ea6c59aa54dbfa234707a435122afcc0b"
+  },
+  "api/vm/v1/business.go": {
+    "executable": false,
+    "sha256": "4afad7e8fc19749135f1a1738cd3869f1006a346ba0db3f670040926acff6635"
+  },
+  "api/vm/v1/business_test.go": {
+    "executable": false,
+    "sha256": "ef757b32510dbba3ec4c3a0becde0b98fe7879140c143eda087189bfc28dc097"
+  },
+  "api/vm/v1/dns_test.go": {
+    "executable": false,
+    "sha256": "7355d3fe236f38a9cba61fc03083000ef67c71ad98a48f976fb4cb78688c0477"
+  },
+  "api/vm/v1/vm.pb.go": {
+    "executable": false,
+    "sha256": "dfdb6db7ab1e027008c5881ec791e2b5acab282af305cac01265e010267eced5"
+  },
+  "api/vm/v1/vm.proto": {
+    "executable": false,
+    "sha256": "526ca71cde27ef3f2666c8a65340301ed9632c0233dcf2549dd74758f7eb1e3e"
+  },
+  "api/vm/v1/vm_grpc.pb.go": {
+    "executable": false,
+    "sha256": "2328f4b78079a2ac2b870690af19d855dfe2bad0b8ef3502b1b248a51de20b81"
+  },
+  "buf.gen.yaml": {
+    "executable": false,
+    "sha256": "d0faeb8463eddaf42f9fc0872743439029cf90bd5554c89297b0b8d64e5893c3"
+  },
+  "buf.yaml": {
+    "executable": false,
+    "sha256": "5ef1461d8da520fc385344f0ac458a31bd7959b7f2dc4128486951d48c7b9e8d"
+  },
+  "cmd/ani-resource-service/app.go": {
+    "executable": false,
+    "sha256": "0b81f1e828cff08b2e11204ecf7ff9bc16465a274b7e979045d4c6878d9fb57c"
+  },
+  "cmd/ani-resource-service/app_test.go": {
+    "executable": false,
+    "sha256": "85b4fe22f537748faf79a934e82abd01c4daa554d10d6a9b8bd87cd79e76c600"
+  },
+  "cmd/ani-resource-service/base_connectivity.go": {
+    "executable": false,
+    "sha256": "5faf7b1e15259836c53bc208828e15dacfa5b0429888a01b0aff1c4e62945888"
+  },
+  "cmd/ani-resource-service/compute.go": {
+    "executable": false,
+    "sha256": "7c05d6cb88c37e072589930501e540908746bb55d79fe8a31b47301f5a1509cf"
+  },
+  "cmd/ani-resource-service/compute_only.go": {
+    "executable": false,
+    "sha256": "82a53de267394fae1a5ab97d75263d0642fa34640f39edab880af10174e36026"
+  },
+  "cmd/ani-resource-service/compute_only_test.go": {
+    "executable": false,
+    "sha256": "f3828181d64933bb7bc98c52572e631dc0b6b155a21c935b33eeed65592fb0cd"
+  },
+  "cmd/ani-resource-service/compute_test.go": {
+    "executable": false,
+    "sha256": "dc650fd1358ee19a06b576e4da4ec961baec6717ccf3c696d8caf06d383dd8dc"
+  },
+  "cmd/ani-resource-service/default_vpc_egress.go": {
+    "executable": false,
+    "sha256": "a37550104912ec61f1864f1166d2784b56885b60b1450c3a3f7b7cce682a92b6"
+  },
+  "cmd/ani-resource-service/goal_kube_fault.go": {
+    "executable": false,
+    "sha256": "e426715185042e533d28994be9edd8b18ce5c0f1aa4eeecc6b8ddf1ab1453bb0"
+  },
+  "cmd/ani-resource-service/goal_kube_fault_disabled.go": {
+    "executable": false,
+    "sha256": "3cb38761076f3e949416f4d14c879673c2bf0de79ee7649a1fa5187ff898c2ef"
+  },
+  "cmd/ani-resource-service/governance.go": {
+    "executable": false,
+    "sha256": "acd2ae880f736134b4ed8d1abcf548378c3976c85e5638ed3056aeb241ba7994"
+  },
+  "cmd/ani-resource-service/image.go": {
+    "executable": false,
+    "sha256": "935c7671c60fefce4e7a827c74386c9c754bef02087c7b05c86c9442c9b3c0be"
+  },
+  "cmd/ani-resource-service/image_admin.go": {
+    "executable": false,
+    "sha256": "cc26ec371aa1ba7ecf5d390a58b25a9d9358d02e3381b4c79443cb3276d41210"
+  },
+  "cmd/ani-resource-service/image_admin_test.go": {
+    "executable": false,
+    "sha256": "e90af7cd09f0dc50c15d7e2d76f0594aff1b548edbf84cea55be4e51e35cfb8e"
+  },
+  "cmd/ani-resource-service/image_migrate.go": {
+    "executable": false,
+    "sha256": "1de487a998e1c07adf62ef6f3c0ac9f7f038e3159bd0799c84e43bbb430e7e44"
+  },
+  "cmd/ani-resource-service/image_runtime.go": {
+    "executable": false,
+    "sha256": "f0fb3b06d0dc5bce705625d139634a30668fac5d6aee64b64ae51ac7cf1089cb"
+  },
+  "cmd/ani-resource-service/image_runtime_test.go": {
+    "executable": false,
+    "sha256": "7f7e7e39dde644bb4fc1bd6823fc1154066155ad82b0e9428619ed5d04784bfc"
+  },
+  "cmd/ani-resource-service/image_test.go": {
+    "executable": false,
+    "sha256": "c3165788fdcb2ca4bcef1e1143ff605d0d16403296907f05074d4528e2f88df7"
+  },
+  "cmd/ani-resource-service/instance.go": {
+    "executable": false,
+    "sha256": "41b6eed799c259ce5c9ece21cf3e2eadc027c5e8e35492eaa3ae70001d6ac245"
+  },
+  "cmd/ani-resource-service/instance_test.go": {
+    "executable": false,
+    "sha256": "4bc24afa1d1c165f1d65a3a4104e711702bfa5633ca154ba9012bf490dc849e7"
+  },
+  "cmd/ani-resource-service/main.go": {
+    "executable": false,
+    "sha256": "df81f2eb62bc67063c11801c2d569fb44808f1019f7e40b9fdae2f4ca6e8d112"
+  },
+  "cmd/ani-resource-service/main_mode_test.go": {
+    "executable": false,
+    "sha256": "1f12ed09c0a6116f345ccedcedfc470ad2d5ae96eb7aabc444225c06394de8f3"
+  },
+  "cmd/ani-resource-service/main_test.go": {
+    "executable": false,
+    "sha256": "ee28bf8ab1c39cab1ccb9e65dfdffb9f72d75acbbbd705162459da9e5ea9425c"
+  },
+  "cmd/ani-resource-service/migrate.go": {
+    "executable": false,
+    "sha256": "af3f623e8b5bc170a882496dbfd7fd38346215d8cf91fa9cb3d44c4cac9a7735"
+  },
+  "cmd/ani-resource-service/network_observation.go": {
+    "executable": false,
+    "sha256": "049ed059acbc38f2fdb2dc1fd42bb7069f5e7b23ef2fe7a00b462f6b1e285311"
+  },
+  "cmd/ani-resource-service/sandbox.go": {
+    "executable": false,
+    "sha256": "7e92672d3649d22563f9a03da9b771746117ba59cc8a02ea877b2a426a6acdf8"
+  },
+  "cmd/ani-resource-service/sandbox_composition_test.go": {
+    "executable": false,
+    "sha256": "97417953b80936ae651414d507f69436444431b6a19aca7a27fdbee6d7d79929"
+  },
+  "cmd/ani-resource-service/sandbox_retry.go": {
+    "executable": false,
+    "sha256": "0cd4f049e9873038cc15a88dafa903982eb79cd3aa496ba379653c0f234ab385"
+  },
+  "cmd/ani-resource-service/sandbox_retry_test.go": {
+    "executable": false,
+    "sha256": "2346708c600d0cef6328c75ff0d76e69371b91277071b64e430fe5cef382e2ef"
+  },
+  "cmd/ani-resource-service/sandbox_unknown_review.go": {
+    "executable": false,
+    "sha256": "68c6cd8ab9d44b88d49831c1bb931c26ebfe032caac8dbf90957411b82cf31d2"
+  },
+  "cmd/ani-resource-service/storage.go": {
+    "executable": false,
+    "sha256": "109f6749aac191d37328286774baf1c06c1ef4d1a9d9a4543766d033302c3825"
+  },
+  "cmd/ani-resource-service/vm.go": {
+    "executable": false,
+    "sha256": "37116987b7a14ecfc4ba42dd52616b8f817e79a6ffa930b887efabf6200abc78"
+  },
+  "cmd/ani-resource-service/vpc_read.go": {
+    "executable": false,
+    "sha256": "44838fcb6f224cf4fdf83b247f75bcc5c589cf0c1087490058acc60fa84bf4ce"
+  },
+  "configs/config.yaml": {
+    "executable": false,
+    "sha256": "63e14acbb3d930cf5063c7cf404ee68096f02cdf1f0d91d10a2d0bacd05ed021"
+  },
+  "deployments/ani-system/README.md": {
+    "executable": false,
+    "sha256": "282fe21e531b3399fd2443d6ba70194b62ea5c955ea5dd21d166b1fd4b81fb69"
+  },
+  "deployments/ani-system/networking-rbac.yaml": {
+    "executable": false,
+    "sha256": "7044514ab29d416422f6d752e0e44b655463096e9b660ad212a64e2bdca50840"
+  },
+  "deployments/egress/NodeFacts.Dockerfile": {
+    "executable": false,
+    "sha256": "b4b7dc9b8bda55a0e58dd075571db13343f0090fd10dde7ba902ccc8ee2d52cc"
+  },
+  "deployments/egress/README.md": {
+    "executable": false,
+    "sha256": "2e872b7cb646a8f12bf4fb116080460d737a12e3472abc11b3817cc3e4398ed2"
+  },
+  "deployments/egress/intranet.md": {
+    "executable": false,
+    "sha256": "c06946165e37b9f99942ab459f203eb28763d3373ed23b94d361e383885b98c4"
+  },
+  "deployments/egress/network-rbac.yaml": {
+    "executable": false,
+    "sha256": "66ee5531e4efd220c54b7306b3ccfba6f54ae82c6bc7e93d466c77d79b171e3a"
+  },
+  "deployments/image/README.md": {
+    "executable": false,
+    "sha256": "74a1b0bc93a154fb71ea5076999fd3985cbc7ec416579c2f0cbc4f22c99ffdaf"
+  },
+  "deployments/image/image.example.yaml": {
+    "executable": false,
+    "sha256": "f7b9f8b305568efeb2ce3a6dbeee4a36e9a11e3043e5d94c0e6e9bb8e9196c5f"
+  },
+  "deployments/image/smoke.example.json": {
+    "executable": false,
+    "sha256": "959b481dcbca9e6c2c3140bcbd363eb02c8a6e6d6f5f9e9fdf90713e4aedcfd5"
+  },
+  "deployments/instance/README.md": {
+    "executable": false,
+    "sha256": "39bef8db80657b2515dfa544f40e8a555449e4e957e6a941504c413826a3c7a9"
+  },
+  "deployments/instance/diagnostics-rbac.yaml": {
+    "executable": false,
+    "sha256": "4b7a7a2800b3b8a7c4b00ec7c67cd07c69102cd6f97f9e89eec4fba8d6e4a355"
+  },
+  "deployments/load-balancer/README.md": {
+    "executable": false,
+    "sha256": "560c79a02ad1cf0ddd952067c91f9db349b0eb40675aae3c713c0d4f847da173"
+  },
+  "deployments/load-balancer/network-rbac.yaml": {
+    "executable": false,
+    "sha256": "dd50a3cfd4ab44605ca2be21bd21add9a1626b22642eca41bd911ef9f4498dc9"
+  },
+  "deployments/sandbox/README.md": {
+    "executable": false,
+    "sha256": "03cae01908bdeb83cc8c0870df391adff9d40cf29c220d77df97be13da7d537b"
+  },
+  "deployments/sandbox/rbac.yaml": {
+    "executable": false,
+    "sha256": "ecf60711ee213555b9e87f1caa4b13a9499d630d46078ebbade18c9508e41794"
+  },
+  "deployments/storage/README.md": {
+    "executable": false,
+    "sha256": "6bdc88526254ef1beee879bdc3ef4bd6218ab1f55f4c65a5daf5af10632db7fc"
+  },
+  "deployments/storage/rbac.yaml": {
+    "executable": false,
+    "sha256": "1c8e3770dd2bf645280fa3d391e628eef60827afd281f8c8e5b36bdc3535d012"
+  },
+  "deployments/vm/logs-rbac.yaml": {
+    "executable": false,
+    "sha256": "c3aa461ba0ba7b2a5c70236f06e1caaa19259478fe868382e9434e2280d390bd"
+  },
+  "deployments/vm/network-rbac.yaml": {
+    "executable": false,
+    "sha256": "75c92d1bed6b246d311c8e172bf84585feeeeba2d7c951055915f79af3931d15"
+  },
+  "docs/START-HERE.md": {
+    "executable": false,
+    "sha256": "25c30eeefca639e70773d3a69ec73b5696cb51b6897ad0ab79f5e651bd94f100"
+  },
+  "docs/adr/0001-own-network-lifecycle.md": {
+    "executable": false,
+    "sha256": "a9825c0e0d37e15aaa16a7f24fccd5b7363cb469cc332d30038fe503d34e3704"
+  },
+  "docs/adr/0002-use-tenant-owned-data-without-rls.md": {
+    "executable": false,
+    "sha256": "40d07b2b86b7b31686d4f4cd0a26262d7b87dea209fafda572a23e13e2d7b7a6"
+  },
+  "docs/adr/0003-defer-workload-authentication.md": {
+    "executable": false,
+    "sha256": "894020edcc90542aa327e1c60157ebed47cbbb0e50c75d09d861745aa63b603a"
+  },
+  "docs/adr/0004-observe-cr-with-durable-reconciliation.md": {
+    "executable": false,
+    "sha256": "4a97a664fe7a08b641bad0d0e07a62fe0b2684a51054f68e4eb26327a0b88884"
+  },
+  "docs/adr/0005-separate-vpc-connectivity-and-exclusive-eip-bindings.md": {
+    "executable": false,
+    "sha256": "1672884f90b747f907bf5eaa44507ea09932c1b4abb04f5ad94fd16519207fe1"
+  },
+  "docs/adr/0006-evolve-resource-service-preserving-network.md": {
+    "executable": false,
+    "sha256": "19837b96516091d740991241b58e09879ef12fc774f3fe99488285911bff7080"
+  },
+  "docs/adr/0007-image-domain-and-private-registry.md": {
+    "executable": false,
+    "sha256": "9ee5b11146b58f0ced4de69b0581c3f8deed718d8c0e43e00bb8fcc4de111f40"
+  },
+  "docs/contracts/vm-v1.md": {
+    "executable": false,
+    "sha256": "f950aac4c09713fb3523d71d073aa4eb494cf810f7c3f24fe7551bd9aed08f5d"
+  },
+  "docs/execution/records/VM-MVP/checks/legacy-network-pg-01/postgres-overlay.go": {
+    "executable": false,
+    "sha256": "f08f3d6ad1c92ed0336f2a8fec8eb1302ecc6966a9ad5a3ec1d4b546bec22369"
+  },
+  "docs/execution/records/VM-MVP/checks/v24-coverage-01/inference_gpu_pg_test04.go": {
+    "executable": false,
+    "sha256": "2e2b57d4b7461a2a3fbddd0a4b2b3f08cfa482d832a73a585d69e0fe4668c518"
+  },
+  "docs/execution/status.md": {
+    "executable": false,
+    "sha256": "2cc39990efef67c34b087f3c7642fbe82f678a78a9e6d16aa4a3082085ba5605"
+  },
+  "docs/kc-public-egress-manual.md": {
+    "executable": false,
+    "sha256": "5d21880d70ec5ebbf874e077d5a396c18f2463824d386a46725d8d89ac76b60e"
+  },
+  "docs/plans/container-instance-release-without-acc-20261027.md": {
+    "executable": false,
+    "sha256": "327fb6c35543d8dace0d5339365476bb1d6d276729a094b4adec6fd9bf063dc5"
+  },
+  "docs/plans/container-instance-restart-pvc-20261028.md": {
+    "executable": false,
+    "sha256": "b6dfb17aef74f3d99cc969ecd2ef51b19c77b0a984f82fbe6afd28aa94d41f7a"
+  },
+  "docs/plans/cr-observation.md": {
+    "executable": false,
+    "sha256": "4f563006ee9ec7d518205717b0a4d218be30e629158c684298b22f1d765fd021"
+  },
+  "docs/plans/governance-integration.md": {
+    "executable": false,
+    "sha256": "9766e829072b4ac5e8d6503816019687f696fd604ce52e6adf37b6ad2442a38b"
+  },
+  "docs/plans/image-mvp-batches/IMG-00.md": {
+    "executable": false,
+    "sha256": "150fd07ccbb7fe255922338c4d4adfb8e0533042b79f172e8ce22640fb44ddf2"
+  },
+  "docs/plans/image-mvp-batches/IMG-01.md": {
+    "executable": false,
+    "sha256": "ba84e6a930cf1289c7a04616cfb9094d0a80400dad534c5b4eb2de3720fbf0b5"
+  },
+  "docs/plans/image-mvp-batches/IMG-02.md": {
+    "executable": false,
+    "sha256": "4f44893df1d20b8ec7e14144914ca509bd6d15cf18a219c939b84db75e571a44"
+  },
+  "docs/plans/image-mvp-batches/IMG-03.md": {
+    "executable": false,
+    "sha256": "6af82177f8513c13280b020d6af5574b1234643a3b9fbcbc78b9f540f2d74e0a"
+  },
+  "docs/plans/image-mvp-batches/IMG-04.md": {
+    "executable": false,
+    "sha256": "8e3d893cb4f8a886bdfeb5b7acdecced552cbbb2604765ae3fa0f88af9ad25af"
+  },
+  "docs/plans/image-mvp-batches/IMG-05.md": {
+    "executable": false,
+    "sha256": "ccdf9d74131039ca354b84f94c0d72658bf5116280e6af6ec7aea5a065abba1f"
+  },
+  "docs/plans/image-mvp-batches/IMG-06.md": {
+    "executable": false,
+    "sha256": "70d4b94af22c05bf08ee52a282afff5012607d163c1ebc87fb75c385148edb77"
+  },
+  "docs/plans/image-mvp-batches/IMG-07.md": {
+    "executable": false,
+    "sha256": "26058fe9bf87ca4a75b054d852390ba5c418dcca5b23f7443e99f5e36e2067d4"
+  },
+  "docs/plans/image-mvp-batches/IMG-08.md": {
+    "executable": false,
+    "sha256": "19c00a6276e330f08f13aaebb59c912fab585dec3bca1f2762b4da55d6625421"
+  },
+  "docs/plans/image-mvp-batches/IMG-09.md": {
+    "executable": false,
+    "sha256": "c17b7988920d038b89ff8d5cf35f04ece1d7b4e4080b660640e58ec2c6e785d4"
+  },
+  "docs/plans/image-mvp-batches/IMG-10.md": {
+    "executable": false,
+    "sha256": "6c4cd69025d1b0dc3f9a657c99aa43bad911038bab27541830c7fce3636566aa"
+  },
+  "docs/plans/image-mvp-batches/IMG-11.md": {
+    "executable": false,
+    "sha256": "0eea3ba70ca686c5505e70fd1e262e94fea247f07cc11b972311416d2f13b4c4"
+  },
+  "docs/plans/image-mvp-batches/index.json": {
+    "executable": false,
+    "sha256": "110e39b136594b3d3598ebb8785b02e7dfdca8c85bb10d74094ee019bec7634b"
+  },
+  "docs/plans/image-mvp-contracts/README.md": {
+    "executable": false,
+    "sha256": "595d0957a9248f2b8ee4386ae5b28a8de262a99b125b6d0e0985fe612ed84c05"
+  },
+  "docs/plans/image-mvp-goal.md": {
+    "executable": false,
+    "sha256": "4ca1710a0a14e5ecee5727eafb4a0062859c768eb04061e385341d019564caa2"
+  },
+  "docs/plans/image-mvp-package.md": {
+    "executable": false,
+    "sha256": "a8982f44f3f3b62093591b302b6fdbc500c086927797a223b63ed7657c8584aa"
+  },
+  "docs/plans/image-mvp-sources.md": {
+    "executable": false,
+    "sha256": "b62dd738a42faac2e356282f75f655d1a1d0fae4dcb45de21e9ad13678949ce8"
+  },
+  "docs/plans/image-mvp.md": {
+    "executable": false,
+    "sha256": "50b8b20cf9738577f6dc22476a5dec64ad0f7bf60778e7da7e82f80d1f89aa93"
+  },
+  "docs/plans/instance-configuration-network.md": {
+    "executable": false,
+    "sha256": "0fcf0c10819ddacae092b7f61718ca136dafa520fe1e532cb9e891fecced0e78"
+  },
+  "docs/plans/instance-mvp-v1.5.md": {
+    "executable": false,
+    "sha256": "63d44386e511e2630a8d8fc7969346ca7062985f7a6bcb514df0abf0b969637f"
+  },
+  "docs/plans/kcn-network-platform-goal-20261021.md": {
+    "executable": false,
+    "sha256": "123ac03d3d9f8cbc2543f10714409b4148328026197592789ed5bd5a4be902b9"
+  },
+  "docs/plans/provider-unknown-create-recovery.md": {
+    "executable": false,
+    "sha256": "1733dc5c3f1177459e30cc22352282a386c263e6a9bec176ed48334a73709cc5"
+  },
+  "docs/plans/resource-service-modularization.md": {
+    "executable": false,
+    "sha256": "2979ee7d8953f9be3438e24ff899fec3c57b80ea6f10a5d0b389c769a8baaec7"
+  },
+  "docs/plans/sandbox-runtime-design-20261025.md": {
+    "executable": false,
+    "sha256": "25e2fff7b1a411eeee89c145d5b228d7f78cff9c0464e074140288cc576d991e"
+  },
+  "docs/plans/vm-mvp-complete-goal-20261023.md": {
+    "executable": false,
+    "sha256": "4ccfa150caad72ab58d90f00bcb87e1c968df0c566b543a65bbf4ac8a9813185"
+  },
+  "docs/plans/vm-mvp-goals/VM-00.md": {
+    "executable": false,
+    "sha256": "82f3f1c253574a3d15ee5efc6c1e72252b197234572422a31e5261cccf4be18f"
+  },
+  "docs/plans/vm-mvp-goals/VM-00R.md": {
+    "executable": false,
+    "sha256": "42bdd3f3eb6a2b203e8d085ca824cdbb87bf0fb6079700125538b8499ea2f6d4"
+  },
+  "docs/plans/vm-mvp-goals/VM-01A.md": {
+    "executable": false,
+    "sha256": "f27cf8fc5b9da1a5ec10f4084bed78820d6a419dc6a639b55d1b0b0b60891a8c"
+  },
+  "docs/plans/vm-mvp-goals/VM-01B.md": {
+    "executable": false,
+    "sha256": "d714af812dcd9ac2dc5e8a4b2c0c1f7a4be17cbacab7b4a9cd6cdd05e625d080"
+  },
+  "docs/plans/vm-mvp-goals/VM-01C.md": {
+    "executable": false,
+    "sha256": "b856d55a0765857e641374f686b30b6a2e549d5902c0d5baaafdfc44e224bf14"
+  },
+  "docs/plans/vm-mvp-goals/VM-01D.md": {
+    "executable": false,
+    "sha256": "65614161d417aadf51bbfed23e936b71cd838007729433bc29974aa6cf5e600b"
+  },
+  "docs/plans/vm-mvp-goals/VM-01E.md": {
+    "executable": false,
+    "sha256": "ebe8535d50dc7bed6fa3747116e9bf2e370805f1b9874bd213afeff682f04c54"
+  },
+  "docs/plans/vm-mvp-goals/VM-01F.md": {
+    "executable": false,
+    "sha256": "c1469eeae709dc589a2c706cb82697d8c8bfc85f745abc8634ce5de272ff58db"
+  },
+  "docs/plans/vm-mvp-goals/VM-02A.md": {
+    "executable": false,
+    "sha256": "02edb900bd44f36ab6d7398cbf575ee467de5c8db181436086f282000cfbaa21"
+  },
+  "docs/plans/vm-mvp-goals/VM-02B.md": {
+    "executable": false,
+    "sha256": "79dfc0353c946b6a76e844aca03b8dbe5a3ad22d752c445cf9727661643affaa"
+  },
+  "docs/plans/vm-mvp-goals/VM-03A.md": {
+    "executable": false,
+    "sha256": "7bfbb6ffbc65602f617dea41ff0b1d7cbea633ad3d3c238f563e457628821072"
+  },
+  "docs/plans/vm-mvp-goals/VM-03B.md": {
+    "executable": false,
+    "sha256": "63cca3d6ce7ab2f68c5e822ad41600144955ed109ba05d526ce95adf68b83fb3"
+  },
+  "docs/plans/vm-mvp-goals/VM-04A.md": {
+    "executable": false,
+    "sha256": "6dc7f55cff8fefc2a35b6073c0826f4ce422926cae6737c24b257b7657b8bb65"
+  },
+  "docs/plans/vm-mvp-goals/VM-04B.md": {
+    "executable": false,
+    "sha256": "3296599ded21c447c93dc2e490535cb0d1e0d2a8de11592cc9e3c269e9f7c615"
+  },
+  "docs/plans/vm-mvp-goals/VM-05A.md": {
+    "executable": false,
+    "sha256": "9108f7c924ef4799c5541a2d43346476baa131bfbef4d9c0ece219bfe26df208"
+  },
+  "docs/plans/vm-mvp-goals/VM-05B.md": {
+    "executable": false,
+    "sha256": "a1a20ec4562789d24aa3ebe174bad18fdf91561c2c33cf106a150de9ed61d80b"
+  },
+  "docs/plans/vm-mvp-templates/environment-inputs.yaml": {
+    "executable": false,
+    "sha256": "23b85f8bc006a4381a42ff729ef8954dbb0b5e2a357c2fecb589dc83949e4376"
+  },
+  "docs/plans/vm-mvp-templates/runtime-change-plan.md": {
+    "executable": false,
+    "sha256": "4c33b4755cd79a9cb53fe561d7c6bcc92750f48f41019445257ff28d5ac1b8ef"
+  },
+  "docs/plans/vm-mvp-templates/task-report.md": {
+    "executable": false,
+    "sha256": "dbade3ee81e8e22c64b8af96890396d54e2615762c48590d47c829d5049dc6e1"
+  },
+  "docs/plans/vm-mvp.md": {
+    "executable": false,
+    "sha256": "1ee6525382e088f886a7b7e6699d4aa354e0c1d46115cec6dd8ffb88a4a43842"
+  },
+  "docs/plans/vpc-connectivity-lb.md": {
+    "executable": false,
+    "sha256": "06eab3c2c6a4e856de3eac9c99fd3a8b1ea3f4eb925315ba2205c14a143caf25"
+  },
+  "docs/plans/vpc-snat.md": {
+    "executable": false,
+    "sha256": "0bd2c73ec6bce6676e443892f062bc2c9e89c5cb81733e4ff5ea311915536c63"
+  },
+  "docs/plans/vpc-subnet.md": {
+    "executable": false,
+    "sha256": "4660958fbfc44dcac623ba69c8a0b5281617380c4866e8bb7a08c71b6cd12354"
+  },
+  "docs/references/vm-mvp-sources.md": {
+    "executable": false,
+    "sha256": "c55a172f9c2d89a578e06a6d9cabec754bf1998257345aa19848d4e47338ad6a"
+  },
+  "docs/remote-execution.md": {
+    "executable": false,
+    "sha256": "1bbdeaadc2ccc5b9db8dfd5a91991f5fcc54937823378ec83908b2e1818ec424"
+  },
+  "docs/runbooks/compute-presets-migration.md": {
+    "executable": false,
+    "sha256": "eb52d1c52108f3be2f70b5f8ee40126770e4de5b6fd796e079a2e0c1497b3af7"
+  },
+  "docs/runbooks/image-mvp-fedora.md": {
+    "executable": false,
+    "sha256": "3105ee657ec6eb6685f3a16534d1ed081daf933f1a50bbb668772099c15d5c11"
+  },
+  "docs/runbooks/instance-mvp-fedora.md": {
+    "executable": false,
+    "sha256": "87a09d20c8a3bcdccb05d5736144f1089ce4f79eb3950f1ded35017cd19ba203"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/00-namespace.yaml": {
+    "executable": false,
+    "sha256": "0677205825905f3a4613db39f4a83796e06119227b37d729fed4bd70a5d1c2b5"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/01-platform.yaml": {
+    "executable": false,
+    "sha256": "db04ade331436321a111047538c0348bfb71e2f72f2db9df7be713e595c05bec"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/02-tenant-network.yaml": {
+    "executable": false,
+    "sha256": "3707c892b7bcb3606b6676ccf71d2c125e51ff0f91e653c22eb64ce25123306c"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/03-public-eips.yaml": {
+    "executable": false,
+    "sha256": "cd194c042407828fd87b3b5615e48cfe4f54bf50ba7e7fd30a0dc978f28aef10"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/04-pods.yaml": {
+    "executable": false,
+    "sha256": "99eee2e6f5a72b7167448ca37892b9bda4d46b4deeaaa1b17fce3dc51ba4da06"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/06-public-lb.yaml": {
+    "executable": false,
+    "sha256": "dc1bc2761ba64139b72cdcc26daf84baba4602abc5126eaf7ecaf4674f597cb7"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/07-dual-lb.yaml": {
+    "executable": false,
+    "sha256": "2d450aa5406001a7aa033b5294f2fa3c3d9a00dc93a4bd9494c2c6e9382526fe"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/08-public-snat.yaml": {
+    "executable": false,
+    "sha256": "544d55d31998e5efcddc73f594dbcda8371e58a82cc9d5b875ce919d6c49c474"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/README.md": {
+    "executable": false,
+    "sha256": "ff9da604480f6a9ac4d790d303c80f4f641b1298e8ef8e98a2ce40a0b0b35f5b"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/connections.py": {
+    "executable": false,
+    "sha256": "663527c4ba7c9992031252164c1869f2ed1465971774cab3df123b76cdf3fc78"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/preparation.json": {
+    "executable": false,
+    "sha256": "f777cbde1e5db9d5a0f408d6891ced35a2f9b708490ba5ed45ecb1388bc5759c"
+  },
+  "docs/runbooks/public-forwarding-manual-20260917/render-backends.py": {
+    "executable": false,
+    "sha256": "06708eb93a27bd9e8b3ad2d2f03c5a96e18ce5e928999e2b654ce97b124a1c68"
+  },
+  "docs/runbooks/sandbox-unknown-create-review.md": {
+    "executable": false,
+    "sha256": "f168b27bc5793c2e6ea6d28cb750a7152401f086f1495dabf4fc727f943e5744"
+  },
+  "docs/runtime-verification.md": {
+    "executable": false,
+    "sha256": "36f75c1a47724ef66a48d5871feb4bb5adceff28999fb99d02b4ae0b1870b22a"
+  },
+  "docs/runtime.md": {
+    "executable": false,
+    "sha256": "3d727311496b1115dac9e8f3f697294adc048de7a88bc7fb2136ed75fe41c235"
+  },
+  "docs/scaffold/bom.cdx.json": {
+    "executable": false,
+    "sha256": "cbdd543ec9518a5f0fa4cf973a20c13bd1e72b573adbf048aa9fdc75b1b8f446"
+  },
+  "docs/scaffold/first-party-modules.json": {
+    "executable": false,
+    "sha256": "5f3cb22c165fe112ce7e2650b6479fc5c0c956c925068787bc431d5b8678bf2c"
+  },
+  "docs/scaffold/license-review.md": {
+    "executable": false,
+    "sha256": "5362d8927f25fa43a713f6b80f9ce367cc62920f9a306cf99187e3e19964070d"
+  },
+  "docs/scaffold/provenance.md": {
+    "executable": false,
+    "sha256": "3e0d8540c24e187b2d472fc2bcb8b018c92c1c0ddc15f62177a2e50345e93b99"
+  },
+  "docs/specs/compute-presets.md": {
+    "executable": false,
+    "sha256": "f87fc63545a0ab316fce2637ce007dc33414551856006bd7c14bc776916d9567"
+  },
+  "docs/specs/cr-observation.md": {
+    "executable": false,
+    "sha256": "8dc130318de58e23633a5eecbf29ebc9664cbce099dac51042137734d2d52a1e"
+  },
+  "docs/specs/governance-calls.md": {
+    "executable": false,
+    "sha256": "cb9867619dd9ff0a3c45559e7905a2d483b8d868865445e9872289d3f5672ed6"
+  },
+  "docs/specs/governance-vpc-read.md": {
+    "executable": false,
+    "sha256": "78c2a341a87e56a1b0eb2f1e8f02946cf71d85d35cca7f85b53895ca50ad3919"
+  },
+  "docs/specs/image-acceptance.md": {
+    "executable": false,
+    "sha256": "7f3ac1c0876e8d52d744b53c7f044ecd7f418b181f1b05d0086c55b946014551"
+  },
+  "docs/specs/image-api.md": {
+    "executable": false,
+    "sha256": "815d848af36f32a38c3bec9490f1967d85eeb780c88db5d7a7037ba5e22a769f"
+  },
+  "docs/specs/image-data.md": {
+    "executable": false,
+    "sha256": "57902f75c183547063a813065a384564d72f3b16add25b541c50b83496def5bd"
+  },
+  "docs/specs/image-methods.md": {
+    "executable": false,
+    "sha256": "2b2c4aeee212289ff13b7e9a560e1908a5225d28f8961a2cb7f16fa5ffcd970e"
+  },
+  "docs/specs/image-mvp.md": {
+    "executable": false,
+    "sha256": "2fe5513f2d4d84c702206bb1f3392c5e2ac3117e3cc2b0de34b2e369b8f34bae"
+  },
+  "docs/specs/instance-configuration-network.md": {
+    "executable": false,
+    "sha256": "b7b3eb982cc8c5cb24da475d3926f4d41febf2d4da79c8221d0e82d3b506f118"
+  },
+  "docs/specs/instance-mvp.md": {
+    "executable": false,
+    "sha256": "2fce5abe00dc661d2660d9175e8daf2040d141519b91e84f2a76ac4a3899e77f"
+  },
+  "docs/specs/kcn-v09-underlay-flow.md": {
+    "executable": false,
+    "sha256": "48e017691ada3904e63bc483afa006da16d124743b307737cefd73003759bc01"
+  },
+  "docs/specs/lb-deferred-activation.md": {
+    "executable": false,
+    "sha256": "a7cb4d7d17f6998a8b9af6ee915024cc97f9ce690f5ce0adb4100a3a8a99cdcf"
+  },
+  "docs/specs/vm-mvp.md": {
+    "executable": false,
+    "sha256": "e8a1ca92aaf9d2430b12d3ea9793a2fb0bcf2f60e0d4f87063ccda63601611c3"
+  },
+  "docs/specs/vpc-connectivity-lb.md": {
+    "executable": false,
+    "sha256": "7cdc487048b500ab6e29fad4f95ff42623fcdbf1db1928e551c9ff37ad6b6903"
+  },
+  "docs/specs/vpc-snat.md": {
+    "executable": false,
+    "sha256": "0a95683c4c8f5e9966967d57a45a7a5546ee11e726aef86875d14205e713664b"
+  },
+  "docs/specs/vpc-subnet.md": {
+    "executable": false,
+    "sha256": "fa384acf16f63533e8c226a133695333550244e1de22e27308be6422d432d8d7"
+  },
+  "docs/verification/vm-mvp-acceptance.md": {
+    "executable": false,
+    "sha256": "2e7353ef7cd3297366c286ee599c853c997f61db9c65049e14e3fd265dd73530"
+  },
+  "go.mod": {
+    "executable": false,
+    "sha256": "f59b9176f700a0bfbda6afbe7142dbd608d0bc52c94292eb1e33b250f2b7b6eb"
+  },
+  "go.sum": {
+    "executable": false,
+    "sha256": "1fd54c41bd082ffe21fc7fe066d737feac027cfef1066ecfd811160f745fe12f"
+  },
+  "internal/biz/compute/presets.go": {
+    "executable": false,
+    "sha256": "11a48a718756f48b4df3bfdbb7f443467fec007c7a6e3116ed71a024649d1518"
+  },
+  "internal/biz/compute/presets_test.go": {
+    "executable": false,
+    "sha256": "bad676af36aa3827355f741185cb2c6b760ab64e669cb94baf7e8e87b6a70f3b"
+  },
+  "internal/biz/compute/resolution.go": {
+    "executable": false,
+    "sha256": "bafee61aa02a846dbf48803efb8e663309c4b22e6fd359340a2704c7394e2f67"
+  },
+  "internal/biz/compute/resolution_test.go": {
+    "executable": false,
+    "sha256": "4d0536058d33982dd8d05ff6a594e98b9c66558dc637da3473611647f34d9580"
+  },
+  "internal/biz/image/caller.go": {
+    "executable": false,
+    "sha256": "996816f0609c61e1f20e21dc32307f6d8166b898496b52889c9c8a8ca202bdb0"
+  },
+  "internal/biz/image/catalog.go": {
+    "executable": false,
+    "sha256": "9e157c6eb01bfdbaf6bb8e9e72289d0dabb6bc6895d81362d04f26246b82fa76"
+  },
+  "internal/biz/image/cursor.go": {
+    "executable": false,
+    "sha256": "85d98c5d67c050ac535a013638470757cbe5cebd744f86cb4d739e59d47ccc47"
+  },
+  "internal/biz/image/cursor_test.go": {
+    "executable": false,
+    "sha256": "ae05fa2a4c8e688597b679130b688a68181506dabb450ef536514ce438c811e8"
+  },
+  "internal/biz/image/errors.go": {
+    "executable": false,
+    "sha256": "d6e097c758b14708a256d54b8351fbd62674c03431936979d290c834a96e3fa7"
+  },
+  "internal/biz/image/lifecycle.go": {
+    "executable": false,
+    "sha256": "eddee90a126178c4be9bbebf99105802c19a8dfc7214a3bab51e3c8dc711905f"
+  },
+  "internal/biz/image/platform.go": {
+    "executable": false,
+    "sha256": "6fc226686b96092e8004f6faf8cde7e45aef12d30cadbb0abf8b87216ba24c88"
+  },
+  "internal/biz/image/platform_state.go": {
+    "executable": false,
+    "sha256": "2ab04bac8c5e536c9409cd206a69dddf32714b5b9733c60d1dc98986843baf7f"
+  },
+  "internal/biz/image/ports.go": {
+    "executable": false,
+    "sha256": "8a57ca59bbd21c24ceeffee91b08d1892e82a85e3dae45579e02a9e1b49a677b"
+  },
+  "internal/biz/image/robot_permissions.go": {
+    "executable": false,
+    "sha256": "005161091b6a7b556fca3c9cdae26c3e3b073954ecf65a2e3faa1c54b9198e1e"
+  },
+  "internal/biz/image/robot_permissions_test.go": {
+    "executable": false,
+    "sha256": "73110b3d4927860fa3c197cff7e320edbea79bb4c8e98989e083483b35c5a083"
+  },
+  "internal/biz/image/runtime.go": {
+    "executable": false,
+    "sha256": "d4afc1bfefdcd5f0ebf000e45a5faa34e4c4aefe92b3bf89b70a8817ab107d0f"
+  },
+  "internal/biz/image/runtime_reference.go": {
+    "executable": false,
+    "sha256": "a856b77e17f655e7fe42a653c08b5c2cf540b5f1f4331f62312f58c2b144a9ea"
+  },
+  "internal/biz/image/runtime_reference_test.go": {
+    "executable": false,
+    "sha256": "6bb06fa7dfd0eb888e39f1f8312771c80b818eaddd85277d52e72525e3dde460"
+  },
+  "internal/biz/image/types.go": {
+    "executable": false,
+    "sha256": "60690cba7b17e29179ae4d1cfd887a2a18efff3b413b4a67c984e22c41349c8f"
+  },
+  "internal/biz/image/validation.go": {
+    "executable": false,
+    "sha256": "6b9dc615b885d74e268ae39330d2c7ca1de3dcd69edce381965d334285afdcee"
+  },
+  "internal/biz/image/validation_test.go": {
+    "executable": false,
+    "sha256": "5447efb255ee1b12a9dd3a0fc1f3593e5240414528a04f2fe73c314d16466210"
+  },
+  "internal/biz/instance/configuration.go": {
+    "executable": false,
+    "sha256": "a2b6847b3a4150c07e1784097437a2cfe9a5f05f15cb12dcb8259b66025fbb1c"
+  },
+  "internal/biz/instance/current_contract_test.go": {
+    "executable": false,
+    "sha256": "6aa2370467a1db27f234dff3cb26853f57a2e12145ae2129c0bbe9f45032a06b"
+  },
+  "internal/biz/instance/diagnostics.go": {
+    "executable": false,
+    "sha256": "b7ada78d5c07202fb5b55669396b980f84663bf801795f9b8861d454c8658e72"
+  },
+  "internal/biz/instance/lifecycle.go": {
+    "executable": false,
+    "sha256": "b3df5068c1ab40f76bfec558119f9fb2f0923a7b8d226446e4efd8c5e348e73b"
+  },
+  "internal/biz/instance/lifecycle_network_test.go": {
+    "executable": false,
+    "sha256": "e537d897d41fafb06990c011ab100893c33ab86a8bfe611e11af28f29a178836"
+  },
+  "internal/biz/instance/lifecycle_version_retry_test.go": {
+    "executable": false,
+    "sha256": "bc6ad278dd8b197382399857cf98f8361666183f443871de3c911633fce203c4"
+  },
+  "internal/biz/instance/lifecycle_worker.go": {
+    "executable": false,
+    "sha256": "459d611dce8c634fb05e580998494627784ec5c7f381fc3476ceefcc85617998"
+  },
+  "internal/biz/instance/network.go": {
+    "executable": false,
+    "sha256": "8d4013820c5870f717a869665059e465cd23df2188064fd0ecfecfd8fc49d242"
+  },
+  "internal/biz/instance/network_worker.go": {
+    "executable": false,
+    "sha256": "85a050a34c9701fff3293f39b23d3a30d8f3d32d22039b867086fc6f0ab78a14"
+  },
+  "internal/biz/instance/types.go": {
+    "executable": false,
+    "sha256": "c4621d54d6e0ae42348d39598932b133087fb3b8d5f168de4921862c7b4af43b"
+  },
+  "internal/biz/instance/types_test.go": {
+    "executable": false,
+    "sha256": "592620085a4dc63bf70489aa0a1d27aa287b743fada649165d0c39a2b147522c"
+  },
+  "internal/biz/instance/worker.go": {
+    "executable": false,
+    "sha256": "54f0dcbe36e53667ab10e17b0231b84f6a5d53534e11f7c10c128a4298a1ef38"
+  },
+  "internal/biz/instance/worker_cleanup_test.go": {
+    "executable": false,
+    "sha256": "16ee58c7d9aa3a3c118dbe9fbb4a5e4aec2ce9f4a0d500849456259dea4e4bbe"
+  },
+  "internal/biz/network/README.md": {
+    "executable": false,
+    "sha256": "b112fe146738abbc9277593578fbaaddbdcc8e9119d8dd59f3c1320114f53a8d"
+  },
+  "internal/biz/network/attachment.go": {
+    "executable": false,
+    "sha256": "3523c860971e2838be222f960faadd5b944408f20e4a66e6ea449b92a0eb9c9f"
+  },
+  "internal/biz/network/attachment_managed.go": {
+    "executable": false,
+    "sha256": "2a3645df0099f5d3cd9293e54750072e2e72f208ba3cc8895e653e8889f280cf"
+  },
+  "internal/biz/network/attachment_managed_test.go": {
+    "executable": false,
+    "sha256": "afa3be93a8db552ddb5a7115861b85ede346c16d98c696200f27d8e49c869d5c"
+  },
+  "internal/biz/network/attachment_vm.go": {
+    "executable": false,
+    "sha256": "41cb2168b39d7b794c929131cc16f9c1d67a934b5d51ad194be3b2f6f1432520"
+  },
+  "internal/biz/network/attachment_vm_test.go": {
+    "executable": false,
+    "sha256": "dd4fe0e03547e3ac09ccbc9d8ea273eff0e99035db1b20d64ec5dc9a0370f5ac"
+  },
+  "internal/biz/network/attachment_worker.go": {
+    "executable": false,
+    "sha256": "3f313055b322721d4d14be92f857248b46ec8e228f8550196e6d17d5a9c6b23f"
+  },
+  "internal/biz/network/default_vpc_egress.go": {
+    "executable": false,
+    "sha256": "6a2c6ac7841d72bc5446c36b0df7eace31219e7b48de3cd07ee7f3573c124c63"
+  },
+  "internal/biz/network/default_vpc_egress_worker.go": {
+    "executable": false,
+    "sha256": "a919d9174eb8ce2a5e9df69219b889f7a469e2e8aed47d8f789099aab8ce3a80"
+  },
+  "internal/biz/network/device_retirement.go": {
+    "executable": false,
+    "sha256": "c8359f337352741579fb9b9d6989a1c4217bc6c3ec49d280b9f67485a74d8eff"
+  },
+  "internal/biz/network/doc.go": {
+    "executable": false,
+    "sha256": "90dc96bab69aec3bfb1144593f2ee18d0600ba2522179f970e2ba6e6c27383eb"
+  },
+  "internal/biz/network/egress.go": {
+    "executable": false,
+    "sha256": "205f28193de5d0d2850d35d27d3646526e02019959a7b08ab69b44c8d8ee8a01"
+  },
+  "internal/biz/network/egress_test.go": {
+    "executable": false,
+    "sha256": "2275d2023b1162d1bcf9068da697747717c381eaa19de3f3b6993f6bbd7e68a2"
+  },
+  "internal/biz/network/egress_worker.go": {
+    "executable": false,
+    "sha256": "11f4df1bfc3421ae6c36360c07f05dfc2d76b3f713eb989784812e06aac594c7"
+  },
+  "internal/biz/network/list.go": {
+    "executable": false,
+    "sha256": "70bb6eaa9a9ea4f322ee33c152900677abf881c9696f332339792f00d3dfeab4"
+  },
+  "internal/biz/network/load_balancer.go": {
+    "executable": false,
+    "sha256": "596a1174954f3a8384d85a99dbc32f7ebd5905ff91d052ac34021c5e3d8148ce"
+  },
+  "internal/biz/network/load_balancer_deferred.go": {
+    "executable": false,
+    "sha256": "27fd2c095abcdc616eea16620962635443f98eb009d17eeef4c9bedb93e35947"
+  },
+  "internal/biz/network/load_balancer_deferred_test.go": {
+    "executable": false,
+    "sha256": "18b6d10a002ea835a46a751bf2d61f2c35c59a824cd7b9cf6fc549389a7f9d28"
+  },
+  "internal/biz/network/load_balancer_flavor.go": {
+    "executable": false,
+    "sha256": "8325e4fa4152e40c70192857f331511d379cb0b015be0b1602f14202e6dc7bf3"
+  },
+  "internal/biz/network/load_balancer_health_port_test.go": {
+    "executable": false,
+    "sha256": "3fd237649c1b5252e22494423287b68f5f835b340bf0b0f56bcd2ddcad48771c"
+  },
+  "internal/biz/network/load_balancer_listeners.go": {
+    "executable": false,
+    "sha256": "826255142c9439f46b7b41e39dd470bec9ab31f321c5172c8440267d78579408"
+  },
+  "internal/biz/network/load_balancer_listeners_test.go": {
+    "executable": false,
+    "sha256": "c45d4b96d4b283bda7783f90ff6f58359cab469760e5e0e77a206308e2e3737a"
+  },
+  "internal/biz/network/load_balancer_parameters.go": {
+    "executable": false,
+    "sha256": "ee47b35c47798ac7162ce1c3a60add7ef01f4c4b4284e2f4b72b0f3ac6791f5c"
+  },
+  "internal/biz/network/load_balancer_test.go": {
+    "executable": false,
+    "sha256": "d21b291d37c7f3c17cfc2258c5c3b1524427c8533a3bb0650bf7a74d66767fa9"
+  },
+  "internal/biz/network/load_balancer_worker.go": {
+    "executable": false,
+    "sha256": "5d51fdde46e981dc69c6c80c563e14ded2c35fbc748dab9b03c647ec606d34b2"
+  },
+  "internal/biz/network/load_balancer_worker_test.go": {
+    "executable": false,
+    "sha256": "577b091c4db541f8b473dd1887388d839b1b15c81f2c78d49643ca70b9e596f5"
+  },
+  "internal/biz/network/network.go": {
+    "executable": false,
+    "sha256": "5f4625194eb54f3c3685a88cf4a89a11d4e1ce9a203cfd8c82dcdcdb383ec6b8"
+  },
+  "internal/biz/network/observation.go": {
+    "executable": false,
+    "sha256": "a381042f85cfe57aa18388f99b344adc28ff02a2f457f4eed2056b561ab3c551"
+  },
+  "internal/biz/network/page.go": {
+    "executable": false,
+    "sha256": "55a546747c62660f89611448564a03829d66a5ed2b7dce0cd4aabbeaed8a8666"
+  },
+  "internal/biz/network/page_test.go": {
+    "executable": false,
+    "sha256": "7b1404a131ae1cfae03f2a60d75331052b2b310481af52193e7e71f96ddd09d1"
+  },
+  "internal/biz/network/platform_eip.go": {
+    "executable": false,
+    "sha256": "d97efd561b4af67337faee1d23e75ad4e124f3aad155ad1ece0536549f656e0d"
+  },
+  "internal/biz/network/platform_intranet.go": {
+    "executable": false,
+    "sha256": "070f85ba4e8fe6f1a4ab756ce1a642663a503abb6fd5d4ccc22c84d39360f626"
+  },
+  "internal/biz/network/platform_intranet_test.go": {
+    "executable": false,
+    "sha256": "a1825762368e14fd217d2a0426de80b87017ba9574219a15ad547c8e2031c0f7"
+  },
+  "internal/biz/network/subnet.go": {
+    "executable": false,
+    "sha256": "ab6ff447b8749f178a3de3b4887ce38594af96af67951782edf8884e4a26db3c"
+  },
+  "internal/biz/network/subnet_test.go": {
+    "executable": false,
+    "sha256": "bdebe0a83967aceb9cead402898eb87475cf0da7f79097639e6e9f8322b99ecb"
+  },
+  "internal/biz/network/virtual_switch.go": {
+    "executable": false,
+    "sha256": "a3c266a1d669fbf2113d9e8a5f64b1ab3f58eff5053c63cc451cea07dacbbf58"
+  },
+  "internal/biz/network/virtual_switch_test.go": {
+    "executable": false,
+    "sha256": "efbc94cd3ae939668f01d1f502348491e4e733a5afd91b975fd97fe89093e41a"
+  },
+  "internal/biz/network/virtual_switch_worker.go": {
+    "executable": false,
+    "sha256": "b84e2a1124177a10d79c1d97df876d283e7ead74549ba871d8bcc884c351a3e5"
+  },
+  "internal/biz/network/virtual_switch_worker_test.go": {
+    "executable": false,
+    "sha256": "5d6d05414a5ba62d16a12360e7380d8621c0b070433099393d8952994715569b"
+  },
+  "internal/biz/network/vm_network_preparation_test.go": {
+    "executable": false,
+    "sha256": "c318c384e7cb62e16daa39575460c310c97c985fdf8b20b7d2beb3c7618aaa60"
+  },
+  "internal/biz/network/vpc.go": {
+    "executable": false,
+    "sha256": "5d33de2f044db56582f84152de70b4ea2e50f89d4631f19f6285fdef6bbcdb2d"
+  },
+  "internal/biz/network/vpc_cidr_presets.go": {
+    "executable": false,
+    "sha256": "d5846d7402853ca67b74e92d237fe54c92907948c955af2f6e55a48b808cd1c1"
+  },
+  "internal/biz/network/vpc_cidr_presets_test.go": {
+    "executable": false,
+    "sha256": "a8509e7c6db08cb0168fa63cef57f8f7898e54e412943d1e7fe550175c961d3b"
+  },
+  "internal/biz/network/vpc_test.go": {
+    "executable": false,
+    "sha256": "33c1d9fbefd23c33760616d238f150174447f1da9181ab2a518cd812e5fac4c6"
+  },
+  "internal/biz/network/worker.go": {
+    "executable": false,
+    "sha256": "3d8f33441b3d0be847668db8982b8d38dcfdf4e2e3bfa82ce1b934844b179478"
+  },
+  "internal/biz/network/worker_test.go": {
+    "executable": false,
+    "sha256": "aa0e73669baf409bba6dc97b56f2098fce5753c9cbbe936c2fb2ece10fb50203"
+  },
+  "internal/biz/sandbox/digest.go": {
+    "executable": false,
+    "sha256": "2d6c1430448de1160409c03127d3af5e9865687c50308193f0681dadcd16f987"
+  },
+  "internal/biz/sandbox/types.go": {
+    "executable": false,
+    "sha256": "20763690fcc845b54a47ac907a586b9093c7cb900deda16021eb77ccaea49475"
+  },
+  "internal/biz/sandbox/worker.go": {
+    "executable": false,
+    "sha256": "3755c1e57ed9f35eaf77fe71aeb6ddd3ea0ed4fc6f97657bd2d7e77cb4e368ea"
+  },
+  "internal/biz/sandbox/worker_test.go": {
+    "executable": false,
+    "sha256": "85b3ea7b9ef919829217e84228caef0107072cd679725239ef1dcc36061ee40b"
+  },
+  "internal/biz/storage/cursor.go": {
+    "executable": false,
+    "sha256": "c3b60ffc4388cd3d90c3695422e352a10a830ceef58dcace91a2efd6dd6e9891"
+  },
+  "internal/biz/storage/delete_guard.go": {
+    "executable": false,
+    "sha256": "768b2fa77b2afa62df7da0524b83f39a0829929b17b15ba8260103718f39dfa1"
+  },
+  "internal/biz/storage/delete_recovery.go": {
+    "executable": false,
+    "sha256": "0f3d60bcdfcf5eb3efef0b095473bc74c8e0da1b64f41a5f13453f483158231a"
+  },
+  "internal/biz/storage/delete_recovery_test.go": {
+    "executable": false,
+    "sha256": "4b184c478406a1c24d9a7ef5df466ca27e659063df7d7ba24a9ad1c10704d8e5"
+  },
+  "internal/biz/storage/errors.go": {
+    "executable": false,
+    "sha256": "a1a45689978c1a433b25fbc84e1bb8fd2bf970e013d7f0fa72aa7ea94e8809f2"
+  },
+  "internal/biz/storage/types.go": {
+    "executable": false,
+    "sha256": "9f27847e0dc470f0f18f32e5e1822b289a22ee3bce04a5fc912a11c50ee742a0"
+  },
+  "internal/biz/storage/usecase.go": {
+    "executable": false,
+    "sha256": "257ba1ac21f61cbc743cef9b9bc84893fda72a5582158bc56ab7beafe10ac8ed"
+  },
+  "internal/biz/storage/usecase_test.go": {
+    "executable": false,
+    "sha256": "b435d9832ee7ca9f26f2404a294634721cff60d3f9114443a0c05f2699b23000"
+  },
+  "internal/biz/storage/validate.go": {
+    "executable": false,
+    "sha256": "a681fea89f4184088eb7e740e8200460cebe6534820b3eb98af9ba80683e30d5"
+  },
+  "internal/biz/vm/backend_state.go": {
+    "executable": false,
+    "sha256": "4da1fef9b0f8353aac83ddb68c87461bb9ff191b7d07d6d7af17b4297c046e58"
+  },
+  "internal/biz/vm/console.go": {
+    "executable": false,
+    "sha256": "2d9840391b31c7a8c88d4e9acd12c9a0706edf2f7df3ad8bff9df953a8f94f6f"
+  },
+  "internal/biz/vm/disks.go": {
+    "executable": false,
+    "sha256": "d4092c8ba2cc7c6c21ef4b4eed18abc2750d2f1afe26d5e18fe7bdd110dc4502"
+  },
+  "internal/biz/vm/logs.go": {
+    "executable": false,
+    "sha256": "02f4cbd3fbaaa6dc3c35f134329ef2fb188ca5bd112c633ed4cc42033507f3cd"
+  },
+  "internal/biz/vm/media.go": {
+    "executable": false,
+    "sha256": "5e4de087524622e123d7dc246f1021435d43bbf11c27debd054237c61999ad5a"
+  },
+  "internal/biz/vm/media_test.go": {
+    "executable": false,
+    "sha256": "9ca8326a75e9b7793b33b5531fcbc7cffa8043e404a631f511d6a0e28571c84c"
+  },
+  "internal/biz/vm/snapshots.go": {
+    "executable": false,
+    "sha256": "7f2e57d7511f702e14e8f61ad8caf39802fe5616f5ebff108ae318766d6c00da"
+  },
+  "internal/biz/vm/snapshots_test.go": {
+    "executable": false,
+    "sha256": "b48e19d93429a9889dc6cfb242f7a15a0b25c3f03d75c04eb456e769ace59fff"
+  },
+  "internal/biz/vm/types.go": {
+    "executable": false,
+    "sha256": "960005cdb3ac0d50d7255df4f2296ee721e94aec7bae69353eb568d37ed45f56"
+  },
+  "internal/biz/vm/worker.go": {
+    "executable": false,
+    "sha256": "5fd85d492a2b57c379b234f933d2205b408600bffbabd7fce2bcf222d8fdd8bf"
+  },
+  "internal/conf/v1/conf.pb.go": {
+    "executable": false,
+    "sha256": "e85511da3804d80b055799ff469fbd4c9c539dfc43bd7a6ccd19d2cbd42f66d6"
+  },
+  "internal/conf/v1/conf.proto": {
+    "executable": false,
+    "sha256": "155daad2dff065c643ca5d116aa6a886dda9357382e81aceff7216aed10407b2"
+  },
+  "internal/conf/v1/image.go": {
+    "executable": false,
+    "sha256": "3260e917df7acd0b40de2301918d6ea3a44c2534a2d94c00b2981c58f2abfc70"
+  },
+  "internal/conf/v1/image_test.go": {
+    "executable": false,
+    "sha256": "60e645076c6ddd04fcf471f29c212e5418e2bc63e3323d03e5cef7ee729be68c"
+  },
+  "internal/conf/v1/storage.go": {
+    "executable": false,
+    "sha256": "b93ae3a94c7f6bfcc44c3d438fe00d4a660fb15c2fc7ac0be62c7eb24e2142fa"
+  },
+  "internal/conf/v1/validate.go": {
+    "executable": false,
+    "sha256": "2f6a4f84a650e08eeed139e17bff1f13376263ada512211b90e5669be1de6de7"
+  },
+  "internal/conf/v1/validate_server_test.go": {
+    "executable": false,
+    "sha256": "bd62f9da253d399d9dd2449c982432abff86de92a970c4207a3a16051d226422"
+  },
+  "internal/conf/v1/validate_test.go": {
+    "executable": false,
+    "sha256": "3f32e7a66f956170fe16feaeb97cc1619dfc2bd2e926bda45201566b8496a09d"
+  },
+  "internal/conf/v1/vpc_cidr_presets_test.go": {
+    "executable": false,
+    "sha256": "9661608eb9ca11c85724aa7f5cc32ddf724ee9c2a31e0eb2ecdba7cb90b4305b"
+  },
+  "internal/data/compute/migration_integration_test.go": {
+    "executable": false,
+    "sha256": "3c0173105ebc29987308ae31b7b1277e5946f7f84fdcfb354d3335f0df889d21"
+  },
+  "internal/data/compute/postgres.go": {
+    "executable": false,
+    "sha256": "0e1df2a2391b38444290b768333cf2e594c98125e2622d563c9b0a4e21861c5b"
+  },
+  "internal/data/compute/presets.go": {
+    "executable": false,
+    "sha256": "4f1c8bb186c040d6239aa181c7553efed6c989abfc67b143b96643362eaff171"
+  },
+  "internal/data/compute/usage_integration_test.go": {
+    "executable": false,
+    "sha256": "99c431b7dfa26ff61f38d2a2b6193b81eac479e9ec3e218b9c246b83da08fea9"
+  },
+  "internal/data/image/catalog.go": {
+    "executable": false,
+    "sha256": "391868c8f371a95c68d74ae04a15bb6400e8602fd05f646fecc360cf30dbf1e2"
+  },
+  "internal/data/image/catalog_usecase_integration_test.go": {
+    "executable": false,
+    "sha256": "ba5dbce9dcf8a65d51288f05a3122597d55bf90eed8858de0b4d8e7f36862329"
+  },
+  "internal/data/image/commands.go": {
+    "executable": false,
+    "sha256": "fe9d4491538aa4de1c8e733141eaef006ea05befc4dfd3ca49b52e23f8a8ac27"
+  },
+  "internal/data/image/credential_contract_integration_test.go": {
+    "executable": false,
+    "sha256": "1c4d2c503a192b8f3d12c64cd37e44a5d9287b04f1db12a4b6075a37e8ac4ccd"
+  },
+  "internal/data/image/credentials.go": {
+    "executable": false,
+    "sha256": "f3e2cd3ff0aaf73b9dedff40e7b896b6f3570c3f215bbc2bfa6c748361978a7b"
+  },
+  "internal/data/image/harbor.go": {
+    "executable": false,
+    "sha256": "b794fe80c8b3d50b9950d0d20cfe4610fbd2fb5a1f66362b09492f2b7b1583fc"
+  },
+  "internal/data/image/harbor_artifact.go": {
+    "executable": false,
+    "sha256": "b9e43d9296dd960c33d04b2517e08a19dbc622322527e9281ff30f16b8e044e2"
+  },
+  "internal/data/image/harbor_project.go": {
+    "executable": false,
+    "sha256": "61d365906485abe1890d460db4fac6ddb96333677c7d047b2d1c5cbb6bce2469"
+  },
+  "internal/data/image/harbor_robot.go": {
+    "executable": false,
+    "sha256": "37a97c8a211a474d67fb5855cc5a3ae41c373cb2641564e5f96fea1c1d641585"
+  },
+  "internal/data/image/harbor_test.go": {
+    "executable": false,
+    "sha256": "92107e5820d7f04cbc257b5b89d64457860361265024d71130a889ff1e5bfc89"
+  },
+  "internal/data/image/lifecycle.go": {
+    "executable": false,
+    "sha256": "becc2a28475752ed940fdaf31018501ffde82cedc434ab6825c53f0bd20e5784"
+  },
+  "internal/data/image/lifecycle_concurrency_integration_test.go": {
+    "executable": false,
+    "sha256": "e2240a0655c943c36540580a6d34c2db2fd34c0dc541d50f368d0d8a467ca8d2"
+  },
+  "internal/data/image/lifecycle_integration_test.go": {
+    "executable": false,
+    "sha256": "0aa93675fe5a922f3c4fd97f9e4b43a43785e6bee27185c168b9d5d78c616cb1"
+  },
+  "internal/data/image/lifecycle_process_integration_test.go": {
+    "executable": false,
+    "sha256": "5141616025e92e37d9864fce93f40d0add9616d070adff361b4c936d39300c77"
+  },
+  "internal/data/image/lifecycle_stale_integration_test.go": {
+    "executable": false,
+    "sha256": "b729df64e5fa24d6b9bf33928785c1fced896275e7c1a274a7cf826639535540"
+  },
+  "internal/data/image/migrate.go": {
+    "executable": false,
+    "sha256": "63cd8ca9efd67d83c17b73465639fc3e2ddfc06e5f60b125ca1db302b94b67f0"
+  },
+  "internal/data/image/platform.go": {
+    "executable": false,
+    "sha256": "6f4ae01e078f183e06a3a3ddeab5dc8d613a6bab186ded690998b0ce5be847da"
+  },
+  "internal/data/image/platform_catalog.go": {
+    "executable": false,
+    "sha256": "f3a1fc40b53b7a48658de09e5fdb87e3753cedef4f83fc85712e519b47bb0257"
+  },
+  "internal/data/image/platform_integration_test.go": {
+    "executable": false,
+    "sha256": "e7adeb885f221e88b4015cc6af1d99f568866263f4f143d20cd2b7c2162ef370"
+  },
+  "internal/data/image/postgres.go": {
+    "executable": false,
+    "sha256": "b46a1024b2150510aa9ed3c7795e34cd44ef9efc5ee6470344cc1d451ed91162"
+  },
+  "internal/data/image/postgres_integration_test.go": {
+    "executable": false,
+    "sha256": "8340476bc4c640a539fd2c1fa812589a38ab6d14c2c94e99aca379ccdb6512f3"
+  },
+  "internal/data/image/project_retry_integration_test.go": {
+    "executable": false,
+    "sha256": "7b4b8b5000626616751605bc1c000da1b5638c95feaa9fff5f080a6799fb0ce6"
+  },
+  "internal/data/image/queries/commands.sql": {
+    "executable": false,
+    "sha256": "3ed00df8a6f77921b4988aa998d9292cb6362141003c283e2bd109813e7652be"
+  },
+  "internal/data/image/queries/credentials.sql": {
+    "executable": false,
+    "sha256": "e0613e26a875c368055c7f45873280494c613140172885955c1a026ec53e17d1"
+  },
+  "internal/data/image/queries/registrations.sql": {
+    "executable": false,
+    "sha256": "68c4ddde70cb810f8507a0a3b93037ee1a1703ff1fd1820e2908b129ef28f17f"
+  },
+  "internal/data/image/queries/spaces.sql": {
+    "executable": false,
+    "sha256": "0a8e6b3586c675e1ee7339dc80b4133436eee0d7abce9163f4c2d0d592465fc0"
+  },
+  "internal/data/image/secret_cipher.go": {
+    "executable": false,
+    "sha256": "b4cd5893b435b7bde1d278b10836907753cfcc5170a69cf60759a238ad4fdc39"
+  },
+  "internal/data/image/secret_cipher_test.go": {
+    "executable": false,
+    "sha256": "c9ebaf67c90be9c45d6b558fd5e4977fa93ac7a696d62969758062307d1e2278"
+  },
+  "internal/data/image/space_lock_integration_test.go": {
+    "executable": false,
+    "sha256": "e1b513cbf0e315143b65fef21b4b550e01f03ffd1a02ccae8361fbf814b6fd50"
+  },
+  "internal/data/image/spaces.go": {
+    "executable": false,
+    "sha256": "1e18c7ba336affc377767734765656fc37b91052dcd08311546687539423b281"
+  },
+  "internal/data/image/sqlcgen/commands.sql.go": {
+    "executable": false,
+    "sha256": "559dfcfee2aa50902db587b878226ba7651351ebc70328df5a53ba73173ce82e"
+  },
+  "internal/data/image/sqlcgen/credentials.sql.go": {
+    "executable": false,
+    "sha256": "a63404fdae865eea13fafeafdb04a40337918baa26359fc5e3321e53ca7fae00"
+  },
+  "internal/data/image/sqlcgen/db.go": {
+    "executable": false,
+    "sha256": "c40f70c9870c43ddc88f743ec63627bc9af2d57fab48fdb0c055981d090b0cf8"
+  },
+  "internal/data/image/sqlcgen/models.go": {
+    "executable": false,
+    "sha256": "eb4ab151359fa3f52e708232568d57b2b32f4c959e5e2486650c29f9f503ab79"
+  },
+  "internal/data/image/sqlcgen/registrations.sql.go": {
+    "executable": false,
+    "sha256": "0564921c91874b014624939121cb9a5ca158dd9aac0b26d722f5ce49cc8b11e3"
+  },
+  "internal/data/image/sqlcgen/spaces.sql.go": {
+    "executable": false,
+    "sha256": "4071af510d02553fc0d88d6c6d2d753f10cda9d37cfe6fe0eae4fad84750068b"
+  },
+  "internal/data/instance/compute_migration_integration_test.go": {
+    "executable": false,
+    "sha256": "0d6a612bd9d2d1411bc156e35f8d2b7436cbb096c0151e3d282472a777295b09"
+  },
+  "internal/data/instance/compute_rpc_integration_test.go": {
+    "executable": false,
+    "sha256": "536d7460915ab2ba23e8358652142fe3aa078da7e5f5665aa32ba238c0323fa1"
+  },
+  "internal/data/instance/configuration_integration_test.go": {
+    "executable": false,
+    "sha256": "de1b057bcaf165217b41ec36cf75e568a87199b81087e960e66cda2e24605aef"
+  },
+  "internal/data/instance/current_contract_integration_test.go": {
+    "executable": false,
+    "sha256": "b82e1be15ab960d75478083f2378298365bec55202b42688d66a492aec55070b"
+  },
+  "internal/data/instance/current_contract_test.go": {
+    "executable": false,
+    "sha256": "413dd1b7dfed96587a8a47d2d903fa076b32900bea4c5e190b28e08751ff3b8e"
+  },
+  "internal/data/instance/diagnostics.go": {
+    "executable": false,
+    "sha256": "e76291463db5086159fe44b7e57d2857061ce3edab38c53b0546456a32b5cec5"
+  },
+  "internal/data/instance/diagnostics_integration_test.go": {
+    "executable": false,
+    "sha256": "f15e9b4bc81e506d4deef3eb242977e72da2923b1060c07734f64a2850ca215e"
+  },
+  "internal/data/instance/diagnostics_test.go": {
+    "executable": false,
+    "sha256": "8d0eb4bf681d078ba647f74c7fbfa09100118afceb0abde28142bb29b873f52d"
+  },
+  "internal/data/instance/governance_fixture_test.go": {
+    "executable": false,
+    "sha256": "50f6b80844ec1536684e9bf5468b0a916f7863d2a26e2e967fd6accc78c0aada"
+  },
+  "internal/data/instance/gpu_execution_integration_test.go": {
+    "executable": false,
+    "sha256": "ccd8158d1901fa6224db36a27e22cdc2e6ebd1970ebca74446243f8c06e59171"
+  },
+  "internal/data/instance/image.go": {
+    "executable": false,
+    "sha256": "4373563e244f0a5ceaf2c48d039a68488afcee396961dc32ed8b492c0e3619c1"
+  },
+  "internal/data/instance/image_live_test.go": {
+    "executable": false,
+    "sha256": "85a91b7f85d5543c77505a80e547bad32bd0e6543ddd58af09bbd06cd9a53ffb"
+  },
+  "internal/data/instance/lifecycle.go": {
+    "executable": false,
+    "sha256": "381b83216a11111009b3797de2275b2c5faaef8dd661dbf2810f5b7bc2883322"
+  },
+  "internal/data/instance/logs.go": {
+    "executable": false,
+    "sha256": "8608842ade602859f47b6613e9bdca17b612c4a8f7252b8056b1d65ee16ad28c"
+  },
+  "internal/data/instance/metric_scope_integration_test.go": {
+    "executable": false,
+    "sha256": "fb2d2bade86d2814e429ed37e5c22b00e646ed2bf4f9f937b4f944c1257f708a"
+  },
+  "internal/data/instance/migration_restart_pvc_integration_test.go": {
+    "executable": false,
+    "sha256": "c8603934ca73c135ac7cb05afcf7033ebe27a5a241a17a87987e76718a1129c5"
+  },
+  "internal/data/instance/network.go": {
+    "executable": false,
+    "sha256": "b5ea181b72e199803830554dc70b78571c3e90c6c4169492e4da1c8e39ef1bac"
+  },
+  "internal/data/instance/network_runtime_integration_test.go": {
+    "executable": false,
+    "sha256": "6acf6ff278d8a6786876e85111d39b02a122f4e73b43f1b0ca3ee740693a353c"
+  },
+  "internal/data/instance/network_submission.go": {
+    "executable": false,
+    "sha256": "e1ca394d007dbc00f78ed2269f3a093ca0f8a0f6d3523a5741086f0a500d2ccb"
+  },
+  "internal/data/instance/network_test.go": {
+    "executable": false,
+    "sha256": "d53598fc1427ec2397f948c91e181874721888a03cbc4fe0ed95a93241a85953"
+  },
+  "internal/data/instance/network_vertical_integration_test.go": {
+    "executable": false,
+    "sha256": "a5877037aa0a478b486bfe1caaaf8bdc8fe79040ea4246388be22c5ece2c3e3d"
+  },
+  "internal/data/instance/notebook.go": {
+    "executable": false,
+    "sha256": "f5713a2a9ee60f5e2a6add46b009918dfdd035f2dc913f572b82e03594af26c7"
+  },
+  "internal/data/instance/notebook_configuration_test.go": {
+    "executable": false,
+    "sha256": "9b1bdab7962910a3464ca1266f2e2f1e9e05c0cf63b1862fa42bfe72f6bd011b"
+  },
+  "internal/data/instance/notebook_lifecycle.go": {
+    "executable": false,
+    "sha256": "fb58ebb2feb8e717e0c1a6af66c0020a94c99c378fa83062738c858085e2079e"
+  },
+  "internal/data/instance/notebook_lifecycle_test.go": {
+    "executable": false,
+    "sha256": "044ba19a175525c117ddf7e1af870dc9033b8c0cff7904e2b377f816a0f1b122"
+  },
+  "internal/data/instance/notebook_release_scope_test.go": {
+    "executable": false,
+    "sha256": "1cebf291a2291c81013720264c5b41e4aaccd1be9acc1f61df1db7216996ced7"
+  },
+  "internal/data/instance/notebook_test.go": {
+    "executable": false,
+    "sha256": "e9ad4f5042523a4fc0d19a0687390032dc9e2be367b5d98c5090e8b30eae1729"
+  },
+  "internal/data/instance/owner_ack_integration_test.go": {
+    "executable": false,
+    "sha256": "f30108f699648611dd7040599b2752b0ed890754a712d2c41e4a24207538c428"
+  },
+  "internal/data/instance/owner_cleanup_integration_test.go": {
+    "executable": false,
+    "sha256": "9dd60da545d55e11790340b8b9838a5c2c2cf231de1a3d49ee943f59e88d06e0"
+  },
+  "internal/data/instance/postgres.go": {
+    "executable": false,
+    "sha256": "e5f5a25fb8bec4ebf52095e168a227ec3734f94bf47d4ea6488c7dbb0c3c5cb8"
+  },
+  "internal/data/instance/postgres_integration_test.go": {
+    "executable": false,
+    "sha256": "118d0d2f4867bd5ced3401cf3bf0ef1700f955a00fc23419b32a7df493c58248"
+  },
+  "internal/data/instance/presets_integration_test.go": {
+    "executable": false,
+    "sha256": "26804d2b3f2c41faa681739f80f8284e3498eb79d9c319444b9c1cfc4e5bc62f"
+  },
+  "internal/data/instance/pvc.go": {
+    "executable": false,
+    "sha256": "356137fa6bbd666f5c3e931a226f47f5c63317a22cac343cc572e0da605bdcc6"
+  },
+  "internal/data/instance/pvc_guard.go": {
+    "executable": false,
+    "sha256": "9c4b92d16ad10c8c5f9aaf185d652c8b714efbe5ea2a4d086817d1cefa215c28"
+  },
+  "internal/data/instance/pvc_guard_stats.go": {
+    "executable": false,
+    "sha256": "3a7a7e46039e418c1fdb71d30a6fe221f24d615894c94be8d807aec66ea87795"
+  },
+  "internal/data/instance/pvc_test.go": {
+    "executable": false,
+    "sha256": "7b4e254b2242a7739555a2128c65b6a928b22d912d9976cca93eb8ce231f4827"
+  },
+  "internal/data/instance/queries/read.sql": {
+    "executable": false,
+    "sha256": "3934e59c19d8cd3a13406bc6d22e84ad487fc96e71c7d2deb2730180e2fe17bb"
+  },
+  "internal/data/instance/quota.go": {
+    "executable": false,
+    "sha256": "dacdb4b2438f5406240a1cba87fd585044cd1292cddf4ffa64ebea7975364bbe"
+  },
+  "internal/data/instance/restart_guard_integration_test.go": {
+    "executable": false,
+    "sha256": "3f9b298d5cee1726cb8a4e2503092ff72072e5b3cfcf032fc359aaa088b0dec4"
+  },
+  "internal/data/instance/restart_vertical_integration_test.go": {
+    "executable": false,
+    "sha256": "334f3cb47de4281475aac8382ff96b5b976ab2c16b686fae536dd10a1f3c7a5e"
+  },
+  "internal/data/instance/scheduling.go": {
+    "executable": false,
+    "sha256": "d94daf8e7e01f1125365940b4db844da32ba8070281a28265cb4f891559c2d9a"
+  },
+  "internal/data/instance/scheduling_test.go": {
+    "executable": false,
+    "sha256": "1049e3aa070d9a8e85f345e3396e5907fe2284c27c3dfb11af684b6c9bbfc691"
+  },
+  "internal/data/instance/schema.go": {
+    "executable": false,
+    "sha256": "cfbfc1eb2fcc4413d1d543bc814de2f7ce4e60987313c81c1ee9e45140134fe9"
+  },
+  "internal/data/instance/sqlcgen/db.go": {
+    "executable": false,
+    "sha256": "c40f70c9870c43ddc88f743ec63627bc9af2d57fab48fdb0c055981d090b0cf8"
+  },
+  "internal/data/instance/sqlcgen/models.go": {
+    "executable": false,
+    "sha256": "12175bc441ceb6a75d53c04a3a6787869ec77667a74b541b037e9c4da4e399b8"
+  },
+  "internal/data/instance/sqlcgen/read.sql.go": {
+    "executable": false,
+    "sha256": "3092d412fea80c207a23cd7f561f8bbc1ba7c8aa202e213596301c03de3f33dd"
+  },
+  "internal/data/network/README.md": {
+    "executable": false,
+    "sha256": "72f4a46fb9627152e5abcaf87f7e41fb1b142183e4d7aa7d6ee53f1f89d12452"
+  },
+  "internal/data/network/attachment.go": {
+    "executable": false,
+    "sha256": "988732906d22339c24f23892d03fa4000816cfbec724c44da18b370a4590857e"
+  },
+  "internal/data/network/attachment_audit_retry_integration_test.go": {
+    "executable": false,
+    "sha256": "fe90aa962437522c26e335d2fe09b9c45c74797cc49d5ebe6f175c2368b82e8f"
+  },
+  "internal/data/network/attachment_integration_test.go": {
+    "executable": false,
+    "sha256": "38e156cbef579d89de245a255b1a5cbc37e3b6e0fd686cefc5270c7b4ad62fbd"
+  },
+  "internal/data/network/attachment_managed.go": {
+    "executable": false,
+    "sha256": "da99fd462b05279f29457815777058dc15b584f0786689ba1e1b0d2d5bae64ea"
+  },
+  "internal/data/network/attachment_managed_integration_test.go": {
+    "executable": false,
+    "sha256": "00300d0ac30bef1e3a63a34cb608680bb1fc763e31b7afe0cb2cb687b2477259"
+  },
+  "internal/data/network/attachment_stopped_observation_integration_test.go": {
+    "executable": false,
+    "sha256": "aa56e16b228d827906608042c95122f14f2a72dac1250d16867ccc2c3faa2ecd"
+  },
+  "internal/data/network/attachment_vm.go": {
+    "executable": false,
+    "sha256": "d82efe39afda2794fb814e091c67b5924e6a5fa2e331c1e70ebaf1a02d7c3f4e"
+  },
+  "internal/data/network/attachment_vm_integration_test.go": {
+    "executable": false,
+    "sha256": "f7c8bae1ef5b40a25dbd11cb0fad88eb38a3ea4682c164bd7fdecaa9e62ee71d"
+  },
+  "internal/data/network/attachment_vm_recovery_integration_test.go": {
+    "executable": false,
+    "sha256": "6adef5f62d1f5b3c02a5444d442c02579727e3312c99d42611070aa3e0c75591"
+  },
+  "internal/data/network/attachment_worker.go": {
+    "executable": false,
+    "sha256": "7f974c4e51ddd2aeec9709eacc9858047cd56d98a31e8b8e0e12c99da1628b5f"
+  },
+  "internal/data/network/audit_refresh_integration_test.go": {
+    "executable": false,
+    "sha256": "1147d309df4407cbb1d642a4a033c5cc07b3ec5e9d1be1ac7347f8f43aa76f2d"
+  },
+  "internal/data/network/base_backfill.go": {
+    "executable": false,
+    "sha256": "76eb245cfa5d0cdbe5ca5bc1879cace95de3c7aff3a1ea03c9f8f621f4af03df"
+  },
+  "internal/data/network/base_backfill_integration_test.go": {
+    "executable": false,
+    "sha256": "fbb410ccac1674b6cf1476d3db5a2d28850fc7f454fd340693972ba3756f1840"
+  },
+  "internal/data/network/base_concurrency_integration_test.go": {
+    "executable": false,
+    "sha256": "bd11190953606bcd36c8c2e71ef26f2e2c502d7a0d9be761aec7a7e9d3cd60ad"
+  },
+  "internal/data/network/base_connectivity.go": {
+    "executable": false,
+    "sha256": "aa6573c5311c13e22ffb8853008ba4fad87975e248fb7b6b0335ee7c5401b2df"
+  },
+  "internal/data/network/base_connectivity_integration_test.go": {
+    "executable": false,
+    "sha256": "81f828310a56cb0906d3b0ebdc7981117f0d39db14189c2a262f2aed20700d32"
+  },
+  "internal/data/network/base_process_integration_test.go": {
+    "executable": false,
+    "sha256": "b6110be106367852957e0c55ce035920f9279b6d48fb787ba7f3912bc7687b03"
+  },
+  "internal/data/network/base_recovery_integration_test.go": {
+    "executable": false,
+    "sha256": "21fc64f45a3f21b2a4c43cc648b547d190bdb2683d5b95f9fbc58dbae3f0a51b"
+  },
+  "internal/data/network/base_schema_integration_test.go": {
+    "executable": false,
+    "sha256": "448183543861d3e694831b2616f6c4522e5716bf436fb5f62c82d01e8844a747"
+  },
+  "internal/data/network/default_vpc_egress.go": {
+    "executable": false,
+    "sha256": "001363f6c624bbbb864e8b646a909be445b1d0a440237db29c5a353beb6f6e2f"
+  },
+  "internal/data/network/default_vpc_egress_integration_test.go": {
+    "executable": false,
+    "sha256": "5fc5bfcf8bd27ebc87f8e21fe13d34242f3be131252c781ccf8c091e7b9682ea"
+  },
+  "internal/data/network/default_vpc_egress_kc.go": {
+    "executable": false,
+    "sha256": "d875de0f1c90b3745a041937a51dae910455de7a548cb1d54ec660953a6eb488"
+  },
+  "internal/data/network/device_retirement.go": {
+    "executable": false,
+    "sha256": "b59c9463c8482dded0e2e16ba1a3b42897936d2e56f9e7c8dcf356cc19d76dc1"
+  },
+  "internal/data/network/device_retirement_integration_test.go": {
+    "executable": false,
+    "sha256": "98fe241adbfa9bf143d775d4b6e85e8891c642eab56e1c7a7cadc46586c41c06"
+  },
+  "internal/data/network/doc.go": {
+    "executable": false,
+    "sha256": "50978525ad3fa635c857f9b62af37e5898ab9ff02e847654eb1b831d236d74fa"
+  },
+  "internal/data/network/egress.go": {
+    "executable": false,
+    "sha256": "24d85307d4ca1da1d64651e10967e1452b9d10e47e92605cf550c5c007f90565"
+  },
+  "internal/data/network/egress_audit_retry_integration_test.go": {
+    "executable": false,
+    "sha256": "ae00a4eb191e397fa165880819a0ccac464e156556ed81ed1f83a84ebb672304"
+  },
+  "internal/data/network/egress_device_integration_test.go": {
+    "executable": false,
+    "sha256": "8d37c602df19323047ce208fbc96a9946947ff90599676438cef090e2c527dfe"
+  },
+  "internal/data/network/egress_grpc_integration_test.go": {
+    "executable": false,
+    "sha256": "c71a09eb90bfd1ef290605e5d7cf2a9212656540952a6d0a7a25927898b2b9b0"
+  },
+  "internal/data/network/egress_integration_test.go": {
+    "executable": false,
+    "sha256": "8997cb293eb04bcdaec9b919ea2b66684bbf4021092dc3a340bff51f20ec1eab"
+  },
+  "internal/data/network/egress_kc_integration_test.go": {
+    "executable": false,
+    "sha256": "59c1ed60f3bd2f5ba7dd37f7de69539f5857e815750fc4743f8fdbed82736428"
+  },
+  "internal/data/network/egress_process_integration_test.go": {
+    "executable": false,
+    "sha256": "4e7c9a19dd48bd0d59664bfa149763ecafa3fd518f26699308edaf5cdcce6120"
+  },
+  "internal/data/network/egress_public_integration_test.go": {
+    "executable": false,
+    "sha256": "2ab4146706bb98033264547f921fe3107290fe132c9f68b6e01aacda6ad776ad"
+  },
+  "internal/data/network/egress_switch_state_integration_test.go": {
+    "executable": false,
+    "sha256": "9ff2b2a607e8055fa7df795e75e2273fc823f1f9910c3decca5029f8718f24f5"
+  },
+  "internal/data/network/faults_integration_test.go": {
+    "executable": false,
+    "sha256": "374fc14cfd55a12ed92e11d746941276073438a82d37da6694be8b0ac8985ade"
+  },
+  "internal/data/network/governance_joint_fixture_test.go": {
+    "executable": false,
+    "sha256": "7b46fc8a8311a3519567330dd73621cf7a687e7d5dc35c9713bbaeb443ce69c3"
+  },
+  "internal/data/network/governance_joint_network_fixture_test.go": {
+    "executable": false,
+    "sha256": "f09de303f91f4565f3d5e6a27877b3a03c23c6106c9256bc7d27d388bbab9969"
+  },
+  "internal/data/network/grpc_integration_test.go": {
+    "executable": false,
+    "sha256": "d5d8ca60140fd42678ea17dfc11c25c93a2d314bfb6a5c977f921cbbfbef50d3"
+  },
+  "internal/data/network/instance_consumer.go": {
+    "executable": false,
+    "sha256": "9f5f57b586494cfe61461da79a2f2b45dd9158313d87c5ecb4f81b8cdab16315"
+  },
+  "internal/data/network/kc.go": {
+    "executable": false,
+    "sha256": "14d9b1765116b94bfd0fa51e08cc411fb483fc949f45e283bbc829ca4ecad951"
+  },
+  "internal/data/network/kc_attachment.go": {
+    "executable": false,
+    "sha256": "362df8012e32c4f034de343b7ab66e7889a0d676145e7a7d37ff2be4e1fac429"
+  },
+  "internal/data/network/kc_attachment_managed.go": {
+    "executable": false,
+    "sha256": "52f5e3ede968815bb4b0360115110a1559a667d6663361beebad49b69bd83e4c"
+  },
+  "internal/data/network/kc_attachment_vm.go": {
+    "executable": false,
+    "sha256": "aa034cfb98f23b92e376fc82c781192e9ef0ec3b8f0ab6c3313ed08aa80b24d7"
+  },
+  "internal/data/network/kc_attachment_vm_test.go": {
+    "executable": false,
+    "sha256": "90b9e19bcc12ded246e4128246b1360ed092a355c63592ba46e3bb8d4da0f961"
+  },
+  "internal/data/network/kc_candidate_hash_test.go": {
+    "executable": false,
+    "sha256": "94fa172ae463e9570668392c2fc401c4ebe8339389744611899caa30e1a37b7b"
+  },
+  "internal/data/network/kc_device_retirement.go": {
+    "executable": false,
+    "sha256": "e4acb9c64fc0a0cc4360adebd7214d41e4f5409df84d6d8f0b0c8c51354206b7"
+  },
+  "internal/data/network/kc_device_retirement_test.go": {
+    "executable": false,
+    "sha256": "6e05ec09352c3206059341fedd069afd694af1c6df85fdeb426358acb58715a0"
+  },
+  "internal/data/network/kc_egress.go": {
+    "executable": false,
+    "sha256": "cefc58c89e1e08c4cd671e2389c3f45adaefe9d8128e19203b3bb25ab8d475f2"
+  },
+  "internal/data/network/kc_egress_test.go": {
+    "executable": false,
+    "sha256": "66e5b364f50a9335fd0c26f4a2b56db2761d2ecb3180c87cedf4b81e425aa520"
+  },
+  "internal/data/network/kc_index.go": {
+    "executable": false,
+    "sha256": "ffe8de8dd6e972b5e88d7b6dc479233c6f74bb72269b7c810d7abf8e021487af"
+  },
+  "internal/data/network/kc_index_test.go": {
+    "executable": false,
+    "sha256": "e54049536cc6f3961e6445bf63ddf17625b61c2fb3a909a34b99b97103d5593d"
+  },
+  "internal/data/network/kc_integration_test.go": {
+    "executable": false,
+    "sha256": "8a0ad9c1006b2ec5cbc74707c3f44d42ada1bb03b23440b8bf0d817075ff5ebf"
+  },
+  "internal/data/network/kc_intranet.go": {
+    "executable": false,
+    "sha256": "da87b59a1d220c84e8909feccd9f5eaca454b247f9ecc1a343acabfa3b9bc844"
+  },
+  "internal/data/network/kc_intranet_test.go": {
+    "executable": false,
+    "sha256": "af538a6b54b580530b015245da187071ca54e8768918734e7bf3fcd5fde17a92"
+  },
+  "internal/data/network/kc_load_balancer.go": {
+    "executable": false,
+    "sha256": "f4522577c03b4c1f1368290446fa04302deb143fe161b4abfa4080c23357cfe8"
+  },
+  "internal/data/network/kc_load_balancer_capability.go": {
+    "executable": false,
+    "sha256": "c6b65e67f4f77f6227e9eeb9483fb66d49cfd65775d6b04c427d465ef37f8ec2"
+  },
+  "internal/data/network/kc_load_balancer_eip.go": {
+    "executable": false,
+    "sha256": "095cf7ad62a6672f9e367971a2d89941c80332afd032ce1ed04aa6c5c2d85d60"
+  },
+  "internal/data/network/kc_load_balancer_generated.go": {
+    "executable": false,
+    "sha256": "e53467fd5f4634cc28359ed74d0320318f88401cea41f02cc7fa7b1f8fb49941"
+  },
+  "internal/data/network/kc_load_balancer_parameters.go": {
+    "executable": false,
+    "sha256": "6bf052c4fcc84dfaeeb6c6051bda86c26d064b379ebc4686e7f210af96d23e2a"
+  },
+  "internal/data/network/kc_metrics.go": {
+    "executable": false,
+    "sha256": "f56031c4ad3cbf23d02006c438843c361ed827ceaf2b26d64a53d23e78fbfc3c"
+  },
+  "internal/data/network/kc_node_facts.go": {
+    "executable": false,
+    "sha256": "7a4f6b4e8c373aa586df6363d359e37eb329933fc62a42ab816b900e5fecdee4"
+  },
+  "internal/data/network/kc_node_facts_renewal.go": {
+    "executable": false,
+    "sha256": "a3878177470aa8fd70352a99399f58b43b53f26cb509be68e0326260f49f0741"
+  },
+  "internal/data/network/kc_node_facts_renewal_test.go": {
+    "executable": false,
+    "sha256": "cb2dffcfb153269bfea7f8d8c6fd80622422793732830d79ad98ac27daf6b5be"
+  },
+  "internal/data/network/kc_node_facts_retry_test.go": {
+    "executable": false,
+    "sha256": "0a6a16f0c7668a9c6981baa0d4ba660df6397607ac679777ed8f54ca04034b21"
+  },
+  "internal/data/network/kc_node_observation.go": {
+    "executable": false,
+    "sha256": "a574009e849bb3339eda158e6fa2bd27ad22f914d022faa82d43d052e176680c"
+  },
+  "internal/data/network/kc_node_observation_test.go": {
+    "executable": false,
+    "sha256": "c3e640ce5d119ef6fdc59673d5673a189e8e884a5acca1a1c5da219ff4c92a8a"
+  },
+  "internal/data/network/kc_observation.go": {
+    "executable": false,
+    "sha256": "a758eba926c246617a44efd06f074ae562eec6ee7f95ff056bdfddd9447e956a"
+  },
+  "internal/data/network/kc_observation_integration_test.go": {
+    "executable": false,
+    "sha256": "f6c19907265c63db0a34b144860c35114901e9d29f79395dc6361ffbbf2c4c43"
+  },
+  "internal/data/network/kc_observed_provider.go": {
+    "executable": false,
+    "sha256": "40c8e3d04b77366bc1ca174fab7e0105fe056b07e248438d845f60bc7cac71b8"
+  },
+  "internal/data/network/kc_optional_public_verification_test.go": {
+    "executable": false,
+    "sha256": "d271eb08928e2e61e9fe95e6f65d8185859fceff01ca11bb93d2eadcab6d906e"
+  },
+  "internal/data/network/kc_switch_diagnostic_test.go": {
+    "executable": false,
+    "sha256": "9465a181c59d2be9f7fa47e6dc274d738ff9cb15b294a8f05ffd266ed250311f"
+  },
+  "internal/data/network/kc_virtual_switch.go": {
+    "executable": false,
+    "sha256": "327a35b28386d4805a85b57c9653332d852008048d56a0955b427833c0e0afc4"
+  },
+  "internal/data/network/kc_virtual_switch_cleanup_test.go": {
+    "executable": false,
+    "sha256": "a55b764f8b8cd3557975a472efad5114fc8a7c0efa20252bffa81309482d5100"
+  },
+  "internal/data/network/kc_virtual_switch_fence_test.go": {
+    "executable": false,
+    "sha256": "0ac2d74e0d4c97969fdfd282cb0ff5af85ed8cea950566aafdeee1d204813400"
+  },
+  "internal/data/network/kc_virtual_switch_inventory.go": {
+    "executable": false,
+    "sha256": "72e1d6058c3d399c7924fbf065e9726228d002ed762dd9b4ed883623489933a5"
+  },
+  "internal/data/network/kc_virtual_switch_test.go": {
+    "executable": false,
+    "sha256": "e49bfb9f297d3f4e53f324bb43d2b43df5a4f15d5eb74b5fe8df29370b0e7c93"
+  },
+  "internal/data/network/kc_vpc_cidr_presets.go": {
+    "executable": false,
+    "sha256": "d3fdc08ad428181822be077648df321c706c860943f507eb8de11fd9b49ff850"
+  },
+  "internal/data/network/lb_audit_retry_integration_test.go": {
+    "executable": false,
+    "sha256": "65340d0ee19fd1bf9a234272fde40f8db44af11c528c0d22fce576ecb08421ab"
+  },
+  "internal/data/network/lb_health_port_test.go": {
+    "executable": false,
+    "sha256": "a4a7f226a29fb47c0ab83c6554bfc10d86dd8b1d02c9066fd55f69a48a3189c8"
+  },
+  "internal/data/network/list_totals_integration_test.go": {
+    "executable": false,
+    "sha256": "dd3e9f30a4047bb212bfa14f72b4e820d434997c3ab63b5f5cf38e1a5aa2bbeb"
+  },
+  "internal/data/network/load_balancer_capability_integration_test.go": {
+    "executable": false,
+    "sha256": "4f4f3d3434fa0a9a58881c3425e8e07639f95de40a3769d8d2fa5ac953796475"
+  },
+  "internal/data/network/load_balancer_composition_integration_test.go": {
+    "executable": false,
+    "sha256": "9abf6c6e3b0f6018c95323c16e1a1b9be978dd61726e3d4f4900af973e1dbedc"
+  },
+  "internal/data/network/load_balancer_concurrency_integration_test.go": {
+    "executable": false,
+    "sha256": "d734b3a83b59b5c562177e3f82d86fc6acd01ff871a80f5f9475a8689aadc6a6"
+  },
+  "internal/data/network/load_balancer_deferred_admission_integration_test.go": {
+    "executable": false,
+    "sha256": "cdd7296ae916e109f206c5da4cc285db3d7450ee3c863ef916ec8a32f85027f9"
+  },
+  "internal/data/network/load_balancer_deferred_lifecycle_integration_test.go": {
+    "executable": false,
+    "sha256": "51c651a7a0db65e5418755021bfeddf3c573413c36794255ce4c0cb4ab067656"
+  },
+  "internal/data/network/load_balancer_deferred_redirect_integration_test.go": {
+    "executable": false,
+    "sha256": "09c9a5a96f5b7bac6e992aa2ee05a54921bf3ad005d4d115e356176d56086b76"
+  },
+  "internal/data/network/load_balancer_deferred_schema_integration_test.go": {
+    "executable": false,
+    "sha256": "6a4524ead7995b9a58a86e135728f2ca453703cc17cea99e0c4f892b4e0fd2f9"
+  },
+  "internal/data/network/load_balancer_freshness_integration_test.go": {
+    "executable": false,
+    "sha256": "207fe5c55d567c65b6c8db501833fe75abba5e7c6f8e16bc92defcb6ee3b3eb5"
+  },
+  "internal/data/network/load_balancer_lifecycle_integration_test.go": {
+    "executable": false,
+    "sha256": "f8d44ff6e7fcca5a0cab8f52b6084e174644c00330bbb9016907af18f192627e"
+  },
+  "internal/data/network/load_balancer_listeners.go": {
+    "executable": false,
+    "sha256": "a863bba93686ed245e6aa48feb6976d7f1ed11c6ce2795737340e595156444d8"
+  },
+  "internal/data/network/load_balancer_listeners_integration_test.go": {
+    "executable": false,
+    "sha256": "122802c4f9aac9832f0c277e9b793acc186e540498efb07dd85601a95c32f44d"
+  },
+  "internal/data/network/load_balancer_ownership_integration_test.go": {
+    "executable": false,
+    "sha256": "3416b41331065f263ead0afa0d8a928b83bd6f1ecb3aa15934121d1db1a8f88e"
+  },
+  "internal/data/network/load_balancer_process_integration_test.go": {
+    "executable": false,
+    "sha256": "1070736f90f92aa35c0984f22aac6a263ca6a119110d5bd0f48db66745cff562"
+  },
+  "internal/data/network/load_balancer_recovery_integration_test.go": {
+    "executable": false,
+    "sha256": "faa04283b622e9104d650a6890e6bffb939ac15df75971ed28708e3bb378f838"
+  },
+  "internal/data/network/load_balancer_schema_integration_test.go": {
+    "executable": false,
+    "sha256": "7cf80d6f7739e26f220c8b6c4c8efbea26e7ae449fcd594cb31739dfd0b1671d"
+  },
+  "internal/data/network/load_balancer_update_integration_test.go": {
+    "executable": false,
+    "sha256": "5790823584401e0a5d6471c90adfcb46e90a0c92fad96975a2162e8cd5b4134c"
+  },
+  "internal/data/network/load_balancer_worker.go": {
+    "executable": false,
+    "sha256": "e98f9c18e40f102ed03ea08a4210db97ec027aebebc6aa72da2fd36a685e140a"
+  },
+  "internal/data/network/load_balancers.go": {
+    "executable": false,
+    "sha256": "7cb9f44dddb024d33f58b09aa5a1ee31ce036b241ce8204953f0d57753856d61"
+  },
+  "internal/data/network/load_balancers_integration_test.go": {
+    "executable": false,
+    "sha256": "ea14b9675121cdc2eea901f9070e95b8d9ce7486494ae19e81347976fcd7b6aa"
+  },
+  "internal/data/network/managed_pool_gateway.go": {
+    "executable": false,
+    "sha256": "f15338cf17c3e6da06c77dc0de1dacf22cfe183d531257c297e5bf9303fc2645"
+  },
+  "internal/data/network/managed_pool_gateway_integration_test.go": {
+    "executable": false,
+    "sha256": "e06194ed452cd0d67a1378302dc707ccae84ff7e66d72de965304140ea1e70f0"
+  },
+  "internal/data/network/migrate.go": {
+    "executable": false,
+    "sha256": "7835982f66b35bf39586e55b2535b8194ee841f8be6705869c2fcce49a99e4bb"
+  },
+  "internal/data/network/migration_replay_integration_test.go": {
+    "executable": false,
+    "sha256": "0711679d339e7c4d7d45d8301e504d943d5518bbf18c08f98e16e71e62345ed3"
+  },
+  "internal/data/network/net05a_capacity_current_test.go": {
+    "executable": false,
+    "sha256": "9993c83e738628868ab7bf9508760770be1d03d11f6210dfd516b1d1936d0a21"
+  },
+  "internal/data/network/net05a_capacity_test.go": {
+    "executable": false,
+    "sha256": "1d875b4512bc71e83ca36a84588fdd993b14d194ebe594a471dd874782d2594c"
+  },
+  "internal/data/network/node_facts_collector.go": {
+    "executable": false,
+    "sha256": "2c2e975bf40fc89d88df96109915a7a9fc7d9a5d572c12a1014ffb653d8086c3"
+  },
+  "internal/data/network/node_facts_ovs.go": {
+    "executable": false,
+    "sha256": "d625da71c4b4428e43bd9cd1f6215d09cadfb5fcec090c069eda8dfa0120b4f3"
+  },
+  "internal/data/network/node_facts_ovs_test.go": {
+    "executable": false,
+    "sha256": "6411251e5f71806cc9ed27e33a09f55b8bc083283924d464e6557112a546693c"
+  },
+  "internal/data/network/observation.go": {
+    "executable": false,
+    "sha256": "3ec074b7c4185b1158ce42df20150c6f415601937ec50345416fdef83a9f6a73"
+  },
+  "internal/data/network/observation_integration_test.go": {
+    "executable": false,
+    "sha256": "a5848961d63d5b71cb4972d6078395546cc52d0102a2858ff4e4e1600f9a8ec2"
+  },
+  "internal/data/network/observation_telemetry.go": {
+    "executable": false,
+    "sha256": "258c4b381699b1cf7b3cc00a904171c1da091fbd42acdb93cb98c06dc069dd73"
+  },
+  "internal/data/network/observation_upgrade_integration_test.go": {
+    "executable": false,
+    "sha256": "309cbe78702a3f8f4856c2516c084b32fb67db1269d5ef85b3f4cba22d0f4c96"
+  },
+  "internal/data/network/platform.go": {
+    "executable": false,
+    "sha256": "a428f70403ca1943046fa576660746020305a101710a1d200a73ae5d9a920da2"
+  },
+  "internal/data/network/platform_capabilities.go": {
+    "executable": false,
+    "sha256": "c8ed775d87af939213d738e8c9e7d6c789ad4c54129812c496d2eecb36c61af8"
+  },
+  "internal/data/network/platform_eip.go": {
+    "executable": false,
+    "sha256": "f23c8ecd307b8b4bd63c2542aa5dd6b7cc424fee369f87c45dc6eaf0983fbb2f"
+  },
+  "internal/data/network/platform_eip_integration_test.go": {
+    "executable": false,
+    "sha256": "b1127fe8aaa1b1560246bfde11fc49ab4e41e966514a53e4413f2c17c4d5011d"
+  },
+  "internal/data/network/platform_intranet_integration_test.go": {
+    "executable": false,
+    "sha256": "aa6076864937f14ebdf91b84e0cfaa975d5dcede5e9ab4c5ef9438f91c59350e"
+  },
+  "internal/data/network/platform_intranet_kc_integration_test.go": {
+    "executable": false,
+    "sha256": "0c15c55d05b5e453d6b078533e5e1a3f11f541adb8706273ba8c77f9801d5b22"
+  },
+  "internal/data/network/platform_worker.go": {
+    "executable": false,
+    "sha256": "0721e61fb256e465cecf447b7fe98c390d6c9933b0fdfa3102b3e4a7b6b7cb38"
+  },
+  "internal/data/network/postgres.go": {
+    "executable": false,
+    "sha256": "5db696aee0fc73e860398f6de8d57b1f9b0090e89ed326827733431b4fe35c34"
+  },
+  "internal/data/network/postgres_integration_test.go": {
+    "executable": false,
+    "sha256": "9c26c400efd9fa52a0bf21843abfe270dab71143464675d0d7cfd2d3822a1047"
+  },
+  "internal/data/network/process_integration_test.go": {
+    "executable": false,
+    "sha256": "3c576de27cde431f42d87e6b1555d365016fed759d25466e4d900391f98cdee0"
+  },
+  "internal/data/network/provider_faults_integration_test.go": {
+    "executable": false,
+    "sha256": "6129d749aef45b5fc0257aec12af755744a980ef070713b53bcef08764f4f3b5"
+  },
+  "internal/data/network/public_pool_optional_verification_integration_test.go": {
+    "executable": false,
+    "sha256": "f66f90fe92d14a04999fbbb3505bcf7e259e833bca5845b306af23c6da02eb01"
+  },
+  "internal/data/network/queries/attachments.sql": {
+    "executable": false,
+    "sha256": "c1094004c94f565e09f1bb8fe25ccda8f5c8f387550aa2200d2304221cad7b0b"
+  },
+  "internal/data/network/queries/base_backfill.sql": {
+    "executable": false,
+    "sha256": "3f82c9088459b4e9e4ba4a5b9496983bcc02c60715b8a27986b07e8676c1ed3a"
+  },
+  "internal/data/network/queries/base_connectivity.sql": {
+    "executable": false,
+    "sha256": "082001d9c4fc7b86be529cc958d5d41f8f134f8ce5cd6fdd4d7ad01bc6d04e32"
+  },
+  "internal/data/network/queries/default_vpc_egress.sql": {
+    "executable": false,
+    "sha256": "7953211032c5c382cf029d43a6d3443d5022f36b76e72e296adbe93edca5556e"
+  },
+  "internal/data/network/queries/egress.sql": {
+    "executable": false,
+    "sha256": "77420bef1cc8eaf4d128b9b9b0c37e3d72738781c8898607842b3cd08ae2df59"
+  },
+  "internal/data/network/queries/legacy_device_retirement.sql": {
+    "executable": false,
+    "sha256": "181e2b4de1d9b618e45d10b5a951c680ec79d2143ae89e478672b0e5ed60183e"
+  },
+  "internal/data/network/queries/load_balancer_listeners.sql": {
+    "executable": false,
+    "sha256": "1b5c10884faf9d604fdc3ba463e9a516c2305fd15580b14516dd4bd0da14bdea"
+  },
+  "internal/data/network/queries/load_balancers.sql": {
+    "executable": false,
+    "sha256": "e07474dc614348da686d2c09b48d2e4f12016ff0f48b0e79f3404a1e0eb746bc"
+  },
+  "internal/data/network/queries/observation.sql": {
+    "executable": false,
+    "sha256": "c666caf0690cf1d678b92cdf0bdea53c25d8d2ffc75a090d2f879af699b6c6c9"
+  },
+  "internal/data/network/queries/platform.sql": {
+    "executable": false,
+    "sha256": "4f8f85df3490d6d642f66d579f340f80e953b05497bcd96d3dbc04bbbec57f31"
+  },
+  "internal/data/network/queries/platform_eip.sql": {
+    "executable": false,
+    "sha256": "a0478b3e9b490f21b0088596a50cac3a7363b29944ec8a4b1b5e6a57d0f140ac"
+  },
+  "internal/data/network/queries/pool_switch_topology.sql": {
+    "executable": false,
+    "sha256": "388d3458b79b89c4800dd2cd6c1d89a5c69534f84a9795d5ceef7d47abd56d9a"
+  },
+  "internal/data/network/queries/subnets.sql": {
+    "executable": false,
+    "sha256": "c6304f27976949ccd9019633b0eaf764b4dd842d60a4cfa22d25e5df2d9a0434"
+  },
+  "internal/data/network/queries/switch_vlan.sql": {
+    "executable": false,
+    "sha256": "b75285fef53c0483f261eb3dd8a42fddc3d7e6947f80ee22a7e5708e52b9ee20"
+  },
+  "internal/data/network/queries/virtual_switch.sql": {
+    "executable": false,
+    "sha256": "59f59d469b5c18d1c967787003fc7850e52196ee2d893f38f0d4e475878bae14"
+  },
+  "internal/data/network/queries/virtual_switch_cleanup.sql": {
+    "executable": false,
+    "sha256": "eb911af3eea3e78b25b750a74fde5133cad226711eba131bae31025511474f76"
+  },
+  "internal/data/network/queries/vm_networks.sql": {
+    "executable": false,
+    "sha256": "9bb4fd331fc8bf92f0d4d7256e2695fff7e5f047c5ef8f54dd7f75a8f5415f6b"
+  },
+  "internal/data/network/queries/vpcs.sql": {
+    "executable": false,
+    "sha256": "4aea80d025c227cccc3901fed736a54d3476777c095689689fde5fa002f862ac"
+  },
+  "internal/data/network/queries/worker.sql": {
+    "executable": false,
+    "sha256": "5a5214008f6e7ccb66bce33e7fc27ef56eabf7f2f52dc90b51b4da6aa51c3201"
+  },
+  "internal/data/network/rename_compatibility_integration_test.go": {
+    "executable": false,
+    "sha256": "2f023b895c6e679a575d318f210ea31e5151e1d970106d5edcfc5d23224ca437"
+  },
+  "internal/data/network/resource_work.go": {
+    "executable": false,
+    "sha256": "2dff964af0a59643828d45cf1dd901fb359ed762dc1ed3312c6557f1647e1ff1"
+  },
+  "internal/data/network/resource_work_net05_integration_test.go": {
+    "executable": false,
+    "sha256": "e2330b1a1b866107e655d69ae1a8abf2289691cfeb85851334b7711137b24a06"
+  },
+  "internal/data/network/sqlcgen/attachments.sql.go": {
+    "executable": false,
+    "sha256": "4f84d26ac79605d35533203c3b5ddc90e8dbf2e9f2cf2b6fbf5f27cdc9581d50"
+  },
+  "internal/data/network/sqlcgen/base_backfill.sql.go": {
+    "executable": false,
+    "sha256": "c30c37929066465da725ce9b08d41ebefbfcccd846bbda52ab185e85b56a8c32"
+  },
+  "internal/data/network/sqlcgen/base_connectivity.sql.go": {
+    "executable": false,
+    "sha256": "bf443521e24f8c20757e28678ce23ae01596ef1ff9df07ee4aa5d59ab42b79d1"
+  },
+  "internal/data/network/sqlcgen/db.go": {
+    "executable": false,
+    "sha256": "c40f70c9870c43ddc88f743ec63627bc9af2d57fab48fdb0c055981d090b0cf8"
+  },
+  "internal/data/network/sqlcgen/default_vpc_egress.sql.go": {
+    "executable": false,
+    "sha256": "bae6d553f9beb2fbf94efecf05825b5a9a058e552318e05c41b3e7c29f4716e6"
+  },
+  "internal/data/network/sqlcgen/egress.sql.go": {
+    "executable": false,
+    "sha256": "9f587d117a412dc17b00c4e434193367a9b5bd23ccdc35f6b58ba43c0a090024"
+  },
+  "internal/data/network/sqlcgen/legacy_device_retirement.sql.go": {
+    "executable": false,
+    "sha256": "246ab377562e6965d7954e05d400d56bceb5c3ee8d4e3c20a0c59321d4363ec5"
+  },
+  "internal/data/network/sqlcgen/load_balancer_listeners.sql.go": {
+    "executable": false,
+    "sha256": "1df016983074640b210515f7ce3e5c09ab9d4e34156f47a03853907109581cfa"
+  },
+  "internal/data/network/sqlcgen/load_balancers.sql.go": {
+    "executable": false,
+    "sha256": "361dd0d32e37cd8ae64976fed512a7e3e3b217113e3e59918db1980e6d291daf"
+  },
+  "internal/data/network/sqlcgen/models.go": {
+    "executable": false,
+    "sha256": "85c7ffec70dff7c263cf3af44fff1eb9d38d05cbbfe65067073c778c5d265e59"
+  },
+  "internal/data/network/sqlcgen/observation.sql.go": {
+    "executable": false,
+    "sha256": "2c04a05f79ad4cbfcf0c8594db5f4cec01ae0c38b64a2facd8cc91362c518c00"
+  },
+  "internal/data/network/sqlcgen/platform.sql.go": {
+    "executable": false,
+    "sha256": "be72ea8b3128180f05f484e0d71b86d692f98652b3724e957de610aea9cbeee4"
+  },
+  "internal/data/network/sqlcgen/platform_eip.sql.go": {
+    "executable": false,
+    "sha256": "c550229479859a6aa539437644a395bf67c69492f6956b19a150353a64a0c6bb"
+  },
+  "internal/data/network/sqlcgen/pool_switch_topology.sql.go": {
+    "executable": false,
+    "sha256": "5b199c4b070dbb80788a8f21d7e769537de0822d4551f88210601553d73f92a1"
+  },
+  "internal/data/network/sqlcgen/subnets.sql.go": {
+    "executable": false,
+    "sha256": "a5db42d219e468986e5ac9d7fdca550c1baff4c4a0d351c604316699595735ef"
+  },
+  "internal/data/network/sqlcgen/switch_vlan.sql.go": {
+    "executable": false,
+    "sha256": "9f51aa7f6bae92154cd1eafd4051844fdc7c2d850b755d39a48356fae8c2c0ff"
+  },
+  "internal/data/network/sqlcgen/virtual_switch.sql.go": {
+    "executable": false,
+    "sha256": "7dfacbfa2ebbdd48715f67218e8e7fa7a3ad8d48d6c277814f708ed4f45877a4"
+  },
+  "internal/data/network/sqlcgen/virtual_switch_cleanup.sql.go": {
+    "executable": false,
+    "sha256": "c47bc2d8bb98630755975eb8fdad9104051b274b59d3bdf3fb208e46401aeea8"
+  },
+  "internal/data/network/sqlcgen/vm_networks.sql.go": {
+    "executable": false,
+    "sha256": "5bdde7ab149276916708f99ac1b8eb4b6bc0b2255c27fbe98deca3c89cdd436d"
+  },
+  "internal/data/network/sqlcgen/vpcs.sql.go": {
+    "executable": false,
+    "sha256": "85d4ae6f6faedeb6750b28c4f96472be5605032b7a4059192e2aca00d6162436"
+  },
+  "internal/data/network/sqlcgen/worker.sql.go": {
+    "executable": false,
+    "sha256": "63c56de452a3199b674e26618173a7999f3c81713b4452dfb3ee408b06ca740b"
+  },
+  "internal/data/network/subnet.go": {
+    "executable": false,
+    "sha256": "702e6dd1460d0425061b31266ca4311ce5d25dc8bdf37326a9dae5d1d2d92a2e"
+  },
+  "internal/data/network/subnet_integration_test.go": {
+    "executable": false,
+    "sha256": "0bb2f305db5b6f94e909246bc2bdfc65a473135b9b50286919713864c8ec122a"
+  },
+  "internal/data/network/subnet_kc_integration_test.go": {
+    "executable": false,
+    "sha256": "be123ec38310b360620d6bc74234613ea5bae38a81f08e1a3e529f1944db6862"
+  },
+  "internal/data/network/subnet_process_integration_test.go": {
+    "executable": false,
+    "sha256": "73d3935d23c52c8f32a6cab9568bce1636a4c6728a5136a1c3e0b18cf6f5a370"
+  },
+  "internal/data/network/subnet_upgrade_integration_test.go": {
+    "executable": false,
+    "sha256": "dc9dc0110beb9633b27f4c1536f94d9880ccbb11ad7b214e64ff898ac94737da"
+  },
+  "internal/data/network/switch_vlan.go": {
+    "executable": false,
+    "sha256": "3932dbcc4aa5f30531350d6239cc083b7254823adb2d5634735f2b53ae27f7e8"
+  },
+  "internal/data/network/virtual_switch.go": {
+    "executable": false,
+    "sha256": "4e11fc9692b41b7a2613812e4a82e694015f5a12cdb5d99762a776cddf6a4b66"
+  },
+  "internal/data/network/virtual_switch_integration_test.go": {
+    "executable": false,
+    "sha256": "5aecf300e171437e12e85f9f68fa3d36affd7cf08feb62df2299eca562ce9365"
+  },
+  "internal/data/network/virtual_switch_worker.go": {
+    "executable": false,
+    "sha256": "1736a8f5aff4c4df64378d42921971bbc64e878edce003749c6b27458de757bc"
+  },
+  "internal/data/network/vm_namespace.go": {
+    "executable": false,
+    "sha256": "67e04870a66ec0f01925c75e6b58c66fc49a7226e49e821b459550bf37e6b859"
+  },
+  "internal/data/network/vm_namespace_integration_test.go": {
+    "executable": false,
+    "sha256": "80cc78154d9ec3476578f09a558ad767dcbe596c2173a0c59b615881b7bbe289"
+  },
+  "internal/data/network/vpc_cidr_presets.go": {
+    "executable": false,
+    "sha256": "e726218d5799806442bb46a222c4a7bcead80f327d65f8ebbc98d5b24e9d07c3"
+  },
+  "internal/data/network/vpc_cidr_presets_integration_test.go": {
+    "executable": false,
+    "sha256": "68c32c4b16ca1dafb8e2463b85ab571ba67c2b39ae7592c93838e973c0d23fe6"
+  },
+  "internal/data/network/vpc_page_integration_test.go": {
+    "executable": false,
+    "sha256": "8bd41ee63d375bcaa99cf0005d8ab8e0ab8b1030fba2e3b8e360a91896db3997"
+  },
+  "internal/data/network/vpc_query_failure_test.go": {
+    "executable": false,
+    "sha256": "8866e3448b13ac14a0652eef5a180f198b987abe94c535512803bc83d0ed4d65"
+  },
+  "internal/data/network/worker.go": {
+    "executable": false,
+    "sha256": "6fef5592ea1dd4a6f52b9edae670f890fc14ee978ac341c47e438cfb0c667dff"
+  },
+  "internal/data/network/worker_cancellation_integration_test.go": {
+    "executable": false,
+    "sha256": "832223b7d74dec6a33831055f6a6ca51700951e6acbb6f47dcc77b79311ffa2b"
+  },
+  "internal/data/network/worker_integration_test.go": {
+    "executable": false,
+    "sha256": "25b44b172ad4622004953336c71aeb9f132dcb8bf13f5b201c38e0ae49e5842d"
+  },
+  "internal/data/sandbox/image.go": {
+    "executable": false,
+    "sha256": "bf21143d0648b5b4955649fccf2a7a2165674831c0e120b319f07d4cf5bdf6b7"
+  },
+  "internal/data/sandbox/image_test.go": {
+    "executable": false,
+    "sha256": "6d6b9346476a270b82d364a11430220bcdfe8a3e6be77a1a62a0781307e62d61"
+  },
+  "internal/data/sandbox/lifecycle_integration_test.go": {
+    "executable": false,
+    "sha256": "8c90d312bbc001e2cffff5d4548081eb589a94aa6ebfd906e042d9b960175b35"
+  },
+  "internal/data/sandbox/namespace.go": {
+    "executable": false,
+    "sha256": "15eaef816bc91e31a0a756c2e866f25d9b181cdf3648939db59058e207695034"
+  },
+  "internal/data/sandbox/namespace_init_test.go": {
+    "executable": false,
+    "sha256": "9469c7afb8f1206d4143f08a19e0de87c055526e59526a90b6265373357cc4f1"
+  },
+  "internal/data/sandbox/namespace_test.go": {
+    "executable": false,
+    "sha256": "45656bcfcfef4bb2ce478cec33752d6b5e5f5fba7e32c3e5413cab9fbcba5846"
+  },
+  "internal/data/sandbox/postgres.go": {
+    "executable": false,
+    "sha256": "05781d163c4c692f7f56f32984148869db95fa6228596b37c31c822891bd5be8"
+  },
+  "internal/data/sandbox/postgres_integration_test.go": {
+    "executable": false,
+    "sha256": "7a25c66a673c45906f952f7bdc35117c4b95cea8bf6ef674243c91ce0f3423ea"
+  },
+  "internal/data/sandbox/provider.go": {
+    "executable": false,
+    "sha256": "720a7c28129f006e4a288b58ce66e7483f9915063095ee7ec52c9faebfc9ff1d"
+  },
+  "internal/data/sandbox/provider_pull_test.go": {
+    "executable": false,
+    "sha256": "3ccc8150af821a9ebc5d5276bcf6639385f2896c15a362b75f50b395d9254769"
+  },
+  "internal/data/sandbox/provider_test.go": {
+    "executable": false,
+    "sha256": "ea38dc8b0b9ca2448e8ca986dce5916af94eff7327d35a41558f7a833e8168ed"
+  },
+  "internal/data/sandbox/provider_worker_test.go": {
+    "executable": false,
+    "sha256": "9f802a88f62f37c2ee275b51e0f562fe1f2175dc4fb345b48cf261153c4128db"
+  },
+  "internal/data/sandbox/runtime_class.go": {
+    "executable": false,
+    "sha256": "37c8f276848ce34950cc544f2d4fdfa00a725a66599a249ced063caafa7a02c6"
+  },
+  "internal/data/sandbox/runtime_class_test.go": {
+    "executable": false,
+    "sha256": "e252cc1c0fe498ec84ed1655f4e504dde76a0559e28d6ea12a84b2ad3e2d0869"
+  },
+  "internal/data/sandbox/schema_migrations_test.go": {
+    "executable": false,
+    "sha256": "66096794cff5573106265732c7f2f1c6b458fdf52882a5aadee78d62dcc36e98"
+  },
+  "internal/data/sandbox/storage_class.go": {
+    "executable": false,
+    "sha256": "085eb9df528855c4556155b0532827dee6fdce908611cc4f004181aea79bebc5"
+  },
+  "internal/data/sandbox/storage_class_test.go": {
+    "executable": false,
+    "sha256": "ca62b0745a42a6ade49f9cb35e46374c9feeed0a0da7f69d756bf68dbcdb42b6"
+  },
+  "internal/data/sandbox/unknown_review.go": {
+    "executable": false,
+    "sha256": "9a71a7c315e69521f5fa219c7070cccbcf284fd35f30a427738ff41cb3799795"
+  },
+  "internal/data/sandbox/unknown_review_integration_test.go": {
+    "executable": false,
+    "sha256": "15bc7474918aa63437cc5a9f42cc10647707498d2a7c12b786b83fd68cf305cb"
+  },
+  "internal/data/sandbox/unknown_review_test.go": {
+    "executable": false,
+    "sha256": "0c98caf5a5b1da4a9bcf26854abd7f563bc046368060eea8130eb3cf025b8938"
+  },
+  "internal/data/storage/k8s.go": {
+    "executable": false,
+    "sha256": "b74da27ab7d06875e42b5203a9d56e0c5de38d44cba97c52532a6fb20acb9fc0"
+  },
+  "internal/data/storage/k8s_delete_test.go": {
+    "executable": false,
+    "sha256": "775ed5bdf97bfac34bab007dd455f54b691c760783037eda565d98baf6fb2edc"
+  },
+  "internal/data/storage/s3.go": {
+    "executable": false,
+    "sha256": "de74a6908a558ef078f93f18087ca8d5ab1baad263ce6f391deb52f64288e886"
+  },
+  "internal/data/storage/s3_test.go": {
+    "executable": false,
+    "sha256": "10b689348248c9baaffb0a0f7a27d9f6e5730032add32c92c4940d87afc396ce"
+  },
+  "internal/data/vm/backend_state.go": {
+    "executable": false,
+    "sha256": "b317d2eb3f1c545d48f6bd7b2f4166e805f7150f38195b9612b74f9cf63f3add"
+  },
+  "internal/data/vm/backend_state_test.go": {
+    "executable": false,
+    "sha256": "e297d469588be8d9a3b0c23952805ed418e0d669d6d22022017ca206465c2272"
+  },
+  "internal/data/vm/capacity_test.go": {
+    "executable": false,
+    "sha256": "918a0c3f3e60ef060feb475ffdbc35e5ebda5aa20ff041d186c1c76906cdf2d5"
+  },
+  "internal/data/vm/console_test.go": {
+    "executable": false,
+    "sha256": "4a06a9d371bab1dd53e7c8c9a954d903950a957a06c2ce8d9bfa35dcb8f60f6e"
+  },
+  "internal/data/vm/control_test.go": {
+    "executable": false,
+    "sha256": "29a1a9e79b00ec87a0ffa80c305dd8ac3ef16711069609147f27d9da1a87e5a7"
+  },
+  "internal/data/vm/disks.go": {
+    "executable": false,
+    "sha256": "8aa910dd298c5ac31e9c38e5c9034f7109121a5aff98fe96d2e6549bd64b1bb9"
+  },
+  "internal/data/vm/disks_integration_test.go": {
+    "executable": false,
+    "sha256": "06111d7f04015c5ebca81815408f6bc061a0c5a6c62d6f2bc56838d370e0483a"
+  },
+  "internal/data/vm/disks_test.go": {
+    "executable": false,
+    "sha256": "685ec5194d73dbd5cb6e588dd0f2a45994a166e62bbff11b6c9f115aea40cfd2"
+  },
+  "internal/data/vm/dns.go": {
+    "executable": false,
+    "sha256": "0516269fc1d24dfdafb7ac4b38987317c9948a460d187817a988ee91b7856a21"
+  },
+  "internal/data/vm/dns_test.go": {
+    "executable": false,
+    "sha256": "66b508e8a4118691c2fe8bde08210ea7bd0ed074acce4d69284e4ab263dd77f1"
+  },
+  "internal/data/vm/environment.go": {
+    "executable": false,
+    "sha256": "c47c50f18a5dbc2f1a03bc2458c2bf029c8d612dfe01329a0bf39bb26b25d969"
+  },
+  "internal/data/vm/guest_credentials.go": {
+    "executable": false,
+    "sha256": "b367ae1bf764572a794814c04fe4baebfd7a387acefc5cb0a7d369e48acaac74"
+  },
+  "internal/data/vm/guest_credentials_integration_test.go": {
+    "executable": false,
+    "sha256": "b17920d5dac203dd702c580953831e3289d84940cd20503e71d0c1cc1f737517"
+  },
+  "internal/data/vm/guest_native.go": {
+    "executable": false,
+    "sha256": "9b98bbffe609e09c6eb3a306c35797fd525afa3c93ccd92deb7529fe620f0769"
+  },
+  "internal/data/vm/guest_network_test.go": {
+    "executable": false,
+    "sha256": "d41699abab15ed0d72a0f870eb8dd3e4bf476f421c179aeb543f991ab73460cc"
+  },
+  "internal/data/vm/input.go": {
+    "executable": false,
+    "sha256": "f8ef2c9e5e73cc9e02f4085130ffec43d8ea515d6342bdd396f5dfbed36283f0"
+  },
+  "internal/data/vm/input_test.go": {
+    "executable": false,
+    "sha256": "e94495f1cbf7b885d286404f336a7f37ad78c7d73951da329c7093dbf640dea3"
+  },
+  "internal/data/vm/logs.go": {
+    "executable": false,
+    "sha256": "b3f9515362dedc3bae94118e7c46c0299d1d88b695d133d26d8d15657668a043"
+  },
+  "internal/data/vm/logs_test.go": {
+    "executable": false,
+    "sha256": "a7e9aaf1edc41834eeb9267ffe29441ce76ecdadaca7083f0ac67ada2b534f90"
+  },
+  "internal/data/vm/media.go": {
+    "executable": false,
+    "sha256": "285da79d37d28daa239ff90e78b175955969f9598bda50202e946ab0eff864c3"
+  },
+  "internal/data/vm/media_integration_test.go": {
+    "executable": false,
+    "sha256": "0103f0ef4c2248753238c0b6ce0c844e7e27f4aadcff6905004a61bb7070defc"
+  },
+  "internal/data/vm/media_test.go": {
+    "executable": false,
+    "sha256": "b0101e010bb9342fb879961b3b6b6090d767b0ca934720016f0d45a613b71a79"
+  },
+  "internal/data/vm/native.go": {
+    "executable": false,
+    "sha256": "53d01fc3d8635066f1d7bb498a001866ba044d3f5047c983311a92dee7451662"
+  },
+  "internal/data/vm/native_test.go": {
+    "executable": false,
+    "sha256": "ea3bfc9b572046699eeb61b3ffe6bacd3e4990794dd3b0fe8ef32fc044f6ef32"
+  },
+  "internal/data/vm/network.go": {
+    "executable": false,
+    "sha256": "9343d2ef8b9c3e25a631abd006cbf6e37520fd47d709904984fd6b9b9b73d366"
+  },
+  "internal/data/vm/postgres.go": {
+    "executable": false,
+    "sha256": "85f3157785240ba95dfdc450d0eb40904dc338793d129a8136500938add92b94"
+  },
+  "internal/data/vm/postgres_integration_test.go": {
+    "executable": false,
+    "sha256": "66d1101a4dafe2dc854e991c2bcbb4b3bf0edeb2112ca9b5c7a4b85f887c1c12"
+  },
+  "internal/data/vm/power_worker_integration_test.go": {
+    "executable": false,
+    "sha256": "d23624d96677bb94ba53482226d4356a2e4b542b87ff720333d3512c42d778ed"
+  },
+  "internal/data/vm/snapshots.go": {
+    "executable": false,
+    "sha256": "a7cb6eaee7fd98aa3f83190a177282dcfbf40569a15481195ab694b48f852cdf"
+  },
+  "internal/data/vm/snapshots_integration_test.go": {
+    "executable": false,
+    "sha256": "ccd5d25d0ebedcbe2850c55287a2d2fcc0621625963340d5a1f262457b4d6c44"
+  },
+  "internal/data/vm/snapshots_process_integration_test.go": {
+    "executable": false,
+    "sha256": "9ae5f4a65fd1c403d6aff37bc353cc9a13b2ec845b487a5cfb15656699a740b4"
+  },
+  "internal/data/vm/snapshots_test.go": {
+    "executable": false,
+    "sha256": "865e879ff76543a3f7fe56a5852821cd6cba676d2544a02d0b919a2e48de6cfa"
+  },
+  "internal/data/vm/windows_domain.go": {
+    "executable": false,
+    "sha256": "1ea5e02ac1cba70600038d815ddcda03e375c082799395c36f7952476bc8a5cf"
+  },
+  "internal/data/vm/windows_domain_test.go": {
+    "executable": false,
+    "sha256": "72c2ba56033827335d3480587160344be5c39f5c11c9e1bb1da7997302560629"
+  },
+  "internal/data/vm/worker_integration_test.go": {
+    "executable": false,
+    "sha256": "7d61e43af0777aa3f7e6edef854929318b857cd4528dadcf2c4a6dbabd2d1bab"
+  },
+  "internal/server/admin.go": {
+    "executable": false,
+    "sha256": "cb6c3e1b3d526cd182f8ecadbb39528136a4eb9d1e9d9222b2422943441137e3"
+  },
+  "internal/server/admin_test.go": {
+    "executable": false,
+    "sha256": "925f01ffdce18781fd2ab09482675d2258477849a838dfe6560fbd580c5bf409"
+  },
+  "internal/server/call_rules_test.go": {
+    "executable": false,
+    "sha256": "86f7397f949451e58b27411683a440be553726d33f097768053fc83f10ba9fdd"
+  },
+  "internal/server/compute_identity.go": {
+    "executable": false,
+    "sha256": "e0bb50fc6ef588e8e09e85818ef6c84d9c7ec5fea670e51cf96e88a7f5435f71"
+  },
+  "internal/server/compute_identity_test.go": {
+    "executable": false,
+    "sha256": "f1ee0f4f6f577cae8fce2a05479ae8eca00f648cebe9d835772948c355a39dff"
+  },
+  "internal/server/governance.go": {
+    "executable": false,
+    "sha256": "9f80e9bbe115a6cea0b1787b226d91d34ae8f1022cc0a5562cc22d84e0071b57"
+  },
+  "internal/server/governance_matrix_test.go": {
+    "executable": false,
+    "sha256": "257e429c53bb0228309428274fe203749264f5852acaac7fd8a3324fa3c05cce"
+  },
+  "internal/server/governance_test.go": {
+    "executable": false,
+    "sha256": "93cdf512293dee7df866f3dfc1a1bae1b9520f9fed8a0c37c57e77cf45b85f93"
+  },
+  "internal/server/grpc.go": {
+    "executable": false,
+    "sha256": "7796cb52f5d4650641bc2568b43308129c11fa9ea948c5ee4dafec741a6cdeb6"
+  },
+  "internal/server/health.go": {
+    "executable": false,
+    "sha256": "7a861fa8ceb20fef5e7f5b872b859eb6d07e7d05b4c2f8b50af1a8c59caecb11"
+  },
+  "internal/server/image_identity.go": {
+    "executable": false,
+    "sha256": "ff089c64d92aa77415c2979c474751f009270f4e703932db7f603124f1f71d31"
+  },
+  "internal/server/image_identity_test.go": {
+    "executable": false,
+    "sha256": "db4b72079e59bd21414c95ba37f92d85f68584633647ad4cdf0aece7734c7e73"
+  },
+  "internal/server/image_runtime.go": {
+    "executable": false,
+    "sha256": "abd86ce3208cd4c4bea6509b768a3efb18267f86318ef42e7abd91fc1555494f"
+  },
+  "internal/server/image_runtime_test.go": {
+    "executable": false,
+    "sha256": "f33fca8f2bec7869e199e5180a246061e53fa849bdeac70685312f9f8e565438"
+  },
+  "internal/server/instance_identity.go": {
+    "executable": false,
+    "sha256": "501f688d1dfa419aa3e9b1d1d0a1c43c718b5ad916c5f86fb326927195ec485f"
+  },
+  "internal/server/instance_stream.go": {
+    "executable": false,
+    "sha256": "ae19c92758b4661329cb0161703188eb30b031212d2e8233aa44fd291c68178c"
+  },
+  "internal/server/instance_stream_test.go": {
+    "executable": false,
+    "sha256": "a978479ef7cf41582a6cf5747af5e444248bf2b103627560ccffdcd082a57db7"
+  },
+  "internal/server/instance_terminal.go": {
+    "executable": false,
+    "sha256": "35d5e3367a8fbbfa61465aaf46c0d0d592153b125b5e24be3a28435e9eafbf9d"
+  },
+  "internal/server/instance_worker.go": {
+    "executable": false,
+    "sha256": "d812e0ac5e7a0b3fcc66b684b193ca87388d49b59bc519921f961ebc9001eff2"
+  },
+  "internal/server/observability.go": {
+    "executable": false,
+    "sha256": "e04745599a3593ef61e15664ee350a0209e23ae59536d2b9e7a2efbfc0c75b82"
+  },
+  "internal/server/observation.go": {
+    "executable": false,
+    "sha256": "a8c25b9f2b9aa70def01f6794dd8eb8c6f7c9d54a3ab42eab54de77f3a7f8187"
+  },
+  "internal/server/platform_governance_test.go": {
+    "executable": false,
+    "sha256": "31af67c03e10ab0f882f1d1b20a8ec88688e4ce6ef209b793679d58798ed3450"
+  },
+  "internal/server/readiness.go": {
+    "executable": false,
+    "sha256": "fdf40b6c4f438e7b40e40b5b1f1d0d55187240f19fdedddea1219f42e4971ba0"
+  },
+  "internal/server/sandbox_identity.go": {
+    "executable": false,
+    "sha256": "cb236f621793b0fbed8fd9ba0efb7af5adc8bd6b19a30b460daa56675c69a451"
+  },
+  "internal/server/sandbox_identity_test.go": {
+    "executable": false,
+    "sha256": "8cca52f0a77e4c2458d6ead0d76b204ba153070a032c96eff7beb4c3fd9bb25e"
+  },
+  "internal/server/sandbox_worker.go": {
+    "executable": false,
+    "sha256": "14827165e6d9b703b85541103351514ac5815336b57b3c3104fef728eef96fbe"
+  },
+  "internal/server/server.go": {
+    "executable": false,
+    "sha256": "b28ebf0a522c2ba3265e6d9a6317ea8a08069268eb73a36950913c6bde7a70c5"
+  },
+  "internal/server/storage_delete_metrics.go": {
+    "executable": false,
+    "sha256": "4a063af5bfd9caa233e18a35af2c2c93148f46efe742769080c186e78044e67d"
+  },
+  "internal/server/storage_delete_metrics_test.go": {
+    "executable": false,
+    "sha256": "6a7377111f103ea9a0e4f0b7f1ddf95cfef47152b1fb38f440c6a9d4971f95e8"
+  },
+  "internal/server/storage_logging_test.go": {
+    "executable": false,
+    "sha256": "ae0b920f7ff248fc7200b1d67e40a8af8ad9c7e47366769e6cea7692a0634519"
+  },
+  "internal/server/storage_worker.go": {
+    "executable": false,
+    "sha256": "8504815e0d2bf40a8561f5d40c0e78d56ce4d1b321bef748f32fb0841dc247e3"
+  },
+  "internal/server/vm_identity.go": {
+    "executable": false,
+    "sha256": "c984059360aaa4b1ccc0d648d42df6fa4f573aaae94ec297e5b385920c4d0a0d"
+  },
+  "internal/server/vm_logging_test.go": {
+    "executable": false,
+    "sha256": "c27aa36e80362eee322abab80551321afa2808a6578e61306b9f08b78a66c6c1"
+  },
+  "internal/server/vm_stream_test.go": {
+    "executable": false,
+    "sha256": "cef7b9d3b96b26c9a2d2586ea07d52ef3b0e9dc02b22f10dc033cb87ee05f17c"
+  },
+  "internal/server/worker.go": {
+    "executable": false,
+    "sha256": "a626d3cf38e60820457c2219465b8a0d3e3657626d634f8cab4110503eec3b5e"
+  },
+  "internal/server/worker_diagnostics_test.go": {
+    "executable": false,
+    "sha256": "c78628de2fd6b981eb90018faa4605e569203b0a786a55d7027cb04c92e3b9b1"
+  },
+  "internal/server/worker_test.go": {
+    "executable": false,
+    "sha256": "d00c296855cc238bcbf8ee6f72ad738599255f47c872319674237c2e04cf0d95"
+  },
+  "internal/service/compute/service.go": {
+    "executable": false,
+    "sha256": "f4aef84771ff3a37be510c6989f4c19518431bfc23bbc59caed8abb7f3b6cf80"
+  },
+  "internal/service/compute/service_test.go": {
+    "executable": false,
+    "sha256": "1505909b2e003649a15e48c4e62ae6d63b7b3e8e0db2401ec6e25af8bf685877"
+  },
+  "internal/service/image/errors.go": {
+    "executable": false,
+    "sha256": "3b92492b9b022c186f327324d89a8777490d13d02f90ea395a8d8ae1e2f8ce0b"
+  },
+  "internal/service/image/errors_test.go": {
+    "executable": false,
+    "sha256": "14001bb4e7769cc8c2ace1e602b53afa0632400475e05397185823d8ec75c32d"
+  },
+  "internal/service/image/runtime.go": {
+    "executable": false,
+    "sha256": "5a9370b18c109fb0237f2bb044880bc86bc532250c69272093e8d1209959980c"
+  },
+  "internal/service/image/tenant.go": {
+    "executable": false,
+    "sha256": "d7991cb29205e3f1af9f308139b5845cfdfbe729b553cc01da7ce336ad7cdf23"
+  },
+  "internal/service/image/wire.go": {
+    "executable": false,
+    "sha256": "bd7041ba6af563c19cee7c01b76e808e4cb71f3439db7f07cc7652314b199f93"
+  },
+  "internal/service/instance/compute.go": {
+    "executable": false,
+    "sha256": "1167071a3db845fc3da863116a8133ae580f0621d3febf55cbb165543c262c4c"
+  },
+  "internal/service/instance/configuration.go": {
+    "executable": false,
+    "sha256": "34eeaceb39dd9ef419a6cc1abd0cf7e26c1bea28177afde2c94818988e935596"
+  },
+  "internal/service/instance/cpu_test.go": {
+    "executable": false,
+    "sha256": "66b67f7fec5f437e59b88bb12ff8b2a6faf62169e6cdf93a20d386598e2ca61b"
+  },
+  "internal/service/instance/diagnostics.go": {
+    "executable": false,
+    "sha256": "370598b9d9b53f467f929bbaf0f52fda8cd8240f648155dd8ce2ee2f24aaec9d"
+  },
+  "internal/service/instance/diagnostics_test.go": {
+    "executable": false,
+    "sha256": "1f10685698e1dc3aecea7f4236a8f9d58d6ce7ca521c16eb820f5634720b573b"
+  },
+  "internal/service/instance/gpu_factor_test.go": {
+    "executable": false,
+    "sha256": "467401b10262382c1da57de5f164ff225ff17f511aa2644864a67c7cc13d0a49"
+  },
+  "internal/service/instance/lifecycle.go": {
+    "executable": false,
+    "sha256": "460e6117c00879c95e0a8f49189521f448024e159eea673641a754185d5f87a7"
+  },
+  "internal/service/instance/metric_scope.go": {
+    "executable": false,
+    "sha256": "fba1e8af338a412854a656509b456a3d700aa5c7b59937d08ea2a3f429e72417"
+  },
+  "internal/service/instance/metric_scope_test.go": {
+    "executable": false,
+    "sha256": "3724f353f5fc5d05b7eb33a5e57f4c0856cc2273d490d93d4a2fe079f154d783"
+  },
+  "internal/service/instance/service.go": {
+    "executable": false,
+    "sha256": "844b0216f1c3523cae63f5c4fd0bed36e727d66a6441cf8b48d93d5874b564a9"
+  },
+  "internal/service/instance/terminal.go": {
+    "executable": false,
+    "sha256": "656325ddd88ddb259506b021e998690b7fd43cf26a7ed7184c35de57dbd84582"
+  },
+  "internal/service/network/README.md": {
+    "executable": false,
+    "sha256": "c1a9aa4ff15984caa1119553751943d230e26951d7273dc7cbb1a3d3b077f303"
+  },
+  "internal/service/network/attachment.go": {
+    "executable": false,
+    "sha256": "09f4f8f25f758ceeda7fa6a05bd7346f8f25ab20c36d6e9ff683170700710daf"
+  },
+  "internal/service/network/default_vpc_egress.go": {
+    "executable": false,
+    "sha256": "68e72b3a8a3f5b6df1f804f0e6224f6e04328e25cead912ec1fd1563248de421"
+  },
+  "internal/service/network/device_retirement.go": {
+    "executable": false,
+    "sha256": "170b0f136197e11d80774fb4f7fa0a749a6845e0b9fb98f80ee8938b4aaaab21"
+  },
+  "internal/service/network/doc.go": {
+    "executable": false,
+    "sha256": "e55ae12ceb943c6be84e31540c839d606ffd319bfdf9ab92312ae2066137f5f7"
+  },
+  "internal/service/network/egress.go": {
+    "executable": false,
+    "sha256": "081791eca6882fcde2ca82aa6b08ae0a7f5c68a01c5cd2dd6cc7dfba05480bd2"
+  },
+  "internal/service/network/egress_public_test.go": {
+    "executable": false,
+    "sha256": "54fe41eeb9fbcbae112213903262c2dde55851448c54c7c8ebf5f1f1f02223e7"
+  },
+  "internal/service/network/load_balancer.go": {
+    "executable": false,
+    "sha256": "1fef6124bf0dfa1da300a797bf5d93551bb844be9de881fdba03c4b26265f9e2"
+  },
+  "internal/service/network/load_balancer_parameters.go": {
+    "executable": false,
+    "sha256": "87587a9ee6741287269356f913073d26ca20b7173cb15230a288b9f778c44d73"
+  },
+  "internal/service/network/load_balancer_test.go": {
+    "executable": false,
+    "sha256": "a92fed174ac7004d6b4b22cfeac3e2192199e355faac57f18ebe6270c99c7268"
+  },
+  "internal/service/network/network.go": {
+    "executable": false,
+    "sha256": "dc65b62433200268c90a9eebac5a46e6d6eda326a33a8543a4f7184cc05ff8fd"
+  },
+  "internal/service/network/network_error_test.go": {
+    "executable": false,
+    "sha256": "23c09e3f71523bb1cc437599a40156e4b972cdc001b4dda6e91d0297dcfdc026"
+  },
+  "internal/service/network/platform_eip.go": {
+    "executable": false,
+    "sha256": "f6ffd252e2966cb4d76f73eb536eccbaf932be6f848a10bc234254035b6cad8c"
+  },
+  "internal/service/network/platform_intranet.go": {
+    "executable": false,
+    "sha256": "e80f650661ec26d9a61fcc00dcbb9f5021b4cb230f25119b8aba50a4888f30c3"
+  },
+  "internal/service/network/platform_operation_test.go": {
+    "executable": false,
+    "sha256": "77f8b9b89bb4e85978530550d02af2b98acc9794c467ac45758bcf0fa9b4eb50"
+  },
+  "internal/service/network/subnet.go": {
+    "executable": false,
+    "sha256": "985f9536f1d37e7c67f9d69501ea6d7d3960338f5018ee35f2079532ccfff179"
+  },
+  "internal/service/network/virtual_switch.go": {
+    "executable": false,
+    "sha256": "fe36ef1e2556172614a5959a25ffc9721dc79087df424a3a54c5781b8d6252cd"
+  },
+  "internal/service/sandbox/service.go": {
+    "executable": false,
+    "sha256": "ed790ee87cf58fbb03ee799ddd0838a50cac52610dbe87e658c285515b9d1612"
+  },
+  "internal/service/sandbox/service_test.go": {
+    "executable": false,
+    "sha256": "d911385fe7e3ad2b4447c768b5ee15eaa3594583e97fce545b6bf158893b3490"
+  },
+  "internal/service/storage/service.go": {
+    "executable": false,
+    "sha256": "fe5b52d64cd889f97d42d7316ebf0326eb620a0a6db6c0d054da51c02c35e818"
+  },
+  "internal/service/vm/console_test.go": {
+    "executable": false,
+    "sha256": "d36714980d3d9a41c0fc78e03c7a84f09fad4cfafc96480a9a908ae56d215c31"
+  },
+  "internal/service/vm/disks.go": {
+    "executable": false,
+    "sha256": "94f3cb042300a0dd6c62325ccad50348144c2c9e2c8027a9cfc9cf6f424dd054"
+  },
+  "internal/service/vm/dns.go": {
+    "executable": false,
+    "sha256": "72039556ebab65d408f8f075e7a0f2b5b2ad13a9c6365c0e629f8fc11c6e5087"
+  },
+  "internal/service/vm/dns_test.go": {
+    "executable": false,
+    "sha256": "b476755a8118b0e3639df36c72d9c22764bf44c05c40f1b97eec089efc77dadb"
+  },
+  "internal/service/vm/logs_test.go": {
+    "executable": false,
+    "sha256": "9a603c94aa2d4e2ab9d66a57349659a33bd3cce035632aab0e7adcb5e7580348"
+  },
+  "internal/service/vm/media.go": {
+    "executable": false,
+    "sha256": "954af0bf816490aff2ac70242dd6750adecc1dbc9b98fdb1a02c5f16dfa8e4a4"
+  },
+  "internal/service/vm/media_test.go": {
+    "executable": false,
+    "sha256": "9831bfd96cda5cbe73ee5f408e0710252df180b48cd3abb69eb3e211a3e9bc0b"
+  },
+  "internal/service/vm/service.go": {
+    "executable": false,
+    "sha256": "cdab39d524210efea80d5d5f0ee80b4be00e974c68921e6930fd0ec4782255ea"
+  },
+  "internal/service/vm/snapshots.go": {
+    "executable": false,
+    "sha256": "6dce02320071f0cde9293d3c61dccada35dccfbc35e36a2bba6cc04f0d75e132"
+  },
+  "internal/service/vm/snapshots_test.go": {
+    "executable": false,
+    "sha256": "ff283be178c212706fc606b541b41993de45631c7412ea5cd4ede49fcaa10127"
+  },
+  "migrations/0001_vpc.sql": {
+    "executable": false,
+    "sha256": "c9c99dd3cfba59f5a6fcf8025e7d0d433a8bd322df1088c58912a44d1e32736a"
+  },
+  "migrations/0002_subnet.sql": {
+    "executable": false,
+    "sha256": "ab5dfbc25cc9f2323d2fbee2dbb109d28115597a6f8322e1242f4484dc6a5fdb"
+  },
+  "migrations/0003_attachment.sql": {
+    "executable": false,
+    "sha256": "9617a45668d6f0a4c0590f07f36889acbd56c4b966dcd0c9f2b3d1f093ee69dd"
+  },
+  "migrations/0004_observation.sql": {
+    "executable": false,
+    "sha256": "6ff6142ba197f3a8e62e6433daf2deb672c3f125d634d4f63441f3b11e9c58b6"
+  },
+  "migrations/0005_vpc_egress.sql": {
+    "executable": false,
+    "sha256": "03391a468313dbf64050840dda02a2d9da4845fdf864364bc34aade4069818e6"
+  },
+  "migrations/0006_vpc_base_connectivity.sql": {
+    "executable": false,
+    "sha256": "bf8918f6a357850bd54f3d1b4e6120d7cfcb9b9be76a5e2825436bd19be3ef13"
+  },
+  "migrations/0007_load_balancers.sql": {
+    "executable": false,
+    "sha256": "d19d3204acf4a0c41358b7bfbcd413685596a25568086fd63afb86e549d8ab77"
+  },
+  "migrations/0008_lb_health_check_port.sql": {
+    "executable": false,
+    "sha256": "4cec6755827dd7be87759f31a6d4c7accc9089c4b4f96ffd0197cd23ded2e0b5"
+  },
+  "migrations/0009_lb_fixed_flavors.sql": {
+    "executable": false,
+    "sha256": "f331af2d862ba92fca221b1980e98c8d0a24bdc669b93120b1412f18b0ff81e0"
+  },
+  "migrations/0010_lb_listeners.sql": {
+    "executable": false,
+    "sha256": "c17dcbed3746a0cbc598062dea5c712a182faabc9c70c2d77dc582f7cb6e1034"
+  },
+  "migrations/0011_subnet_ip_counts.sql": {
+    "executable": false,
+    "sha256": "35f56a477cbe65f0c404f1e8910fc6cbbf7ca7149ce4cb48f59e0299d8247101"
+  },
+  "migrations/0012_lb_listener_parameters.sql": {
+    "executable": false,
+    "sha256": "a4b7d8d375f3d83f1bfa6a11a7a2ec59b597bfce2f4b9bdf9587f4e5a078f657"
+  },
+  "migrations/0013_subnet_ip_ranges.sql": {
+    "executable": false,
+    "sha256": "f5dcbe46c44079511e7776f4915f27f6a069776a6a4c46e5190c9779002c5a61"
+  },
+  "migrations/0014_lb_deferred_activation.sql": {
+    "executable": false,
+    "sha256": "c67b25b655b1e3c4f49c868566cfe4fb14bc9251505d6a9092ddbc5bb164385f"
+  },
+  "migrations/0015_controller_managed_attachments.sql": {
+    "executable": false,
+    "sha256": "95a5b361041d9b772c3a8bcf20e7eae7ada20130bb82f8f8a29de70f3cf9a6a3"
+  },
+  "migrations/0016_virtual_switches.sql": {
+    "executable": false,
+    "sha256": "ad596d65f4a9ab5a821018581ccb93e30eeb47ba3ad3dfe30cedb2b247e4d87f"
+  },
+  "migrations/0017_legacy_device_retirement.sql": {
+    "executable": false,
+    "sha256": "438e79a4d90a2f1f246d3108f17a342756d1e4d3011b7fe87bcc7c615fa5cf07"
+  },
+  "migrations/0018_default_vpc_egress.sql": {
+    "executable": false,
+    "sha256": "d98ab29af6b0e157c8241b721d7491a68feb9798dd472143714fc25bbb4cdfdb"
+  },
+  "migrations/0019_vm_networks.sql": {
+    "executable": false,
+    "sha256": "1d8cbfea8c1de371015f5c341bd5bbe95d32cc6fd7989108cb720bb189cd1faf"
+  },
+  "migrations/0020_managed_pool_gateway.sql": {
+    "executable": false,
+    "sha256": "9b8a322bc1aff3901ed7106b34555e5d64eb4055376d778b91bd628467e54213"
+  },
+  "migrations/0021_optional_public_pool_verification.sql": {
+    "executable": false,
+    "sha256": "88bb6a4e5c6d4da61da241069e84474bfeef5c77efbdab59c950c615a1dd3131"
+  },
+  "migrations/0022_default_egress_eip_identity.sql": {
+    "executable": false,
+    "sha256": "5131b5c38643d794b5b3d018b5f9105d96013a1f8d08f8427979e9a5df3ce4b0"
+  },
+  "migrations/compute/001_presets.sql": {
+    "executable": false,
+    "sha256": "e4f285ae359b7c7bb4871759cde4f3b485484b370551eeeb7f2334a97dbdd5e2"
+  },
+  "migrations/compute/embed.go": {
+    "executable": false,
+    "sha256": "1af5b261768ecce570e0a8b81e80c09b67e11a4e1437781356089a650175cc06"
+  },
+  "migrations/compute/recovery/001_presets.sql": {
+    "executable": false,
+    "sha256": "3568bcd0dcda23e27ab8b602cb4695396399c6d07b7b35271e1ee45190a1c55f"
+  },
+  "migrations/embed.go": {
+    "executable": false,
+    "sha256": "7a3dfefa1f2cdf9678a5bb1a041ae8f46bb6ad869845c336146b72b6dc18f592"
+  },
+  "migrations/image/001_image.sql": {
+    "executable": false,
+    "sha256": "f0d4ee3b6a368166c2821da159dddc75fc57b2b67b456be09605af309efa68f5"
+  },
+  "migrations/image/embed.go": {
+    "executable": false,
+    "sha256": "dc426df397ae2b55fa3a6c955b1562fc2e7ac1b62be10d4e62235116932925d8"
+  },
+  "migrations/instance/001_instance.sql": {
+    "executable": false,
+    "sha256": "a378e32c43cd593f38c1715f64cb65bc587ae78ec4a6f1692f85a63a2aa52861"
+  },
+  "migrations/instance/002_compute_presets.sql": {
+    "executable": false,
+    "sha256": "50295b545315ab2e5a1ab1e8f5b544b6df17a41680bbb4d7a0fc82dd1b53d085"
+  },
+  "migrations/instance/003_whole_gpu_quantity.sql": {
+    "executable": false,
+    "sha256": "f5ef30d562575624098836cf666b825afe29d5dc21ef76a28e811c771b93f4e7"
+  },
+  "migrations/instance/004_gpu_execution.sql": {
+    "executable": false,
+    "sha256": "27ac8c04f735986f3fd40f9cce742ec0c714aac0ec2323c71a73aec3d3a9221d"
+  },
+  "migrations/instance/005_instance_configuration.sql": {
+    "executable": false,
+    "sha256": "005462c6e2148aa6e9be519a8778599a4a07619e3a05c5d998001627e9cea3a1"
+  },
+  "migrations/instance/006_instance_network_submissions.sql": {
+    "executable": false,
+    "sha256": "8e37316f2a3bf71851a038bf979c98fa472cbbac34bdb88402fa1dd994eaba54"
+  },
+  "migrations/instance/007_owner_cleanup_release.sql": {
+    "executable": false,
+    "sha256": "a603c1bfdefa692526a187ee80fcdb11a8caa740cee3a0ec231d9afb563a9390"
+  },
+  "migrations/instance/008_restart_pvc.sql": {
+    "executable": false,
+    "sha256": "a63f278e9bc0caecc789c4058035a5903f6a3af952b214a38a5b32c0e59fa31b"
+  },
+  "migrations/instance/embed.go": {
+    "executable": false,
+    "sha256": "caa989ad30f7bad4967b20c580126df146aee45c09cf2d8180274927e24d8082"
+  },
+  "migrations/sandbox/001_sandbox.sql": {
+    "executable": false,
+    "sha256": "95dd41f0b9f420973a9fc209a65a20d546c34b070aa41f6996bc7ca56f61fbf0"
+  },
+  "migrations/sandbox/002_workspace_bindings.sql": {
+    "executable": false,
+    "sha256": "f8e4ffe18f7c003374f53da68aff4c1e56903d47142eb6a4fc2fc2b34a4bb0c8"
+  },
+  "migrations/sandbox/003_recovery_and_create_intent.sql": {
+    "executable": false,
+    "sha256": "5b4391896c28ecfa743f4ed376d50fcac272c3bc427464a475610055879fc662"
+  },
+  "migrations/sandbox/004_tenant_listing.sql": {
+    "executable": false,
+    "sha256": "ce7456af36636d665b33420b267ef129d0f4e0579a601fd248ce94a30662b009"
+  },
+  "migrations/sandbox/embed.go": {
+    "executable": false,
+    "sha256": "747320163bb5430537a9cb35888a635f833386820e66abcc545804326045b172"
+  },
+  "migrations/vm/001_vm.sql": {
+    "executable": false,
+    "sha256": "3910788606c101c80672ca4e0eb90d3f862f0415b63aedc44d80d712ef391c52"
+  },
+  "migrations/vm/002_guest_initialization.sql": {
+    "executable": false,
+    "sha256": "75516940785913e8665b39cfd3345897f84a428715fee079f7756177146211b3"
+  },
+  "migrations/vm/embed.go": {
+    "executable": false,
+    "sha256": "7f436e857f00ab39683b2a580a81e578462780ab9fabf06e8097b21244f08bb1"
+  },
+  "pkg/instanceconfig/validation.go": {
+    "executable": false,
+    "sha256": "42586eefc5eae0e2db1d1256b284b3d5d1f76f72fa1aa24a45c22ddd9b3d9692"
+  },
+  "pkg/instanceconfig/validation_test.go": {
+    "executable": false,
+    "sha256": "7e0d3db8641c5534e9bc4efd4eded14e3f0b618dc251fa3f856ed7ea39af915e"
+  },
+  "scripts/check-net0204-compatibility": {
+    "executable": false,
+    "sha256": "02fc3d08d01aa8d034b05820985534c6b4587f6d50c7bdb72e5fef88c303988d"
+  },
+  "scripts/check-tenant-mutations": {
+    "executable": true,
+    "sha256": "3927834b2d3b8095b23d63ece57f8d47bac245179d4a547b55a052e8f5d7e9e5"
+  },
+  "scripts/check-vpc-base-contracts": {
+    "executable": true,
+    "sha256": "65d71b1dcafc30a4153ee467ce32be0582002bab14f557930033d1fc3c6c8b8f"
+  },
+  "scripts/check-vpc-lb-contracts": {
+    "executable": true,
+    "sha256": "a6dce731f9a6cbb7344ee4e8c5b3bc50338ab7b6f383344dee41acf2b7073e63"
+  },
+  "scripts/ci/network-race-shard": {
+    "executable": true,
+    "sha256": "c1d1a2dfa33d90fe517de3713ef8510f8b833e9f700407fb20ef5ba212bac981"
+  },
+  "scripts/generate-instance-api": {
+    "executable": true,
+    "sha256": "c2961a310c62a20b4c75e711bcc68cdc31ba2257f2f69252b836cb9859acb576"
+  },
+  "scripts/generate-sbom": {
+    "executable": true,
+    "sha256": "5b42c7984a0a42c2ecef6da9af593c5a7472f13d07dc3dd0af36f1009537fac0"
+  },
+  "scripts/generate-vm-api": {
+    "executable": true,
+    "sha256": "5f610a711c8c6314af79fc994592ab5c482b4bef4b6943fb9eeed5e0c10e8878"
+  },
+  "scripts/generate-vm-console-api": {
+    "executable": true,
+    "sha256": "a2d6f34ef8f202b06d0891c3010247aba10b9465d0972ed3984649250b5039b9"
+  },
+  "scripts/gov-candidate.py": {
+    "executable": false,
+    "sha256": "0c91b6aa33f4fa86c653ce97396e01f872af8a28ea9529e6a506d761a25b6252"
+  },
+  "scripts/gov-delete-fence-predispatch.py": {
+    "executable": false,
+    "sha256": "f96d14f387598e8b5c706c2581c9aa1087cf845f71c6a0ec5331a4f4eac8298f"
+  },
+  "scripts/gov-delete-fence-probe-fixture.py": {
+    "executable": false,
+    "sha256": "98ee564e136f137c1243c83cd2fcf7e1146c9a2b606c30fa62c7a1e4a24e33a0"
+  },
+  "scripts/gov-delete-fence-probe.py": {
+    "executable": false,
+    "sha256": "4f83f2d3c66656f7c2a2e471cff5985e5b359957c55dd1d14d967a69870676ed"
+  },
+  "scripts/governance-vpc-read-fixture.sql": {
+    "executable": false,
+    "sha256": "070fb04fa914d89d8ea15015799428bdbec9bae722fb32d3a0fc2117c8a8ecd9"
+  },
+  "scripts/image-integration": {
+    "executable": true,
+    "sha256": "688a6fa7800967008890d61f8ec761f45f71be1f9a13c2df5544c00414675058"
+  },
+  "scripts/image-smoke": {
+    "executable": true,
+    "sha256": "d5823c745f3306ef2e75c2f52d8f8fd1dfb30e7ae9c1632bed7553c714784cfb"
+  },
+  "scripts/image-smoke-runtime/main.go": {
+    "executable": false,
+    "sha256": "442de7136761da533931806c3b476ae5bda562d62f8d4a50a5dd96785a214a3b"
+  },
+  "scripts/image-smoke-runtime/main_test.go": {
+    "executable": false,
+    "sha256": "57ba200a44f4a3040396a9b57ebedf5f954a9c5db957bd48b3857e6ba3857f17"
+  },
+  "scripts/image-tenant-mutations": {
+    "executable": true,
+    "sha256": "124fbd00e4aef354cbbac0bbb373a462716d1fd0e5811c28bacc292f99aad804"
+  },
+  "scripts/image_smoke.py": {
+    "executable": false,
+    "sha256": "dc0cccbfbdfefb3a152b529872a8c1ea1e4293bb93d1404bf82881aa68b9bd92"
+  },
+  "scripts/image_smoke_test.py": {
+    "executable": false,
+    "sha256": "917632abd1c08bdffb76e3c9d5d30ce06febe0fbbae658c595b91cc96de52811"
+  },
+  "scripts/instance-integration": {
+    "executable": true,
+    "sha256": "f4a264f82b9395b7e7f3e97b9de6a2f400ddaacf7404e88306ff045d1a9994fe"
+  },
+  "scripts/integration": {
+    "executable": true,
+    "sha256": "ccdb965f8aceedaabd84fb64c39c79829ed48a65f2fc565ee7ee7756613c4b22"
+  },
+  "scripts/integration-pair": {
+    "executable": true,
+    "sha256": "a205befc6eadd59a0ab256ea824de5b21fe6ea17119b2427bf33709dc8bb9273"
+  },
+  "scripts/lb-api/installation.go": {
+    "executable": false,
+    "sha256": "5cd9e078a890b7ed2f7a47b93f63f56b1c5066c35f0a40706b4e077341303610"
+  },
+  "scripts/lb-api/installation_test.go": {
+    "executable": false,
+    "sha256": "83d51a3828e02425107b5c90614239e9c007b84fb38389ca30775cd3a67b978b"
+  },
+  "scripts/lb-api/main.go": {
+    "executable": false,
+    "sha256": "fcf187a613857ee1eae04198293b50a946a01575d08d42797fb1a1d9849d1a4e"
+  },
+  "scripts/lb-api/main_test.go": {
+    "executable": false,
+    "sha256": "3d36ee9d8afd9346261ba2d03f0d1bde76a778b8cd695489756e1c95367ab5c2"
+  },
+  "scripts/lb-live-runtime": {
+    "executable": false,
+    "sha256": "e9cc34c9d11489981ba619c99030d75bd5148a9027e5e78e5edc003b9d78c9a2"
+  },
+  "scripts/lb-preflight": {
+    "executable": false,
+    "sha256": "58716172bc2bb2befab7c02cfee31acb3dd52f7e71a91b52d3a7a617542fa689"
+  },
+  "scripts/lb-scheduler-budget": {
+    "executable": true,
+    "sha256": "5885a8d6fca1c7277b8bf88f16dfcb8d7948f8c659a1ce7cdccaf0d9a7b05fca"
+  },
+  "scripts/net05-api.py": {
+    "executable": false,
+    "sha256": "3034bf0255d1b4d3632a9be6bec4f4a7a7802bcc672c5739748929c455850efa"
+  },
+  "scripts/net05-build-faults.py": {
+    "executable": false,
+    "sha256": "941aa742b5ccf79aa462006fa0e6deb0b23233d3323c6e5f0761663a348f22a0"
+  },
+  "scripts/net05-cleanup.py": {
+    "executable": false,
+    "sha256": "0a1fbceb44bc5a3c9db90f615534da600341060e681747076d89ce0456627a83"
+  },
+  "scripts/net05-export.py": {
+    "executable": false,
+    "sha256": "cd96d11bfc15b261c1454e424260251c5e65b89d9f718e52922b6c4af1b0408d"
+  },
+  "scripts/net05-faults.py": {
+    "executable": false,
+    "sha256": "6a39e57f8fb65e49fa3e8e48bf9d78e5a5531819d0cb3adc805d0c5ed7c0a298"
+  },
+  "scripts/net05-gates.py": {
+    "executable": false,
+    "sha256": "60ad89b0c8f45642cad4c0e16f8b5397d0759aabc880d41d4c21c97c6390621a"
+  },
+  "scripts/net05-kind.py": {
+    "executable": false,
+    "sha256": "a2a6e921499610de2e5ec6881a9a5fa1d33ad2f6d64710ca1738c049fc86f8e6"
+  },
+  "scripts/net05-preflight.py": {
+    "executable": false,
+    "sha256": "095edc31025cf9a7da6985c769415bf96f296da1383db6eb736fd2d84131b430"
+  },
+  "scripts/net05-remote": {
+    "executable": true,
+    "sha256": "c501fd6e6e5604daec1aa6eb53630bf94f62e3912d9f965d29035e30f2945d51"
+  },
+  "scripts/net05a-adapt.py": {
+    "executable": false,
+    "sha256": "a076b9d7b54b5794380ea8e2198d158d6b0c3a22c04443a85e1d4a8f8f6ab987"
+  },
+  "scripts/net05a-api.py": {
+    "executable": true,
+    "sha256": "8933e0af4cafc7f5b35015024536e33d85e39785aa1ce144f67dc76f74efc799"
+  },
+  "scripts/net05a-build-faults.py": {
+    "executable": true,
+    "sha256": "c8e36000cea30bafc0e1ae249d1693f0c575d04de02cfabc8eb25df28936b2a2"
+  },
+  "scripts/net05a-capacity": {
+    "executable": true,
+    "sha256": "059626fe5fb3a968073f0c8894a5d8695e1c1c2ef4643594b64b4e533957004c"
+  },
+  "scripts/net05a-capacity-report": {
+    "executable": true,
+    "sha256": "2ee88835083b03dbb0be43fa650d9c67e9ae9be339c7cdaa876bfb9a648368e5"
+  },
+  "scripts/net05a-cleanup.py": {
+    "executable": true,
+    "sha256": "f07ccd2ba6e4f007c766c9708930b96c5f5588402197f5fbdd54a84aacaeaab1"
+  },
+  "scripts/net05a-collect": {
+    "executable": true,
+    "sha256": "e1dc14c410db3853e875812f9edff0f484b84413521cde89f6e095a0caefd434"
+  },
+  "scripts/net05a-export.py": {
+    "executable": true,
+    "sha256": "3454db04e824c8603b750adaf9d5bfb8e87178943322b38072f3ed03ee9f598d"
+  },
+  "scripts/net05a-faults.py": {
+    "executable": true,
+    "sha256": "62c17a995bb1eb652db0d7ed4ca5bd8aff82b459fb1899279d14ed9010bd1021"
+  },
+  "scripts/net05a-gates": {
+    "executable": true,
+    "sha256": "03f0f5442c844476675386e9b07d1bec0ab440b98da8bb19673a7971dd948932"
+  },
+  "scripts/net05a-gates.py": {
+    "executable": true,
+    "sha256": "f6e51c8f36bbaa8d5f963531d5c49af6c4a16233865f1b4dac4dd9c048c4f557"
+  },
+  "scripts/net05a-kind.py": {
+    "executable": true,
+    "sha256": "e756baea130c4f5beb19f3ec708484f043a9bff5b321937e9df85a3d0b13e5c9"
+  },
+  "scripts/net05a-live.py": {
+    "executable": true,
+    "sha256": "ee6daedf3d1abb40d4694e2d6ca30b8b53bbf24eefd28c9fe606e18c9f7e2bc3"
+  },
+  "scripts/net05a-pair": {
+    "executable": true,
+    "sha256": "b9a624b421a90880e7e18db81912c149e8bfd74b8192fc4840c84421a449f05f"
+  },
+  "scripts/net05a-remote": {
+    "executable": true,
+    "sha256": "d707a7519fc25b781799176b9392f21e86d4b03755107f281582cf0f83625bfa"
+  },
+  "scripts/net05a-resource-guard": {
+    "executable": true,
+    "sha256": "31745d175c8d93df0f5b60458b25450d54f88d5353e75c624260b44d24f387d0"
+  },
+  "scripts/net05a-return-generated": {
+    "executable": true,
+    "sha256": "6da6ad98e74df3f5aae91d09c558bb1fef8283f6e4cd1c72d80a24ba597624a7"
+  },
+  "scripts/net05a-stage": {
+    "executable": true,
+    "sha256": "ad9ec5a12f2b8845f55a7372e1dd34b2f283c049c418507817d209c5c306db1a"
+  },
+  "scripts/ops/container-restart-live-observe.py": {
+    "executable": true,
+    "sha256": "a531defa8d7160dbc213f2b7b35a4e146565c22fda02663b92fb4a6705badcb6"
+  },
+  "scripts/ops/container-restart-ssh-bridge.py": {
+    "executable": true,
+    "sha256": "34af803a24c0801334e5d7804166d1cf1780fadd8ea6605d211c66f1acd6494e"
+  },
+  "scripts/ops/test_container_restart_live_observe.py": {
+    "executable": false,
+    "sha256": "a5a9b246812fd571f25b628c3e372e81ec69a8b84c11c37ba9963cbe66a1441f"
+  },
+  "scripts/ops/test_container_restart_marker_program.py": {
+    "executable": false,
+    "sha256": "9bb1f03e1e402ea977060e003d88b08044ff7df57d7a867d130f528943c35e8f"
+  },
+  "scripts/ops/test_container_restart_ssh_bridge.py": {
+    "executable": false,
+    "sha256": "ed092dfa99c505d345c5257a1af82faf7895db77b32b1c0461b7ced9f7d68cb2"
+  },
+  "scripts/remote-pair": {
+    "executable": true,
+    "sha256": "9d5516818f738c52757e54c61bc92c20e893c791534d446e4080632828a3343d"
+  },
+  "scripts/remote-run": {
+    "executable": true,
+    "sha256": "a788ee0ac5e4b6bc9b503b631887bb2d4af279c9c56d76dc094550a297051281"
+  },
+  "scripts/render-node-facts": {
+    "executable": true,
+    "sha256": "970fbd6f2d4cd7ac08e235507dbf075a3082b944741db207b8ee5caf786193a4"
+  },
+  "scripts/resource-rename-live": {
+    "executable": true,
+    "sha256": "07d2ac9f6df5b02e0e2a69ccfc07bda1fdf3f8a3527771777a656645ef98dfe2"
+  },
+  "scripts/return-network-generated": {
+    "executable": true,
+    "sha256": "1f8381487962fbe43fdf9eaba28329efb61c7a1b6dd6674e32043ed539d7bd88"
+  },
+  "scripts/return-pair-generated": {
+    "executable": true,
+    "sha256": "f57246b9eceb6e436b850d490ea785f82a555b66b37600172d57f2c43988c550"
+  },
+  "scripts/snat-remote": {
+    "executable": true,
+    "sha256": "d7e7725b5adf39c2943f2ff10cf6ca5bee567d6e0d94dff2893674241e490292"
+  },
+  "scripts/snat-return-generated": {
+    "executable": true,
+    "sha256": "24ce427eb1b18e46e80a507301dec111761eadee987ba8d9835c49c8d27f8934"
+  },
+  "scripts/test-net0204-wire": {
+    "executable": true,
+    "sha256": "3adb705e08cd1f6dcddc7b9b9179d105e271f4510f230052864289c9cc1cabe4"
+  },
+  "scripts/verify-boundaries": {
+    "executable": true,
+    "sha256": "30e8f8f0239e4b8a2f0c201cc288370121a378ee432ced54023677b13123ce07"
+  },
+  "scripts/verify-first-party-modules.py": {
+    "executable": false,
+    "sha256": "dc2a1a1a5beb53f8509553ee5139275fea9f5e586430477e4d915df84bbdf729"
+  },
+  "scripts/verify-source": {
+    "executable": true,
+    "sha256": "5372ef82c83d9f29b7713719d79c3f2983499765071d6ab955ce8c037404a626"
+  },
+  "scripts/verify-supply-chain": {
+    "executable": true,
+    "sha256": "dc4440d19f29cb0ff7e38381a8a3631cd35b93e253cfee2df03c75c2b9892e68"
+  },
+  "scripts/vm-gov-delete-fence-pause-inherited.py": {
+    "executable": false,
+    "sha256": "41e0d1dbf18cf1e5ae91902a4471f8e1ed4ea67c24d9d7cee0f9830644e5706f"
+  },
+  "scripts/vm-gov-delete-fence-pause.py": {
+    "executable": false,
+    "sha256": "fdbe348407af3d840f926ddac1b2bf5db2ac7e83b1d63fc67b5aec74e437ea1d"
+  },
+  "scripts/vm-gov-delete-fence-probe-pause-inherited.py": {
+    "executable": false,
+    "sha256": "ba6bbaa414c90af01ebd02455d1780786235de839838a088674a82911bdc5aef"
+  },
+  "scripts/vm-media-http-source.py": {
+    "executable": false,
+    "sha256": "28aac824c862c7fb439206814a1de8b7dd57ef7e96787c83e4969d7cc7529257"
+  },
+  "scripts/vm-media-import.py": {
+    "executable": false,
+    "sha256": "6b28a623e3f644c14cec47d8e8bf111005519917c8f185424bebadc652567f0e"
+  },
+  "scripts/vm-native-probe.py": {
+    "executable": false,
+    "sha256": "b976f543ee9fb875e3f6d6d907983f56cc212ca092c86190b0cc82ab1f43f488"
+  },
+  "scripts/vm-network-environment.py": {
+    "executable": false,
+    "sha256": "b3b081f07107a0a9b26059694d5f5771a530df59a8f9b85849e80a992a3ee87d"
+  },
+  "scripts/vm-pg-fixture.py": {
+    "executable": false,
+    "sha256": "cb2f0f15ea85ded908bf7dbd8bb2062bcb8f2a24c60488eaaa6c5c7ab7f92507"
+  },
+  "scripts/vm-preflight.py": {
+    "executable": false,
+    "sha256": "d375a6347353734b650e59b547f03242bfbe96dbb432c5d6ea622778e997f805"
+  },
+  "scripts/vm-product-account-persistence.py": {
+    "executable": false,
+    "sha256": "895dea6b6efa6e85a2826dc6526a15f9da2a4c8e36e5f5c3a4de5ff3f214afa4"
+  },
+  "scripts/vm-product-cloudinit-ssh.py": {
+    "executable": false,
+    "sha256": "e071866126d6e30ee2c2ccbee7b7ea8ff5919906f60e70d7d7839cc13020ed3f"
+  },
+  "scripts/vm-product-cross-tenant-http.py": {
+    "executable": false,
+    "sha256": "753ade94ba609b68804cf8dd4b5c071fc317d816da66d792d4bb6754a4af7242"
+  },
+  "scripts/vm-product-guest-observe.py": {
+    "executable": false,
+    "sha256": "1d8fdb98ccbe22da2f8ef6299adbaf3337cd5c0d616e8662a9696b7263059cb7"
+  },
+  "scripts/vm-product-import-delete-backend-fixture.py": {
+    "executable": false,
+    "sha256": "8e6a31de0bfc373ce169a315807e747bf509c4a1f55adb23b2de2a46f5802541"
+  },
+  "scripts/vm-product-import-delete-backend.py": {
+    "executable": false,
+    "sha256": "e2c99ae4520e57917372ab7fa64beed51d2a49eeec005ea81eb5a36bbd8491ff"
+  },
+  "scripts/vm-product-import-delete.py": {
+    "executable": true,
+    "sha256": "4d58eb1c5d2c59ef4aa20c60ca77b3630e32f1b7a46df3ab37c1fd559ead79d2"
+  },
+  "scripts/vm-product-linux-disk-guest.py": {
+    "executable": false,
+    "sha256": "bd416df5aba74f4d360762136384d0a6b5f238929d875da053e4b584ef08599b"
+  },
+  "scripts/vm-product-network-probe.py": {
+    "executable": false,
+    "sha256": "892cf242620bcbfba52a195e8788589a1179297dc9756be85407ed67e4d83680"
+  },
+  "scripts/vm-product-network-v3.py": {
+    "executable": false,
+    "sha256": "024584529f86787dd9eee8ba9d8feac132db5ee9c6d72eda64708e631de6a0cd"
+  },
+  "scripts/vm-product-second-tenant-vm.py": {
+    "executable": false,
+    "sha256": "821a8ab88a8a14d9f13fc2b1a194623645123097a7d164e8671f5d2469b2308f"
+  },
+  "scripts/vm-product-second-tenant.py": {
+    "executable": false,
+    "sha256": "7adecb3220b13d486c1667c65692541e35bdfd0dbb814ff94538a81f2cb3ea9f"
+  },
+  "scripts/vm-product-snapshot-linux.py": {
+    "executable": false,
+    "sha256": "2faf4a60c7ec44cccb9663172167debc5dce9c1799385ac4c1b9bd38e3289b7b"
+  },
+  "scripts/vm-product-tenant2-cleanup-delete.py": {
+    "executable": false,
+    "sha256": "926b83d7995f17e3929fde05f7f38ba192f1deb9818893a8c0addeb17921c7ba"
+  },
+  "scripts/vm-product-windows-disks.py": {
+    "executable": false,
+    "sha256": "55f72f31f8cf1938c23c05355a17f9514e69bcc524c4b9859fa930bd6aa2f2ab"
+  },
+  "scripts/vm-product-windows-lifecycle.py": {
+    "executable": false,
+    "sha256": "a5197f719d0dbfaf4ba1a2f5c16d09bc866919ad9f566bc0327204f612e0d3ab"
+  },
+  "scripts/vm-public-egress-capture.py": {
+    "executable": false,
+    "sha256": "445721d57f571e89f87de11c13a1da54d638284ffa6e1ce9e9b0189868725701"
+  },
+  "scripts/vm-public-egress-diagnose.py": {
+    "executable": false,
+    "sha256": "93c9a66d3a3cc2034c73da2c67a89fa1d2a1a23408e50001f8b1c6819b27f87f"
+  },
+  "scripts/vm-public-egress-inventory.py": {
+    "executable": false,
+    "sha256": "9430b569396543a1f5cb61419b7c323806e1b2002a1e7e7cf302158cc7f1ac37"
+  },
+  "scripts/vm-public-egress-native.py": {
+    "executable": false,
+    "sha256": "053a5f55b85068edf87bc025800a7e9b21104230f8c57fc88d312628696a114a"
+  },
+  "scripts/vm-public-egress-product.py": {
+    "executable": false,
+    "sha256": "c6aca700475500c0a27c3cb90a0898fc76a64dfe539faa2979085337c7d20916"
+  },
+  "scripts/vm-runtime-maintenance.py": {
+    "executable": false,
+    "sha256": "78fbfcca3e4a6c7175a08491c4255ae7e70c885f44ee0a451da78d98c2a6ff01"
+  },
+  "scripts/vm-snapshot-environment.py": {
+    "executable": false,
+    "sha256": "5545ed283bb98f4a353da9f50d53abb0792df92134227c2d280200af893aedf0"
+  },
+  "scripts/vpc-read-probe/main.go": {
+    "executable": false,
+    "sha256": "32061f652dbe3019d3b9fa4a3d9239eb6c11824d34da966e64ce920c5547d9a4"
+  },
+  "sqlc.yaml": {
+    "executable": false,
+    "sha256": "defe297ac90687da492befbbdaa4d3877b0c8303d5864fd4594942eb1699725c"
+  },
+  "tests/net05/Dockerfile": {
+    "executable": false,
+    "sha256": "33288678038fb267831b37d44055742838429cdc04a7bb0735763364136e6092"
+  },
+  "tests/net05/hook.txt": {
+    "executable": false,
+    "sha256": "d90eeff793c90e200a972e8c9e3f43506d64606d6b908015c4fa85daacc100ee"
+  },
+  "tests/net05/kube-relay.py": {
+    "executable": false,
+    "sha256": "9f4dc003f232d28057b3b7d5910e99dc365c3abbaefbc7529cab171b08f5589f"
+  },
+  "tests/net05/probe.go": {
+    "executable": false,
+    "sha256": "fbbdc2e8a4bf4841e58699ea8b7b20822ea5be2907bcccde478c096fafad8439"
+  },
+  "tests/net05/relay/main.go": {
+    "executable": false,
+    "sha256": "db5e6c5e3036e70a504468b963b9761bab3c8c1cd112a8ff5db7dc35825aed00"
+  },
+  "tests/net05/rpc/main.go": {
+    "executable": false,
+    "sha256": "ecf45606ccc250411902de172967b5862f782ed61ec1614b9227b114986bf564"
+  },
+  "tests/net05a/Network.Dockerfile": {
+    "executable": false,
+    "sha256": "5249c17a803ace67dafa4e5395b9fcf2427668bde3f3b50434b3d0c7f85c61a1"
+  },
+  "tests/net05a/capacity-baseline.txt": {
+    "executable": false,
+    "sha256": "2a662469671324b7597ceb3180e1f2480509fa417da904ee640166227720c80e"
+  },
+  "tests/net05a/kube-relay.py": {
+    "executable": false,
+    "sha256": "fe50196d80ac873927bbe8b73d3f0fbafd4c0dd336a342fa4e00775534fa62d1"
+  },
+  "tests/net05a/placement.py": {
+    "executable": false,
+    "sha256": "710e8870e87d50bfd32050d8f970119335fbb711eafe9b827dd59a398295d542"
+  },
+  "tests/net05a/provider/server.go": {
+    "executable": false,
+    "sha256": "5bd6e5eb88f2e3014da7b70c9b6d6be1f3a3903a1692ed62e73392a76103e50c"
+  },
+  "tests/net05a/provider/server_test.go": {
+    "executable": false,
+    "sha256": "2ac37afa9793310daae865fa3ef9d43a58774e529ca757d5d2690eef62bdcb2e"
+  },
+  "tests/runtime/runtime_test.go": {
+    "executable": false,
+    "sha256": "aed68e9e17e7862ec8fd3b3e37ce1296ef416ac30746c4e7cdda4d1ea31140a4"
+  },
+  "tests/testenv/kc.go": {
+    "executable": false,
+    "sha256": "a6e001971322fa0e9b5a5e4ce6d739f8f79ced0c75521b4aa30a2929f21b7d61"
+  },
+  "tests/testenv/kc_egress.go": {
+    "executable": false,
+    "sha256": "d384e1b4bc093d0b81f6315072b3e4e91a39e331a449a85da7b92975cf48cac9"
+  },
+  "tests/testenv/kc_egress_test.go": {
+    "executable": false,
+    "sha256": "c165658e66b1da413f33b5eeeb5ff24d6b502cff072a4460afc3cb6ff7257154"
+  },
+  "tests/testenv/kubeconfig.go": {
+    "executable": false,
+    "sha256": "ee97cf9efba643c7fc1980479dff213c6fc6884c1b6a0cb3234d0acadf7ca6c0"
+  },
+  "tests/testenv/mtls.go": {
+    "executable": false,
+    "sha256": "147e460b69f755dbf4ecc79e5f51deccf8ac1adefa36f24bca12e17ca8eb277f"
+  },
+  "tests/testenv/postgres.go": {
+    "executable": false,
+    "sha256": "77b50da6238945e1d91a2b92fb695cc17e7858480608023aa8b6e7f515b9918e"
+  },
+  "tests/testenv/secret.go": {
+    "executable": false,
+    "sha256": "58db3dce5dbecbbe2e9a7770f9147dc2514c4722e568a88574036e9a14fe58d0"
+  }
+}

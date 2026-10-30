@@ -2,6 +2,11 @@ package instance
 
 import (
 	"context"
+	"errors"
+	"log/slog"
+	"strings"
+	"time"
+
 	pb "github.com/zhangzhe-ctrl/ani-resource-service/api/instance/terminal/v1"
 	biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance"
 	"google.golang.org/grpc/codes"
@@ -31,9 +36,16 @@ func (s *TerminalValidation) ValidateTerminalTarget(ctx context.Context, t *pb.T
 	if !valid(i) {
 		return nil, status.Error(codes.FailedPrecondition, "INSTANCE_TERMINAL_TARGET_STALE")
 	}
+	started := time.Now()
 	obs, e := s.provider.Observe(ctx, i)
 	if e != nil {
-		return nil, rpcError(e)
+		mapped := rpcError(e)
+		slog.ErrorContext(ctx, "instance_terminal_target_validation_failed",
+			"stage", "provider.observe", "instance_id", i.ID,
+			"grpc_code", status.Code(mapped).String(), "elapsed_ms", time.Since(started).Milliseconds(),
+			"client_rate_limited", strings.Contains(e.Error(), "client rate limiter") || strings.Contains(e.Error(), "would exceed context deadline"),
+			"deadline_exceeded", errors.Is(e, context.DeadlineExceeded) || ctx.Err() == context.DeadlineExceeded)
+		return nil, mapped
 	}
 	if !obs.NotebookExists || !obs.PodReady || obs.Stopped || obs.NotebookUID != t.NotebookUid || obs.PodUID != t.PodUid || obs.PodName != t.PodName || obs.IntentVersion != t.Version {
 		return nil, status.Error(codes.FailedPrecondition, "INSTANCE_TERMINAL_TARGET_STALE")

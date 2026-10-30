@@ -1,0 +1,121 @@
+{
+  "environment": {
+    "CGO_ENABLED": "0",
+    "GOCACHE": "/root/ani-runs/container-restart-pvc-20261028/gocache",
+    "GOFLAGS": "-mod=readonly -p=1",
+    "GOMAXPROCS": "2",
+    "GOMEMLIMIT": "2GiB",
+    "GOMODCACHE": "/root/ani-runs/container-restart-pvc-20261028/modcache",
+    "GOPROXY": "off",
+    "GOTMPDIR": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/t",
+    "GOVCS": "*:off",
+    "GOWORK": "off",
+    "TMPDIR": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/t"
+  },
+  "go_version": "go version go1.26.10 linux/amd64",
+  "host": "192.168.25.40",
+  "implementation_modified": true,
+  "input_sha256": "a32936ec8ca97b43aa7f2804e1a32e05dfc5fb597efdefcf3df6fa380c037e5a",
+  "no_api_pg_image_or_full_suite": true,
+  "results": [
+    {
+      "assertion_output": [],
+      "command": [
+        "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-p=1",
+        "-timeout=180s",
+        "./internal/biz/instance",
+        "-run",
+        "^TestLifecycle(DefinitiveVersionConflictRetriesCurrentPhase|VersionRetryKeepsUnknownWritePending|VersionRetryPreservesDefinitiveOwnershipFailure)$"
+      ],
+      "cwd": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/src",
+      "duration_seconds": 2.887,
+      "exit_code": 0,
+      "failed_tests": [],
+      "label": "worker-target",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/worker-target.green.log.jsonl",
+      "log_sha256": "4fd7f5dbdbee413ac0af533fcde477883f4eacad4f5d8365e77ccd7970b1333f",
+      "status": "GREEN_PASS",
+      "timed_out": false
+    },
+    {
+      "assertion_output": [],
+      "command": [
+        "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-p=1",
+        "-timeout=180s",
+        "./internal/data/instance",
+        "-run",
+        "^TestLifecycleIdentity(RefreshesRVAfterPodObservation|RejectsControlDriftAfterPodObservation)$"
+      ],
+      "cwd": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/src",
+      "duration_seconds": 15.249,
+      "exit_code": 0,
+      "failed_tests": [],
+      "label": "data-target",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/data-target.green.log.jsonl",
+      "log_sha256": "de9037c85e46a9e0b2d51ec7e0d066acc1b5cb0de34eb323ffea542c2ff2eaac",
+      "status": "GREEN_PASS",
+      "timed_out": false
+    },
+    {
+      "assertion_output": [],
+      "command": [
+        "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-p=1",
+        "-timeout=180s",
+        "./internal/biz/instance"
+      ],
+      "cwd": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/src",
+      "duration_seconds": 0.679,
+      "exit_code": 0,
+      "failed_tests": [],
+      "label": "worker-package",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/worker-package.green.log.jsonl",
+      "log_sha256": "c2183c776de653a346ea1a1156e37356c967d9ce8087ad18089c5cd3c4a46362",
+      "status": "GREEN_PASS",
+      "timed_out": false
+    },
+    {
+      "assertion_output": [],
+      "command": [
+        "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-p=1",
+        "-timeout=180s",
+        "./internal/data/instance"
+      ],
+      "cwd": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/src",
+      "duration_seconds": 5.456,
+      "exit_code": 0,
+      "failed_tests": [],
+      "label": "data-package",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/data-package.green.log.jsonl",
+      "log_sha256": "9f4fb514203b26c6def6095350dbdcb83543f64cd430c0ff3d8fc5ad96d44557",
+      "status": "GREEN_PASS",
+      "timed_out": false
+    }
+  ],
+  "source": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/src",
+  "source_hashes_verified_after": true,
+  "status": "GREEN_PASS",
+  "task_files": {
+    "delta.green.manifest.json": "65384c5d345faa3bd10676dcadfc6ea939c8491fd2630262d51a449e67226e8f",
+    "delta.green.tar.gz": "521e1980ee1c7ce92a8c42aa20be1b4ee7083ba05e09217708ab34349258e2ff",
+    "gofmt.diff": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gofmt.safe.json": "03fe7896117de95d7368e2953948ed5d03a4997dbf8321c0c395f27c98d11e94",
+    "run-green.py": "34b64dded353498614e09be6e43069423dc30f44d959201e9801de4d54bc92aa",
+    "source24-green.manifest.json": "bada655797918148b626573bf67038e24303c6d08c0ad16716b6c98f733478ff"
+  }
+}

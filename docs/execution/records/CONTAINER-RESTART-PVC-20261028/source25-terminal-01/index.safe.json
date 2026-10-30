@@ -1,0 +1,52 @@
+{
+  "a05_owned_user41_role34_cleanup": "PASS",
+  "a05_running_attach_without_create_start_stop_restart": "PASS",
+  "a25_empty_restart_original_create_replay_start": "PASS",
+  "borrowed_original_pvc_pv_files_retained": "PASS",
+  "formal_reader5_same_pod_and_version": "PASS",
+  "image": "sha256:f5f006771e22d2048ac645b0ac52e06be3079bb91caa120544983f88f07e2aef",
+  "reader_final_delete6_and_cleanup": "PASS",
+  "receipts": [
+    {
+      "file": "build-publish-01.safe.json",
+      "sha256": "e5819347f927d14c6a06db4d091ac5f54cd0ccdf5e89fa38ef5b31b77e3dd529"
+    },
+    {
+      "file": "candidate-binding.json",
+      "sha256": "1453216e0d2951a5e968545438519d821c19c6d250c2ac8a686e06bf0e59c6be"
+    },
+    {
+      "file": "deployment.safe.json",
+      "sha256": "2697e4b282cd500fb56936c99833187334e91ce36a1f3d7e184573c3511931ba"
+    },
+    {
+      "file": "reader-final-state.safe.json",
+      "sha256": "64dfcf6930b1830e0519a737095e98be64df6ab582f909be6112ab86f6bdb238"
+    },
+    {
+      "file": "reader5-terminal.safe.json",
+      "sha256": "bc9039e418baedee19199254f209f36b5e3c58b3853442ed30ac01404ee194ff"
+    },
+    {
+      "file": "reader6-cleanup.safe.json",
+      "sha256": "cf504755443fbd8435bf25a1c9ea14ff7fedfedcd544d8603fac1aebb8d4c495"
+    },
+    {
+      "file": "reader6-refs.safe.json",
+      "sha256": "c31eadbd06d3538555efc3db371e15700be0b1d4b7011c466f7e80a7a391e0a1"
+    },
+    {
+      "file": "source.receipt.json",
+      "sha256": "1de7de2132fee265b27d46c026ea7cad5230f8195d3295e7c58ab1cc26a08527"
+    }
+  ],
+  "remaining": [
+    "GPU formal terminal on Source25 not yet verified",
+    "remaining required fault recovery, invalid mount and authorization boundary scenarios",
+    "A35 old four PVC history not proven; A36 deferred by user scope"
+  ],
+  "resource_revision": "d505f4a9ace1d62836a36a8df66ce7a7fda1eda3",
+  "schema": "source25-terminal-result-v1",
+  "tests_or_release_gates": "NOT_RUN_USER_PROHIBITED",
+  "whole_goal": "IN_PROGRESS"
+}

@@ -1,0 +1,58 @@
+{
+  "files": [
+    {
+      "name": "close.result.safe.json",
+      "result": "FAIL",
+      "sha256": "d42398a09a13cce1110a19e1f54fae375fd5efa9d5302aaa232397c8774bcdb5"
+    },
+    {
+      "name": "drain.result.safe.json",
+      "result": "FAIL",
+      "sha256": "d2cfca9046e693b392e892fef96d3423b54b82b9a3437914634367b0cdd456f4"
+    },
+    {
+      "name": "closed-rebase.result.safe.json",
+      "result": "PASS",
+      "sha256": "a85bef3f4671337766aeac9fab3d3d4eacf6228163755d7cb096d11c1f19a2f6"
+    },
+    {
+      "name": "drain-retry-01.result.safe.json",
+      "result": "PASS",
+      "sha256": "ca800698bfff3f50a406070bc2ee47a104ec29889c37661ea1f6e7dfa6fb8cee"
+    },
+    {
+      "name": "install.result.safe.json",
+      "result": "PASS",
+      "sha256": "dbe20e51a581eec6107aec52ee426edf8c1bc5b76f95e41fce6527445cc03969"
+    },
+    {
+      "name": "start.result.safe.json",
+      "result": "PASS",
+      "sha256": "9b5a262fd3148c6bb6eee4d2004469209e0556192d354bf9750701351a28c82f"
+    },
+    {
+      "name": "open.result.safe.json",
+      "result": "PASS",
+      "sha256": "608d9fa698ea2221efe3be54c7db154d88d273a8e1d924b1af57864dded694a3"
+    },
+    {
+      "name": "resource-closed-rebase-01.safe.json",
+      "result": "FROZEN_CLOSED_IMAGE_ONLY_REBASE",
+      "sha256": "81187b26c648e5c5780bf75b89b375faab0316348e0ac644d4b0b59f03f8439f"
+    },
+    {
+      "name": "authquery.result.safe.json",
+      "result": "PASS_NORMAL_AUTHENTICATED_QUERY",
+      "sha256": "ce17f2ed89c34108ea548ce571de485bd84eec6206fda8c2952ab73aa75d9c48"
+    },
+    {
+      "name": "candidate-binding.safe.json",
+      "sha256": "13e8af9c3cfc869e597dbe321b9a19949ff551beaf40aefd2b6b72669e86cc78"
+    }
+  ],
+  "resource_image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:e3ef1cdff2d44fe155334c47cc6a3598d11cbb18ec953d6cab1f3bc7f9721d6f",
+  "resource_revision": "972c8e3af8e1b38b90415a32c47176a9b7d8049a",
+  "runner_sha256": "22d0b5be920f75a17217b52afa921ff1829a5190dd60083617e180b75adee4c3",
+  "schema": "source23-resource-deployment-evidence-v1",
+  "scope": "DEPLOYMENT_ONLY; business acceptance recorded separately"
+}

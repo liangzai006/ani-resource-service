@@ -1,0 +1,149 @@
+{
+  "actual_status_event": {
+    "at": "2026-10-29T19:27:51.459703Z",
+    "object": {
+      "deleting": false,
+      "generation": 19,
+      "kind": "StatefulSet",
+      "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "observed_generation": 18,
+      "resource_version": "15999650",
+      "spec_replicas": 0,
+      "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a"
+    },
+    "watch_type": "MODIFIED"
+  },
+  "assertion_source": "approved v2.0 A17; no mandatory coincident GET or two-sample threshold",
+  "final_same_operation": {
+    "action": "stop",
+    "applied_mount_version": "14",
+    "completion_scope": "",
+    "failure_reason": "",
+    "final_run_state": "stopped",
+    "id": "7316a712-20a9-4271-b432-2c68a34cf906",
+    "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "intentVersion": "16",
+    "phase": "done",
+    "reason": "",
+    "state": "completed"
+  },
+  "following_fresh_formal_queries": {
+    "after": {
+      "at": "2026-10-29T19:27:53.756847Z",
+      "instance": {
+        "activeOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+        "appliedMountVersion": "14",
+        "computeCleaned": false,
+        "compute_type": "cpu",
+        "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+        "desiredState": "stopped",
+        "executionRunState": "stopped",
+        "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "instance_kind": "container",
+        "lastOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+        "networkCleaned": false,
+        "observedState": "pending",
+        "quotaReturned": false,
+        "version": "16",
+        "volumeReferencesReleased": false,
+        "workspaceCleaned": false
+      },
+      "operation": {
+        "action": "stop",
+        "applied_mount_version": "14",
+        "completion_scope": "",
+        "failure_reason": "",
+        "final_run_state": "stopped",
+        "id": "7316a712-20a9-4271-b432-2c68a34cf906",
+        "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "intentVersion": "16",
+        "phase": "stopping",
+        "reason": "",
+        "state": "accepted"
+      }
+    },
+    "before": {
+      "at": "2026-10-29T19:27:51.947891Z",
+      "instance": {
+        "activeOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+        "appliedMountVersion": "14",
+        "computeCleaned": false,
+        "compute_type": "cpu",
+        "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+        "desiredState": "stopped",
+        "executionRunState": "stopped",
+        "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "instance_kind": "container",
+        "lastOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+        "networkCleaned": false,
+        "observedState": "pending",
+        "quotaReturned": false,
+        "version": "16",
+        "volumeReferencesReleased": false,
+        "workspaceCleaned": false
+      },
+      "operation": {
+        "action": "stop",
+        "applied_mount_version": "14",
+        "completion_scope": "",
+        "failure_reason": "",
+        "final_run_state": "stopped",
+        "id": "7316a712-20a9-4271-b432-2c68a34cf906",
+        "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "intentVersion": "16",
+        "phase": "stopping",
+        "reason": "",
+        "state": "accepted"
+      }
+    },
+    "fresh_coherent_bookend": true,
+    "negative_fields": {
+      "observed_generation_lag": false,
+      "replicas_nonzero": false
+    },
+    "notebook_after": {
+      "deleting": false,
+      "intent_version": "16",
+      "kind": "Notebook",
+      "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "resource_version": "15999742",
+      "stopped_annotation": "true",
+      "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+    },
+    "notebook_before": {
+      "deleting": false,
+      "intent_version": "16",
+      "kind": "Notebook",
+      "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "resource_version": "15999692",
+      "stopped_annotation": "true",
+      "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+    },
+    "statefulset": {
+      "deleting": false,
+      "generation": 19,
+      "kind": "StatefulSet",
+      "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "observed_generation": 19,
+      "resource_version": "15999660",
+      "spec_replicas": 0,
+      "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a"
+    }
+  },
+  "limitations": [
+    "No fresh GET was coincident with the short lag event.",
+    "No claim of an isolated internal guard branch read.",
+    "Later admission-fault attempts did not establish a fresh lag window and are not promoted to successful injection tests."
+  ],
+  "method": "The Kubernetes watch records the real generation lag. The same durable operation is still accepted in the following official queries. Its verified terminal monotonicity rules out an earlier terminal completion during the lag. These are real LIVE observations; no external response or object was fabricated.",
+  "original_fresh_window_result": {
+    "evidence": null,
+    "result": "NOT_VERIFIED_WINDOW_NOT_CAPTURED"
+  },
+  "result": "PASS_LIVE_OBSERVED_GENERATION_LAG_ORIGINAL_STOP_NONTERMINAL",
+  "source_record": "a17-natural/sts02-state.safe.json"
+}

@@ -360,11 +360,18 @@ func (w *Worker) lifecycleMutation(ctx context.Context, work Work, p *Progress, 
 	} else if errors.Is(err, ErrUnknown) || errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded) {
 		block(p, ErrUnknown.Error())
 	} else {
-		// A definitive conditional rejection cannot later apply. Configuration is
-		// still classified by the original operation during safe-stop recovery.
+		// A definitive conditional rejection cannot later apply. Persist its
+		// receipt before a fresh observation can authorize another mutation.
 		p.Instance.Pending = nil
 		p.Receipt = &MutationReceipt{Mutation: m, Outcome: "definitive_rejection"}
-		recovering(p, err.Error())
+		if errors.Is(err, ErrVersion) {
+			// A rejected provider CAS cannot apply later. Keep this phase and
+			// accepted intent so the next claim can bind a new mutation to a
+			// fresh observation; status-only RV churn is not a root failure.
+			block(p, ErrVersion.Error())
+		} else {
+			recovering(p, err.Error())
+		}
 	}
 	return true, w.repo.Finish(ctx, work, *p)
 }

@@ -183,5 +183,73 @@ func (r *sandboxRetry) Delete(ctx context.Context, req *sandboxpb.DeleteRequest)
 	return r.target.service.Delete(ctx, req)
 }
 
+func (r *sandboxRetry) RunCode(ctx context.Context, req *sandboxpb.RunCodeRequest) (*sandboxpb.RunCodeResponse, error) {
+	r.targetMu.RLock()
+	defer r.targetMu.RUnlock()
+	if r.target == nil {
+		return nil, sandboxUnavailable()
+	}
+	return r.target.service.RunCode(ctx, req)
+}
+
+func (r *sandboxRetry) GetCodeRun(ctx context.Context, req *sandboxpb.GetCodeRunRequest) (*sandboxpb.GetCodeRunResponse, error) {
+	r.targetMu.RLock()
+	defer r.targetMu.RUnlock()
+	if r.target == nil {
+		return nil, sandboxUnavailable()
+	}
+	return r.target.service.GetCodeRun(ctx, req)
+}
+
+func (r *sandboxRetry) QueryFiles(ctx context.Context, req *sandboxpb.QueryFilesRequest) (*sandboxpb.QueryFilesResponse, error) {
+	r.targetMu.RLock()
+	defer r.targetMu.RUnlock()
+	if r.target == nil {
+		return nil, sandboxUnavailable()
+	}
+	return r.target.service.QueryFiles(ctx, req)
+}
+func (r *sandboxRetry) MutateFiles(ctx context.Context, req *sandboxpb.MutateFilesRequest) (*sandboxpb.MutateFilesResponse, error) {
+	r.targetMu.RLock()
+	defer r.targetMu.RUnlock()
+	if r.target == nil {
+		return nil, sandboxUnavailable()
+	}
+	return r.target.service.MutateFiles(ctx, req)
+}
+func (r *sandboxRetry) GetFileOperation(ctx context.Context, req *sandboxpb.GetFileOperationRequest) (*sandboxpb.GetFileOperationResponse, error) {
+	r.targetMu.RLock()
+	defer r.targetMu.RUnlock()
+	if r.target == nil {
+		return nil, sandboxUnavailable()
+	}
+	return r.target.service.GetFileOperation(ctx, req)
+}
+
+func (r *sandboxRetry) CreateToken(ctx context.Context, req *sandboxpb.CreateTokenRequest) (*sandboxpb.CreateTokenResponse, error) {
+	r.targetMu.RLock()
+	defer r.targetMu.RUnlock()
+	if r.target == nil {
+		return nil, sandboxUnavailable()
+	}
+	return r.target.service.CreateToken(ctx, req)
+}
+func (r *sandboxRetry) ValidateToken(ctx context.Context, req *sandboxpb.ValidateTokenRequest) (*sandboxpb.ValidateTokenResponse, error) {
+	r.targetMu.RLock()
+	defer r.targetMu.RUnlock()
+	if r.target == nil {
+		return nil, sandboxUnavailable()
+	}
+	return r.target.service.ValidateToken(ctx, req)
+}
+func (r *sandboxRetry) RevokeToken(ctx context.Context, req *sandboxpb.RevokeTokenRequest) (*sandboxpb.RevokeTokenResponse, error) {
+	r.targetMu.RLock()
+	defer r.targetMu.RUnlock()
+	if r.target == nil {
+		return nil, sandboxUnavailable()
+	}
+	return r.target.service.RevokeToken(ctx, req)
+}
+
 var _ transport.Server = (*sandboxRetry)(nil)
 var _ sandboxpb.SandboxServiceServer = (*sandboxRetry)(nil)

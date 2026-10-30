@@ -1,0 +1,35 @@
+{
+  "applied_mount_version": "4",
+  "borrowed_gpu_marker_attempts": 1,
+  "borrowed_pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+  "borrowed_pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+  "cpu_marker_writes": 0,
+  "instance_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+  "lifecycle_writes": 0,
+  "logout": "CONFIRMED",
+  "marker_exec_exit_code": 0,
+  "preserved_identities": {
+    "notebook_uid": "1019c6f6-d97b-4cc0-8989-d80e4b3fef04",
+    "statefulset_uid": "7fee7ec3-b791-4cb9-9548-544a36dd75e3",
+    "workspace_pv_name": "pvc-7760c2b9-8528-4368-98cd-0e93c5781a73",
+    "workspace_pv_uid": "f83ff1c7-e6e6-4a0b-ad2e-84a59a11afda",
+    "workspace_pvc_uid": "7760c2b9-8528-4368-98cd-0e93c5781a73"
+  },
+  "proof": {
+    "borrowed_gpu_marker_creates": 1,
+    "cpu_marker_writes": 0,
+    "event": "GPU_BORROWED_RW_FIRST_MARKER_PASS",
+    "marker_hashes": {
+      "borrowed_cpu": "9df8c355f11f1f2bf277957b03c48786ad094fc9c7d7e5b44deae9a9c0dd7df3",
+      "borrowed_gpu": "36ed05fc21865dbc8eb653ca543704d20b208d87e44f800e3f0c44da48570dc9",
+      "workspace_gpu": "36ed05fc21865dbc8eb653ca543704d20b208d87e44f800e3f0c44da48570dc9"
+    },
+    "mount_path": "/datasets/gpu-01a18156",
+    "pod_uid": "e7ff4ccc-8197-40b3-9181-e9644b905503",
+    "workspace_marker_writes": 0
+  },
+  "result": "PASS_GPU_RW_FIRST_MARKER_AND_OLD_DATA",
+  "schema": "ani.gpu-borrowed-rw-proof-01.safe.v1",
+  "version": "5",
+  "workspace_marker_writes": 0
+}

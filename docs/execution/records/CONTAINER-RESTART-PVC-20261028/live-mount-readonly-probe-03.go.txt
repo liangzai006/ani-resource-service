@@ -1,0 +1,301 @@
+package main
+
+import (
+	"context"
+	"crypto/x509"
+	"encoding/base64"
+	"encoding/json"
+	"errors"
+	"flag"
+	"fmt"
+	"net"
+	"net/http"
+	"net/url"
+	"os"
+	"regexp"
+	"strings"
+	"sync"
+	"time"
+
+	biz "github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance"
+	data "github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
+	"k8s.io/client-go/dynamic"
+	"k8s.io/client-go/tools/clientcmd"
+)
+
+const tenant = "64c5c35a-f554-432c-b4bc-7b4f36f08420"
+const instanceID = "e3dd2bc7-1c6a-429b-a401-e175c287d5cf"
+
+type snapshot struct {
+	Version             int64             `json:"version"`
+	Desired             string            `json:"desired"`
+	RuntimeDesired      string            `json:"runtime_desired"`
+	MountsInitialized   bool              `json:"mounts_initialized"`
+	AppliedMountVersion int64             `json:"applied_mount_version"`
+	CurrentMounts       []biz.StoredMount `json:"current_mounts"`
+	Frozen              struct {
+		ClusterID     string `json:"cluster_id"`
+		Namespace     string `json:"namespace"`
+		NotebookName  string `json:"notebook_name"`
+		WorkspacePVC  string `json:"workspace_pvc"`
+		WorkspacePath string `json:"workspace_path"`
+	} `json:"frozen"`
+	Identity struct {
+		NotebookUID    string       `json:"notebook_uid"`
+		StatefulSetUID string       `json:"statefulset_uid"`
+		PodUID         string       `json:"pod_uid"`
+		TrackedPods    []biz.PodRef `json:"tracked_pods"`
+	} `json:"identity"`
+}
+
+type call struct {
+	Resource   string `json:"resource"`
+	Status     int    `json:"http_status,omitempty"`
+	DurationMS int64  `json:"duration_ms"`
+	ErrorClass string `json:"error_class,omitempty"`
+}
+type trace struct {
+	sync.Mutex
+	Calls []call
+}
+type readOnly struct {
+	next    http.RoundTripper
+	host    string
+	allowed map[string]string
+	trace   *trace
+}
+
+func classify(err error) string {
+	if err == nil {
+		return ""
+	}
+	if errors.Is(err, context.DeadlineExceeded) {
+		return "CONTEXT_DEADLINE"
+	}
+	if errors.Is(err, context.Canceled) {
+		return "CONTEXT_CANCELLED"
+	}
+	var ca x509.UnknownAuthorityError
+	if errors.As(err, &ca) {
+		return "TLS_UNKNOWN_CA"
+	}
+	var hn x509.HostnameError
+	if errors.As(err, &hn) {
+		return "TLS_HOSTNAME_MISMATCH"
+	}
+	var ci x509.CertificateInvalidError
+	if errors.As(err, &ci) {
+		return "TLS_CERTIFICATE_INVALID"
+	}
+	if apierrors.IsForbidden(err) {
+		return "KUBE_FORBIDDEN"
+	}
+	if apierrors.IsUnauthorized(err) {
+		return "KUBE_UNAUTHORIZED"
+	}
+	if apierrors.IsNotFound(err) {
+		return "KUBE_NOT_FOUND"
+	}
+	var ne net.Error
+	if errors.As(err, &ne) && ne.Timeout() {
+		return "NETWORK_TIMEOUT"
+	}
+	if errors.Is(err, biz.ErrOwnership) {
+		return "INSTANCE_OWNERSHIP_CONFLICT"
+	}
+	if errors.Is(err, biz.ErrVersion) {
+		return "INSTANCE_VERSION_CONFLICT"
+	}
+	if strings.Contains(err.Error(), "rate limiter") {
+		return "CLIENT_RATE_LIMITER"
+	}
+	return "OTHER_REDACTED"
+}
+
+func (r readOnly) RoundTrip(req *http.Request) (*http.Response, error) {
+	resource, ok := r.allowed[req.URL.Path]
+	if req.Method != "GET" || req.URL.Scheme != "https" || req.URL.Host != r.host || req.URL.RawPath != "" || !ok || req.URL.Query().Get("watch") == "true" {
+		return nil, fmt.Errorf("READ_ONLY_FIXED_SCOPE_REJECTED")
+	}
+	start := time.Now()
+	resp, err := r.next.RoundTrip(req)
+	c := call{Resource: resource, DurationMS: time.Since(start).Milliseconds(), ErrorClass: classify(err)}
+	if resp != nil {
+		c.Status = resp.StatusCode
+	}
+	r.trace.Lock()
+	r.trace.Calls = append(r.trace.Calls, c)
+	r.trace.Unlock()
+	return resp, err
+}
+
+func private(path string) ([]byte, error) {
+	st, err := os.Lstat(path)
+	if err != nil {
+		return nil, fmt.Errorf("PRIVATE_FILE_UNAVAILABLE")
+	}
+	if !st.Mode().IsRegular() || st.Mode().Perm() != 0600 || st.Size() > 4<<20 {
+		return nil, fmt.Errorf("PRIVATE_FILE_MODE_OR_SIZE")
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		return nil, fmt.Errorf("PRIVATE_FILE_READ_FAILED")
+	}
+	return b, nil
+}
+
+func main() {
+	var kubePath, snapshotPath, output, dial, resourcePodUID string
+	var requireSafeStopped bool
+	flag.StringVar(&kubePath, "kubeconfig", "", "private subject-equivalent Pod-bound SA kubeconfig")
+	flag.StringVar(&snapshotPath, "snapshot", "", "private PG safe snapshot")
+	flag.StringVar(&output, "output", "", "new safe output file")
+	flag.StringVar(&resourcePodUID, "resource-pod-uid", "", "exact current Resource Pod UID; must match the bound same-SA token claim")
+	flag.StringVar(&dial, "dial-target", "10.10.1.66:6443", "task direct API connection target; URL host/TLS name retained")
+	flag.BoolVar(&requireSafeStopped, "require-safe-stopped", false, "require both real observations to prove SafeStopped")
+	flag.Parse()
+	result := map[string]any{"schema": "real-go-live-mount-readonly-v1", "credential_semantics": "TOKEN_REQUEST_SUBJECT_EQUIVALENT", "resource_pod_uid": resourcePodUID, "read_only": true, "require_safe_stopped": requireSafeStopped, "context_timeout_seconds": 30, "client_qps": 5, "client_burst": 10, "client_timeout_seconds": 15, "dial_target": dial, "network_scope": "new heavy host direct API; not the Pod network route", "started_at": time.Now().UTC().Format(time.RFC3339Nano)}
+	fail := func(code string) {
+		result["result"] = "PROBE_SETUP_FAILED"
+		result["error_class"] = code
+		save(output, result)
+		os.Exit(2)
+	}
+	if kubePath == "" || snapshotPath == "" || output == "" || !regexp.MustCompile(`^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`).MatchString(resourcePodUID) || dial != "10.10.1.66:6443" || flag.NArg() != 0 {
+		fail("INVALID_EXPLICIT_INPUT")
+	}
+	raw, err := private(snapshotPath)
+	if err != nil {
+		fail("SNAPSHOT_PRIVATE_READ_FAILED")
+	}
+	var s snapshot
+	if json.Unmarshal(raw, &s) != nil || s.Frozen.Namespace != "tenant-"+tenant || s.Frozen.NotebookName != "instance-"+instanceID || s.Frozen.ClusterID != "f39bf6e2-f3ed-4191-ada3-caeebf86c220" {
+		fail("FROZEN_INSTANCE_SCOPE_REQUIRED")
+	}
+	if requireSafeStopped && (s.Desired != biz.Stopped || s.RuntimeDesired != biz.Stopped || !s.MountsInitialized) {
+		fail("STOPPED_PG_SNAPSHOT_REQUIRED")
+	}
+	raw, err = private(kubePath)
+	if err != nil {
+		fail("KUBECONFIG_PRIVATE_READ_FAILED")
+	}
+	cfg, err := clientcmd.RESTConfigFromKubeConfig(raw)
+	clear(raw)
+	if err != nil {
+		fail("KUBECONFIG_DECODE_FAILED")
+	}
+	if cfg.Insecure || len(cfg.CAData) == 0 || cfg.ExecProvider != nil || cfg.AuthProvider != nil || cfg.BearerToken == "" || cfg.BearerTokenFile != "" || len(cfg.CertData) > 0 || len(cfg.KeyData) > 0 || cfg.Username != "" || cfg.Password != "" {
+		fail("EXPLICIT_STRICT_SA_CONFIG_REQUIRED")
+	}
+	// Claim checks bind the requested diagnostic identity; API TLS/auth still
+	// independently verifies the signature. The JWT and payload never enter logs.
+	parts := strings.Split(cfg.BearerToken, ".")
+	if len(parts) != 3 {
+		fail("BOUND_SA_TOKEN_REQUIRED")
+	}
+	payload, err := base64.RawURLEncoding.DecodeString(parts[1])
+	if err != nil {
+		fail("BOUND_SA_TOKEN_REQUIRED")
+	}
+	var claims struct {
+		Sub        string `json:"sub"`
+		Kubernetes struct {
+			Pod struct {
+				UID string `json:"uid"`
+			} `json:"pod"`
+		} `json:"kubernetes.io"`
+	}
+	if json.Unmarshal(payload, &claims) != nil || claims.Sub != "system:serviceaccount:ani-system:ani-resource-service" || claims.Kubernetes.Pod.UID != resourcePodUID {
+		clear(payload)
+		fail("BOUND_SA_SUBJECT_OR_POD_MISMATCH")
+	}
+	clear(payload)
+	server, err := url.Parse(cfg.Host)
+	if err != nil || server.Scheme != "https" || server.User != nil || server.RawQuery != "" || server.Fragment != "" {
+		fail("STRICT_ORIGINAL_API_URL_REQUIRED")
+	}
+	result["original_api_host"] = server.Host
+	result["tls_server_name"] = server.Hostname()
+	result["strict_ca_verified"] = true
+	cfg.TLSClientConfig.ServerName = server.Hostname()
+	cfg.QPS = 5
+	cfg.Burst = 10
+	cfg.Timeout = 15 * time.Second
+	cfg.Proxy = func(*http.Request) (*url.URL, error) { return nil, nil }
+	cfg.Dial = func(ctx context.Context, network, addr string) (net.Conn, error) {
+		return (&net.Dialer{Timeout: 10 * time.Second}).DialContext(ctx, network, dial)
+	}
+	ns := s.Frozen.Namespace
+	name := s.Frozen.NotebookName
+	allowed := map[string]string{"/apis/kubeflow.org/v1/namespaces/" + ns + "/notebooks/" + name: "notebook_get", "/apis/apps/v1/namespaces/" + ns + "/statefulsets/" + name: "statefulset_get", "/api/v1/namespaces/" + ns + "/pods": "pods_list", "/api/v1/namespaces/" + ns + "/pods/" + name + "-0": "pod_get"}
+	tr := &trace{}
+	cfg.WrapTransport = func(rt http.RoundTripper) http.RoundTripper {
+		return readOnly{next: rt, host: server.Host, allowed: allowed, trace: tr}
+	}
+	client, err := dynamic.NewForConfig(cfg)
+	if err != nil {
+		fail("DYNAMIC_CLIENT_SETUP_FAILED")
+	}
+	provider, err := data.NewNotebook(client)
+	if err != nil {
+		fail("REAL_PROVIDER_SETUP_FAILED")
+	}
+	if provider.ConfigureClusterID(s.Frozen.ClusterID) != nil {
+		fail("CLUSTER_SCOPE_FAILED")
+	}
+	i := biz.Instance{TenantID: tenant, ID: instanceID, CreateOperationID: "4b687e97-70cf-48b7-b973-2bb70616f003", Version: s.Version, Desired: s.Desired, RuntimeDesired: s.RuntimeDesired, MountsInitialized: s.MountsInitialized, AppliedMountVersion: s.AppliedMountVersion, CurrentMounts: biz.LoadMounts(s.CurrentMounts), NotebookUID: s.Identity.NotebookUID, StatefulSetUID: s.Identity.StatefulSetUID, PodUID: s.Identity.PodUID, TrackedPods: s.Identity.TrackedPods, Spec: biz.Spec{InstanceKind: "container", ComputeType: "cpu", ClusterID: s.Frozen.ClusterID, Namespace: ns, NotebookName: name, PVCName: s.Frozen.WorkspacePVC, WorkspaceMountPath: s.Frozen.WorkspacePath}}
+	if i.PodUID != "" {
+		i.PodName = name + "-0"
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	start := time.Now()
+	obs, observeErr := provider.ObserveIdentity(ctx, i)
+	result["initial_observe_duration_ms"] = time.Since(start).Milliseconds()
+	result["initial_observe_error_class"] = classify(observeErr)
+	result["initial_observation"] = obs
+	if observeErr == nil {
+		at := time.Now()
+		proof, proofErr := provider.VerifyMountTemplate(ctx, i, i.CurrentMounts, i.CurrentMounts)
+		result["verify_duration_ms"] = time.Since(at).Milliseconds()
+		result["proof"] = proof
+		result["verify_error_class"] = classify(proofErr)
+		if proofErr == nil && proof.Class == "target" && (!requireSafeStopped || proof.SafeStopped && obs.SafeStopped) {
+			result["result"] = "REAL_API_MOUNT_TEMPLATE_TARGET"
+		} else {
+			result["result"] = "REAL_API_MOUNT_TEMPLATE_UNVERIFIED"
+		}
+	} else {
+		result["result"] = "INITIAL_REAL_OBSERVE_FAILED"
+	}
+	result["total_duration_ms"] = time.Since(start).Milliseconds()
+	result["calls"] = tr.Calls
+	result["finished_at"] = time.Now().UTC().Format(time.RFC3339Nano)
+	if !save(output, result) {
+		os.Exit(2)
+	}
+	if result["result"] != "REAL_API_MOUNT_TEMPLATE_TARGET" {
+		os.Exit(1)
+	}
+}
+
+func save(path string, result map[string]any) bool {
+	if path == "" {
+		fmt.Println(`{"result":"PROBE_SETUP_FAILED","error_class":"OUTPUT_REQUIRED"}`)
+		return false
+	}
+	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
+	if err != nil {
+		fmt.Println(`{"result":"PROBE_SETUP_FAILED","error_class":"NEW_OUTPUT_FILE_REQUIRED"}`)
+		return false
+	}
+	defer f.Close()
+	if json.NewEncoder(f).Encode(result) != nil || f.Sync() != nil {
+		fmt.Println(`{"result":"PROBE_SETUP_FAILED","error_class":"OUTPUT_WRITE_FAILED"}`)
+		return false
+	}
+	b, _ := json.Marshal(result)
+	fmt.Println(string(b))
+	return true
+}

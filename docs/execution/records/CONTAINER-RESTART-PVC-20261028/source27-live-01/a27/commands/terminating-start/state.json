@@ -1,0 +1,59 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "591d2fa8-b94c-50c5-80bf-43e7c7709ab3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "start",
+      "idempotency_key": "8f048cea-34db-436d-a163-3575c1e43a91",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "26",
+      "request_body_sha256": "e7619eef6aefcd785bf6a9565260cc79820bd2f1d7997e6a5e76efc14d676e6f",
+      "ack": {
+        "operationId": "793a0e70-13f3-4d3f-afe1-478ce249a153",
+        "resourceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "793a0e70-13f3-4d3f-afe1-478ce249a153",
+        "instanceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "action": "start",
+        "intentVersion": "27",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "25",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+  "after_instance": {
+    "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "27",
+    "desiredState": "running",
+    "observedState": "running",
+    "activeOperationId": "",
+    "executionRunState": "running",
+    "appliedMountVersion": "25",
+    "lastOperationId": "793a0e70-13f3-4d3f-afe1-478ce249a153",
+    "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "start",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "793a0e70-13f3-4d3f-afe1-478ce249a153"
+  }
+}

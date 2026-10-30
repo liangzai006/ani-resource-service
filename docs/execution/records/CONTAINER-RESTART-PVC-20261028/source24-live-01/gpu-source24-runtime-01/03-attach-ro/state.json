@@ -1,0 +1,67 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "5f193ea0-07b4-5859-a7a0-d62d6818457f",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "attach-pvc",
+      "idempotency_key": "52de378e-2d25-43c8-89c8-919202e058b5",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "8",
+      "request_body_sha256": "c833b79275e4bc01f29530bd18073d337d9dd349619cc56b8ecacd1a95b766d6",
+      "ack": {
+        "operationId": "32959067-9fd1-4b62-bcb0-c7dab1103178",
+        "resourceId": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "32959067-9fd1-4b62-bcb0-c7dab1103178",
+        "instanceId": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+        "action": "attach-pvc",
+        "intentVersion": "9",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "9",
+        "completion_scope": "runtime_verified",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "mode": "command",
+  "driver_sha256": "51257002af3e49ccf00b485fa4b91c9612a9274bef8c312337a053e48bef2634",
+  "instance_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+  "after_instance": {
+    "id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+    "instance_kind": "container",
+    "compute_type": "gpu",
+    "version": "9",
+    "desiredState": "running",
+    "observedState": "running",
+    "activeOperationId": "",
+    "executionRunState": "running",
+    "appliedMountVersion": "9",
+    "lastOperationId": "32959067-9fd1-4b62-bcb0-c7dab1103178",
+    "createOperationId": "96ef1b95-b695-44cf-a61b-0a83bba682c4",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "attach-pvc",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "32959067-9fd1-4b62-bcb0-c7dab1103178"
+  },
+  "session_cleanup": [
+    {
+      "application": "console",
+      "remote": "CONFIRMED"
+    }
+  ]
+}

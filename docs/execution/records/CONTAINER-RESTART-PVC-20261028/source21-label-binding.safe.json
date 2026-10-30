@@ -1,0 +1,77 @@
+{
+  "result": "PASS",
+  "commit": "4eb39bc4868844aaf395337a2d064e91ec716df2",
+  "labels": [
+    {
+      "key": "ani.io.goal.thread",
+      "published_value": "01a18156-1172-7c22-b5fd-3048a5d895a0",
+      "changed_from_base": true,
+      "classification": "current_source21_binding"
+    },
+    {
+      "key": "ani.io.release.parents",
+      "published_value": "7fc947228c4b37a51ab80594dc8c5348416ac85c",
+      "changed_from_base": true,
+      "classification": "current_source21_binding"
+    },
+    {
+      "key": "ani.io/binary-sha256",
+      "published_value": "18f5a7d96664173117edd73f4a22d2bad37d45b026f2320ca60adba80f5e1d77",
+      "changed_from_base": true,
+      "classification": "current_source21_binding"
+    },
+    {
+      "key": "io.ani.base-revision",
+      "published_value": "0f6b686a381121334e84a4d6301269f812ab1b46",
+      "changed_from_base": true,
+      "classification": "current_source21_binding"
+    },
+    {
+      "key": "io.ani.source-manifest-sha256",
+      "published_value": "85d772c31e816576393fee87bf2ed71fc5bbdcd2fd56a920209e2bb503e98a2b",
+      "changed_from_base": true,
+      "classification": "current_source21_binding"
+    },
+    {
+      "key": "io.ani.source-snapshot-sha256",
+      "published_value": "011ba2b3b030ac2ad169bd9b91c5af4e84141cf1eba48ae01d075356de6ab50f",
+      "changed_from_base": true,
+      "classification": "current_source21_binding"
+    },
+    {
+      "key": "io.ani.source-tree",
+      "published_value": "80cefae5668a8a443e2c6b926d13a50ca069ca20",
+      "changed_from_base": true,
+      "classification": "current_source21_binding"
+    },
+    {
+      "key": "io.ani.unknown-overlay-preservation",
+      "published_value": "NOT_PROVEN",
+      "changed_from_base": true,
+      "classification": "current_source21_binding"
+    },
+    {
+      "key": "org.opencontainers.image.base.digest",
+      "published_value": "sha256:c64afac73c156ba3473d85e671cb932c787d0a6d85d1ea15b09450e0c7a8b51f",
+      "changed_from_base": true,
+      "classification": "current_source21_binding"
+    },
+    {
+      "key": "org.opencontainers.image.revision",
+      "published_value": "4eb39bc4868844aaf395337a2d064e91ec716df2",
+      "changed_from_base": true,
+      "classification": "current_source21_binding"
+    },
+    {
+      "key": "org.opencontainers.image.source",
+      "published_value": "https://github.com/zhangzhe-ctrl/ani-resource-service",
+      "changed_from_base": false,
+      "classification": "constant_repository_pointer"
+    }
+  ],
+  "historical_source_labels": [],
+  "unknown_e7f98_gpuvm_vm_logs_binary_overlay_preserved": "NOT_PROVEN",
+  "c64_meaning": "immutable rootfs/runtime configuration base only; not evidence of preserving current unknown binary overlay",
+  "new_binary_binding": "Source21 Git blobs + exact build command + binary sha256 + published labels",
+  "deployment_changed": false
+}

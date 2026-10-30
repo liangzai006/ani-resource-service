@@ -1,0 +1,931 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "591d2fa8-b94c-50c5-80bf-43e7c7709ab3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "workspace-path": {
+      "action": "attach-pvc",
+      "idempotency_key": "b45ad585-916c-455c-a5b6-2eb4442634b8",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "10",
+      "request_body_sha256": "86e01d136b180c81ac5fa33d2ab4fdf4734caa12fb2a23dbd27ecc432923f992",
+      "response": {
+        "code": "HTTP_REQUEST_REJECTED",
+        "http_status": 400,
+        "reason": "INVALID_INSTANCE_REQUEST"
+      },
+      "before": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "result": "PASS_REJECTED_UNCHANGED"
+    },
+    "workspace-shadow": {
+      "action": "attach-pvc",
+      "idempotency_key": "32b39bbf-32f0-47ce-b5c8-d55ab2a1c7ef",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "10",
+      "request_body_sha256": "bbd746457f4cc87a64822d5d65331c9c26dfcf53065027ae657810f62d10064c",
+      "response": {
+        "code": "HTTP_REQUEST_REJECTED",
+        "http_status": 400,
+        "reason": "INVALID_INSTANCE_REQUEST"
+      },
+      "before": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "result": "PASS_REJECTED_UNCHANGED"
+    },
+    "protected-path": {
+      "action": "attach-pvc",
+      "idempotency_key": "27a0b8b4-6e7f-4d6f-b435-241de55550ad",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "10",
+      "request_body_sha256": "b5e2d5deee85d8983865cc09a60d28fa789b9e5360b1f0338623812274179eb0",
+      "response": {
+        "code": "HTTP_REQUEST_REJECTED",
+        "http_status": 400,
+        "reason": "INVALID_INSTANCE_REQUEST"
+      },
+      "before": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "result": "PASS_REJECTED_UNCHANGED"
+    },
+    "existing-path-shadow": {
+      "action": "attach-pvc",
+      "idempotency_key": "5f87233b-18ca-47df-b6b7-de2bf4818fc5",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "10",
+      "request_body_sha256": "430c21911dca562f28577c43f94eb00928775407d93669c11797c28d54456d25",
+      "response": {
+        "code": "HTTP_REQUEST_REJECTED",
+        "http_status": 400,
+        "reason": "INVALID_INSTANCE_REQUEST"
+      },
+      "before": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "result": "PASS_REJECTED_UNCHANGED"
+    },
+    "dedicated-workspace-pvc": {
+      "action": "attach-pvc",
+      "idempotency_key": "6c075e92-0d1d-4a33-b843-8240766aec03",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "10",
+      "request_body_sha256": "b3d23d50ef5671e9d2052d1b1ec7c04dcd9c4c7b8be6937d8ae7858800d1adcd",
+      "response": {
+        "code": "HTTP_REQUEST_REJECTED",
+        "http_status": 404,
+        "reason": "INSTANCE_PVC_NOT_FOUND"
+      },
+      "before": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "result": "PASS_REJECTED_UNCHANGED"
+    },
+    "detach-workspace": {
+      "action": "detach-pvc",
+      "idempotency_key": "ca2e81aa-c2c3-49df-89ed-c31f038209c3",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "10",
+      "request_body_sha256": "188769d9fc5cadcb8b698701b4897af70a0c6e6c125689e1d1711a4b8a3f427b",
+      "response": {
+        "code": "HTTP_REQUEST_REJECTED",
+        "http_status": 409,
+        "reason": "INSTANCE_WORKSPACE_DETACH_FORBIDDEN"
+      },
+      "before": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "result": "PASS_REJECTED_UNCHANGED"
+    },
+    "block-pvc": {
+      "action": "attach-pvc",
+      "idempotency_key": "3e38beab-147b-43e7-b7a6-6c590a65cb34",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "10",
+      "request_body_sha256": "76685964615e628fb8a76ebc677258bc1e1e1b67a7fa5711c862faa02f5036f3",
+      "response": {
+        "code": "HTTP_REQUEST_REJECTED",
+        "http_status": 400,
+        "reason": "INVALID_INSTANCE_REQUEST"
+      },
+      "before": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "8",
+          "lastOperationId": "ce36d2a8-8996-484e-8273-cb9bc00e9250",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "10",
+          "applied_mount_version": "8",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "result": "PASS_REJECTED_UNCHANGED"
+    },
+    "ninth-additional-mount": {
+      "action": "attach-pvc",
+      "idempotency_key": "8136d391-6ca5-4b54-b28c-c1d29e98080c",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "16",
+      "request_body_sha256": "ba9de761b2032fcbe20e3b0103db899254850fb0441a6c617ece7e0eb776867b",
+      "response": {
+        "code": "HTTP_REQUEST_REJECTED",
+        "http_status": 400,
+        "reason": "INVALID_INSTANCE_REQUEST"
+      },
+      "before": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "16",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "16",
+          "lastOperationId": "c13fb30b-ce37-4633-8920-9bfd7da186e8",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "16",
+          "applied_mount_version": "16",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit1",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit2",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit3",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit4",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit5",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit6",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "16",
+          "desiredState": "stopped",
+          "observedState": "stopped",
+          "activeOperationId": "",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "16",
+          "lastOperationId": "c13fb30b-ce37-4633-8920-9bfd7da186e8",
+          "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        },
+        {
+          "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+          "version": "16",
+          "applied_mount_version": "16",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/a",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/c",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit1",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit2",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit3",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit4",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit5",
+              "read_only": false
+            },
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a26/limit6",
+              "read_only": false
+            }
+          ]
+        }
+      ],
+      "result": "PASS_REJECTED_UNCHANGED"
+    }
+  },
+  "persistent_identities": {
+    "notebook_uid": "bee12b6f-a8f3-45b7-af76-ec29704609d3",
+    "statefulset_uid": "d4177ea8-a3db-4806-924d-cfab7c80dec5",
+    "workspace_pvc_uid": "dae0ff83-dc9c-4a40-8dbb-1a59c32bf6e6",
+    "workspace_pv_name": "pvc-dae0ff83-dc9c-4a40-8dbb-1a59c32bf6e6",
+    "workspace_pv_uid": "48f29457-26e8-4393-a2ff-ce64a1c937c0"
+  },
+  "multipath_before": {
+    "pod_uid": "ca8d5221-0cad-406d-84ee-b654d76da10e",
+    "identities": {
+      "notebook_uid": "bee12b6f-a8f3-45b7-af76-ec29704609d3",
+      "statefulset_uid": "d4177ea8-a3db-4806-924d-cfab7c80dec5",
+      "workspace_pvc_uid": "dae0ff83-dc9c-4a40-8dbb-1a59c32bf6e6",
+      "workspace_pv_name": "pvc-dae0ff83-dc9c-4a40-8dbb-1a59c32bf6e6",
+      "workspace_pv_uid": "48f29457-26e8-4393-a2ff-ce64a1c937c0"
+    },
+    "runtime": {
+      "pod_uid": "ca8d5221-0cad-406d-84ee-b654d76da10e",
+      "hashes": {
+        "/workspace": "1650e74a6bc29d5f2437c4e5c11e9482ae47a2a7905186edb49274ee094c3652",
+        "/datasets/a26/a": "1650e74a6bc29d5f2437c4e5c11e9482ae47a2a7905186edb49274ee094c3652",
+        "/datasets/a26/b": "1650e74a6bc29d5f2437c4e5c11e9482ae47a2a7905186edb49274ee094c3652",
+        "/datasets/a26/c": "1650e74a6bc29d5f2437c4e5c11e9482ae47a2a7905186edb49274ee094c3652"
+      },
+      "created_only_task_markers_at": [
+        "/workspace",
+        "/datasets/a26/a"
+      ],
+      "absent_path": null,
+      "kernel_mount_absent": true
+    }
+  },
+  "multipath_after": {
+    "pod_uid": "4736cbd5-cf1c-4a51-9069-2a3370dea6ca",
+    "identities": {
+      "notebook_uid": "bee12b6f-a8f3-45b7-af76-ec29704609d3",
+      "statefulset_uid": "d4177ea8-a3db-4806-924d-cfab7c80dec5",
+      "workspace_pvc_uid": "dae0ff83-dc9c-4a40-8dbb-1a59c32bf6e6",
+      "workspace_pv_name": "pvc-dae0ff83-dc9c-4a40-8dbb-1a59c32bf6e6",
+      "workspace_pv_uid": "48f29457-26e8-4393-a2ff-ce64a1c937c0"
+    },
+    "runtime": {
+      "pod_uid": "4736cbd5-cf1c-4a51-9069-2a3370dea6ca",
+      "hashes": {
+        "/workspace": "1650e74a6bc29d5f2437c4e5c11e9482ae47a2a7905186edb49274ee094c3652",
+        "/datasets/a26/a": "1650e74a6bc29d5f2437c4e5c11e9482ae47a2a7905186edb49274ee094c3652",
+        "/datasets/a26/c": "1650e74a6bc29d5f2437c4e5c11e9482ae47a2a7905186edb49274ee094c3652"
+      },
+      "created_only_task_markers_at": [],
+      "absent_path": "/datasets/a26/b",
+      "kernel_mount_absent": true
+    }
+  },
+  "phase_results": {
+    "multi": {
+      "result": "PASS",
+      "task_cpu": "022d28e4-7c0b-4633-9f82-b510490e5877",
+      "scratch_pvc": "ani-vol-a482dd7476c148368a174eba40801b28",
+      "scratch_uid": "d520eac4-5eca-4367-a767-78844794b31c"
+    },
+    "bounds": {
+      "result": "PASS",
+      "task_cpu": "022d28e4-7c0b-4633-9f82-b510490e5877",
+      "scratch_pvc": "ani-vol-a482dd7476c148368a174eba40801b28",
+      "scratch_uid": "d520eac4-5eca-4367-a767-78844794b31c"
+    },
+    "limit": {
+      "result": "PASS",
+      "task_cpu": "022d28e4-7c0b-4633-9f82-b510490e5877",
+      "scratch_pvc": "ani-vol-a482dd7476c148368a174eba40801b28",
+      "scratch_uid": "d520eac4-5eca-4367-a767-78844794b31c"
+    }
+  },
+  "session_cleanup": [
+    {
+      "phase": "multi",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "bounds",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "limit",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "negative_bodies": {
+    "workspace-path": {
+      "data": {
+        "expectedVersion": "10",
+        "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+        "mount_path": "/workspace",
+        "idempotencyKey": "b45ad585-916c-455c-a5b6-2eb4442634b8"
+      }
+    },
+    "workspace-shadow": {
+      "data": {
+        "expectedVersion": "10",
+        "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+        "mount_path": "/workspace/child",
+        "idempotencyKey": "32b39bbf-32f0-47ce-b5c8-d55ab2a1c7ef"
+      }
+    },
+    "protected-path": {
+      "data": {
+        "expectedVersion": "10",
+        "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+        "mount_path": "/etc/a26",
+        "idempotencyKey": "27a0b8b4-6e7f-4d6f-b435-241de55550ad"
+      }
+    },
+    "existing-path-shadow": {
+      "data": {
+        "expectedVersion": "10",
+        "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+        "mount_path": "/datasets/a26/a/child",
+        "idempotencyKey": "5f87233b-18ca-47df-b6b7-de2bf4818fc5"
+      }
+    },
+    "dedicated-workspace-pvc": {
+      "data": {
+        "expectedVersion": "10",
+        "pvc_name": "workspace-022d28e4-7c0b-4633-9f82-b510490e5877",
+        "mount_path": "/datasets/a26/workspace-copy",
+        "idempotencyKey": "6c075e92-0d1d-4a33-b843-8240766aec03"
+      }
+    },
+    "detach-workspace": {
+      "data": {
+        "expectedVersion": "10",
+        "mount_path": "/workspace",
+        "idempotencyKey": "ca2e81aa-c2c3-49df-89ed-c31f038209c3"
+      }
+    },
+    "block-pvc": {
+      "data": {
+        "expectedVersion": "10",
+        "pvc_name": "ani-vol-5de409246553416887b64857f9bcfbc2",
+        "mount_path": "/datasets/a26/block",
+        "idempotencyKey": "3e38beab-147b-43e7-b7a6-6c590a65cb34"
+      }
+    },
+    "ninth-additional-mount": {
+      "data": {
+        "expectedVersion": "16",
+        "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+        "mount_path": "/datasets/a26/limit9",
+        "idempotencyKey": "8136d391-6ca5-4b54-b28c-c1d29e98080c"
+      }
+    }
+  }
+}

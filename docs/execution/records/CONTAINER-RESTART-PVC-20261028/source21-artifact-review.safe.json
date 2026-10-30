@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "remote_artifacts_verified": 11,
+  "build_receipt_sha256": "6bcfc45aca224ec0b0db9fc06841f880a1c4fef0d83cd1d5335bd99311f91c51",
+  "label_receipt_sha256": "2e349899639dd9b5d0c67228595254ff75d0593ee45ea6ed5d9da3e68a101e09",
+  "candidate_ref": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:container-restart-pvc-source21-4eb39bc48688-20261029-01a18156-7af2b0e1",
+  "candidate_digest": "sha256:516104e305d1b5f0be5d38ee126b7541ad0082782d46bf2ad8ffe58ff82c4c99",
+  "platform_digest": "sha256:3b65e77fe14b0d22765990703363d272a4a21ec963fb88c9145b1bb2c3c3fc54",
+  "commit": "4eb39bc4868844aaf395337a2d064e91ec716df2",
+  "tree": "80cefae5668a8a443e2c6b926d13a50ca069ca20",
+  "binary_sha256": "18f5a7d96664173117edd73f4a22d2bad37d45b026f2320ca60adba80f5e1d77",
+  "source_manifest_sha256": "85d772c31e816576393fee87bf2ed71fc5bbdcd2fd56a920209e2bb503e98a2b",
+  "source_archive_sha256": "011ba2b3b030ac2ad169bd9b91c5af4e84141cf1eba48ae01d075356de6ab50f",
+  "source20_code_inputs_identical": true,
+  "current_unknown_overlay_preservation": "NOT_PROVEN",
+  "deployment_changed": false,
+  "heavy_lock_released": true
+}

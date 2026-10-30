@@ -1,0 +1,406 @@
+{
+  "business_api_driver": false,
+  "checks": {
+    "cluster_identity": "PASS",
+    "cpu_paused_identity_stop_and_mount_projection": "PASS",
+    "current_durable_database_state": "NOT_VERIFIED",
+    "deployment_uids_and_sandbox_zero": "PASS",
+    "pause_platform_image_digests": "DIFFERENT",
+    "protected_workload_uid_and_ready": "PASS",
+    "resource_readiness_and_four_guard_metrics": "PASS",
+    "workspace_and_borrowed_pvc_identity": "PASS"
+  },
+  "cluster": {
+    "context": "kubernetes-admin@ani-kcn-full",
+    "endpoint": "https://lb.kubesphere.local:6443",
+    "namespace_uids": {
+      "kube-system": "3eeb5379-8748-4bf8-8f6d-d7a48ce3bc24",
+      "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420": "a8d8a472-8a8a-43cf-abf0-0e805bbe67b0"
+    }
+  },
+  "deployments": [
+    {
+      "annotations": {
+        "ani.io/source-patch-sha256": "e623eea21aa5cac91db82148f243904a19d6d69d9196875fbc632dd9e2633924",
+        "ani.io/source-revision": "1d2142d9ac1a4625a2bdf76baa6a6b13460d8b84"
+      },
+      "available_replicas": 1,
+      "containers": [
+        {
+          "gates": {
+            "ANI_INSTANCE_NEW_INTENTS_ENABLED": "true",
+            "ANI_INSTANCE_PVC_MUTATIONS_ENABLED": "true",
+            "ANI_INSTANCE_RESTART_ENABLED": "true"
+          },
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:3854b45d7e7bea28b10d5ef1dfb9df04f1188f5afb651df981a99ed3f11977d4",
+          "name": "governance"
+        }
+      ],
+      "deleting": false,
+      "expected_uid": "4ae87828-5f2c-4b27-a8b8-d348aeb86ee5",
+      "generation": 135,
+      "kind": "Deployment",
+      "name": "ani-governance",
+      "namespace": "ani-system",
+      "observed_generation": 135,
+      "ready_replicas": 1,
+      "replicas": 1,
+      "rv": "13391255",
+      "template_annotations": {
+        "ani.io/inference-key-permissions-refresh": "inference-key-fix._dgmpela",
+        "ani.io/source-patch-sha256": "e623eea21aa5cac91db82148f243904a19d6d69d9196875fbc632dd9e2633924",
+        "ani.io/source-revision": "1d2142d9ac1a4625a2bdf76baa6a6b13460d8b84"
+      },
+      "uid": "4ae87828-5f2c-4b27-a8b8-d348aeb86ee5",
+      "uid_matches": true
+    },
+    {
+      "annotations": {
+        "ani.io/source-revision": "3b3424140e746e7d6f1ec6d0ecedca374870ab51"
+      },
+      "available_replicas": 1,
+      "containers": [
+        {
+          "gates": {
+            "ANI_INSTANCE_NEW_INTENTS_ENABLED": "true",
+            "ANI_INSTANCE_PVC_MUTATIONS_ENABLED": "true",
+            "ANI_INSTANCE_RESTART_ENABLED": "true"
+          },
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:054c50a23aca9cebf47f5abff960f734e153cc2b7cf71ef823497355ca3b9719",
+          "name": "governance"
+        }
+      ],
+      "deleting": false,
+      "expected_uid": "d3db8e14-df99-4fd3-80f4-d10c3ad00915",
+      "generation": 16,
+      "kind": "Deployment",
+      "name": "ani-governance-sandbox-20261027",
+      "namespace": "ani-system",
+      "observed_generation": 16,
+      "ready_replicas": 1,
+      "replicas": 1,
+      "rv": "12029494",
+      "template_annotations": {
+        "ani.io/source-revision": "3b3424140e746e7d6f1ec6d0ecedca374870ab51"
+      },
+      "uid": "d3db8e14-df99-4fd3-80f4-d10c3ad00915",
+      "uid_matches": true
+    },
+    {
+      "annotations": {
+        "ani.io/source-revision": "1498c0b20005c39e0724290e2898cfa8d5f7ad59"
+      },
+      "available_replicas": 1,
+      "containers": [
+        {
+          "gates": {
+            "ANI_INSTANCE_NEW_INTENTS_ENABLED": "true",
+            "ANI_INSTANCE_PVC_MUTATIONS_ENABLED": "true",
+            "ANI_INSTANCE_RESTART_ENABLED": "true"
+          },
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c64afac73c156ba3473d85e671cb932c787d0a6d85d1ea15b09450e0c7a8b51f",
+          "name": "resource"
+        }
+      ],
+      "deleting": false,
+      "expected_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+      "generation": 59,
+      "kind": "Deployment",
+      "name": "ani-resource-service",
+      "namespace": "ani-system",
+      "observed_generation": 59,
+      "ready_replicas": 1,
+      "replicas": 1,
+      "rv": "13384576",
+      "template_annotations": {
+        "ani.io/source-revision": "8bd99dde33ae95209647ef9ac322b949c57fd6f2"
+      },
+      "uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+      "uid_matches": true
+    },
+    {
+      "annotations": {},
+      "available_replicas": 0,
+      "containers": [
+        {
+          "gates": {},
+          "image": "docker.changqingyun.cn/ani/resource-service@sha256:2f831c6c04f95b44c2da11b182fc4c1176807d57d2317924e443b7dfa2833e43",
+          "name": "resource"
+        }
+      ],
+      "deleting": false,
+      "expected_uid": "81ec6bc5-c5b5-4535-af42-bb8d96b70864",
+      "generation": 11,
+      "kind": "Deployment",
+      "name": "ani-resource-sandbox-20261027",
+      "namespace": "ani-system",
+      "observed_generation": 11,
+      "ready_replicas": 0,
+      "replicas": 0,
+      "rv": "5485872",
+      "template_annotations": {},
+      "uid": "81ec6bc5-c5b5-4535-af42-bb8d96b70864",
+      "uid_matches": true
+    }
+  ],
+  "durable_checkpoint": {
+    "current_pg_or_business_api_rechecked": false,
+    "sha256": "c253e2bac488334d5e3271481e8b8a859a9b388e60a4c685b6b1b44cace1d9d0",
+    "snapshot": {
+      "active_operation_id": "",
+      "applied_mount_version": "6",
+      "borrowed_pvc": {
+        "mount_path": "/datasets/cp02-01a18156",
+        "name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+        "phase": "Bound",
+        "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+        "read_only": false,
+        "uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+      },
+      "business_version": "6",
+      "completed_attach_operation_id": "513e7cb0-8bae-4606-9088-954df74dfb9f",
+      "desired_run_state": "stopped",
+      "generation": 9,
+      "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "matching_pods": 0,
+      "next_step": "CP02 04-start; then write borrowed marker and Restart; no new step executed after user pause request",
+      "notebook_uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0",
+      "observed_at": "2026-10-28T14:27:35.639006+00:00",
+      "observed_generation": 9,
+      "pending_terminal_gate": "SG RUNTIME_UNAVAILABLE; diagnosis incomplete",
+      "replicas": 0,
+      "result": "PASS_SAFE_PAUSE_CHECKPOINT",
+      "statefulset_uid": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c",
+      "workspace_pvc_uid": "879bc064-f1d6-4054-aae3-c140c2c2abac"
+    },
+    "source": "Resource records/safe-pause-01.json"
+  },
+  "minimal_resume_conditions": [
+    "Resolve and preserve current platform image/source changes before any forward deployment; do not infer binary provenance from source annotations.",
+    "After the authorized Governance main-to-dev integration and exact dev deployment, read the existing instance configuration/active operation through the normal authorized API; require version6, applied_mount_version6, stopped and no active operation before CP02 04-start.",
+    "Reuse the completed Stop/StorageCreate/Attach and the existing PVC/keys/evidence; this receipt performed no new business step."
+  ],
+  "notebook": {
+    "annotations": {
+      "instance.ani.io/intent-version": "6",
+      "instance.ani.io/mutation-id": "8fdb4911-28e1-4fad-9b0e-eb53ddbde739",
+      "kubeflow-resource-stopped": "true"
+    },
+    "deleting": false,
+    "expected_uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0",
+    "generation": 2,
+    "kind": "Notebook",
+    "name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "rv": "10468385",
+    "template_pvc_mounts": [
+      {
+        "container": "workspace",
+        "mount_path": "/workspace",
+        "name": "workspace",
+        "pvc_name": "workspace-e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "read_only": false,
+        "volume_read_only": false
+      },
+      {
+        "container": "workspace",
+        "mount_path": "/datasets/cp02-01a18156",
+        "name": "borrowed-0",
+        "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+        "read_only": false,
+        "volume_read_only": false
+      }
+    ],
+    "template_spec_sha256": "20d69b792975ee536c1f2d189a2784f8b3f6ac8cbea570005088c4f7d6d3fb52",
+    "uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0"
+  },
+  "observed_at": "2026-10-29T06:58:13.549312+00:00",
+  "pause_comparison": [
+    {
+      "current_image_digest": "sha256:3854b45d7e7bea28b10d5ef1dfb9df04f1188f5afb651df981a99ed3f11977d4",
+      "deployment": "ani-governance",
+      "expected_image_digest": "sha256:7d772a5c8f9fc8726f7171912a33a5ba33c1175e0cdbebc21911a44502392ae6",
+      "image_matches": false
+    },
+    {
+      "current_image_digest": "sha256:054c50a23aca9cebf47f5abff960f734e153cc2b7cf71ef823497355ca3b9719",
+      "deployment": "ani-governance-sandbox-20261027",
+      "expected_image_digest": "sha256:7d772a5c8f9fc8726f7171912a33a5ba33c1175e0cdbebc21911a44502392ae6",
+      "image_matches": false
+    },
+    {
+      "current_image_digest": "sha256:c64afac73c156ba3473d85e671cb932c787d0a6d85d1ea15b09450e0c7a8b51f",
+      "deployment": "ani-resource-service",
+      "expected_image_digest": "sha256:e7a838ff381a0c5331503c034e5111fc7dfff051c3efb1c1a2e1cfe4050de76b",
+      "image_matches": false
+    }
+  ],
+  "protected_existing": [
+    {
+      "deleting": false,
+      "expected_uid": "92fe6748-7a43-460f-b4b2-000a0721be2d",
+      "generation": 1,
+      "kind": "Notebook",
+      "name": "instance-63b52ff4-e489-4df6-b6fb-be10a36e2eb9",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "rv": "13593518",
+      "uid": "92fe6748-7a43-460f-b4b2-000a0721be2d",
+      "uid_matches": true
+    },
+    {
+      "deleting": false,
+      "expected_uid": "047a9d29-480f-4394-89e7-2dc4cf26ba5a",
+      "generation": 1,
+      "kind": "Notebook",
+      "name": "instance-d2b9ea58-98d6-4acd-bac1-3210ac46fdaa",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "rv": "13593526",
+      "uid": "047a9d29-480f-4394-89e7-2dc4cf26ba5a",
+      "uid_matches": true
+    },
+    {
+      "deleting": false,
+      "expected_uid": "af4cd92a-9352-4001-9697-d937bb767ec7",
+      "generation": 1,
+      "kind": "Pod",
+      "name": "instance-63b52ff4-e489-4df6-b6fb-be10a36e2eb9-0",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "ready": true,
+      "rv": "4722265",
+      "uid": "af4cd92a-9352-4001-9697-d937bb767ec7",
+      "uid_matches": true
+    },
+    {
+      "deleting": false,
+      "expected_uid": "ce90eb86-8af7-4842-a6c9-c56ed9dbc250",
+      "generation": 1,
+      "kind": "Pod",
+      "name": "instance-d2b9ea58-98d6-4acd-bac1-3210ac46fdaa-0",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "ready": true,
+      "rv": "4655932",
+      "uid": "ce90eb86-8af7-4842-a6c9-c56ed9dbc250",
+      "uid_matches": true
+    }
+  ],
+  "pvcs": [
+    {
+      "access_modes": [
+        "ReadWriteOnce"
+      ],
+      "deleting": false,
+      "generation": null,
+      "kind": "PersistentVolumeClaim",
+      "labels": {
+        "accelerator.ani.io/create-operation-id": "4b687e97-70cf-48b7-b973-2bb70616f003",
+        "accelerator.ani.io/owner-service": "ani-resource-service",
+        "accelerator.ani.io/resource-id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "accelerator.ani.io/resource-tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420"
+      },
+      "name": "workspace-e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "phase": "Bound",
+      "rv": "10190005",
+      "uid": "879bc064-f1d6-4054-aae3-c140c2c2abac",
+      "volume_mode": "Filesystem",
+      "volume_name": "pvc-879bc064-f1d6-4054-aae3-c140c2c2abac"
+    },
+    {
+      "access_modes": [
+        "ReadWriteOnce"
+      ],
+      "deleting": false,
+      "generation": null,
+      "kind": "PersistentVolumeClaim",
+      "labels": {
+        "storage.ani.io/create-token": "168d2c1c-1768-4c3f-9b1e-ab83d963327d",
+        "storage.ani.io/managed-by": "ani-resource-service",
+        "storage.ani.io/tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420"
+      },
+      "name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "phase": "Bound",
+      "rv": "10467437",
+      "uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "volume_mode": "Filesystem",
+      "volume_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96"
+    }
+  ],
+  "read_only_scope": "Kubernetes GET/config identity, target namespace Pod LIST, Resource health GET; no exec, patch, deletion, login or SQL.",
+  "resource_admin_port": 19091,
+  "resource_health": {
+    "all_four_present": true,
+    "readiness": {
+      "body": "{\"status\":\"ready\"}",
+      "response_shape": "json_status",
+      "result": "ready"
+    },
+    "storage_delete_metrics": {
+      "ani_storage_pvc_delete_guard_available": 1.0,
+      "ani_storage_pvc_delete_incomplete": 0.0,
+      "ani_storage_pvc_delete_oldest_age_seconds": 0.0,
+      "ani_storage_pvc_delete_unknown_writes_total": 0.0
+    }
+  },
+  "resource_pod_owner_verified": true,
+  "resource_runtime_pods": [
+    {
+      "deleting": false,
+      "generation": 1,
+      "kind": "Pod",
+      "name": "ani-resource-service-65f8c9f9c6-kjnhf",
+      "namespace": "ani-system",
+      "ready": true,
+      "rv": "13384570",
+      "uid": "4a27ef86-3be5-465a-9e8d-9449d492d886"
+    }
+  ],
+  "schema": "container-restart-live-resume-readonly-preflight-v1",
+  "statefulset": {
+    "deleting": false,
+    "expected_uid": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c",
+    "generation": 9,
+    "kind": "StatefulSet",
+    "name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "observed_generation": 9,
+    "observed_replicas": 0,
+    "owners": [
+      {
+        "apiVersion": "kubeflow.org/v1beta1",
+        "blockOwnerDeletion": true,
+        "controller": true,
+        "kind": "Notebook",
+        "name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0"
+      }
+    ],
+    "replicas": 0,
+    "rv": "10468392",
+    "template_pvc_mounts": [
+      {
+        "container": "workspace",
+        "mount_path": "/workspace",
+        "name": "workspace",
+        "pvc_name": "workspace-e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "read_only": false,
+        "volume_read_only": false
+      },
+      {
+        "container": "workspace",
+        "mount_path": "/datasets/cp02-01a18156",
+        "name": "borrowed-0",
+        "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+        "read_only": false,
+        "volume_read_only": false
+      }
+    ],
+    "template_spec_sha256": "f9abd689051931d2cbc773a1394635eb8b5d7f1d143e28e418addc7f62122b43",
+    "uid": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c"
+  },
+  "target_pods": {
+    "count": 0,
+    "objects": []
+  },
+  "writes": false
+}

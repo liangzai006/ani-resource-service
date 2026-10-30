@@ -174,6 +174,23 @@ func onlyKeys(object map[string]any, allowed ...string) bool {
 	return true
 }
 
+func podUIDEnvironment(container map[string]any) bool {
+	env, ok := container["env"].([]any)
+	if !ok || len(env) != 1 {
+		return false
+	}
+	entry, ok := env[0].(map[string]any)
+	if !ok || !onlyKeys(entry, "name", "valueFrom") || entry["name"] != "ANI_SANDBOX_POD_UID" {
+		return false
+	}
+	value, ok := entry["valueFrom"].(map[string]any)
+	if !ok || !onlyKeys(value, "fieldRef") {
+		return false
+	}
+	field, ok := value["fieldRef"].(map[string]any)
+	return ok && onlyKeys(field, "apiVersion", "fieldPath") && (field["apiVersion"] == nil || field["apiVersion"] == "v1") && field["fieldPath"] == "metadata.uid"
+}
+
 func podMatches(o *unstructured.Unstructured, s biz.Sandbox) bool {
 	pulls, found, pullErr := unstructured.NestedSlice(o.Object, "spec", "imagePullSecrets")
 	if pullErr != nil || (found && (len(pulls) != 1 || !pullSecretMatches(pulls[0], s))) {
@@ -232,10 +249,15 @@ func podMatches(o *unstructured.Unstructured, s biz.Sandbox) bool {
 	if !ok || len(command) != 3 || command[0] != "/bin/sh" || command[1] != "-c" || command[2] != "trap : TERM INT; sleep infinity & wait" {
 		return false
 	}
-	for _, field := range []string{"args", "env", "envFrom", "ports", "volumeDevices"} {
+	for _, field := range []string{"args", "envFrom", "ports", "volumeDevices"} {
 		if !emptyOptionalList(container, field) {
 			return false
 		}
+	}
+	// Old Pods have no environment. New Pods carry their immutable UID for
+	// data-plane execution fencing; no other environment input is accepted.
+	if !emptyOptionalList(container, "env") && !podUIDEnvironment(container) {
+		return false
 	}
 	for _, field := range []string{"lifecycle", "livenessProbe", "readinessProbe", "startupProbe"} {
 		if value, present := container[field]; present && value != nil {
@@ -984,6 +1006,7 @@ func renderPod(s biz.Sandbox, name string, ls map[string]string) *unstructured.U
 			"containers": []any{map[string]any{
 				"name": "sandbox", "image": s.Snapshot.ImageReference,
 				"command": []any{"/bin/sh", "-c", "trap : TERM INT; sleep infinity & wait"},
+				"env":     []any{map[string]any{"name": "ANI_SANDBOX_POD_UID", "valueFrom": map[string]any{"fieldRef": map[string]any{"apiVersion": "v1", "fieldPath": "metadata.uid"}}}},
 				"securityContext": map[string]any{
 					"allowPrivilegeEscalation": false, "privileged": false, "readOnlyRootFilesystem": true,
 					"capabilities": map[string]any{"drop": []any{"ALL"}},

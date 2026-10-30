@@ -1,0 +1,143 @@
+{
+  "baseline18_935_unchanged": true,
+  "baseline18_manifest_sha256": "d80f8de025bf25694be38318be5f1701fbd9ffe821bf3ac9ee39a0c682a72254",
+  "code_committed": false,
+  "deployed": false,
+  "final_files": {
+    "internal/data/instance/notebook_lifecycle.go": "4ca4ed3f743c9e109273e81694682b37bcafc0db16cf8ee4199522695e859d46",
+    "internal/data/instance/notebook_lifecycle_test.go": "0e1584a2d005ea12981f6a1c629a1b1095519547b1d01af210f2a8456b8ca1b2"
+  },
+  "final_source_manifest_sha256": "87844bdc7d907957d6f5904d4bdf5fce3c313b6ee50d269d824f56eee83cfac2",
+  "live_business_mutations": 0,
+  "package_skipped_tests": [],
+  "pg_integration": "NOT_RUN_IN_THIS_AGENT",
+  "phases": [
+    {
+      "command": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=5m",
+        "-run",
+        "^TestLifecycleTemplate(IgnoresStatusResourceVersionChurn|RejectsCriticalDrift|RequiresNotebookAndSTSContent)$|^TestLifecycleUnknownWriteKeepsOriginalUIDRVAndMutation$",
+        "./internal/data/instance"
+      ],
+      "elapsed_seconds": 33.682,
+      "exit_code": 1,
+      "log_sha256": "93963daaf2dbd04d31f36d570a8a144038ea1cdec2704e4f870e32e2e7dd5843",
+      "phase": "red01",
+      "receipt_sha256": "b63871d48bee3ec9f44487584ecaec76461b8566e07cdc45e4f3aca9ee80f8a2",
+      "source_manifest_sha256": "896badce8c43486fbc8ea5d36bcc2e5148d301d0bf685976eb237609f2f11679"
+    },
+    {
+      "command": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=5m",
+        "-run",
+        "^TestLifecycleTemplate(IgnoresStatusResourceVersionChurn|RejectsCriticalDrift|RequiresNotebookAndSTSContent)$|^TestLifecycleUnknownWriteKeepsOriginalUIDRVAndMutation$",
+        "./internal/data/instance"
+      ],
+      "elapsed_seconds": 4.634,
+      "exit_code": 0,
+      "log_sha256": "418f1dfba97483aa3cbb8eb966def92e648d1511c7999f6263c7a0c56504f5a6",
+      "phase": "green01",
+      "receipt_sha256": "4d86f0e79fbe79f6591dde895a823e1c22d7353bdbaaee4a577d7cb4ed233d03",
+      "source_manifest_sha256": "8a2f3e946207e61aef21234e7a2a14300d82d0e9ff7188f9a74a01219d91df73"
+    },
+    {
+      "command": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=5m",
+        "-run",
+        "^TestLifecycleTemplate(IgnoresStatusResourceVersionChurn|RejectsCriticalDrift|RequiresNotebookAndSTSContent)$|^TestLifecycleUnknownWriteKeepsOriginalUIDRVAndMutation$",
+        "./internal/data/instance"
+      ],
+      "elapsed_seconds": 4.984,
+      "exit_code": 1,
+      "log_sha256": "c6728cc033eb1471c0e75adbb8ce4b57843e4918136bd552b010c846450fc094",
+      "phase": "red02",
+      "receipt_sha256": "6b22a2b69be94de97464fec2ff0b52bbc2f0c9fd55d924256e819dc1c71ef968",
+      "source_manifest_sha256": "62620c75971757690eff4b14f368c311180063277b38250547f0fc61450ed748"
+    },
+    {
+      "command": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=5m",
+        "-run",
+        "^TestLifecycleTemplate(IgnoresStatusResourceVersionChurn|RejectsCriticalDrift|RequiresNotebookAndSTSContent)$|^TestLifecycleUnknownWriteKeepsOriginalUIDRVAndMutation$",
+        "./internal/data/instance"
+      ],
+      "elapsed_seconds": 4.481,
+      "exit_code": 0,
+      "log_sha256": "6ddef942436072b27c1862b974bc662fbc925fb63c7e36ea13e2af5b7180b499",
+      "phase": "green02",
+      "receipt_sha256": "ef432036863d64ef8a16af84c2a81959a59723f1bfdf069db38c6cecd8824e85",
+      "source_manifest_sha256": "8cc93dc1286cfefdb81bac43eefc26fd87a14e2094c7ae7ea20da2a72005360a"
+    },
+    {
+      "command": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=5m",
+        "-run",
+        "^TestLifecycleTemplate(IgnoresStatusResourceVersionChurn|RejectsCriticalDrift|RequiresNotebookAndSTSContent)$|^TestLifecycleUnknownWriteKeepsOriginalUIDRVAndMutation$",
+        "./internal/data/instance"
+      ],
+      "elapsed_seconds": 4.631,
+      "exit_code": 0,
+      "log_sha256": "9f874be2b6467c79695a0a253883ea0dc1129af5e58212e5902fc847da68f999",
+      "phase": "guards01",
+      "receipt_sha256": "e1c4ed14fa045f0d709ca6a97039173f5d1287f15f3d88b04016768ce02431c9",
+      "source_manifest_sha256": "efa72320b80a6be4976fd6a6e0357039f3206ec0ba1ce3397fb1f58af7099b8a"
+    },
+    {
+      "command": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=5m",
+        "./internal/biz/instance",
+        "./internal/data/instance"
+      ],
+      "elapsed_seconds": 5.039,
+      "exit_code": 0,
+      "log_sha256": "1c4373aea2f24a11973ac4dc526a2957c78dbcaed3028ca363b9c286b44ffcd6",
+      "phase": "packages01",
+      "receipt_sha256": "de48e37d43e4a7a7f25e8d2d59bf9e4cc83c7917f4285689cb3bc4dcd972d7f2",
+      "source_manifest_sha256": "efa72320b80a6be4976fd6a6e0357039f3206ec0ba1ce3397fb1f58af7099b8a"
+    },
+    {
+      "command": [
+        "/home/chabking/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=5m",
+        "-run",
+        "^TestLifecycleTemplateRequiresSafeStopForMissingStatefulSet$",
+        "./internal/data/instance"
+      ],
+      "elapsed_seconds": 4.681,
+      "exit_code": 0,
+      "log_sha256": "d302039e6836558b63fe81a401be4e0e197fbbb3dad49ceb2a6cf4c72df30eaa",
+      "phase": "missing01",
+      "receipt_sha256": "18b77497582a402ce6860447523b75b43d24994588b9f44858a3ef93d61b6f8d",
+      "source_manifest_sha256": "87844bdc7d907957d6f5904d4bdf5fce3c313b6ee50d269d824f56eee83cfac2"
+    }
+  ],
+  "schema": "resource-read-proof-status-churn-fix-v1",
+  "tests_only_final_delta": "missing StatefulSet safe-stop behavior; passed separately at final snapshot"
+}

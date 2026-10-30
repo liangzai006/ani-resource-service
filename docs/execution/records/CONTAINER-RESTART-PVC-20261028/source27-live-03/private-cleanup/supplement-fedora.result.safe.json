@@ -1,0 +1,49 @@
+{
+  "_evidence_source": {
+    "credential_contents_copied": false,
+    "path": "/home/chabking/.codex/tasks/container-restart-pvc-20261028/final-private-cleanup-01/supplement-fedora.result.safe.json",
+    "sha256": "91387dbb3dee8930f52f20080b7483bc71c8ae5cd6b28969df43b7a078fabefe"
+  },
+  "actions": [
+    {
+      "path": "private-live-01/platform-credentials.json",
+      "result": "REMOVED_KNOWN_TASK_CREDENTIAL_COPY"
+    },
+    {
+      "path": "private-live-01/ssh-bridge.token",
+      "result": "REMOVED_KNOWN_TASK_CREDENTIAL_COPY"
+    }
+  ],
+  "credential_contents_read_or_logged": false,
+  "files": {
+    "private-live-01/platform-credentials.json": {
+      "dev": 53,
+      "inode": 28153044,
+      "mode": 384,
+      "mtime_ns": 1793180104934920000,
+      "regular": true,
+      "size": 148,
+      "symlink": false,
+      "uid": 1000
+    },
+    "private-live-01/ssh-bridge.token": {
+      "dev": 53,
+      "inode": 28154404,
+      "mode": 384,
+      "mtime_ns": 1793180369356411689,
+      "regular": true,
+      "size": 64,
+      "symlink": false,
+      "uid": 1000
+    }
+  },
+  "finished_at": "2026-10-29T20:09:12.078819+00:00",
+  "goal": "01a18156-1172-7c22-b5fd-3048a5d895a0",
+  "original_keys_attachments_untouched": true,
+  "private_evidence_preserved": true,
+  "process_or_channel_changes": 0,
+  "receipt": "/home/chabking/workspace/ani-resource-service-runs/container-restart-pvc-20261028/final-private-cleanup-01/supplement-fedora-host.result.safe.json",
+  "result": "CLEANED_KNOWN_TASK_COPIES",
+  "scope": "fedora-host",
+  "started_at": "2026-10-29T20:09:12.045814+00:00"
+}

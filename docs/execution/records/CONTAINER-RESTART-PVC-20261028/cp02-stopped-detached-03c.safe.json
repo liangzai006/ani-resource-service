@@ -1,0 +1,49 @@
+{
+  "baseline_sha256": "7d0ebc9c64dde1a12c538dbf3dfce33095c2c88a39c68fe54bb2fe4527dfe9e4",
+  "cluster": {
+    "context": "kubernetes-admin@ani-kcn-full",
+    "kube_system_uid": "3eeb5379-8748-4bf8-8f6d-d7a48ce3bc24",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "namespace_uid": "a8d8a472-8a8a-43cf-abf0-0e805bbe67b0",
+    "server": "https://lb.kubesphere.local:6443"
+  },
+  "marker_writes": 0,
+  "mode": "stopped-detached",
+  "notebook": {
+    "generation": 3,
+    "uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0"
+  },
+  "observed_at": "2026-10-29T11:40:57.463545+00:00",
+  "pod_absence": {
+    "complete_namespace_list": true,
+    "direct_name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+    "direct_not_found": true,
+    "previous_pod_uid": "d6e65290-3f9d-4448-840f-c049e6d782c3",
+    "target_count": 0
+  },
+  "result": "PASS",
+  "schema": "cp02-runtime-proof-03",
+  "stage": "complete",
+  "statefulset": {
+    "generation": 16,
+    "uid": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c"
+  },
+  "storage": {
+    "ani-vol-168d2c1c17684c3f9b1eab83d963327d": {
+      "phase": "Bound",
+      "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+    },
+    "workspace-e3dd2bc7-1c6a-429b-a401-e175c287d5cf": {
+      "phase": "Bound",
+      "pv_name": "pvc-879bc064-f1d6-4054-aae3-c140c2c2abac",
+      "pv_uid": "141c9306-9a21-4d43-85f6-e51bd84eeafb",
+      "pvc_uid": "879bc064-f1d6-4054-aae3-c140c2c2abac"
+    }
+  },
+  "template_sha256": {
+    "notebook": "0dda0dc3b0825df117c3c988ece30b3291f0b6d3a6018c2d25fa307ccc97acc2",
+    "statefulset": "0dda0dc3b0825df117c3c988ece30b3291f0b6d3a6018c2d25fa307ccc97acc2"
+  }
+}

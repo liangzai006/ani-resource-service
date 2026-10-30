@@ -1,0 +1,167 @@
+{
+  "_evidence_source": {
+    "projection": "Existing file only; secret/env/ticket values and raw Deployment bodies redacted",
+    "raw_remote_sha256": "edf15876845ca5e20dfda4ece39dc99d78afa2770efd01c217954c653005237a",
+    "redactions": [],
+    "remote_path": "/root/ani-runs/container-restart-pvc-20261028/a30-postsend-old-generation-live-01/old-generation/cleanup/state.json"
+  },
+  "base_url": "http://127.0.0.1:39586",
+  "control_receipts": [
+    {
+      "at": "2026-10-29T19:45:53.059011Z",
+      "command": [
+        "events",
+        "b884a96d-bf28-4963-94a5-f44e7cd1f28d"
+      ],
+      "pod_uid": "92e95c0b-f3ed-46f8-bcae-004b64441c45",
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T19:44:51.254681327Z",
+            "client": "storage",
+            "event": "matched_exact_uid_request",
+            "method": "DELETE",
+            "mode": "late-forward",
+            "name": "ani-vol-f62e52e1908445b484ff898e9bdd9c22",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "b884a96d-bf28-4963-94a5-f44e7cd1f28d",
+            "request_sha256": "77393324a763686fee53791ab92b489ab0c181df66f715f645bdc2d347b28238",
+            "resource": "persistentvolumeclaims",
+            "uid": "98ed3256-ac55-4e43-a149-b0a7a2b2aaca"
+          },
+          {
+            "at": "2026-10-29T19:45:44.598744705Z",
+            "event": "forwarding_original_request",
+            "mode": "late-forward",
+            "nonce": "b884a96d-bf28-4963-94a5-f44e7cd1f28d"
+          },
+          {
+            "at": "2026-10-29T19:45:44.628609235Z",
+            "event": "original_request_result",
+            "http_status": 409,
+            "mode": "late-forward",
+            "nonce": "b884a96d-bf28-4963-94a5-f44e7cd1f28d",
+            "transport_error": false
+          }
+        ],
+        "nonce": "b884a96d-bf28-4963-94a5-f44e7cd1f28d",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "at": "2026-10-29T19:45:54.031058Z",
+      "command": [
+        "clear-arm"
+      ],
+      "pod_uid": "92e95c0b-f3ed-46f8-bcae-004b64441c45",
+      "reply": {
+        "result": "ARM_CLEARED"
+      }
+    }
+  ],
+  "delete_bodies": {
+    "8364596a-5bd2-4238-9a46-3fe1f1147e26": {
+      "body": {
+        "data": {
+          "expected_uid": "8364596a-5bd2-4238-9a46-3fe1f1147e26",
+          "pvc_name": "ani-vol-f62e52e1908445b484ff898e9bdd9c22"
+        }
+      },
+      "sha256": "f9c680a761d972046e360cc7f4c1cf6db4fda99cdfcc93c49d2b8483aa6565cf"
+    }
+  },
+  "formal_delete_calls": [
+    {
+      "at": "2026-10-29T19:45:54.155629Z",
+      "attempted": true,
+      "body": {
+        "data": {
+          "expected_uid": "8364596a-5bd2-4238-9a46-3fe1f1147e26",
+          "pvc_name": "ani-vol-f62e52e1908445b484ff898e9bdd9c22"
+        }
+      },
+      "label": "normal-original-expectedUID-retry",
+      "response": {
+        "state": "TERMINATING",
+        "volume": {
+          "access_modes": [
+            "ReadWriteOnce"
+          ],
+          "deleting": true,
+          "display_name": "a30-tail-01a18156-old-generation",
+          "observed_capacity_bytes": "1000341504",
+          "observed_capacity_known": true,
+          "observed_capacity_quantity": "954Mi",
+          "phase": "Bound",
+          "pvc_name": "ani-vol-f62e52e1908445b484ff898e9bdd9c22",
+          "reclaim_policy": "",
+          "reclaim_policy_known": false,
+          "requested_capacity_gb": "1",
+          "storage_class_name": "ani-block",
+          "uid": "8364596a-5bd2-4238-9a46-3fe1f1147e26",
+          "volume_mode": "Filesystem"
+        }
+      }
+    },
+    {
+      "at": "2026-10-29T19:45:55.175715Z",
+      "attempted": true,
+      "body": {
+        "data": {
+          "expected_uid": "8364596a-5bd2-4238-9a46-3fe1f1147e26",
+          "pvc_name": "ani-vol-f62e52e1908445b484ff898e9bdd9c22"
+        }
+      },
+      "label": "normal-original-expectedUID-retry",
+      "response": {
+        "state": "GONE",
+        "volume": null
+      }
+    }
+  ],
+  "intents": {},
+  "new_generation_removed": true,
+  "pg_after": {
+    "guards": [
+      {
+        "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "created_at": "2026-10-29T19:45:52.476749+00:00",
+        "guard_epoch": 2,
+        "last_observation": {
+          "ObservedUID": "",
+          "Reason": "",
+          "RetryAt": "0001-01-01T00:00:00Z",
+          "State": "absent",
+          "WriteOutcome": "submitted"
+        },
+        "last_reason": "",
+        "last_write_outcome": "submitted",
+        "lease_epoch": 5,
+        "lease_live": false,
+        "lease_owner": "",
+        "lease_until": "-infinity",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "phase": "completed",
+        "pvc_name": "ani-vol-f62e52e1908445b484ff898e9bdd9c22",
+        "retry_at": "2026-10-29T19:45:57.642593+00:00",
+        "target_uid": "8364596a-5bd2-4238-9a46-3fe1f1147e26",
+        "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "ticket_id": "bc2506ac-0a09-4b6f-934b-ae3f8ba36a3a",
+        "updated_at": "2026-10-29T19:45:53.462952+00:00",
+        "write_started": true
+      }
+    ],
+    "observed_at": "2026-10-29T19:45:54.117127+00:00",
+    "protective_refs": [],
+    "read_only": "on"
+  },
+  "result": "NORMAL_TASK_GENERATIONS_STORAGE_GONE_PVS_RECLAIMED",
+  "run_id": "4828b611-af7e-585c-8eb3-e07808692580",
+  "schema": "container-restart-pvc-http-v1",
+  "session_cleanup": [
+    {
+      "remote": "CONFIRMED",
+      "step": "cleanup"
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+{
+  "_evidence_source": {
+    "credential_contents_copied": false,
+    "path": "/home/chabking/.codex/tasks/container-restart-pvc-20261028/final-private-cleanup-01/remote.result.safe.json",
+    "sha256": "f49bc2db678cdf87784d93a4c1e698808ee2ac5f45584466dc11792fadf5e33f"
+  },
+  "actions": [
+    {
+      "process": {
+        "argv_sha256": "86cc300ec08874c6f631f35346ebc9926203034e06e1eec8bab05db7caeb0e37",
+        "comm": "ssh",
+        "pid": 88958,
+        "start_ticks": 60256505,
+        "uid": 0
+      },
+      "result": "PROVEN_TASK_MASTER_BEFORE_EXIT",
+      "socket": "private/db.sock"
+    },
+    {
+      "exit_code": 0,
+      "result": "CONTROL_EXIT_REQUESTED",
+      "socket": "private/db.sock"
+    },
+    {
+      "process": {
+        "argv_sha256": "3d05f09ccfee913ac34c3648f531def8a08e7b9021d3261d7694110319e086e7",
+        "comm": "ssh",
+        "pid": 87269,
+        "start_ticks": 60060659,
+        "uid": 0
+      },
+      "result": "PROVEN_TASK_MASTER_BEFORE_EXIT",
+      "socket": "private/cluster-api.sock"
+    },
+    {
+      "exit_code": 0,
+      "result": "CONTROL_EXIT_REQUESTED",
+      "socket": "private/cluster-api.sock"
+    },
+    {
+      "process": {
+        "argv_sha256": "07f1c11f7de49f090b50589b311ccd53873b89cf619a4b6115c513e9d3754c9d",
+        "comm": "ssh",
+        "pid": 253780,
+        "start_ticks": 64553558,
+        "uid": 0
+      },
+      "result": "PROVEN_TASK_MASTER_BEFORE_EXIT",
+      "socket": "private-live-01/cluster-root.sock"
+    },
+    {
+      "exit_code": 0,
+      "result": "CONTROL_EXIT_REQUESTED",
+      "socket": "private-live-01/cluster-root.sock"
+    },
+    {
+      "file": "private-live-01/platform-credentials.json",
+      "metadata": {
+        "dev": 64513,
+        "inode": 89297532,
+        "mode": 384,
+        "mtime_ns": 1793257983427971392,
+        "size": 148,
+        "type": "file",
+        "uid": 0
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/resource-owner.dsn",
+      "metadata": {
+        "dev": 64513,
+        "inode": 89609933,
+        "mode": 384,
+        "mtime_ns": 1793259713000000000,
+        "size": 182,
+        "type": "file",
+        "uid": 0
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/governance-admin.dsn",
+      "metadata": {
+        "dev": 64513,
+        "inode": 90011981,
+        "mode": 384,
+        "mtime_ns": 1793263397928782274,
+        "size": 140,
+        "type": "file",
+        "uid": 0
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/self-session-cleanup-20261029-01/error.private.json",
+      "metadata": {
+        "dev": 64513,
+        "inode": 41723796,
+        "mode": 384,
+        "mtime_ns": 1793265169665289273,
+        "size": 70,
+        "type": "file",
+        "uid": 0
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/self-session-cleanup-20261029-01/events.private.json",
+      "metadata": {
+        "dev": 64513,
+        "inode": 41723798,
+        "mode": 384,
+        "mtime_ns": 1793265169674289306,
+        "size": 256,
+        "type": "file",
+        "uid": 0
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/self-session-cleanup-20261029-01/logout-1.private.json",
+      "metadata": {
+        "dev": 64513,
+        "inode": 41723797,
+        "mode": 384,
+        "mtime_ns": 1793265169674289306,
+        "size": 53,
+        "type": "file",
+        "uid": 0
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/self-session-cleanup-20261029-01/own-session-identifiers.private.json",
+      "metadata": {
+        "dev": 64513,
+        "inode": 41723795,
+        "mode": 384,
+        "mtime_ns": 1793265169633289156,
+        "size": 113,
+        "type": "file",
+        "uid": 0
+      },
+      "result": "REMOVED_TASK_COPY"
+    }
+  ],
+  "credential_contents_logged": false,
+  "finished_at": "2026-10-29T20:07:11.971280+00:00",
+  "goal": "01a18156-1172-7c22-b5fd-3048a5d895a0",
+  "no_business_api": true,
+  "no_kube_or_sql": true,
+  "no_original_key_or_attachment_access": true,
+  "planned_controls": [
+    "private/db.sock",
+    "private/cluster-api.sock",
+    "private-live-01/cluster-root.sock"
+  ],
+  "planned_files": {
+    "governance-admin.dsn": {
+      "dev": 64513,
+      "inode": 90011981,
+      "mode": 384,
+      "mtime_ns": 1793263397928782274,
+      "size": 140,
+      "type": "file",
+      "uid": 0
+    },
+    "platform-credentials.json": {
+      "dev": 64513,
+      "inode": 89297532,
+      "mode": 384,
+      "mtime_ns": 1793257983427971392,
+      "size": 148,
+      "type": "file",
+      "uid": 0
+    },
+    "resource-owner.dsn": {
+      "dev": 64513,
+      "inode": 89609933,
+      "mode": 384,
+      "mtime_ns": 1793259713000000000,
+      "size": 182,
+      "type": "file",
+      "uid": 0
+    },
+    "self-session-cleanup-20261029-01/error.private.json": {
+      "dev": 64513,
+      "inode": 41723796,
+      "mode": 384,
+      "mtime_ns": 1793265169665289273,
+      "size": 70,
+      "type": "file",
+      "uid": 0
+    },
+    "self-session-cleanup-20261029-01/events.private.json": {
+      "dev": 64513,
+      "inode": 41723798,
+      "mode": 384,
+      "mtime_ns": 1793265169674289306,
+      "size": 256,
+      "type": "file",
+      "uid": 0
+    },
+    "self-session-cleanup-20261029-01/logout-1.private.json": {
+      "dev": 64513,
+      "inode": 41723797,
+      "mode": 384,
+      "mtime_ns": 1793265169674289306,
+      "size": 53,
+      "type": "file",
+      "uid": 0
+    },
+    "self-session-cleanup-20261029-01/own-session-identifiers.private.json": {
+      "dev": 64513,
+      "inode": 41723795,
+      "mode": 384,
+      "mtime_ns": 1793265169633289156,
+      "size": 113,
+      "type": "file",
+      "uid": 0
+    }
+  },
+  "platform_roles_plans_quotas_untouched": true,
+  "result": "CLEANED_KNOWN_TASK_ITEMS",
+  "scope": "remote",
+  "skipped": [],
+  "started_at": "2026-10-29T20:07:10.116245+00:00"
+}

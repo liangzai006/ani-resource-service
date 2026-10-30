@@ -1,0 +1,109 @@
+{
+  "result": "PASS",
+  "host": "192.168.25.40",
+  "commit": "4eb39bc4868844aaf395337a2d064e91ec716df2",
+  "base_image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c64afac73c156ba3473d85e671cb932c787d0a6d85d1ea15b09450e0c7a8b51f",
+  "candidate_ref": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:container-restart-pvc-source21-4eb39bc48688-20261029-01a18156-7af2b0e1",
+  "started_at_utc": "2026-10-29T12:06:13.616455+00:00",
+  "source_manifest_sha256": "85d772c31e816576393fee87bf2ed71fc5bbdcd2fd56a920209e2bb503e98a2b",
+  "source_archive_sha256": "011ba2b3b030ac2ad169bd9b91c5af4e84141cf1eba48ae01d075356de6ab50f",
+  "overlay_preservation": "NOT_PROVEN: current GPUVM/VM logs overlay source was not found",
+  "make_verify_rerun": false,
+  "tests_rerun": false,
+  "deployment_changed": false,
+  "application_binary_executed": false,
+  "global_configuration_changed": false,
+  "tls_verification": "enabled",
+  "module_downloads": "disabled; existing cache only",
+  "gomaxprocs": 2,
+  "gomemlimit": "2GiB",
+  "goflags": "-mod=readonly -p=1",
+  "cgo_enabled": 0,
+  "buildvcs": false,
+  "base_id": "sha256:c64afac73c156ba3473d85e671cb932c787d0a6d85d1ea15b09450e0c7a8b51f",
+  "base_layers": 18,
+  "tag_absent_before_build": true,
+  "phase": "COMPLETE",
+  "commands": [
+    [
+      "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+      "build",
+      "-trimpath",
+      "-buildvcs=false",
+      "-ldflags=-X main.Name=ani-resource-service -X main.Version=4eb39bc4868844aaf395337a2d064e91ec716df2",
+      "-o",
+      "/root/ani-runs/container-restart-pvc-20261028/source21-4eb39bc48688-01/image-context/ani-resource-service",
+      "./cmd/ani-resource-service"
+    ],
+    [
+      "docker",
+      "build",
+      "--network=none",
+      "--pull=false",
+      "--platform",
+      "linux/amd64",
+      "-t",
+      "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:container-restart-pvc-source21-4eb39bc48688-20261029-01a18156-7af2b0e1",
+      "-f",
+      "/root/ani-runs/container-restart-pvc-20261028/source21-4eb39bc48688-01/image-context/Dockerfile",
+      "/root/ani-runs/container-restart-pvc-20261028/source21-4eb39bc48688-01/image-context"
+    ],
+    [
+      "docker",
+      "push",
+      "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:container-restart-pvc-source21-4eb39bc48688-20261029-01a18156-7af2b0e1"
+    ]
+  ],
+  "logs": {
+    "binary-build.log": {
+      "exit_code": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "image-build.log": {
+      "exit_code": 0,
+      "sha256": "df32e36a3db13d7c2c27f0c7add72f27e8390fd80e901b056081c378b888729e"
+    },
+    "image-push.log": {
+      "exit_code": 0,
+      "sha256": "18512a5bf23dcf9544611a4866db15aa044b3e7e059e3f78e4de2dc9662d9c78"
+    }
+  },
+  "binary_sha256": "18f5a7d96664173117edd73f4a22d2bad37d45b026f2320ca60adba80f5e1d77",
+  "binary_bytes": 88625469,
+  "file_info": "/root/ani-runs/container-restart-pvc-20261028/source21-4eb39bc48688-01/image-context/ani-resource-service: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, Go BuildID=S4sLO_yB687u7j-jnole/GcO0iSjzNgrW6TkGOhy6/DEnbMC2fGfGy_kyZ-43A/Yf5hIxw2_pMQgV05tgD3, BuildID[sha1]=9e68f4425500dc62ba4c3801db94a9881bcefcea, with debug_info, not stripped",
+  "buildinfo_sha256": "21efc480e7b2d7de30b54b1bd823bc85ed0757f0336e6e9424a6a46429eca487",
+  "tree": "80cefae5668a8a443e2c6b926d13a50ca069ca20",
+  "parents": [
+    "7fc947228c4b37a51ab80594dc8c5348416ac85c"
+  ],
+  "source20_validation_reuse": {
+    "path": "/home/chabking/.codex/tasks/container-restart-pvc-20261028/resource-runtime-20-return/remote-tools-newhost-03/make-verify-02.safe.json",
+    "sha256": "84e9f725b7f61f9d69e000da7a65200a0868f29b996044d57da7bff0f0c3f459",
+    "result": "PASS"
+  },
+  "source20_pg_reuse": {
+    "path": "/home/chabking/.codex/tasks/container-restart-pvc-20261028/resource-runtime-20-return/remote-tools-newhost-03/pg-03.safe.json",
+    "sha256": "ccf5d596cdc67742327490ec84eb375bab54ca68a17288888945b0d649677c64",
+    "result": "PASS"
+  },
+  "source_changes": [],
+  "version_ldflag": "4eb39bc4868844aaf395337a2d064e91ec716df2",
+  "version_binding": "exact recorded build command; trimpath buildinfo omits ldflags",
+  "binary_gzip_sha256": "682c4b21313dfe77487c6271508fe41f1fcdd7dca5d9ae4d33615711ec81c99b",
+  "image_id": "sha256:516104e305d1b5f0be5d38ee126b7541ad0082782d46bf2ad8ffe58ff82c4c99",
+  "runtime_config_preserved": true,
+  "base_layers_preserved": true,
+  "dockerfile_sha256": "27a5faaebfd906e758cc372dee2fb9b9eb0bb0d24c8a4d541e35bc719a4938fb",
+  "tag_absent_immediately_before_push": true,
+  "candidate_digest": "sha256:516104e305d1b5f0be5d38ee126b7541ad0082782d46bf2ad8ffe58ff82c4c99",
+  "platform_digest": "sha256:3b65e77fe14b0d22765990703363d272a4a21ec963fb88c9145b1bb2c3c3fc54",
+  "config_digest": "sha256:031107dd13034a056eaca4dc7efe4513ae755217e25b86268c29b769c0b74639",
+  "published_labels_verified": true,
+  "published_config_verified": true,
+  "push_performed": true,
+  "empty_tmp_removed": true,
+  "heavy_lock_acquired": true,
+  "heavy_lock_released": true,
+  "finished_at_utc": "2026-10-29T12:08:12.097067+00:00",
+  "elapsed_seconds": 118.481
+}

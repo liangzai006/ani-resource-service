@@ -1,0 +1,229 @@
+{
+  "_evidence_source": {
+    "projection": "Existing file only; secret/env/ticket values and raw Deployment bodies redacted",
+    "raw_remote_sha256": "ef0cb046dd3f594bd0f00d6bcefbd3d7ae3acae309127965292f0378e7189730",
+    "redactions": [],
+    "remote_path": "/root/ani-runs/container-restart-pvc-20261028/a30-stage-exit-live-01/mark-before-send/observe/state.json"
+  },
+  "base_url": "http://127.0.0.1:39586",
+  "control_receipts": [
+    {
+      "at": "2026-10-29T19:59:57.146383Z",
+      "command": [
+        "events",
+        "db543080-a75b-461d-9322-a0618aab426c"
+      ],
+      "pod_uid": "01a2f898-c24b-4689-821b-5b3656c667e7",
+      "reply": [
+        {
+          "at": "2026-10-29T19:59:39.213523428Z",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "commit": "single_statement_pg_autocommit_success_rows_1",
+          "delete_identity": {
+            "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "PVCName": "ani-vol-39377b08a50d47cab66ebe55824e103d",
+            "TargetUID": "c7167f29-921e-49c0-b9e2-8a7cc7c63040",
+            "TenantID": "64c5c35a-f554-432c-b4bc-7b4f36f08420"
+          },
+          "delete_phase": "deleting",
+          "delete_token": {
+            "GuardEpoch": 1,
+            "LeaseEpoch": 1,
+            "LeaseOwner": "79802681-d665-46f8-aeb4-f4aef14edc94",
+            "LeaseUntil": "2026-10-29T20:00:24.200055Z",
+            "TicketID": "5d6837ab-f783-4df8-bb54-0bb69aaeb11e"
+          },
+          "delete_write_started": true,
+          "exit_code": 86,
+          "fence": null,
+          "kind": "storage-mark",
+          "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "nonce": "db543080-a75b-461d-9322-a0618aab426c",
+          "pending": null,
+          "pid": 1,
+          "point": "01-mark-before-send",
+          "schema": 1,
+          "site": "mark",
+          "template_commit_completed": false,
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "uid": 10001
+        }
+      ]
+    }
+  ],
+  "intents": {},
+  "pg_after_restart": {
+    "guards": [
+      {
+        "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "created_at": "2026-10-29T19:59:39.200055+00:00",
+        "guard_epoch": 1,
+        "last_observation": null,
+        "last_reason": "",
+        "last_write_outcome": "not_sent",
+        "lease_epoch": 1,
+        "lease_live": true,
+        "lease_owner": "79802681-d665-46f8-aeb4-f4aef14edc94",
+        "lease_until": "2026-10-29T20:00:24.200055+00:00",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "phase": "deleting",
+        "pvc_name": "ani-vol-39377b08a50d47cab66ebe55824e103d",
+        "retry_at": "2026-10-29T19:59:39.200055+00:00",
+        "target_uid": "c7167f29-921e-49c0-b9e2-8a7cc7c63040",
+        "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "ticket_id": "5d6837ab-f783-4df8-bb54-0bb69aaeb11e",
+        "updated_at": "2026-10-29T19:59:39.212284+00:00",
+        "write_started": true
+      }
+    ],
+    "observed_at": "2026-10-29T19:59:55.428386+00:00",
+    "protective_refs": [],
+    "read_only": "on"
+  },
+  "process_observations": [
+    {
+      "actual_uid": 10001,
+      "container_id": "containerd://bb58adf6f21dbfb7f47afebf80aaf2b73c84f71ff2708bd2e58c543efbf765a2",
+      "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+      "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+      "install_receipt_path": "/root/ani-runs/container-restart-pvc-20261028/a30-postsend-old-generation-live-01/postsend-exit/recover/resource-process.safe.json",
+      "install_receipt_sha256": "ef2840f12603dbae11dbeb8f7683b2ac0c0b3ca4fcd51ed71e878d2d1756abab",
+      "last_termination": {
+        "containerID": "containerd://7a007feafb5cb25bff28be77e44afd2248f1469cf41d506a30a73cb120ba2e6f",
+        "exitCode": 86,
+        "finishedAt": "2026-10-29T19:58:43Z",
+        "reason": "Error",
+        "startedAt": "2026-10-29T19:48:59Z"
+      },
+      "name": "ani-resource-service-548bdd5bff-5sw64",
+      "ready": false,
+      "restart_count": 1,
+      "state_kind": "terminated",
+      "uid": "01a2f898-c24b-4689-821b-5b3656c667e7"
+    },
+    {
+      "actual_uid": 10001,
+      "container_id": "containerd://bb58adf6f21dbfb7f47afebf80aaf2b73c84f71ff2708bd2e58c543efbf765a2",
+      "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+      "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+      "install_receipt_path": "/root/ani-runs/container-restart-pvc-20261028/a30-postsend-old-generation-live-01/postsend-exit/recover/resource-process.safe.json",
+      "install_receipt_sha256": "ef2840f12603dbae11dbeb8f7683b2ac0c0b3ca4fcd51ed71e878d2d1756abab",
+      "last_termination": {
+        "containerID": "containerd://bb58adf6f21dbfb7f47afebf80aaf2b73c84f71ff2708bd2e58c543efbf765a2",
+        "exitCode": 86,
+        "finishedAt": "2026-10-29T19:59:39Z",
+        "reason": "Error",
+        "startedAt": "2026-10-29T19:58:44Z"
+      },
+      "name": "ani-resource-service-548bdd5bff-5sw64",
+      "ready": false,
+      "restart_count": 1,
+      "state_kind": "waiting",
+      "uid": "01a2f898-c24b-4689-821b-5b3656c667e7"
+    },
+    {
+      "actual_uid": 10001,
+      "container_id": "containerd://861e25255768dd0fc5b6f7c6d2151e03e8f17c069faa41407f6254d7e0435677",
+      "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+      "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+      "install_receipt_path": "/root/ani-runs/container-restart-pvc-20261028/a30-postsend-old-generation-live-01/postsend-exit/recover/resource-process.safe.json",
+      "install_receipt_sha256": "ef2840f12603dbae11dbeb8f7683b2ac0c0b3ca4fcd51ed71e878d2d1756abab",
+      "last_termination": {
+        "containerID": "containerd://bb58adf6f21dbfb7f47afebf80aaf2b73c84f71ff2708bd2e58c543efbf765a2",
+        "exitCode": 86,
+        "finishedAt": "2026-10-29T19:59:39Z",
+        "reason": "Error",
+        "startedAt": "2026-10-29T19:58:44Z"
+      },
+      "name": "ani-resource-service-548bdd5bff-5sw64",
+      "ready": false,
+      "restart_count": 2,
+      "state_kind": "running",
+      "uid": "01a2f898-c24b-4689-821b-5b3656c667e7"
+    },
+    {
+      "actual_uid": 10001,
+      "container_id": "containerd://861e25255768dd0fc5b6f7c6d2151e03e8f17c069faa41407f6254d7e0435677",
+      "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+      "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+      "install_receipt_path": "/root/ani-runs/container-restart-pvc-20261028/a30-postsend-old-generation-live-01/postsend-exit/recover/resource-process.safe.json",
+      "install_receipt_sha256": "ef2840f12603dbae11dbeb8f7683b2ac0c0b3ca4fcd51ed71e878d2d1756abab",
+      "last_termination": {
+        "containerID": "containerd://bb58adf6f21dbfb7f47afebf80aaf2b73c84f71ff2708bd2e58c543efbf765a2",
+        "exitCode": 86,
+        "finishedAt": "2026-10-29T19:59:39Z",
+        "reason": "Error",
+        "startedAt": "2026-10-29T19:58:44Z"
+      },
+      "name": "ani-resource-service-548bdd5bff-5sw64",
+      "ready": true,
+      "restart_count": 2,
+      "state_kind": "running",
+      "uid": "01a2f898-c24b-4689-821b-5b3656c667e7"
+    }
+  ],
+  "resource_after": {
+    "actual_uid": 10001,
+    "container_id": "containerd://861e25255768dd0fc5b6f7c6d2151e03e8f17c069faa41407f6254d7e0435677",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+    "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+    "install_receipt_path": "/root/ani-runs/container-restart-pvc-20261028/a30-postsend-old-generation-live-01/postsend-exit/recover/resource-process.safe.json",
+    "install_receipt_sha256": "ef2840f12603dbae11dbeb8f7683b2ac0c0b3ca4fcd51ed71e878d2d1756abab",
+    "last_termination": {
+      "containerID": "containerd://bb58adf6f21dbfb7f47afebf80aaf2b73c84f71ff2708bd2e58c543efbf765a2",
+      "exitCode": 86,
+      "finishedAt": "2026-10-29T19:59:39Z",
+      "reason": "Error",
+      "startedAt": "2026-10-29T19:58:44Z"
+    },
+    "name": "ani-resource-service-548bdd5bff-5sw64",
+    "ready": true,
+    "restart_count": 2,
+    "state_kind": "running",
+    "uid": "01a2f898-c24b-4689-821b-5b3656c667e7"
+  },
+  "result": "PASS_REAL_POST_COMMIT_EXIT86_SAME_POD_RESTART",
+  "run_id": "fc9a653a-e646-5560-b6fd-dedf46ef4bfd",
+  "schema": "container-restart-pvc-http-v1",
+  "session_cleanup": [
+    {
+      "remote": "NOT_STARTED",
+      "step": "observe"
+    }
+  ],
+  "stage_marker": {
+    "at": "2026-10-29T19:59:39.213523428Z",
+    "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+    "commit": "single_statement_pg_autocommit_success_rows_1",
+    "delete_identity": {
+      "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "PVCName": "ani-vol-39377b08a50d47cab66ebe55824e103d",
+      "TargetUID": "c7167f29-921e-49c0-b9e2-8a7cc7c63040",
+      "TenantID": "64c5c35a-f554-432c-b4bc-7b4f36f08420"
+    },
+    "delete_phase": "deleting",
+    "delete_token": {
+      "GuardEpoch": 1,
+      "LeaseEpoch": 1,
+      "LeaseOwner": "79802681-d665-46f8-aeb4-f4aef14edc94",
+      "LeaseUntil": "2026-10-29T20:00:24.200055Z",
+      "TicketID": "5d6837ab-f783-4df8-bb54-0bb69aaeb11e"
+    },
+    "delete_write_started": true,
+    "exit_code": 86,
+    "fence": null,
+    "kind": "storage-mark",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "nonce": "db543080-a75b-461d-9322-a0618aab426c",
+    "pending": null,
+    "pid": 1,
+    "point": "01-mark-before-send",
+    "schema": 1,
+    "site": "mark",
+    "template_commit_completed": false,
+    "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "uid": 10001
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "actual_image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:68628fa2df0e6c43876819ed178efaaf543aac7406fe9dc517a4515315191cb5",
+  "all_other_runtime_spec_equal_original_closed": true,
+  "deployment_private_file": "resource-closed-rebase-01.private.json",
+  "deployment_private_sha256": "60ed4407cd1a000291634a1fb099d80fb605d905cf1585007dbd02f7769de3f7",
+  "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+  "gates": {
+    "ANI_INSTANCE_NEW_INTENTS_ENABLED": "false",
+    "ANI_INSTANCE_PVC_MUTATIONS_ENABLED": "false",
+    "ANI_INSTANCE_RESTART_ENABLED": "false"
+  },
+  "generation": 65,
+  "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:68628fa2df0e6c43876819ed178efaaf543aac7406fe9dc517a4515315191cb5",
+  "namespace_uid": "8c2bde09-06bb-4e4c-8f6d-65cdc9bb735a",
+  "observed_at_utc": "2026-10-29T14:41:07.751202+00:00",
+  "original_close_and_failed_verify_preserved": true,
+  "original_preflight_sha256": "9654e82097cb930601978a956aac1fea89761334e599df3899caee84ff419f6b",
+  "pod_name": "ani-resource-service-74cbd9b7dc-bcm7f",
+  "pod_uid": "6716b074-6501-4a5c-b963-2fc502afbb8f",
+  "replicas": 1,
+  "resource_version": "15053989",
+  "result": "FROZEN_CLOSED_IMAGE_ONLY_REBASE",
+  "writes": 0
+}

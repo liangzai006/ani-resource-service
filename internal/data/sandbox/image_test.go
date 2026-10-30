@@ -15,11 +15,18 @@ type referenceRuntime struct {
 	result     image.ResolvedImage
 	err        error
 	got        image.ResolveImageReference
+	gotID      image.ResolveImage
 	caller     image.Caller
 	pull       image.PullMaterial
 	pullErr    error
 	pullTenant string
 	pullCaller image.Caller
+}
+
+func (r *referenceRuntime) ResolveImageForWorkload(ctx context.Context, in image.ResolveImage) (image.ResolvedImage, error) {
+	r.gotID = in
+	r.caller, _ = image.CallerFromContext(ctx)
+	return r.result, r.err
 }
 
 func (r *referenceRuntime) ResolveImageReferenceForWorkload(ctx context.Context, in image.ResolveImageReference) (image.ResolvedImage, error) {
@@ -50,6 +57,16 @@ func TestImageAdapterUsesTrustedTenantAndPreservesImmutableResult(t *testing.T) 
 	}
 	if runtime.pullTenant != tenant || runtime.pullCaller != runtime.caller || strings.Trim(string(runtime.pull.Secret), "\x00") != "" {
 		t.Fatal("pull credential must use the same tenant identity and be cleared")
+	}
+}
+
+func TestImageAdapterResolvesRegisteredImageIDAndScope(t *testing.T) {
+	const tenant = "11111111-1111-4111-8111-111111111111"
+	runtime := &referenceRuntime{result: image.ResolvedImage{Reference: "registry.example/project/repo@sha256:abc", Digest: "sha256:abc"}, pull: validPull(tenant)}
+	id := "img_" + strings.Repeat("a", 32)
+	got, err := (Image{Runtime: runtime}).ResolveSandboxImageID(context.Background(), tenant, id, "platform")
+	if err != nil || got != runtime.result.Reference || runtime.gotID.ImageID != id || runtime.gotID.Scope != image.PlatformImages || runtime.gotID.TenantID != tenant || runtime.caller.Kind != image.RuntimeCaller || runtime.pullTenant != tenant {
+		t.Fatalf("reference=%q request=%#v caller=%#v err=%v", got, runtime.gotID, runtime.caller, err)
 	}
 }
 

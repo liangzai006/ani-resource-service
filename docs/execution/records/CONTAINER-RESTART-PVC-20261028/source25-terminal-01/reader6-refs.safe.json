@@ -1,0 +1,21 @@
+{
+  "database_writes": 0,
+  "known_ref_states": true,
+  "observed_at": "2026-10-29T17:14:00.475928+00:00",
+  "read_only": true,
+  "reader_protective_count": 0,
+  "result": "PASS_READER_OWN_PROTECTIVE_REFS_ZERO",
+  "scope": "exact tenant and reader instance ID only; all unrelated refs excluded",
+  "scoped_rows": [
+    {
+      "instance_id": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+      "intent_version": 6,
+      "mount_path": "/datasets/post-delete-readonly",
+      "operation_id": "f529c053-cb55-4ad4-a583-baf0aa5d9973",
+      "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "reference_generation": 2,
+      "state": "released"
+    }
+  ]
+}

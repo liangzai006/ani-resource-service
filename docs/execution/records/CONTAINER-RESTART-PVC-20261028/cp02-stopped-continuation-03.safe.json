@@ -1,0 +1,214 @@
+{
+  "actions": [
+    {
+      "action": "detach-pvc",
+      "completion_scope": "template_applied",
+      "evidence": "cp02-03-01-detach.safe.json",
+      "expected_version": 10,
+      "intent_version": 11,
+      "label": "01-detach",
+      "operation_id": "d958a2cf-e879-48d8-9a1f-3096044efcee",
+      "session_logout": "CONFIRMED",
+      "state": "completed"
+    },
+    {
+      "action": "start",
+      "completion_scope": "",
+      "evidence": "cp02-03-02-start-detached.safe.json",
+      "expected_version": 11,
+      "intent_version": 12,
+      "label": "02-start-detached",
+      "operation_id": "c96b8985-7b87-46ee-b3c4-9e036c7d6323",
+      "session_logout": "CONFIRMED",
+      "state": "completed"
+    },
+    {
+      "action": "stop",
+      "completion_scope": "",
+      "evidence": "cp02-03-03-stop-detached.safe.json",
+      "expected_version": 12,
+      "intent_version": 13,
+      "label": "03-stop-detached",
+      "operation_id": "0f96af7c-bcb5-49f7-8a71-a9c3bd92e561",
+      "session_logout": "CONFIRMED",
+      "state": "completed"
+    },
+    {
+      "action": "attach-pvc",
+      "completion_scope": "template_applied",
+      "evidence": "cp02-03-04-reattach.safe.json",
+      "expected_version": 13,
+      "intent_version": 14,
+      "label": "04-reattach",
+      "operation_id": "9095a030-4fbd-49fd-9cc0-9d2af71d070c",
+      "session_logout": "CONFIRMED",
+      "state": "completed"
+    },
+    {
+      "action": "start",
+      "completion_scope": "",
+      "evidence": "cp02-03-05-start-reattached.safe.json",
+      "expected_version": 14,
+      "intent_version": 15,
+      "label": "05-start-reattached",
+      "operation_id": "c333a93e-c202-469e-925d-d9a3e894a16c",
+      "session_logout": "CONFIRMED",
+      "state": "completed"
+    },
+    {
+      "action": "stop",
+      "completion_scope": "",
+      "evidence": "cp02-03-06-stop-final.safe.json",
+      "expected_version": 15,
+      "intent_version": 16,
+      "label": "06-stop-final",
+      "operation_id": "d02660d2-f0de-4280-8c74-2b5513030e4a",
+      "session_logout": "CONFIRMED",
+      "state": "completed"
+    }
+  ],
+  "application_image_changes_performed": 0,
+  "candidate_fix_deployed": false,
+  "candidate_source_commit": "7fc947228c4b37a51ab80594dc8c5348416ac85c",
+  "cpu_ledger": {
+    "cpu_unmetered": true,
+    "original_charges": 0,
+    "original_unchanged": true,
+    "refund_once_proven": false,
+    "release_events": 0
+  },
+  "deployed_resource": {
+    "before_after_pod_and_image_id_match": true,
+    "image_ids": [
+      "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:e7f98d498d038f57b2ff953447da62904bab03c90b8a2df9cb9561569b01461f"
+    ],
+    "pod_uid": "66598e59-390a-426f-8d47-0665548b60be",
+    "read_only": true,
+    "ready": true
+  },
+  "files": {
+    "cp02-03-01-detach.events.safe.jsonl": "daa6eb4c5fefa6ecf51f01e36dc77e3c8bd77b1e505b61cdbdecda6b60fc7bb9",
+    "cp02-03-01-detach.safe.json": "e1117ed38bf064d4cc79c1b961bdb4a0df37c999c89b3d5087de0c1077d19338",
+    "cp02-03-02-start-detached.events.safe.jsonl": "7d26e6116421b96e85b901ad851e4e5e1caf8d57c6a53715b81e091113d93584",
+    "cp02-03-02-start-detached.safe.json": "437ef02a08dc78a0fb741c7cc893df25eb54b714383cbd1f4987b39d1cac1d36",
+    "cp02-03-03-stop-detached.events.safe.jsonl": "f65f3cfad83ec90fa46f589358c23416c20c80d4c07b0fd6e74413a6e743549c",
+    "cp02-03-03-stop-detached.safe.json": "0f99526d897113c376b507cd5e02fecf0fa071ef0979d4ffc8cfcc6f99b87f26",
+    "cp02-03-04-reattach.events.safe.jsonl": "3f2ad635652dd2cfe270ba58ae7981d1129713b27071ab5f85f5308aedef631d",
+    "cp02-03-04-reattach.safe.json": "fb54f265a09820bcce47286a4ae6786d469c954b76fc28c963c4c4936fe35e87",
+    "cp02-03-05-start-reattached.events.safe.jsonl": "fe33933fde7cd2421391901690e5068f05a9110d0c37936ea40c71c4763e26fc",
+    "cp02-03-05-start-reattached.safe.json": "fb251a903705abe6855cec55d86275e6a6618fb3a8f848bdf801d3334bf47eb9",
+    "cp02-03-06-stop-final.events.safe.jsonl": "6cae6c02448945730b769c8da3880137c2efc218724cd7f5d2b06d9f621c0303",
+    "cp02-03-06-stop-final.safe.json": "fdc3ce048a899343ff351542c885a2f53a2683074b0f460a1b0945996730b1d6",
+    "cp02-03-before-mounts.safe.json": "bc0d80a4b08306f5b5010f52d52c7036d18be1eabd86977920544654964fa523",
+    "cp02-03-export-manifest.safe.json": "3f3cd7df882c1bc790dc0b395b87990f3030c35214e02b2cc7ffa9801dfb548a",
+    "cp02-03-final-mounts.safe.json": "68ae188d45be0ba2b6f31cf3b0e48b468f76f2f21e17b2908afb6a3964cd15b2",
+    "cp02-03-ledger-after-snapshot.safe.json": "cdecc1d89dd43cb4986e3e2478e756f06e8abd7a6bb99eadf6fff03230674450",
+    "cp02-03-ledger-after.safe.json": "1d9043e2f6e348bf7dbd2231609da8d54495775c3f4d13c5b3a89b1fbf8c2655",
+    "cp02-03-running-negative.events.safe.jsonl": "2a1b756f7759f93f7a6a3446e04d8b8466ba3d48a70ed8ab29812648f1af3cb0",
+    "cp02-03-running-negative.safe.json": "94b94f97daf35468b336f0596cb4a9bc9a7ee2bb078cab7e8db7fe41be199c46",
+    "cp02-03-terminal.safe.json": "622858aad54bbb977eaeb8b5fa6d1e2eb9feec94eaecba3ebe6ef3e6d23b09e1",
+    "cp02-cluster-preflight-03.py.txt": "3093f4ead812027167e48fd18c0c6fbd0eb853ebc7c8025798cbfd9ecf96ee9e",
+    "cp02-final-preflight-03.safe.json": "a3b6be7b253e89cf83eb2982a3a4fc4140d231894476b973813778c376571aba",
+    "cp02-final-stopped-03.safe.json": "344c0ab51a0bb6392b89a474ff29a33368bec431da095ba6fcb13a6566bcb09d",
+    "cp02-read-current-mounts-08.py.txt": "b1582a818d8a060c8721fc2e856a7fc96f6082a8b6fd74f48a6cc18a3a20fcd8",
+    "cp02-resource-health-03.safe.json": "194b7d216976b51ce25ce9dc71580df7eae7c5ea1d30cde1da0185d21579d1ff",
+    "cp02-resource-image-final-03.safe.json": "c29d6dae41cc6ab64399d39ec838eb14d88fa415ea823f450518e197ee886ae1",
+    "cp02-running-detached-03.safe.json": "da1cce50491f2443073172a0308263a6b560cf81942be27bfe1bd518155608a7",
+    "cp02-running-detached-03b.safe.json": "a087da18fafd43780d5b8016fe96a091828f8359f764d4c6b0ac421aa21fb57d",
+    "cp02-running-negative-03.py.txt": "977810cf0bb750384fa2d490cdb72b81ad500f8efa935a14a806689860b15064",
+    "cp02-running-reattached-03.safe.json": "c25d32794614d94e38bde519ffe7cec4f2b7196dc4f83661c77786185c8be195",
+    "cp02-runtime-proof-03.py.txt": "beed275a3ec8b1837bc21986dd505060291b956db4010dbb2c85004463fcc771",
+    "cp02-stopped-detached-03.safe.json": "7d0ebc9c64dde1a12c538dbf3dfce33095c2c88a39c68fe54bb2fe4527dfe9e4",
+    "cp02-stopped-detached-03c.safe.json": "f37b3737738670827befeab4fe611c0fae081ed7dbde2b28c5b3b8d614c1ac8c",
+    "cp02-stopped-preflight-03.safe.json": "9a046dacf0eb9ddff19bf53450d05f9db17badcd4edd5294e5ce2e97d978e6d2",
+    "cp02-stopped-reattached-03.safe.json": "228c2d5daf4a410213c3947be65112932a20001cf571fac5faed8d89cc03d7ea",
+    "terminal-exec-diag-20261029-01.safe.json": "ea260c68d00d4aeb95514ce2b506bba2826fae39da115e9dd05968e3c6bb1dd4"
+  },
+  "final_checkpoint": {
+    "applied_mount_version": 14,
+    "desired": "stopped",
+    "observed_at": "2026-10-29T11:45:44.353355+00:00",
+    "pending": null,
+    "pod_count": 0,
+    "recovery_fence": null,
+    "reference_generation": 2,
+    "reference_state": "active",
+    "runtime_desired": "stopped",
+    "version": 16
+  },
+  "goal": "01a18156-1172-7c22-b5fd-3048a5d895a0",
+  "harness_attempt": {
+    "fixed_script_sha256": "beed275a3ec8b1837bc21986dd505060291b956db4010dbb2c85004463fcc771",
+    "initial_read_probe": "cp02-running-detached-03.safe.json",
+    "initial_script_sha256": "fc2ffd38ee6355530ee98302fbd27144d443d3dd0bd2b107ea7281fe8137f8a5",
+    "reason": "Embedded mountinfo unescape regex was invalid; initial failure retained. Corrected read-only retry passed on the same v12 Pod; no new Start or marker write.",
+    "result": "FAIL_HARNESS"
+  },
+  "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+  "marker_writes": 0,
+  "original_failed_intents_retained": {
+    "06-restart": {
+      "idempotency_key": "5c086236-419e-4ae1-a69f-03b4549e2a7d",
+      "operation_id": "e8ebe2f3-030f-456e-b4ce-2b4b7c83a81f",
+      "request_body_sha256": "1a4c9c7102c315654c5b4a4636998bb9be8ac69c4c055eca5d89553b6768b2e5",
+      "state_sha256": "4bffc0c1942a48d3cda5cf3651fc4ec90523112674a40a5d72024bcac68ca3ca"
+    },
+    "06c-retry-restart": {
+      "idempotency_key": "bed9e9b3-3db6-4a5b-893a-d5232ae87df6",
+      "operation_id": "b7f67ab3-ccf2-4b87-a433-9b7876b38db8",
+      "request_body_sha256": "1442f9e868aaf700630df7be61412b7fca1d2ea19322e29dabe926cfb115bae3",
+      "state_sha256": "449f2b984c2b156d10b9cd146a3f953fafb6a0e24b7236b83ad3dbd5f50aa962"
+    }
+  },
+  "persistent_storage_identity_unchanged": {
+    "ani-vol-168d2c1c17684c3f9b1eab83d963327d": {
+      "phase": "Bound",
+      "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+    },
+    "workspace-e3dd2bc7-1c6a-429b-a401-e175c287d5cf": {
+      "phase": "Bound",
+      "pv_name": "pvc-879bc064-f1d6-4054-aae3-c140c2c2abac",
+      "pv_uid": "141c9306-9a21-4d43-85f6-e51bd84eeafb",
+      "pvc_uid": "879bc064-f1d6-4054-aae3-c140c2c2abac"
+    }
+  },
+  "read_proofs": [
+    "cp02-stopped-detached-03.safe.json",
+    "cp02-running-detached-03b.safe.json",
+    "cp02-stopped-detached-03c.safe.json",
+    "cp02-stopped-reattached-03.safe.json",
+    "cp02-running-reattached-03.safe.json",
+    "cp02-final-stopped-03.safe.json"
+  ],
+  "recorded_at": "2026-10-29T11:51:48.212955+00:00",
+  "remaining": [
+    "Running Restart with borrowed PVC on actual fixed runtime",
+    "Running attach/detach true composite acceptance",
+    "A25 original CREATE borrowed-Spec fallback and live process-restart scope not established by this instance whose original mounts were empty",
+    "Invalid-PVC and remaining protection/fault LIVE cases",
+    "Final DELETE and post-delete borrowed data retention",
+    "GPU/CUDA/original charge/refund-once acceptance",
+    "Authorization multi-tenant fixture acceptance",
+    "Terminal success; current SG internal cause unknown",
+    "Old 08:53 session cleanup remains NOT_CONFIRMED"
+  ],
+  "result": "PASS_STOPPED_DETACH_EMPTY_START_REATTACH_READBACK",
+  "running_no_interrupt_consent": {
+    "false": "409_INSTANCE_REQUIRES_STOP",
+    "omitted": "409_INSTANCE_REQUIRES_STOP",
+    "version_operation_and_reference_state_unchanged": true
+  },
+  "schema": "cp02-stopped-continuation-03",
+  "terminal": {
+    "http_status": 503,
+    "logout": "CONFIRMED",
+    "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE",
+    "result": "FAIL",
+    "sg_request_id": "7c4bfed9-4ded-430c-ba26-94feb9e7c534",
+    "sg_source_to_running_image": "NOT_PROVEN",
+    "specific_internal_cause": "UNKNOWN",
+    "websocket": "NOT_CONNECTED"
+  }
+}

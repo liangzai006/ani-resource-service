@@ -1,0 +1,59 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "591d2fa8-b94c-50c5-80bf-43e7c7709ab3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "detach-pvc",
+      "idempotency_key": "b44b5998-8115-4f73-a1bc-695e12769225",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "17",
+      "request_body_sha256": "7bd23765065030566e73e7b6ab32b75909334ed76cfe5785f07159783c70bb98",
+      "ack": {
+        "operationId": "d9be806d-1e66-44c0-addb-12e9aa68cbc7",
+        "resourceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "d9be806d-1e66-44c0-addb-12e9aa68cbc7",
+        "instanceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "action": "detach-pvc",
+        "intentVersion": "18",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "stopped",
+        "applied_mount_version": "18",
+        "completion_scope": "template_applied",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+  "after_instance": {
+    "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "18",
+    "desiredState": "stopped",
+    "observedState": "stopped",
+    "activeOperationId": "",
+    "executionRunState": "stopped",
+    "appliedMountVersion": "18",
+    "lastOperationId": "d9be806d-1e66-44c0-addb-12e9aa68cbc7",
+    "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "detach-pvc",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "d9be806d-1e66-44c0-addb-12e9aa68cbc7"
+  }
+}

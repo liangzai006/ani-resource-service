@@ -1,0 +1,1122 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "67409a79-eed5-4a10-a306-fc078aa13724",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {},
+  "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+  "persistent_identities": {
+    "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+    "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+    "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+    "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+    "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+  },
+  "baseline": {
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "15",
+      "desiredState": "running",
+      "observedState": "running",
+      "activeOperationId": "",
+      "executionRunState": "running",
+      "appliedMountVersion": "14",
+      "lastOperationId": "37afeee6-3a00-4d39-bd33-9c43864079fb",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": false,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "15",
+      "applied_mount_version": "14",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": [
+        {
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "read_only": false
+        }
+      ]
+    },
+    "identities": {
+      "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+      "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+      "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+    },
+    "a14_driver_sha256": "1fe957fd8149f710b2137d7d7e9ebb1956b525b8c623dbe4e7f01879291df1f1"
+  },
+  "watch_events": [
+    {
+      "at": "2026-10-29T19:27:47.728083Z",
+      "watch_type": "ADDED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999420",
+        "deleting": false,
+        "stopped_annotation": null,
+        "intent_version": "15"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:47.728967Z",
+      "watch_type": "ADDED",
+      "object": {
+        "kind": "StatefulSet",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "resource_version": "15996738",
+        "deleting": false,
+        "generation": 18,
+        "observed_generation": 18,
+        "spec_replicas": 1
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:47.969146Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999472",
+        "deleting": false,
+        "stopped_annotation": null,
+        "intent_version": "15"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:48.969290Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999520",
+        "deleting": false,
+        "stopped_annotation": null,
+        "intent_version": "15"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:49.973881Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999575",
+        "deleting": false,
+        "stopped_annotation": null,
+        "intent_version": "15"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:50.971701Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999625",
+        "deleting": false,
+        "stopped_annotation": null,
+        "intent_version": "15"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:51.239682Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999639",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:51.459703Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "StatefulSet",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "resource_version": "15999650",
+        "deleting": false,
+        "generation": 19,
+        "observed_generation": 18,
+        "spec_replicas": 0
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:51.470199Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "StatefulSet",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "resource_version": "15999658",
+        "deleting": false,
+        "generation": 19,
+        "observed_generation": 19,
+        "spec_replicas": 0
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:51.474597Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "StatefulSet",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "resource_version": "15999660",
+        "deleting": false,
+        "generation": 19,
+        "observed_generation": 19,
+        "spec_replicas": 0
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:51.971671Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999692",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:52.970901Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999742",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:53.972289Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999797",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:54.968986Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999848",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:55.966019Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999899",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:56.972911Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999948",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:57.969496Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000001",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:58.967930Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000051",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:27:59.968112Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000108",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:00.973499Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000159",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:01.970812Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000212",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:02.968945Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000291",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:03.968713Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000352",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:04.968554Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000404",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:05.969962Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000457",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:06.970162Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000508",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:07.969128Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000561",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:08.966819Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000610",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:09.970717Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000668",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:10.968634Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000721",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:11.969599Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000774",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:12.967459Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000824",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:13.969669Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000881",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:14.969309Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000933",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:15.970682Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16000985",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:16.968724Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16001035",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:17.967527Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16001089",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:18.972072Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16001137",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:19.971998Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16001192",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:20.971660Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16001242",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:21.753695Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "StatefulSet",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "resource_version": "16001285",
+        "deleting": false,
+        "generation": 19,
+        "observed_generation": 19,
+        "spec_replicas": 0
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:21.965439Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16001304",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:22.632190Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "StatefulSet",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "resource_version": "16001335",
+        "deleting": false,
+        "generation": 19,
+        "observed_generation": 19,
+        "spec_replicas": 0
+      }
+    },
+    {
+      "at": "2026-10-29T19:28:22.719911Z",
+      "watch_type": "MODIFIED",
+      "object": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "16001346",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      }
+    }
+  ],
+  "child_started": {
+    "at": "2026-10-29T19:27:47.988950Z",
+    "command": "a14 cleanup-stop only",
+    "expected_version": "15",
+    "pid": 252574
+  },
+  "stop_ack": {
+    "operationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+    "resourceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "replayed": false,
+    "result": "ACCEPTED"
+  },
+  "stop_pg_after_ack": {
+    "at": "2026-10-29T19:27:48.866969+00:00",
+    "instance": {
+      "fence": null,
+      "desired": "stopped",
+      "pending": null,
+      "version": 16,
+      "current_mounts": [
+        {
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ownership": "borrowed",
+          "read_only": false,
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "reference_generation": 1
+        }
+      ],
+      "runtime_desired": "stopped",
+      "applied_mount_version": 14
+    },
+    "operation": {
+      "phase": "stopping",
+      "state": "accepted",
+      "reason": "",
+      "operation_id": "7316a712-20a9-4271-b432-2c68a34cf906",
+      "phase_sequence": 1
+    },
+    "read_only": "on"
+  },
+  "latest_stop": {
+    "at": "2026-10-29T19:28:34.716183Z",
+    "operation": {
+      "id": "7316a712-20a9-4271-b432-2c68a34cf906",
+      "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "action": "stop",
+      "intentVersion": "16",
+      "state": "completed",
+      "phase": "done",
+      "final_run_state": "stopped",
+      "applied_mount_version": "14",
+      "completion_scope": "",
+      "reason": "",
+      "failure_reason": ""
+    },
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "16",
+      "desiredState": "stopped",
+      "observedState": "stopped",
+      "activeOperationId": "",
+      "executionRunState": "stopped",
+      "appliedMountVersion": "14",
+      "lastOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": false,
+      "quotaReturned": false
+    }
+  },
+  "watch_transition_candidates": [
+    {
+      "at": "2026-10-29T19:27:51.239682Z",
+      "notebook_last_event": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999639",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      },
+      "statefulset_last_event": {
+        "kind": "StatefulSet",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "resource_version": "15996738",
+        "deleting": false,
+        "generation": 18,
+        "observed_generation": 18,
+        "spec_replicas": 1
+      },
+      "classification": "WATCH_TRANSITION_ONLY_NOT_FRESH_BOOKENDED"
+    },
+    {
+      "at": "2026-10-29T19:27:51.459703Z",
+      "notebook_last_event": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999639",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      },
+      "statefulset_last_event": {
+        "kind": "StatefulSet",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "resource_version": "15999650",
+        "deleting": false,
+        "generation": 19,
+        "observed_generation": 18,
+        "spec_replicas": 0
+      },
+      "classification": "WATCH_TRANSITION_ONLY_NOT_FRESH_BOOKENDED"
+    }
+  ],
+  "fresh_bookends": [
+    {
+      "before": {
+        "at": "2026-10-29T19:27:51.947891Z",
+        "operation": {
+          "id": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "action": "stop",
+          "intentVersion": "16",
+          "state": "accepted",
+          "phase": "stopping",
+          "final_run_state": "stopped",
+          "applied_mount_version": "14",
+          "completion_scope": "",
+          "reason": "",
+          "failure_reason": ""
+        },
+        "instance": {
+          "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "16",
+          "desiredState": "stopped",
+          "observedState": "pending",
+          "activeOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "14",
+          "lastOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        }
+      },
+      "notebook_before": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999692",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      },
+      "statefulset": {
+        "kind": "StatefulSet",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "resource_version": "15999660",
+        "deleting": false,
+        "generation": 19,
+        "observed_generation": 19,
+        "spec_replicas": 0
+      },
+      "notebook_after": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999742",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      },
+      "after": {
+        "at": "2026-10-29T19:27:53.756847Z",
+        "operation": {
+          "id": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "action": "stop",
+          "intentVersion": "16",
+          "state": "accepted",
+          "phase": "stopping",
+          "final_run_state": "stopped",
+          "applied_mount_version": "14",
+          "completion_scope": "",
+          "reason": "",
+          "failure_reason": ""
+        },
+        "instance": {
+          "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "16",
+          "desiredState": "stopped",
+          "observedState": "pending",
+          "activeOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "14",
+          "lastOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        }
+      },
+      "fresh_coherent_bookend": true,
+      "negative_fields": {
+        "replicas_nonzero": false,
+        "observed_generation_lag": false
+      }
+    },
+    {
+      "before": {
+        "at": "2026-10-29T19:27:54.560124Z",
+        "operation": {
+          "id": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "action": "stop",
+          "intentVersion": "16",
+          "state": "accepted",
+          "phase": "stopping",
+          "final_run_state": "stopped",
+          "applied_mount_version": "14",
+          "completion_scope": "",
+          "reason": "",
+          "failure_reason": ""
+        },
+        "instance": {
+          "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "16",
+          "desiredState": "stopped",
+          "observedState": "pending",
+          "activeOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "14",
+          "lastOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        }
+      },
+      "notebook_before": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999848",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      },
+      "statefulset": {
+        "kind": "StatefulSet",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "resource_version": "15999660",
+        "deleting": false,
+        "generation": 19,
+        "observed_generation": 19,
+        "spec_replicas": 0
+      },
+      "notebook_after": {
+        "kind": "Notebook",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "resource_version": "15999899",
+        "deleting": false,
+        "stopped_annotation": "true",
+        "intent_version": "16"
+      },
+      "after": {
+        "at": "2026-10-29T19:27:56.108670Z",
+        "operation": {
+          "id": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "action": "stop",
+          "intentVersion": "16",
+          "state": "accepted",
+          "phase": "stopping",
+          "final_run_state": "stopped",
+          "applied_mount_version": "14",
+          "completion_scope": "",
+          "reason": "",
+          "failure_reason": ""
+        },
+        "instance": {
+          "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "16",
+          "desiredState": "stopped",
+          "observedState": "pending",
+          "activeOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "14",
+          "lastOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+          "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": false,
+          "quotaReturned": false
+        }
+      },
+      "fresh_coherent_bookend": true,
+      "negative_fields": {
+        "replicas_nonzero": false,
+        "observed_generation_lag": false
+      }
+    }
+  ],
+  "a14_cleanup_client_rc": 0,
+  "result": {
+    "subitems": {
+      "replicas_nonzero": {
+        "result": "NOT_VERIFIED_WINDOW_NOT_CAPTURED",
+        "evidence": null
+      },
+      "observed_generation_lag": {
+        "result": "NOT_VERIFIED_WINDOW_NOT_CAPTURED",
+        "evidence": null
+      }
+    },
+    "normal_stop": "COMPLETED",
+    "operation_id": "7316a712-20a9-4271-b432-2c68a34cf906",
+    "single_business_writer": "existing A14 cleanup-stop",
+    "additional_start_or_stop_intents": 0,
+    "stopped_identities": {
+      "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+      "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+      "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+    },
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "16",
+      "desiredState": "stopped",
+      "observedState": "stopped",
+      "activeOperationId": "",
+      "executionRunState": "stopped",
+      "appliedMountVersion": "14",
+      "lastOperationId": "7316a712-20a9-4271-b432-2c68a34cf906",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": false,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "16",
+      "applied_mount_version": "14",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": [
+        {
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "read_only": false
+        }
+      ]
+    },
+    "pg_final": {
+      "at": "2026-10-29T19:28:37.772834+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "stopped",
+        "pending": null,
+        "version": 16,
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 14
+      },
+      "operation": {
+        "phase": "done",
+        "state": "completed",
+        "reason": "",
+        "operation_id": "7316a712-20a9-4271-b432-2c68a34cf906",
+        "phase_sequence": 1
+      },
+      "read_only": "on"
+    },
+    "watch_candidates_are_not_subitem_pass": true
+  },
+  "watch_errors": [],
+  "session_cleanup": [
+    {
+      "phase": "a17-during-a14-cleanup-stop",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "_evidence_source": {
+    "remote_path": "/root/ani-runs/container-restart-pvc-20261028/a17-sts-remaining-live-02/state.json",
+    "raw_remote_sha256": "fb0e509069563efdf60b1cf6e6cfa579faac2d6c53a12ac81acd2ab52522aa07",
+    "projection": "Existing state with sensitive env/credential/ticket values redacted; no live query",
+    "redactions": []
+  }
+}

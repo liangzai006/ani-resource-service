@@ -64,7 +64,7 @@ func GovernanceStreams(readOnly bool) grpc.StreamServerInterceptor {
 		if e != nil {
 			return e
 		}
-		if p.Platform {
+		if p.Platform || validSandboxTokenActor(p.Actor) {
 			return status.Error(codes.PermissionDenied, "log streams require tenant delegation")
 		}
 		ctx := caller(context.WithValue(stream.Context(), governancePrincipalKey{}, p), p)

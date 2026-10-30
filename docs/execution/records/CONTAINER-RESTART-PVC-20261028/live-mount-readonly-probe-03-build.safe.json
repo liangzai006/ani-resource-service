@@ -1,0 +1,43 @@
+{
+  "app_image_built": false,
+  "attempts": [
+    {
+      "attempt": "cache-only",
+      "elapsed_seconds": 0.278,
+      "exit_code": 1,
+      "log_sha256": "925f4aa00b3c21baa315bff6f6857cff394927d45bf9d077e3337850c10dbd0d"
+    },
+    {
+      "attempt": "official-proxy-missing-dependencies",
+      "elapsed_seconds": 346.203,
+      "exit_code": 0,
+      "log_sha256": "d05fb8eb85cc109c971b2d2abee77959fabaffa55abb4bb466be8786db843fca"
+    }
+  ],
+  "binary_bytes": 36913314,
+  "binary_sha256": "64474fb4661b23e7564a84bfffae2494c345b3b4c3f864338b7f2054bb53bb38",
+  "command": [
+    "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+    "build",
+    "-trimpath",
+    "-ldflags=-s -w",
+    "-o",
+    "/root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-readprobe-03/task-live-mount-readonly-probe-03",
+    "./cmd/task-mount-readonly-20261029"
+  ],
+  "elapsed_seconds": 346.85,
+  "exit_code": 0,
+  "formal_cache_missing_files_seeded": 12,
+  "formal_private_cache_manifest_sha256": "8090dabf9776203de4661ca6ed1d3a96a111a8d147d0fcc72e27ed618a405dab",
+  "frozen_inputs": 935,
+  "host": "192.168.25.40",
+  "probe_source_sha256": "62bec97ec16cad6f7c63eddc6cb4d9b1be43cfa32eac5d88cdb358aeb79ed1f5",
+  "product_source_changed": false,
+  "public_sumdb": "sum.golang.org signed records via goproxy.cn transport",
+  "root_required_make_verify": "PENDING_SEPARATE_FEDORA_GATE",
+  "source20_clone_935_unchanged": true,
+  "source_archive_sha256": "d96db68de31188b72af28509d9a8fbbb9948aa198d20eb54ad04bb83109fab6c",
+  "source_manifest_sha256": "e0be7a1ee55d2693f17c589d0fdb28e2d4e6e0b6cab820865671ea623fb6beca",
+  "started_at": "2026-10-29T10:08:02.487501+00:00",
+  "task_main_removed": true
+}

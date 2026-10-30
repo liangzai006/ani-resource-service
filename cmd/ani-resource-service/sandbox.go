@@ -139,17 +139,6 @@ func openSandboxOnce(ctx context.Context, network *conf.Network, compute *comput
 	if images != nil {
 		imageRuntime = images.runtime
 	}
-	handler, err := sandbox.NewService(repo, compute.resolver, sandbox.Config{
-		ClusterID: compute.settings.ClusterID, NamespacePrefix: network.NamespacePrefix,
-		WorkspaceSize: "5Gi", RuntimeClassResolver: data.RuntimeClass{Client: client},
-		ImageResolver:        data.Image{Runtime: imageRuntime},
-		StorageClassResolver: data.StorageClass{Classes: storageUseCase, Namespaces: classes, Client: client, NamespacePrefix: network.NamespacePrefix},
-		NamespaceResolver:    data.TenantNamespace{Client: client, NamespacePrefix: network.NamespacePrefix},
-	})
-	if err != nil {
-		repo.Close()
-		return unavailable("sandbox service initialization failed", err)
-	}
 	provider, err := data.NewKubernetesProvider(client, compute.settings.ClusterID)
 	if err != nil {
 		repo.Close()
@@ -166,6 +155,52 @@ func openSandboxOnce(ctx context.Context, network *conf.Network, compute *comput
 	if err = provider.ConfigureImages(pulls); err != nil {
 		repo.Close()
 		return unavailable("sandbox image credentials are unavailable", err)
+	}
+	executor, err := data.NewKubernetesCodeExecutor(rest, compute.settings.ClusterID)
+	if err != nil {
+		repo.Close()
+		return unavailable("sandbox code executor initialization failed", err)
+	}
+	codeRunner, err := biz.NewCodeRunner(repo, provider, executor)
+	if err != nil {
+		repo.Close()
+		return unavailable("sandbox code runner initialization failed", err)
+	}
+	fileService, err := biz.NewFileService(repo, provider, executor)
+	if err != nil {
+		repo.Close()
+		return unavailable("sandbox file service initialization failed", err)
+	}
+	var tokenService *biz.TokenService
+	// Token signing keys are optional and separate from shared database config.
+	// Missing or invalid keys keep token methods unavailable without disabling Sandbox.
+	if path := strings.TrimSpace(os.Getenv("ANI_SANDBOX_TOKEN_KEYS_FILE")); path != "" {
+		raw, keyErr := readImagePrivateFile(path)
+		if keyErr == nil {
+			var signer *data.TokenSigner
+			signer, keyErr = data.NewTokenSigner(raw)
+			clear(raw)
+			if keyErr == nil {
+				tokenService, keyErr = biz.NewTokenService(repo, signer)
+			}
+		}
+		if keyErr != nil {
+			logger.Warn("sandbox token signing unavailable")
+		}
+	}
+	handler, err := sandbox.NewService(repo, compute.resolver, sandbox.Config{
+		ClusterID: compute.settings.ClusterID, NamespacePrefix: network.NamespacePrefix,
+		WorkspaceSize: "5Gi", RuntimeClassResolver: data.RuntimeClass{Client: client},
+		ImageResolver:        data.Image{Runtime: imageRuntime},
+		StorageClassResolver: data.StorageClass{Classes: storageUseCase, Namespaces: classes, Client: client, NamespacePrefix: network.NamespacePrefix},
+		NamespaceResolver:    data.TenantNamespace{Client: client, NamespacePrefix: network.NamespacePrefix},
+		CodeRunner:           codeRunner,
+		FileService:          fileService,
+		TokenService:         tokenService,
+	})
+	if err != nil {
+		repo.Close()
+		return unavailable("sandbox service initialization failed", err)
 	}
 	worker, err := biz.NewWorker(repo, provider, uuid.NewString(), 45*time.Second)
 	if err != nil {

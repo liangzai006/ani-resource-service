@@ -1,0 +1,66 @@
+{
+  "result": "COLLECTION_HASH_VERIFIED",
+  "manifest_sha256": "2407256c44f927f86493e7bbd1e0b4251a5cb82ec94fbf2760059bd3c4596f0f",
+  "returned_files": 7,
+  "driver_artifacts_verified": {
+    "auth01_final_cleanup": {
+      "current_remote_artifact_sha_verified": true,
+      "execution_phase_reported_by_root": "cleanup01",
+      "file": "a05-auth-minimal-01.py",
+      "sha256": "daf2b168cd45c721d1e532f57239c26a7ee9824e99d686f053040e64da2c1727"
+    },
+    "auth02_and_cleanup02": {
+      "current_remote_artifact_sha_verified": true,
+      "execution_phase_reported_by_root": "auth02 and cleanup02",
+      "file": "a05-auth-minimal-02.py",
+      "sha256": "9eba924228dd1157bc1929741cd2342455f43ba094cab25fcd9b22480403d36a"
+    }
+  },
+  "runs": {
+    "a05-auth-minimal-01": {
+      "events": 52,
+      "raw_state_events_match_source_hash": true,
+      "password_material_removed": true,
+      "historical_http_statuses": [
+        400,
+        403,
+        500
+      ],
+      "not_confirmed_occurrences_in_raw_state_events": 2,
+      "final_phases": {
+        "cleanup": {
+          "normal_api_only": true,
+          "result": "PASS",
+          "session_cleanup": "CONFIRMED"
+        }
+      }
+    },
+    "a05-auth-minimal-02": {
+      "events": 55,
+      "raw_state_events_match_source_hash": true,
+      "password_material_removed": true,
+      "historical_http_statuses": [
+        403
+      ],
+      "not_confirmed_occurrences_in_raw_state_events": 0,
+      "final_phases": {
+        "auth": {
+          "new_business_intents": 0,
+          "owned_role_id": 31,
+          "owned_user_id": 39,
+          "result": "PASS",
+          "session_cleanup": "CONFIRMED",
+          "stable_version": "16",
+          "tenant_a": 2
+        },
+        "cleanup": {
+          "normal_api_only": true,
+          "result": "PASS",
+          "session_cleanup": "CONFIRMED"
+        }
+      }
+    }
+  },
+  "api_calls": 0,
+  "deployment_changed": false
+}

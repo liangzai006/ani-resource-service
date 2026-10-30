@@ -1,0 +1,11 @@
+{
+  "resource": {
+    "archive_sha256": "0e57f5ca8822a605314a5167453d12acc50ae48f753681ae3f1761b6d117d7ae",
+    "binary_sha256": "586445f7af77300964adcc1f163a652ce6e53231e9abe776baa64728d0bda3dd",
+    "build_receipt_sha256": "01f7a6103058aa21632a1c37cbf9d96b0969abca7a324bbd3b5682476fb48bd5",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:e3ef1cdff2d44fe155334c47cc6a3598d11cbb18ec953d6cab1f3bc7f9721d6f",
+    "manifest_sha256": "36ca8bc489cdb6bae5624f2a11c876db466f7f9f49d1cabf03cca758dc654e62",
+    "revision": "972c8e3af8e1b38b90415a32c47176a9b7d8049a",
+    "tree": "ab0239387f0506f4de67f7d7af60cd0abb72a6ff"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "all_captured_fault_events_empty": true,
+  "business_outcome": {
+    "applied_mount_version": "4",
+    "new_stop_requests": 0,
+    "observedState": "stopped",
+    "operation_id": "cd59a015-aa37-4f4a-a2e6-a112088aaf3f",
+    "phase": "done",
+    "state": "completed",
+    "version": "6",
+    "volume_mounts": []
+  },
+  "fault_nonce": "3056ed44-ce5e-4154-a948-c93a2099453c",
+  "fault_pod_uid": "4bdfec5e-a601-4bc4-89b2-e3eb9a79c81a",
+  "harness_cause": {
+    "basis": "Root pinned-source diagnosis; existing state corroborates zero fault events.",
+    "category": "TRANSPORT_FILTER_DID_NOT_MATCH_REQUEST_QUERY",
+    "detail": "Overlay01 required RawQuery empty; Root confirmed pinned client-go v0.36.0 adds timeout=15s. No recorded fault hit/forward/drop event."
+  },
+  "new_api_pg_kube_reads": false,
+  "original_resume_result": "PASS_SAME_STOP_NATURALLY_COMPLETED_AFTER_CLEAR",
+  "original_step_failure_interpretation": "The driver assumed LIST failure had been armed; without a fault hit, its terminal-during-failure assertion does not establish a product failure.",
+  "raw_results_preserved": true,
+  "result": "NOT_VERIFIED_LIST_FAILURE_OR_FAULT_RECOVERY",
+  "resume_interpretation": "Same normal Stop naturally completed. It is not proof of recovery from an injected LIST failure.",
+  "retry_or_new_intent_sent": false,
+  "schema": "a17-harness-failure-note-v1",
+  "separate_natural_termination_observation": {
+    "acceptance_basis": "Root accepted this specific natural LIVE subclaim; no LIST-fault recovery claim.",
+    "at": "2026-10-29T18:33:42.450369Z",
+    "notebook_stopped_annotation_present": true,
+    "observedState": "pending",
+    "operation_phase": "stopping",
+    "operation_state": "accepted",
+    "pod_deleting": true,
+    "pod_phase": "Running",
+    "pod_uid": "b98b32cf-3384-4281-a6d2-f4fef852abb4",
+    "result": "PASS_LIVE_TERMINATING_OLD_POD_NOT_REPORTED_STOPPED",
+    "same_uid_as_running_baseline": true,
+    "scope": "Real terminating old Pod was not reported stopped; independent of the unverified LIST fault. Labels and STS lag are not captured in this observation."
+  },
+  "source_files_sha256": {
+    "a17-list-failure-live-01/commands/a17-normal-start/state.json": "17ebd51f4cc0177259e7da6dcb49668689832b89d16793997febc4e849759d4b",
+    "a17-list-failure-live-01/state.json": "35f602a2a67a6bbd585eb2b328ebbb6bb897747ffab9bfdda0242661e3c8a16e",
+    "resource-source27-fault-direct-01/install/result.safe.json": "03ab0434e5ad656b44d19ec2f885c80917f2dd044374a908a0865a2a5d174517"
+  }
+}

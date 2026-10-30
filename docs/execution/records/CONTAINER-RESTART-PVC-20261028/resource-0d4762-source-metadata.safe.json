@@ -1,0 +1,99 @@
+{
+  "result": "OCI_METADATA_VERIFIED_SOURCE_NOT_PROVEN",
+  "observed_at_utc": "2026-10-29T13:09:23.164321+00:00",
+  "image_digest": "sha256:0d4762c669f8f3797eeb7df233cf1dfc5f513b5269561ea57490df7908e49d43",
+  "platform_digest": "sha256:0d4762c669f8f3797eeb7df233cf1dfc5f513b5269561ea57490df7908e49d43",
+  "config_digest": "sha256:52caec1fd225680ddaf8249f2286532a1ae0968ca1617d0a7af02029d2f338ed",
+  "created": "2026-10-29T20:38:25.410341884+08:00",
+  "labels": {},
+  "source_or_build_receipt_label_pointers": {},
+  "history": [
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build @bookworm//base-files/amd64:data_statusd",
+      "empty_layer": false
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build @bookworm//netbase/amd64:data_statusd",
+      "empty_layer": false
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build @bookworm//tzdata/amd64:data_statusd",
+      "empty_layer": false
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build @bookworm//media-types/amd64:data_statusd",
+      "empty_layer": false
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:rootfs",
+      "empty_layer": false
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:passwd",
+      "empty_layer": false
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:home",
+      "empty_layer": false
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:group",
+      "empty_layer": false
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:tmp",
+      "empty_layer": false
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //static:nsswitch",
+      "empty_layer": false
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:os_release_debian12",
+      "empty_layer": false
+    },
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "created_by": "bazel build //common:cacerts_debian12_amd64_tar",
+      "empty_layer": false
+    },
+    {
+      "created": "2026-10-29T20:38:25.410341884+08:00",
+      "created_by": "COPY /out/ani-resource-service /ani-resource-service # buildkit",
+      "empty_layer": false
+    },
+    {
+      "created": "2026-10-29T20:38:25.410341884+08:00",
+      "created_by": "USER 65532:65532",
+      "empty_layer": true
+    },
+    {
+      "created": "2026-10-29T20:38:25.410341884+08:00",
+      "created_by": "ENTRYPOINT [\"/ani-resource-service\"]",
+      "empty_layer": true
+    }
+  ],
+  "binary_same_as_claimed_source": "NOT_PROVEN",
+  "contains_7fc_read_proof_fix": "NOT_PROVEN",
+  "large_layers_read": false,
+  "binary_executed": false,
+  "image_pulled": false,
+  "deployment_changed": false,
+  "registry_tls_verified": true,
+  "sql_queries": 0,
+  "dry_run_calls": 0,
+  "patch_calls": 0,
+  "new_proposal_generated": false,
+  "stop_condition": "No source pointer: bounded metadata diagnosis ends here"
+}

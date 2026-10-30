@@ -1,0 +1,37 @@
+{
+  "result": "SOURCE22_GATE_AND_RETURN_VERIFIED",
+  "gate_receipt_sha256": "3f4efb1d71fda9657b9cf7c436fd2d05f2706cbe4a00bbd7f585bd84ff79e657",
+  "gate_log_sha256": "48fc3459ea448bca01621b66704402fa94ab3a5ea575549497269910c549cdaa",
+  "parents": [
+    "4eb39bc4868844aaf395337a2d064e91ec716df2",
+    "79261907c18cbf9fba534ec3f242f5e81c6d2324"
+  ],
+  "index_tree": "5619f4b54a5d828db3e598b9fab936c9ada8a6a6",
+  "source_manifest_sha256": "d57a8354df5f5104d6016237a27904dfeb90205fec1d0485928f252ce05f47a5",
+  "source_archive_sha256": "75c39657f4acbb0c0c4e30ff668b5e3aeb2ba9aabca60ad0df50df52d120b5ab",
+  "input_files": 941,
+  "all_tracked_go_included": 607,
+  "source_before_after_unchanged": true,
+  "instance_biz_data_service_go_unchanged_from_source21": true,
+  "elapsed_seconds": 370.325,
+  "heavy_lock_released": true,
+  "empty_tmp_removed": true,
+  "key_go_sha256": {
+    "api/vm/v1/vm.pb.go": "dfdb6db7ab1e027008c5881ec791e2b5acab282af305cac01265e010267eced5",
+    "api/vm/v1/vm_grpc.pb.go": "2328f4b78079a2ac2b870690af19d855dfe2bad0b8ef3502b1b248a51de20b81",
+    "cmd/ani-resource-service/vm.go": "37116987b7a14ecfc4ba42dd52616b8f817e79a6ffa930b887efabf6200abc78",
+    "internal/biz/vm/logs.go": "02f4cbd3fbaaa6dc3c35f134329ef2fb188ca5bd112c633ed4cc42033507f3cd",
+    "internal/data/instance/notebook_lifecycle.go": "4ca4ed3f743c9e109273e81694682b37bcafc0db16cf8ee4199522695e859d46",
+    "internal/data/vm/logs.go": "b3f9515362dedc3bae94118e7c46c0299d1d88b695d133d26d8d15657668a043",
+    "internal/data/vm/logs_test.go": "a7e9aaf1edc41834eeb9267ffe29441ce76ecdadaca7083f0ac67ada2b534f90",
+    "internal/data/vm/native.go": "53d01fc3d8635066f1d7bb498a001866ba044d3f5047c983311a92dee7451662",
+    "internal/server/instance_stream.go": "ae19c92758b4661329cb0161703188eb30b031212d2e8233aa44fd291c68178c",
+    "internal/server/vm_stream_test.go": "cef7b9d3b96b26c9a2d2586ea07d52ef3b0e9dc02b22f10dc033cb87ee05f17c",
+    "internal/service/instance/service.go": "844b0216f1c3523cae63f5c4fd0bed36e727d66a6441cf8b48d93d5874b564a9",
+    "internal/service/vm/logs_test.go": "9a603c94aa2d4e2ab9d66a57349659a33bd3cce035632aab0e7adcb5e7580348",
+    "internal/service/vm/service.go": "cdab39d524210efea80d5d5f0ee80b4be00e974c68921e6930fd0ec4782255ea"
+  },
+  "no_image_build_publish_cluster_write": true,
+  "instance_pg_rerun": false,
+  "unknown_storage_write_patch_preservation": "NOT_PROVEN"
+}

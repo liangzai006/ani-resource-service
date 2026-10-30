@@ -1,0 +1,9 @@
+{
+  "dev": "45075ba255ff1f390b2f2a87c166b56d32c8ff24",
+  "last_task_dev": "e6313101598a9dc66bf1a81156e923c3ea52572a",
+  "main": "26350262119cf66a93bd5e57d169bfc9f362a1fe",
+  "main_and_task_dev_both_ancestors": true,
+  "mutation": "fetch refs only; no source or branch update; no image change",
+  "observed_at": "2026-10-29T13:45:38.811702+00:00",
+  "schema": "gov-main-dev-current-ancestry-v1"
+}

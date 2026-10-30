@@ -1,0 +1,66 @@
+{
+  "database": "ani_resource",
+  "global_nonterminal_count": 0,
+  "global_nonterminal_sample": [],
+  "global_pending_count": 0,
+  "global_recovery_fence_count": 0,
+  "global_unexpired_work_leases": 0,
+  "observed_at": "2026-10-29T14:02:32.162099+00:00",
+  "task_instances": [
+    {
+      "applied_mount_version": 4,
+      "desired": "stopped",
+      "instance_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+      "operations": [
+        {
+          "id": "8e4f6f60-0438-45c6-a73c-148f5cd5b369",
+          "phase": "done",
+          "reason": "",
+          "state": "completed",
+          "version": 6
+        }
+      ],
+      "pending_is_null": true,
+      "recovery_fence_is_null": true,
+      "runtime_desired": "stopped",
+      "version": 6
+    },
+    {
+      "applied_mount_version": 14,
+      "desired": "stopped",
+      "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "operations": [
+        {
+          "id": "99fe1051-17b8-470f-b4db-f569ffb9ad44",
+          "phase": "done",
+          "reason": "INSTANCE_OPERATION_DEADLINE_EXCEEDED",
+          "state": "failed",
+          "version": 18
+        }
+      ],
+      "pending_is_null": true,
+      "recovery_fence_is_null": true,
+      "runtime_desired": "stopped",
+      "version": 18
+    },
+    {
+      "applied_mount_version": 1,
+      "desired": "stopped",
+      "instance_id": "e3dd3ec3-293c-4d5c-97f4-7747ca6392c1",
+      "operations": [
+        {
+          "id": "d5c62487-b4ea-4b66-858c-2ca0b230eed9",
+          "phase": "done",
+          "reason": "",
+          "state": "completed",
+          "version": 2
+        }
+      ],
+      "pending_is_null": true,
+      "recovery_fence_is_null": true,
+      "runtime_desired": "stopped",
+      "version": 2
+    }
+  ],
+  "transaction_read_only": "on"
+}

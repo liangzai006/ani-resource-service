@@ -1,0 +1,157 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "540832e9-11ce-525d-88a5-08d3c064fa9b",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {},
+  "control_receipts": [
+    {
+      "pod": {
+        "name": "ani-resource-service-54c65d45f7-9rbp7",
+        "uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96",
+        "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:5108362e031a7287bbe4a61f508e6183f4c149085d47a91459df078159ba1304",
+        "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501"
+      },
+      "command": [
+        "events",
+        "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded"
+      ],
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T19:00:49.079080824Z",
+            "client": "storage",
+            "event": "matched_exact_uid_request",
+            "method": "DELETE",
+            "mode": "after-drop",
+            "name": "ani-vol-3e69b9d48d1e4e81bd1f3dfca0e51030",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded",
+            "request_sha256": "3d727606615b07135f5f554e1d00b20607b957616750d2f4d4a95099fa7a6247",
+            "resource": "persistentvolumeclaims",
+            "uid": "2b6d8e50-6b82-4826-8a2a-660ca0ba84a5"
+          },
+          {
+            "at": "2026-10-29T19:00:49.079125957Z",
+            "event": "forwarding_original_request",
+            "mode": "after-drop",
+            "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded"
+          },
+          {
+            "at": "2026-10-29T19:00:49.149310604Z",
+            "event": "real_success_response_received",
+            "http_status": 200,
+            "mode": "after-drop",
+            "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded"
+          },
+          {
+            "at": "2026-10-29T19:00:49.149374055Z",
+            "event": "real_response_withheld",
+            "http_status": 200,
+            "mode": "after-drop",
+            "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded"
+          }
+        ],
+        "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded",
+        "result": "EVENTS"
+      }
+    }
+  ],
+  "capture": {
+    "pg": {
+      "guards": [
+        {
+          "phase": "completed",
+          "pvc_name": "ani-vol-3e69b9d48d1e4e81bd1f3dfca0e51030",
+          "retry_at": "2026-10-29T19:00:48.863351+00:00",
+          "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ticket_id": "cc479d80-a943-492f-84a0-c54e62ee4059",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "created_at": "2026-10-29T19:00:48.863352+00:00",
+          "lease_live": false,
+          "target_uid": "2b6d8e50-6b82-4826-8a2a-660ca0ba84a5",
+          "updated_at": "2026-10-29T19:00:49.215564+00:00",
+          "guard_epoch": 1,
+          "last_reason": "",
+          "lease_epoch": 1,
+          "lease_owner": "",
+          "lease_until": "-infinity",
+          "write_started": true,
+          "last_observation": {
+            "State": "absent",
+            "Reason": "",
+            "RetryAt": "0001-01-01T00:00:00Z",
+            "ObservedUID": "",
+            "WriteOutcome": "unknown"
+          },
+          "last_write_outcome": "unknown"
+        }
+      ],
+      "read_only": "on",
+      "observed_at": "2026-10-29T19:00:52.436382+00:00",
+      "protective_refs": []
+    },
+    "pvc": {
+      "exists": false,
+      "pvc_name": "ani-vol-3e69b9d48d1e4e81bd1f3dfca0e51030",
+      "expected_uid": "2b6d8e50-6b82-4826-8a2a-660ca0ba84a5"
+    },
+    "observed_at": "2026-10-29T19:00:54.765259Z",
+    "fault_events": {
+      "events": [
+        {
+          "at": "2026-10-29T19:00:49.079080824Z",
+          "client": "storage",
+          "event": "matched_exact_uid_request",
+          "method": "DELETE",
+          "mode": "after-drop",
+          "name": "ani-vol-3e69b9d48d1e4e81bd1f3dfca0e51030",
+          "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded",
+          "request_sha256": "3d727606615b07135f5f554e1d00b20607b957616750d2f4d4a95099fa7a6247",
+          "resource": "persistentvolumeclaims",
+          "uid": "2b6d8e50-6b82-4826-8a2a-660ca0ba84a5"
+        },
+        {
+          "at": "2026-10-29T19:00:49.079125957Z",
+          "event": "forwarding_original_request",
+          "mode": "after-drop",
+          "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded"
+        },
+        {
+          "at": "2026-10-29T19:00:49.149310604Z",
+          "event": "real_success_response_received",
+          "http_status": 200,
+          "mode": "after-drop",
+          "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded"
+        },
+        {
+          "at": "2026-10-29T19:00:49.149374055Z",
+          "event": "real_response_withheld",
+          "http_status": 200,
+          "mode": "after-drop",
+          "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded"
+        }
+      ],
+      "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded",
+      "result": "EVENTS"
+    },
+    "original_fault_pod": {
+      "uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96",
+      "deleting": false
+    },
+    "current_deployment": {
+      "uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+      "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:5108362e031a7287bbe4a61f508e6183f4c149085d47a91459df078159ba1304",
+      "generation": 81,
+      "ready": 1
+    }
+  },
+  "result": "FACTUAL_CAPTURE_NOT_FULL_A30_ACCEPTANCE",
+  "session_cleanup": [
+    {
+      "step": "events",
+      "remote": "CONFIRMED"
+    }
+  ]
+}

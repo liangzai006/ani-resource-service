@@ -1,0 +1,74 @@
+{
+  "absence": {
+    "notebook": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf"
+    },
+    "pod": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0"
+    },
+    "pv": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "pvc-879bc064-f1d6-4054-aae3-c140c2c2abac"
+    },
+    "pvc": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "workspace-e3dd2bc7-1c6a-429b-a401-e175c287d5cf"
+    },
+    "statefulset": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf"
+    }
+  },
+  "borrowed_storage": {
+    "phase": "Bound",
+    "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+    "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+    "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+  },
+  "business_intents": 0,
+  "cpu_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+  "cpu_tombstone": {
+    "activeOperationId": "",
+    "appliedMountVersion": "26",
+    "computeCleaned": true,
+    "compute_type": "cpu",
+    "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+    "desiredState": "deleted",
+    "executionRunState": "deleted",
+    "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "instance_kind": "container",
+    "lastOperationId": "f1302bd3-d94c-4dc6-b7cf-4257bbaa74dc",
+    "networkCleaned": true,
+    "observedState": "deleted",
+    "quotaReturned": true,
+    "version": "28",
+    "volumeReferencesReleased": true,
+    "workspaceCleaned": true
+  },
+  "gpu_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+  "gpu_read": {
+    "cpu_marker_sha256": "9df8c355f11f1f2bf277957b03c48786ad094fc9c7d7e5b44deae9a9c0dd7df3",
+    "gpu_marker_sha256": "36ed05fc21865dbc8eb653ca543704d20b208d87e44f800e3f0c44da48570dc9",
+    "marker_writes": 0,
+    "pod_uid": "ecf1edfc-3529-44f7-8d9e-9db5ef70b05e"
+  },
+  "kube_object_writes": 0,
+  "logout": "CONFIRMED",
+  "marker_writes": 0,
+  "pg_reference_check": "NOT_RUN_IN_THIS_PROOF",
+  "result": "PASS_CPU28_DELETED_BORROWED_STORAGE_AND_BOTH_OLD_FILES_RETAINED",
+  "schema": "post-cpu-delete28-readproof-v1",
+  "stage": "complete"
+}

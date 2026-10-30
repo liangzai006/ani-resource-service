@@ -1,0 +1,179 @@
+{
+  "_evidence_source": {
+    "credential_contents_copied": false,
+    "path": "/home/chabking/.codex/tasks/container-restart-pvc-20261028/final-private-cleanup-01/local-files.result.safe.json",
+    "sha256": "8200573c4b97b3fb72bb0409d829c2ea07f74318c191ef4e2e4406ec0099a933"
+  },
+  "actions": [
+    {
+      "file": "private-live-01/platform-credentials.json",
+      "metadata": {
+        "dev": 51,
+        "inode": 6707015,
+        "mode": 384,
+        "mtime_ns": 1793180104062353635,
+        "size": 148,
+        "type": "file",
+        "uid": 1000
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/resource-owner.dsn",
+      "metadata": {
+        "dev": 51,
+        "inode": 6848726,
+        "mode": 384,
+        "mtime_ns": 1793259713531823388,
+        "size": 182,
+        "type": "file",
+        "uid": 1000
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/governance-admin.dsn",
+      "metadata": {
+        "dev": 51,
+        "inode": 6854175,
+        "mode": 384,
+        "mtime_ns": 1793263397036202599,
+        "size": 140,
+        "type": "file",
+        "uid": 1000
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/pg-admin.password",
+      "metadata": {
+        "dev": 51,
+        "inode": 6707452,
+        "mode": 384,
+        "mtime_ns": 1793180556065288060,
+        "size": 24,
+        "type": "file",
+        "uid": 1000
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/registry.password",
+      "metadata": {
+        "dev": 51,
+        "inode": 6707773,
+        "mode": 384,
+        "mtime_ns": 1793180808394543545,
+        "size": 96,
+        "type": "file",
+        "uid": 1000
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/ssh-bridge.token",
+      "metadata": {
+        "dev": 51,
+        "inode": 6707244,
+        "mode": 384,
+        "mtime_ns": 1793180366014408917,
+        "size": 64,
+        "type": "file",
+        "uid": 1000
+      },
+      "result": "REMOVED_TASK_COPY"
+    },
+    {
+      "file": "private-live-01/github_known_hosts",
+      "metadata": {
+        "dev": 51,
+        "inode": 6845357,
+        "mode": 384,
+        "mtime_ns": 1793257320217318375,
+        "size": 828,
+        "type": "file",
+        "uid": 1000
+      },
+      "result": "REMOVED_TASK_COPY"
+    }
+  ],
+  "credential_contents_logged": false,
+  "finished_at": "2026-10-29T20:07:47.646300+00:00",
+  "goal": "01a18156-1172-7c22-b5fd-3048a5d895a0",
+  "no_business_api": true,
+  "no_kube_or_sql": true,
+  "no_original_key_or_attachment_access": true,
+  "planned_additional_files": {},
+  "planned_controls": [],
+  "planned_files": {
+    "github_known_hosts": {
+      "dev": 51,
+      "inode": 6845357,
+      "mode": 384,
+      "mtime_ns": 1793257320217318375,
+      "size": 828,
+      "type": "file",
+      "uid": 1000
+    },
+    "governance-admin.dsn": {
+      "dev": 51,
+      "inode": 6854175,
+      "mode": 384,
+      "mtime_ns": 1793263397036202599,
+      "size": 140,
+      "type": "file",
+      "uid": 1000
+    },
+    "pg-admin.password": {
+      "dev": 51,
+      "inode": 6707452,
+      "mode": 384,
+      "mtime_ns": 1793180556065288060,
+      "size": 24,
+      "type": "file",
+      "uid": 1000
+    },
+    "platform-credentials.json": {
+      "dev": 51,
+      "inode": 6707015,
+      "mode": 384,
+      "mtime_ns": 1793180104062353635,
+      "size": 148,
+      "type": "file",
+      "uid": 1000
+    },
+    "registry.password": {
+      "dev": 51,
+      "inode": 6707773,
+      "mode": 384,
+      "mtime_ns": 1793180808394543545,
+      "size": 96,
+      "type": "file",
+      "uid": 1000
+    },
+    "resource-owner.dsn": {
+      "dev": 51,
+      "inode": 6848726,
+      "mode": 384,
+      "mtime_ns": 1793259713531823388,
+      "size": 182,
+      "type": "file",
+      "uid": 1000
+    },
+    "ssh-bridge.token": {
+      "dev": 51,
+      "inode": 6707244,
+      "mode": 384,
+      "mtime_ns": 1793180366014408917,
+      "size": 64,
+      "type": "file",
+      "uid": 1000
+    }
+  },
+  "platform_roles_plans_quotas_untouched": true,
+  "private_evidence_preserved": true,
+  "result": "CLEANED_KNOWN_TASK_ITEMS",
+  "scope": "local-files",
+  "skipped": [],
+  "started_at": "2026-10-29T20:07:47.640706+00:00"
+}

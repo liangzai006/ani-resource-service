@@ -1,0 +1,41 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "540832e9-11ce-525d-88a5-08d3c064fa9b",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {},
+  "create_body": {
+    "data": {
+      "create_token": "3e69b9d4-8d1e-4e81-bd1f-3dfca0e51030",
+      "display_name": "a30-01a18156-response-drop",
+      "capacity_gb": "1",
+      "storage_class_name": "ani-block",
+      "volume_mode": "Filesystem",
+      "access_modes": [
+        "ReadWriteOnce"
+      ]
+    }
+  },
+  "volume": {
+    "pvc_name": "ani-vol-3e69b9d48d1e4e81bd1f3dfca0e51030",
+    "uid": "2b6d8e50-6b82-4826-8a2a-660ca0ba84a5",
+    "volume_mode": "Filesystem"
+  },
+  "binding": {
+    "pv_name": "pvc-2b6d8e50-6b82-4826-8a2a-660ca0ba84a5",
+    "pv_uid": "2e0993b0-b998-4c68-9dbf-99c103d2d4c9",
+    "original_pvc_uid": "2b6d8e50-6b82-4826-8a2a-660ca0ba84a5"
+  },
+  "pg_before": {
+    "guards": [],
+    "read_only": "on",
+    "observed_at": "2026-10-29T18:59:26.630102+00:00",
+    "protective_refs": []
+  },
+  "create_result": "PASS_FORMAL_STORAGE_CREATED_BOUND",
+  "session_cleanup": [
+    {
+      "step": "create",
+      "remote": "CONFIRMED"
+    }
+  ]
+}

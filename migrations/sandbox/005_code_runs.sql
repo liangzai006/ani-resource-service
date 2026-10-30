@@ -1,0 +1,20 @@
+CREATE TABLE sandbox.code_runs (
+ tenant_id uuid NOT NULL,
+ sandbox_id uuid NOT NULL,
+ run_id uuid NOT NULL,
+ idempotency_key text NOT NULL,
+ request_digest text NOT NULL,
+ target jsonb NOT NULL,
+ state text NOT NULL CHECK (state IN ('accepted','dispatching','succeeded','failed','unknown','cancelled')),
+ reason text NOT NULL DEFAULT '',
+ exit_code integer,
+ stdout bytea NOT NULL DEFAULT ''::bytea,
+ stderr bytea NOT NULL DEFAULT ''::bytea,
+ truncated boolean NOT NULL DEFAULT false,
+ created_at timestamptz NOT NULL DEFAULT clock_timestamp(),
+ updated_at timestamptz NOT NULL DEFAULT clock_timestamp(),
+ PRIMARY KEY (tenant_id, run_id),
+ UNIQUE (tenant_id, sandbox_id, idempotency_key),
+ FOREIGN KEY (tenant_id, sandbox_id) REFERENCES sandbox.sandboxes(tenant_id, sandbox_id),
+ CHECK (octet_length(stdout) <= 65536 AND octet_length(stderr) <= 65536)
+);

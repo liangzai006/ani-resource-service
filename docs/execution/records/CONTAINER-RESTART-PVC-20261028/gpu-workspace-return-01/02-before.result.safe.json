@@ -1,0 +1,46 @@
+{
+  "applied_mount_version": "1",
+  "before_observation": {
+    "hook_sha256": "6280e2ba1cf09ebdff46011e07d737a70264c72c6f923b2cc6aeef7cbae4c01d",
+    "instance_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+    "markers": {
+      "/workspace": {
+        "marker_name": ".ani-restart-212e4e29-c200-4bcd-98cc-034d2d322b3d.txt",
+        "read_verified": true,
+        "sha256": "36ed05fc21865dbc8eb653ca543704d20b208d87e44f800e3f0c44da48570dc9"
+      }
+    },
+    "mount_identities": {
+      "/workspace": {
+        "pvc_uid": "7760c2b9-8528-4368-98cd-0e93c5781a73"
+      }
+    },
+    "notebook_uid": "1019c6f6-d97b-4cc0-8989-d80e4b3fef04",
+    "observed_at": "2026-10-29T13:34:30.109900Z",
+    "pod_name": "instance-124bb2fe-fc2d-4efb-973b-72b12ddf36ea-0",
+    "pod_uid": "e3b66d83-83f5-4d40-8858-26d3906f4a0e",
+    "run_id": "212e4e29-c200-4bcd-98cc-034d2d322b3d",
+    "source": "live",
+    "workspace_pvc_uid": "7760c2b9-8528-4368-98cd-0e93c5781a73"
+  },
+  "cuda": "NOT_RUN",
+  "instance_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+  "instance_version": "1",
+  "lifecycle_writes": 0,
+  "marker_write_attempts": 1,
+  "observer_sha256": "6280e2ba1cf09ebdff46011e07d737a70264c72c6f923b2cc6aeef7cbae4c01d",
+  "official_sha256": "51257002af3e49ccf00b485fa4b91c9612a9274bef8c312337a053e48bef2634",
+  "persistent_identities": {
+    "notebook_uid": "1019c6f6-d97b-4cc0-8989-d80e4b3fef04",
+    "pod_uid": "e3b66d83-83f5-4d40-8858-26d3906f4a0e",
+    "statefulset_uid": "7fee7ec3-b791-4cb9-9548-544a36dd75e3",
+    "workspace_pv_name": "pvc-7760c2b9-8528-4368-98cd-0e93c5781a73",
+    "workspace_pv_uid": "f83ff1c7-e6e6-4a0b-ad2e-84a59a11afda",
+    "workspace_pvc_uid": "7760c2b9-8528-4368-98cd-0e93c5781a73"
+  },
+  "preflight_logout": "CONFIRMED",
+  "restart": "NOT_RUN",
+  "result": "PASS_GPU_FRESH_WORKSPACE_MARKER",
+  "run_id": "212e4e29-c200-4bcd-98cc-034d2d322b3d",
+  "schema": "ani.gpu-before-marker-01.safe.v1"
+}

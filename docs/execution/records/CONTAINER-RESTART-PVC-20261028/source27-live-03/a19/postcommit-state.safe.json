@@ -1,0 +1,1098 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "77725e8f-9b07-52f2-b152-e1cea29315f7",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "one-attach": {
+      "action": "attach-pvc",
+      "idempotency_key": "6c08df0f-64dc-4902-80e4-02122bc67554",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "18",
+      "request_body_sha256": "2f15d28525000e1a19e6afb7bf3d2aa94cefc160d62c3d941d889fbe90c52ec0",
+      "request_body": {
+        "data": {
+          "expectedVersion": "18",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "read_only": false,
+          "restart_if_running": true,
+          "idempotencyKey": "6c08df0f-64dc-4902-80e4-02122bc67554"
+        }
+      },
+      "ack": {
+        "operationId": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+        "resourceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+        "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "action": "attach-pvc",
+        "intentVersion": "19",
+        "state": "failed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "19",
+        "completion_scope": "",
+        "reason": "INSTANCE_PVC_REFERENCE_CHANGED",
+        "failure_reason": "INSTANCE_PVC_REFERENCE_CHANGED"
+      }
+    }
+  },
+  "resource_binding": {
+    "name": "ani-resource-service-548bdd5bff-czqmx",
+    "uid": "92e95c0b-f3ed-46f8-bcae-004b64441c45",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd"
+  },
+  "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+  "persistent_identities": {
+    "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+    "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+    "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+    "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+    "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+  },
+  "storage_create_token": "92598e89-ce86-4896-a369-b9c604e917d7",
+  "storage_create_body": {
+    "data": {
+      "create_token": "92598e89-ce86-4896-a369-b9c604e917d7",
+      "display_name": "a19-postcommit-01a18156",
+      "capacity_gb": "1",
+      "storage_class_name": "ani-block",
+      "volume_mode": "Filesystem",
+      "access_modes": [
+        "ReadWriteOnce"
+      ]
+    }
+  },
+  "scratch_volume": {
+    "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+    "uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144"
+  },
+  "running_baseline": {
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "18",
+      "desiredState": "running",
+      "observedState": "running",
+      "activeOperationId": "",
+      "executionRunState": "running",
+      "appliedMountVersion": "17",
+      "lastOperationId": "3587553e-3719-4034-a8ad-1ce484ac52d0",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "18",
+      "applied_mount_version": "17",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": []
+    },
+    "readonly_workspace": {
+      "pod_uid": "57fb5a5c-c60b-4f3a-939e-2ca88b4bfea9",
+      "identities": {
+        "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+      },
+      "runtime": {
+        "pod_uid": "57fb5a5c-c60b-4f3a-939e-2ca88b4bfea9",
+        "hashes": {
+          "/workspace": "2eb7a7ff9c34a18d057da0be5ae96794fcfbb44bde3c4d61b1039462ebed31e8"
+        },
+        "created_only_task_markers_at": [],
+        "absent_path": null,
+        "kernel_mount_absent": true
+      }
+    }
+  },
+  "step_results": {
+    "prepare": "PASS",
+    "hold-attach": "PASS",
+    "inject": "PASS",
+    "resume": "PASS",
+    "cleanup-detach": "PASS",
+    "cleanup-volume": "PASS"
+  },
+  "session_cleanup": [
+    {
+      "phase": "postcommit-prepare",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "postcommit-hold-attach",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "postcommit-inject",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "postcommit-resume",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "postcommit-cleanup-detach",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "postcommit-cleanup-volume",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "held_plan": {
+    "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+    "client": "instance",
+    "resource": "notebooks",
+    "method": "PUT",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+    "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "intent_version": "19",
+    "stopped": "false",
+    "mode": "late-forward",
+    "max_wait_seconds": 120
+  },
+  "control_receipts": [
+    {
+      "step": "hold-attach",
+      "command": [
+        "arm"
+      ],
+      "reply": {
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "ARMED"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "hold-attach",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T19:32:08.414277438Z",
+            "client": "instance",
+            "event": "matched_exact_uid_request",
+            "method": "PUT",
+            "mode": "late-forward",
+            "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+            "request_sha256": "387459125e566b3ce7746603f242552220563db63694187b0e0cd597bf2c201e",
+            "resource": "notebooks",
+            "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+          }
+        ],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "inject",
+      "command": [
+        "release",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "SIGNALLED",
+        "signal": "release"
+      }
+    },
+    {
+      "step": "inject",
+      "command": [
+        "events",
+        "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      ],
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T19:32:08.414277438Z",
+            "client": "instance",
+            "event": "matched_exact_uid_request",
+            "method": "PUT",
+            "mode": "late-forward",
+            "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+            "request_sha256": "387459125e566b3ce7746603f242552220563db63694187b0e0cd597bf2c201e",
+            "resource": "notebooks",
+            "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+          },
+          {
+            "at": "2026-10-29T19:32:20.424692967Z",
+            "event": "forwarding_original_request",
+            "mode": "late-forward",
+            "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+          },
+          {
+            "at": "2026-10-29T19:32:20.430669047Z",
+            "event": "original_request_result",
+            "http_status": 200,
+            "mode": "late-forward",
+            "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+            "transport_error": false
+          }
+        ],
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "inject",
+      "command": [
+        "clear-arm"
+      ],
+      "reply": {
+        "result": "ARM_CLEARED"
+      }
+    }
+  ],
+  "fault_events": {
+    "held_plan": [
+      {
+        "at": "2026-10-29T19:32:08.414277438Z",
+        "client": "instance",
+        "event": "matched_exact_uid_request",
+        "method": "PUT",
+        "mode": "late-forward",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "request_sha256": "387459125e566b3ce7746603f242552220563db63694187b0e0cd597bf2c201e",
+        "resource": "notebooks",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+      },
+      {
+        "at": "2026-10-29T19:32:20.424692967Z",
+        "event": "forwarding_original_request",
+        "mode": "late-forward",
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4"
+      },
+      {
+        "at": "2026-10-29T19:32:20.430669047Z",
+        "event": "original_request_result",
+        "http_status": 200,
+        "mode": "late-forward",
+        "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+        "transport_error": false
+      }
+    ]
+  },
+  "pg_observations": [
+    {
+      "at": "2026-10-29T19:32:08.813975+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": {
+          "ID": "53bf353c-f9a6-4c39-b75b-3df5dd18c37c",
+          "Kind": "set_stopped",
+          "Phase": "starting",
+          "Version": 19,
+          "TargetUID": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+          "OperationID": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+          "PhaseSequence": 7,
+          "StoppedTarget": false,
+          "ResourceVersion": "16012739",
+          "FencedMutationID": "",
+          "TargetMountDigest": "",
+          "ProviderMarkerExpected": true
+        },
+        "version": 19,
+        "current_mounts": [
+          {
+            "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+            "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a19-postcommit-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 19
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "starting",
+          "state": "accepted",
+          "reason": "",
+          "version": 19,
+          "deadline_at": "2026-10-29T20:01:08.167459947Z",
+          "operation_id": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+          "failure_reason": "",
+          "phase_sequence": 7,
+          "template_commit_completed": true
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "active",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+          "intent_version": 19,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:32:49.281378+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "stopped",
+        "pending": null,
+        "version": 19,
+        "current_mounts": [
+          {
+            "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+            "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a19-postcommit-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 19
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "done",
+          "state": "failed",
+          "reason": "INSTANCE_PVC_REFERENCE_CHANGED",
+          "version": 19,
+          "deadline_at": "2026-10-29T20:01:08.167459947Z",
+          "operation_id": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+          "failure_reason": "INSTANCE_PVC_REFERENCE_CHANGED",
+          "phase_sequence": 11,
+          "template_commit_completed": true
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "active",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+          "intent_version": 19,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    }
+  ],
+  "target_committed_before_fault": {
+    "pg": {
+      "at": "2026-10-29T19:32:08.813975+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": {
+          "ID": "53bf353c-f9a6-4c39-b75b-3df5dd18c37c",
+          "Kind": "set_stopped",
+          "Phase": "starting",
+          "Version": 19,
+          "TargetUID": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+          "OperationID": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+          "PhaseSequence": 7,
+          "StoppedTarget": false,
+          "ResourceVersion": "16012739",
+          "FencedMutationID": "",
+          "TargetMountDigest": "",
+          "ProviderMarkerExpected": true
+        },
+        "version": 19,
+        "current_mounts": [
+          {
+            "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+            "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a19-postcommit-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 19
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "starting",
+          "state": "accepted",
+          "reason": "",
+          "version": 19,
+          "deadline_at": "2026-10-29T20:01:08.167459947Z",
+          "operation_id": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+          "failure_reason": "",
+          "phase_sequence": 7,
+          "template_commit_completed": true
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "active",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+          "intent_version": 19,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "19",
+      "applied_mount_version": "19",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": [
+        {
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "read_only": false
+        }
+      ]
+    },
+    "safe_stopped": {
+      "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+      "notebook_rv": "16012739",
+      "sts_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+      "sts_generation": 23,
+      "sts_observed_generation": 23,
+      "replicas": 0,
+      "complete_list_own_pods": 0,
+      "old_named_pod_absent": true
+    }
+  },
+  "external_pvc_delete_attempt": {
+    "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+    "uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+    "body": {
+      "apiVersion": "v1",
+      "kind": "DeleteOptions",
+      "preconditions": {
+        "uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144"
+      }
+    },
+    "external_boundary_fault": true
+  },
+  "released_start_result": {
+    "at": "2026-10-29T19:32:20.430669047Z",
+    "event": "original_request_result",
+    "http_status": 200,
+    "mode": "late-forward",
+    "nonce": "cc041573-1cb0-4112-9f4d-ed3a1469f6c4",
+    "transport_error": false
+  },
+  "case_result": {
+    "result": "PASS_TARGET_CONFIG_RETAINED_AFTER_SAFE_STOPPED_START_FAILURE",
+    "operation": {
+      "id": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+      "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "action": "attach-pvc",
+      "intentVersion": "19",
+      "state": "failed",
+      "phase": "done",
+      "final_run_state": "running",
+      "applied_mount_version": "19",
+      "completion_scope": "",
+      "reason": "INSTANCE_PVC_REFERENCE_CHANGED",
+      "failure_reason": "INSTANCE_PVC_REFERENCE_CHANGED"
+    },
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "19",
+      "desiredState": "stopped",
+      "observedState": "stopped",
+      "activeOperationId": "",
+      "executionRunState": "stopped",
+      "appliedMountVersion": "19",
+      "lastOperationId": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": false,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "19",
+      "applied_mount_version": "19",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": [
+        {
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "read_only": false
+        }
+      ]
+    },
+    "pg_final": {
+      "at": "2026-10-29T19:32:49.281378+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "stopped",
+        "pending": null,
+        "version": 19,
+        "current_mounts": [
+          {
+            "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+            "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a19-postcommit-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 19
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "done",
+          "state": "failed",
+          "reason": "INSTANCE_PVC_REFERENCE_CHANGED",
+          "version": 19,
+          "deadline_at": "2026-10-29T20:01:08.167459947Z",
+          "operation_id": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+          "failure_reason": "INSTANCE_PVC_REFERENCE_CHANGED",
+          "phase_sequence": 11,
+          "template_commit_completed": true
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "active",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "986fbdeb-4971-4e60-947f-3c6b7f970dfe",
+          "intent_version": 19,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    }
+  },
+  "normal_storage_delete_body": {
+    "data": {
+      "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+      "expected_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144"
+    }
+  },
+  "normal_storage_delete_last": {
+    "state": "GONE",
+    "uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144"
+  },
+  "cleanup_result": {
+    "normal_storage_delete": "GONE",
+    "cpu_preserved_stopped": true,
+    "original_workspace_identities": {
+      "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+      "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+      "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+    }
+  }
+}

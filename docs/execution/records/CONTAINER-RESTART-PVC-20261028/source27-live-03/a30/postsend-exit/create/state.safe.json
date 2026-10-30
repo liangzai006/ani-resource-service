@@ -1,0 +1,47 @@
+{
+  "_evidence_source": {
+    "projection": "Existing file only; secret/env/ticket values and raw Deployment bodies redacted",
+    "raw_remote_sha256": "9d3e483139adfd5d9d9e8efe8e7f4455c35a84ac103e4a4136e6f29ea399c928",
+    "redactions": [],
+    "remote_path": "/root/ani-runs/container-restart-pvc-20261028/a30-postsend-old-generation-live-01/postsend-exit/create/state.json"
+  },
+  "base_url": "http://127.0.0.1:39586",
+  "binding": {
+    "pv_name": "pvc-ff1aa873-c351-4833-b6b1-712446318fe0",
+    "pv_uid": "33157fa1-bf40-4a37-b1a8-4f575973eb96",
+    "pvc_uid": "ff1aa873-c351-4833-b6b1-712446318fe0"
+  },
+  "create_body": {
+    "data": {
+      "access_modes": [
+        "ReadWriteOnce"
+      ],
+      "capacity_gb": "1",
+      "create_token": "2763b4b0-a64b-4a02-ad9e-12e0a01e2413",
+      "display_name": "a30-tail-01a18156-postsend-exit",
+      "storage_class_name": "ani-block",
+      "volume_mode": "Filesystem"
+    }
+  },
+  "intents": {},
+  "pg_before": {
+    "guards": [],
+    "observed_at": "2026-10-29T19:27:17.122026+00:00",
+    "protective_refs": [],
+    "read_only": "on"
+  },
+  "result": "PASS_NEW_CASE_SCRATCH_BOUND",
+  "run_id": "a4827031-792a-5263-b2cb-ddbe557f539e",
+  "schema": "container-restart-pvc-http-v1",
+  "session_cleanup": [
+    {
+      "remote": "CONFIRMED",
+      "step": "create"
+    }
+  ],
+  "volume": {
+    "pvc_name": "ani-vol-2763b4b0a64b4a02ad9e12e0a01e2413",
+    "uid": "ff1aa873-c351-4833-b6b1-712446318fe0",
+    "volume_mode": "Filesystem"
+  }
+}

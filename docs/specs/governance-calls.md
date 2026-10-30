@@ -78,13 +78,21 @@ Sandbox 条目定义 Resource RPC 合同和精确接收方 allowlist。Governanc
 | `/instance.v1.InstanceService/ListInstanceEvents` | 当前Pod UID的core/v1 Events，有限读取，无持久化 |
 | `/instance.v1.InstanceService/ResolveTerminalTarget` | 保存位置 + 当前业务版本与真实 UID |
 | `/sandbox.v1.SandboxService/ResolveCreateSpec` | 解析冻结规格；preset 用途固定 SANDBOX |
-| `/sandbox.v1.SandboxService/AcceptCreate` | operation/resource_id 与持久 ACK；实例 ID 仅作 opaque owner reference |
-| `/sandbox.v1.SandboxService/GetSandbox` | 查询持久快照与 Provider 观察 |
-| `/sandbox.v1.SandboxService/ListSandboxes` | tenant + `instance_id` 父资源范围分页查询 |
-| `/sandbox.v1.SandboxService/GetOperation` | tenant + `instance_id` 父资源范围查询持久操作状态 |
-| `/sandbox.v1.SandboxService/Pause` | `instance_id` + 原键 + expected_version |
-| `/sandbox.v1.SandboxService/Resume` | `instance_id` + 原键 + expected_version |
-| `/sandbox.v1.SandboxService/Delete` | `instance_id` + 原键 + expected_version；等待真实 Provider 清理 |
+| `/sandbox.v1.SandboxService/AcceptCreate` | 独立 Sandbox 的受理和持久 ACK |
+| `/sandbox.v1.SandboxService/GetSandbox` | 按租户与 Sandbox ID 查询快照和 Provider 观察 |
+| `/sandbox.v1.SandboxService/ListSandboxes` | 按租户分页查询，无父实例要求 |
+| `/sandbox.v1.SandboxService/GetOperation` | 按租户查询持久生命周期操作 |
+| `/sandbox.v1.SandboxService/Pause` | 原幂等键和 expected_version |
+| `/sandbox.v1.SandboxService/Resume` | 原幂等键和 expected_version |
+| `/sandbox.v1.SandboxService/Delete` | 原幂等键和 expected_version；等待真实 Provider 清理 |
+| `/sandbox.v1.SandboxService/RunCode` | 受理固定 Pod 目标的持久代码执行动作 |
+| `/sandbox.v1.SandboxService/GetCodeRun` | 查询代码执行状态及结果 |
+| `/sandbox.v1.SandboxService/QueryFiles` | 列举或读取受限工作盘文件 |
+| `/sandbox.v1.SandboxService/MutateFiles` | 受理、派发和记录持久幂等文件写删 |
+| `/sandbox.v1.SandboxService/GetFileOperation` | 查询文件写删状态，不返回文件内容 |
+| `/sandbox.v1.SandboxService/CreateToken` | 用户授权后签发短期、绑定目标及版本的 Token |
+| `/sandbox.v1.SandboxService/ValidateToken` | 受信 Gov 对 Token 逐请求验签、核对范围和撤销状态 |
+| `/sandbox.v1.SandboxService/RevokeToken` | 受授权用户撤销指定 Token |
 
 接收方允许清单实现为 [governance.go](../../internal/server/governance.go)、[image_identity.go](../../internal/server/image_identity.go)、[compute_identity.go](../../internal/server/compute_identity.go) 与 [instance_identity.go](../../internal/server/instance_identity.go) 与 [sandbox_identity.go](../../internal/server/sandbox_identity.go)。Instance 普通 unary 调用上限 30s，后台投递继承其更短 deadline；StreamInstanceLogs 使用独立有限生命周期，不套此总期限。修改调用时同时修改登记、允许清单和真实链路测试，不使用 RPC 前缀或通配符授权。
 
@@ -120,7 +128,7 @@ PlatformNetworkService 的完整 27 方法由 [平台允许清单](../../interna
 
 公共 ListPresets/ResolveComputePreset 使用可信租户、actor与request_id，以及明确的 CONTAINER_INSTANCE、TRAINING、INFERENCE、VIRTUAL_MACHINE 或 SANDBOX；未知/UNSPECIFIED及未登记调用者用途拒绝。当前唯一直接调用服务是经证书验证的 Gov。受信Scope记录完整RPC、服务身份与用途；报文tenant须与委托一致，平台范围不能调用租户解析。容器完整ResolveCreateSpec内部适配同一范围并固定CONTAINER_INSTANCE；VM完整ResolveCreateSpec固定VIRTUAL_MACHINE（4）；Sandbox 完整 ResolveCreateSpec 固定 SANDBOX（5），三者方法/用途不可互借；compute不依赖实例Caller或业务环境。字段/单位/确定性摘要及错误边界的唯一来源为[算力目录合同](compute-presets.md)。
 
-TRAINING供普通训练与微调共享，INFERENCE只声明公共提供方支持。本次不装配训练或推理创建消费，不修改ModelDev/ACC/Inference，不增加Gov推理路由或依赖。VM执行及冻结合同见[VM v1](../contracts/vm-v1.md)；Sandbox 一期生命周期合同见[统一设计方案](../plans/sandbox-runtime-design-20261025.md)，并固定由 Gov 的实例子资源入口承接。
+TRAINING供普通训练与微调共享，INFERENCE只声明公共提供方支持。本次不装配训练或推理创建消费，不修改ModelDev/ACC/Inference，不增加Gov推理路由或依赖。VM执行及冻结合同见[VM v1](../contracts/vm-v1.md)；Sandbox 一期生命周期合同见[统一设计方案](../plans/sandbox-runtime-design-20261025.md)，并由 Gov 的 `/api/v1/sandbox` 独立入口承接。
 
 ## 实例日志
 

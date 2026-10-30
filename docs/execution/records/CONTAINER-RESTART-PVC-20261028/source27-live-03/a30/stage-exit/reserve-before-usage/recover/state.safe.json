@@ -1,0 +1,225 @@
+{
+  "_evidence_source": {
+    "projection": "Existing file only; secret/env/ticket values and raw Deployment bodies redacted",
+    "raw_remote_sha256": "d26cb71ae35c9ed5c4fa1805a8b9be8b965cad90a4ca0a2179c1f22e6f42ca07",
+    "redactions": [],
+    "remote_path": "/root/ani-runs/container-restart-pvc-20261028/a30-stage-exit-live-01/reserve-before-usage/recover/state.json"
+  },
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {},
+  "natural_lease_observations": [
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:58:51.474396+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:58:53.655229+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:58:55.846765+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:58:58.033585+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:00.228088+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:02.429773+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:04.617796+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:06.841122+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:09.137238+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:11.306781+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:13.529768+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:15.744634+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:17.954362+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:20.152234+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:22.360289+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:24.548994+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:26.73525+00:00",
+      "phase": "reserved"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": false,
+      "lease_until": "2026-10-29T19:59:28.00015+00:00",
+      "observed_at": "2026-10-29T19:59:28.919328+00:00",
+      "phase": "reserved"
+    }
+  ],
+  "normal_retries": [
+    {
+      "at": "2026-10-29T19:59:31.279615Z",
+      "response": {
+        "state": "TERMINATING",
+        "volume": {
+          "access_modes": [
+            "ReadWriteOnce"
+          ],
+          "deleting": true,
+          "display_name": "a30-stage-01a18156-reserve-before-usage",
+          "observed_capacity_bytes": "1000341504",
+          "observed_capacity_known": true,
+          "observed_capacity_quantity": "954Mi",
+          "phase": "Bound",
+          "pvc_name": "ani-vol-c51e3998e9d34517b5206897f032a1f6",
+          "reclaim_policy": "",
+          "reclaim_policy_known": false,
+          "requested_capacity_gb": "1",
+          "storage_class_name": "ani-block",
+          "uid": "c458068d-ac24-49a9-9b1f-2a8949a635f2",
+          "volume_mode": "Filesystem"
+        }
+      }
+    },
+    {
+      "at": "2026-10-29T19:59:33.432894Z",
+      "response": {
+        "state": "GONE",
+        "volume": null
+      }
+    }
+  ],
+  "original_lease_expired_or_normal_new_epoch_observed": true,
+  "pg_after": {
+    "guards": [
+      {
+        "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "created_at": "2026-10-29T19:58:43.000151+00:00",
+        "guard_epoch": 1,
+        "last_observation": {
+          "ObservedUID": "",
+          "Reason": "",
+          "RetryAt": "0001-01-01T00:00:00Z",
+          "State": "absent",
+          "WriteOutcome": "submitted"
+        },
+        "last_reason": "",
+        "last_write_outcome": "submitted",
+        "lease_epoch": 3,
+        "lease_live": false,
+        "lease_owner": "",
+        "lease_until": "-infinity",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "phase": "completed",
+        "pvc_name": "ani-vol-c51e3998e9d34517b5206897f032a1f6",
+        "retry_at": "2026-10-29T19:59:34.380278+00:00",
+        "target_uid": "c458068d-ac24-49a9-9b1f-2a8949a635f2",
+        "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "ticket_id": "01bccc0b-2272-4853-a620-dbff69d444a2",
+        "updated_at": "2026-10-29T19:59:31.533494+00:00",
+        "write_started": true
+      }
+    ],
+    "observed_at": "2026-10-29T19:59:32.308177+00:00",
+    "protective_refs": [],
+    "read_only": "on"
+  },
+  "protective_refs_empty": true,
+  "pv_absent": true,
+  "pvc_absent": true,
+  "request_body": {
+    "data": {
+      "expected_uid": "c458068d-ac24-49a9-9b1f-2a8949a635f2",
+      "pvc_name": "ani-vol-c51e3998e9d34517b5206897f032a1f6"
+    }
+  },
+  "request_body_sha256": "027697f2e5eebb7e7e7282b0fee5473acb402637a05944201f5ccef058411fdd",
+  "result": "PASS_ORIGINAL_TICKET_NORMAL_RECOVERY_GONE_PV_RECLAIMED",
+  "run_id": "290a76f4-edb8-5a8a-83f5-1cd422083e5d",
+  "schema": "container-restart-pvc-http-v1",
+  "session_cleanup": [
+    {
+      "remote": "CONFIRMED",
+      "step": "recover"
+    }
+  ]
+}

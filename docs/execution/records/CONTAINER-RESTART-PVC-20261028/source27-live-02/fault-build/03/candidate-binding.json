@@ -1,0 +1,15 @@
+{
+  "resource": {
+    "archive_sha256": "44ddec57f627ad67c63849cf2675082ff488b703e3f1d27f9c24bac0c103df0c",
+    "base_revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4",
+    "base_tree": "1043e34e2a0cb26dd20af1292a471c828e3ec52c",
+    "binary_sha256": "1916226fbddeb53b93debba308c364effb47fbc46e20cdd642a26611dcb1136f",
+    "build_receipt_sha256": "fc9657fdeaeb4013a575daf1b743a9ca5971acf5e41ab26443ff7789d900eb18",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:5108362e031a7287bbe4a61f508e6183f4c149085d47a91459df078159ba1304",
+    "manifest_sha256": "90887e51050640a062f7db2ef084b7ad126baa0eb44bcff2dbe2048e1c5bcad9",
+    "overlay_sha256": "b31ea89e628381df76b24988d2a2127e06260f75d42dd72e0df6d3e2d451a95f",
+    "revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4+fault.b31ea89e6283",
+    "source_mode": "task-kube-transport-fault-overlay"
+  },
+  "source_tree": "NOT_A_GIT_TREE:task-overlay"
+}

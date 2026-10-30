@@ -1,0 +1,59 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "591d2fa8-b94c-50c5-80bf-43e7c7709ab3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "attach-pvc",
+      "idempotency_key": "4206fe84-7747-4bd4-aa4c-db37839214a8",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "14",
+      "request_body_sha256": "cc66341435ce543487e6389f43877182700dad65cd32ebb64fa86d4ce8c69802",
+      "ack": {
+        "operationId": "a2c74473-b3d9-4090-aeac-67dd1e8fcb69",
+        "resourceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "a2c74473-b3d9-4090-aeac-67dd1e8fcb69",
+        "instanceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "action": "attach-pvc",
+        "intentVersion": "15",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "stopped",
+        "applied_mount_version": "15",
+        "completion_scope": "template_applied",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+  "after_instance": {
+    "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "15",
+    "desiredState": "stopped",
+    "observedState": "stopped",
+    "activeOperationId": "",
+    "executionRunState": "stopped",
+    "appliedMountVersion": "15",
+    "lastOperationId": "a2c74473-b3d9-4090-aeac-67dd1e8fcb69",
+    "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "attach-pvc",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "a2c74473-b3d9-4090-aeac-67dd1e8fcb69"
+  }
+}

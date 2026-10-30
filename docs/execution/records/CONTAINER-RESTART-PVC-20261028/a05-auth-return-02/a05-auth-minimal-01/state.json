@@ -1,0 +1,60 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "26205f89-e469-427f-bc08-602d80dea8b3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {},
+  "cp04_session_cleanup": [
+    {
+      "phase": "auth",
+      "sessions": [
+        {
+          "application": "console",
+          "remote": "CONFIRMED"
+        },
+        {
+          "application": "boss",
+          "remote": "CONFIRMED"
+        }
+      ]
+    },
+    {
+      "phase": "auth",
+      "sessions": [
+        {
+          "application": "console",
+          "remote": "NOT_CONFIRMED"
+        },
+        {
+          "application": "console",
+          "remote": "CONFIRMED"
+        },
+        {
+          "application": "boss",
+          "remote": "CONFIRMED"
+        }
+      ]
+    },
+    {
+      "phase": "cleanup",
+      "sessions": [
+        {
+          "application": "boss",
+          "remote": "CONFIRMED"
+        }
+      ]
+    },
+    {
+      "phase": "cleanup",
+      "sessions": [
+        {
+          "application": "boss",
+          "remote": "CONFIRMED"
+        }
+      ]
+    }
+  ],
+  "cp04_last_result": {
+    "phase": "cleanup",
+    "result": "PASS_CLEANUP"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "_evidence_source": {
+    "projection": "Existing file only; secret/env/ticket values and raw Deployment bodies redacted",
+    "raw_remote_sha256": "77129a76e5038f079fa5600043a4ab565590b9bffe60250146e4100da7183724",
+    "redactions": [],
+    "remote_path": "/root/ani-runs/container-restart-pvc-20261028/a30-stage-exit-live-01/mark-before-send/arm/state.json"
+  },
+  "base_url": "http://127.0.0.1:39586",
+  "control_receipts": [
+    {
+      "at": "2026-10-29T19:59:39.413782Z",
+      "command": [
+        "arm"
+      ],
+      "pod_uid": "01a2f898-c24b-4689-821b-5b3656c667e7",
+      "reply": "ARMED db543080-a75b-461d-9322-a0618aab426c storage-mark"
+    }
+  ],
+  "intents": {},
+  "plan": {
+    "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+    "expires_at": "2026-10-29T20:59:37.956997+00:00",
+    "kind": "storage-mark",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "nonce": "db543080-a75b-461d-9322-a0618aab426c",
+    "pvc_name": "ani-vol-39377b08a50d47cab66ebe55824e103d",
+    "pvc_uid": "c7167f29-921e-49c0-b9e2-8a7cc7c63040",
+    "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420"
+  },
+  "resource_before": {
+    "actual_uid": 10001,
+    "container_id": "containerd://bb58adf6f21dbfb7f47afebf80aaf2b73c84f71ff2708bd2e58c543efbf765a2",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+    "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+    "install_receipt_path": "/root/ani-runs/container-restart-pvc-20261028/a30-postsend-old-generation-live-01/postsend-exit/recover/resource-process.safe.json",
+    "install_receipt_sha256": "ef2840f12603dbae11dbeb8f7683b2ac0c0b3ca4fcd51ed71e878d2d1756abab",
+    "last_termination": {
+      "containerID": "containerd://7a007feafb5cb25bff28be77e44afd2248f1469cf41d506a30a73cb120ba2e6f",
+      "exitCode": 86,
+      "finishedAt": "2026-10-29T19:58:43Z",
+      "reason": "Error",
+      "startedAt": "2026-10-29T19:48:59Z"
+    },
+    "name": "ani-resource-service-548bdd5bff-5sw64",
+    "ready": true,
+    "restart_count": 1,
+    "state_kind": "running",
+    "uid": "01a2f898-c24b-4689-821b-5b3656c667e7"
+  },
+  "result": "ARMED_EXACT04_SCRATCH_STAGE",
+  "run_id": "fc9a653a-e646-5560-b6fd-dedf46ef4bfd",
+  "schema": "container-restart-pvc-http-v1",
+  "session_cleanup": [
+    {
+      "remote": "NOT_STARTED",
+      "step": "arm"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "result": "COLLECTION_HASH_VERIFIED",
+  "manifest_sha256": "2224d3fd82e6acadd0c3da7b8ad0e5a349c1878b4b07cd209655d97c18388155",
+  "returned_files": 4,
+  "raw_state_events_match_source": true,
+  "events_count": 146,
+  "purpose": "a05-owned-b-cross-plan-v1",
+  "tenant_b_uuid": "4a0cc967-2af8-46e5-b9d6-affbdf40a78c",
+  "progress_guard": {
+    "original_operation_id": "08b80e7e-a335-4112-a3cf-560c5c9f31a4",
+    "version": "17"
+  },
+  "final_phases": {
+    "cleanup": {
+      "normal_api_only": true,
+      "ownership": "new task UUID-coded tenant only",
+      "result": "PASS",
+      "session_cleanup": "CONFIRMED",
+      "tenant_code": "a05b-4a0cc967-2af8-46e5-b9d6-affbdf40a78c"
+    },
+    "cross": {
+      "new_business_intents": 0,
+      "owned_tenant_b": 44,
+      "result": "PASS",
+      "session_cleanup": "CONFIRMED",
+      "stable_version": "17"
+    },
+    "plan": {
+      "from_plan": 2,
+      "owned_tenant_b": 44,
+      "result": "PASS",
+      "same_session_reused": true,
+      "session_cleanup": "CONFIRMED",
+      "to_plan": 1
+    }
+  },
+  "owned_objects": {
+    "grant-b": {
+      "attempted": true,
+      "deleted": true,
+      "http_acknowledged": true,
+      "id": 33,
+      "path": "/api/v1/admin/roles"
+    },
+    "tenant-b": {
+      "attempted": true,
+      "deleted": true,
+      "http_acknowledged": true,
+      "id": 44,
+      "path": "/api/v1/admin/tenants:with-admin"
+    },
+    "user-b": {
+      "deleted": true,
+      "id": 40,
+      "initial_role_ids": [
+        32
+      ],
+      "tenant_id": 44,
+      "username": "a05b-4a0cc9672af846e5b9d6"
+    }
+  },
+  "driver_bindings": {
+    "base": {
+      "current_remote_artifact_sha_verified": true,
+      "file": "a05-auth-minimal-02.py",
+      "sha256": "9eba924228dd1157bc1929741cd2342455f43ba094cab25fcd9b22480403d36a"
+    },
+    "cross_plan": {
+      "current_remote_artifact_sha_verified": true,
+      "file": "cp04-auth-cross-plan-driver.py",
+      "sha256": "cb3ab01369832171dc48726733a7d5a5fbf143e68f77db38fe87e2fa9c90ba38"
+    },
+    "official_root_helper": {
+      "current_remote_artifact_sha_verified": true,
+      "file": "container-restart-pvc-acceptance.py",
+      "sha256": "51257002af3e49ccf00b485fa4b91c9612a9274bef8c312337a053e48bef2634"
+    }
+  },
+  "password_material_removed": true,
+  "api_calls": 0,
+  "deployment_changed": false
+}

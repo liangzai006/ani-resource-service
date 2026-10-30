@@ -1,0 +1,14 @@
+{
+  "changed_implementation_files": [
+    "internal/biz/instance/lifecycle_worker.go",
+    "internal/data/instance/notebook_lifecycle.go"
+  ],
+  "execution_evidence_paths_excluded": [
+    "docs/execution/status.md"
+  ],
+  "green_input_files": 942,
+  "green_manifest_sha256": "bada655797918148b626573bf67038e24303c6d08c0ad16716b6c98f733478ff",
+  "matched_files": 941,
+  "matched_go_files": 608,
+  "result": "PASS_LOCAL_BUILD_TEST_INPUTS_MATCH_SOURCE24_GREEN"
+}

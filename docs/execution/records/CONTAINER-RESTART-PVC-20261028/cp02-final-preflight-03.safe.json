@@ -1,0 +1,174 @@
+{
+  "application_image_changes": 0,
+  "checks": {
+    "cluster_identity": "PASS",
+    "deployments": "PASS",
+    "protected_workloads": "PASS",
+    "pvc_identity": "PASS",
+    "stopped_identity": "PASS"
+  },
+  "deployments": [
+    {
+      "deleting": false,
+      "gates": {
+        "ANI_INSTANCE_CONFIG_FILE": "/private/instance.json",
+        "ANI_INSTANCE_NEW_INTENTS_ENABLED": "true",
+        "ANI_INSTANCE_PVC_MUTATIONS_ENABLED": "true",
+        "ANI_INSTANCE_RESTART_ENABLED": "true"
+      },
+      "generation": 61,
+      "images": [
+        "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:vm-logs-20261029"
+      ],
+      "kind": "Deployment",
+      "name": "ani-resource-service",
+      "namespace": "ani-system",
+      "uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501"
+    },
+    {
+      "deleting": false,
+      "gates": {
+        "ANI_INSTANCE_ADDR": "ani-resource-service.ani-system.svc:9000",
+        "ANI_INSTANCE_CA": "/app/runtime/identity/ca.crt",
+        "ANI_INSTANCE_CERT": "/app/runtime/identity/gov-client.crt",
+        "ANI_INSTANCE_CLUSTER_ID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ANI_INSTANCE_CONFIG_V2_WRITES": "true",
+        "ANI_INSTANCE_KEY": "/app/runtime/identity/gov-client.key",
+        "ANI_INSTANCE_NEW_INTENTS_ENABLED": "true",
+        "ANI_INSTANCE_PVC_MUTATIONS_ENABLED": "true",
+        "ANI_INSTANCE_RESTART_ENABLED": "true",
+        "ANI_INSTANCE_SG_ADDR": "ani-session-gateway-grpc.ani-system.svc:9090",
+        "ANI_INSTANCE_SG_CA_FILE": "/tmp/vm-sg-mtls/ca.crt",
+        "ANI_INSTANCE_SG_CERT_FILE": "/tmp/vm-sg-mtls/tls.crt",
+        "ANI_INSTANCE_SG_KEY_FILE": "/tmp/vm-sg-mtls/tls.key",
+        "ANI_INSTANCE_SG_SERVER_NAME": "ani-session-gateway"
+      },
+      "generation": 155,
+      "images": [
+        "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:823ada9b3728c1443f4d14d6791e17125a47e8bef997019c06eee2b665100efe"
+      ],
+      "kind": "Deployment",
+      "name": "ani-governance",
+      "namespace": "ani-system",
+      "uid": "4ae87828-5f2c-4b27-a8b8-d348aeb86ee5"
+    },
+    {
+      "deleting": false,
+      "gates": {
+        "ANI_INSTANCE_ADDR": "ani-resource-sandbox-20261027.ani-system.svc:9000",
+        "ANI_INSTANCE_CA": "/app/runtime/identity/ca.crt",
+        "ANI_INSTANCE_CERT": "/app/runtime/identity/gov-client.crt",
+        "ANI_INSTANCE_CLUSTER_ID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ANI_INSTANCE_CONFIG_V2_WRITES": "true",
+        "ANI_INSTANCE_KEY": "/app/runtime/identity/gov-client.key",
+        "ANI_INSTANCE_NEW_INTENTS_ENABLED": "true",
+        "ANI_INSTANCE_PVC_MUTATIONS_ENABLED": "true",
+        "ANI_INSTANCE_RESTART_ENABLED": "true",
+        "ANI_INSTANCE_SG_ADDR": "ani-session-gateway-grpc.ani-system.svc:9090",
+        "ANI_INSTANCE_SG_CA_FILE": "/tmp/vm-sg-mtls/ca.crt",
+        "ANI_INSTANCE_SG_CERT_FILE": "/tmp/vm-sg-mtls/tls.crt",
+        "ANI_INSTANCE_SG_KEY_FILE": "/tmp/vm-sg-mtls/tls.key",
+        "ANI_INSTANCE_SG_SERVER_NAME": "ani-session-gateway"
+      },
+      "generation": 16,
+      "images": [
+        "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:054c50a23aca9cebf47f5abff960f734e153cc2b7cf71ef823497355ca3b9719"
+      ],
+      "kind": "Deployment",
+      "name": "ani-governance-sandbox-20261027",
+      "namespace": "ani-system",
+      "uid": "d3db8e14-df99-4fd3-80f4-d10c3ad00915"
+    },
+    {
+      "deleting": false,
+      "gates": {
+        "ANI_INSTANCE_CONFIG_FILE": "/private/instance.json"
+      },
+      "generation": 11,
+      "images": [
+        "docker.changqingyun.cn/ani/resource-service@sha256:2f831c6c04f95b44c2da11b182fc4c1176807d57d2317924e443b7dfa2833e43"
+      ],
+      "kind": "Deployment",
+      "name": "ani-resource-sandbox-20261027",
+      "namespace": "ani-system",
+      "uid": "81ec6bc5-c5b5-4535-af42-bb8d96b70864"
+    }
+  ],
+  "notebook": {
+    "deleting": false,
+    "generation": 4,
+    "kind": "Notebook",
+    "name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0"
+  },
+  "observed_at": "2026-10-29T11:46:40.151539+00:00",
+  "protected": [
+    {
+      "deleting": false,
+      "generation": 1,
+      "kind": "Notebook",
+      "name": "instance-63b52ff4-e489-4df6-b6fb-be10a36e2eb9",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "uid": "92fe6748-7a43-460f-b4b2-000a0721be2d"
+    },
+    {
+      "deleting": false,
+      "generation": 1,
+      "kind": "Notebook",
+      "name": "instance-d2b9ea58-98d6-4acd-bac1-3210ac46fdaa",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "uid": "047a9d29-480f-4394-89e7-2dc4cf26ba5a"
+    },
+    {
+      "deleting": false,
+      "generation": 1,
+      "kind": "Pod",
+      "name": "instance-63b52ff4-e489-4df6-b6fb-be10a36e2eb9-0",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "ready": true,
+      "uid": "af4cd92a-9352-4001-9697-d937bb767ec7"
+    },
+    {
+      "deleting": false,
+      "generation": 1,
+      "kind": "Pod",
+      "name": "instance-d2b9ea58-98d6-4acd-bac1-3210ac46fdaa-0",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "ready": true,
+      "uid": "ce90eb86-8af7-4842-a6c9-c56ed9dbc250"
+    }
+  ],
+  "pvcs": [
+    {
+      "deleting": false,
+      "generation": null,
+      "kind": "PersistentVolumeClaim",
+      "name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+    },
+    {
+      "deleting": false,
+      "generation": null,
+      "kind": "PersistentVolumeClaim",
+      "name": "workspace-e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "pv_name": "pvc-879bc064-f1d6-4054-aae3-c140c2c2abac",
+      "uid": "879bc064-f1d6-4054-aae3-c140c2c2abac"
+    }
+  ],
+  "read_only": true,
+  "statefulset": {
+    "deleting": false,
+    "generation": 19,
+    "kind": "StatefulSet",
+    "name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "observed_generation": 19,
+    "replicas": 0,
+    "uid": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c"
+  },
+  "target_pods": []
+}

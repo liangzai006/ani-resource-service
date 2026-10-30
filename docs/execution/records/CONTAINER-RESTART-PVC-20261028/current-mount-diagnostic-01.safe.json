@@ -1,0 +1,119 @@
+{
+  "applied_mount_version": 6,
+  "current_mounts": [
+    {
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "mount_path": "/datasets/cp02-01a18156",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "ownership": "borrowed",
+      "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "read_only": false,
+      "reference_generation": 1
+    }
+  ],
+  "database": "ani_resource",
+  "desired": "running",
+  "frozen": {
+    "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "notebook_name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "original_mounts": null,
+    "workspace_path": "/workspace",
+    "workspace_pvc": "workspace-e3dd2bc7-1c6a-429b-a401-e175c287d5cf"
+  },
+  "identity": {
+    "notebook_uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0",
+    "pod_uid": "353a2032-b9d3-47ad-bbaa-a2aa4c5524eb",
+    "statefulset_uid": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c",
+    "tracked_pods": [
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "f4898213-eb37-4e80-a238-e46cde574a15"
+      },
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "8c1b184c-7f4d-4b6b-a995-4d05222abdf8"
+      },
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "f41f9582-b106-48ba-b034-24d30fbaad62"
+      },
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "6c618d12-2287-4857-8745-6d3f92380752"
+      },
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "353a2032-b9d3-47ad-bbaa-a2aa4c5524eb"
+      }
+    ]
+  },
+  "mounts_initialized": true,
+  "observed_at": "2026-10-29T07:45:20.898136+00:00",
+  "operation": {
+    "execution": {
+      "applied_mount_version": 6,
+      "before_mounts": [
+        {
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "mount_path": "/datasets/cp02-01a18156",
+          "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ownership": "borrowed",
+          "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+          "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+          "read_only": false,
+          "reference_generation": 1
+        }
+      ],
+      "before_pods": null,
+      "before_run_state": "running",
+      "canonical_intent": [
+        "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        7,
+        "restart"
+      ],
+      "completion_scope": "",
+      "deadline_at": "2026-10-29T07:45:17.954687064Z",
+      "failure_reason": "INSTANCE_OPERATION_DEADLINE_EXCEEDED",
+      "final_run_state": "running",
+      "phase": "recovering_stop",
+      "phase_sequence": 2,
+      "schema_version": 1,
+      "started_at": "2026-10-29T07:15:17.954687064Z",
+      "target_configuration": null,
+      "template_commit_completed": false
+    },
+    "id": "e8ebe2f3-030f-456e-b4ce-2b4b7c83a81f",
+    "reason": "INSTANCE_OPERATION_DEADLINE_EXCEEDED",
+    "state": "blocked",
+    "version": 8
+  },
+  "pending": null,
+  "recovery_fence": null,
+  "runtime_desired": "stopped",
+  "transaction_read_only": "on",
+  "user": "postgres",
+  "version": 8,
+  "work": {
+    "due_at": "2026-10-29T07:45:25.039124+00:00",
+    "lease_epoch": 2655,
+    "lease_owner": "",
+    "lease_until": "-infinity"
+  }
+}

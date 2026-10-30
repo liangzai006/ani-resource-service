@@ -1,0 +1,80 @@
+{
+  "absence": {
+    "notebook": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "instance-9f4b0ec2-aa9b-435e-a188-54ad42edb538"
+    },
+    "pod": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "instance-9f4b0ec2-aa9b-435e-a188-54ad42edb538-0"
+    },
+    "pv": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "pvc-f337110e-1e57-46c0-8427-ad5a2538ac8e"
+    },
+    "pvc": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "workspace-9f4b0ec2-aa9b-435e-a188-54ad42edb538"
+    },
+    "statefulset": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "instance-9f4b0ec2-aa9b-435e-a188-54ad42edb538"
+    }
+  },
+  "borrowed_storage": {
+    "phase": "Bound",
+    "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+    "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+    "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+    "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+  },
+  "business_intents": 0,
+  "delete_operation_id": "f529c053-cb55-4ad4-a583-baf0aa5d9973",
+  "kube_object_writes": 0,
+  "logout": "CONFIRMED",
+  "marker_writes": 0,
+  "new_ledger_queries": 0,
+  "original_workspace_identities": {
+    "workspace_pv_name": "pvc-f337110e-1e57-46c0-8427-ad5a2538ac8e",
+    "workspace_pv_uid": "db748cf9-5ab6-4f9c-8ae5-d19b0d40fbc4",
+    "workspace_pvc_uid": "f337110e-1e57-46c0-8427-ad5a2538ac8e"
+  },
+  "reader_id": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+  "reader_refs": {
+    "reader_protective_count": 0,
+    "receipt_sha256": "c31eadbd06d3538555efc3db371e15700be0b1d4b7011c466f7e80a7a391e0a1",
+    "result": "PASS_READER_OWN_PROTECTIVE_REFS_ZERO",
+    "unrelated_refs_not_in_scope": true
+  },
+  "reader_tombstone": {
+    "activeOperationId": "",
+    "appliedMountVersion": "5",
+    "computeCleaned": true,
+    "compute_type": "cpu",
+    "createOperationId": "1f499d73-ec2a-4460-a9ee-ec3a07f80aaf",
+    "desiredState": "deleted",
+    "executionRunState": "deleted",
+    "id": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+    "instance_kind": "container",
+    "lastOperationId": "f529c053-cb55-4ad4-a583-baf0aa5d9973",
+    "networkCleaned": true,
+    "observedState": "deleted",
+    "quotaReturned": true,
+    "version": "6",
+    "volumeReferencesReleased": true,
+    "workspaceCleaned": true
+  },
+  "result": "PASS_READER6_DELETED_BORROWED_STORAGE_RETAINED_OWN_REFS_ZERO",
+  "schema": "post-reader-delete6-readproof-v1",
+  "stage": "complete"
+}

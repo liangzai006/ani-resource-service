@@ -1,0 +1,43 @@
+{
+  "cpu_protective_count": 0,
+  "database_writes": 0,
+  "gpu_protective_rows": [
+    {
+      "instance_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+      "intent_version": 9,
+      "mount_path": "/datasets/gpu-01a18156",
+      "operation_id": "32959067-9fd1-4b62-bcb0-c7dab1103178",
+      "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "reference_generation": 2,
+      "state": "active"
+    }
+  ],
+  "known_ref_states": true,
+  "observed_at": "2026-10-29T16:41:08.191304+00:00",
+  "read_only": true,
+  "result": "PASS_CPU_PROTECTIVE_REFS_ZERO_GPU9_OWN_REF_ACTIVE",
+  "scope": "exact tenant and CPU/GPU instance IDs only",
+  "scoped_rows": [
+    {
+      "instance_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+      "intent_version": 9,
+      "mount_path": "/datasets/gpu-01a18156",
+      "operation_id": "32959067-9fd1-4b62-bcb0-c7dab1103178",
+      "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "reference_generation": 2,
+      "state": "active"
+    },
+    {
+      "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "intent_version": 28,
+      "mount_path": "/datasets/cp02-01a18156",
+      "operation_id": "f1302bd3-d94c-4dc6-b7cf-4257bbaa74dc",
+      "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "reference_generation": 3,
+      "state": "released"
+    }
+  ]
+}

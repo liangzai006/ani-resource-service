@@ -1,0 +1,34 @@
+{
+  "automatic_rollback": false,
+  "before_image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:1e58c75d77c20d3237a02ea8207749e485bec822955c84d561c49cdc771f9852",
+  "database_writes": 0,
+  "deployment_patch_applied": true,
+  "elapsed_seconds": 9.547,
+  "finished_at": "2026-10-29T17:52:41.109505+00:00",
+  "generation": 78,
+  "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:1846ff442cc31f9a645f6137fb8a70ebc3f8d76e8a72bf675f0c72893714909e",
+  "observed_generation": 78,
+  "pods": [
+    {
+      "containers": [
+        {
+          "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:1846ff442cc31f9a645f6137fb8a70ebc3f8d76e8a72bf675f0c72893714909e",
+          "name": "resource",
+          "ready": true
+        }
+      ],
+      "deleting": false,
+      "uid": "2663d77c-f663-4ad7-9fc8-866ef6cc3be7"
+    }
+  ],
+  "ready_replicas": 1,
+  "release_gates_run": false,
+  "result": "DEPLOYED",
+  "revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4",
+  "started_at": "2026-10-29T17:52:31.562276+00:00",
+  "strategy": {
+    "type": "Recreate"
+  },
+  "tests_run": false,
+  "workload_patches": 0
+}

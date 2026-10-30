@@ -1,0 +1,59 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "591d2fa8-b94c-50c5-80bf-43e7c7709ab3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "attach-pvc",
+      "idempotency_key": "5d1adb68-d3c1-4ec9-b99b-972862f4a483",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "11",
+      "request_body_sha256": "66439ee5ba2ea7a418dd0725071a43eced7bfcbedda61fc0e5e065b6e4fa6fc1",
+      "ack": {
+        "operationId": "6099c920-16b4-4050-a22e-f21f426f8741",
+        "resourceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "6099c920-16b4-4050-a22e-f21f426f8741",
+        "instanceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "action": "attach-pvc",
+        "intentVersion": "12",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "stopped",
+        "applied_mount_version": "12",
+        "completion_scope": "template_applied",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+  "after_instance": {
+    "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "12",
+    "desiredState": "stopped",
+    "observedState": "stopped",
+    "activeOperationId": "",
+    "executionRunState": "stopped",
+    "appliedMountVersion": "12",
+    "lastOperationId": "6099c920-16b4-4050-a22e-f21f426f8741",
+    "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "attach-pvc",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "6099c920-16b4-4050-a22e-f21f426f8741"
+  }
+}

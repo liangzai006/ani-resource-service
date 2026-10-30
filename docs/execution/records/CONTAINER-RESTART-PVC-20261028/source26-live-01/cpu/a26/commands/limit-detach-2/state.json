@@ -1,0 +1,59 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "591d2fa8-b94c-50c5-80bf-43e7c7709ab3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "detach-pvc",
+      "idempotency_key": "4ddacacd-f137-4838-9b4b-a1d9d6264daf",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "18",
+      "request_body_sha256": "ee73f60b79a8f87e83e207461bac6db60f54108a3d2a06e8afc29d4ade329be7",
+      "ack": {
+        "operationId": "30b30bdf-0705-436a-89f9-7dac8c4e4ee2",
+        "resourceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "30b30bdf-0705-436a-89f9-7dac8c4e4ee2",
+        "instanceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "action": "detach-pvc",
+        "intentVersion": "19",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "stopped",
+        "applied_mount_version": "19",
+        "completion_scope": "template_applied",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+  "after_instance": {
+    "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "19",
+    "desiredState": "stopped",
+    "observedState": "stopped",
+    "activeOperationId": "",
+    "executionRunState": "stopped",
+    "appliedMountVersion": "19",
+    "lastOperationId": "30b30bdf-0705-436a-89f9-7dac8c4e4ee2",
+    "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "detach-pvc",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "30b30bdf-0705-436a-89f9-7dac8c4e4ee2"
+  }
+}

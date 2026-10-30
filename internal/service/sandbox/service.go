@@ -27,6 +27,9 @@ type Config struct {
 	StorageClassResolver                                                             biz.StorageClassResolver
 	RuntimeClassResolver                                                             biz.RuntimeClassResolver
 	NamespaceResolver                                                                biz.NamespaceResolver
+	CodeRunner                                                                       *biz.CodeRunner
+	FileService                                                                      *biz.FileService
+	TokenService                                                                     *biz.TokenService
 }
 type Service struct {
 	pb.UnimplementedSandboxServiceServer
@@ -96,6 +99,23 @@ func (s *Service) resolveImage(ctx context.Context, tenant, requested string) (s
 	return requested, nil
 }
 
+func (s *Service) resolveImageID(ctx context.Context, tenant, id, scope string) (string, error) {
+	if id == "" || id != strings.TrimSpace(id) || (scope != "tenant" && scope != "platform") {
+		return "", biz.ErrInvalid
+	}
+	if s.config.ImageResolver == nil {
+		return "", biz.ErrDependencyUnavailable
+	}
+	ref, err := s.config.ImageResolver.ResolveSandboxImageID(ctx, tenant, id, scope)
+	if err != nil {
+		return "", err
+	}
+	if _, ok := biz.ImageDigest(ref); !ok || ref != strings.TrimSpace(ref) {
+		return "", biz.ErrDependencyUnavailable
+	}
+	return ref, nil
+}
+
 func (s *Service) storageClass(ctx context.Context, tenant string) (string, error) {
 	if s.config.StorageClassResolver != nil {
 		class, err := s.config.StorageClassResolver.ResolveSandboxStorageClass(ctx, tenant)
@@ -147,7 +167,7 @@ func rpcError(err error) error {
 		return status.Error(codes.NotFound, err.Error())
 	case errors.Is(err, biz.ErrConflict):
 		return status.Error(codes.AlreadyExists, err.Error())
-	case errors.Is(err, biz.ErrVersion), errors.Is(err, compute.ErrPresetDisabled):
+	case errors.Is(err, biz.ErrVersion), errors.Is(err, biz.ErrDataPlaneUnavailable), errors.Is(err, compute.ErrPresetDisabled):
 		return status.Error(codes.FailedPrecondition, err.Error())
 	case errors.Is(err, biz.ErrUnsupported):
 		return status.Error(codes.Unimplemented, err.Error())
@@ -157,6 +177,12 @@ func rpcError(err error) error {
 		return status.Error(codes.FailedPrecondition, err.Error())
 	case errors.Is(err, biz.ErrLease):
 		return status.Error(codes.FailedPrecondition, err.Error())
+	case errors.Is(err, biz.ErrTokenInvalid), errors.Is(err, biz.ErrTokenExpired):
+		return status.Error(codes.Unauthenticated, err.Error())
+	case errors.Is(err, biz.ErrTokenUnavailable):
+		return status.Error(codes.Unavailable, err.Error())
+	case errors.Is(err, biz.ErrFileTooLarge):
+		return status.Error(codes.ResourceExhausted, err.Error())
 	case errors.Is(err, biz.ErrInvalid):
 		return status.Error(codes.InvalidArgument, err.Error())
 	case errors.Is(err, compute.ErrInvalid):
@@ -188,7 +214,9 @@ func frozenSpecDigest(s *pb.ResolveCreateSpecResponse) (string, error) {
 		CPUMillis, MemoryMiB                                                                                            int64
 		SelectionDigest, ClusterID, Namespace, NamespaceUID, RuntimeClass, MountPath, Size, StorageClass, ReclaimPolicy string
 		ContractVersion                                                                                                 uint32
-	}{s.Name, s.ImageReference, s.ImageDigest, s.PresetId, s.PresetCode, s.PresetName, s.ComputeType, s.CpuMillis, s.MemoryMib, s.SelectionDigest, s.ClusterId, s.Namespace, s.NamespaceUid, s.RuntimeClass, s.Workspace.MountPath, s.Workspace.Size, s.Workspace.StorageClass, s.Workspace.ReclaimPolicy, s.ContractVersion}
+		ImageID                                                                                                         string `json:"ImageID,omitempty"`
+		ImageScope                                                                                                      string `json:"ImageScope,omitempty"`
+	}{s.Name, s.ImageReference, s.ImageDigest, s.PresetId, s.PresetCode, s.PresetName, s.ComputeType, s.CpuMillis, s.MemoryMib, s.SelectionDigest, s.ClusterId, s.Namespace, s.NamespaceUid, s.RuntimeClass, s.Workspace.MountPath, s.Workspace.Size, s.Workspace.StorageClass, s.Workspace.ReclaimPolicy, s.ContractVersion, s.ImageId, s.ImageScope}
 	b, err := json.Marshal(canonical)
 	if err != nil {
 		return "", err
@@ -238,7 +266,16 @@ func (s *Service) ResolveCreateSpec(ctx context.Context, r *pb.ResolveCreateSpec
 		return nil, rpcError(err)
 	}
 	name := strings.TrimSpace(r.Data.Name)
-	imageRef, err := s.resolveImage(ctx, r.TenantId, strings.TrimSpace(r.Data.ImageReference))
+	var imageRef string
+	if r.Data.ImageId != "" || r.Data.ImageScope != "" {
+		if r.Data.ImageReference != "" {
+			return nil, rpcError(biz.ErrInvalid)
+		}
+		imageRef, err = s.resolveImageID(ctx, r.TenantId, r.Data.ImageId, r.Data.ImageScope)
+	} else {
+		// Older callers use the registered immutable reference during rollout.
+		imageRef, err = s.resolveImage(ctx, r.TenantId, strings.TrimSpace(r.Data.ImageReference))
+	}
 	if err != nil {
 		return nil, rpcError(err)
 	}
@@ -274,7 +311,7 @@ func (s *Service) ResolveCreateSpec(ctx context.Context, r *pb.ResolveCreateSpec
 	if err != nil {
 		return nil, rpcError(err)
 	}
-	out := &pb.ResolveCreateSpecResponse{Name: name, ImageReference: imageRef, ImageDigest: digest, PresetId: sel.PresetID, PresetCode: sel.Code, PresetName: sel.Name, ComputeType: sel.ComputeType, CpuMillis: sel.CPUMillis, MemoryMib: sel.MemoryMiB, SelectionDigest: selDigest, ClusterId: s.config.ClusterID, Namespace: namespace, NamespaceUid: namespaceUID, RuntimeClass: runtimeClass, Workspace: &pb.WorkspaceSpec{MountPath: "/workspace", Size: workspace, StorageClass: storageClass, ReclaimPolicy: "Delete"}, ContractVersion: 1}
+	out := &pb.ResolveCreateSpecResponse{Name: name, ImageId: r.Data.ImageId, ImageScope: r.Data.ImageScope, ImageReference: imageRef, ImageDigest: digest, PresetId: sel.PresetID, PresetCode: sel.Code, PresetName: sel.Name, ComputeType: sel.ComputeType, CpuMillis: sel.CPUMillis, MemoryMib: sel.MemoryMiB, SelectionDigest: selDigest, ClusterId: s.config.ClusterID, Namespace: namespace, NamespaceUid: namespaceUID, RuntimeClass: runtimeClass, Workspace: &pb.WorkspaceSpec{MountPath: "/workspace", Size: workspace, StorageClass: storageClass, ReclaimPolicy: "Delete"}, ContractVersion: 1}
 	out.SpecDigest, err = frozenSpecDigest(out)
 	if err != nil {
 		return nil, rpcError(err)
@@ -282,10 +319,10 @@ func (s *Service) ResolveCreateSpec(ctx context.Context, r *pb.ResolveCreateSpec
 	return out, nil
 }
 func specValue(v *pb.ResolveCreateSpecResponse) biz.CreateSpec {
-	return biz.CreateSpec{Name: v.Name, ImageReference: v.ImageReference, ImageDigest: v.ImageDigest, PresetID: v.PresetId, PresetCode: v.PresetCode, PresetName: v.PresetName, ComputeType: v.ComputeType, CPUMillis: v.CpuMillis, MemoryMiB: v.MemoryMib, SelectionDigest: v.SelectionDigest, SpecDigest: v.SpecDigest, ClusterID: v.ClusterId, Namespace: v.Namespace, NamespaceUID: v.NamespaceUid, RuntimeClass: v.RuntimeClass, Workspace: biz.WorkspaceSpec{MountPath: v.Workspace.MountPath, Size: v.Workspace.Size, StorageClass: v.Workspace.StorageClass, ReclaimPolicy: v.Workspace.ReclaimPolicy}}
+	return biz.CreateSpec{Name: v.Name, ImageID: v.ImageId, ImageScope: v.ImageScope, ImageReference: v.ImageReference, ImageDigest: v.ImageDigest, PresetID: v.PresetId, PresetCode: v.PresetCode, PresetName: v.PresetName, ComputeType: v.ComputeType, CPUMillis: v.CpuMillis, MemoryMiB: v.MemoryMib, SelectionDigest: v.SelectionDigest, SpecDigest: v.SpecDigest, ClusterID: v.ClusterId, Namespace: v.Namespace, NamespaceUID: v.NamespaceUid, RuntimeClass: v.RuntimeClass, Workspace: biz.WorkspaceSpec{MountPath: v.Workspace.MountPath, Size: v.Workspace.Size, StorageClass: v.Workspace.StorageClass, ReclaimPolicy: v.Workspace.ReclaimPolicy}}
 }
 func frozenSnapshot(v biz.CreateSpec) biz.Snapshot {
-	return biz.Snapshot{Name: v.Name, ImageReference: v.ImageReference, ImageDigest: v.ImageDigest, PresetID: v.PresetID, PresetCode: v.PresetCode, PresetName: v.PresetName, ComputeType: v.ComputeType, CPUMillis: v.CPUMillis, MemoryMiB: v.MemoryMiB, SelectionDigest: v.SelectionDigest, SpecDigest: v.SpecDigest, ClusterID: v.ClusterID, Namespace: v.Namespace, NamespaceUID: v.NamespaceUID, RuntimeClass: v.RuntimeClass, Workspace: v.Workspace}
+	return biz.Snapshot{Name: v.Name, ImageID: v.ImageID, ImageScope: v.ImageScope, ImageReference: v.ImageReference, ImageDigest: v.ImageDigest, PresetID: v.PresetID, PresetCode: v.PresetCode, PresetName: v.PresetName, ComputeType: v.ComputeType, CPUMillis: v.CPUMillis, MemoryMiB: v.MemoryMiB, SelectionDigest: v.SelectionDigest, SpecDigest: v.SpecDigest, ClusterID: v.ClusterID, Namespace: v.Namespace, NamespaceUID: v.NamespaceUID, RuntimeClass: v.RuntimeClass, Workspace: v.Workspace}
 }
 func (s *Service) AcceptCreate(ctx context.Context, r *pb.AcceptCreateRequest) (*pb.AcceptCreateResponse, error) {
 	if r == nil || hasUnknown(r.ProtoReflect()) || r.Context == nil || r.Spec == nil || !biz.UUID(r.Context.ResourceId) || !biz.UUID(r.Context.OperationId) || len([]rune(r.InstanceId)) > 128 || r.Spec.ContractVersion != 1 || r.Spec.Workspace == nil {
@@ -331,7 +368,13 @@ func (s *Service) AcceptCreate(ctx context.Context, r *pb.AcceptCreateRequest) (
 	if namespaceUID == "" || namespaceUID != r.Spec.NamespaceUid {
 		return nil, rpcError(biz.ErrOwnership)
 	}
-	imageRef, imageErr := s.resolveImage(ctx, r.Context.TenantId, r.Spec.ImageReference)
+	var imageRef string
+	var imageErr error
+	if r.Spec.ImageId != "" || r.Spec.ImageScope != "" {
+		imageRef, imageErr = s.resolveImageID(ctx, r.Context.TenantId, r.Spec.ImageId, r.Spec.ImageScope)
+	} else {
+		imageRef, imageErr = s.resolveImage(ctx, r.Context.TenantId, r.Spec.ImageReference)
+	}
 	if imageErr != nil {
 		return nil, rpcError(imageErr)
 	}
@@ -417,7 +460,7 @@ func ackProto(a biz.ACK) *pb.OperationAck {
 	return &pb.OperationAck{OperationId: a.OperationID, ResourceId: a.ResourceID, Accepted: a.Accepted, Replayed: a.Replayed}
 }
 func toProto(x biz.Sandbox) *pb.Sandbox {
-	return &pb.Sandbox{Id: x.ID, TenantId: x.TenantID, InstanceId: x.InstanceID, CreateIntentDigest: x.CreateIntentDigest, Version: x.Version, DesiredState: x.Desired, ObservedState: x.Observed, Reason: x.Reason, CreateOperationId: x.CreateOperationID, LastOperationId: x.LastOperationID, Snapshot: &pb.SandboxSnapshot{Name: x.Snapshot.Name, ImageReference: x.Snapshot.ImageReference, PresetId: x.Snapshot.PresetID, PresetCode: x.Snapshot.PresetCode, PresetName: x.Snapshot.PresetName, ImageDigest: x.Snapshot.ImageDigest, CpuMillis: x.Snapshot.CPUMillis, MemoryMib: x.Snapshot.MemoryMiB, ComputeType: x.Snapshot.ComputeType, ClusterId: x.Snapshot.ClusterID, Namespace: x.Snapshot.Namespace, NamespaceUid: x.Snapshot.NamespaceUID, RuntimeClass: x.Snapshot.RuntimeClass, SelectionDigest: x.Snapshot.SelectionDigest, SpecDigest: x.Snapshot.SpecDigest, Workspace: &pb.WorkspaceSpec{MountPath: x.Snapshot.Workspace.MountPath, Size: x.Snapshot.Workspace.Size, StorageClass: x.Snapshot.Workspace.StorageClass, ReclaimPolicy: x.Snapshot.Workspace.ReclaimPolicy}}, ProviderRefs: &pb.ProviderRefs{PvName: x.ProviderRefs.PVName, PvUid: x.ProviderRefs.PVUID, PvcName: x.ProviderRefs.PVCName, PvcUid: x.ProviderRefs.PVCUID, PodName: x.ProviderRefs.PodName, PodUid: x.ProviderRefs.PodUID, ResourceVersion: x.ProviderRefs.ResourceVersion, CleanupReceipt: x.ProviderRefs.CleanupReceipt, PvcResourceVersion: x.ProviderRefs.PVCResourceVersion, PodResourceVersion: x.ProviderRefs.PodResourceVersion}, ObservedAt: timestamppb.New(x.ObservedAt)}
+	return &pb.Sandbox{Id: x.ID, TenantId: x.TenantID, InstanceId: x.InstanceID, CreateIntentDigest: x.CreateIntentDigest, Version: x.Version, DesiredState: x.Desired, ObservedState: x.Observed, Reason: x.Reason, CreateOperationId: x.CreateOperationID, LastOperationId: x.LastOperationID, Snapshot: &pb.SandboxSnapshot{Name: x.Snapshot.Name, ImageId: x.Snapshot.ImageID, ImageScope: x.Snapshot.ImageScope, ImageReference: x.Snapshot.ImageReference, PresetId: x.Snapshot.PresetID, PresetCode: x.Snapshot.PresetCode, PresetName: x.Snapshot.PresetName, ImageDigest: x.Snapshot.ImageDigest, CpuMillis: x.Snapshot.CPUMillis, MemoryMib: x.Snapshot.MemoryMiB, ComputeType: x.Snapshot.ComputeType, ClusterId: x.Snapshot.ClusterID, Namespace: x.Snapshot.Namespace, NamespaceUid: x.Snapshot.NamespaceUID, RuntimeClass: x.Snapshot.RuntimeClass, SelectionDigest: x.Snapshot.SelectionDigest, SpecDigest: x.Snapshot.SpecDigest, Workspace: &pb.WorkspaceSpec{MountPath: x.Snapshot.Workspace.MountPath, Size: x.Snapshot.Workspace.Size, StorageClass: x.Snapshot.Workspace.StorageClass, ReclaimPolicy: x.Snapshot.Workspace.ReclaimPolicy}}, ProviderRefs: &pb.ProviderRefs{PvName: x.ProviderRefs.PVName, PvUid: x.ProviderRefs.PVUID, PvcName: x.ProviderRefs.PVCName, PvcUid: x.ProviderRefs.PVCUID, PodName: x.ProviderRefs.PodName, PodUid: x.ProviderRefs.PodUID, ResourceVersion: x.ProviderRefs.ResourceVersion, CleanupReceipt: x.ProviderRefs.CleanupReceipt, PvcResourceVersion: x.ProviderRefs.PVCResourceVersion, PodResourceVersion: x.ProviderRefs.PodResourceVersion}, ObservedAt: timestamppb.New(x.ObservedAt)}
 }
 func operationProto(x biz.Operation) *pb.Operation {
 	return &pb.Operation{Id: x.ID, SandboxId: x.SandboxID, InstanceId: x.InstanceID, Action: x.Action, IntentVersion: x.IntentVersion, State: x.State, Reason: x.Reason, CreatedAt: timestamppb.New(x.CreatedAt)}

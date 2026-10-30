@@ -1,0 +1,496 @@
+{
+  "binary_executed": false,
+  "binary_extraction_regular_file_only": true,
+  "binary_mode": "0o600",
+  "binary_sha256": "378a68bd5fff83b51c87d3fb9f2ae91fa5db0d410f9e3f32ec08cdd607b03ac2",
+  "binary_size": 63185058,
+  "build_settings": {
+    "-buildmode": "exe",
+    "-compiler": "gc",
+    "-trimpath": "true",
+    "CGO_ENABLED": "0",
+    "GOAMD64": "v1",
+    "GOARCH": "amd64",
+    "GOOS": "linux"
+  },
+  "business_image_built": false,
+  "ca_sha256": "65f1a1d14d21fed31b89f25b143e78b16605b82d32c56ef6bf8167fe78bab871",
+  "compiled": false,
+  "compressed_bytes": 19557782,
+  "config_digest": "sha256:28fb26a229c76260b6271f93e6ffc8d383960286385fb47835e943c3927499e9",
+  "deployed": false,
+  "diff_id": "sha256:ebc52194493877f5a3177a22697450e192f76e50fe43e63c32cfcfe449f2b0d7",
+  "diff_id_verified": true,
+  "elapsed_seconds": 2.607,
+  "embedded_go_version": "go1.26.10",
+  "finished_at": "2026-10-29T09:17:45.511497+00:00",
+  "history_created_by": "COPY /out/ani-resource-service /ani-resource-service # buildkit",
+  "history_index": 12,
+  "image_digest": "sha256:86206cba4c38c3ca2bf698522a098f2ac27b0487a2b9a1a5e759d65f84209df1",
+  "image_pulled": false,
+  "layer_descriptor_size": 19557782,
+  "layer_digest": "sha256:0080fe308a09545aedd24d61769195f2cc32518831a7a0b37d09835c35c08514",
+  "layer_index": 12,
+  "layer_member_count": 1,
+  "layer_sha_verified": true,
+  "layers_downloaded": 1,
+  "main_module": [
+    "github.com/zhangzhe-ctrl/ani-resource-service",
+    "(devel)"
+  ],
+  "main_path": "github.com/zhangzhe-ctrl/ani-resource-service/cmd/ani-resource-service",
+  "metadata_path": "/root/ani-runs/container-restart-pvc-20261028/private/artifacts/resource-gpuvm-binary-buildinfo-01/go-version-m.txt",
+  "metadata_reader": "go version go1.26.10 linux/amd64",
+  "metadata_sha256": "26ce018d16465adc96b1f590105198f63ec33de9643f4e64b24f627857c38cc4",
+  "module_count": 88,
+  "modules": [
+    {
+      "kind": "dep",
+      "module": "github.com/GehirnInc/crypt",
+      "version": "v0.0.0-20230320061759-8cc1b52080c5"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/aws-sdk-go-v2",
+      "version": "v1.47.4"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream",
+      "version": "v1.7.24"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/aws-sdk-go-v2/credentials",
+      "version": "v1.20.10"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/aws-sdk-go-v2/internal/configsources",
+      "version": "v1.5.7"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/aws-sdk-go-v2/internal/endpoints/v2",
+      "version": "v2.8.7"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/aws-sdk-go-v2/internal/v4a",
+      "version": "v1.5.7"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding",
+      "version": "v1.13.22"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/aws-sdk-go-v2/service/internal/checksum",
+      "version": "v1.11.8"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/aws-sdk-go-v2/service/internal/presigned-url",
+      "version": "v1.14.7"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/aws-sdk-go-v2/service/internal/s3shared",
+      "version": "v1.20.7"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/aws-sdk-go-v2/service/s3",
+      "version": "v1.114.5"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/aws/smithy-go",
+      "version": "v1.28.6"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/beorn7/perks",
+      "version": "v1.0.1"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/cespare/xxhash/v2",
+      "version": "v2.3.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/davecgh/go-spew",
+      "version": "v1.1.2-0.20180830191138-d8f796af33cc"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/emicklei/go-restful/v3",
+      "version": "v3.13.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/fsnotify/fsnotify",
+      "version": "v1.10.1"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/fxamacker/cbor/v2",
+      "version": "v2.9.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/go-kratos/kratos/contrib/otel/v3",
+      "version": "v3.0.0-20260515082355-1ddb58e407c5"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/go-kratos/kratos/v3",
+      "version": "v3.0.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/go-logr/logr",
+      "version": "v1.4.4"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/go-logr/stdr",
+      "version": "v1.2.2"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/go-openapi/jsonpointer",
+      "version": "v0.21.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/go-openapi/jsonreference",
+      "version": "v0.20.2"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/go-openapi/swag",
+      "version": "v0.23.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/go-playground/form/v4",
+      "version": "v4.3.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/google/gnostic-models",
+      "version": "v0.7.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/google/uuid",
+      "version": "v1.6.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/gorilla/mux",
+      "version": "v1.8.1"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/gorilla/websocket",
+      "version": "v1.5.4-0.20250319132907-e064f32e3674"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/jackc/pgpassfile",
+      "version": "v1.0.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/jackc/pgservicefile",
+      "version": "v0.0.0-20240606120523-5a60cdf6a761"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/jackc/pgx/v5",
+      "version": "v5.10.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/jackc/puddle/v2",
+      "version": "v2.2.2"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/josharian/intern",
+      "version": "v1.0.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/json-iterator/go",
+      "version": "v1.1.12"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/mailru/easyjson",
+      "version": "v0.7.7"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/modern-go/concurrent",
+      "version": "v0.0.0-20180306012644-bacd9c7ef1dd"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/modern-go/reflect2",
+      "version": "v1.0.3-0.20250322232337-35a7c28c31ee"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/munnerz/goautoneg",
+      "version": "v0.0.0-20191010083416-a7dc8b61c822"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/pmezard/go-difflib",
+      "version": "v1.0.1-0.20181226105442-5d4384ee4fb2"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/prometheus/client_golang",
+      "version": "v1.24.1"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/prometheus/client_model",
+      "version": "v0.6.2"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/prometheus/common",
+      "version": "v0.70.1"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/prometheus/otlptranslator",
+      "version": "v1.0.0"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/prometheus/procfs",
+      "version": "v0.21.1"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/spf13/pflag",
+      "version": "v1.0.9"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/x448/float16",
+      "version": "v0.8.4"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/zhangzhe-ctrl/ani-accelerator-service",
+      "version": "v0.0.0-20261022031933-4a682ac73da1"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/zhangzhe-ctrl/ani-governance/api/quota",
+      "version": "v0.0.0-20261017184327-1c605c793b88"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/zhangzhe-ctrl/ani-resource-service/api/instance/terminal",
+      "version": "v0.0.0-20261013075021-0937f5aa9c6c"
+    },
+    {
+      "kind": "dep",
+      "module": "github.com/zhangzhe-ctrl/ani-resource-service/api/vm/console",
+      "version": "v0.0.0-20261023185414-0a53b99c8d9f"
+    },
+    {
+      "kind": "dep",
+      "module": "go.opentelemetry.io/auto/sdk",
+      "version": "v1.2.1"
+    },
+    {
+      "kind": "dep",
+      "module": "go.opentelemetry.io/otel",
+      "version": "v1.45.0"
+    },
+    {
+      "kind": "dep",
+      "module": "go.opentelemetry.io/otel/exporters/prometheus",
+      "version": "v0.66.0"
+    },
+    {
+      "kind": "dep",
+      "module": "go.opentelemetry.io/otel/metric",
+      "version": "v1.45.0"
+    },
+    {
+      "kind": "dep",
+      "module": "go.opentelemetry.io/otel/sdk",
+      "version": "v1.45.0"
+    },
+    {
+      "kind": "dep",
+      "module": "go.opentelemetry.io/otel/sdk/metric",
+      "version": "v1.45.0"
+    },
+    {
+      "kind": "dep",
+      "module": "go.opentelemetry.io/otel/trace",
+      "version": "v1.45.0"
+    },
+    {
+      "kind": "dep",
+      "module": "go.uber.org/automaxprocs",
+      "version": "v1.6.0"
+    },
+    {
+      "kind": "dep",
+      "module": "go.yaml.in/yaml/v2",
+      "version": "v2.4.4"
+    },
+    {
+      "kind": "dep",
+      "module": "go.yaml.in/yaml/v3",
+      "version": "v3.0.4"
+    },
+    {
+      "kind": "dep",
+      "module": "golang.org/x/crypto",
+      "version": "v0.57.0"
+    },
+    {
+      "kind": "dep",
+      "module": "golang.org/x/net",
+      "version": "v0.60.0"
+    },
+    {
+      "kind": "dep",
+      "module": "golang.org/x/oauth2",
+      "version": "v0.36.0"
+    },
+    {
+      "kind": "dep",
+      "module": "golang.org/x/sync",
+      "version": "v0.23.0"
+    },
+    {
+      "kind": "dep",
+      "module": "golang.org/x/sys",
+      "version": "v0.48.0"
+    },
+    {
+      "kind": "dep",
+      "module": "golang.org/x/term",
+      "version": "v0.46.0"
+    },
+    {
+      "kind": "dep",
+      "module": "golang.org/x/text",
+      "version": "v0.42.0"
+    },
+    {
+      "kind": "dep",
+      "module": "golang.org/x/time",
+      "version": "v0.14.0"
+    },
+    {
+      "kind": "dep",
+      "module": "google.golang.org/genproto/googleapis/api",
+      "version": "v0.0.0-20260526163538-3dc84a4a5aaa"
+    },
+    {
+      "kind": "dep",
+      "module": "google.golang.org/genproto/googleapis/rpc",
+      "version": "v0.0.0-20260526163538-3dc84a4a5aaa"
+    },
+    {
+      "kind": "dep",
+      "module": "google.golang.org/grpc",
+      "version": "v1.83.2"
+    },
+    {
+      "kind": "dep",
+      "module": "google.golang.org/protobuf",
+      "version": "v1.36.12"
+    },
+    {
+      "kind": "dep",
+      "module": "gopkg.in/evanphx/json-patch.v4",
+      "version": "v4.13.0"
+    },
+    {
+      "kind": "dep",
+      "module": "gopkg.in/inf.v0",
+      "version": "v0.9.1"
+    },
+    {
+      "kind": "dep",
+      "module": "gopkg.in/yaml.v3",
+      "version": "v3.0.1"
+    },
+    {
+      "kind": "dep",
+      "module": "k8s.io/api",
+      "version": "v0.36.3"
+    },
+    {
+      "kind": "dep",
+      "module": "k8s.io/apimachinery",
+      "version": "v0.36.3"
+    },
+    {
+      "kind": "dep",
+      "module": "k8s.io/client-go",
+      "version": "v0.36.0"
+    },
+    {
+      "kind": "dep",
+      "module": "k8s.io/klog/v2",
+      "version": "v2.140.0"
+    },
+    {
+      "kind": "dep",
+      "module": "k8s.io/kube-openapi",
+      "version": "v0.0.0-20260317180543-43fb72c5454a"
+    },
+    {
+      "kind": "dep",
+      "module": "k8s.io/utils",
+      "version": "v0.0.0-20260210185600-b8788abfbbc2"
+    },
+    {
+      "kind": "dep",
+      "module": "sigs.k8s.io/json",
+      "version": "v0.0.0-20250730193827-2d320260d730"
+    },
+    {
+      "kind": "dep",
+      "module": "sigs.k8s.io/randfill",
+      "version": "v1.0.0"
+    },
+    {
+      "kind": "dep",
+      "module": "sigs.k8s.io/structured-merge-diff/v6",
+      "version": "v6.3.3"
+    },
+    {
+      "kind": "dep",
+      "module": "sigs.k8s.io/yaml",
+      "version": "v1.6.0"
+    }
+  ],
+  "platform_manifest_digest": "sha256:86206cba4c38c3ca2bf698522a098f2ac27b0487a2b9a1a5e759d65f84209df1",
+  "private_artifacts": "/root/ani-runs/container-restart-pvc-20261028/private/artifacts/resource-gpuvm-binary-buildinfo-01",
+  "pushed": false,
+  "result": "NOT_PROVEN_NO_VCS_REVISION",
+  "source_status": "NOT_PROVEN",
+  "started_at": "2026-10-29T09:17:42.904798+00:00",
+  "tls_verified": true,
+  "uncompressed_tar_bytes": 63186944
+}

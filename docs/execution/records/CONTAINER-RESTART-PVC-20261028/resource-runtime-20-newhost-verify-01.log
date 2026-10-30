@@ -1,0 +1,99 @@
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+test "$(/root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/buf --version)" = "1.60.0"
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+test "$(go version -m /root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/buf | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/bufbuild/buf@v1.60.0"
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+test "$(/root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/sqlc version)" = "v1.31.1"
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+test "$(go version -m /root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/sqlc | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/sqlc-dev/sqlc@v1.31.1"
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+./scripts/verify-source /root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/buf /root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/sqlc
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+go: downloading google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
+go: downloading google.golang.org/grpc v1.5.1
+go: downloading google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
+go: downloading google.golang.org/grpc v1.5.1
+go: downloading google.golang.org/protobuf v1.34.1
+go: downloading google.golang.org/protobuf v1.34.1
+go: downloading github.com/go-kratos/kratos/contrib/otel/v3 v3.0.0-20260515082355-1ddb58e407c5
+go: downloading github.com/go-kratos/kratos/v3 v3.0.0
+go: downloading go.uber.org/automaxprocs v1.6.0
+go: downloading github.com/aws/aws-sdk-go-v2 v1.47.4
+go: downloading github.com/aws/aws-sdk-go-v2/credentials v1.20.10
+go: downloading github.com/aws/aws-sdk-go-v2/service/s3 v1.114.5
+go: downloading github.com/aws/smithy-go v1.28.6
+go: downloading github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5
+go: downloading github.com/prometheus/client_golang v1.24.1
+go: downloading go.opentelemetry.io/otel v1.45.0
+go: downloading go.opentelemetry.io/otel/exporters/prometheus v0.66.0
+go: downloading go.opentelemetry.io/otel/metric v1.45.0
+go: downloading go.opentelemetry.io/otel/sdk/metric v1.45.0
+go: downloading go.opentelemetry.io/otel/sdk v1.45.0
+go: downloading go.opentelemetry.io/otel/trace v1.45.0
+go: downloading github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.7.24
+go: downloading github.com/aws/aws-sdk-go-v2/internal/configsources v1.5.7
+go: downloading github.com/aws/aws-sdk-go-v2/internal/v4a v1.5.7
+go: downloading github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.13.22
+go: downloading github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.11.8
+go: downloading github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.14.7
+go: downloading github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.20.7
+go: downloading github.com/gorilla/websocket v1.5.4-0.20250319132907-e064f32e3674
+go: downloading google.golang.org/genproto/googleapis/api v0.0.0-20260526163538-3dc84a4a5aaa
+go: downloading github.com/prometheus/client_model v0.6.2
+go: downloading github.com/prometheus/common v0.70.1
+go: downloading github.com/beorn7/perks v1.0.1
+go: downloading github.com/prometheus/procfs v0.21.1
+go: downloading github.com/prometheus/otlptranslator v1.0.0
+go: downloading github.com/go-playground/form/v4 v4.3.0
+go: downloading github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2
+go: downloading github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.8.7
+./scripts/verify-boundaries
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+boundary fixture rejected: internal/biz/network/nested -> database/sql
+boundary fixture rejected: internal/biz/image/nested -> net/http
+boundary fixture rejected: internal/biz/image/nested -> example.invalid/boundary-fixture/internal/data/image
+boundary fixture rejected: internal/data/image -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/service/image -> example.invalid/boundary-fixture/internal/service/network
+boundary fixture rejected: internal/biz/network/nested -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/service/network -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/data/network -> example.invalid/boundary-fixture/internal/service/network
+boundary fixture rejected: internal/data/network -> example.invalid/boundary-fixture/internal/data/storage
+boundary fixture rejected: internal/service/network -> example.invalid/boundary-fixture/internal/service/storage
+recursive domain and repository ownership boundaries verified
+./scripts/net05a-build-faults.py --network-only
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+{"fault_build": "/root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.work/fault-build", "status": "pass"}
+go mod tidy -diff
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+go: downloading github.com/stretchr/testify v1.11.1
+go: downloading k8s.io/streaming v0.36.3
+go: downloading go.uber.org/goleak v1.3.0
+go: downloading github.com/klauspost/compress v1.19.1
+go: downloading go.opentelemetry.io/otel/metric/x v0.67.0
+go: downloading github.com/golang/protobuf v1.5.4
+go: downloading github.com/prashantv/gostub v1.1.0
+go: downloading github.com/stretchr/objx v0.5.2
+go: downloading github.com/moby/spdystream v0.5.1
+go: downloading github.com/kylelemons/godebug v1.1.0
+go: downloading gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c
+go: downloading github.com/go-playground/assert/v2 v2.2.0
+go: downloading github.com/envoyproxy/go-control-plane/envoy v1.37.0
+go: downloading github.com/envoyproxy/go-control-plane v0.14.0
+go: downloading github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
+go: downloading gonum.org/v1/gonum v0.17.0
+go: downloading github.com/kr/pretty v0.3.1
+go: downloading github.com/cncf/xds/go v0.0.0-20260202195803-dba9d589def2
+go: downloading github.com/planetscale/vtprotobuf v0.6.1-0.20240319094008-0393e58bdf10
+go: downloading github.com/kr/text v0.2.0
+go: downloading github.com/rogpeppe/go-internal v1.14.1
+go: downloading cel.dev/expr v0.25.2
+go test -count=1 ./...
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/compute/v1	0.034s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/image/v1	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/instance/v1	0.023s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/network/v1	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/storage/v1	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/vm/v1	0.031s
+make: *** [Makefile:99: verify] Terminated

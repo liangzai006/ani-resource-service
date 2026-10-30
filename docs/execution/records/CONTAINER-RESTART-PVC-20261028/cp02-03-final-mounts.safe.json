@@ -1,0 +1,152 @@
+{
+  "applied_mount_version": 14,
+  "borrowed_references": [
+    {
+      "intent_version": 14,
+      "mount_path": "/datasets/cp02-01a18156",
+      "operation_id": "9095a030-4fbd-49fd-9cc0-9d2af71d070c",
+      "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "reference_generation": 2,
+      "state": "active"
+    }
+  ],
+  "current_mounts": [
+    {
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "mount_path": "/datasets/cp02-01a18156",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "ownership": "borrowed",
+      "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "read_only": false,
+      "reference_generation": 2
+    }
+  ],
+  "database": "ani_resource",
+  "desired": "stopped",
+  "frozen": {
+    "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "notebook_name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "original_mounts": null,
+    "workspace_path": "/workspace",
+    "workspace_pvc": "workspace-e3dd2bc7-1c6a-429b-a401-e175c287d5cf"
+  },
+  "identity": {
+    "notebook_uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0",
+    "pod_uid": "",
+    "statefulset_uid": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c",
+    "tracked_pods": [
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "f4898213-eb37-4e80-a238-e46cde574a15"
+      },
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "8c1b184c-7f4d-4b6b-a995-4d05222abdf8"
+      },
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "f41f9582-b106-48ba-b034-24d30fbaad62"
+      },
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "6c618d12-2287-4857-8745-6d3f92380752"
+      },
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "353a2032-b9d3-47ad-bbaa-a2aa4c5524eb"
+      },
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "badda078-b039-4042-8a82-21fccdb267d7"
+      },
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "d6e65290-3f9d-4448-840f-c049e6d782c3"
+      },
+      {
+        "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "ContainerName": "workspace",
+        "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+        "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "UID": "767198a5-a980-450c-b32a-dc186ab200cf"
+      }
+    ]
+  },
+  "instance_updated_at": "2026-10-29T11:45:41.305222+00:00",
+  "mounts_initialized": true,
+  "observed_at": "2026-10-29T11:45:44.353355+00:00",
+  "operation": {
+    "execution": {
+      "applied_mount_version": 6,
+      "before_mounts": [
+        {
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "mount_path": "/datasets/cp02-01a18156",
+          "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ownership": "borrowed",
+          "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+          "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+          "read_only": false,
+          "reference_generation": 1
+        }
+      ],
+      "before_pods": null,
+      "before_run_state": "running",
+      "canonical_intent": [
+        "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        9,
+        "restart"
+      ],
+      "completion_scope": "",
+      "deadline_at": "2026-10-29T09:35:13.118227089Z",
+      "failure_reason": "INSTANCE_OPERATION_DEADLINE_EXCEEDED",
+      "final_run_state": "running",
+      "phase": "done",
+      "phase_sequence": 4,
+      "schema_version": 1,
+      "started_at": "2026-10-29T09:05:13.118227089Z",
+      "target_configuration": null,
+      "template_commit_completed": false
+    },
+    "id": "b7f67ab3-ccf2-4b87-a433-9b7876b38db8",
+    "reason": "INSTANCE_OPERATION_DEADLINE_EXCEEDED",
+    "state": "failed",
+    "version": 10
+  },
+  "pending": null,
+  "recovery_fence": null,
+  "runtime_desired": "stopped",
+  "transaction_read_only": "on",
+  "user": "postgres",
+  "version": 16,
+  "work": {
+    "due_at": "2026-10-29T11:46:11.306455+00:00",
+    "lease_epoch": 3324,
+    "lease_owner": "",
+    "lease_until": "-infinity"
+  }
+}

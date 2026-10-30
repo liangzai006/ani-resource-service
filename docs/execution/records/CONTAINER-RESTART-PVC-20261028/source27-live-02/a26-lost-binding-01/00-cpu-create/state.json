@@ -1,0 +1,100 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "57902a0e-a587-5187-be02-07ab39720b0e",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "create": {
+      "action": "create",
+      "idempotency_key": "43b7afd3-7dec-4b88-95a8-0be0eee6b145",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": null,
+      "request_body_sha256": "25a092d2e25cf342b8d75d784730c40dca802ad3874f1a0c6d74f5dd5dd8d9cf",
+      "ack": {
+        "operationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+        "resourceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+        "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "action": "create",
+        "intentVersion": "1",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "0",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "create_body": {
+    "data": {
+      "name": "a26-lost-binding-cpu-01a18156",
+      "imageId": "img_50d0690f2d434f979f880404948d55cd",
+      "imageScope": "tenant",
+      "presetId": "9f5a0625-1eab-4a65-95af-68962138ef86",
+      "scheduling": {
+        "pod_placement": "NONE"
+      },
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": [],
+      "network": {
+        "vpc_id": "vpc_34587fd5f3374abcbc19829ae3a5a558",
+        "subnet_id": "subnet_ab6ddedf50d94f8181ac42ff935e8c86"
+      },
+      "idempotencyKey": "43b7afd3-7dec-4b88-95a8-0be0eee6b145"
+    }
+  },
+  "source_sha256": "b28e5ff9ad6c8114638ad1441dd50600d1547cce34d507c21ea63927d40fb0a2",
+  "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+  "create_result": {
+    "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "operation": {
+      "id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "action": "create",
+      "intentVersion": "1",
+      "state": "completed",
+      "phase": "done",
+      "final_run_state": "running",
+      "applied_mount_version": "0",
+      "completion_scope": "",
+      "reason": "",
+      "failure_reason": ""
+    },
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "1",
+      "desiredState": "running",
+      "observedState": "running",
+      "activeOperationId": "",
+      "executionRunState": "running",
+      "appliedMountVersion": "1",
+      "lastOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "1",
+      "applied_mount_version": "1",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": []
+    }
+  },
+  "session_cleanup": [
+    {
+      "application": "console",
+      "remote": "CONFIRMED"
+    }
+  ]
+}

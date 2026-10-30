@@ -1,0 +1,856 @@
+{
+  "_evidence_source": {
+    "projection": "Existing file only; secret/env/ticket values and raw Deployment bodies redacted",
+    "raw_remote_sha256": "5b89da73f7aadec5a72d882f3e5eff1e2b37a3bf34d3965633ac31d3279a5422",
+    "redactions": [],
+    "remote_path": "/root/ani-runs/container-restart-pvc-20261028/final-cpu9b-cleanup-live-01/state.json"
+  },
+  "base_url": "http://127.0.0.1:39586",
+  "baseline": {
+    "at": "2026-10-29T19:56:56.324177Z",
+    "borrowed": {
+      "claim_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "deleting": false,
+      "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "pv_phase": "Bound",
+      "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+      "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "pvc_phase": "Bound",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+    },
+    "configuration": {
+      "applied_mount_version": "20",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "28",
+      "volume_mounts": [],
+      "workspace_mount_path": "/workspace"
+    },
+    "instance": {
+      "activeOperationId": "",
+      "appliedMountVersion": "20",
+      "computeCleaned": false,
+      "compute_type": "cpu",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "desiredState": "stopped",
+      "executionRunState": "stopped",
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "lastOperationId": "5fb0e006-a979-4dbd-a9d4-01f7c61a279f",
+      "networkCleaned": false,
+      "observedState": "stopped",
+      "quotaReturned": false,
+      "version": "28",
+      "volumeReferencesReleased": true,
+      "workspaceCleaned": false
+    },
+    "ledger": {
+      "all_instance_charges": [],
+      "counts": {
+        "matching_release_events": 0,
+        "original_charges": 0,
+        "original_create": 1,
+        "scoped_operations": 1
+      },
+      "observed_at": "2026-10-29T19:56:56.504571+00:00",
+      "only_charged_quota_accounts": [],
+      "original_charges": [],
+      "original_create": [
+        {
+          "action": "/instance.v1.InstanceService/AcceptCreate",
+          "business_payload_digest": "c11c4decce91a3edd9e2cee4638526dc587b67e96002ab587ce9d4f516aae61f",
+          "canonical_request_sha256": "5eb4bf99456bdf677beb9cc2a247aa7ffbb532e173812f860ef80dddfa0c2741",
+          "canonical_schema": "instance-cpu-v1",
+          "created_at": "2026-10-29T18:05:09.229847+00:00",
+          "idempotency_key_sha256": "30e30155f6b22493b7d41ed7445b9293e7ab5e2d700d0d11daf05acbc134f474",
+          "instance_contract_version": 2,
+          "operation_id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+          "original_image_digest": "sha256:75d04f403ae9ec82008983cd4e6c1fa8d815c6f367ea32378e675682d670ed0b",
+          "original_persisted_allocation": {
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "compute_type": "cpu",
+            "cpu": "1000m",
+            "gid": "1000",
+            "gpu_display": null,
+            "gpu_execution": null,
+            "gpu_selection": null,
+            "image_id": "img_50d0690f2d434f979f880404948d55cd",
+            "image_scope": "tenant",
+            "instance_kind": "container",
+            "memory": "2048Mi",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "network": {
+              "subnet_id": "subnet_ab6ddedf50d94f8181ac42ff935e8c86",
+              "vpc_id": "vpc_34587fd5f3374abcbc19829ae3a5a558"
+            },
+            "preset_code": "modeldev-v21-cpu-1c-2g",
+            "preset_id": "9f5a0625-1eab-4a65-95af-68962138ef86",
+            "scheduling": {
+              "pod_placement": "NONE"
+            },
+            "service_account": "workload",
+            "storage_class": "ani-block",
+            "uid": "1000",
+            "volume_mounts": [],
+            "workspace_mount_path": "/workspace",
+            "workspace_size": "10Gi"
+          },
+          "request_hash": "764a007a29dba90e63bec05f91987dd0cfa3bfd3a3e3df4edec8712e9323d44a"
+        }
+      ],
+      "quota_dimensions": [],
+      "release_receipts": [],
+      "reused_query_sha256": "40d77ea0ba75bcca864dc177a4e38ff4d26cfbbb7d940a6227985e45335f504d",
+      "reused_query_source": "/root/ani-runs/container-restart-pvc-20261028/cpu-original-ledger-snapshot.sql",
+      "schema": "cpu-original-ledger-snapshot-v1",
+      "scoped_operations": [
+        {
+          "action": "/instance.v1.InstanceService/AcceptCreate",
+          "canonical_request_sha256": "5eb4bf99456bdf677beb9cc2a247aa7ffbb532e173812f860ef80dddfa0c2741",
+          "create_operation_id": null,
+          "created_at": "2026-10-29T18:05:09.229847+00:00",
+          "dispatch_state": "ACKED",
+          "operation_id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+          "request_hash": "764a007a29dba90e63bec05f91987dd0cfa3bfd3a3e3df4edec8712e9323d44a"
+        }
+      ],
+      "semantics": {
+        "account_scope": "only dimensions already charged by this original CREATE; empty CPU vector reads no unrelated tenant account",
+        "amount_unit": "quota units, not currency",
+        "cpu_contract": "instance-cpu-v1 is unmetered; an empty original charge vector must remain empty",
+        "release_event_count": "persisted receipt count; retries deduplicate by owner/event; released_units is authoritative cumulative amount"
+      },
+      "target": {
+        "owner_service": "ani-resource-service",
+        "resource_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "resource_tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "tenant_id": 2
+      },
+      "transaction_read_only": "on"
+    },
+    "resource": {
+      "applied_mount_version": 20,
+      "current_mounts": [],
+      "desired": "stopped",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "mounts_initialized": true,
+      "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+      "observed_at": "2026-10-29T19:56:54.437305+00:00",
+      "pending": null,
+      "recovery_fence": null,
+      "references": [
+        {
+          "intent_version": 17,
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "reference_generation": 1,
+          "state": "released"
+        },
+        {
+          "intent_version": 22,
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "reference_generation": 1,
+          "state": "released"
+        },
+        {
+          "intent_version": 20,
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "reference_generation": 1,
+          "state": "released"
+        },
+        {
+          "intent_version": 4,
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "reference_generation": 1,
+          "state": "released"
+        }
+      ],
+      "runtime_desired": "stopped",
+      "transaction_read_only": "on",
+      "unreleased_references": [],
+      "version": 28
+    },
+    "workspace": {
+      "claim_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "deleting": false,
+      "pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "pv_phase": "Bound",
+      "pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42",
+      "pvc_name": "workspace-9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "pvc_phase": "Bound",
+      "pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f"
+    }
+  },
+  "cleanup_observations": [
+    {
+      "at": "2026-10-29T19:57:49.140250Z",
+      "cleanup_flags": {
+        "computeCleaned": true,
+        "networkCleaned": true,
+        "quotaReturned": true,
+        "volumeReferencesReleased": true,
+        "workspaceCleaned": true
+      },
+      "instance": {
+        "activeOperationId": "",
+        "appliedMountVersion": "20",
+        "computeCleaned": true,
+        "compute_type": "cpu",
+        "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+        "desiredState": "deleted",
+        "executionRunState": "deleted",
+        "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "instance_kind": "container",
+        "lastOperationId": "97371a02-3b59-4af4-9628-a848a10174c4",
+        "networkCleaned": true,
+        "observedState": "deleted",
+        "quotaReturned": true,
+        "version": "29",
+        "volumeReferencesReleased": true,
+        "workspaceCleaned": true
+      },
+      "present_objects": [],
+      "resource": {
+        "applied_mount_version": 20,
+        "current_mounts": [],
+        "desired": "deleted",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "mounts_initialized": true,
+        "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "observed_at": "2026-10-29T19:57:48.089099+00:00",
+        "pending": null,
+        "recovery_fence": null,
+        "references": [
+          {
+            "intent_version": 17,
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "reference_generation": 1,
+            "state": "released"
+          },
+          {
+            "intent_version": 22,
+            "mount_path": "/datasets/a19-mixed-01a18156",
+            "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+            "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+            "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+            "reference_generation": 1,
+            "state": "released"
+          },
+          {
+            "intent_version": 20,
+            "mount_path": "/datasets/a19-postcommit-01a18156",
+            "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+            "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+            "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+            "reference_generation": 1,
+            "state": "released"
+          },
+          {
+            "intent_version": 4,
+            "mount_path": "/datasets/a29/attach-first",
+            "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+            "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+            "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+            "reference_generation": 1,
+            "state": "released"
+          }
+        ],
+        "runtime_desired": "deleted",
+        "transaction_read_only": "on",
+        "unreleased_references": [],
+        "version": 29
+      }
+    }
+  ],
+  "final_result": {
+    "all_instance_charges_unchanged": true,
+    "borrowed_after": {
+      "claim_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "deleting": false,
+      "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "pv_phase": "Bound",
+      "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+      "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "pvc_phase": "Bound",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+    },
+    "instance": {
+      "activeOperationId": "",
+      "appliedMountVersion": "20",
+      "computeCleaned": true,
+      "compute_type": "cpu",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "desiredState": "deleted",
+      "executionRunState": "deleted",
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "lastOperationId": "97371a02-3b59-4af4-9628-a848a10174c4",
+      "networkCleaned": true,
+      "observedState": "deleted",
+      "quotaReturned": true,
+      "version": "29",
+      "volumeReferencesReleased": true,
+      "workspaceCleaned": true
+    },
+    "kube_writes": 0,
+    "ledger_after": {
+      "all_instance_charges": [],
+      "counts": {
+        "matching_release_events": 0,
+        "original_charges": 0,
+        "original_create": 1,
+        "scoped_operations": 2
+      },
+      "observed_at": "2026-10-29T19:57:48.313742+00:00",
+      "only_charged_quota_accounts": [],
+      "original_charges": [],
+      "original_create": [
+        {
+          "action": "/instance.v1.InstanceService/AcceptCreate",
+          "business_payload_digest": "c11c4decce91a3edd9e2cee4638526dc587b67e96002ab587ce9d4f516aae61f",
+          "canonical_request_sha256": "5eb4bf99456bdf677beb9cc2a247aa7ffbb532e173812f860ef80dddfa0c2741",
+          "canonical_schema": "instance-cpu-v1",
+          "created_at": "2026-10-29T18:05:09.229847+00:00",
+          "idempotency_key_sha256": "30e30155f6b22493b7d41ed7445b9293e7ab5e2d700d0d11daf05acbc134f474",
+          "instance_contract_version": 2,
+          "operation_id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+          "original_image_digest": "sha256:75d04f403ae9ec82008983cd4e6c1fa8d815c6f367ea32378e675682d670ed0b",
+          "original_persisted_allocation": {
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "compute_type": "cpu",
+            "cpu": "1000m",
+            "gid": "1000",
+            "gpu_display": null,
+            "gpu_execution": null,
+            "gpu_selection": null,
+            "image_id": "img_50d0690f2d434f979f880404948d55cd",
+            "image_scope": "tenant",
+            "instance_kind": "container",
+            "memory": "2048Mi",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "network": {
+              "subnet_id": "subnet_ab6ddedf50d94f8181ac42ff935e8c86",
+              "vpc_id": "vpc_34587fd5f3374abcbc19829ae3a5a558"
+            },
+            "preset_code": "modeldev-v21-cpu-1c-2g",
+            "preset_id": "9f5a0625-1eab-4a65-95af-68962138ef86",
+            "scheduling": {
+              "pod_placement": "NONE"
+            },
+            "service_account": "workload",
+            "storage_class": "ani-block",
+            "uid": "1000",
+            "volume_mounts": [],
+            "workspace_mount_path": "/workspace",
+            "workspace_size": "10Gi"
+          },
+          "request_hash": "764a007a29dba90e63bec05f91987dd0cfa3bfd3a3e3df4edec8712e9323d44a"
+        }
+      ],
+      "quota_dimensions": [],
+      "release_receipts": [],
+      "reused_query_sha256": "40d77ea0ba75bcca864dc177a4e38ff4d26cfbbb7d940a6227985e45335f504d",
+      "reused_query_source": "/root/ani-runs/container-restart-pvc-20261028/cpu-original-ledger-snapshot.sql",
+      "schema": "cpu-original-ledger-snapshot-v1",
+      "scoped_operations": [
+        {
+          "action": "/instance.v1.InstanceService/AcceptCreate",
+          "canonical_request_sha256": "5eb4bf99456bdf677beb9cc2a247aa7ffbb532e173812f860ef80dddfa0c2741",
+          "create_operation_id": null,
+          "created_at": "2026-10-29T18:05:09.229847+00:00",
+          "dispatch_state": "ACKED",
+          "operation_id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+          "request_hash": "764a007a29dba90e63bec05f91987dd0cfa3bfd3a3e3df4edec8712e9323d44a"
+        },
+        {
+          "action": "/instance.v1.InstanceService/AcceptDelete",
+          "canonical_request_sha256": "f69bd8ea1801af777f17ed53081a59916f10a54b69895bc6495c9f7fc961047a",
+          "create_operation_id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+          "created_at": "2026-10-29T19:57:17.80907+00:00",
+          "dispatch_state": "ACKED",
+          "operation_id": "97371a02-3b59-4af4-9628-a848a10174c4",
+          "request_hash": "58d39e8a45d6d6acd4ab2b7188d5e0600171670400ca230a9beed56ca0ce0579"
+        }
+      ],
+      "semantics": {
+        "account_scope": "only dimensions already charged by this original CREATE; empty CPU vector reads no unrelated tenant account",
+        "amount_unit": "quota units, not currency",
+        "cpu_contract": "instance-cpu-v1 is unmetered; an empty original charge vector must remain empty",
+        "release_event_count": "persisted receipt count; retries deduplicate by owner/event; released_units is authoritative cumulative amount"
+      },
+      "target": {
+        "owner_service": "ani-resource-service",
+        "resource_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "resource_tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "tenant_id": 2
+      },
+      "transaction_read_only": "on"
+    },
+    "operation": {
+      "action": "delete",
+      "applied_mount_version": "20",
+      "completion_scope": "",
+      "failure_reason": "",
+      "final_run_state": "deleted",
+      "id": "97371a02-3b59-4af4-9628-a848a10174c4",
+      "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "intentVersion": "29",
+      "phase": "done",
+      "reason": "",
+      "state": "completed"
+    },
+    "original_create_unchanged": true,
+    "own_objects_and_original_pv_gone": true,
+    "result": "PASS_CPU9B_NORMAL_DELETE_COMPLETE_ORIGINAL_BORROW_RETAINED_ZERO_CHARGE_DRIFT",
+    "sql_writes": 0,
+    "unreleased_references": [],
+    "workspace_original": {
+      "claim_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "deleting": false,
+      "pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "pv_phase": "Bound",
+      "pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42",
+      "pvc_name": "workspace-9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "pvc_phase": "Bound",
+      "pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f"
+    }
+  },
+  "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+  "intents": {
+    "delete": {
+      "ack": {
+        "operationId": "97371a02-3b59-4af4-9628-a848a10174c4",
+        "replayed": false,
+        "resourceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "result": "QUEUED_FOR_OWNER"
+      },
+      "action": "delete",
+      "expected_version": "28",
+      "idempotency_field": "idempotencyKey",
+      "idempotency_key": "24b023e9-c20a-4986-a2f7-2c6cfabad7df",
+      "operation": {
+        "action": "delete",
+        "applied_mount_version": "20",
+        "completion_scope": "",
+        "failure_reason": "",
+        "final_run_state": "deleted",
+        "id": "97371a02-3b59-4af4-9628-a848a10174c4",
+        "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "intentVersion": "29",
+        "phase": "done",
+        "reason": "",
+        "state": "completed"
+      },
+      "request_body": {
+        "data": {
+          "expectedVersion": "28",
+          "idempotencyKey": "24b023e9-c20a-4986-a2f7-2c6cfabad7df"
+        }
+      },
+      "request_body_sha256": "f1e1cee957b221161cf37b61c2dd58e2e16ab804aaa50c6d5cf3c13f2950f2f2",
+      "send_attempts": [
+        {
+          "at": "2026-10-29T19:57:19.447949Z",
+          "original_body_sha256": "f1e1cee957b221161cf37b61c2dd58e2e16ab804aaa50c6d5cf3c13f2950f2f2"
+        }
+      ]
+    }
+  },
+  "pre_delete_observations": [
+    {
+      "at": "2026-10-29T19:56:56.324177Z",
+      "borrowed": {
+        "claim_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+        "deleting": false,
+        "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+        "pv_phase": "Bound",
+        "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+        "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+        "pvc_phase": "Bound",
+        "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+      },
+      "configuration": {
+        "applied_mount_version": "20",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "version": "28",
+        "volume_mounts": [],
+        "workspace_mount_path": "/workspace"
+      },
+      "instance": {
+        "activeOperationId": "",
+        "appliedMountVersion": "20",
+        "computeCleaned": false,
+        "compute_type": "cpu",
+        "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+        "desiredState": "stopped",
+        "executionRunState": "stopped",
+        "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "instance_kind": "container",
+        "lastOperationId": "5fb0e006-a979-4dbd-a9d4-01f7c61a279f",
+        "networkCleaned": false,
+        "observedState": "stopped",
+        "quotaReturned": false,
+        "version": "28",
+        "volumeReferencesReleased": true,
+        "workspaceCleaned": false
+      },
+      "ledger": {
+        "all_instance_charges": [],
+        "counts": {
+          "matching_release_events": 0,
+          "original_charges": 0,
+          "original_create": 1,
+          "scoped_operations": 1
+        },
+        "observed_at": "2026-10-29T19:56:56.504571+00:00",
+        "only_charged_quota_accounts": [],
+        "original_charges": [],
+        "original_create": [
+          {
+            "action": "/instance.v1.InstanceService/AcceptCreate",
+            "business_payload_digest": "c11c4decce91a3edd9e2cee4638526dc587b67e96002ab587ce9d4f516aae61f",
+            "canonical_request_sha256": "5eb4bf99456bdf677beb9cc2a247aa7ffbb532e173812f860ef80dddfa0c2741",
+            "canonical_schema": "instance-cpu-v1",
+            "created_at": "2026-10-29T18:05:09.229847+00:00",
+            "idempotency_key_sha256": "30e30155f6b22493b7d41ed7445b9293e7ab5e2d700d0d11daf05acbc134f474",
+            "instance_contract_version": 2,
+            "operation_id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+            "original_image_digest": "sha256:75d04f403ae9ec82008983cd4e6c1fa8d815c6f367ea32378e675682d670ed0b",
+            "original_persisted_allocation": {
+              "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+              "compute_type": "cpu",
+              "cpu": "1000m",
+              "gid": "1000",
+              "gpu_display": null,
+              "gpu_execution": null,
+              "gpu_selection": null,
+              "image_id": "img_50d0690f2d434f979f880404948d55cd",
+              "image_scope": "tenant",
+              "instance_kind": "container",
+              "memory": "2048Mi",
+              "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+              "network": {
+                "subnet_id": "subnet_ab6ddedf50d94f8181ac42ff935e8c86",
+                "vpc_id": "vpc_34587fd5f3374abcbc19829ae3a5a558"
+              },
+              "preset_code": "modeldev-v21-cpu-1c-2g",
+              "preset_id": "9f5a0625-1eab-4a65-95af-68962138ef86",
+              "scheduling": {
+                "pod_placement": "NONE"
+              },
+              "service_account": "workload",
+              "storage_class": "ani-block",
+              "uid": "1000",
+              "volume_mounts": [],
+              "workspace_mount_path": "/workspace",
+              "workspace_size": "10Gi"
+            },
+            "request_hash": "764a007a29dba90e63bec05f91987dd0cfa3bfd3a3e3df4edec8712e9323d44a"
+          }
+        ],
+        "quota_dimensions": [],
+        "release_receipts": [],
+        "reused_query_sha256": "40d77ea0ba75bcca864dc177a4e38ff4d26cfbbb7d940a6227985e45335f504d",
+        "reused_query_source": "/root/ani-runs/container-restart-pvc-20261028/cpu-original-ledger-snapshot.sql",
+        "schema": "cpu-original-ledger-snapshot-v1",
+        "scoped_operations": [
+          {
+            "action": "/instance.v1.InstanceService/AcceptCreate",
+            "canonical_request_sha256": "5eb4bf99456bdf677beb9cc2a247aa7ffbb532e173812f860ef80dddfa0c2741",
+            "create_operation_id": null,
+            "created_at": "2026-10-29T18:05:09.229847+00:00",
+            "dispatch_state": "ACKED",
+            "operation_id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+            "request_hash": "764a007a29dba90e63bec05f91987dd0cfa3bfd3a3e3df4edec8712e9323d44a"
+          }
+        ],
+        "semantics": {
+          "account_scope": "only dimensions already charged by this original CREATE; empty CPU vector reads no unrelated tenant account",
+          "amount_unit": "quota units, not currency",
+          "cpu_contract": "instance-cpu-v1 is unmetered; an empty original charge vector must remain empty",
+          "release_event_count": "persisted receipt count; retries deduplicate by owner/event; released_units is authoritative cumulative amount"
+        },
+        "target": {
+          "owner_service": "ani-resource-service",
+          "resource_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "resource_tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "tenant_id": 2
+        },
+        "transaction_read_only": "on"
+      },
+      "resource": {
+        "applied_mount_version": 20,
+        "current_mounts": [],
+        "desired": "stopped",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "mounts_initialized": true,
+        "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "observed_at": "2026-10-29T19:56:54.437305+00:00",
+        "pending": null,
+        "recovery_fence": null,
+        "references": [
+          {
+            "intent_version": 17,
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "reference_generation": 1,
+            "state": "released"
+          },
+          {
+            "intent_version": 22,
+            "mount_path": "/datasets/a19-mixed-01a18156",
+            "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+            "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+            "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+            "reference_generation": 1,
+            "state": "released"
+          },
+          {
+            "intent_version": 20,
+            "mount_path": "/datasets/a19-postcommit-01a18156",
+            "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+            "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+            "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+            "reference_generation": 1,
+            "state": "released"
+          },
+          {
+            "intent_version": 4,
+            "mount_path": "/datasets/a29/attach-first",
+            "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+            "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+            "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+            "reference_generation": 1,
+            "state": "released"
+          }
+        ],
+        "runtime_desired": "stopped",
+        "transaction_read_only": "on",
+        "unreleased_references": [],
+        "version": 28
+      },
+      "workspace": {
+        "claim_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "deleting": false,
+        "pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "pv_phase": "Bound",
+        "pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42",
+        "pvc_name": "workspace-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "pvc_phase": "Bound",
+        "pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f"
+      }
+    },
+    {
+      "at": "2026-10-29T19:57:17.483301Z",
+      "borrowed": {
+        "claim_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+        "deleting": false,
+        "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+        "pv_phase": "Bound",
+        "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+        "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+        "pvc_phase": "Bound",
+        "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+      },
+      "configuration": {
+        "applied_mount_version": "20",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "version": "28",
+        "volume_mounts": [],
+        "workspace_mount_path": "/workspace"
+      },
+      "instance": {
+        "activeOperationId": "",
+        "appliedMountVersion": "20",
+        "computeCleaned": false,
+        "compute_type": "cpu",
+        "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+        "desiredState": "stopped",
+        "executionRunState": "stopped",
+        "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "instance_kind": "container",
+        "lastOperationId": "5fb0e006-a979-4dbd-a9d4-01f7c61a279f",
+        "networkCleaned": false,
+        "observedState": "stopped",
+        "quotaReturned": false,
+        "version": "28",
+        "volumeReferencesReleased": true,
+        "workspaceCleaned": false
+      },
+      "ledger": {
+        "all_instance_charges": [],
+        "counts": {
+          "matching_release_events": 0,
+          "original_charges": 0,
+          "original_create": 1,
+          "scoped_operations": 1
+        },
+        "observed_at": "2026-10-29T19:57:17.418124+00:00",
+        "only_charged_quota_accounts": [],
+        "original_charges": [],
+        "original_create": [
+          {
+            "action": "/instance.v1.InstanceService/AcceptCreate",
+            "business_payload_digest": "c11c4decce91a3edd9e2cee4638526dc587b67e96002ab587ce9d4f516aae61f",
+            "canonical_request_sha256": "5eb4bf99456bdf677beb9cc2a247aa7ffbb532e173812f860ef80dddfa0c2741",
+            "canonical_schema": "instance-cpu-v1",
+            "created_at": "2026-10-29T18:05:09.229847+00:00",
+            "idempotency_key_sha256": "30e30155f6b22493b7d41ed7445b9293e7ab5e2d700d0d11daf05acbc134f474",
+            "instance_contract_version": 2,
+            "operation_id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+            "original_image_digest": "sha256:75d04f403ae9ec82008983cd4e6c1fa8d815c6f367ea32378e675682d670ed0b",
+            "original_persisted_allocation": {
+              "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+              "compute_type": "cpu",
+              "cpu": "1000m",
+              "gid": "1000",
+              "gpu_display": null,
+              "gpu_execution": null,
+              "gpu_selection": null,
+              "image_id": "img_50d0690f2d434f979f880404948d55cd",
+              "image_scope": "tenant",
+              "instance_kind": "container",
+              "memory": "2048Mi",
+              "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+              "network": {
+                "subnet_id": "subnet_ab6ddedf50d94f8181ac42ff935e8c86",
+                "vpc_id": "vpc_34587fd5f3374abcbc19829ae3a5a558"
+              },
+              "preset_code": "modeldev-v21-cpu-1c-2g",
+              "preset_id": "9f5a0625-1eab-4a65-95af-68962138ef86",
+              "scheduling": {
+                "pod_placement": "NONE"
+              },
+              "service_account": "workload",
+              "storage_class": "ani-block",
+              "uid": "1000",
+              "volume_mounts": [],
+              "workspace_mount_path": "/workspace",
+              "workspace_size": "10Gi"
+            },
+            "request_hash": "764a007a29dba90e63bec05f91987dd0cfa3bfd3a3e3df4edec8712e9323d44a"
+          }
+        ],
+        "quota_dimensions": [],
+        "release_receipts": [],
+        "reused_query_sha256": "40d77ea0ba75bcca864dc177a4e38ff4d26cfbbb7d940a6227985e45335f504d",
+        "reused_query_source": "/root/ani-runs/container-restart-pvc-20261028/cpu-original-ledger-snapshot.sql",
+        "schema": "cpu-original-ledger-snapshot-v1",
+        "scoped_operations": [
+          {
+            "action": "/instance.v1.InstanceService/AcceptCreate",
+            "canonical_request_sha256": "5eb4bf99456bdf677beb9cc2a247aa7ffbb532e173812f860ef80dddfa0c2741",
+            "create_operation_id": null,
+            "created_at": "2026-10-29T18:05:09.229847+00:00",
+            "dispatch_state": "ACKED",
+            "operation_id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+            "request_hash": "764a007a29dba90e63bec05f91987dd0cfa3bfd3a3e3df4edec8712e9323d44a"
+          }
+        ],
+        "semantics": {
+          "account_scope": "only dimensions already charged by this original CREATE; empty CPU vector reads no unrelated tenant account",
+          "amount_unit": "quota units, not currency",
+          "cpu_contract": "instance-cpu-v1 is unmetered; an empty original charge vector must remain empty",
+          "release_event_count": "persisted receipt count; retries deduplicate by owner/event; released_units is authoritative cumulative amount"
+        },
+        "target": {
+          "owner_service": "ani-resource-service",
+          "resource_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "resource_tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "tenant_id": 2
+        },
+        "transaction_read_only": "on"
+      },
+      "resource": {
+        "applied_mount_version": 20,
+        "current_mounts": [],
+        "desired": "stopped",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "mounts_initialized": true,
+        "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "observed_at": "2026-10-29T19:57:15.596844+00:00",
+        "pending": null,
+        "recovery_fence": null,
+        "references": [
+          {
+            "intent_version": 17,
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "reference_generation": 1,
+            "state": "released"
+          },
+          {
+            "intent_version": 22,
+            "mount_path": "/datasets/a19-mixed-01a18156",
+            "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+            "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+            "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+            "reference_generation": 1,
+            "state": "released"
+          },
+          {
+            "intent_version": 20,
+            "mount_path": "/datasets/a19-postcommit-01a18156",
+            "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+            "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+            "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+            "reference_generation": 1,
+            "state": "released"
+          },
+          {
+            "intent_version": 4,
+            "mount_path": "/datasets/a29/attach-first",
+            "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+            "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+            "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+            "reference_generation": 1,
+            "state": "released"
+          }
+        ],
+        "runtime_desired": "stopped",
+        "transaction_read_only": "on",
+        "unreleased_references": [],
+        "version": 28
+      },
+      "workspace": {
+        "claim_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "deleting": false,
+        "pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "pv_phase": "Bound",
+        "pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42",
+        "pvc_name": "workspace-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "pvc_phase": "Bound",
+        "pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f"
+      }
+    }
+  ],
+  "run_id": "dee3f299-7d90-56fe-b59c-0a2517d07054",
+  "schema": "container-restart-pvc-http-v1",
+  "session_cleanup": [
+    {
+      "remote": "CONFIRMED",
+      "step": "prepare"
+    },
+    {
+      "remote": "CONFIRMED",
+      "step": "delete"
+    }
+  ]
+}

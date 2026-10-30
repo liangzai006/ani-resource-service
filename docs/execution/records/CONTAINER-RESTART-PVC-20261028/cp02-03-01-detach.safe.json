@@ -1,0 +1,67 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "6f26a8a0-bfe9-4d8b-a585-10409a86107b",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "detach-pvc",
+      "idempotency_key": "4711ea40-5a03-4aa9-b2ed-3f83ed8dbe74",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "10",
+      "request_body_sha256": "dae1fd145adf314cc6f2b2a8bca858a58e3879ad241a2260cdde28de2c71aade",
+      "ack": {
+        "operationId": "d958a2cf-e879-48d8-9a1f-3096044efcee",
+        "resourceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "d958a2cf-e879-48d8-9a1f-3096044efcee",
+        "instanceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "action": "detach-pvc",
+        "intentVersion": "11",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "stopped",
+        "applied_mount_version": "11",
+        "completion_scope": "template_applied",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "mode": "command",
+  "driver_sha256": "51257002af3e49ccf00b485fa4b91c9612a9274bef8c312337a053e48bef2634",
+  "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+  "after_instance": {
+    "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "11",
+    "desiredState": "stopped",
+    "observedState": "stopped",
+    "activeOperationId": "",
+    "executionRunState": "stopped",
+    "appliedMountVersion": "11",
+    "lastOperationId": "d958a2cf-e879-48d8-9a1f-3096044efcee",
+    "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": true,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "detach-pvc",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "d958a2cf-e879-48d8-9a1f-3096044efcee"
+  },
+  "session_cleanup": [
+    {
+      "application": "console",
+      "remote": "CONFIRMED"
+    }
+  ]
+}

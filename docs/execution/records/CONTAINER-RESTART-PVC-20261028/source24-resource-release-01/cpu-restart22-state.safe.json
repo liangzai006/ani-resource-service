@@ -1,0 +1,67 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "fce386d7-456b-5cfa-b7f2-85042146c5cf",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "restart",
+      "idempotency_key": "a1476f31-d21f-4f72-9fb3-cb13f54610c8",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "21",
+      "request_body_sha256": "1be427ef0ca8db9966d0825e2985e5d5547c77a2da6303dfa79d7f8254237cc4",
+      "ack": {
+        "operationId": "1afe74a7-eb02-44e8-9a68-bd127fd18f46",
+        "resourceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "1afe74a7-eb02-44e8-9a68-bd127fd18f46",
+        "instanceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "action": "restart",
+        "intentVersion": "22",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "14",
+        "completion_scope": "runtime_verified",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "mode": "command",
+  "driver_sha256": "51257002af3e49ccf00b485fa4b91c9612a9274bef8c312337a053e48bef2634",
+  "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+  "after_instance": {
+    "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "22",
+    "desiredState": "running",
+    "observedState": "running",
+    "activeOperationId": "",
+    "executionRunState": "running",
+    "appliedMountVersion": "14",
+    "lastOperationId": "1afe74a7-eb02-44e8-9a68-bd127fd18f46",
+    "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "restart",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "1afe74a7-eb02-44e8-9a68-bd127fd18f46"
+  },
+  "session_cleanup": [
+    {
+      "application": "console",
+      "remote": "CONFIRMED"
+    }
+  ]
+}

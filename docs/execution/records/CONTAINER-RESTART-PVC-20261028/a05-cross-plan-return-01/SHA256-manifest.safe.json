@@ -1,0 +1,183 @@
+{
+  "api_calls": 0,
+  "checks": {
+    "b-current-grant-plan-control": {
+      "http_status": 200,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "cross-tenant-configuration": {
+      "http_status": 404,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "cross-tenant-instance": {
+      "http_status": 404,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "cross-tenant-mountable-pvcs": {
+      "http_status": 404,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "cross-tenant-operation": {
+      "http_status": 404,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "cross-tenant-restart-original": {
+      "http_status": 404,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-configuration": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-instance": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-list": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-mountable-pvcs": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-operation": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-restart-original": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    }
+  },
+  "collected_at_utc": "2026-10-29T12:38:49.728747+00:00",
+  "collection_result": "PASS",
+  "deployment_changed": false,
+  "driver_bindings": {
+    "base": {
+      "current_remote_artifact_sha_verified": true,
+      "file": "a05-auth-minimal-02.py",
+      "sha256": "9eba924228dd1157bc1929741cd2342455f43ba094cab25fcd9b22480403d36a"
+    },
+    "cross_plan": {
+      "current_remote_artifact_sha_verified": true,
+      "file": "cp04-auth-cross-plan-driver.py",
+      "sha256": "cb3ab01369832171dc48726733a7d5a5fbf143e68f77db38fe87e2fa9c90ba38"
+    },
+    "official_root_helper": {
+      "current_remote_artifact_sha_verified": true,
+      "file": "container-restart-pvc-acceptance.py",
+      "sha256": "51257002af3e49ccf00b485fa4b91c9612a9274bef8c312337a053e48bef2634"
+    }
+  },
+  "dsn_or_jwt_read": false,
+  "events_count": 146,
+  "final_phases": {
+    "cleanup": {
+      "normal_api_only": true,
+      "ownership": "new task UUID-coded tenant only",
+      "result": "PASS",
+      "session_cleanup": "CONFIRMED",
+      "tenant_code": "a05b-4a0cc967-2af8-46e5-b9d6-affbdf40a78c"
+    },
+    "cross": {
+      "new_business_intents": 0,
+      "owned_tenant_b": 44,
+      "result": "PASS",
+      "session_cleanup": "CONFIRMED",
+      "stable_version": "17"
+    },
+    "plan": {
+      "from_plan": 2,
+      "owned_tenant_b": 44,
+      "result": "PASS",
+      "same_session_reused": true,
+      "session_cleanup": "CONFIRMED",
+      "to_plan": 1
+    }
+  },
+  "history_preserved": "original credential-checked state and events retained unchanged; final PASS does not erase earlier events",
+  "observed_http_statuses": [
+    200,
+    403,
+    404
+  ],
+  "owned_objects": {
+    "grant-b": {
+      "attempted": true,
+      "deleted": true,
+      "http_acknowledged": true,
+      "id": 33,
+      "path": "/api/v1/admin/roles"
+    },
+    "tenant-b": {
+      "attempted": true,
+      "deleted": true,
+      "http_acknowledged": true,
+      "id": 44,
+      "path": "/api/v1/admin/tenants:with-admin"
+    },
+    "user-b": {
+      "deleted": true,
+      "id": 40,
+      "initial_role_ids": [
+        32
+      ],
+      "tenant_id": 44,
+      "username": "a05b-4a0cc9672af846e5b9d6"
+    }
+  },
+  "password_a_removed": true,
+  "password_b_removed": true,
+  "persisted_tenant_b_create_body_password_removed": true,
+  "platform_credentials_read": false,
+  "progress_guard": {
+    "original_operation_id": "08b80e7e-a335-4112-a3cf-560c5c9f31a4",
+    "version": "17"
+  },
+  "purpose": "a05-owned-b-cross-plan-v1",
+  "raw_fixtures_body_returned": false,
+  "raw_state_events_credential_check_passed": true,
+  "returned_files": {
+    "events.jsonl": {
+      "bytes": 27633,
+      "sha256": "4d72079e8cacecd579be5e57bd507b6a24924910fdbf19dcaaa78dbc14094f05"
+    },
+    "fixtures.manifest.safe.json": {
+      "bytes": 3895,
+      "sha256": "cf37547ccc5fad627f9ea44a7131ee4d17170739ed88741fc21bb7cbcca475ff"
+    },
+    "state.json": {
+      "bytes": 1088,
+      "sha256": "4fd0574a21f8109169c15ecd330fdeafae7d4ede17b29297ea135f600ee275f7"
+    }
+  },
+  "source_directory": "/root/ani-runs/container-restart-pvc-20261028/a05-cross-plan-01",
+  "source_files": {
+    "events.jsonl": {
+      "bytes": 27633,
+      "sha256": "4d72079e8cacecd579be5e57bd507b6a24924910fdbf19dcaaa78dbc14094f05"
+    },
+    "fixtures.json": {
+      "bytes": 6321,
+      "sha256": "5bc702a77154ea4a7ff7ddfadf4a542f9fef362faaf8ff179e44711df9224c1c"
+    },
+    "state.json": {
+      "bytes": 1088,
+      "sha256": "4fd0574a21f8109169c15ecd330fdeafae7d4ede17b29297ea135f600ee275f7"
+    }
+  },
+  "tenant_b_uuid": "4a0cc967-2af8-46e5-b9d6-affbdf40a78c"
+}

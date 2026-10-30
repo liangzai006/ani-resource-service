@@ -1,0 +1,174 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "4bb46f3a-0837-42bf-88fa-c470b28afb25",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "omitted": {
+      "action": "attach-pvc",
+      "idempotency_key": "be233741-0d45-4dab-9744-49714cd5a424",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "12",
+      "request_body_sha256": "9fd3f16fb9386ad5b6a640a5bc825317ae5f8862974536e9774d967aeb44db37",
+      "rejection": {
+        "http_status": 409,
+        "reason": "INSTANCE_REQUIRES_STOP"
+      }
+    },
+    "false": {
+      "action": "attach-pvc",
+      "idempotency_key": "c2f611e0-bd28-4ac3-960f-cc7616e3b5ad",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "12",
+      "request_body_sha256": "b6cee2264d31b3a550612cb25eb5d3fe3263f90a244e5884e0b2dad0cb2393c2",
+      "rejection": {
+        "http_status": 409,
+        "reason": "INSTANCE_REQUIRES_STOP"
+      }
+    }
+  },
+  "before": {
+    "instance": {
+      "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "12",
+      "desiredState": "running",
+      "observedState": "running",
+      "activeOperationId": "",
+      "executionRunState": "running",
+      "appliedMountVersion": "11",
+      "lastOperationId": "c96b8985-7b87-46ee-b3c4-9e036c7d6323",
+      "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "version": "12",
+      "applied_mount_version": "11",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": []
+    },
+    "pod_uid": "d6e65290-3f9d-4448-840f-c049e6d782c3"
+  },
+  "pg_before": {
+    "fence": null,
+    "mounts": [],
+    "applied": 11,
+    "pending": null,
+    "version": 12,
+    "references": [
+      {
+        "uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+        "path": "/datasets/cp02-01a18156",
+        "state": "released",
+        "generation": 1,
+        "operation_id": "d958a2cf-e879-48d8-9a1f-3096044efcee",
+        "intent_version": 11
+      }
+    ],
+    "operation_count": 12
+  },
+  "after_omitted": {
+    "instance": {
+      "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "12",
+      "desiredState": "running",
+      "observedState": "running",
+      "activeOperationId": "",
+      "executionRunState": "running",
+      "appliedMountVersion": "11",
+      "lastOperationId": "c96b8985-7b87-46ee-b3c4-9e036c7d6323",
+      "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "version": "12",
+      "applied_mount_version": "11",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": []
+    },
+    "pod_uid": "d6e65290-3f9d-4448-840f-c049e6d782c3"
+  },
+  "pg_after_omitted": {
+    "fence": null,
+    "mounts": [],
+    "applied": 11,
+    "pending": null,
+    "version": 12,
+    "references": [
+      {
+        "uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+        "path": "/datasets/cp02-01a18156",
+        "state": "released",
+        "generation": 1,
+        "operation_id": "d958a2cf-e879-48d8-9a1f-3096044efcee",
+        "intent_version": 11
+      }
+    ],
+    "operation_count": 12
+  },
+  "after_false": {
+    "instance": {
+      "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "12",
+      "desiredState": "running",
+      "observedState": "running",
+      "activeOperationId": "",
+      "executionRunState": "running",
+      "appliedMountVersion": "11",
+      "lastOperationId": "c96b8985-7b87-46ee-b3c4-9e036c7d6323",
+      "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "version": "12",
+      "applied_mount_version": "11",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": []
+    },
+    "pod_uid": "d6e65290-3f9d-4448-840f-c049e6d782c3"
+  },
+  "pg_after_false": {
+    "fence": null,
+    "mounts": [],
+    "applied": 11,
+    "pending": null,
+    "version": 12,
+    "references": [
+      {
+        "uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+        "path": "/datasets/cp02-01a18156",
+        "state": "released",
+        "generation": 1,
+        "operation_id": "d958a2cf-e879-48d8-9a1f-3096044efcee",
+        "intent_version": 11
+      }
+    ],
+    "operation_count": 12
+  },
+  "result": "PASS",
+  "session_cleanup": [
+    {
+      "application": "console",
+      "remote": "CONFIRMED"
+    }
+  ]
+}

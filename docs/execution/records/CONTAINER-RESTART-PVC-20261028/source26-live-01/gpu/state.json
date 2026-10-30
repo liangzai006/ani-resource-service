@@ -1,0 +1,385 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "9134f377-0af7-5f38-8dc1-024d1209156e",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "create": {
+      "action": "create",
+      "idempotency_key": "9d9b5821-407f-4184-9bdd-52f0d31c9f05",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": null,
+      "request_body_sha256": "2e58774d98e874fb80347103fe2921812c2808124218fe719150d68111f37d9b",
+      "ack": {
+        "operationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+        "resourceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+        "instanceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "action": "create",
+        "intentVersion": "1",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "0",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "create_body": {
+    "data": {
+      "imageId": "img_23d024b1b5e343cb82b38bae83196ccd",
+      "imageScope": "platform",
+      "name": "source25-gpu-terminal-01a18156",
+      "network": {
+        "subnet_id": "subnet_ab6ddedf50d94f8181ac42ff935e8c86",
+        "vpc_id": "vpc_34587fd5f3374abcbc19829ae3a5a558"
+      },
+      "presetId": "4d34373d-be80-4c17-8ee3-fe24ec0e12d8",
+      "scheduling": {
+        "pod_placement": "NONE"
+      },
+      "volume_mounts": [
+        {
+          "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+          "mount_path": "/datasets/gpu-terminal-01a18156",
+          "read_only": true
+        }
+      ],
+      "workspace_mount_path": "/workspace",
+      "idempotencyKey": "9d9b5821-407f-4184-9bdd-52f0d31c9f05"
+    }
+  },
+  "source_path": "/root/ani-runs/container-restart-pvc-20261028/gpu-prepared-input-import-01/gpu-create-input.json",
+  "source_sha256": "f7f4d6e4ef750a72f80bb380766a1bb9d1312e34cfe91d75eb33e504c2333705",
+  "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+  "create_instance": {
+    "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "instance_kind": "container",
+    "compute_type": "gpu",
+    "version": "1",
+    "desiredState": "running",
+    "observedState": "running",
+    "activeOperationId": "",
+    "executionRunState": "running",
+    "appliedMountVersion": "1",
+    "lastOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+    "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "create_configuration": {
+    "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "version": "1",
+    "applied_mount_version": "1",
+    "workspace_mount_path": "/workspace",
+    "volume_mounts": [
+      {
+        "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+        "mount_path": "/datasets/gpu-terminal-01a18156",
+        "read_only": true
+      }
+    ]
+  },
+  "create_result": {
+    "result": "FORMAL_GPU_CREATE_COMPLETED",
+    "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "operation": {
+      "id": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+      "instanceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+      "action": "create",
+      "intentVersion": "1",
+      "state": "completed",
+      "phase": "done",
+      "final_run_state": "running",
+      "applied_mount_version": "0",
+      "completion_scope": "",
+      "reason": "",
+      "failure_reason": ""
+    },
+    "instance": {
+      "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+      "instance_kind": "container",
+      "compute_type": "gpu",
+      "version": "1",
+      "desiredState": "running",
+      "observedState": "running",
+      "activeOperationId": "",
+      "executionRunState": "running",
+      "appliedMountVersion": "1",
+      "lastOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+      "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": false,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+      "version": "1",
+      "applied_mount_version": "1",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": [
+        {
+          "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+          "mount_path": "/datasets/gpu-terminal-01a18156",
+          "read_only": true
+        }
+      ]
+    }
+  },
+  "session_cleanup": [
+    {
+      "step": "create",
+      "application": "console",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "read",
+      "application": "console",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "read",
+      "application": "console",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "terminal",
+      "application": "console",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "logs",
+      "application": "console",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "read_instance": {
+    "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "instance_kind": "container",
+    "compute_type": "gpu",
+    "version": "2",
+    "desiredState": "running",
+    "observedState": "running",
+    "activeOperationId": "",
+    "executionRunState": "running",
+    "appliedMountVersion": "1",
+    "lastOperationId": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+    "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "read_configuration": {
+    "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "version": "2",
+    "applied_mount_version": "1",
+    "workspace_mount_path": "/workspace",
+    "volume_mounts": [
+      {
+        "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+        "mount_path": "/datasets/gpu-terminal-01a18156",
+        "read_only": true
+      }
+    ]
+  },
+  "read_storage": {
+    "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+    "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+    "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+    "pvc_phase": "Bound",
+    "pv_phase": "Bound"
+  },
+  "read_pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+  "marker_read_actual": {
+    "mount_readonly": true,
+    "marker_hashes": {
+      ".ani-restart-142d3ae2-b613-5649-85db-a2dd9fffc76a.txt": "9df8c355f11f1f2bf277957b03c48786ad094fc9c7d7e5b44deae9a9c0dd7df3",
+      ".ani-restart-212e4e29-c200-4bcd-98cc-034d2d322b3d.txt": "36ed05fc21865dbc8eb653ca543704d20b208d87e44f800e3f0c44da48570dc9"
+    },
+    "marker_writes": 0
+  },
+  "read_result": {
+    "result": "PASS_ORIGINAL_BORROWED_PVC_PV_AND_TWO_MARKERS_READONLY",
+    "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+    "storage": {
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+      "pvc_phase": "Bound",
+      "pv_phase": "Bound"
+    },
+    "proof": {
+      "mount_readonly": true,
+      "marker_hashes": {
+        ".ani-restart-142d3ae2-b613-5649-85db-a2dd9fffc76a.txt": "9df8c355f11f1f2bf277957b03c48786ad094fc9c7d7e5b44deae9a9c0dd7df3",
+        ".ani-restart-212e4e29-c200-4bcd-98cc-034d2d322b3d.txt": "36ed05fc21865dbc8eb653ca543704d20b208d87e44f800e3f0c44da48570dc9"
+      },
+      "marker_writes": 0
+    }
+  },
+  "first_pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+  "read_history": [
+    {
+      "pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+      "version": "2",
+      "proof": {
+        "mount_readonly": true,
+        "marker_hashes": {
+          ".ani-restart-142d3ae2-b613-5649-85db-a2dd9fffc76a.txt": "9df8c355f11f1f2bf277957b03c48786ad094fc9c7d7e5b44deae9a9c0dd7df3",
+          ".ani-restart-212e4e29-c200-4bcd-98cc-034d2d322b3d.txt": "36ed05fc21865dbc8eb653ca543704d20b208d87e44f800e3f0c44da48570dc9"
+        },
+        "marker_writes": 0
+      }
+    }
+  ],
+  "terminal_instance": {
+    "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "instance_kind": "container",
+    "compute_type": "gpu",
+    "version": "2",
+    "desiredState": "running",
+    "observedState": "running",
+    "activeOperationId": "",
+    "executionRunState": "running",
+    "appliedMountVersion": "1",
+    "lastOperationId": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+    "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "terminal_configuration": {
+    "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "version": "2",
+    "applied_mount_version": "1",
+    "workspace_mount_path": "/workspace",
+    "volume_mounts": [
+      {
+        "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+        "mount_path": "/datasets/gpu-terminal-01a18156",
+        "read_only": true
+      }
+    ]
+  },
+  "terminal_runtime": {
+    "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "version": "2",
+    "pod": {
+      "uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+      "name": "instance-a1dd1661-7ec0-418f-9e63-af3a2abc55fd-0",
+      "phase": "Running",
+      "ready": true
+    }
+  },
+  "terminal_failure": {
+    "code": "GPU_TERMINAL_RESTART_NEW_POD_REQUIRED"
+  },
+  "restart_baseline": {
+    "source": "/root/ani-runs/container-restart-pvc-20261028/source25-gpu-terminal-01/old-ticket-mint-01/result.safe.json",
+    "sha256": "c8165404fabd6400a0a4a9396b00aa0fab983530eb87e0c98768feb110cf835e",
+    "version": "1",
+    "pod_uid": "31673229-b700-41f5-a39a-8490e7714685"
+  },
+  "logs_instance": {
+    "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "instance_kind": "container",
+    "compute_type": "gpu",
+    "version": "2",
+    "desiredState": "running",
+    "observedState": "running",
+    "activeOperationId": "",
+    "executionRunState": "running",
+    "appliedMountVersion": "1",
+    "lastOperationId": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+    "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "logs_configuration": {
+    "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "version": "2",
+    "applied_mount_version": "1",
+    "workspace_mount_path": "/workspace",
+    "volume_mounts": [
+      {
+        "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+        "mount_path": "/datasets/gpu-terminal-01a18156",
+        "read_only": true
+      }
+    ]
+  },
+  "logs_before_runtime": {
+    "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "version": "2",
+    "pod": {
+      "uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+      "name": "instance-a1dd1661-7ec0-418f-9e63-af3a2abc55fd-0",
+      "phase": "Running",
+      "ready": true
+    }
+  },
+  "logs_actual": {
+    "http_status": 200,
+    "content_type": "text/event-stream; charset=utf-8",
+    "ready_comment": true,
+    "event_types": [
+      "log",
+      "end"
+    ],
+    "end_reason": "EOF",
+    "error_reasons": [],
+    "stream_bytes": 61,
+    "stream_sha256": "5e92f7fb1f623d6cfdf5a73063d0b6c178257bdbfaa9b3113b534d71f0b5188d",
+    "current_pod_log_exit_code": 0,
+    "current_pod_log_bytes": 61,
+    "current_pod_log_sha256": "5e92f7fb1f623d6cfdf5a73063d0b6c178257bdbfaa9b3113b534d71f0b5188d",
+    "runtime_before": {
+      "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+      "version": "2",
+      "pod": {
+        "uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+        "name": "instance-a1dd1661-7ec0-418f-9e63-af3a2abc55fd-0",
+        "phase": "Running",
+        "ready": true
+      }
+    },
+    "runtime_after": {
+      "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+      "version": "2",
+      "pod": {
+        "uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+        "name": "instance-a1dd1661-7ec0-418f-9e63-af3a2abc55fd-0",
+        "phase": "Running",
+        "ready": true
+      }
+    },
+    "pod_uid_before": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+    "pod_uid_after": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+    "sse_target_uid_exposed": false
+  },
+  "logs_result": {
+    "result": "PASS_NEW_GPU_POD_LOG_STREAM_AND_CONTENT_TARGET",
+    "pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+    "version": "2",
+    "content_sha256": "5e92f7fb1f623d6cfdf5a73063d0b6c178257bdbfaa9b3113b534d71f0b5188d",
+    "identity_evidence": "stable runtime/Pod UID plus exact nonempty current-Pod kubectl log bytes; SSE READY has no UID"
+  }
+}

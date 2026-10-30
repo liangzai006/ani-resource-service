@@ -1,0 +1,66 @@
+{
+  "a14_operation": {
+    "execution_phase": "done",
+    "id": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+    "reason": "",
+    "state": "completed",
+    "time_fields": {
+      "created_at": "2026-10-29T17:23:38.610691+00:00"
+    },
+    "version": 2
+  },
+  "applied_mount_version": 1,
+  "current_pod_name": "",
+  "current_pod_uid": "",
+  "desired": "deleted",
+  "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+  "network_runtime": {
+    "AttachmentID": "att_1de6c5cd0f3748548b798d3beccad8a8",
+    "AttachmentVersion": 205,
+    "BindingRevision": "07ab8243-9387-4b0b-94a3-9c91a3352dd1:7e76a894-7bd7-428e-928c-1531f93bb178",
+    "ConfirmedSnapshotRevision": 5,
+    "Controllers": [
+      {
+        "Owner": {
+          "APIVersion": "kubeflow.org/v1",
+          "Kind": "Notebook",
+          "Name": "instance-a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "UID": "d52f5c5e-798a-4260-a83a-34e1c207b895"
+        },
+        "Reference": {
+          "APIVersion": "apps/v1",
+          "Kind": "StatefulSet",
+          "Name": "instance-a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "UID": "a1da6bd2-4b3c-43c9-b3a2-57afb62c7deb"
+        }
+      }
+    ],
+    "CurrentPods": null,
+    "DesiredRunState": "deleted",
+    "Generation": 1,
+    "NetworkState": "released",
+    "PrimaryNetworkRef": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420/subnet-ab6ddedf50d94f8181ac42ff935e8c86",
+    "Reason": "",
+    "RootController": {
+      "APIVersion": "kubeflow.org/v1",
+      "Kind": "Notebook",
+      "Name": "instance-a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+      "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "UID": "d52f5c5e-798a-4260-a83a-34e1c207b895"
+    },
+    "SnapshotRevision": 9,
+    "State": "closed",
+    "SubmissionID": "cb3eb3df-13d0-5345-9e40-5561db53fe21"
+  },
+  "network_selection": {
+    "SubnetID": "subnet_ab6ddedf50d94f8181ac42ff935e8c86",
+    "VPCID": "vpc_34587fd5f3374abcbc19829ae3a5a558"
+  },
+  "notebook_uid": "d52f5c5e-798a-4260-a83a-34e1c207b895",
+  "observed_at": "2026-10-29T17:34:59.238119+00:00",
+  "read_only": "on",
+  "runtime_desired": "deleted",
+  "version": 4
+}

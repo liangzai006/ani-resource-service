@@ -1,0 +1,18 @@
+{
+  "classification": "INFRASTRUCTURE_IO_STALL_NOT_COMPLETED",
+  "stopped_by_goal_owner": true,
+  "observed_at_utc": "2026-10-29T10:25:53.700809+00:00",
+  "own_make_pid": 1362174,
+  "own_go_pid": 1374205,
+  "own_link_pid": 1382986,
+  "link_state": "D",
+  "link_wait_channel": "blk_mq_get_tag",
+  "link_elapsed_seconds_observed": 276,
+  "link_cpu_percent_observed": 0.3,
+  "swap_total_kib": 8388604,
+  "swap_free_kib": 376,
+  "source_manifest_sha256": "e0be7a1ee55d2693f17c589d0fdb28e2d4e6e0b6cab820865671ea623fb6beca",
+  "last_completed_changed_package": "internal/data/instance PASS",
+  "other_tasks_signalled": false,
+  "local_fallback": false
+}

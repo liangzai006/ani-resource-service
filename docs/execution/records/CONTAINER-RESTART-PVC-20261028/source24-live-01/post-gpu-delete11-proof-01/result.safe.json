@@ -1,0 +1,103 @@
+{
+  "absence": {
+    "notebook": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "instance-124bb2fe-fc2d-4efb-973b-72b12ddf36ea"
+    },
+    "pod": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "instance-124bb2fe-fc2d-4efb-973b-72b12ddf36ea-0"
+    },
+    "pv": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "pvc-7760c2b9-8528-4368-98cd-0e93c5781a73"
+    },
+    "pvc": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "workspace-124bb2fe-fc2d-4efb-973b-72b12ddf36ea"
+    },
+    "statefulset": {
+      "complete_target_list": true,
+      "direct_not_found": true,
+      "listed_count": 0,
+      "name": "instance-124bb2fe-fc2d-4efb-973b-72b12ddf36ea"
+    }
+  },
+  "borrowed_storage": {
+    "phase": "Bound",
+    "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+    "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+    "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+    "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+  },
+  "business_intents": 0,
+  "gpu_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+  "gpu_refs": {
+    "gpu_protective_count": 0,
+    "other_reader_refs_not_in_scope": true,
+    "receipt_sha256": "dbdae7736157bb782bc6e34191382319fbbf8cbaded52763a74401c041b3b0aa",
+    "result": "PASS_GPU_OWN_PROTECTIVE_REFS_ZERO"
+  },
+  "gpu_tombstone": {
+    "activeOperationId": "",
+    "appliedMountVersion": "9",
+    "computeCleaned": true,
+    "compute_type": "gpu",
+    "createOperationId": "96ef1b95-b695-44cf-a61b-0a83bba682c4",
+    "desiredState": "deleted",
+    "executionRunState": "deleted",
+    "id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+    "instance_kind": "container",
+    "lastOperationId": "9f8d0e7f-205f-46e9-9827-1553e06cc0c8",
+    "networkCleaned": true,
+    "observedState": "deleted",
+    "quotaReturned": true,
+    "version": "11",
+    "volumeReferencesReleased": true,
+    "workspaceCleaned": true
+  },
+  "kube_object_writes": 0,
+  "ledger": {
+    "aggregate_other_resource_account_totals_asserted": false,
+    "canonical_acc_binding_unchanged": true,
+    "delete_operation_id": "9f8d0e7f-205f-46e9-9827-1553e06cc0c8",
+    "immutable_original_sha256": "70a683558b007a5f0c813bc32c671bbd4cd3067d452c84498b0d247e36f3ed39",
+    "matching_release_events": 1,
+    "original_charges": 1,
+    "original_create_operation_id": "96ef1b95-b695-44cf-a61b-0a83bba682c4",
+    "quota_dimension": {
+      "accounting_kind": "CONCURRENT",
+      "charges_with_release": 1,
+      "net_occupied_units": 0,
+      "original_charge_count": 1,
+      "original_units": 24570,
+      "quota_code": "gpu.shared_memory_mib",
+      "released_units": 24570,
+      "unit": "MiB"
+    },
+    "result": "PASS_ORIGINAL_24570_FULLY_RELEASED_ONCE",
+    "reused_after_snapshot_sha256": "2dacff88243a395aeb141986615e3cf23c81517b19a008d9a1c15084e4e6078b"
+  },
+  "logout": "CONFIRMED",
+  "marker_writes": 0,
+  "new_ledger_queries": 0,
+  "original_persistent_identities": {
+    "notebook_uid": "1019c6f6-d97b-4cc0-8989-d80e4b3fef04",
+    "pod_uid": "e3b66d83-83f5-4d40-8858-26d3906f4a0e",
+    "statefulset_uid": "7fee7ec3-b791-4cb9-9548-544a36dd75e3",
+    "workspace_pv_name": "pvc-7760c2b9-8528-4368-98cd-0e93c5781a73",
+    "workspace_pv_uid": "f83ff1c7-e6e6-4a0b-ad2e-84a59a11afda",
+    "workspace_pvc_uid": "7760c2b9-8528-4368-98cd-0e93c5781a73"
+  },
+  "result": "PASS_GPU11_DELETED_BORROWED_STORAGE_RETAINED_REFS_ZERO_AND_EXACT_REFUND",
+  "schema": "post-gpu-delete11-readproof-v1",
+  "stage": "complete"
+}

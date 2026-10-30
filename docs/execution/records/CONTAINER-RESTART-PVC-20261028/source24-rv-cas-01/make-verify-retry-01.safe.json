@@ -1,0 +1,49 @@
+{
+  "application_image_built": false,
+  "attempt": "make-verify-retry-01",
+  "cluster_writes": 0,
+  "command": [
+    "make",
+    "verify"
+  ],
+  "empty_task_tmp_removed": true,
+  "environment": {
+    "CGO_ENABLED": "0",
+    "GOCACHE": "/root/ani-runs/container-restart-pvc-20261028/gocache",
+    "GOFLAGS": "-mod=readonly -p=1",
+    "GOMAXPROCS": "2",
+    "GOMEMLIMIT": "2GiB",
+    "GOMODCACHE": "/root/ani-runs/container-restart-pvc-20261028/modcache",
+    "GOPROXY": "file:///root/ani-runs/container-restart-pvc-20261028/modcache/cache/download,https://goproxy.cn",
+    "GOSUMDB": "sum.golang.org https://goproxy.cn/sumdb/sum.golang.org",
+    "GOTMPDIR": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/t-make-verify-retry-01",
+    "GOTOOLCHAIN": "local",
+    "GOVCS": "*:off",
+    "GOWORK": "off",
+    "TMPDIR": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/t-make-verify-retry-01"
+  },
+  "execution_seconds": 258.21,
+  "exit_code": 2,
+  "finished_at": "2026-10-29T15:25:24.617799+00:00",
+  "go_version": "go version go1.26.10 linux/amd64",
+  "green_receipt_sha256": "f521cb6d19975ed6b35d14939c8f37213f2a644c529db3d2de74caab6cdd7c92",
+  "heavy_lock_acquired": true,
+  "heavy_lock_released": true,
+  "host": "192.168.25.40",
+  "live_or_shared_pg_used": false,
+  "log": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/make-verify-retry-01.log",
+  "log_sha256": "c191a171cd3722595010c38929fe88fcd8e986537d13c29b7f83b9356838cd56",
+  "pid": 225359,
+  "remote_git_context": "task-only init+index; no commit or push; product repo untouched",
+  "result": "FAIL",
+  "source": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/src",
+  "source_942_unchanged": true,
+  "source_manifest_sha256": "bada655797918148b626573bf67038e24303c6d08c0ad16716b6c98f733478ff",
+  "stage": "make-verify",
+  "started_at": "2026-10-29T15:21:04.764977+00:00",
+  "tool_sha256": {
+    "buf": "3c0741ff6f8e710d4957206811c6aed53d47724a0c56eb44854021d229ed7c3c",
+    "sqlc": "492ea2d2d49404ce0b5cf6571449986190c72fd47ded9796a6e848f00f5c2a70"
+  },
+  "total_seconds": 259.853
+}

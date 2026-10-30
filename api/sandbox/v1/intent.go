@@ -22,7 +22,9 @@ func CreateIntentDigest(instanceID string, data *CreateSandboxData) (string, err
 		ImageReference string `json:"image_reference"`
 		PresetID       string `json:"preset_id"`
 		WorkspaceSize  string `json:"workspace_size"`
-	}{instanceID, strings.TrimSpace(data.Name), strings.TrimSpace(data.ImageReference), data.PresetId, data.WorkspaceSize}
+		ImageID        string `json:"image_id,omitempty"`
+		ImageScope     string `json:"image_scope,omitempty"`
+	}{instanceID, strings.TrimSpace(data.Name), strings.TrimSpace(data.ImageReference), data.PresetId, data.WorkspaceSize, data.ImageId, data.ImageScope}
 	return digest("sandbox-intent-v1\n", value)
 }
 

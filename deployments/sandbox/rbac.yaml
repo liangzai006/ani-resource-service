@@ -13,6 +13,9 @@ rules:
     resources: ["pods", "persistentvolumeclaims"]
     verbs: ["get", "create", "delete"]
   - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["create"]
+  - apiGroups: [""]
     resources: ["secrets"]
     # Kubernetes cannot restrict a create request by resourceName. Reads and
     # updates are granted separately to the tenant's one named Secret.

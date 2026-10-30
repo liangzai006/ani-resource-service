@@ -1,0 +1,332 @@
+--- a/cmd/ani-resource-service/instance.go
++++ b/cmd/ani-resource-service/instance.go
+@@ -148,6 +148,9 @@
+ 	kube.QPS = 20
+ 	kube.Burst = 40
+ 	kube.Timeout = 15 * time.Second
++	if e = taskKubeFault(kube, "instance"); e != nil {
++		return nil, e
++	}
+ 	client, e := dynamic.NewForConfig(kube)
+ 	if e != nil {
+ 		return nil, e
+--- a/cmd/ani-resource-service/storage.go
++++ b/cmd/ani-resource-service/storage.go
+@@ -32,6 +32,9 @@
+ 	}
+ 	kube.QPS, kube.Burst = 5, 10
+ 	kube.Timeout = 15 * time.Second
++	if err = taskKubeFault(kube, "storage"); err != nil {
++		return nil, err
++	}
+ 	client, err := dynamic.NewForConfig(kube)
+ 	if err != nil {
+ 		return nil, err
+--- a/internal/data/instance/notebook_lifecycle.go
++++ b/internal/data/instance/notebook_lifecycle.go
+@@ -47,6 +47,8 @@
+ // eligibility. A lost borrowed PVC, invalid Pod configuration, or unavailable
+ // GPU signer must never prevent stopping an object whose owner is proven.
+ func (n *Notebook) ObserveIdentity(ctx context.Context, i biz.Instance) (biz.Observation, error) {
++	// Task go-overlay only: explicit target identity for this observation LIST.
++	ctx = context.WithValue(ctx, "ani.goal.01a18156.kube-target", [4]string{i.ID, i.Spec.Namespace, i.Spec.NotebookName, i.NotebookUID})
+ 	var out biz.Observation
+ 	if n.clusterID != "" && n.clusterID != i.Spec.ClusterID {
+ 		return out, biz.ErrNetworkUnavailable
+--- /dev/null
++++ b/cmd/ani-resource-service/goal_kube_fault.go
+@@ -0,0 +1,284 @@
++//go:build ani_goal_kubefault
++
++package main
++
++// Source27 input: 123e66c0daf6fdd946abada44d3ff9507d5127e4. Apply only
++// in a task build directory or go -overlay mapping, never the source checkout.
++// Task-only diagnostic overlay. Disabled unless compiled with ani_goal_kubefault
++// AND ANI_GOAL_KUBE_FAULT_DIR=/run/ani-goal-kube-fault/control. The Pod
++// mounts only the emptyDir parent; the actual UID creates an owned 0700 child. arm.json and
++// <nonce>.release / <nonce>.cancel are owned 0600 files containing the nonce.
++// arm.json is atomically replaced; cancel also stops a queued late write.
++// Never enable on a shared worker: only the separately scoped diagnostic process.
++//
++// Arm fields: nonce,client(instance|storage),namespace,name,uid,method(PUT|DELETE),
++// resource(notebooks|persistentvolumeclaims|pods),instance_id,intent_version,stopped(true|false),
++// mode(before|after-hold|after-drop|late-forward),max_wait_seconds(1..120).
++// Notebook PUT requires the exact UID plus a nonempty original RV and mutation
++// annotation. PVC DELETE requires exact DeleteOptions.preconditions.uid.
++// No POST/CREATE, PATCH, arbitrary GET/LIST, subresource, credential or body logging.
++// The sole LIST exception is exact namespace Pod LIST carrying the explicit
++// ObserveIdentity task context: instanceID/namespace/NotebookName/NotebookUID.
++// Its real request is gated/forwarded unchanged; no response object is fabricated.
++// No fabricated empty lists, deleted labels, terminating Pods or STS status.
++// PG-only reserve/usage/config-commit boundaries likewise need a separate hook.
++//
++// before: hit -> wait release using ORIGINAL context -> forward unchanged.
++// after-hold: real write -> response marker -> hold original response; cancellation
++//             or process exit loses the reply while the real write is preserved.
++// after-drop: real write and actual 2xx -> drain/close -> injected EOF to caller.
++// late-forward: freeze exact original bytes/UID/RV, queue beyond caller cancellation
++//               under independent bounded context; release sends it ONCE. This is
++//               intentional delayed delivery, not a new intent or refreshed CAS.
++//               Queue dies on process exit; expiry explicitly records NOT_SENT.
++// For A15, late-forward stopped=false and pass stopped=true fence, or rearm a
++// distinct nonce for after-drop stopped=true. Release original before/after actual
++// fence evidence as chosen by Root. Missing release never forwards after TTL.
++// Markers prove observed transport order only, not Kubernetes/controller outcome.
++
++import (
++	"bytes"
++	"context"
++	"crypto/sha256"
++	"encoding/hex"
++	"encoding/json"
++	"errors"
++	"io"
++	"net/http"
++	"net/url"
++	"os"
++	"path/filepath"
++	"regexp"
++	"strconv"
++	"syscall"
++	"time"
++
++	"k8s.io/client-go/rest"
++)
++
++type goalFaultPlan struct {
++	Nonce string `json:"nonce"`
++	Client string `json:"client"`
++	Namespace string `json:"namespace"`
++	Name string `json:"name"`
++	UID string `json:"uid"`
++	InstanceID string `json:"instance_id"`
++	Method string `json:"method"`
++	Resource string `json:"resource"`
++	IntentVersion string `json:"intent_version"`
++	Stopped string `json:"stopped"`
++	Mode string `json:"mode"`
++	MaxWaitSeconds int `json:"max_wait_seconds"`
++}
++type goalFaultTransport struct { next http.RoundTripper; dir, client, authority string }
++var goalFaultID = regexp.MustCompile(`^[a-z0-9][a-z0-9-]{0,62}$`)
++
++const goalFaultParent = "/run/ani-goal-kube-fault"
++const goalFaultDirectory = goalFaultParent+"/control"
++
++func goalFaultDirectoryReady() (string,error) {
++	if os.Getenv("ANI_GOAL_KUBE_FAULT_DIR")!=goalFaultDirectory { return "",errors.New("TASK_CONTROL_DIRECTORY_NOT_FIXED") }
++	parent,e:=os.Lstat(goalFaultParent)
++	if e!=nil || !parent.IsDir() || parent.Mode()&os.ModeSymlink!=0 { return "",errors.New("TASK_EMPTYDIR_PARENT_REQUIRED") }
++	// The Pod fsGroup supplies parent write permission. The actual service UID
++	// owns its newly created child; neither OCI UID nor root is hardcoded.
++	if e=os.Mkdir(goalFaultDirectory,0700); e!=nil && !errors.Is(e,os.ErrExist) { return "",errors.New("TASK_CONTROL_DIRECTORY_CREATE_FAILED") }
++	st,e:=os.Lstat(goalFaultDirectory); if e!=nil { return "",errors.New("TASK_CONTROL_DIRECTORY_UNAVAILABLE") }
++	u,ok:=st.Sys().(*syscall.Stat_t)
++	if !ok || !st.IsDir() || st.Mode()&os.ModeSymlink!=0 || st.Mode().Perm()!=0700 || u.Uid!=uint32(os.Geteuid()) { return "",errors.New("TASK_CONTROL_DIRECTORY_OWNER_MODE_INVALID") }
++	return goalFaultDirectory,nil
++}
++func taskKubeFault(c *rest.Config, client string) error {
++	if os.Getenv("ANI_GOAL_KUBE_FAULT_DIR")=="" { return nil }
++	dir,err:=goalFaultDirectoryReady(); if err!=nil { return err }
++	host, err := url.Parse(c.Host)
++	if err!=nil || host.Scheme!="https" || host.Host=="" { return errors.New("task fault requires unchanged HTTPS endpoint") }
++	prev := c.WrapTransport
++	c.WrapTransport = func(rt http.RoundTripper) http.RoundTripper {
++		if prev!=nil { rt=prev(rt) }
++		return &goalFaultTransport{next:rt,dir:dir,client:client,authority:host.Host}
++	}
++	return nil
++}
++
++// This task-tag CLI exits before main; it opens no listener and calls no API.
++// Syntax: /ani-resource-service goal-kube-fault-control arm < plan.json
++//         /ani-resource-service goal-kube-fault-control release|cancel|events NONCE
++//         /ani-resource-service goal-kube-fault-control clear-arm
++func init() {
++	if len(os.Args)<2 || os.Args[1]!="goal-kube-fault-control" { return }
++	result,err:=goalFaultControl(os.Args[2:]); code:=0
++	if err!=nil { result=map[string]any{"result":"CONTROL_FAILED","code":err.Error()}; code=2 }
++	_ = json.NewEncoder(os.Stdout).Encode(result)
++	os.Exit(code)
++}
++func goalFaultControl(args []string) (map[string]any,error) {
++	if len(args)<1 { return nil,errors.New("CONTROL_SUBCOMMAND_REQUIRED") }
++	dir,e:=goalFaultDirectoryReady(); if e!=nil { return nil,e }
++	t:=&goalFaultTransport{dir:dir}
++	fail:=func()(map[string]any,error){return nil,errors.New("CONTROL_INVALID_ARGUMENTS")}
++	switch args[0] {
++	case "arm":
++		if len(args)!=1 { return fail() }
++		b,e:=io.ReadAll(io.LimitReader(os.Stdin,8193)); if e!=nil || len(b)>8192 { return nil,errors.New("CONTROL_STDIN_LIMIT_OR_READ_FAILED") }
++		var plan goalFaultPlan; d:=json.NewDecoder(bytes.NewReader(b)); d.DisallowUnknownFields()
++		if d.Decode(&plan)!=nil || d.Decode(new(any))!=io.EOF || !goalFaultArmValid(plan) { return nil,errors.New("CONTROL_INVALID_PLAN") }
++		// Canonicalize only the known, credential-free plan fields; atomic rename
++		// never exposes a partially written arm. Temporary basename is internal.
++		b,e=json.Marshal(plan); if e!=nil { return nil,errors.New("CONTROL_PLAN_ENCODE_FAILED") }
++		f,e:=os.CreateTemp(dir,".arm-"); if e!=nil { return nil,errors.New("CONTROL_ATOMIC_CREATE_FAILED") }
++		tmp:=f.Name(); defer os.Remove(tmp)
++		if _,e=f.Write(append(b,'\n')); e==nil { e=f.Sync() }; closeErr:=f.Close()
++		if e!=nil || closeErr!=nil { return nil,errors.New("CONTROL_ATOMIC_WRITE_FAILED") }
++		if e=os.Rename(tmp,filepath.Join(dir,"arm.json")); e!=nil { return nil,errors.New("CONTROL_ATOMIC_RENAME_FAILED") }
++		return map[string]any{"result":"ARMED","nonce":plan.Nonce},nil
++	case "release","cancel":
++		if len(args)!=2 || !goalFaultID.MatchString(args[1]) { return fail() }
++		name:=args[1]+"."+args[0]; b:=[]byte(args[1]+"\n")
++		f,e:=os.OpenFile(filepath.Join(dir,name),os.O_WRONLY|os.O_CREATE|os.O_EXCL|syscall.O_NOFOLLOW,0600)
++		if errors.Is(e,os.ErrExist) {
++			prior,readErr:=t.private(name); if readErr!=nil || !bytes.Equal(prior,b) { return nil,errors.New("CONTROL_EXISTING_SIGNAL_INVALID") }
++		} else {
++			if e!=nil { return nil,errors.New("CONTROL_SIGNAL_CREATE_FAILED") }
++			_,e=f.Write(b); if e==nil { e=f.Sync() }; closeErr:=f.Close()
++			if e!=nil || closeErr!=nil { return nil,errors.New("CONTROL_SIGNAL_WRITE_FAILED") }
++		}
++		return map[string]any{"result":"SIGNALLED","signal":args[0],"nonce":args[1]},nil
++	case "events":
++		if len(args)!=2 || !goalFaultID.MatchString(args[1]) { return fail() }
++		events:=[]map[string]any{}
++		allowed:=map[string]bool{"at":true,"mode":true,"nonce":true,"event":true,"request_sha256":true,"client":true,"method":true,"resource":true,"namespace":true,"name":true,"uid":true,"http_status":true,"transport_error":true}
++		for _,suffix:=range []string{"hit","forward","real-response","late-result","expired","not-sent","dropped"} {
++			b,e:=t.private(args[1]+"."+suffix+".json"); if errors.Is(e,os.ErrNotExist) { continue }; if e!=nil { return nil,errors.New("CONTROL_EVENT_READ_FAILED") }
++			var raw map[string]any; if json.Unmarshal(b,&raw)!=nil || raw["nonce"]!=args[1] { return nil,errors.New("CONTROL_EVENT_INVALID") }
++			v:=map[string]any{}; for k,x:=range raw { if allowed[k] { v[k]=x } }; events=append(events,v)
++		}
++		return map[string]any{"result":"EVENTS","nonce":args[1],"events":events},nil
++	case "clear-arm":
++		if len(args)!=1 { return fail() }
++		if _,e:=t.private("arm.json"); errors.Is(e,os.ErrNotExist) { return map[string]any{"result":"ARM_CLEARED"},nil } else if e!=nil { return nil,errors.New("CONTROL_ARM_READ_FAILED") }
++		if os.Remove(filepath.Join(dir,"arm.json"))!=nil { return nil,errors.New("CONTROL_ARM_REMOVE_FAILED") }
++		return map[string]any{"result":"ARM_CLEARED"},nil
++	default:
++		return fail()
++	}
++}
++func goalFaultArmValid(p goalFaultPlan) bool {
++	if !goalFaultID.MatchString(p.Nonce) || !goalFaultID.MatchString(p.Namespace) || !goalFaultID.MatchString(p.Name) || p.UID=="" || p.MaxWaitSeconds<1 || p.MaxWaitSeconds>120 { return false }
++	if p.Mode!="before" && p.Mode!="after-hold" && p.Mode!="after-drop" && p.Mode!="late-forward" { return false }
++	if p.Client=="storage" { return p.Resource=="persistentvolumeclaims" && p.Method=="DELETE" && p.IntentVersion=="" && p.Stopped=="" && p.InstanceID=="" }
++	if p.Client!="instance" { return false }
++	if p.Resource=="pods" { return p.Method=="GET" && p.InstanceID!="" && p.Mode!="late-forward" && p.IntentVersion=="" && p.Stopped=="" }
++	v,e:=strconv.ParseInt(p.IntentVersion,10,64)
++	return p.Resource=="notebooks" && p.Method=="PUT" && e==nil && v>0 && (p.Stopped=="true" || p.Stopped=="false")
++}
++func (t *goalFaultTransport) private(name string) ([]byte,error) {
++	f,e:=os.OpenFile(filepath.Join(t.dir,name),os.O_RDONLY|syscall.O_NOFOLLOW,0)
++	if e!=nil { return nil,e }; defer f.Close()
++	st,e:=f.Stat(); if e!=nil { return nil,e }; u,ok:=st.Sys().(*syscall.Stat_t)
++	if !ok || !st.Mode().IsRegular() || st.Mode().Perm()!=0600 || u.Uid!=uint32(os.Geteuid()) || st.Size()>8192 { return nil,errors.New("invalid task control file") }
++	return io.ReadAll(io.LimitReader(f,8193))
++}
++func (t *goalFaultTransport) event(p goalFaultPlan, suffix string, v map[string]any) error {
++	v["at"]=time.Now().UTC().Format(time.RFC3339Nano); v["mode"]=p.Mode; v["nonce"]=p.Nonce
++	b,e:=json.Marshal(v); if e!=nil { return e }
++	f,e:=os.OpenFile(filepath.Join(t.dir,p.Nonce+"."+suffix+".json"),os.O_WRONLY|os.O_CREATE|os.O_EXCL|syscall.O_NOFOLLOW,0600)
++	if e!=nil { return e }; defer f.Close(); _,e=f.Write(append(b,'\n')); return e
++}
++func (t *goalFaultTransport) wait(ctx context.Context,p goalFaultPlan) bool {
++	tick:=time.NewTicker(100*time.Millisecond); defer tick.Stop()
++	for {
++		if b,e:=t.private(p.Nonce+".cancel"); e==nil && string(bytes.TrimSpace(b))==p.Nonce { return false }
++		if b,e:=t.private(p.Nonce+".release"); e==nil && string(bytes.TrimSpace(b))==p.Nonce { return true }
++		select { case <-ctx.Done(): return false; case <-tick.C: }
++	}
++}
++func (t *goalFaultTransport) plan(req *http.Request) (goalFaultPlan,bool) {
++	var p goalFaultPlan
++	b,e:=t.private("arm.json"); if e!=nil { return p,false }
++	d:=json.NewDecoder(bytes.NewReader(b)); d.DisallowUnknownFields()
++	if d.Decode(&p)!=nil || d.Decode(new(any))!=io.EOF { return p,false }
++	if !goalFaultArmValid(p) || p.Client!=t.client { return p,false }
++	if p.Mode!="before" && p.Mode!="after-hold" && p.Mode!="after-drop" && p.Mode!="late-forward" { return p,false }
++	if req.URL.Scheme!="https" || req.URL.Host!=t.authority || req.Method!=p.Method { return p,false }
++	prefix:="/api/v1/namespaces/"
++	if p.Client=="instance" && p.Resource=="pods" && p.Method=="GET" {
++		tag,ok:=req.Context().Value("ani.goal.01a18156.kube-target").([4]string)
++		if !ok || p.InstanceID=="" || tag!=[4]string{p.InstanceID,p.Namespace,p.Name,p.UID} || p.Mode=="late-forward" { return p,false }
++		return p,req.URL.Path==prefix+p.Namespace+"/pods" && (req.URL.RawQuery=="" || req.URL.RawQuery=="timeout=15s")
++	}
++	if p.Client=="instance" && p.Resource=="notebooks" && p.Method=="PUT" {
++		prefix="/apis/kubeflow.org/v1/namespaces/"
++		v,e:=strconv.ParseInt(p.IntentVersion,10,64); if e!=nil || v<=0 || (p.Stopped!="true" && p.Stopped!="false") { return p,false }
++	} else if !(p.Client=="storage" && p.Resource=="persistentvolumeclaims" && p.Method=="DELETE") { return p,false }
++	return p,req.URL.Path==prefix+p.Namespace+"/"+p.Resource+"/"+p.Name && (req.URL.RawQuery=="" || req.URL.RawQuery=="timeout=15s")
++}
++func (t *goalFaultTransport) RoundTrip(req *http.Request) (*http.Response,error) {
++	p,ok:=t.plan(req); if !ok { return t.next.RoundTrip(req) }
++	// Named-object candidate only. Buffer/replay exact small serialized bytes;
++	// no transport/auth/TLS headers, body fields or UID/RV are changed.
++	isList:=p.Resource=="pods"
++	var body []byte
++	var e error
++	r:=req.Clone(req.Context())
++	if !isList {
++		if req.Body==nil || req.ContentLength<=0 || req.ContentLength>1<<20 { return t.next.RoundTrip(req) }
++		body,e=io.ReadAll(req.Body); req.Body.Close()
++		if e!=nil { return nil,e }
++		r.Body=io.NopCloser(bytes.NewReader(body))
++		r.GetBody=func()(io.ReadCloser,error){return io.NopCloser(bytes.NewReader(body)),nil}
++	}
++	var obj struct {
++		Metadata struct { Name,Namespace,UID,ResourceVersion string; Annotations map[string]string }
++		Preconditions struct { UID string }
++	}
++	if !isList && json.Unmarshal(body,&obj)!=nil { return t.next.RoundTrip(r) }
++	uid:=obj.Preconditions.UID
++	if isList { uid=p.UID }
++	if p.Client=="instance" && !isList {
++		uid=obj.Metadata.UID; _,stopped:=obj.Metadata.Annotations["kubeflow-resource-stopped"]
++		if obj.Metadata.Name!=p.Name || obj.Metadata.Namespace!=p.Namespace || obj.Metadata.ResourceVersion=="" || obj.Metadata.Annotations["instance.ani.io/mutation-id"]=="" || obj.Metadata.Annotations["instance.ani.io/intent-version"]!=p.IntentVersion || strconv.FormatBool(stopped)!=p.Stopped { return t.next.RoundTrip(r) }
++	}
++	if uid!=p.UID { return t.next.RoundTrip(r) }
++	h:=sha256.Sum256(body)
++	if e=t.event(p,"hit",map[string]any{"event":"matched_exact_uid_request","request_sha256":hex.EncodeToString(h[:]),"client":p.Client,"method":p.Method,"resource":p.Resource,"namespace":p.Namespace,"name":p.Name,"uid":uid}); e!=nil {
++		// Hold matched retries too until arm.json is removed/replaced; never allow
++		// an unobserved duplicate while the first exact request is queued.
++		return nil,errors.New("task fault plan already claimed or marker unavailable")
++	}
++	if p.Mode=="late-forward" {
++		// Isolated task queue deliberately outlives caller cancellation, bounded
++		// by TTL. All original request bytes/preconditions and TLS remain intact.
++		ctx,cancel:=context.WithTimeout(context.WithoutCancel(req.Context()),time.Duration(p.MaxWaitSeconds)*time.Second)
++		late:=r.Clone(ctx); late.Body=io.NopCloser(bytes.NewReader(body)); late.GetBody=r.GetBody
++		// The same private cancel control also interrupts an already-forwarded
++		// network call; cancellation is not evidence of apiserver non-commit.
++		go func(){
++			tick:=time.NewTicker(100*time.Millisecond); defer tick.Stop()
++			for {
++				if b,e:=t.private(p.Nonce+".cancel"); e==nil && string(bytes.TrimSpace(b))==p.Nonce { cancel(); return }
++				select { case <-ctx.Done(): return; case <-tick.C: }
++			}
++		}()
++		go func(){
++			defer cancel()
++			if !t.wait(ctx,p) { _=t.event(p,"expired",map[string]any{"event":"not_forwarded_cancel_or_ttl_expired"}); return }
++			_=t.event(p,"forward",map[string]any{"event":"forwarding_original_request"})
++			res,err:=t.next.RoundTrip(late); status:=0
++			if res!=nil { status=res.StatusCode; if res.Body!=nil { _,_=io.Copy(io.Discard,res.Body); res.Body.Close() } }
++			_=t.event(p,"late-result",map[string]any{"event":"original_request_result","http_status":status,"transport_error":err!=nil})
++		}()
++		select { case <-req.Context().Done(): return nil,req.Context().Err(); case <-ctx.Done(): return nil,context.DeadlineExceeded }
++	}
++	ctx,cancel:=context.WithTimeout(req.Context(),time.Duration(p.MaxWaitSeconds)*time.Second); defer cancel()
++	if p.Mode=="before" && !t.wait(ctx,p) { _=t.event(p,"not-sent",map[string]any{"event":"not_forwarded_context_ended"}); if ctx.Err()!=nil { return nil,ctx.Err() }; return nil,context.Canceled }
++	_=t.event(p,"forward",map[string]any{"event":"forwarding_original_request"})
++	res,err:=t.next.RoundTrip(r)
++	if err!=nil || res==nil || res.StatusCode<200 || res.StatusCode>=300 { return res,err }
++	if e=t.event(p,"real-response",map[string]any{"event":"real_success_response_received","http_status":res.StatusCode}); e!=nil { if res.Body!=nil { res.Body.Close() }; return nil,e }
++	if p.Mode=="before" { return res,nil }
++	if p.Mode=="after-hold" && t.wait(ctx,p) { return res,nil }
++	if res.Body!=nil { _,_=io.Copy(io.Discard,res.Body); res.Body.Close() }
++	_=t.event(p,"dropped",map[string]any{"event":"real_response_withheld","http_status":res.StatusCode})
++	return nil,io.ErrUnexpectedEOF
++}
+--- /dev/null
++++ b/cmd/ani-resource-service/goal_kube_fault_disabled.go
+@@ -0,0 +1,7 @@
++//go:build !ani_goal_kubefault
++
++package main
++
++import "k8s.io/client-go/rest"
++
++func taskKubeFault(_ *rest.Config, _ string) error { return nil }

@@ -1,0 +1,49 @@
+import argparse, datetime, hashlib, json, os, pathlib, stat, subprocess, urllib.parse
+
+root = pathlib.Path('/root/ani-runs/container-restart-pvc-20261028')
+parser = argparse.ArgumentParser()
+parser.add_argument('--receipt-id', default='08', choices=('08',))
+parser.add_argument('--operation-id', default='e8ebe2f3-030f-456e-b4ce-2b4b7c83a81f')
+args = parser.parse_args()
+import uuid
+assert str(uuid.UUID(args.operation_id)) == args.operation_id
+out = root / ('current-mount-diagnostic-' + args.receipt_id)
+out.mkdir(mode=0o700)
+dsn = root / 'private-live-01/resource-owner.dsn'
+assert stat.S_IMODE(dsn.stat().st_mode) == 0o600
+u = urllib.parse.urlsplit(dsn.read_text().strip())
+assert u.scheme in ('postgres', 'postgresql') and u.hostname in ('127.0.0.1', 'localhost')
+assert u.port == 39534 and u.path == '/ani_resource'
+fields = dict(urllib.parse.parse_qsl(u.query))
+fields.update(host=u.hostname, port=str(u.port), dbname=u.path[1:], user=urllib.parse.unquote(u.username or ''), password=urllib.parse.unquote(u.password or ''))
+names = {'host':'PGHOST','port':'PGPORT','dbname':'PGDATABASE','user':'PGUSER','password':'PGPASSWORD','sslmode':'PGSSLMODE','sslrootcert':'PGSSLROOTCERT','sslcert':'PGSSLCERT','sslkey':'PGSSLKEY','options':'PGOPTIONS','application_name':'PGAPPNAME','connect_timeout':'PGCONNECT_TIMEOUT'}
+assert not fields.keys() - names.keys()
+env = {k:v for k,v in os.environ.items() if not k.startswith('PG')}
+env.update({names[k]:v for k,v in fields.items()})
+env.update(PGCONNECT_TIMEOUT='10', PGOPTIONS='-c default_transaction_read_only=on -c statement_timeout=15000 -c lock_timeout=3000 -c application_name=ani_restart_mount_readonly_diagnostic')
+sql = '''BEGIN READ ONLY;
+SELECT jsonb_build_object(
+ 'database',current_database(),'user',current_user,'transaction_read_only',current_setting('transaction_read_only'),'observed_at',clock_timestamp(),
+ 'instance_updated_at',i.updated_at,'version',i.version,'desired',i.desired,'runtime_desired',i.runtime_desired,'mounts_initialized',i.mounts_initialized,'applied_mount_version',i.applied_mount_version,
+ 'current_mounts',i.current_mounts,
+ 'borrowed_references',(SELECT jsonb_agg(jsonb_build_object('mount_path',b.mount_path,'pvc_name',b.pvc_name,'pvc_uid',b.pvc_uid,'state',b.state,'reference_generation',b.reference_generation,'operation_id',b.operation_id,'intent_version',b.intent_version) ORDER BY b.mount_path) FROM instance.borrowed_volume_references b WHERE b.tenant_id=i.tenant_id AND b.instance_id=i.instance_id),
+ 'frozen',jsonb_build_object('cluster_id',i.snapshot->'Spec'->'ClusterID','namespace',i.snapshot->'Spec'->'Namespace','notebook_name',i.snapshot->'Spec'->'NotebookName','workspace_pvc',i.snapshot->'Spec'->'PVCName','workspace_path',i.snapshot->'Spec'->'WorkspaceMountPath','original_mounts',i.snapshot->'Spec'->'VolumeMounts'),
+ 'identity',jsonb_build_object('notebook_uid',i.snapshot->'NotebookUID','statefulset_uid',i.snapshot->'StatefulSetUID','pod_uid',i.snapshot->'PodUID','tracked_pods',i.snapshot->'TrackedPods'),
+ 'pending',i.snapshot->'Pending','recovery_fence',i.recovery_fence,
+ 'operation',(SELECT jsonb_build_object('id',o.operation_id,'version',o.version,'state',o.state,'reason',o.reason,'execution',o.execution) FROM instance.instance_operations o WHERE o.tenant_id=i.tenant_id AND o.operation_id='e8ebe2f3-030f-456e-b4ce-2b4b7c83a81f'),
+ 'work',(SELECT jsonb_build_object('due_at',w.due_at,'lease_until',w.lease_until,'lease_owner',w.lease_owner,'lease_epoch',w.lease_epoch) FROM instance.instance_work w WHERE w.tenant_id=i.tenant_id AND w.instance_id=i.instance_id)
+) FROM instance.instances i WHERE i.tenant_id='64c5c35a-f554-432c-b4bc-7b4f36f08420' AND i.instance_id='e3dd2bc7-1c6a-429b-a401-e175c287d5cf';
+COMMIT;
+'''
+sql = sql.replace('e8ebe2f3-030f-456e-b4ce-2b4b7c83a81f', args.operation_id)
+p = subprocess.run([str(root/'pg18-client-01/bin/psql'), '-X','-w','-qAt','-v','ON_ERROR_STOP=1','-v','VERBOSITY=terse','-v','SHOW_CONTEXT=never'], input=sql, text=True, env=env, capture_output=True, timeout=30)
+if p.returncode:
+    (out/'query.private.stderr').write_text(p.stderr)
+    os.chmod(out/'query.private.stderr',0o600)
+    raise SystemExit('READONLY_QUERY_FAILED_PRIVATE_LOG_RETAINED')
+d=json.loads(p.stdout)
+assert d['database']=='ani_resource' and d['transaction_read_only']=='on'
+data=(json.dumps(d,sort_keys=True,indent=2)+'\n').encode()
+fd=os.open(out/'snapshot.safe.json',os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+with os.fdopen(fd,'wb') as f:f.write(data)
+print(json.dumps({'snapshot_sha256':hashlib.sha256(data).hexdigest(),'observed_at':d['observed_at'],'version':d['version'],'desired':d['desired'],'runtime_desired':d['runtime_desired'],'applied_mount_version':d['applied_mount_version'],'operation':d['operation'],'pending':d['pending'],'recovery_fence':d['recovery_fence']},sort_keys=True))

@@ -1,0 +1,54 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "540832e9-11ce-525d-88a5-08d3c064fa9b",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {},
+  "arm_plan": {
+    "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded",
+    "client": "storage",
+    "resource": "persistentvolumeclaims",
+    "method": "DELETE",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "name": "ani-vol-3e69b9d48d1e4e81bd1f3dfca0e51030",
+    "uid": "2b6d8e50-6b82-4826-8a2a-660ca0ba84a5",
+    "mode": "after-drop",
+    "max_wait_seconds": 120
+  },
+  "failure": {
+    "code": "RuntimeError"
+  },
+  "session_cleanup": [
+    {
+      "step": "arm",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "arm",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "control_receipts": [
+    {
+      "pod": {
+        "name": "ani-resource-service-54c65d45f7-9rbp7",
+        "uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96",
+        "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:5108362e031a7287bbe4a61f508e6183f4c149085d47a91459df078159ba1304",
+        "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501"
+      },
+      "command": [
+        "arm"
+      ],
+      "reply": {
+        "nonce": "c5d1407a-a3c4-4a5c-b169-4a4c5d0e7ded",
+        "result": "ARMED"
+      }
+    }
+  ],
+  "fault_process": {
+    "name": "ani-resource-service-54c65d45f7-9rbp7",
+    "uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:5108362e031a7287bbe4a61f508e6183f4c149085d47a91459df078159ba1304",
+    "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501"
+  },
+  "arm_result": "ARMED_EXACT_STORAGE_DELETE"
+}

@@ -1,0 +1,14 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "591d2fa8-b94c-50c5-80bf-43e7c7709ab3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "stop",
+      "idempotency_key": "a3f276fe-8ce1-4043-9c6f-ce1e810530cf",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "29",
+      "request_body_sha256": "21b0b4df688151d0c5a940b1326215b20382a584238664e714a9eb9ff8516bf4"
+    }
+  }
+}

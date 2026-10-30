@@ -1,0 +1,66 @@
+{
+  "schema": "ani.terminal-exec-boundary.safe.v1",
+  "scope": "Summary of previously read evidence only; no additional remote queries.",
+  "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+  "driver_receipt": "/root/ani-runs/container-restart-pvc-20261028/cp02-terminal-detached-03/result.safe.json",
+  "driver_result": {
+    "started_at": "2026-10-29T11:39:15.397352924Z",
+    "finished_at": "2026-10-29T11:39:19.288399458Z",
+    "http_status": 503,
+    "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE",
+    "websocket": "NOT_CONNECTED",
+    "logout": "CONFIRMED"
+  },
+  "confirmed_boundary": {
+    "result": "CONFIRMED",
+    "stage": "Matching request reached SG CreateSession processing; failure preceded WebSocket connection.",
+    "sg_log_timestamp": "2026-10-29T19:39:17.383492259+08:00",
+    "request_id": "7c4bfed9-4ded-430c-ba26-94feb9e7c534",
+    "event": "session_failed",
+    "mode": "exec",
+    "result_field": "error",
+    "raw_log": "/root/ani-runs/container-restart-pvc-20261028/terminal-exec-diag-20261029-01/sg-113917.private.log"
+  },
+  "source_interpretation": {
+    "result": "NOT_PROVEN",
+    "paths_read": [
+      "/home/chabking/workspace/ani-session-gateway/internal/session/manager.go",
+      "/home/chabking/workspace/ani-session-gateway/internal/transport/grpc/server.go"
+    ],
+    "sg_source_commit": null,
+    "sg_source_commit_status": "NOT_READ",
+    "source_matches_running_sg_image": "NOT_PROVEN",
+    "limitation": "Only local working-tree files were read. No SG commit, build provenance or source-to-image comparison was obtained. Ticket/random/encryption/store error classes and inferred gRPC Internal are source interpretation, not observed facts.",
+    "specific_internal_cause": "UNKNOWN",
+    "gov_or_resource_configuration_fix": "NOT_PROVEN"
+  },
+  "pods_previously_read": {
+    "governance": {
+      "name": "ani-governance-6bf478d99d-hh7rl",
+      "uid": null,
+      "uid_status": "NOT_READ",
+      "node": "node2",
+      "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:823ada9b3728c1443f4d14d6791e17125a47e8bef997019c06eee2b665100efe",
+      "deployment_generation": 155,
+      "declared_source_revision": "45075ba255ff1f390b2f2a87c166b56d32c8ff24",
+      "declared_source_patch_sha256": "514e61ea62136d3c74515482e27d0587c7dcee44159325d5ad2f16e4935a3428",
+      "annotation_is_binary_proof": false
+    },
+    "session_gateway": {
+      "name": "ani-session-gateway-74dc976c9-r8l5b",
+      "uid": null,
+      "uid_status": "NOT_READ",
+      "node": "node2",
+      "image": "10.10.1.66:30003/ani-gpu-platform/ani-session-gateway@sha256:47dea6deddd08084af57796119a162d383219c025c5fc7d53cdf6acbadc746b0",
+      "deployment_generation": 9
+    }
+  },
+  "changes_performed": {
+    "source": false,
+    "configuration": false,
+    "deployment": false,
+    "rbac": false,
+    "secret": false,
+    "business_api_write": false
+  }
+}

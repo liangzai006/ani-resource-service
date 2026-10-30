@@ -1,0 +1,15 @@
+{
+  "resource": {
+    "archive_sha256": "b9c96338f9ebac9c5db23a7ce9def21ceffc25a33cf0d719ae390ec8a4f1c0e2",
+    "base_revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4",
+    "base_tree": "1043e34e2a0cb26dd20af1292a471c828e3ec52c",
+    "binary_sha256": "6489684afe3238bd92ae612b14e8243eb0e496f0b5b5c61699067556927ae0a5",
+    "build_receipt_sha256": "fcb33f71a89d787fdd1d45980536b1766e251467196313adbbbf1bd453473dbb",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+    "manifest_sha256": "ae121624c9dc138e1de3e0ab4a66a20906596a3d04e213ed14688e893420cd25",
+    "overlay_sha256": "825f05e9c97927eb3430c689867ac8a3f2895aae642350c6a10905d32604b219",
+    "revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4+fault.825f05e9c979",
+    "source_mode": "task-kube-and-pg-stage-exit-overlay"
+  },
+  "source_tree": "NOT_A_GIT_TREE:task-overlay"
+}

@@ -1,0 +1,54 @@
+/etc/bashrc: 行 12: BASHRCSOURCED: 未绑定的变量
+test "$(/dev/shm/container-restart-pvc-runtime20-20261029/src/.tools/bin/buf --version)" = "1.60.0"
+/etc/bashrc: 行 12: BASHRCSOURCED: 未绑定的变量
+test "$(go version -m /dev/shm/container-restart-pvc-runtime20-20261029/src/.tools/bin/buf | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/bufbuild/buf@v1.60.0"
+/etc/bashrc: 行 12: BASHRCSOURCED: 未绑定的变量
+test "$(/dev/shm/container-restart-pvc-runtime20-20261029/src/.tools/bin/sqlc version)" = "v1.31.1"
+/etc/bashrc: 行 12: BASHRCSOURCED: 未绑定的变量
+test "$(go version -m /dev/shm/container-restart-pvc-runtime20-20261029/src/.tools/bin/sqlc | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/sqlc-dev/sqlc@v1.31.1"
+/etc/bashrc: 行 12: BASHRCSOURCED: 未绑定的变量
+./scripts/verify-source /dev/shm/container-restart-pvc-runtime20-20261029/src/.tools/bin/buf /dev/shm/container-restart-pvc-runtime20-20261029/src/.tools/bin/sqlc
+/etc/bashrc: 行 12: BASHRCSOURCED: 未绑定的变量
+./scripts/verify-boundaries
+/etc/bashrc: 行 12: BASHRCSOURCED: 未绑定的变量
+boundary fixture rejected: internal/biz/network/nested -> database/sql
+boundary fixture rejected: internal/biz/image/nested -> net/http
+boundary fixture rejected: internal/biz/image/nested -> example.invalid/boundary-fixture/internal/data/image
+boundary fixture rejected: internal/data/image -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/service/image -> example.invalid/boundary-fixture/internal/service/network
+boundary fixture rejected: internal/biz/network/nested -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/service/network -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/data/network -> example.invalid/boundary-fixture/internal/service/network
+boundary fixture rejected: internal/data/network -> example.invalid/boundary-fixture/internal/data/storage
+boundary fixture rejected: internal/service/network -> example.invalid/boundary-fixture/internal/service/storage
+recursive domain and repository ownership boundaries verified
+./scripts/net05a-build-faults.py --network-only
+/etc/bashrc: 行 12: BASHRCSOURCED: 未绑定的变量
+{"fault_build": "/dev/shm/container-restart-pvc-runtime20-20261029/src/.work/fault-build", "status": "pass"}
+go mod tidy -diff
+/etc/bashrc: 行 12: BASHRCSOURCED: 未绑定的变量
+go test -count=1 ./...
+/etc/bashrc: 行 12: BASHRCSOURCED: 未绑定的变量
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/compute/v1	0.006s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/image/v1	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/instance/v1	0.012s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/network/v1	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/storage/v1	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/vm/v1	0.012s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/cmd/ani-resource-service	0.079s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/docs/execution/records/VM-MVP/checks/legacy-network-pg-01	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/compute	0.007s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/image	0.009s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.009s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/network	0.014s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/sandbox	1.008s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/storage	0.007s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/vm	0.350s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/conf/v1	0.030s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/compute	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/image	0.505s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/image/sqlcgen	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	1.206s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance/sqlcgen	[no test files]
+make: *** [Makefile:99: verify] 已终止

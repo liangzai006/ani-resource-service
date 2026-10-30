@@ -1,0 +1,19 @@
+{
+  "scope": "LIVE real Storage DELETE response loss; no process exit in this case",
+  "result": "PASS_RESPONSE_LOST_NORMAL_ABSENCE_CONVERGENCE",
+  "full_a30": "NOT_COMPLETED",
+  "pvc_name": "ani-vol-3e69b9d48d1e4e81bd1f3dfca0e51030",
+  "pvc_uid": "2b6d8e50-6b82-4826-8a2a-660ca0ba84a5",
+  "ticket_id": "cc479d80-a943-492f-84a0-c54e62ee4059",
+  "real_kube_delete_status": 200,
+  "real_response_dropped": true,
+  "last_write_outcome": "unknown",
+  "last_observation": "absent",
+  "same_ticket_final_phase": "completed",
+  "storage_api_result": "GONE",
+  "original_pv_automatically_reclaimed": true,
+  "initial_arm_driver_failure": "The copied driver still referenced the overlay02 install receipt. It failed before invoking the control CLI or DELETE. The driver was corrected to overlay03 and resumed with its saved original nonce. The old arm failure field is retained.",
+  "process_crash_boundaries": "NOT_RUN",
+  "original_borrowed_volume_modified": false,
+  "cpu_modified": false
+}

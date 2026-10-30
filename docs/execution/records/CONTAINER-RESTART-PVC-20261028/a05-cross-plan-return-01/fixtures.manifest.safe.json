@@ -1,0 +1,156 @@
+{
+  "checks": {
+    "b-current-grant-plan-control": {
+      "http_status": 200,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "cross-tenant-configuration": {
+      "http_status": 404,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "cross-tenant-instance": {
+      "http_status": 404,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "cross-tenant-mountable-pvcs": {
+      "http_status": 404,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "cross-tenant-operation": {
+      "http_status": 404,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "cross-tenant-restart-original": {
+      "http_status": 404,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-configuration": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-instance": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-list": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-mountable-pvcs": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-operation": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "same-token-current-plan-restart-original": {
+      "http_status": 403,
+      "result": "PASS",
+      "same_session_reused": true
+    }
+  },
+  "objects": {
+    "grant-b": {
+      "attempted": true,
+      "deleted": true,
+      "http_acknowledged": true,
+      "id": 33,
+      "path": "/api/v1/admin/roles"
+    },
+    "tenant-b": {
+      "attempted": true,
+      "deleted": true,
+      "http_acknowledged": true,
+      "id": 44,
+      "path": "/api/v1/admin/tenants:with-admin"
+    },
+    "user-b": {
+      "deleted": true,
+      "id": 40,
+      "initial_role_ids": [
+        32
+      ],
+      "tenant_id": 44,
+      "username": "a05b-4a0cc9672af846e5b9d6"
+    }
+  },
+  "permissions": {
+    "instance:list": 24,
+    "instance:operation:read": 29,
+    "instance:pvc:attach": 311,
+    "instance:read": 25,
+    "instance:restart": 310,
+    "sys:access_backend": 1
+  },
+  "phases": {
+    "cleanup": {
+      "normal_api_only": true,
+      "ownership": "new task UUID-coded tenant only",
+      "result": "PASS",
+      "session_cleanup": "CONFIRMED",
+      "tenant_code": "a05b-4a0cc967-2af8-46e5-b9d6-affbdf40a78c"
+    },
+    "cross": {
+      "new_business_intents": 0,
+      "owned_tenant_b": 44,
+      "result": "PASS",
+      "session_cleanup": "CONFIRMED",
+      "stable_version": "17"
+    },
+    "plan": {
+      "from_plan": 2,
+      "owned_tenant_b": 44,
+      "result": "PASS",
+      "same_session_reused": true,
+      "session_cleanup": "CONFIRMED",
+      "to_plan": 1
+    }
+  },
+  "prefix": "a05-01a18156-6e5f4172c86d",
+  "progress_guard": {
+    "original_operation_id": "08b80e7e-a335-4112-a3cf-560c5c9f31a4",
+    "version": "17"
+  },
+  "purpose": "a05-owned-b-cross-plan-v1",
+  "schema": "a05-owned-auth-fixtures-v2",
+  "stable_instance": {},
+  "tenant_b_uuid": "4a0cc967-2af8-46e5-b9d6-affbdf40a78c",
+  "writes": {
+    "cleanup-own-b": {
+      "attempted": true,
+      "http_acknowledged": true,
+      "method": "POST",
+      "path": "/api/v1/admin/tenants/44/cleanup"
+    },
+    "delete-own-b": {
+      "attempted": true,
+      "http_acknowledged": true,
+      "method": "DELETE",
+      "path": "/api/v1/admin/tenants/44"
+    },
+    "own-b-narrow-role": {
+      "attempted": true,
+      "http_acknowledged": true,
+      "method": "PUT",
+      "path": "/api/v1/admin/users/40"
+    },
+    "own-b-plan1": {
+      "attempted": true,
+      "http_acknowledged": true,
+      "method": "PUT",
+      "path": "/api/v1/admin/tenants/44"
+    }
+  }
+}

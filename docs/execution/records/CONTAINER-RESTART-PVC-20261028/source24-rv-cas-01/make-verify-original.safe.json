@@ -1,0 +1,47 @@
+{
+  "application_image_built": false,
+  "cluster_writes": 0,
+  "command": [
+    "make",
+    "verify"
+  ],
+  "environment": {
+    "CGO_ENABLED": "0",
+    "GOCACHE": "/root/ani-runs/container-restart-pvc-20261028/gocache",
+    "GOFLAGS": "-mod=readonly -p=1",
+    "GOMAXPROCS": "2",
+    "GOMEMLIMIT": "2GiB",
+    "GOMODCACHE": "/root/ani-runs/container-restart-pvc-20261028/modcache",
+    "GOPROXY": "off",
+    "GOSUMDB": "sum.golang.org",
+    "GOTMPDIR": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/t-make-verify",
+    "GOTOOLCHAIN": "local",
+    "GOVCS": "*:off",
+    "GOWORK": "off",
+    "TMPDIR": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/t-make-verify"
+  },
+  "execution_seconds": 10.994,
+  "exit_code": 2,
+  "finished_at": "2026-10-29T15:20:24.252602+00:00",
+  "go_version": "go version go1.26.10 linux/amd64",
+  "green_receipt_sha256": "f521cb6d19975ed6b35d14939c8f37213f2a644c529db3d2de74caab6cdd7c92",
+  "heavy_lock_acquired": true,
+  "heavy_lock_released": true,
+  "host": "192.168.25.40",
+  "live_or_shared_pg_used": false,
+  "log": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/make-verify.log",
+  "log_sha256": "66212d0fc0e77072e7fca4da98a4ee200be883804fb486395e1bc5d0a4026ace",
+  "pid": 222351,
+  "remote_git_context": "task-only init+index; no commit or push; product repo untouched",
+  "result": "FAIL",
+  "source": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/src",
+  "source_942_unchanged": true,
+  "source_manifest_sha256": "bada655797918148b626573bf67038e24303c6d08c0ad16716b6c98f733478ff",
+  "stage": "make-verify",
+  "started_at": "2026-10-29T15:20:09.928877+00:00",
+  "tool_sha256": {
+    "buf": "3c0741ff6f8e710d4957206811c6aed53d47724a0c56eb44854021d229ed7c3c",
+    "sqlc": "492ea2d2d49404ce0b5cf6571449986190c72fd47ded9796a6e848f00f5c2a70"
+  },
+  "total_seconds": 14.324
+}

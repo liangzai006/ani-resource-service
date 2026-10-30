@@ -1,0 +1,38 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "57902a0e-a587-5187-be02-07ab39720b0e",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {},
+  "volumes": {
+    "fs": {
+      "pvc_name": "ani-vol-08f1e0db65a247e8b3bb54d8a9fb303e",
+      "uid": "3ae532cd-db30-4cac-b76e-a847f476d253",
+      "display_name": "a26-lost-binding-01a18156-fs",
+      "volume_mode": "Filesystem",
+      "storage_class_name": "ani-block",
+      "access_modes": [
+        "ReadWriteOnce"
+      ]
+    }
+  },
+  "storage_bodies": {
+    "fs": {
+      "data": {
+        "create_token": "08f1e0db-65a2-47e8-b3bb-54d8a9fb303e",
+        "display_name": "a26-lost-binding-01a18156-fs",
+        "capacity_gb": "1",
+        "storage_class_name": "ani-block",
+        "volume_mode": "Filesystem",
+        "access_modes": [
+          "ReadWriteOnce"
+        ]
+      }
+    }
+  },
+  "session_cleanup": [
+    {
+      "application": "console",
+      "remote": "CONFIRMED"
+    }
+  ]
+}

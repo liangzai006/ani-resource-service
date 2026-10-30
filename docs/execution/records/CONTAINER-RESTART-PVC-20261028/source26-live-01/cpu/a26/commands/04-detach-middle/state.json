@@ -1,0 +1,59 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "591d2fa8-b94c-50c5-80bf-43e7c7709ab3",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "detach-pvc",
+      "idempotency_key": "b393b953-fa3f-448e-b175-ddbf79e94b23",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "7",
+      "request_body_sha256": "fab5d5e24e7546bae303d74daa48708f7f14377ac06dc8949c8e1395c85d8a98",
+      "ack": {
+        "operationId": "ac0780af-e5c7-4a86-b3a5-c0fb24f9ef7f",
+        "resourceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "ac0780af-e5c7-4a86-b3a5-c0fb24f9ef7f",
+        "instanceId": "022d28e4-7c0b-4633-9f82-b510490e5877",
+        "action": "detach-pvc",
+        "intentVersion": "8",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "stopped",
+        "applied_mount_version": "8",
+        "completion_scope": "template_applied",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+  "after_instance": {
+    "id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "8",
+    "desiredState": "stopped",
+    "observedState": "stopped",
+    "activeOperationId": "",
+    "executionRunState": "stopped",
+    "appliedMountVersion": "8",
+    "lastOperationId": "ac0780af-e5c7-4a86-b3a5-c0fb24f9ef7f",
+    "createOperationId": "bacf0ee3-6045-46db-93fb-cd14a712f6b1",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "detach-pvc",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "ac0780af-e5c7-4a86-b3a5-c0fb24f9ef7f"
+  }
+}

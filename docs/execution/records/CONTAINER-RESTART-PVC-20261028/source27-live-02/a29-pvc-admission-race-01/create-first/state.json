@@ -1,0 +1,481 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "1021a1af-cdce-560a-ac96-05f198ecf6e0",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "race-borrow": {
+      "action": "create",
+      "idempotency_key": "9eef1b3e-525c-4da4-b89f-871c1a2810d6",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": null,
+      "request_body_sha256": "29a531bb7d6f3607a200aa7a03eb735b123c841ce5e5c6902339797a3ba4cfd5",
+      "request_body": {
+        "data": {
+          "name": "a29-create-first-01a18156",
+          "imageId": "img_50d0690f2d434f979f880404948d55cd",
+          "imageScope": "tenant",
+          "presetId": "9f5a0625-1eab-4a65-95af-68962138ef86",
+          "scheduling": {
+            "pod_placement": "NONE"
+          },
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [
+            {
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a29/create-first",
+              "read_only": true
+            }
+          ],
+          "network": {
+            "vpc_id": "vpc_34587fd5f3374abcbc19829ae3a5a558",
+            "subnet_id": "subnet_ab6ddedf50d94f8181ac42ff935e8c86"
+          },
+          "idempotencyKey": "9eef1b3e-525c-4da4-b89f-871c1a2810d6"
+        }
+      },
+      "ack": {
+        "operationId": "0adf9ef2-c1b1-4733-905e-55701a2ea469",
+        "resourceId": "c967609c-7705-4217-9b10-402c6207710c",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "0adf9ef2-c1b1-4733-905e-55701a2ea469",
+        "instanceId": "c967609c-7705-4217-9b10-402c6207710c",
+        "action": "create",
+        "intentVersion": "1",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "0",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      },
+      "replay": {
+        "operationId": "0adf9ef2-c1b1-4733-905e-55701a2ea469",
+        "resourceId": "c967609c-7705-4217-9b10-402c6207710c",
+        "replayed": true,
+        "result": "ACCEPTED"
+      }
+    },
+    "cleanup-created-instance": {
+      "action": "delete",
+      "idempotency_key": "8ad41069-0cc3-4da4-bde3-8fdc827493dc",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "1",
+      "request_body_sha256": "9f4fa0370e055281df0a764a026f34eccf824f780f2d56962a2c673ac66ee01e",
+      "request_body": {
+        "data": {
+          "expectedVersion": "1",
+          "idempotencyKey": "8ad41069-0cc3-4da4-bde3-8fdc827493dc"
+        }
+      },
+      "resource_id": "c967609c-7705-4217-9b10-402c6207710c",
+      "acks": [
+        {
+          "operationId": "a9155936-7026-4e51-a3f6-b06dbafddbd9",
+          "resourceId": "c967609c-7705-4217-9b10-402c6207710c",
+          "replayed": false,
+          "result": "QUEUED_FOR_OWNER"
+        },
+        {
+          "operationId": "a9155936-7026-4e51-a3f6-b06dbafddbd9",
+          "resourceId": "c967609c-7705-4217-9b10-402c6207710c",
+          "replayed": true,
+          "result": "QUEUED_FOR_OWNER"
+        }
+      ],
+      "ack": {
+        "operationId": "a9155936-7026-4e51-a3f6-b06dbafddbd9",
+        "resourceId": "c967609c-7705-4217-9b10-402c6207710c",
+        "replayed": false,
+        "result": "QUEUED_FOR_OWNER"
+      },
+      "operation": {
+        "id": "a9155936-7026-4e51-a3f6-b06dbafddbd9",
+        "instanceId": "c967609c-7705-4217-9b10-402c6207710c",
+        "action": "delete",
+        "intentVersion": "2",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "deleted",
+        "applied_mount_version": "1",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "fixture_cpu_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+  "cpu_source_state": "/root/ani-runs/container-restart-pvc-20261028/a26-lost-binding-01/00-cpu-create/state.json",
+  "fixture_identities": {
+    "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+    "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+    "workspace_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f"
+  },
+  "storage_get_before_create": {
+    "code": "HTTP_REQUEST_REJECTED",
+    "http_status": 404,
+    "reason": "STORAGE_RESOURCE_NOT_FOUND"
+  },
+  "pg_observations": [
+    {
+      "step": "prepare-volume",
+      "at": "2026-10-29T18:20:39.986701+00:00",
+      "guard": [
+        {
+          "phase": "completed",
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ticket_id": "ba5efb7a-2faf-4aac-afae-13f0d2765b27",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "target_uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+          "guard_epoch": 3,
+          "last_reason": "",
+          "write_started": true
+        }
+      ],
+      "references": []
+    },
+    {
+      "step": "race",
+      "at": "2026-10-29T18:23:12.754894+00:00",
+      "guard": [
+        {
+          "phase": "completed",
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ticket_id": "ba5efb7a-2faf-4aac-afae-13f0d2765b27",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "target_uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+          "guard_epoch": 3,
+          "last_reason": "",
+          "write_started": true
+        }
+      ],
+      "references": []
+    },
+    {
+      "step": "race",
+      "at": "2026-10-29T18:23:16.598512+00:00",
+      "guard": [
+        {
+          "phase": "completed",
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ticket_id": "ba5efb7a-2faf-4aac-afae-13f0d2765b27",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "target_uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+          "guard_epoch": 3,
+          "last_reason": "",
+          "write_started": true
+        }
+      ],
+      "references": [
+        {
+          "state": "pending",
+          "pvc_uid": "1761aa9c-2fb4-4104-beb0-2083ae882139",
+          "mount_path": "/datasets/a29/create-first",
+          "instance_id": "c967609c-7705-4217-9b10-402c6207710c",
+          "operation_id": "0adf9ef2-c1b1-4733-905e-55701a2ea469",
+          "intent_version": 1
+        }
+      ]
+    },
+    {
+      "step": "settle",
+      "at": "2026-10-29T18:23:49.931221+00:00",
+      "guard": [
+        {
+          "phase": "completed",
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ticket_id": "ba5efb7a-2faf-4aac-afae-13f0d2765b27",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "target_uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+          "guard_epoch": 3,
+          "last_reason": "",
+          "write_started": true
+        }
+      ],
+      "references": [
+        {
+          "state": "active",
+          "pvc_uid": "1761aa9c-2fb4-4104-beb0-2083ae882139",
+          "mount_path": "/datasets/a29/create-first",
+          "instance_id": "c967609c-7705-4217-9b10-402c6207710c",
+          "operation_id": "0adf9ef2-c1b1-4733-905e-55701a2ea469",
+          "intent_version": 1
+        }
+      ]
+    },
+    {
+      "step": "cleanup",
+      "at": "2026-10-29T18:25:00.34681+00:00",
+      "guard": [
+        {
+          "phase": "completed",
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ticket_id": "ba5efb7a-2faf-4aac-afae-13f0d2765b27",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "target_uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+          "guard_epoch": 3,
+          "last_reason": "",
+          "write_started": true
+        }
+      ],
+      "references": []
+    }
+  ],
+  "old_guard": {
+    "phase": "completed",
+    "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "ticket_id": "ba5efb7a-2faf-4aac-afae-13f0d2765b27",
+    "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+    "target_uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+    "guard_epoch": 3,
+    "last_reason": "",
+    "write_started": true
+  },
+  "storage_create_body": {
+    "data": {
+      "create_token": "a482dd74-76c1-4836-8a17-4eba40801b28",
+      "display_name": "a26a27-01a18156-fs",
+      "capacity_gb": "1",
+      "storage_class_name": "ani-block",
+      "volume_mode": "Filesystem",
+      "access_modes": [
+        "ReadWriteOnce"
+      ]
+    }
+  },
+  "volume": {
+    "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+    "uid": "1761aa9c-2fb4-4104-beb0-2083ae882139",
+    "volume_mode": "Filesystem"
+  },
+  "prepare_result": "NORMAL_STORAGE_NEW_UID_BOUND_EXISTING_GUARD",
+  "session_cleanup": [
+    {
+      "step": "prepare-volume",
+      "session": 0,
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "race",
+      "session": 0,
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "race",
+      "session": 1,
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "race",
+      "session": 2,
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "settle",
+      "session": 0,
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "cleanup",
+      "session": 0,
+      "remote": "CONFIRMED"
+    }
+  ],
+  "before_race_cpu": {
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "4",
+      "desiredState": "stopped",
+      "observedState": "stopped",
+      "activeOperationId": "",
+      "executionRunState": "stopped",
+      "appliedMountVersion": "4",
+      "lastOperationId": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "4",
+      "applied_mount_version": "4",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": []
+    }
+  },
+  "create_body": {
+    "data": {
+      "name": "a29-create-first-01a18156",
+      "imageId": "img_50d0690f2d434f979f880404948d55cd",
+      "imageScope": "tenant",
+      "presetId": "9f5a0625-1eab-4a65-95af-68962138ef86",
+      "scheduling": {
+        "pod_placement": "NONE"
+      },
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": [
+        {
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/create-first",
+          "read_only": true
+        }
+      ],
+      "network": {
+        "vpc_id": "vpc_34587fd5f3374abcbc19829ae3a5a558",
+        "subnet_id": "subnet_ab6ddedf50d94f8181ac42ff935e8c86"
+      },
+      "idempotencyKey": "9eef1b3e-525c-4da4-b89f-871c1a2810d6"
+    }
+  },
+  "storage_delete_body": {
+    "data": {
+      "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+      "expected_uid": "1761aa9c-2fb4-4104-beb0-2083ae882139"
+    }
+  },
+  "race_started": true,
+  "guard_holder": {
+    "pid": 838307,
+    "phase": "completed",
+    "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+    "target_uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+    "guard_epoch": 3
+  },
+  "lock_wait_observations": [
+    {
+      "at": "2026-10-29T18:23:16.911124Z",
+      "locker_pid": 838307,
+      "waiters": []
+    },
+    {
+      "at": "2026-10-29T18:23:17.468107Z",
+      "locker_pid": 838307,
+      "waiters": [
+        {
+          "pid": 835993,
+          "kind": "borrow",
+          "blockers": [
+            838307
+          ],
+          "wait_event": "transactionid",
+          "query_start": "2026-10-29T18:23:15.354278+00:00"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T18:23:17.791260Z",
+      "locker_pid": 838307,
+      "waiters": [
+        {
+          "pid": 835989,
+          "kind": "storage",
+          "blockers": [
+            835993
+          ],
+          "wait_event": "tuple",
+          "query_start": "2026-10-29T18:23:15.862752+00:00"
+        },
+        {
+          "pid": 835993,
+          "kind": "borrow",
+          "blockers": [
+            838307
+          ],
+          "wait_event": "transactionid",
+          "query_start": "2026-10-29T18:23:15.354278+00:00"
+        }
+      ]
+    }
+  ],
+  "first_waiter": {
+    "pid": 835993,
+    "kind": "borrow",
+    "blockers": [
+      838307
+    ],
+    "wait_event": "transactionid",
+    "query_start": "2026-10-29T18:23:15.354278+00:00"
+  },
+  "queue_proof": {
+    "first_kind": "borrow",
+    "second_kind": "storage",
+    "locker_pid": 838307,
+    "first_pid": 835993,
+    "second_pid": 835989,
+    "second_blockers": [
+      835993
+    ],
+    "result": "OBSERVED_LOCKER_FIRST_SECOND_WAIT_CHAIN"
+  },
+  "hold_budget": {
+    "hard_seconds": 7,
+    "queue_proof_deadline_seconds": 6.5,
+    "server_idle_seconds": 9,
+    "dispatch_rpc_seconds": 3,
+    "create_queue_seconds": 4,
+    "other_queue_seconds": 1.5,
+    "hard_expired": false,
+    "elapsed_seconds": 1.599
+  },
+  "race_responses": {
+    "borrow": {
+      "kind": "borrow",
+      "http_status": 202,
+      "reply": {
+        "operationId": "0adf9ef2-c1b1-4733-905e-55701a2ea469",
+        "resourceId": "c967609c-7705-4217-9b10-402c6207710c",
+        "replayed": false,
+        "result": "ACCEPTED"
+      }
+    },
+    "storage": {
+      "kind": "storage",
+      "error": {
+        "code": "HTTP_REQUEST_REJECTED",
+        "http_status": 409,
+        "reason": "VOLUME_IN_USE"
+      }
+    }
+  },
+  "race_order_proven": true,
+  "race_failure": null,
+  "race_result": "ORDER_PROVEN_OUTCOMES_RECORDED_SETTLE_REQUIRED",
+  "settle_result": "PASS_A29_BORROW_WON_STORAGE_REJECTED_REFERENCE",
+  "storage_delete_results": [
+    {
+      "state": "TERMINATING",
+      "volume": {
+        "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+        "uid": "1761aa9c-2fb4-4104-beb0-2083ae882139",
+        "display_name": "a26a27-01a18156-fs",
+        "storage_class_name": "ani-block",
+        "volume_mode": "Filesystem",
+        "access_modes": [
+          "ReadWriteOnce"
+        ],
+        "requested_capacity_gb": "1",
+        "observed_capacity_bytes": "1000341504",
+        "observed_capacity_known": true,
+        "observed_capacity_quantity": "954Mi",
+        "phase": "Bound",
+        "deleting": true,
+        "reclaim_policy": "",
+        "reclaim_policy_known": false
+      }
+    },
+    {
+      "state": "GONE",
+      "volume": null
+    }
+  ],
+  "cleanup_result": "GONE_AND_FIXTURE_CPU_STOPPED_EMPTY"
+}

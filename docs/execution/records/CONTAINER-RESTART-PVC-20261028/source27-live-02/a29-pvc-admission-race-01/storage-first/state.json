@@ -1,0 +1,337 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "1021a1af-cdce-560a-ac96-05f198ecf6e0",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "race-borrow": {
+      "action": "attach-pvc",
+      "idempotency_key": "a2c10190-3755-4c42-a1ea-5aee0687f644",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "4",
+      "request_body_sha256": "24a134825a55945f5dad41949407e5cb1661799970ad487c262c5bddeea4e830",
+      "request_body": {
+        "data": {
+          "expectedVersion": "4",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/storage-first",
+          "read_only": true,
+          "restart_if_running": false,
+          "idempotencyKey": "a2c10190-3755-4c42-a1ea-5aee0687f644"
+        }
+      },
+      "resource_id": "9b2e5371-5be3-4cac-8766-55147d8041fb"
+    }
+  },
+  "fixture_cpu_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+  "cpu_source_state": "/root/ani-runs/container-restart-pvc-20261028/a26-lost-binding-01/00-cpu-create/state.json",
+  "fixture_identities": {
+    "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+    "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+    "workspace_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f"
+  },
+  "storage_get_before_create": {
+    "code": "HTTP_REQUEST_REJECTED",
+    "http_status": 404,
+    "reason": "STORAGE_RESOURCE_NOT_FOUND"
+  },
+  "pg_observations": [
+    {
+      "step": "prepare-volume",
+      "at": "2026-10-29T18:16:58.174898+00:00",
+      "guard": [
+        {
+          "phase": "completed",
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ticket_id": "373428f4-2b13-40ed-b02f-643c1260b851",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "target_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "guard_epoch": 2,
+          "last_reason": "",
+          "write_started": true
+        }
+      ],
+      "references": []
+    },
+    {
+      "step": "race",
+      "at": "2026-10-29T18:17:03.445378+00:00",
+      "guard": [
+        {
+          "phase": "completed",
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ticket_id": "373428f4-2b13-40ed-b02f-643c1260b851",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "target_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "guard_epoch": 2,
+          "last_reason": "",
+          "write_started": true
+        }
+      ],
+      "references": []
+    },
+    {
+      "step": "race",
+      "at": "2026-10-29T18:17:06.04062+00:00",
+      "guard": [
+        {
+          "phase": "observing",
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ticket_id": "ba5efb7a-2faf-4aac-afae-13f0d2765b27",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "target_uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+          "guard_epoch": 3,
+          "last_reason": "",
+          "write_started": true
+        }
+      ],
+      "references": []
+    },
+    {
+      "step": "settle",
+      "at": "2026-10-29T18:17:09.16576+00:00",
+      "guard": [
+        {
+          "phase": "completed",
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ticket_id": "ba5efb7a-2faf-4aac-afae-13f0d2765b27",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "target_uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+          "guard_epoch": 3,
+          "last_reason": "",
+          "write_started": true
+        }
+      ],
+      "references": []
+    },
+    {
+      "step": "cleanup",
+      "at": "2026-10-29T18:17:15.453563+00:00",
+      "guard": [
+        {
+          "phase": "completed",
+          "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "ticket_id": "ba5efb7a-2faf-4aac-afae-13f0d2765b27",
+          "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "target_uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+          "guard_epoch": 3,
+          "last_reason": "",
+          "write_started": true
+        }
+      ],
+      "references": []
+    }
+  ],
+  "old_guard": {
+    "phase": "completed",
+    "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "ticket_id": "373428f4-2b13-40ed-b02f-643c1260b851",
+    "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+    "target_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+    "guard_epoch": 2,
+    "last_reason": "",
+    "write_started": true
+  },
+  "storage_create_body": {
+    "data": {
+      "create_token": "a482dd74-76c1-4836-8a17-4eba40801b28",
+      "display_name": "a26a27-01a18156-fs",
+      "capacity_gb": "1",
+      "storage_class_name": "ani-block",
+      "volume_mode": "Filesystem",
+      "access_modes": [
+        "ReadWriteOnce"
+      ]
+    }
+  },
+  "volume": {
+    "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+    "uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+    "volume_mode": "Filesystem"
+  },
+  "prepare_result": "NORMAL_STORAGE_NEW_UID_BOUND_EXISTING_GUARD",
+  "session_cleanup": [
+    {
+      "step": "prepare-volume",
+      "session": 0,
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "race",
+      "session": 0,
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "race",
+      "session": 1,
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "race",
+      "session": 2,
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "settle",
+      "session": 0,
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "cleanup",
+      "session": 0,
+      "remote": "CONFIRMED"
+    }
+  ],
+  "before_race_cpu": {
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "4",
+      "desiredState": "stopped",
+      "observedState": "stopped",
+      "activeOperationId": "",
+      "executionRunState": "stopped",
+      "appliedMountVersion": "4",
+      "lastOperationId": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "4",
+      "applied_mount_version": "4",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": []
+    }
+  },
+  "storage_delete_body": {
+    "data": {
+      "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+      "expected_uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f"
+    }
+  },
+  "race_started": true,
+  "guard_holder": {
+    "pid": 837842,
+    "phase": "completed",
+    "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+    "target_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+    "guard_epoch": 2
+  },
+  "lock_wait_observations": [
+    {
+      "at": "2026-10-29T18:17:06.540668Z",
+      "locker_pid": 837842,
+      "waiters": [
+        {
+          "pid": 835989,
+          "kind": "storage",
+          "blockers": [
+            837842
+          ],
+          "wait_event": "transactionid",
+          "query_start": "2026-10-29T18:17:04.623939+00:00"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T18:17:07.208251Z",
+      "locker_pid": 837842,
+      "waiters": [
+        {
+          "pid": 835989,
+          "kind": "storage",
+          "blockers": [
+            837842
+          ],
+          "wait_event": "transactionid",
+          "query_start": "2026-10-29T18:17:04.623939+00:00"
+        },
+        {
+          "pid": 835993,
+          "kind": "borrow",
+          "blockers": [
+            835989
+          ],
+          "wait_event": "tuple",
+          "query_start": "2026-10-29T18:17:05.289224+00:00"
+        }
+      ]
+    }
+  ],
+  "first_waiter": {
+    "pid": 835989,
+    "kind": "storage",
+    "blockers": [
+      837842
+    ],
+    "wait_event": "transactionid",
+    "query_start": "2026-10-29T18:17:04.623939+00:00"
+  },
+  "queue_proof": {
+    "first_kind": "storage",
+    "second_kind": "borrow",
+    "locker_pid": 837842,
+    "first_pid": 835989,
+    "second_pid": 835993,
+    "second_blockers": [
+      835989
+    ],
+    "result": "OBSERVED_LOCKER_FIRST_SECOND_WAIT_CHAIN"
+  },
+  "race_responses": {
+    "storage": {
+      "kind": "storage",
+      "http_status": 200,
+      "reply": {
+        "state": "TERMINATING",
+        "volume": {
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "uid": "5fe29726-e333-49e6-ae27-8bdabcdfcf6f",
+          "display_name": "a26a27-01a18156-fs",
+          "storage_class_name": "ani-block",
+          "volume_mode": "Filesystem",
+          "access_modes": [
+            "ReadWriteOnce"
+          ],
+          "requested_capacity_gb": "1",
+          "observed_capacity_bytes": "1000341504",
+          "observed_capacity_known": true,
+          "observed_capacity_quantity": "954Mi",
+          "phase": "Bound",
+          "deleting": true,
+          "reclaim_policy": "",
+          "reclaim_policy_known": false
+        }
+      }
+    },
+    "borrow": {
+      "kind": "borrow",
+      "error": {
+        "code": "HTTP_REQUEST_REJECTED",
+        "http_status": 409,
+        "reason": "INSTANCE_PVC_DELETION_IN_PROGRESS"
+      }
+    }
+  },
+  "race_order_proven": true,
+  "race_failure": null,
+  "race_result": "ORDER_PROVEN_OUTCOMES_RECORDED_SETTLE_REQUIRED",
+  "storage_delete_results": [
+    {
+      "state": "GONE",
+      "volume": null
+    },
+    {
+      "state": "GONE",
+      "volume": null
+    }
+  ],
+  "settle_result": "PASS_A29_STORAGE_WON_RESOURCE_BORROW_NOT_ADMITTED",
+  "cleanup_result": "GONE_AND_FIXTURE_CPU_STOPPED_EMPTY"
+}

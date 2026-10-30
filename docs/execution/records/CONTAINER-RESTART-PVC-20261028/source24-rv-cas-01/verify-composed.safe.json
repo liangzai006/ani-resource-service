@@ -1,0 +1,126 @@
+{
+  "aggregate_description": "Original make verify FAIL retained; all other original packages terminal PASS/no-test plus failed-package rerun PASS and four remaining components PASS",
+  "application_image_built": false,
+  "cluster_writes": 0,
+  "commands": [
+    {
+      "command": [
+        "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-count=1",
+        "./scripts/lb-api"
+      ],
+      "exit_code": 0,
+      "log_sha256": "5132fd11af8d21672258f86a7d7dc558971d452c8e75d71fd8c953e866c7d11a",
+      "observed_socket_max_bytes": 91,
+      "observed_socket_paths": [
+        "/tmp/c24v1/TestSocketRequiresPrivateDirectoryAndPreservesExistingPath555819829/001/api.sock"
+      ],
+      "result": "PASS",
+      "seconds": 6.937,
+      "stage": "failed-package"
+    },
+    {
+      "command": [
+        "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "vet",
+        "./..."
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "PASS",
+      "seconds": 31.466,
+      "stage": "vet"
+    },
+    {
+      "command": [
+        "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "build",
+        "-trimpath",
+        "./..."
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "PASS",
+      "seconds": 38.68,
+      "stage": "build"
+    },
+    {
+      "command": [
+        "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "mod",
+        "verify"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b4537ed75f533f993f371954de47e42a793b8e5b0587577de7e27fb3e50696bd",
+      "result": "PASS",
+      "seconds": 16.646,
+      "stage": "mod-verify"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "PASS",
+      "seconds": 0.21,
+      "stage": "diff-check"
+    }
+  ],
+  "empty_task_tmp_removed": true,
+  "environment": {
+    "CGO_ENABLED": "0",
+    "GOCACHE": "/root/ani-runs/container-restart-pvc-20261028/gocache",
+    "GOFLAGS": "-mod=readonly -p=1",
+    "GOMAXPROCS": "2",
+    "GOMEMLIMIT": "2GiB",
+    "GOMODCACHE": "/root/ani-runs/container-restart-pvc-20261028/modcache",
+    "GOPROXY": "file:///root/ani-runs/container-restart-pvc-20261028/modcache/cache/download,https://goproxy.cn",
+    "GOSUMDB": "sum.golang.org https://goproxy.cn/sumdb/sum.golang.org",
+    "GOTMPDIR": "/tmp/c24v1",
+    "GOTOOLCHAIN": "local",
+    "GOWORK": "off",
+    "TMPDIR": "/tmp/c24v1"
+  },
+  "finished_at": "2026-10-29T15:31:24.157771+00:00",
+  "go_version": "go version go1.26.10 linux/amd64",
+  "heavy_lock_acquired": true,
+  "heavy_lock_released": true,
+  "original_failure_cause": "Unix socket path exceeded length limit because TMP was too long",
+  "original_make_command_reclassified": false,
+  "original_make_command_result": "FAIL",
+  "original_make_log_sha256": "c191a171cd3722595010c38929fe88fcd8e986537d13c29b7f83b9356838cd56",
+  "original_make_receipt_sha256": "7b37e2b56a6ee4d3c62f3104c9d743735f049ae41d424fadec07e15aa43fc174",
+  "original_package_coverage": {
+    "all_other_package_terminal_lines_present": true,
+    "complete_success_packages": 50,
+    "expected_packages": 51,
+    "go_list_command": [
+      "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+      "list",
+      "-f",
+      "{{.ImportPath}}",
+      "./..."
+    ],
+    "packages_file_sha256": "a76369f307bbc6ab0209e342f3bb26a2d53b2ba3b81aa09387004ffe53cc8342",
+    "sole_failed_package": "github.com/zhangzhe-ctrl/ani-resource-service/scripts/lb-api",
+    "status": "PASS"
+  },
+  "pg_started": false,
+  "result": "PASS_COMPOSED_CONTINUATION",
+  "seconds": 95.95,
+  "socket_path_bound": {
+    "go_testing_rule": "name[:64] + decimal uint32 random suffix + /001/api.sock",
+    "max_bytes": 92,
+    "path_with_maximum_uint32_suffix": "/tmp/c24v1/TestSocketRequiresPrivateDirectoryAndPreservesExistingPath4294967295/001/api.sock",
+    "tmp_created_exclusive": true,
+    "tmp_mode": "0700"
+  },
+  "source": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/green/src",
+  "source_942_unchanged": true,
+  "source_manifest_sha256": "bada655797918148b626573bf67038e24303c6d08c0ad16716b6c98f733478ff",
+  "started_at": "2026-10-29T15:29:48.208074+00:00"
+}

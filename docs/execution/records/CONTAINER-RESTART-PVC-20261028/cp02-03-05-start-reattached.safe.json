@@ -1,0 +1,67 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "b6763040-f1bb-4179-b24d-03145914f338",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "start",
+      "idempotency_key": "e63c69e6-f915-4326-8789-9ed32ebafb12",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "14",
+      "request_body_sha256": "54c8377f5ab30fed4d2b53e280ae3840eaffbc934de037aa7c0b8c2a82a4a572",
+      "ack": {
+        "operationId": "c333a93e-c202-469e-925d-d9a3e894a16c",
+        "resourceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "c333a93e-c202-469e-925d-d9a3e894a16c",
+        "instanceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "action": "start",
+        "intentVersion": "15",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "14",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "mode": "command",
+  "driver_sha256": "51257002af3e49ccf00b485fa4b91c9612a9274bef8c312337a053e48bef2634",
+  "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+  "after_instance": {
+    "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "15",
+    "desiredState": "running",
+    "observedState": "running",
+    "activeOperationId": "",
+    "executionRunState": "running",
+    "appliedMountVersion": "14",
+    "lastOperationId": "c333a93e-c202-469e-925d-d9a3e894a16c",
+    "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "start",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "c333a93e-c202-469e-925d-d9a3e894a16c"
+  },
+  "session_cleanup": [
+    {
+      "application": "console",
+      "remote": "CONFIRMED"
+    }
+  ]
+}

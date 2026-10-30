@@ -1,0 +1,91 @@
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+test "$(/root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/buf --version)" = "1.60.0"
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+test "$(go version -m /root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/buf | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/bufbuild/buf@v1.60.0"
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+test "$(/root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/sqlc version)" = "v1.31.1"
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+test "$(go version -m /root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/sqlc | awk '$1 == "mod" {print $2 "@" $3; exit}')" = "github.com/sqlc-dev/sqlc@v1.31.1"
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+./scripts/verify-source /root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/buf /root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.tools/bin/sqlc
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+./scripts/verify-boundaries
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+boundary fixture rejected: internal/biz/network/nested -> database/sql
+boundary fixture rejected: internal/biz/image/nested -> net/http
+boundary fixture rejected: internal/biz/image/nested -> example.invalid/boundary-fixture/internal/data/image
+boundary fixture rejected: internal/data/image -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/service/image -> example.invalid/boundary-fixture/internal/service/network
+boundary fixture rejected: internal/biz/network/nested -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/service/network -> example.invalid/boundary-fixture/internal/data/network
+boundary fixture rejected: internal/data/network -> example.invalid/boundary-fixture/internal/service/network
+boundary fixture rejected: internal/data/network -> example.invalid/boundary-fixture/internal/data/storage
+boundary fixture rejected: internal/service/network -> example.invalid/boundary-fixture/internal/service/storage
+recursive domain and repository ownership boundaries verified
+./scripts/net05a-build-faults.py --network-only
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+{"fault_build": "/root/ani-runs/container-restart-pvc-20261028/resource-runtime-20-verify-newhost-01/src/.work/fault-build", "status": "pass"}
+go mod tidy -diff
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+go test -count=1 ./...
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/compute/v1	0.008s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/image/v1	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/instance/v1	0.022s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/network/v1	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/sandbox/v1	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/api/storage/v1	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/api/vm/v1	0.026s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/cmd/ani-resource-service	0.248s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/docs/execution/records/VM-MVP/checks/legacy-network-pg-01	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/compute	0.006s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/image	0.011s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/instance	0.022s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/network	0.033s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/sandbox	1.013s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/storage	0.009s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/biz/vm	0.031s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/conf/v1	0.079s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/compute	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/image	0.785s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/image/sqlcgen	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance	1.384s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/instance/sqlcgen	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/network	0.302s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/network/sqlcgen	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/sandbox	1.116s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/storage	0.019s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/data/vm	0.183s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/server	2.855s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/compute	0.011s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/image	0.015s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/instance	1.017s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/network	0.014s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/sandbox	0.041s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/storage	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/internal/service/vm	0.021s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations/compute	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations/image	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations/instance	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations/sandbox	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/migrations/vm	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/pkg/instanceconfig	0.004s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/scripts/image-smoke-runtime	0.013s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/scripts/lb-api	0.024s
+?   	github.com/zhangzhe-ctrl/ani-resource-service/scripts/vpc-read-probe	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/tests/net05	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/tests/net05/relay	[no test files]
+?   	github.com/zhangzhe-ctrl/ani-resource-service/tests/net05/rpc	[no test files]
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/tests/net05a/provider	0.014s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/tests/runtime	0.117s
+ok  	github.com/zhangzhe-ctrl/ani-resource-service/tests/testenv	0.015s
+go vet ./...
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+go build -trimpath ./...
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+go mod verify
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable
+all modules verified
+git diff --check
+/etc/bashrc: line 12: BASHRCSOURCED: unbound variable

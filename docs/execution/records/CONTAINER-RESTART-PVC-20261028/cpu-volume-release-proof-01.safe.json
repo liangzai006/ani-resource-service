@@ -1,0 +1,84 @@
+{
+  "borrowed_storage": {
+    "phase": "Bound",
+    "pv_name": "pvc-fa56c965-5a9a-4bb1-b271-3960a7309e96",
+    "pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6",
+    "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96"
+  },
+  "business_writes": 0,
+  "calls": [
+    {
+      "exit_code": 0,
+      "resource": "notebook"
+    },
+    {
+      "exit_code": 0,
+      "resource": "statefulset"
+    },
+    {
+      "exit_code": 0,
+      "resource": "pods"
+    },
+    {
+      "exit_code": 0,
+      "resource": "pod"
+    },
+    {
+      "exit_code": 0,
+      "resource": "pvc"
+    },
+    {
+      "exit_code": 0,
+      "resource": "pv"
+    },
+    {
+      "exit_code": 0,
+      "resource": "pvc"
+    },
+    {
+      "exit_code": 0,
+      "resource": "notebook"
+    },
+    {
+      "exit_code": 0,
+      "resource": "statefulset"
+    }
+  ],
+  "files_env_logs_read": false,
+  "instance_id": "e3dd3ec3-293c-4d5c-97f4-7747ca6392c1",
+  "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+  "notebook": {
+    "creation_timestamp": "2026-10-29T03:03:43Z",
+    "generation": 1,
+    "stopped": true,
+    "uid": "06104213-debe-46f1-9f75-49880b9c9f91"
+  },
+  "observed_at": "2026-10-29T12:52:36.810372+00:00",
+  "pod_absence": {
+    "complete_namespace_list": true,
+    "direct_name": "instance-e3dd3ec3-293c-4d5c-97f4-7747ca6392c1-0",
+    "direct_not_found": true,
+    "expected_old_uid": "457ef61b-41d9-44a4-96b1-974f87e3340a",
+    "matching_count": 0
+  },
+  "read_only": true,
+  "result": "PASS_STOPPED_POD_EXIT_AND_STORAGE_RETAINED",
+  "schema": "ani.cpu-volume-release-proof-01.safe.v1",
+  "scope": "Does not prove CSI VolumeAttachment deletion or file contents; no config mutation or automatic Start",
+  "statefulset": {
+    "controller_notebook_uid": "06104213-debe-46f1-9f75-49880b9c9f91",
+    "creation_timestamp": "2026-10-29T03:03:43Z",
+    "generation": 2,
+    "observed_generation": 2,
+    "replicas": 0,
+    "uid": "725bbf56-1a20-4c7f-8f88-04a04f8d60d2"
+  },
+  "workspace_preserved": {
+    "creation_timestamp": "2026-10-29T03:03:37Z",
+    "generation": null,
+    "name": "workspace-e3dd3ec3-293c-4d5c-97f4-7747ca6392c1",
+    "phase": "Bound",
+    "pv_name": "pvc-cd2b91ba-b7bc-4481-87c2-0d47ba9eb6d3",
+    "uid": "cd2b91ba-b7bc-4481-87c2-0d47ba9eb6d3"
+  }
+}

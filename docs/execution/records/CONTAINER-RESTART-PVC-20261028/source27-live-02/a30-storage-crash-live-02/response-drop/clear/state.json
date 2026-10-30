@@ -1,0 +1,29 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "540832e9-11ce-525d-88a5-08d3c064fa9b",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {},
+  "control_receipts": [
+    {
+      "pod": {
+        "name": "ani-resource-service-54c65d45f7-9rbp7",
+        "uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96",
+        "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:5108362e031a7287bbe4a61f508e6183f4c149085d47a91459df078159ba1304",
+        "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501"
+      },
+      "command": [
+        "clear-arm"
+      ],
+      "reply": {
+        "result": "ARM_CLEARED"
+      }
+    }
+  ],
+  "result": "ARM_CLEARED_NO_LATE_QUEUE_WAS_CREATED_BY_THIS_DRIVER",
+  "session_cleanup": [
+    {
+      "step": "clear",
+      "remote": "CONFIRMED"
+    }
+  ]
+}

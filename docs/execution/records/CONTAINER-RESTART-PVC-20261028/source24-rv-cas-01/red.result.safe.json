@@ -1,0 +1,120 @@
+{
+  "environment": {
+    "CGO_ENABLED": "0",
+    "GOCACHE": "/root/ani-runs/container-restart-pvc-20261028/gocache",
+    "GOFLAGS": "-mod=readonly -p=1",
+    "GOMAXPROCS": "2",
+    "GOMEMLIMIT": "2GiB",
+    "GOMODCACHE": "/root/ani-runs/container-restart-pvc-20261028/modcache",
+    "GOPROXY": "off",
+    "GOTMPDIR": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/t",
+    "GOVCS": "*:off",
+    "GOWORK": "off",
+    "TMPDIR": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/t"
+  },
+  "go_version": "go version go1.26.10 linux/amd64",
+  "host": "192.168.25.40",
+  "implementation_modified": false,
+  "input_sha256": "a5a04e518b50c00df57142f02ba2c9cfd21031d24ebe4f7975fad6377bae6add",
+  "no_api_pg_image_or_full_suite": true,
+  "results": [
+    {
+      "assertion_output": [
+        "    lifecycle_version_retry_test.go:19: a rejected conditional write failed the accepted intent instead of retrying its phase &{0x8636b8145a0  restart-operation  restart   blocked conditional update: INSTANCE_VERSION_CONFLICT 7 {false   false} 0001-01-01 00:00:00 +0000 UTC}",
+        "--- FAIL: TestLifecycleDefinitiveVersionConflictRetriesCurrentPhase/stopping (0.00s)",
+        "    lifecycle_version_retry_test.go:19: a rejected conditional write failed the accepted intent instead of retrying its phase &{0x8636b814c60  restart-operation  restart   blocked conditional update: INSTANCE_VERSION_CONFLICT 7 {false   false} 0001-01-01 00:00:00 +0000 UTC}",
+        "--- FAIL: TestLifecycleDefinitiveVersionConflictRetriesCurrentPhase/starting (0.00s)",
+        "    lifecycle_version_retry_test.go:19: a rejected conditional write failed the accepted intent instead of retrying its phase &{0x8636b815320  restart-operation  attach-pvc   blocked conditional update: INSTANCE_VERSION_CONFLICT 7 {false   false} 0001-01-01 00:00:00 +0000 UTC}",
+        "--- FAIL: TestLifecycleDefinitiveVersionConflictRetriesCurrentPhase/applying_mounts (0.00s)",
+        "--- FAIL: TestLifecycleDefinitiveVersionConflictRetriesCurrentPhase (0.00s)"
+      ],
+      "command": [
+        "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-p=1",
+        "-timeout=180s",
+        "./internal/biz/instance",
+        "-run",
+        "^TestLifecycle(DefinitiveVersionConflictRetriesCurrentPhase|VersionRetryKeepsUnknownWritePending|VersionRetryPreservesDefinitiveOwnershipFailure)$"
+      ],
+      "cwd": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/src",
+      "duration_seconds": 5.151,
+      "exit_code": 1,
+      "failed_tests": [
+        "TestLifecycleDefinitiveVersionConflictRetriesCurrentPhase/stopping",
+        "TestLifecycleDefinitiveVersionConflictRetriesCurrentPhase/starting",
+        "TestLifecycleDefinitiveVersionConflictRetriesCurrentPhase/applying_mounts",
+        "TestLifecycleDefinitiveVersionConflictRetriesCurrentPhase"
+      ],
+      "label": "worker",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/worker.red.log.jsonl",
+      "log_sha256": "8e3466bd42896a712cd1a3b48255b1dae1b82b347c8e4ef22be8c3a865591f93",
+      "status": "RED_ASSERTION_CONFIRMED",
+      "timed_out": false
+    },
+    {
+      "assertion_output": [
+        "    notebook_lifecycle_test.go:408: stable control observation did not return the final Notebook RV {[{11111111-1111-4111-8111-111111111111 tenant-11111111-1111-4111-8111-111111111111 instance-11111111-1111-4111-8111-111111111111-0 pod-uid workspace}] false true 0 0 0 1  true false true false false notebook-uid 10  pod-uid instance-11111111-1111-4111-8111-111111111111-0 set-uid 1 false    []} <nil>",
+        "--- FAIL: TestLifecycleIdentityRefreshesRVAfterPodObservation/running_with_Pod (0.01s)",
+        "    notebook_lifecycle_test.go:408: stable control observation did not return the final Notebook RV {[] false true 0 0 0 1  true false false false false notebook-uid 10    set-uid 1 false    []} <nil>",
+        "--- FAIL: TestLifecycleIdentityRefreshesRVAfterPodObservation/running_without_Pod (0.00s)",
+        "    notebook_lifecycle_test.go:408: stable control observation did not return the final Notebook RV {[{11111111-1111-4111-8111-111111111111 tenant-11111111-1111-4111-8111-111111111111 instance-11111111-1111-4111-8111-111111111111-0 pod-uid workspace}] false true 0 0 0 1  true false true false true notebook-uid 10  pod-uid instance-11111111-1111-4111-8111-111111111111-0 set-uid 1 false    []} <nil>",
+        "--- FAIL: TestLifecycleIdentityRefreshesRVAfterPodObservation/stopping_with_Pod (0.01s)",
+        "    notebook_lifecycle_test.go:408: stable control observation did not return the final Notebook RV {[] false true 0 0 0 1  true false false false true notebook-uid 10    set-uid 1 false    []} <nil>",
+        "--- FAIL: TestLifecycleIdentityRefreshesRVAfterPodObservation/stopped_controller_not_observed (0.00s)",
+        "--- FAIL: TestLifecycleIdentityRefreshesRVAfterPodObservation (0.02s)",
+        "    notebook_lifecycle_test.go:456: control drift returned an authorized Notebook write observation {[{11111111-1111-4111-8111-111111111111 tenant-11111111-1111-4111-8111-111111111111 instance-11111111-1111-4111-8111-111111111111-0 pod-uid workspace}] false true 0 0 0 1  true false true false false notebook-uid 10  pod-uid instance-11111111-1111-4111-8111-111111111111-0 set-uid 1 false    []} <nil>",
+        "--- FAIL: TestLifecycleIdentityRejectsControlDriftAfterPodObservation/spec (0.00s)",
+        "    notebook_lifecycle_test.go:456: control drift returned an authorized Notebook write observation {[{11111111-1111-4111-8111-111111111111 tenant-11111111-1111-4111-8111-111111111111 instance-11111111-1111-4111-8111-111111111111-0 pod-uid workspace}] false true 0 0 0 1  true false true false false notebook-uid 10  pod-uid instance-11111111-1111-4111-8111-111111111111-0 set-uid 1 false    []} <nil>",
+        "--- FAIL: TestLifecycleIdentityRejectsControlDriftAfterPodObservation/metadata (0.00s)",
+        "    notebook_lifecycle_test.go:456: control drift returned an authorized Notebook write observation {[{11111111-1111-4111-8111-111111111111 tenant-11111111-1111-4111-8111-111111111111 instance-11111111-1111-4111-8111-111111111111-0 pod-uid workspace}] false true 0 0 0 1  true false true false false notebook-uid 10  pod-uid instance-11111111-1111-4111-8111-111111111111-0 set-uid 1 false    []} <nil>",
+        "--- FAIL: TestLifecycleIdentityRejectsControlDriftAfterPodObservation/UID (0.00s)",
+        "    notebook_lifecycle_test.go:456: control drift returned an authorized Notebook write observation {[{11111111-1111-4111-8111-111111111111 tenant-11111111-1111-4111-8111-111111111111 instance-11111111-1111-4111-8111-111111111111-0 pod-uid workspace}] false true 0 0 0 1  true false true false false notebook-uid 10  pod-uid instance-11111111-1111-4111-8111-111111111111-0 set-uid 1 false    []} <nil>",
+        "--- FAIL: TestLifecycleIdentityRejectsControlDriftAfterPodObservation/ownership (0.00s)",
+        "--- FAIL: TestLifecycleIdentityRejectsControlDriftAfterPodObservation (0.00s)"
+      ],
+      "command": [
+        "/root/ani-runs/container-restart-pvc-20261028/modcache/golang.org/toolchain@v0.0.1-go1.26.10.linux-amd64/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-p=1",
+        "-timeout=180s",
+        "./internal/data/instance",
+        "-run",
+        "^TestLifecycleIdentity(RefreshesRVAfterPodObservation|RejectsControlDriftAfterPodObservation)$"
+      ],
+      "cwd": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/src",
+      "duration_seconds": 21.383,
+      "exit_code": 1,
+      "failed_tests": [
+        "TestLifecycleIdentityRefreshesRVAfterPodObservation/running_with_Pod",
+        "TestLifecycleIdentityRefreshesRVAfterPodObservation/running_without_Pod",
+        "TestLifecycleIdentityRefreshesRVAfterPodObservation/stopping_with_Pod",
+        "TestLifecycleIdentityRefreshesRVAfterPodObservation/stopped_controller_not_observed",
+        "TestLifecycleIdentityRefreshesRVAfterPodObservation",
+        "TestLifecycleIdentityRejectsControlDriftAfterPodObservation/spec",
+        "TestLifecycleIdentityRejectsControlDriftAfterPodObservation/metadata",
+        "TestLifecycleIdentityRejectsControlDriftAfterPodObservation/UID",
+        "TestLifecycleIdentityRejectsControlDriftAfterPodObservation/ownership",
+        "TestLifecycleIdentityRejectsControlDriftAfterPodObservation"
+      ],
+      "label": "data",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/data.red.log.jsonl",
+      "log_sha256": "c143aae316b5aeb9a414ca795ada4cc227b4b17e79b77f9a79ff7c888dd885a8",
+      "status": "RED_ASSERTION_CONFIRMED",
+      "timed_out": false
+    }
+  ],
+  "source": "/root/ani-runs/container-restart-pvc-20261028/source24-rv-cas-01/src",
+  "source_hashes_verified_after": true,
+  "status": "RED_ASSERTION_CONFIRMED",
+  "task_files": {
+    "run-red.py": "e86b450093fc233ca12b6c26d4c296e7cd734fb7d0f424581fe1ea1f930d5230",
+    "source24-red.manifest.json": "d98d4cde62733cc591008ec96771b4a7f324d262775c5b79309c7b99106e9863",
+    "tests-red.manifest.json": "3e3542790848da7cf5b886653e8c9579bf28741b5fb6c6b1f4da26750a793826",
+    "tests-red.tar.gz": "be74ced71294dbe481c5f40aecb65d54caf0b201b15c660bc41e7e90f72fd447"
+  }
+}

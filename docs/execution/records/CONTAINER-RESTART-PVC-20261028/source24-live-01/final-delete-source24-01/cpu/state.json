@@ -1,0 +1,92 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "9c25245e-486f-5393-99f7-2c1c224d18a6",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "delete": {
+      "action": "delete",
+      "idempotency_key": "6598db71-a3ec-4d2d-978e-400f159c85be",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "27",
+      "request_body_sha256": "a083155dcb541d32e3a7eb57cddd0baa8b0204e1572b9a9b1720c2de11fb3c65",
+      "request_body": {
+        "data": {
+          "expectedVersion": "27",
+          "idempotencyKey": "6598db71-a3ec-4d2d-978e-400f159c85be"
+        }
+      },
+      "ack": {
+        "operationId": "f1302bd3-d94c-4dc6-b7cf-4257bbaa74dc",
+        "resourceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "replayed": false,
+        "result": "QUEUED_FOR_OWNER"
+      },
+      "replay": {
+        "operationId": "f1302bd3-d94c-4dc6-b7cf-4257bbaa74dc",
+        "resourceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "replayed": true,
+        "result": "QUEUED_FOR_OWNER"
+      },
+      "operation": {
+        "id": "f1302bd3-d94c-4dc6-b7cf-4257bbaa74dc",
+        "instanceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "action": "delete",
+        "intentVersion": "28",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "deleted",
+        "applied_mount_version": "26",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+  "compute_type": "cpu",
+  "before_instance": {
+    "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "instance_kind": "container",
+    "compute_type": "cpu",
+    "version": "27",
+    "desiredState": "stopped",
+    "observedState": "stopped",
+    "activeOperationId": "",
+    "executionRunState": "stopped",
+    "appliedMountVersion": "26",
+    "lastOperationId": "3109d019-ff84-4882-9d3f-d30dbd6f1c5c",
+    "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "result": "PASS_DELETE_OPERATION_AND_REPLAY",
+    "instance_id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "expected_version": "27",
+    "operation": {
+      "id": "f1302bd3-d94c-4dc6-b7cf-4257bbaa74dc",
+      "instanceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "action": "delete",
+      "intentVersion": "28",
+      "state": "completed",
+      "phase": "done",
+      "final_run_state": "deleted",
+      "applied_mount_version": "26",
+      "completion_scope": "",
+      "reason": "",
+      "failure_reason": ""
+    },
+    "refund": "NOT_VERIFIED_HERE",
+    "physical_cleanup": "NOT_VERIFIED_HERE",
+    "borrowed_pvc_pv_files": "NOT_VERIFIED_HERE"
+  },
+  "session_cleanup": [
+    {
+      "application": "console",
+      "remote": "CONFIRMED"
+    }
+  ]
+}

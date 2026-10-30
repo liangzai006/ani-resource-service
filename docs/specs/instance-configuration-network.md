@@ -138,6 +138,10 @@ Pod PVC 引用只有 claimName，没有 UID 前置条件。应用层 UID 冻结�
 
 挂卸的模板证明须覆盖 Notebook 与仍存在的 StatefulSet 的目标卷、replicas/observedGeneration 和安全停止；StatefulSet 不存在时，仍须证明 Notebook 已停止、旧控制链/Pod 已退出且后续重建只能来自目标 Notebook 模板。old/target/mixed 分类不确定时保留保护，不能因一次 Update 成功释放 retiring。运行态启动失败后的安全停止保留已提交配置，不回滚 CREATE。持久化落点为[008](../../migrations/instance/008_restart_pvc.sql)及[阶段提交事务](../../internal/data/instance/lifecycle.go)，外部证明见[Notebook adapter](../../internal/data/instance/notebook_lifecycle.go)。主容器仍名 `workspace`，SG、日志与诊断继续核验 owner/Pod UID。
 
+普通 Start 明确发现冻结卷消失或被替换，或已记录 UID 的 Notebook 消失时，由原操作持久进入 `recovering_stop`，复用相同的身份、未知写和安全停止证明。证明完成后该 Start 才终结为 `failed/done` 并释放互斥，保持 CurrentMounts 和 applied_mount_version；不另发 Stop，不重建已丢失的 Notebook。缺乏安全证明时继续保留活动操作及保护，不把观察失败当作已停止。
+
+模板读取的前后稳定性按完整对象语义比较：仅忽略顶层 `status`、`metadata.resourceVersion` 和 `metadata.managedFields`，其余 spec、UID/generation、归属、标签/注解、finalizer 和删除状态必须相同。StatefulSet 的 `observedGeneration` 仍单独要求存在、不落后 generation 且前后相同。Notebook controller 的状态探针时间变化不应使只读证明永久冲突；所有控制写入继续使用原 UID/resourceVersion 条件，未知写入恢复不得换用新 RV 重发。
+
 ### 4.4 Storage 名称 guard 与删除恢复
 
 原 CREATE、Attach 和 Storage DELETE 共用 `(cluster_id, namespace, pvc_name)` 物理名称 guard，键不含 UID；guard 固定 tenant，不能以跨租户相同物理名绕过。名称正处于删除时拒绝新引用；三个保护态中的任一引用都拒绝 Storage 删除。Instance 提供[窄 BorrowedPVCGuard 端口](../../internal/biz/storage/delete_guard.go)，Storage 不跨域查询 Instance 私表。

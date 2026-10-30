@@ -1,0 +1,4 @@
+{"application":"console","at":"2026-10-29T11:38:25.089994Z","event":"authenticated","http_status":200}
+{"at":"2026-10-29T11:38:26.220089Z","event":"http_error","http_status":409,"method":"POST","path":"/api/v1/instances/e3dd2bc7-1c6a-429b-a401-e175c287d5cf:attach-pvc","reason":"INSTANCE_REQUIRES_STOP"}
+{"at":"2026-10-29T11:38:27.048608Z","event":"http_error","http_status":409,"method":"POST","path":"/api/v1/instances/e3dd2bc7-1c6a-429b-a401-e175c287d5cf:attach-pvc","reason":"INSTANCE_REQUIRES_STOP"}
+{"application":"console","at":"2026-10-29T11:38:28.930605Z","event":"session_cleanup","local":"CLEARED","remote":"CONFIRMED"}

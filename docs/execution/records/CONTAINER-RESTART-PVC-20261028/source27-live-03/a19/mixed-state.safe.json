@@ -1,0 +1,4041 @@
+{
+  "base_url": "http://127.0.0.1:39586",
+  "control_receipts": [
+    {
+      "command": [
+        "arm"
+      ],
+      "reply": {
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "result": "ARMED"
+      },
+      "step": "hold-attach"
+    },
+    {
+      "command": [
+        "events",
+        "38fd7753-0ac0-473a-b9e1-4c3bf39452f0"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "result": "EVENTS"
+      },
+      "step": "hold-attach"
+    },
+    {
+      "command": [
+        "events",
+        "38fd7753-0ac0-473a-b9e1-4c3bf39452f0"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "result": "EVENTS"
+      },
+      "step": "hold-attach"
+    },
+    {
+      "command": [
+        "events",
+        "38fd7753-0ac0-473a-b9e1-4c3bf39452f0"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "result": "EVENTS"
+      },
+      "step": "hold-attach"
+    },
+    {
+      "command": [
+        "events",
+        "38fd7753-0ac0-473a-b9e1-4c3bf39452f0"
+      ],
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T19:35:10.673347116Z",
+            "client": "instance",
+            "event": "matched_exact_uid_request",
+            "method": "PUT",
+            "mode": "late-forward",
+            "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+            "request_sha256": "6bec7b1575b94ba29a72848342ee6ef2ef246b6249fcff4fd6e8fd515ab0cdad",
+            "resource": "notebooks",
+            "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+          }
+        ],
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "result": "EVENTS"
+      },
+      "step": "hold-attach"
+    },
+    {
+      "command": [
+        "arm"
+      ],
+      "reply": {
+        "nonce": "fe8f2119-4b57-4979-a71d-dcac8d7fb97f",
+        "result": "ARMED"
+      },
+      "step": "arm-template"
+    },
+    {
+      "command": [
+        "release",
+        "38fd7753-0ac0-473a-b9e1-4c3bf39452f0"
+      ],
+      "reply": {
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "result": "SIGNALLED",
+        "signal": "release"
+      },
+      "step": "arm-template"
+    },
+    {
+      "command": [
+        "events",
+        "38fd7753-0ac0-473a-b9e1-4c3bf39452f0"
+      ],
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T19:35:10.673347116Z",
+            "client": "instance",
+            "event": "matched_exact_uid_request",
+            "method": "PUT",
+            "mode": "late-forward",
+            "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+            "request_sha256": "6bec7b1575b94ba29a72848342ee6ef2ef246b6249fcff4fd6e8fd515ab0cdad",
+            "resource": "notebooks",
+            "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+          },
+          {
+            "at": "2026-10-29T19:35:17.173990376Z",
+            "event": "forwarding_original_request",
+            "mode": "late-forward",
+            "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0"
+          },
+          {
+            "at": "2026-10-29T19:35:17.181709795Z",
+            "event": "original_request_result",
+            "http_status": 409,
+            "mode": "late-forward",
+            "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+            "transport_error": false
+          }
+        ],
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "result": "EVENTS"
+      },
+      "step": "arm-template"
+    },
+    {
+      "step": "clear-settled",
+      "command": [
+        "events",
+        "38fd7753-0ac0-473a-b9e1-4c3bf39452f0"
+      ],
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T19:35:10.673347116Z",
+            "client": "instance",
+            "event": "matched_exact_uid_request",
+            "method": "PUT",
+            "mode": "late-forward",
+            "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+            "request_sha256": "6bec7b1575b94ba29a72848342ee6ef2ef246b6249fcff4fd6e8fd515ab0cdad",
+            "resource": "notebooks",
+            "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+          },
+          {
+            "at": "2026-10-29T19:35:17.173990376Z",
+            "event": "forwarding_original_request",
+            "mode": "late-forward",
+            "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0"
+          },
+          {
+            "at": "2026-10-29T19:35:17.181709795Z",
+            "event": "original_request_result",
+            "http_status": 409,
+            "mode": "late-forward",
+            "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+            "transport_error": false
+          }
+        ],
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "clear-settled",
+      "command": [
+        "events",
+        "fe8f2119-4b57-4979-a71d-dcac8d7fb97f"
+      ],
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T19:35:27.45185532Z",
+            "client": "instance",
+            "event": "matched_exact_uid_request",
+            "method": "PUT",
+            "mode": "late-forward",
+            "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "fe8f2119-4b57-4979-a71d-dcac8d7fb97f",
+            "request_sha256": "53cd6db999a7a5894baf9c58e0ffdb38ee5318d3076b4de2a48726b669be4b75",
+            "resource": "notebooks",
+            "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+          },
+          {
+            "at": "2026-10-29T19:37:27.452752742Z",
+            "event": "not_forwarded_cancel_or_ttl_expired",
+            "mode": "late-forward",
+            "nonce": "fe8f2119-4b57-4979-a71d-dcac8d7fb97f"
+          }
+        ],
+        "nonce": "fe8f2119-4b57-4979-a71d-dcac8d7fb97f",
+        "result": "EVENTS"
+      }
+    },
+    {
+      "step": "clear-settled",
+      "command": [
+        "clear-arm"
+      ],
+      "reply": {
+        "result": "ARM_CLEARED"
+      }
+    }
+  ],
+  "fault_events": {
+    "held_plan": [
+      {
+        "at": "2026-10-29T19:35:10.673347116Z",
+        "client": "instance",
+        "event": "matched_exact_uid_request",
+        "method": "PUT",
+        "mode": "late-forward",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "request_sha256": "6bec7b1575b94ba29a72848342ee6ef2ef246b6249fcff4fd6e8fd515ab0cdad",
+        "resource": "notebooks",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+      },
+      {
+        "at": "2026-10-29T19:35:17.173990376Z",
+        "event": "forwarding_original_request",
+        "mode": "late-forward",
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0"
+      },
+      {
+        "at": "2026-10-29T19:35:17.181709795Z",
+        "event": "original_request_result",
+        "http_status": 409,
+        "mode": "late-forward",
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "transport_error": false
+      }
+    ]
+  },
+  "held_plan": {
+    "client": "instance",
+    "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "intent_version": "22",
+    "max_wait_seconds": 120,
+    "method": "PUT",
+    "mode": "late-forward",
+    "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+    "resource": "notebooks",
+    "stopped": "true",
+    "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+  },
+  "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+  "intents": {
+    "one-attach": {
+      "ack": {
+        "operationId": "07544ee2-2269-41c6-9950-c7b515f146ae",
+        "replayed": false,
+        "resourceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "result": "ACCEPTED"
+      },
+      "action": "attach-pvc",
+      "expected_version": "21",
+      "idempotency_field": "idempotencyKey",
+      "idempotency_key": "5a134082-70fc-4fde-8f0a-f80fa1510409",
+      "operation": {
+        "id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+        "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "action": "attach-pvc",
+        "intentVersion": "22",
+        "state": "failed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "20",
+        "completion_scope": "",
+        "reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+        "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT"
+      },
+      "request_body": {
+        "data": {
+          "expectedVersion": "21",
+          "idempotencyKey": "5a134082-70fc-4fde-8f0a-f80fa1510409",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "read_only": false,
+          "restart_if_running": true
+        }
+      },
+      "request_body_sha256": "79d277446b5181045ec0b75abe36a3ca2de5c5c911cc8909425120f7666444c2"
+    }
+  },
+  "mixed_patch_attempt": {
+    "original_spec_sha256": "d275eb025a13bd23c41bd9756bad7b81eb84ecf1a873799ba97070cb77146c9a",
+    "patch_sha256": "65560a97f47c252198f21bfc1de1bfb5aa7a034996bb3abaae8056fff12e36a8",
+    "rv": "16028715",
+    "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+  },
+  "mixed_patch_reply": {
+    "owner_unchanged": true,
+    "rv": "16035002",
+    "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+  },
+  "persistent_identities": {
+    "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+    "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+    "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+    "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42",
+    "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f"
+  },
+  "pg_observations": [
+    {
+      "at": "2026-10-29T19:35:12.191829+00:00",
+      "instance": {
+        "applied_mount_version": 20,
+        "current_mounts": [],
+        "desired": "running",
+        "fence": null,
+        "pending": {
+          "FencedMutationID": "",
+          "ID": "94d088ee-cba2-40b7-abe4-d486d21df45b",
+          "Kind": "set_stopped",
+          "OperationID": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "Phase": "stopping",
+          "PhaseSequence": 2,
+          "ProviderMarkerExpected": true,
+          "ResourceVersion": "16023161",
+          "StoppedTarget": true,
+          "TargetMountDigest": "",
+          "TargetUID": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+          "Version": 22
+        },
+        "runtime_desired": "stopped",
+        "version": 22
+      },
+      "operations": [
+        {
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "failure_reason": "",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "phase": "stopping",
+          "phase_sequence": 2,
+          "reason": "",
+          "state": "accepted",
+          "template_commit_completed": false,
+          "version": 22
+        }
+      ],
+      "read_only": "on",
+      "references": [
+        {
+          "intent_version": 17,
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "reference_generation": 1,
+          "state": "released"
+        },
+        {
+          "intent_version": 22,
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "reference_generation": 1,
+          "state": "pending"
+        },
+        {
+          "intent_version": 20,
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "reference_generation": 1,
+          "state": "released"
+        },
+        {
+          "intent_version": 4,
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "reference_generation": 1,
+          "state": "released"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:36:54.464381+00:00",
+      "instance": {
+        "applied_mount_version": 20,
+        "current_mounts": [],
+        "desired": "running",
+        "fence": null,
+        "pending": null,
+        "runtime_desired": "stopped",
+        "version": 22
+      },
+      "operations": [
+        {
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "failure_reason": "",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "phase": "stopping",
+          "phase_sequence": 2,
+          "reason": "INSTANCE_EXTERNAL_RESULT_UNKNOWN",
+          "state": "blocked",
+          "template_commit_completed": false,
+          "version": 22
+        }
+      ],
+      "read_only": "on",
+      "references": [
+        {
+          "intent_version": 17,
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "reference_generation": 1,
+          "state": "released"
+        },
+        {
+          "intent_version": 22,
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "reference_generation": 1,
+          "state": "pending"
+        },
+        {
+          "intent_version": 20,
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "reference_generation": 1,
+          "state": "released"
+        },
+        {
+          "intent_version": 4,
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "reference_generation": 1,
+          "state": "released"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:25.956497+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "stopping",
+          "state": "blocked",
+          "reason": "INSTANCE_EXTERNAL_RESULT_UNKNOWN",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 2,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:28.442577+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "stopping",
+          "state": "blocked",
+          "reason": "INSTANCE_EXTERNAL_RESULT_UNKNOWN",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 2,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:30.987561+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "accepted",
+          "reason": "",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:33.473609+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "accepted",
+          "reason": "",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:36.116396+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "blocked",
+          "reason": "WAITING_FOR_STOP_PROOF",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:38.648588+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "blocked",
+          "reason": "WAITING_FOR_STOP_PROOF",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:41.250063+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "blocked",
+          "reason": "WAITING_FOR_STOP_PROOF",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:43.867562+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "blocked",
+          "reason": "WAITING_FOR_STOP_PROOF",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:46.360507+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "blocked",
+          "reason": "WAITING_FOR_STOP_PROOF",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:49.019857+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "blocked",
+          "reason": "WAITING_FOR_STOP_PROOF",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:51.688295+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "blocked",
+          "reason": "WAITING_FOR_STOP_PROOF",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:54.411848+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "blocked",
+          "reason": "WAITING_FOR_STOP_PROOF",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:57.209615+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "blocked",
+          "reason": "WAITING_FOR_STOP_PROOF",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:39:59.811879+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "blocked",
+          "reason": "WAITING_FOR_STOP_PROOF",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:02.345781+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "waiting_stopped",
+          "state": "blocked",
+          "reason": "WAITING_FOR_STOP_PROOF",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 3,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:04.927316+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "applying_mounts",
+          "state": "accepted",
+          "reason": "",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 4,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:07.637377+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "applying_mounts",
+          "state": "accepted",
+          "reason": "",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "",
+          "phase_sequence": 4,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:10.247045+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "recovering_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 5,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:12.840241+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "recovering_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 5,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:15.437373+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "accepted",
+          "reason": "",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:18.053018+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "accepted",
+          "reason": "",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:20.594593+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:23.211295+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:25.722532+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:28.441294+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:31.126931+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:33.659843+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:36.409379+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:39.147193+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:41.709349+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:44.630181+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:47.384089+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:50.051179+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:52.691623+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:55.237369+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:40:57.909149+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:41:00.664791+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:41:03.286651+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:41:05.820675+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:41:08.386805+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:41:11.027972+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:41:13.57999+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:41:16.081799+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:41:25.291932+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:41:29.586664+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "verifying_safe_stop",
+          "state": "blocked",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 6,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "pending",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:41:40.713857+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "stopped",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "done",
+          "state": "failed",
+          "reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 7,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    }
+  ],
+  "resource_binding": {
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+    "name": "ani-resource-service-548bdd5bff-czqmx",
+    "uid": "92e95c0b-f3ed-46f8-bcae-004b64441c45"
+  },
+  "root_cluster_control_socket": "/root/ani-runs/container-restart-pvc-20261028/private-live-01/cluster-root.sock",
+  "root_mixed_before_stop": {
+    "at": "2026-10-29T19:36:57.230593Z",
+    "operation": {
+      "action": "attach-pvc",
+      "applied_mount_version": "20",
+      "completion_scope": "",
+      "failure_reason": "",
+      "final_run_state": "running",
+      "id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+      "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "intentVersion": "22",
+      "phase": "stopping",
+      "reason": "INSTANCE_EXTERNAL_RESULT_UNKNOWN",
+      "state": "blocked"
+    },
+    "pg_before": {
+      "at": "2026-10-29T19:36:54.464381+00:00",
+      "instance": {
+        "applied_mount_version": 20,
+        "current_mounts": [],
+        "desired": "running",
+        "fence": null,
+        "pending": null,
+        "runtime_desired": "stopped",
+        "version": 22
+      },
+      "operations": [
+        {
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "failure_reason": "",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "phase": "stopping",
+          "phase_sequence": 2,
+          "reason": "INSTANCE_EXTERNAL_RESULT_UNKNOWN",
+          "state": "blocked",
+          "template_commit_completed": false,
+          "version": 22
+        }
+      ],
+      "read_only": "on",
+      "references": [
+        {
+          "intent_version": 17,
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "reference_generation": 1,
+          "state": "released"
+        },
+        {
+          "intent_version": 22,
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "reference_generation": 1,
+          "state": "pending"
+        },
+        {
+          "intent_version": 20,
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "reference_generation": 1,
+          "state": "released"
+        },
+        {
+          "intent_version": 4,
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "reference_generation": 1,
+          "state": "released"
+        }
+      ]
+    },
+    "scope": "Same original Attach; external mixed template before normal Stop resolves; no claimed successful held Stop or old-template CAS result"
+  },
+  "root_mixed_patch_recovery": [
+    {
+      "at": "2026-10-29T19:38:07.544420+00:00",
+      "result": "PERSISTED_BEFORE_ROOT_CONDITIONAL_PATCH",
+      "returncode": 1,
+      "rv": "16032416",
+      "stderr": "The request is invalid: the server rejected our request due to an error in our request\n",
+      "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+    },
+    {
+      "at": "2026-10-29T19:38:55.577684+00:00",
+      "attempt": 0,
+      "result": "ROOT_MIXED_ARRAYS_PATCH_APPLIED",
+      "returncode": 0,
+      "rv": "16034952",
+      "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+    }
+  ],
+  "run_id": "3dc253b4-6148-5d50-a418-a5c0f519263c",
+  "running_baseline": {
+    "configuration": {
+      "applied_mount_version": "20",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "21",
+      "volume_mounts": [],
+      "workspace_mount_path": "/workspace"
+    },
+    "instance": {
+      "activeOperationId": "",
+      "appliedMountVersion": "20",
+      "computeCleaned": false,
+      "compute_type": "cpu",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "desiredState": "running",
+      "executionRunState": "running",
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "lastOperationId": "a82933bc-b0ce-4dc5-9e3e-4a48e65fafcd",
+      "networkCleaned": false,
+      "observedState": "running",
+      "quotaReturned": false,
+      "version": "21",
+      "volumeReferencesReleased": true,
+      "workspaceCleaned": false
+    },
+    "readonly_workspace": {
+      "identities": {
+        "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42",
+        "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f"
+      },
+      "pod_uid": "14a1631a-83da-4dcb-837e-0a99c80e602c",
+      "runtime": {
+        "absent_path": null,
+        "created_only_task_markers_at": [],
+        "hashes": {
+          "/workspace": "2eb7a7ff9c34a18d057da0be5ae96794fcfbb44bde3c4d61b1039462ebed31e8"
+        },
+        "kernel_mount_absent": true,
+        "pod_uid": "14a1631a-83da-4dcb-837e-0a99c80e602c"
+      }
+    }
+  },
+  "schema": "container-restart-pvc-http-v1",
+  "scratch_volume": {
+    "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+    "uid": "91585bc6-de98-4f68-834d-c7b5525686d1"
+  },
+  "session_cleanup": [
+    {
+      "phase": "mixed-prepare",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "mixed-hold-attach",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "mixed-arm-template",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "mixed-inject-mixed-before-stop",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "mixed-clear-settled",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "mixed-wait-mixed-blocked",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "mixed-wait-mixed-blocked",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "mixed-restore-before",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "mixed-resume",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "mixed-cleanup-volume",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "step_failures": {
+    "arm-template": {
+      "code": "NOT_VERIFIED_INITIAL_STOP_DID_NOT_REAL_SUCCEED"
+    },
+    "inject-mixed-before-stop": {
+      "code": "TASK_KUBE_CALL_FAILED_PRIVATE_OUTPUT_WITHHELD"
+    }
+  },
+  "step_results": {
+    "hold-attach": "PASS",
+    "prepare": "PASS",
+    "clear-settled": "PASS",
+    "wait-mixed-blocked": "PASS",
+    "restore-before": "PASS",
+    "resume": "PASS",
+    "cleanup-volume": "PASS"
+  },
+  "storage_create_body": {
+    "data": {
+      "access_modes": [
+        "ReadWriteOnce"
+      ],
+      "capacity_gb": "1",
+      "create_token": "d996b655-b0b2-4903-a115-d1098ccced64",
+      "display_name": "a19-mixed-01a18156",
+      "storage_class_name": "ani-block",
+      "volume_mode": "Filesystem"
+    }
+  },
+  "storage_create_token": "d996b655-b0b2-4903-a115-d1098ccced64",
+  "template_plan": {
+    "client": "instance",
+    "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "intent_version": "22",
+    "max_wait_seconds": 120,
+    "method": "PUT",
+    "mode": "late-forward",
+    "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "nonce": "fe8f2119-4b57-4979-a71d-dcac8d7fb97f",
+    "resource": "notebooks",
+    "stopped": "true",
+    "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+  },
+  "root_settled_events": {
+    "held_plan": [
+      {
+        "at": "2026-10-29T19:35:10.673347116Z",
+        "client": "instance",
+        "event": "matched_exact_uid_request",
+        "method": "PUT",
+        "mode": "late-forward",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "request_sha256": "6bec7b1575b94ba29a72848342ee6ef2ef246b6249fcff4fd6e8fd515ab0cdad",
+        "resource": "notebooks",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+      },
+      {
+        "at": "2026-10-29T19:35:17.173990376Z",
+        "event": "forwarding_original_request",
+        "mode": "late-forward",
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0"
+      },
+      {
+        "at": "2026-10-29T19:35:17.181709795Z",
+        "event": "original_request_result",
+        "http_status": 409,
+        "mode": "late-forward",
+        "nonce": "38fd7753-0ac0-473a-b9e1-4c3bf39452f0",
+        "transport_error": false
+      }
+    ],
+    "template_plan": [
+      {
+        "at": "2026-10-29T19:35:27.45185532Z",
+        "client": "instance",
+        "event": "matched_exact_uid_request",
+        "method": "PUT",
+        "mode": "late-forward",
+        "name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "nonce": "fe8f2119-4b57-4979-a71d-dcac8d7fb97f",
+        "request_sha256": "53cd6db999a7a5894baf9c58e0ffdb38ee5318d3076b4de2a48726b669be4b75",
+        "resource": "notebooks",
+        "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0"
+      },
+      {
+        "at": "2026-10-29T19:37:27.452752742Z",
+        "event": "not_forwarded_cancel_or_ttl_expired",
+        "mode": "late-forward",
+        "nonce": "fe8f2119-4b57-4979-a71d-dcac8d7fb97f"
+      }
+    ]
+  },
+  "mixed_blocked_result": {
+    "result": "PASS_MIXED_BLOCKED_BEFORE_CONFIG_AND_REFERENCE_RETAINED",
+    "samples": [
+      {
+        "operation": {
+          "id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "action": "attach-pvc",
+          "intentVersion": "22",
+          "state": "blocked",
+          "phase": "verifying_safe_stop",
+          "final_run_state": "running",
+          "applied_mount_version": "20",
+          "completion_scope": "",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT"
+        },
+        "pg": {
+          "at": "2026-10-29T19:41:25.291932+00:00",
+          "instance": {
+            "fence": null,
+            "desired": "running",
+            "pending": null,
+            "version": 22,
+            "current_mounts": [],
+            "runtime_desired": "stopped",
+            "applied_mount_version": 20
+          },
+          "read_only": "on",
+          "operations": [
+            {
+              "phase": "verifying_safe_stop",
+              "state": "blocked",
+              "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+              "version": 22,
+              "deadline_at": "2026-10-29T20:05:05.194565376Z",
+              "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+              "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+              "phase_sequence": 6,
+              "template_commit_completed": false
+            }
+          ],
+          "references": [
+            {
+              "state": "released",
+              "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+              "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+              "mount_path": "/datasets/a14-seven-01a18156",
+              "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+              "intent_version": 17,
+              "reference_generation": 1
+            },
+            {
+              "state": "pending",
+              "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+              "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+              "mount_path": "/datasets/a19-mixed-01a18156",
+              "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+              "intent_version": 22,
+              "reference_generation": 1
+            },
+            {
+              "state": "released",
+              "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+              "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+              "mount_path": "/datasets/a19-postcommit-01a18156",
+              "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+              "intent_version": 20,
+              "reference_generation": 1
+            },
+            {
+              "state": "released",
+              "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a29/attach-first",
+              "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+              "intent_version": 4,
+              "reference_generation": 1
+            }
+          ]
+        },
+        "configuration": {
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "version": "22",
+          "applied_mount_version": "20",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": []
+        },
+        "safe_stopped": {
+          "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+          "notebook_rv": "16038733",
+          "sts_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+          "sts_generation": 29,
+          "sts_observed_generation": 29,
+          "replicas": 0,
+          "complete_list_own_pods": 0,
+          "old_named_pod_absent": true
+        }
+      },
+      {
+        "operation": {
+          "id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "action": "attach-pvc",
+          "intentVersion": "22",
+          "state": "blocked",
+          "phase": "verifying_safe_stop",
+          "final_run_state": "running",
+          "applied_mount_version": "20",
+          "completion_scope": "",
+          "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT"
+        },
+        "pg": {
+          "at": "2026-10-29T19:41:29.586664+00:00",
+          "instance": {
+            "fence": null,
+            "desired": "running",
+            "pending": null,
+            "version": 22,
+            "current_mounts": [],
+            "runtime_desired": "stopped",
+            "applied_mount_version": 20
+          },
+          "read_only": "on",
+          "operations": [
+            {
+              "phase": "verifying_safe_stop",
+              "state": "blocked",
+              "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+              "version": 22,
+              "deadline_at": "2026-10-29T20:05:05.194565376Z",
+              "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+              "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+              "phase_sequence": 6,
+              "template_commit_completed": false
+            }
+          ],
+          "references": [
+            {
+              "state": "released",
+              "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+              "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+              "mount_path": "/datasets/a14-seven-01a18156",
+              "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+              "intent_version": 17,
+              "reference_generation": 1
+            },
+            {
+              "state": "pending",
+              "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+              "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+              "mount_path": "/datasets/a19-mixed-01a18156",
+              "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+              "intent_version": 22,
+              "reference_generation": 1
+            },
+            {
+              "state": "released",
+              "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+              "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+              "mount_path": "/datasets/a19-postcommit-01a18156",
+              "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+              "intent_version": 20,
+              "reference_generation": 1
+            },
+            {
+              "state": "released",
+              "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+              "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+              "mount_path": "/datasets/a29/attach-first",
+              "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+              "intent_version": 4,
+              "reference_generation": 1
+            }
+          ]
+        },
+        "configuration": {
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "version": "22",
+          "applied_mount_version": "20",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": []
+        },
+        "safe_stopped": {
+          "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+          "notebook_rv": "16038733",
+          "sts_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+          "sts_generation": 29,
+          "sts_observed_generation": 29,
+          "replicas": 0,
+          "complete_list_own_pods": 0,
+          "old_named_pod_absent": true
+        }
+      }
+    ],
+    "injection_point": "external template before original Stop completed; prior held Stop real409 preserved"
+  },
+  "restore_patch_attempt": {
+    "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+    "rv": "16038733",
+    "patch_sha256": "75be247df5c79bf81d06d0bd949913dd2198f93b381bd94edb2ead736763eeef",
+    "original_spec_sha256": "142f59d8f091589d3a52142e31b31fdd8c8c808f66c569fb79af9b10487a8ec8"
+  },
+  "restore_patch_reply": {
+    "uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+    "rv": "16043561",
+    "spec_sha256": "d275eb025a13bd23c41bd9756bad7b81eb84ecf1a873799ba97070cb77146c9a",
+    "owner_unchanged": true
+  },
+  "before_template_restored": true,
+  "case_result": {
+    "result": "PASS_MIXED_BLOCKED_RESTORE_BEFORE_FAILED_SAFE_STOPPED",
+    "operation": {
+      "id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+      "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "action": "attach-pvc",
+      "intentVersion": "22",
+      "state": "failed",
+      "phase": "done",
+      "final_run_state": "running",
+      "applied_mount_version": "20",
+      "completion_scope": "",
+      "reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+      "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT"
+    },
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "22",
+      "desiredState": "stopped",
+      "observedState": "stopped",
+      "activeOperationId": "",
+      "executionRunState": "stopped",
+      "appliedMountVersion": "20",
+      "lastOperationId": "07544ee2-2269-41c6-9950-c7b515f146ae",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "22",
+      "applied_mount_version": "20",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": []
+    },
+    "pg_final": {
+      "at": "2026-10-29T19:41:40.713857+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "stopped",
+        "pending": null,
+        "version": 22,
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 20
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "phase": "done",
+          "state": "failed",
+          "reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "version": 22,
+          "deadline_at": "2026-10-29T20:05:05.194565376Z",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "failure_reason": "INSTANCE_OBJECT_OWNERSHIP_CONFLICT",
+          "phase_sequence": 7,
+          "template_commit_completed": false
+        }
+      ],
+      "references": [
+        {
+          "state": "released",
+          "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "operation_id": "b38825cf-9853-4c9c-b287-72e1b45e4c41",
+          "intent_version": 17,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "91585bc6-de98-4f68-834d-c7b5525686d1",
+          "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+          "mount_path": "/datasets/a19-mixed-01a18156",
+          "operation_id": "07544ee2-2269-41c6-9950-c7b515f146ae",
+          "intent_version": 22,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+          "pvc_name": "ani-vol-92598e89ce864896a369b9c604e917d7",
+          "mount_path": "/datasets/a19-postcommit-01a18156",
+          "operation_id": "6272c727-68c3-459f-8527-047afb79e2f0",
+          "intent_version": 20,
+          "reference_generation": 1
+        },
+        {
+          "state": "released",
+          "pvc_uid": "4373210b-194b-4389-b0b4-eebbf118eda2",
+          "pvc_name": "ani-vol-a482dd7476c148368a174eba40801b28",
+          "mount_path": "/datasets/a29/attach-first",
+          "operation_id": "cec468c0-365c-4fb1-ab2e-d8a137ddcfcf",
+          "intent_version": 4,
+          "reference_generation": 1
+        }
+      ]
+    }
+  },
+  "normal_storage_delete_body": {
+    "data": {
+      "pvc_name": "ani-vol-d996b655b0b24903a115d1098ccced64",
+      "expected_uid": "91585bc6-de98-4f68-834d-c7b5525686d1"
+    }
+  },
+  "normal_storage_delete_last": {
+    "state": "GONE",
+    "uid": "91585bc6-de98-4f68-834d-c7b5525686d1"
+  },
+  "cleanup_result": {
+    "normal_storage_delete": "GONE",
+    "cpu_preserved_stopped": true,
+    "original_workspace_identities": {
+      "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+      "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+      "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+    }
+  }
+}

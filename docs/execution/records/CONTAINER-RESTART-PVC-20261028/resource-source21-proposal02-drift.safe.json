@@ -1,0 +1,76 @@
+{
+  "business_api_calls": 0,
+  "classification": "DEPLOYMENT_IMAGE_CHANGED",
+  "context": "kubernetes-admin@ani-kcn-full",
+  "deployment": {
+    "generation": 63,
+    "name": "ani-resource-service",
+    "observed_generation": 63,
+    "ready_replicas": 1,
+    "replicas": 1,
+    "resource_images": [
+      "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:storage-write-20261029-r2"
+    ],
+    "resource_version": "14766625",
+    "uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501"
+  },
+  "deployment_and_pod_spec_image_unchanged": false,
+  "deployment_backup": {
+    "file": "deployment-current.private.json",
+    "mode": "0600",
+    "sha256": "62f2ff9a224d08805f27c85a5e0fc2fa1205d5b722e3bbe57285f2cb143992e4"
+  },
+  "deployment_uid_unchanged": true,
+  "namespace": "ani-system",
+  "next_step": "Root must review this new baseline; no chasing or application of a replacement patch by this collector",
+  "observed_at_utc": "2026-10-29T13:04:33.160066+00:00",
+  "old_pod_uid_present": false,
+  "patch_prepared": false,
+  "persistent_cluster_writes": 0,
+  "pg_query_calls": 0,
+  "pod_owner_replica_sets": [
+    {
+      "name": "ani-resource-service-6c89c467f7",
+      "owners": [
+        {
+          "controller": true,
+          "kind": "Deployment",
+          "name": "ani-resource-service",
+          "uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501"
+        }
+      ],
+      "uid": "68123608-b5c1-4bf5-8706-20251b7e0167"
+    }
+  ],
+  "pods": [
+    {
+      "deleting": false,
+      "name": "ani-resource-service-6c89c467f7-4vmmg",
+      "owners": [
+        {
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "ani-resource-service-6c89c467f7",
+          "uid": "68123608-b5c1-4bf5-8706-20251b7e0167"
+        }
+      ],
+      "phase": "Running",
+      "ready": true,
+      "resource_spec_images": [
+        "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:storage-write-20261029-r2"
+      ],
+      "resource_status": [
+        {
+          "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:0d4762c669f8f3797eeb7df233cf1dfc5f513b5269561ea57490df7908e49d43",
+          "ready": true,
+          "restart_count": 0
+        }
+      ],
+      "uid": "1a04a6a9-28f6-4fc4-bbcd-1f47980f726d"
+    }
+  ],
+  "proposal02_full_runner_executed": false,
+  "result": "BLOCKED_OLD_POD_BASELINE_DRIFT_NO_APPLY",
+  "server_dry_run_calls": 0,
+  "unknown_binary_overlay_source": "NOT_PROVEN"
+}

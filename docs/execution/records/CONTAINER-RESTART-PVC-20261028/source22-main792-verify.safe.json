@@ -1,0 +1,101 @@
+{
+  "result": "PASS",
+  "host": "192.168.25.40",
+  "command": [
+    "make",
+    "verify"
+  ],
+  "source_manifest_sha256": "d57a8354df5f5104d6016237a27904dfeb90205fec1d0485928f252ce05f47a5",
+  "started_at_utc": "2026-10-29T13:24:30.290345+00:00",
+  "cgo_enabled": "0",
+  "gomaxprocs": 2,
+  "gomemlimit": "2GiB",
+  "goflags": "-p=1",
+  "application_image_built": false,
+  "image_published": false,
+  "cluster_writes": 0,
+  "instance_pg_rerun": false,
+  "extra_integration_race_audit": false,
+  "local_fallback": false,
+  "sumdb_verification": "enabled; official signed records transported over goproxy.cn",
+  "module_downloads": "warm cache plus signed public proxy; private modules cache only (GOVCS off)",
+  "unknown_storage_write_binary_patch_preservation": "NOT_PROVEN",
+  "source_archive_sha256": "75c39657f4acbb0c0c4e30ff668b5e3aeb2ba9aabca60ad0df50df52d120b5ab",
+  "parents": [
+    "4eb39bc4868844aaf395337a2d064e91ec716df2",
+    "79261907c18cbf9fba534ec3f242f5e81c6d2324"
+  ],
+  "index_tree": "5619f4b54a5d828db3e598b9fab936c9ada8a6a6",
+  "frozen_inputs": 941,
+  "all_current_tracked_go_included": 607,
+  "changed_go_from_source21": {
+    "api/vm/v1/vm.pb.go": {
+      "before_sha256": "ff7be409484bb9dff119aeb3cd158cbe807c969e4eb48884f5539bfae9cb9962",
+      "after_sha256": "dfdb6db7ab1e027008c5881ec791e2b5acab282af305cac01265e010267eced5",
+      "git_index_blob": "40c706c787432857a4d8d80c1cb007f261f24544"
+    },
+    "api/vm/v1/vm_grpc.pb.go": {
+      "before_sha256": "bb06024010622a4ddcbb11047806959c3397dde718fb46d4b79858fea719cb4e",
+      "after_sha256": "2328f4b78079a2ac2b870690af19d855dfe2bad0b8ef3502b1b248a51de20b81",
+      "git_index_blob": "5d79dbe27af120b216f54ea6430ebc14c79306ea"
+    },
+    "cmd/ani-resource-service/vm.go": {
+      "before_sha256": "8075951287ff80f4f1f6890149028321a18c9b1524502ce349213d708ca4c435",
+      "after_sha256": "37116987b7a14ecfc4ba42dd52616b8f817e79a6ffa930b887efabf6200abc78",
+      "git_index_blob": "505024dc721e516aab7ed37bfa99dbeed5fa6f55"
+    },
+    "internal/biz/vm/logs.go": {
+      "before_sha256": null,
+      "after_sha256": "02f4cbd3fbaaa6dc3c35f134329ef2fb188ca5bd112c633ed4cc42033507f3cd",
+      "git_index_blob": "5346724889ebcf1befa04980d11ef5c71b16272d"
+    },
+    "internal/data/vm/logs.go": {
+      "before_sha256": null,
+      "after_sha256": "b3f9515362dedc3bae94118e7c46c0299d1d88b695d133d26d8d15657668a043",
+      "git_index_blob": "6b0c5379f31d9be9c24d31f57cfff86bb6b49c2e"
+    },
+    "internal/data/vm/logs_test.go": {
+      "before_sha256": null,
+      "after_sha256": "a7e9aaf1edc41834eeb9267ffe29441ce76ecdadaca7083f0ac67ada2b534f90",
+      "git_index_blob": "6db28e7d86cf02532f248ce6e510b5bd464e7a32"
+    },
+    "internal/data/vm/native.go": {
+      "before_sha256": "3ab9ee9f2c5e387ba472ec2fb2b3148a87a72e586907e588561a2976231c868c",
+      "after_sha256": "53d01fc3d8635066f1d7bb498a001866ba044d3f5047c983311a92dee7451662",
+      "git_index_blob": "1ee36e7891a4c4dd78534f165f57a66a700ec664"
+    },
+    "internal/server/instance_stream.go": {
+      "before_sha256": "43cec977af022db694cbc7f7d8c5cd702abbcbb279fd9f5c8d698f3f76c4dd0e",
+      "after_sha256": "ae19c92758b4661329cb0161703188eb30b031212d2e8233aa44fd291c68178c",
+      "git_index_blob": "630bd7b83b64e4ee51c3e6092c76e027e987be29"
+    },
+    "internal/server/vm_stream_test.go": {
+      "before_sha256": null,
+      "after_sha256": "cef7b9d3b96b26c9a2d2586ea07d52ef3b0e9dc02b22f10dc033cb87ee05f17c",
+      "git_index_blob": "b449c4fcab3d5d6514834a49dea3af8124b552b5"
+    },
+    "internal/service/vm/logs_test.go": {
+      "before_sha256": null,
+      "after_sha256": "9a603c94aa2d4e2ab9d66a57349659a33bd3cce035632aab0e7adcb5e7580348",
+      "git_index_blob": "b9475353b8212cf8bcbf912bb24f805d8b60a803"
+    },
+    "internal/service/vm/service.go": {
+      "before_sha256": "e2a85f91933a40e4a3e0da50f5cd4d053705aec88dfcea716600330106b761f9",
+      "after_sha256": "cdab39d524210efea80d5d5f0ee80b4be00e974c68921e6930fd0ec4782255ea",
+      "git_index_blob": "074a31be1286dac6f2a3d5ee21da17a01a05d93b"
+    }
+  },
+  "remote_git_context": "isolated git init plus index only; no commit or push",
+  "fixed_tool_sha256": {
+    "buf": "3c0741ff6f8e710d4957206811c6aed53d47724a0c56eb44854021d229ed7c3c",
+    "sqlc": "492ea2d2d49404ce0b5cf6571449986190c72fd47ded9796a6e848f00f5c2a70"
+  },
+  "exit_code": 0,
+  "source_changes": [],
+  "log_sha256": "48fc3459ea448bca01621b66704402fa94ab3a5ea575549497269910c549cdaa",
+  "empty_tmp_removed": true,
+  "heavy_lock_acquired": true,
+  "heavy_lock_released": true,
+  "elapsed_seconds": 370.325,
+  "finished_at_utc": "2026-10-29T13:30:40.615122+00:00"
+}

@@ -1,0 +1,47 @@
+{
+  "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+  "result": "PASS_ACTUAL_POD_DNS_TCP",
+  "probe_source_sha256": "b72e626602229301b7822d68db5d2d55f00b893d8f63d4d36cf21771b7a09b74",
+  "scope": "cluster Service DNS/TCP; no external/public/VPC-peer/SG-policy claim",
+  "business_api_writes": 0,
+  "kube_object_writes": 0,
+  "marker_writes": 0,
+  "target_service": {
+    "namespace": "default",
+    "name": "kubernetes",
+    "uid": "bfbd6463-67e2-471c-8d49-a84b853bd4e0",
+    "cluster_ip": "10.96.0.1",
+    "port": 443
+  },
+  "pod_before": {
+    "uid": "8f72cbfb-c2cf-441a-b321-c673be4b1457",
+    "pod_ip": "10.128.0.30",
+    "pod_ips": [
+      "10.128.0.30"
+    ]
+  },
+  "actual_pod_network_probe": {
+    "pod_uid": "8f72cbfb-c2cf-441a-b321-c673be4b1457",
+    "result": "PASS",
+    "application_bytes_sent": 0,
+    "credential_reads": 0,
+    "file_writes": 0,
+    "target_service_ip": "10.96.0.1",
+    "target_port": 443,
+    "stage": "done",
+    "target_dns_name": "kubernetes.default.svc.cluster.local",
+    "resolved_addresses": [
+      "10.96.0.1"
+    ],
+    "dns_result": "PASS_EXACT_SERVICE_CLUSTER_IP",
+    "local_ip": "10.128.0.30",
+    "peer_ip": "10.96.0.1",
+    "peer_port": 443,
+    "tcp_result": "CONNECTED",
+    "duration_ms": 19.685
+  },
+  "pod_after": {
+    "uid": "8f72cbfb-c2cf-441a-b321-c673be4b1457",
+    "pod_ip": "10.128.0.30"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "_evidence_source": {
+    "credential_contents_copied": false,
+    "path": "/home/chabking/.codex/tasks/container-restart-pvc-20261028/final-private-cleanup-01/supplement-newhost.result.safe.json",
+    "sha256": "657d566e1c130505d3dbed9166381c6cfcca7754bf36f5b1d7b67aea8a84b236"
+  },
+  "actions": [
+    {
+      "path": "private/docker/config.json",
+      "result": "REMOVED_KNOWN_TASK_CREDENTIAL_COPY"
+    }
+  ],
+  "credential_contents_read_or_logged": false,
+  "files": {
+    "private/docker/config.json": {
+      "dev": 64513,
+      "inode": 73098867,
+      "mode": 384,
+      "mtime_ns": 1793262555950687008,
+      "regular": true,
+      "size": 196,
+      "symlink": false,
+      "uid": 0
+    }
+  },
+  "finished_at": "2026-10-29T20:09:11.674134+00:00",
+  "goal": "01a18156-1172-7c22-b5fd-3048a5d895a0",
+  "original_keys_attachments_untouched": true,
+  "private_evidence_preserved": true,
+  "process_or_channel_changes": 0,
+  "receipt": "/root/ani-runs/container-restart-pvc-20261028/final-private-cleanup-01/supplement-newhost.result.safe.json",
+  "result": "CLEANED_KNOWN_TASK_COPIES",
+  "scope": "newhost",
+  "started_at": "2026-10-29T20:09:11.568347+00:00"
+}

@@ -1,0 +1,32 @@
+{
+  "build_host": "192.168.25.40",
+  "build_receipt_sha256": "ffbe839dac914e333eb04b2aa1b95d4614dfa2ea055497ac1075dc64b1ea5d48",
+  "credential_semantics": "TOKEN_REQUEST_SUBJECT_EQUIVALENT",
+  "error_type": "RuntimeError",
+  "finished_at": "2026-10-29T13:01:07.207328+00:00",
+  "frozen_running_input": {
+    "applied_mount_version": 14,
+    "current_mount_reference_generation": 2,
+    "desired": "running",
+    "operation_id": "99fe1051-17b8-470f-b4db-f569ffb9ad44",
+    "operation_reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+    "operation_state": "blocked",
+    "runtime_desired": "running",
+    "version": 18
+  },
+  "known_source20_manifest_sha256": "e0be7a1ee55d2693f17c589d0fdb28e2d4e6e0b6cab820865671ea623fb6beca",
+  "last_kubectl_error_class": "KUBE_NOT_FOUND",
+  "last_kubectl_exit_code": 1,
+  "live_business_mutations": 0,
+  "probe_binary_sha256": "64474fb4661b23e7564a84bfffae2494c345b3b4c3f864338b7f2054bb53bb38",
+  "probe_source_sha256": "62bec97ec16cad6f7c63eddc6cb4d9b1be43cfa32eac5d88cdb358aeb79ed1f5",
+  "resource_pod_uid": "8f641699-11a1-445d-9b73-461016c5625c",
+  "result": "SETUP_OR_PROBE_EXECUTION_FAILED",
+  "schema": "same-sa-bound-live-probe-v1",
+  "snapshot_sha256": "abe929ff0a2f8cdd54f3d94444ea46f6e2b1523b806b045f7811c5d40ce3a291",
+  "source20_clone_935_unchanged": true,
+  "stage": "current_pod_read",
+  "started_at": "2026-10-29T13:01:06.007899+00:00",
+  "temporary_kubeconfig_removed": true,
+  "token_request_only": true
+}

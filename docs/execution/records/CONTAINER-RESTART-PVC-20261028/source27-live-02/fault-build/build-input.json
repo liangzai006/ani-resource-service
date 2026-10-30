@@ -1,0 +1,12 @@
+{
+  "archive_sha256": "0c181ea28dcd97477734259c24a63ccb55d5dc7e0d2966fb394c7b0f06557548",
+  "base_revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4",
+  "base_tree": "1043e34e2a0cb26dd20af1292a471c828e3ec52c",
+  "manifest_sha256": "22ae3f05d1a1388df0edcb6874daa2f1c2634c49fd0eba01f673231fb4dbf03a",
+  "overlay_sha256": "790a0f8b4fef5ef763a01a9617a6c618a93bad595649f4bd52a7ec49ce61f30d",
+  "parents": [
+    "964a7e14139015ea950a8dd8058011f82eb6aa34"
+  ],
+  "source_mode": "task-kube-transport-fault-overlay",
+  "tag": "container-restart-pvc-source27-fault-123e66c0daf6-790a0f8b4fef-20261030-01a18156"
+}

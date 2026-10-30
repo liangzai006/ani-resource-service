@@ -1,0 +1,133 @@
+{
+  "all_platform_gates": "closed_false",
+  "authenticated_query": "ROOT_MUST_RUN_NORMAL_AUTHENTICATED_QUERY_BEFORE_OPEN",
+  "automatic_rollback": false,
+  "checkpoint": "start",
+  "closed_baseline_sha256": "81187b26c648e5c5780bf75b89b375faab0316348e0ac644d4b0b59f03f8439f",
+  "governance_observed_after": [
+    {
+      "containers": [
+        {
+          "gates": {
+            "ANI_INSTANCE_NEW_INTENTS_ENABLED": [
+              "true"
+            ],
+            "ANI_INSTANCE_PVC_MUTATIONS_ENABLED": [
+              "true"
+            ],
+            "ANI_INSTANCE_RESTART_ENABLED": [
+              "true"
+            ]
+          },
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:e96d7d9b79d03e72a4e85212f966c8bab10630cefcd638cc15796b71ce82382d",
+          "name": "governance"
+        }
+      ],
+      "deployment": "ani-governance",
+      "generation": 164,
+      "observed_generation": 164,
+      "ready_replicas": 1,
+      "replicas": 1,
+      "spec_sha256": "99cef0548da9f508c8b5e22078bd47a1fd1f119d86282c97fe49056ffc93acf2",
+      "uid": "4ae87828-5f2c-4b27-a8b8-d348aeb86ee5"
+    },
+    {
+      "containers": [
+        {
+          "gates": {
+            "ANI_INSTANCE_NEW_INTENTS_ENABLED": [
+              "true"
+            ],
+            "ANI_INSTANCE_PVC_MUTATIONS_ENABLED": [
+              "true"
+            ],
+            "ANI_INSTANCE_RESTART_ENABLED": [
+              "true"
+            ]
+          },
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:054c50a23aca9cebf47f5abff960f734e153cc2b7cf71ef823497355ca3b9719",
+          "name": "governance"
+        }
+      ],
+      "deployment": "ani-governance-sandbox-20261027",
+      "generation": 16,
+      "observed_generation": 16,
+      "ready_replicas": 1,
+      "replicas": 1,
+      "spec_sha256": "68fdb64a1495ee7affbc20e7dbb77e829d5a2a852b1d9d4f3c5ef43a1ef1b715",
+      "uid": "d3db8e14-df99-4fd3-80f4-d10c3ad00915"
+    }
+  ],
+  "governance_observed_before": [
+    {
+      "containers": [
+        {
+          "gates": {
+            "ANI_INSTANCE_NEW_INTENTS_ENABLED": [
+              "true"
+            ],
+            "ANI_INSTANCE_PVC_MUTATIONS_ENABLED": [
+              "true"
+            ],
+            "ANI_INSTANCE_RESTART_ENABLED": [
+              "true"
+            ]
+          },
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:e96d7d9b79d03e72a4e85212f966c8bab10630cefcd638cc15796b71ce82382d",
+          "name": "governance"
+        }
+      ],
+      "deployment": "ani-governance",
+      "generation": 164,
+      "observed_generation": 164,
+      "ready_replicas": 1,
+      "replicas": 1,
+      "spec_sha256": "99cef0548da9f508c8b5e22078bd47a1fd1f119d86282c97fe49056ffc93acf2",
+      "uid": "4ae87828-5f2c-4b27-a8b8-d348aeb86ee5"
+    },
+    {
+      "containers": [
+        {
+          "gates": {
+            "ANI_INSTANCE_NEW_INTENTS_ENABLED": [
+              "true"
+            ],
+            "ANI_INSTANCE_PVC_MUTATIONS_ENABLED": [
+              "true"
+            ],
+            "ANI_INSTANCE_RESTART_ENABLED": [
+              "true"
+            ]
+          },
+          "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:054c50a23aca9cebf47f5abff960f734e153cc2b7cf71ef823497355ca3b9719",
+          "name": "governance"
+        }
+      ],
+      "deployment": "ani-governance-sandbox-20261027",
+      "generation": 16,
+      "observed_generation": 16,
+      "ready_replicas": 1,
+      "replicas": 1,
+      "spec_sha256": "68fdb64a1495ee7affbc20e7dbb77e829d5a2a852b1d9d4f3c5ef43a1ef1b715",
+      "uid": "d3db8e14-df99-4fd3-80f4-d10c3ad00915"
+    }
+  ],
+  "pg_drain": {
+    "background_lease_wait": [],
+    "global_nonterminal_count": 0,
+    "global_pending_count": 0,
+    "global_recovery_fence_count": 0,
+    "global_unexpired_work_leases": 0,
+    "governance": {
+      "database": "ani_governance",
+      "observed_at": "2026-10-29T14:52:45.846512+00:00",
+      "other_owners": "PRESERVED_BY_UNCHANGED_RUNNING_GOV; NOT_A_RESOURCE_ONLY_DRAIN_GATE",
+      "resource_owner_unresolved_dispatch_count": 0,
+      "transaction_read_only": "on"
+    },
+    "observed_at": "2026-10-29T14:52:45.768676+00:00"
+  },
+  "phase": "start",
+  "resource_only": true,
+  "result": "PASS"
+}

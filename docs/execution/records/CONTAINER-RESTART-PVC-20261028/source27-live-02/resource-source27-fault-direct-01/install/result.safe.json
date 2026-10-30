@@ -1,0 +1,74 @@
+{
+  "action": "install",
+  "automatic_restore": false,
+  "automatic_rollback": false,
+  "before_image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:1846ff442cc31f9a645f6137fb8a70ebc3f8d76e8a72bf675f0c72893714909e",
+  "before_resource_version": "15699399",
+  "business_api_writes": 0,
+  "database_writes": 0,
+  "deployment_patch_applied": true,
+  "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+  "elapsed_seconds": 11.882,
+  "finished_at": "2026-10-29T18:32:27.632768+00:00",
+  "generation": 79,
+  "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:0195ed6b599d3bcd904793b388d89ea66a79c43d289252120f9834069d279ca0",
+  "late_queue_not_checked_here": true,
+  "namespace_uid": "8c2bde09-06bb-4e4c-8f6d-65cdc9bb735a",
+  "observed_generation": 79,
+  "pods": [
+    {
+      "containers": [
+        {
+          "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:0195ed6b599d3bcd904793b388d89ea66a79c43d289252120f9834069d279ca0",
+          "name": "resource",
+          "ready": true
+        }
+      ],
+      "deleting": false,
+      "name": "ani-resource-service-68df94d576-6fbbr",
+      "uid": "4bdfec5e-a601-4bc4-89b2-e3eb9a79c81a"
+    }
+  ],
+  "ready_replicas": 1,
+  "release_gates_run": false,
+  "result": "DEPLOYED_TASK_FAULT_OVERLAY",
+  "security": {
+    "pod_security_context": {
+      "fsGroup": 10001,
+      "runAsGroup": 10001,
+      "runAsNonRoot": true,
+      "runAsUser": 10001,
+      "seccompProfile": {
+        "type": "RuntimeDefault"
+      }
+    },
+    "resource_security_context": {
+      "allowPrivilegeEscalation": false,
+      "capabilities": {
+        "drop": [
+          "ALL"
+        ]
+      },
+      "readOnlyRootFilesystem": true
+    }
+  },
+  "source_binding": {
+    "archive_sha256": "0c181ea28dcd97477734259c24a63ccb55d5dc7e0d2966fb394c7b0f06557548",
+    "base_revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4",
+    "base_tree": "1043e34e2a0cb26dd20af1292a471c828e3ec52c",
+    "binary_sha256": "b083ef966edb8b8cc65b224182d415301e01c7046327f0c8d37632055596dcca",
+    "build_receipt_sha256": "3979c88b9591990d05dde98c266fd4880059bb2636c64f2cb4791b75fc3ebb33",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:0195ed6b599d3bcd904793b388d89ea66a79c43d289252120f9834069d279ca0",
+    "manifest_sha256": "22ae3f05d1a1388df0edcb6874daa2f1c2634c49fd0eba01f673231fb4dbf03a",
+    "overlay_sha256": "790a0f8b4fef5ef763a01a9617a6c618a93bad595649f4bd52a7ec49ce61f30d",
+    "revision": "123e66c0daf6fdd946abada44d3ff9507d5127e4+fault.790a0f8b4fef",
+    "source_mode": "task-kube-transport-fault-overlay",
+    "source_tree": "NOT_A_GIT_TREE:task-overlay"
+  },
+  "started_at": "2026-10-29T18:32:15.750642+00:00",
+  "strategy": {
+    "type": "Recreate"
+  },
+  "tests_run": false,
+  "workload_patches": 0
+}

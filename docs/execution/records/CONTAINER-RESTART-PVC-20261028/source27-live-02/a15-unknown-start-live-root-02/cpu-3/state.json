@@ -1,0 +1,671 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "3781a33a-5d38-581e-9ce6-54874adbc476",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "one-start": {
+      "action": "start",
+      "idempotency_key": "46967e0c-657c-44b5-9c09-baacf11427ae",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "2",
+      "request_body_sha256": "bd247e5e5d5792730ded0c34fe45868bdf03e551276752b4f8238206a4c7b057",
+      "request_body": {
+        "data": {
+          "expectedVersion": "2",
+          "idempotencyKey": "46967e0c-657c-44b5-9c09-baacf11427ae"
+        }
+      },
+      "ack": {
+        "operationId": "3daedcf5-f1e4-47ae-8e60-ac606b4654cc",
+        "resourceId": "cf5ae41b-f2f6-44ee-8925-a9520b061734",
+        "replayed": false,
+        "result": "ACCEPTED"
+      }
+    },
+    "one-delete": {
+      "action": "delete",
+      "idempotency_key": "85f31afe-051e-4756-a6aa-5c394689da9c",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "3",
+      "request_body_sha256": "4fd1a7e85b5cc6df1fd30e7da6e9e122265f24b32e382a12775c4713432666d8",
+      "request_body": {
+        "data": {
+          "expectedVersion": "3",
+          "idempotencyKey": "85f31afe-051e-4756-a6aa-5c394689da9c"
+        }
+      },
+      "ack": {
+        "operationId": "06465be0-2ecc-447f-b5c9-9032f49c5e2b",
+        "resourceId": "cf5ae41b-f2f6-44ee-8925-a9520b061734",
+        "replayed": false,
+        "result": "QUEUED_FOR_OWNER"
+      },
+      "operation": {
+        "id": "06465be0-2ecc-447f-b5c9-9032f49c5e2b",
+        "instanceId": "cf5ae41b-f2f6-44ee-8925-a9520b061734",
+        "action": "delete",
+        "intentVersion": "4",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "deleted",
+        "applied_mount_version": "1",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "cf5ae41b-f2f6-44ee-8925-a9520b061734",
+  "slot": 3,
+  "notebook_uid": "6800c17c-5ebc-42ca-a22f-defce739a924",
+  "baseline": {
+    "instance": {
+      "id": "cf5ae41b-f2f6-44ee-8925-a9520b061734",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "2",
+      "desiredState": "stopped",
+      "observedState": "stopped",
+      "activeOperationId": "",
+      "executionRunState": "stopped",
+      "appliedMountVersion": "1",
+      "lastOperationId": "12664522-dea3-4e60-8710-3464c1579189",
+      "createOperationId": "633e0aa7-f4cf-492e-9d9f-ca055e8e42f3",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "notebook_uid": "6800c17c-5ebc-42ca-a22f-defce739a924",
+    "sts_uid": "702ccdf6-9eba-470f-a38a-47902d5cc57d"
+  },
+  "original_plan": {
+    "nonce": "6a793e6b-7ebf-4a0f-af90-140fb05aba3a",
+    "client": "instance",
+    "resource": "notebooks",
+    "method": "PUT",
+    "name": "instance-cf5ae41b-f2f6-44ee-8925-a9520b061734",
+    "uid": "6800c17c-5ebc-42ca-a22f-defce739a924",
+    "instance_id": "cf5ae41b-f2f6-44ee-8925-a9520b061734",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "intent_version": "3",
+    "stopped": "false",
+    "mode": "late-forward",
+    "max_wait_seconds": 120
+  },
+  "control_receipts": [
+    {
+      "step": "hold-start",
+      "command": [
+        "arm"
+      ],
+      "reply": {
+        "nonce": "6a793e6b-7ebf-4a0f-af90-140fb05aba3a",
+        "result": "ARMED"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "hold-start",
+      "command": [
+        "events",
+        "6a793e6b-7ebf-4a0f-af90-140fb05aba3a"
+      ],
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T18:54:25.854046241Z",
+            "client": "instance",
+            "event": "matched_exact_uid_request",
+            "method": "PUT",
+            "mode": "late-forward",
+            "name": "instance-cf5ae41b-f2f6-44ee-8925-a9520b061734",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "6a793e6b-7ebf-4a0f-af90-140fb05aba3a",
+            "request_sha256": "ca69e85180bb53f0da8c9e654d49892a274a02bba5ebbb431fa2c4a3203dfcbd",
+            "resource": "notebooks",
+            "uid": "6800c17c-5ebc-42ca-a22f-defce739a924"
+          }
+        ],
+        "nonce": "6a793e6b-7ebf-4a0f-af90-140fb05aba3a",
+        "result": "EVENTS"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "hold-fence",
+      "command": [
+        "arm"
+      ],
+      "reply": {
+        "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+        "result": "ARMED"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "hold-fence",
+      "command": [
+        "events",
+        "22106ec4-135d-4841-9581-26bf0de746bc"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+        "result": "EVENTS"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "hold-fence",
+      "command": [
+        "events",
+        "22106ec4-135d-4841-9581-26bf0de746bc"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+        "result": "EVENTS"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "hold-fence",
+      "command": [
+        "events",
+        "22106ec4-135d-4841-9581-26bf0de746bc"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+        "result": "EVENTS"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "hold-fence",
+      "command": [
+        "events",
+        "22106ec4-135d-4841-9581-26bf0de746bc"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+        "result": "EVENTS"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "hold-fence",
+      "command": [
+        "events",
+        "22106ec4-135d-4841-9581-26bf0de746bc"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+        "result": "EVENTS"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "hold-fence",
+      "command": [
+        "events",
+        "22106ec4-135d-4841-9581-26bf0de746bc"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+        "result": "EVENTS"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "hold-fence",
+      "command": [
+        "events",
+        "22106ec4-135d-4841-9581-26bf0de746bc"
+      ],
+      "reply": {
+        "events": [],
+        "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+        "result": "EVENTS"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "hold-fence",
+      "command": [
+        "events",
+        "22106ec4-135d-4841-9581-26bf0de746bc"
+      ],
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T18:54:41.577414043Z",
+            "client": "instance",
+            "event": "matched_exact_uid_request",
+            "method": "PUT",
+            "mode": "after-drop",
+            "name": "instance-cf5ae41b-f2f6-44ee-8925-a9520b061734",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+            "request_sha256": "b0fe585846a5c9cdaaf48c18aa9c0eb3e810a02a100a58b8f59279229aeba3b6",
+            "resource": "notebooks",
+            "uid": "6800c17c-5ebc-42ca-a22f-defce739a924"
+          },
+          {
+            "at": "2026-10-29T18:54:41.577461395Z",
+            "event": "forwarding_original_request",
+            "mode": "after-drop",
+            "nonce": "22106ec4-135d-4841-9581-26bf0de746bc"
+          },
+          {
+            "at": "2026-10-29T18:54:41.582640889Z",
+            "event": "real_success_response_received",
+            "http_status": 200,
+            "mode": "after-drop",
+            "nonce": "22106ec4-135d-4841-9581-26bf0de746bc"
+          },
+          {
+            "at": "2026-10-29T18:54:41.58272363Z",
+            "event": "real_response_withheld",
+            "http_status": 200,
+            "mode": "after-drop",
+            "nonce": "22106ec4-135d-4841-9581-26bf0de746bc"
+          }
+        ],
+        "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+        "result": "EVENTS"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "resolve",
+      "command": [
+        "events",
+        "22106ec4-135d-4841-9581-26bf0de746bc"
+      ],
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T18:54:41.577414043Z",
+            "client": "instance",
+            "event": "matched_exact_uid_request",
+            "method": "PUT",
+            "mode": "after-drop",
+            "name": "instance-cf5ae41b-f2f6-44ee-8925-a9520b061734",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+            "request_sha256": "b0fe585846a5c9cdaaf48c18aa9c0eb3e810a02a100a58b8f59279229aeba3b6",
+            "resource": "notebooks",
+            "uid": "6800c17c-5ebc-42ca-a22f-defce739a924"
+          },
+          {
+            "at": "2026-10-29T18:54:41.577461395Z",
+            "event": "forwarding_original_request",
+            "mode": "after-drop",
+            "nonce": "22106ec4-135d-4841-9581-26bf0de746bc"
+          },
+          {
+            "at": "2026-10-29T18:54:41.582640889Z",
+            "event": "real_success_response_received",
+            "http_status": 200,
+            "mode": "after-drop",
+            "nonce": "22106ec4-135d-4841-9581-26bf0de746bc"
+          },
+          {
+            "at": "2026-10-29T18:54:41.58272363Z",
+            "event": "real_response_withheld",
+            "http_status": 200,
+            "mode": "after-drop",
+            "nonce": "22106ec4-135d-4841-9581-26bf0de746bc"
+          }
+        ],
+        "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+        "result": "EVENTS"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "resolve",
+      "command": [
+        "release",
+        "6a793e6b-7ebf-4a0f-af90-140fb05aba3a"
+      ],
+      "reply": {
+        "nonce": "6a793e6b-7ebf-4a0f-af90-140fb05aba3a",
+        "result": "SIGNALLED",
+        "signal": "release"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "resolve",
+      "command": [
+        "events",
+        "6a793e6b-7ebf-4a0f-af90-140fb05aba3a"
+      ],
+      "reply": {
+        "events": [
+          {
+            "at": "2026-10-29T18:54:25.854046241Z",
+            "client": "instance",
+            "event": "matched_exact_uid_request",
+            "method": "PUT",
+            "mode": "late-forward",
+            "name": "instance-cf5ae41b-f2f6-44ee-8925-a9520b061734",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "nonce": "6a793e6b-7ebf-4a0f-af90-140fb05aba3a",
+            "request_sha256": "ca69e85180bb53f0da8c9e654d49892a274a02bba5ebbb431fa2c4a3203dfcbd",
+            "resource": "notebooks",
+            "uid": "6800c17c-5ebc-42ca-a22f-defce739a924"
+          },
+          {
+            "at": "2026-10-29T18:54:47.254534011Z",
+            "event": "forwarding_original_request",
+            "mode": "late-forward",
+            "nonce": "6a793e6b-7ebf-4a0f-af90-140fb05aba3a"
+          },
+          {
+            "at": "2026-10-29T18:54:47.294030778Z",
+            "event": "original_request_result",
+            "http_status": 409,
+            "mode": "late-forward",
+            "nonce": "6a793e6b-7ebf-4a0f-af90-140fb05aba3a",
+            "transport_error": false
+          }
+        ],
+        "nonce": "6a793e6b-7ebf-4a0f-af90-140fb05aba3a",
+        "result": "EVENTS"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "resolve",
+      "command": [
+        "clear-arm"
+      ],
+      "reply": {
+        "result": "ARM_CLEARED"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    },
+    {
+      "step": "finish",
+      "command": [
+        "clear-arm"
+      ],
+      "reply": {
+        "result": "ARM_CLEARED"
+      },
+      "pod_uid": "d3980825-fa35-49fd-93a4-e37d2e8ede96"
+    }
+  ],
+  "pg_observations": [
+    {
+      "step": "hold-start",
+      "at": "2026-10-29T18:54:26.710371+00:00",
+      "desired": "running",
+      "pending": {
+        "ID": "cc51cca2-44f0-4fd0-a40a-a5e11ad0cbba",
+        "Kind": "set_stopped",
+        "Phase": "starting",
+        "Version": 3,
+        "TargetUID": "6800c17c-5ebc-42ca-a22f-defce739a924",
+        "OperationID": "3daedcf5-f1e4-47ae-8e60-ac606b4654cc",
+        "PhaseSequence": 1,
+        "StoppedTarget": false,
+        "ResourceVersion": "15885803",
+        "FencedMutationID": "",
+        "TargetMountDigest": "",
+        "ProviderMarkerExpected": true
+      },
+      "version": 3,
+      "notebook_rv": "15885803",
+      "notebook_uid": "6800c17c-5ebc-42ca-a22f-defce739a924",
+      "current_mounts": [],
+      "recovery_fence": null,
+      "runtime_desired": "running",
+      "applied_mount_version": 1
+    },
+    {
+      "step": "hold-fence",
+      "at": "2026-10-29T18:54:28.056487+00:00",
+      "desired": "running",
+      "pending": {
+        "ID": "cc51cca2-44f0-4fd0-a40a-a5e11ad0cbba",
+        "Kind": "set_stopped",
+        "Phase": "starting",
+        "Version": 3,
+        "TargetUID": "6800c17c-5ebc-42ca-a22f-defce739a924",
+        "OperationID": "3daedcf5-f1e4-47ae-8e60-ac606b4654cc",
+        "PhaseSequence": 1,
+        "StoppedTarget": false,
+        "ResourceVersion": "15885803",
+        "FencedMutationID": "",
+        "TargetMountDigest": "",
+        "ProviderMarkerExpected": true
+      },
+      "version": 3,
+      "notebook_rv": "15885803",
+      "notebook_uid": "6800c17c-5ebc-42ca-a22f-defce739a924",
+      "current_mounts": [],
+      "recovery_fence": null,
+      "runtime_desired": "running",
+      "applied_mount_version": 1
+    },
+    {
+      "step": "hold-fence",
+      "at": "2026-10-29T18:54:43.431585+00:00",
+      "desired": "deleted",
+      "pending": {
+        "ID": "cc51cca2-44f0-4fd0-a40a-a5e11ad0cbba",
+        "Kind": "set_stopped",
+        "Phase": "starting",
+        "Version": 3,
+        "TargetUID": "6800c17c-5ebc-42ca-a22f-defce739a924",
+        "OperationID": "3daedcf5-f1e4-47ae-8e60-ac606b4654cc",
+        "PhaseSequence": 1,
+        "StoppedTarget": false,
+        "ResourceVersion": "15885803",
+        "FencedMutationID": "",
+        "TargetMountDigest": "",
+        "ProviderMarkerExpected": true
+      },
+      "version": 4,
+      "notebook_rv": "15885803",
+      "notebook_uid": "6800c17c-5ebc-42ca-a22f-defce739a924",
+      "current_mounts": [],
+      "recovery_fence": {
+        "ID": "ae688180-4f5f-4cf2-b8d7-543f7cae7837",
+        "Kind": "set_stopped",
+        "Phase": "deleting",
+        "Version": 4,
+        "TargetUID": "6800c17c-5ebc-42ca-a22f-defce739a924",
+        "OperationID": "06465be0-2ecc-447f-b5c9-9032f49c5e2b",
+        "PhaseSequence": 1,
+        "StoppedTarget": true,
+        "ResourceVersion": "15885803",
+        "FencedMutationID": "cc51cca2-44f0-4fd0-a40a-a5e11ad0cbba",
+        "TargetMountDigest": "",
+        "ProviderMarkerExpected": true
+      },
+      "runtime_desired": "deleted",
+      "applied_mount_version": 1
+    },
+    {
+      "step": "finish",
+      "at": "2026-10-29T18:55:40.790159+00:00",
+      "desired": "deleted",
+      "pending": null,
+      "version": 4,
+      "notebook_rv": "15895096",
+      "notebook_uid": "6800c17c-5ebc-42ca-a22f-defce739a924",
+      "current_mounts": [],
+      "recovery_fence": null,
+      "runtime_desired": "deleted",
+      "applied_mount_version": 1
+    }
+  ],
+  "original_pending": {
+    "ID": "cc51cca2-44f0-4fd0-a40a-a5e11ad0cbba",
+    "Kind": "set_stopped",
+    "Phase": "starting",
+    "Version": 3,
+    "TargetUID": "6800c17c-5ebc-42ca-a22f-defce739a924",
+    "OperationID": "3daedcf5-f1e4-47ae-8e60-ac606b4654cc",
+    "PhaseSequence": 1,
+    "StoppedTarget": false,
+    "ResourceVersion": "15885803",
+    "FencedMutationID": "",
+    "TargetMountDigest": "",
+    "ProviderMarkerExpected": true
+  },
+  "step_results": {
+    "hold-start": "PASS",
+    "hold-fence": "PASS",
+    "resolve": "PASS",
+    "finish": "PASS"
+  },
+  "session_cleanup": [
+    {
+      "step": "hold-start",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "hold-fence",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "resolve",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "finish",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "fence_plan": {
+    "nonce": "22106ec4-135d-4841-9581-26bf0de746bc",
+    "client": "instance",
+    "resource": "notebooks",
+    "method": "PUT",
+    "name": "instance-cf5ae41b-f2f6-44ee-8925-a9520b061734",
+    "uid": "6800c17c-5ebc-42ca-a22f-defce739a924",
+    "instance_id": "cf5ae41b-f2f6-44ee-8925-a9520b061734",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "intent_version": "4",
+    "stopped": "true",
+    "mode": "after-drop",
+    "max_wait_seconds": 120
+  },
+  "fence_ids": [
+    "ae688180-4f5f-4cf2-b8d7-543f7cae7837"
+  ],
+  "dual_pending_proof": {
+    "at": "2026-10-29T18:54:43.431585+00:00",
+    "desired": "deleted",
+    "pending": {
+      "ID": "cc51cca2-44f0-4fd0-a40a-a5e11ad0cbba",
+      "Kind": "set_stopped",
+      "Phase": "starting",
+      "Version": 3,
+      "TargetUID": "6800c17c-5ebc-42ca-a22f-defce739a924",
+      "OperationID": "3daedcf5-f1e4-47ae-8e60-ac606b4654cc",
+      "PhaseSequence": 1,
+      "StoppedTarget": false,
+      "ResourceVersion": "15885803",
+      "FencedMutationID": "",
+      "TargetMountDigest": "",
+      "ProviderMarkerExpected": true
+    },
+    "version": 4,
+    "notebook_rv": "15885803",
+    "notebook_uid": "6800c17c-5ebc-42ca-a22f-defce739a924",
+    "current_mounts": [],
+    "recovery_fence": {
+      "ID": "ae688180-4f5f-4cf2-b8d7-543f7cae7837",
+      "Kind": "set_stopped",
+      "Phase": "deleting",
+      "Version": 4,
+      "TargetUID": "6800c17c-5ebc-42ca-a22f-defce739a924",
+      "OperationID": "06465be0-2ecc-447f-b5c9-9032f49c5e2b",
+      "PhaseSequence": 1,
+      "StoppedTarget": true,
+      "ResourceVersion": "15885803",
+      "FencedMutationID": "cc51cca2-44f0-4fd0-a40a-a5e11ad0cbba",
+      "TargetMountDigest": "",
+      "ProviderMarkerExpected": true
+    },
+    "runtime_desired": "deleted",
+    "applied_mount_version": 1
+  },
+  "order_result": {
+    "result": "PASS_REAL_CONDITIONAL_ORDER",
+    "http_statuses": {
+      "original": 409,
+      "fence": 200
+    },
+    "events": {
+      "fence_plan": {
+        "at": "2026-10-29T18:54:41.58272363Z",
+        "event": "real_response_withheld",
+        "http_status": 200,
+        "mode": "after-drop",
+        "nonce": "22106ec4-135d-4841-9581-26bf0de746bc"
+      },
+      "original_plan": {
+        "at": "2026-10-29T18:54:47.294030778Z",
+        "event": "original_request_result",
+        "http_status": 409,
+        "mode": "late-forward",
+        "nonce": "6a793e6b-7ebf-4a0f-af90-140fb05aba3a",
+        "transport_error": false
+      }
+    }
+  },
+  "finish_result": {
+    "result": "PASS_SAME_DELETE_COMPLETED_NO_LATE_POD",
+    "order_previously_proven": true,
+    "operation": {
+      "id": "06465be0-2ecc-447f-b5c9-9032f49c5e2b",
+      "instanceId": "cf5ae41b-f2f6-44ee-8925-a9520b061734",
+      "action": "delete",
+      "intentVersion": "4",
+      "state": "completed",
+      "phase": "done",
+      "final_run_state": "deleted",
+      "applied_mount_version": "1",
+      "completion_scope": "",
+      "reason": "",
+      "failure_reason": ""
+    },
+    "instance": {
+      "id": "cf5ae41b-f2f6-44ee-8925-a9520b061734",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "4",
+      "desiredState": "deleted",
+      "observedState": "deleted",
+      "activeOperationId": "",
+      "executionRunState": "deleted",
+      "appliedMountVersion": "1",
+      "lastOperationId": "06465be0-2ecc-447f-b5c9-9032f49c5e2b",
+      "createOperationId": "633e0aa7-f4cf-492e-9d9f-ca055e8e42f3",
+      "computeCleaned": true,
+      "workspaceCleaned": true,
+      "networkCleaned": true,
+      "volumeReferencesReleased": true,
+      "quotaReturned": true
+    },
+    "absence": {
+      "notebook": true,
+      "statefulset": true,
+      "pod": true,
+      "pvc": true
+    }
+  }
+}

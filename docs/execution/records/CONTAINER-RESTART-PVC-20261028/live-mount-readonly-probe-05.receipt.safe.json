@@ -1,0 +1,341 @@
+{
+  "additional_same_sa_sample_calls": [
+    {
+      "duration_ms": 16,
+      "http_status": 200,
+      "method": "GET",
+      "resource": "notebook_get"
+    },
+    {
+      "duration_ms": 9,
+      "http_status": 200,
+      "method": "GET",
+      "resource": "statefulset_get"
+    },
+    {
+      "duration_ms": 11,
+      "http_status": 200,
+      "method": "GET",
+      "resource": "notebook_get"
+    },
+    {
+      "duration_ms": 8,
+      "http_status": 200,
+      "method": "GET",
+      "resource": "statefulset_get"
+    }
+  ],
+  "build_host": "192.168.25.40",
+  "build_receipt_sha256": "ffbe839dac914e333eb04b2aa1b95d4614dfa2ea055497ac1075dc64b1ea5d48",
+  "ca_configmap_uid": "53d97618-c4cd-497e-a12a-c2bea03a0f88",
+  "ca_sha256": "97d305c27a641f674662282c28e972946773bc0a9aa8a4726724ae0651e3666d",
+  "cluster_binding": {
+    "context": "kubernetes-admin@ani-kcn-full",
+    "endpoint": "https://lb.kubesphere.local:6443",
+    "kube_system_uid": "3eeb5379-8748-4bf8-8f6d-d7a48ce3bc24",
+    "tenant_namespace_uid": "a8d8a472-8a8a-43cf-abf0-0e805bbe67b0"
+  },
+  "credential_semantics": "TOKEN_REQUEST_SUBJECT_EQUIVALENT",
+  "expires_at": 1793280045,
+  "finished_at": "2026-10-29T13:10:51.689648+00:00",
+  "frozen_running_input": {
+    "applied_mount_version": 14,
+    "current_mount_reference_generation": 2,
+    "desired": "running",
+    "operation_id": "99fe1051-17b8-470f-b4db-f569ffb9ad44",
+    "operation_phase": "validating",
+    "operation_reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+    "operation_state": "blocked",
+    "runtime_desired": "running",
+    "version": 18
+  },
+  "issued_at": 1793279445,
+  "issued_ttl_seconds": 600,
+  "known_source20_manifest_sha256": "e0be7a1ee55d2693f17c589d0fdb28e2d4e6e0b6cab820865671ea623fb6beca",
+  "live_business_mutations": 0,
+  "live_control_samples": {
+    "notebook": {
+      "after": {
+        "generation": 4,
+        "observed_generation": null,
+        "resource_version": "14800889",
+        "semantic_sha256": "b68c04c25afac93498911dde694ff6f1a9dd55082fd4de0c3caeaa3247ff2fba",
+        "status_sha256": "bf312d86c68bd1d326fdad49d145ec279e9c1c4b02a00a26123bd693ed8ab505",
+        "uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0"
+      },
+      "before": {
+        "generation": 4,
+        "observed_generation": null,
+        "resource_version": "14800746",
+        "semantic_sha256": "b68c04c25afac93498911dde694ff6f1a9dd55082fd4de0c3caeaa3247ff2fba",
+        "status_sha256": "7e8d250c3f58e2e0ba1dd73e31c02e290b25dbebf80103a760a8b1ae1d1735aa",
+        "uid": "9f8e7e65-f937-4892-99c4-2e819debcfb0"
+      },
+      "rv_changed": true,
+      "semantic_equal": true,
+      "status_changed": true
+    },
+    "statefulset": {
+      "after": {
+        "generation": 20,
+        "observed_generation": 20,
+        "resource_version": "14736863",
+        "semantic_sha256": "92fbb515d7036f3a1d2cfd994c16d5cdf76ad9c0af189da1b5eda0cba77459a5",
+        "status_sha256": "c277c61dcf4debf2c66341b1bf73e1425df25b4f0b4f3ff89c7ed02fd8420336",
+        "uid": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c"
+      },
+      "before": {
+        "generation": 20,
+        "observed_generation": 20,
+        "resource_version": "14736863",
+        "semantic_sha256": "92fbb515d7036f3a1d2cfd994c16d5cdf76ad9c0af189da1b5eda0cba77459a5",
+        "status_sha256": "c277c61dcf4debf2c66341b1bf73e1425df25b4f0b4f3ff89c7ed02fd8420336",
+        "uid": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c"
+      },
+      "rv_changed": false,
+      "semantic_equal": true,
+      "status_changed": false
+    }
+  },
+  "original_api_server": "https://10.96.0.1:443",
+  "post_probe_pg": {
+    "desired": "running",
+    "operation_phase": "validating",
+    "operation_state": "blocked",
+    "runtime_desired": "running",
+    "snapshot_sha256": "420dd06599bc75f53c89ecf8e69b1c27e7fdd6e1e2cdaf3ebe068a8324c98dbf",
+    "version": 18
+  },
+  "probe_binary_sha256": "64474fb4661b23e7564a84bfffae2494c345b3b4c3f864338b7f2054bb53bb38",
+  "probe_exit_code": 0,
+  "probe_result": {
+    "calls": [
+      {
+        "duration_ms": 10,
+        "http_status": 200,
+        "resource": "notebook_get"
+      },
+      {
+        "duration_ms": 1,
+        "http_status": 200,
+        "resource": "statefulset_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 1,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 1,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 3,
+        "http_status": 200,
+        "resource": "pods_list"
+      },
+      {
+        "duration_ms": 3,
+        "http_status": 200,
+        "resource": "notebook_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "statefulset_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "notebook_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "statefulset_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 4,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 3,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 1,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 1,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 3,
+        "http_status": 200,
+        "resource": "pods_list"
+      },
+      {
+        "duration_ms": 3,
+        "http_status": 200,
+        "resource": "notebook_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "statefulset_get"
+      }
+    ],
+    "client_burst": 10,
+    "client_qps": 5,
+    "client_timeout_seconds": 15,
+    "context_timeout_seconds": 30,
+    "credential_semantics": "TOKEN_REQUEST_SUBJECT_EQUIVALENT",
+    "dial_target": "10.10.1.66:6443",
+    "finished_at": "2026-10-29T13:10:50.765587686Z",
+    "initial_observation": {
+      "GPUPods": null,
+      "IntentVersion": 17,
+      "MutationID": "40cf606b-fdcf-4a19-9f85-88b31057b0e9",
+      "NotebookExists": true,
+      "NotebookGeneration": 4,
+      "NotebookRV": "14800746",
+      "NotebookUID": "9f8e7e65-f937-4892-99c4-2e819debcfb0",
+      "PVCExists": false,
+      "PVCUID": "",
+      "PodExists": true,
+      "PodName": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+      "PodReady": false,
+      "PodUID": "4f4ddb70-eee0-4278-b565-f94859b06fa5",
+      "Pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "ContainerName": "workspace",
+          "Name": "instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf-0",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "UID": "4f4ddb70-eee0-4278-b565-f94859b06fa5"
+        }
+      ],
+      "SafeStopped": false,
+      "StatefulSetExists": true,
+      "StatefulSetGeneration": 20,
+      "StatefulSetObservedGeneration": 20,
+      "StatefulSetReplicas": 1,
+      "StatefulSetUID": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c",
+      "Stopped": false,
+      "VolumeExists": false,
+      "VolumeName": "",
+      "VolumeUID": "",
+      "WorkspaceReason": ""
+    },
+    "initial_observe_duration_ms": 424,
+    "initial_observe_error_class": "",
+    "network_scope": "new heavy host direct API; not the Pod network route",
+    "original_api_host": "10.96.0.1:443",
+    "proof": {
+      "Class": "target",
+      "NotebookGeneration": 4,
+      "NotebookRV": "14800889",
+      "NotebookUID": "9f8e7e65-f937-4892-99c4-2e819debcfb0",
+      "SafeStopped": false,
+      "StatefulSetGeneration": 20,
+      "StatefulSetObservedGeneration": 20,
+      "StatefulSetUID": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c"
+    },
+    "read_only": true,
+    "require_safe_stopped": false,
+    "resource_pod_uid": "1a04a6a9-28f6-4fc4-bbcd-1f47980f726d",
+    "result": "REAL_API_MOUNT_TEMPLATE_TARGET",
+    "schema": "real-go-live-mount-readonly-v1",
+    "started_at": "2026-10-29T13:10:47.158163554Z",
+    "strict_ca_verified": true,
+    "tls_server_name": "10.96.0.1",
+    "total_duration_ms": 3605,
+    "verify_duration_ms": 3181,
+    "verify_error_class": ""
+  },
+  "probe_safe_sha256": "8b537776c9909ceedaf4559a57d4291189c8fc3a538a2b85b6425d14393b7c4f",
+  "probe_source_sha256": "62bec97ec16cad6f7c63eddc6cb4d9b1be43cfa32eac5d88cdb358aeb79ed1f5",
+  "requested_ttl_seconds": 600,
+  "resource_actual_image_id": [
+    "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:0d4762c669f8f3797eeb7df233cf1dfc5f513b5269561ea57490df7908e49d43"
+  ],
+  "resource_deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+  "resource_image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:storage-write-20261029-r2",
+  "resource_pod_uid": "1a04a6a9-28f6-4fc4-bbcd-1f47980f726d",
+  "result": "PASS_RUNNING_FIXED_SOURCE_PROBE",
+  "same_resource_pod_and_image_before_after": true,
+  "schema": "same-sa-bound-live-probe-v1",
+  "service_account_uid": "b01307c9-f6e2-4122-b82a-dea120ed30f1",
+  "snapshot_sha256": "4044626aa630994e12714ed451699adc441b14a18946a75b1b83052d5abf6624",
+  "source20_clone_935_unchanged": true,
+  "stage": "done",
+  "started_at": "2026-10-29T13:10:41.800334+00:00",
+  "temporary_kubeconfig_removed": true,
+  "token_request_only": true
+}

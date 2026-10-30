@@ -1,0 +1,99 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "a72d26b8-1f6b-4d40-9238-751cbfa574c4",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "live-attach": {
+      "action": "attach-pvc",
+      "idempotency_key": "6511832f-223a-4f2f-bdfb-31b0d47833c2",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "4",
+      "request_body_sha256": "0221e129f7639e162c91469a238b67d6cc7791495eae850b468c8f6b2f866996",
+      "ack": {
+        "operationId": "f2d200cd-88d8-4d8c-a410-cd2e4ee55ff0",
+        "resourceId": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "f2d200cd-88d8-4d8c-a410-cd2e4ee55ff0",
+        "instanceId": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+        "action": "attach-pvc",
+        "intentVersion": "5",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "5",
+        "completion_scope": "runtime_verified",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "cp04_session_cleanup": [
+    {
+      "phase": "fixtures",
+      "sessions": [
+        {
+          "application": "boss",
+          "remote": "CONFIRMED"
+        }
+      ]
+    },
+    {
+      "phase": "attach",
+      "sessions": [
+        {
+          "application": "console",
+          "remote": "CONFIRMED"
+        },
+        {
+          "application": "boss",
+          "remote": "CONFIRMED"
+        }
+      ]
+    },
+    {
+      "phase": "cleanup",
+      "sessions": [
+        {
+          "application": "boss",
+          "remote": "CONFIRMED"
+        }
+      ]
+    }
+  ],
+  "a05_live_last_result": {
+    "phase": "cleanup",
+    "result": "PASS_CLEANUP"
+  },
+  "instance_id": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+  "a05_live_result": {
+    "result": "PASS",
+    "operation": {
+      "id": "f2d200cd-88d8-4d8c-a410-cd2e4ee55ff0",
+      "instanceId": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+      "action": "attach-pvc",
+      "intentVersion": "5",
+      "state": "completed",
+      "phase": "done",
+      "final_run_state": "running",
+      "applied_mount_version": "5",
+      "completion_scope": "runtime_verified",
+      "reason": "",
+      "failure_reason": ""
+    },
+    "owned_user_id": 41,
+    "owned_role_id": 34,
+    "permission_codes": [
+      "sys:access_backend",
+      "instance:list",
+      "instance:read",
+      "instance:operation:read",
+      "instance:pvc:attach"
+    ],
+    "create_start_stop_restart_grants": false,
+    "runtime_data_proof": "OWNER_RUNTIME_VERIFIED; INDEPENDENT_PHYSICAL_PROOF_SEPARATE",
+    "session_cleanup": "CONFIRMED"
+  }
+}

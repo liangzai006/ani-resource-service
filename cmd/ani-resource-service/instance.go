@@ -142,8 +142,11 @@ func openInstance(ctx context.Context, network *conf.Network, images *imageCompo
 	if e != nil {
 		return nil, fmt.Errorf("instance Kubernetes configuration invalid")
 	}
-	kube.QPS = 5
-	kube.Burst = 10
+	// A terminal connection verifies its target at issue and again at claim.
+	// Keep these reads within the session validator's bounded request budget,
+	// including when the lifecycle worker is observing another instance.
+	kube.QPS = 20
+	kube.Burst = 40
 	kube.Timeout = 15 * time.Second
 	client, e := dynamic.NewForConfig(kube)
 	if e != nil {

@@ -4,11 +4,11 @@
 
 当前配置、已有卷及显式 VPC 接入使用[增量合同](../specs/instance-configuration-network.md)，实际结果见[配置与网络执行状态](../execution/status.md#instance-configuration-and-network-2026-10-19)。只支持当前实例配置合同2；此前从旧配置合同切换的清理前置不适用于本次算力目录改名。本次保留迁移前实例、原账及运行对象，维护时关闭新的受理与规格写入，按[目录迁移手册](compute-presets-migration.md)停止旧SQL/RPC进程、切换匹配版本及验证恢复；不部署旧配置reader。
 
-Restart 与 borrowed PVC 挂卸遵循[权威方案 v2.0](../plans/container-instance-restart-pvc-20261028.md)，本批结果统一见[当前执行状态](../execution/status.md#container-restart-pvc-20261028)。本批集群仅通过 `ssh kubercloud@100.64.128.12` 管理；下文旧 CPU/隔离实验目录是历史恢复参考，不是本批目标。本文不表示新版本已部署或 LIVE 已通过。
+Restart 与 borrowed PVC 挂卸遵循[权威方案 v2.0](../plans/container-instance-restart-pvc-20261028.md)，本批结果统一见[当前执行状态](../execution/status.md#container-restart-pvc-20261028)。本批按用户新增授权，经重任务机 `root@192.168.25.40` 的内网 SSH `kubercloud@10.10.1.66` 管理原集群，主机及集群身份绑定见当前执行状态；下文旧 CPU/隔离实验目录是历史恢复参考。本文不表示新版本已部署或 LIVE 已通过。
 
 ## 源码与验证
 
-本任务重任务仅在 `ssh fedora` 执行，使用任务独占源码、缓存和 TMPDIR；Fedora 不可用时不转本地执行。互斥锁、资源预算、固定基线及快照见当前状态。按 [远程执行约定](../remote-execution.md) 同步带文件哈希的源码，不同步私钥、DSN 或 kubeconfig。
+本批 Resource 验证优先复用 `ssh fedora` 的暖缓存，发生 I/O 阻塞后使用用户新增重任务机；该机也承接 Gov 和只读探针编译，使用任务独占源码、缓存和 TMPDIR，不转本地执行。实际主机、互斥锁、资源预算、固定基线及快照见当前状态。按 [远程执行约定](../remote-execution.md) 同步带文件哈希的源码，不同步私钥、DSN 或 kubeconfig。
 
 Resource 的 [实例 API 生成器](../../scripts/generate-instance-api) 使用固定 Buf/Go 插件及正式 Acc proto；sqlc 使用根 `sqlc.yaml`。实例定向 PG 验证入口为 [instance-integration](../../scripts/instance-integration)，只创建、迁移和清理带任务标签的独占 PostgreSQL；`INSTANCE_TEST_RUN` 可限制相关场景。提交前仍执行仓库要求的 `make verify`；实例真实 PG 门禁单独执行，不能由普通单元测试代替。
 

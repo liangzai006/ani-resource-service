@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""Two normal Gov Attach requests without interruption consent; no new workload."""
+import argparse, hashlib, json, os, pathlib, runpy, stat, subprocess, urllib.parse
+from types import SimpleNamespace
+
+r=pathlib.Path('/root/ani-runs/container-restart-pvc-20261028')
+i='e3dd2bc7-1c6a-429b-a401-e175c287d5cf'
+p=argparse.ArgumentParser()
+p.add_argument('--execute',action='store_true');p.add_argument('--expected-version');p.add_argument('--expected-pod-uid')
+a=p.parse_args()
+if not a.execute:
+ print(json.dumps({'result':'PREPARED_ONLY','api_calls':0}));raise SystemExit(0)
+assert os.geteuid()==0 and pathlib.Path(__file__).resolve().is_relative_to(r)
+assert a.expected_version and a.expected_pod_uid
+os.umask(0o077)
+d=SimpleNamespace(**runpy.run_path(str(r/'container-restart-pvc-acceptance.py')))
+d.canonical_uuid(a.expected_pod_uid);d.decimal(a.expected_version)
+e=d.Evidence(r/'cp02-running-negative-03','http://127.0.0.1:39586')
+assert not e.state['intents'], 'ONLY_ONE_EXECUTION_ALLOWED'
+def pg():
+ f=r/'private-live-01/resource-owner.dsn';assert stat.S_IMODE(f.stat().st_mode)==0o600
+ u=urllib.parse.urlsplit(f.read_text().strip());assert u.hostname=='127.0.0.1' and u.port==39534 and u.path=='/ani_resource'
+ fields=dict(urllib.parse.parse_qsl(u.query));fields.update(host=u.hostname,port=str(u.port),dbname=u.path[1:],user=urllib.parse.unquote(u.username or ''),password=urllib.parse.unquote(u.password or ''))
+ names={'host':'PGHOST','port':'PGPORT','dbname':'PGDATABASE','user':'PGUSER','password':'PGPASSWORD','sslmode':'PGSSLMODE','sslrootcert':'PGSSLROOTCERT','sslcert':'PGSSLCERT','sslkey':'PGSSLKEY','options':'PGOPTIONS','application_name':'PGAPPNAME','connect_timeout':'PGCONNECT_TIMEOUT'}
+ assert not fields.keys()-names.keys()
+ env={k:v for k,v in os.environ.items() if not k.startswith('PG')};env.update({names[k]:v for k,v in fields.items()})
+ env.update(PGCONNECT_TIMEOUT='10',PGOPTIONS='-c default_transaction_read_only=on -c statement_timeout=15000 -c lock_timeout=3000')
+ sql="""BEGIN READ ONLY;
+SELECT jsonb_build_object('version',version,'mounts',current_mounts,'applied',applied_mount_version,
+ 'pending',snapshot->'Pending','fence',recovery_fence,
+ 'operation_count',(SELECT count(*) FROM instance.instance_operations o WHERE o.tenant_id=i.tenant_id AND o.instance_id=i.instance_id),
+ 'references',COALESCE((SELECT jsonb_agg(jsonb_build_object('path',mount_path,'uid',pvc_uid,'state',state,'generation',reference_generation,'operation_id',operation_id,'intent_version',intent_version) ORDER BY mount_path) FROM instance.borrowed_volume_references b WHERE b.tenant_id=i.tenant_id AND b.instance_id=i.instance_id),'[]'::jsonb))
+ FROM instance.instances i WHERE tenant_id='64c5c35a-f554-432c-b4bc-7b4f36f08420' AND instance_id='e3dd2bc7-1c6a-429b-a401-e175c287d5cf';
+COMMIT;"""
+ q=subprocess.run([str(r/'pg18-client-01/bin/psql'),'-X','-w','-qAt','-v','ON_ERROR_STOP=1','-v','VERBOSITY=terse'],input=sql,text=True,env=env,capture_output=True,timeout=25)
+ d.require(q.returncode==0,'READONLY_PG_QUERY_REQUIRED');return json.loads(q.stdout)
+credentials=d.private_json(r/'private-live-01/platform-credentials.json')
+s=d.Session('http://127.0.0.1:39586','console',credentials['tenant'],e,30)
+def current():
+ x=d.get_instance(s,i);c=d.configuration_projection(s.request('GET','/api/v1/instances/'+i+'/configuration'),i)
+ runtime=s.request('GET','/api/v1/instances/'+i+'/runtime')
+ d.require(x['version']==a.expected_version and x.get('desiredState')==x.get('executionRunState')==x.get('observedState')=='running' and not x.get('activeOperationId'),'STABLE_RUNNING_INSTANCE_REQUIRED')
+ d.require(c['volume_mounts']==[] and runtime.get('pod',{}).get('uid')==a.expected_pod_uid and runtime['pod'].get('ready') is True,'EMPTY_CONFIG_CURRENT_POD_REQUIRED')
+ return {'instance':x,'configuration':c,'pod_uid':a.expected_pod_uid}
+try:
+ s.login();credentials=None;e.state['before']=current();e.state['pg_before']=pg();e.save()
+ for label in ('omitted','false'):
+  body={'data':{'expectedVersion':a.expected_version,'pvc_name':'ani-vol-168d2c1c17684c3f9b1eab83d963327d','mount_path':'/datasets/cp02-01a18156','read_only':False}}
+  if label=='false':body['data']['restart_if_running']=False
+  intent=e.intent(label,'attach-pvc',body,a.expected_version)
+  try:s.request('POST','/api/v1/instances/'+i+':attach-pvc',body,expected=202)
+  except d.AcceptanceError as error:
+   d.require(error.code=='HTTP_REQUEST_REJECTED' and error.facts=={'http_status':409,'reason':'INSTANCE_REQUIRES_STOP'},'EXACT_REQUIRES_STOP_REJECTION_REQUIRED')
+   intent['rejection']=error.facts;e.save()
+  else:raise d.AcceptanceError('UNEXPECTED_RUNNING_ATTACH_ACCEPTANCE')
+  e.state['after_'+label]=current();observed=pg();d.require(observed==e.state['pg_before'],'REJECTED_INTENT_CHANGED_DURABLE_STATE')
+  e.state['pg_after_'+label]=observed;e.save()
+ e.state['result']='PASS';e.save()
+finally:
+ closed=s.close();e.state['session_cleanup']=[{'application':'console','remote':closed}];e.save()
+ d.require(closed=='CONFIRMED','SESSION_CLEANUP_REQUIRED')
+print(json.dumps({'result':e.state['result'],'version':a.expected_version,'no_durable_side_effects':True,'session_cleanup':closed}))

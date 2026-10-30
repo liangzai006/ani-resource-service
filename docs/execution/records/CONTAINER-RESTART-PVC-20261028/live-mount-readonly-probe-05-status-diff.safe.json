@@ -1,0 +1,25 @@
+{
+  "additional_same_sa_get_count": 4,
+  "go_call_count": 28,
+  "go_error_classes": [],
+  "go_http_status_counts": {
+    "200": 28
+  },
+  "go_resource_counts": {
+    "notebook_get": 4,
+    "pod_get": 18,
+    "pods_list": 2,
+    "statefulset_get": 4
+  },
+  "notebook_semantic_equal": true,
+  "notebook_status_changed_paths": [
+    "/status/conditions/0/lastProbeTime",
+    "/status/conditions/1/lastProbeTime",
+    "/status/conditions/2/lastProbeTime",
+    "/status/conditions/3/lastProbeTime",
+    "/status/conditions/4/lastProbeTime"
+  ],
+  "schema": "ani.live-mount-readonly-probe-05-status-diff.safe.v1",
+  "source": "already captured same-SA GET responses only; no additional API reads",
+  "statefulset_semantic_equal": true
+}

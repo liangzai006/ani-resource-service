@@ -46,8 +46,8 @@ type redactedImageRequest struct{}
 func (redactedImageRequest) Redact() string { return "[REDACTED]" }
 
 // Use the framework's logging and Redacter contract, keeping existing Network
-// logs intact. The original Image/VM request reaches the handler but never the
-// logger. Framework logging does not serialize replies.
+// logs intact. Sensitive requests reach the handler but never the logger.
+// Framework logging does not serialize replies.
 func requestLogging(logger *slog.Logger) middleware.Middleware {
 	normal := logging.Server(logger)
 	return func(handler middleware.Handler) middleware.Handler {
@@ -56,7 +56,8 @@ func requestLogging(logger *slog.Logger) middleware.Middleware {
 			info, ok := transport.FromServerContext(ctx)
 			if !ok || (!strings.HasPrefix(info.Operation(), "/image.v1.") &&
 				!strings.HasPrefix(info.Operation(), "/vm.v1.") &&
-				!strings.HasPrefix(info.Operation(), "/storage.v1.")) {
+				!strings.HasPrefix(info.Operation(), "/storage.v1.") &&
+				!strings.HasPrefix(info.Operation(), "/sandbox.v1.")) {
 				return standard(ctx, req)
 			}
 			return normal(func(ctx context.Context, _ any) (any, error) { return handler(ctx, req) })(ctx, redactedImageRequest{})

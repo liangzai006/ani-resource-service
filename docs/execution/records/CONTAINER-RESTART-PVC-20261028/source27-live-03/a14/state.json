@@ -1,0 +1,3279 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "5f7af9f8-2702-5235-96cd-82fd49ccd69a",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "seven-attach": {
+      "action": "attach-pvc",
+      "idempotency_key": "1efeb9f1-3bed-4e36-b02c-4d2554120c80",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "13",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f",
+      "request_body": {
+        "data": {
+          "expectedVersion": "13",
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "read_only": false,
+          "restart_if_running": true,
+          "idempotencyKey": "1efeb9f1-3bed-4e36-b02c-4d2554120c80"
+        }
+      },
+      "ack": {
+        "operationId": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+        "resourceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "replayed": true,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+        "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "action": "attach-pvc",
+        "intentVersion": "14",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "14",
+        "completion_scope": "runtime_verified",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "resource_binding": {
+    "name": "ani-resource-service-548bdd5bff-czqmx",
+    "uid": "92e95c0b-f3ed-46f8-bcae-004b64441c45",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c5292dc0a0cfd1ab0e2c141dd39ba4c4b2e70bb83c1202f76d1ccc31b3a648cd",
+    "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501"
+  },
+  "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+  "persistent_identities": {
+    "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+    "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+    "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+    "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+    "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+  },
+  "storage_create_token": "b54a1f1e-5c08-47cc-94aa-567972371a64",
+  "storage_create_body": {
+    "data": {
+      "create_token": "b54a1f1e-5c08-47cc-94aa-567972371a64",
+      "display_name": "a14-seven-01a18156",
+      "capacity_gb": "1",
+      "storage_class_name": "ani-block",
+      "volume_mode": "Filesystem",
+      "access_modes": [
+        "ReadWriteOnce"
+      ]
+    }
+  },
+  "new_volume": {
+    "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+    "uid": "5692c333-22c5-4b4a-9267-f9030df69627"
+  },
+  "new_volume_binding": {
+    "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+    "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+    "pv_name": "pvc-5692c333-22c5-4b4a-9267-f9030df69627",
+    "pv_uid": "7b5ce479-8cb8-4d23-803a-f067c46cbeda"
+  },
+  "step_results": {
+    "volume": "PASS",
+    "start": "PASS",
+    "arm": "PASS",
+    "attach-resume": "PASS",
+    "clear": "PASS",
+    "cleanup-stop": "PASS",
+    "cleanup-detach": "PASS",
+    "cleanup-volume": "PASS"
+  },
+  "session_cleanup": [
+    {
+      "phase": "volume",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "start",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "arm",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "attach-resume",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "attach-resume",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "attach-resume",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "clear",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "cleanup-stop",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "cleanup-detach",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "cleanup-volume",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "running_baseline": {
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "13",
+      "desiredState": "running",
+      "observedState": "running",
+      "activeOperationId": "",
+      "executionRunState": "running",
+      "appliedMountVersion": "4",
+      "lastOperationId": "d88f271e-dbd2-469c-a071-ce9e098ac599",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "13",
+      "applied_mount_version": "4",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": []
+    },
+    "pod_uid": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+    "workspace_readonly": {
+      "pod_uid": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+      "identities": {
+        "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+      },
+      "runtime": {
+        "pod_uid": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+        "hashes": {
+          "/workspace": "2eb7a7ff9c34a18d057da0be5ae96794fcfbb44bde3c4d61b1039462ebed31e8"
+        },
+        "created_only_task_markers_at": [],
+        "absent_path": null,
+        "kernel_mount_absent": true
+      }
+    }
+  },
+  "resource_before": {
+    "pod_uid": "92e95c0b-f3ed-46f8-bcae-004b64441c45",
+    "restart_count": 0,
+    "container_id": "containerd://e79fa165da75db0493db146244d8fe72333e895c56d5572b2ce1e552780e8eff"
+  },
+  "stage_plan": {
+    "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+    "kind": "instance-attach-seven",
+    "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+    "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+    "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "intent_version": 14,
+    "action": "attach-pvc",
+    "expires_at": "2026-10-29T19:42:10.700667Z"
+  },
+  "stage_arm_attempted": "2026-10-29T19:12:11.081617Z",
+  "stage_arm_ack": "ARMED 3d1fad4e-3298-4bcb-91c7-f14018e756d5 instance-attach-seven",
+  "submit_started_epoch": 1793301133.9676738,
+  "submit_attempts": [
+    {
+      "at": "2026-10-29T19:12:14.840559Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:14:42.283831Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:14:55.345008Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:05.129389Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:08.215851Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:10.969556Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:13.799675Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:16.951122Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:21.485843Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:24.310949Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:27.649431Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:30.425787Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:33.283828Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:36.128199Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:38.865362Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:42.052803Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:45.070057Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:47.881739Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:50.650849Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:53.446687Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:56.536150Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    },
+    {
+      "at": "2026-10-29T19:15:59.583410Z",
+      "request_body_sha256": "aa6fcfa8c4595b03bbc9150931b4040acc3a1e7e866c472213c9a48fa14e4a8f"
+    }
+  ],
+  "transient_http": [
+    {
+      "at": "2026-10-29T19:12:15.190201Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:14:52.396173Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:02.450950Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:05.279892Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:08.406899Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:11.135926Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:13.951883Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:17.125464Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:21.693987Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:24.531135Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:27.861920Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:30.613004Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:33.482000Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:36.316973Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:39.172965Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:42.249173Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:45.274782Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:48.057883Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:50.806140Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:53.638071Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:15:56.739671Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:14.060751Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:24.093994Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:26.963737Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:30.021620Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:32.651812Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:35.329069Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:38.040748Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:40.750654Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:43.767350Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:46.364792Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:48.931527Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:51.571268Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:54.272275Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:57.106766Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:16:59.859942Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:02.796709Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:05.544505Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:08.186725Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:10.805637Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:13.594766Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:16.256920Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:19.123019Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:21.798273Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:24.431322Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:27.347637Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:29.965911Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:32.904197Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:35.810264Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:38.429081Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:41.139725Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:43.747107Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:46.992465Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:49.707414Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:52.592212Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:55.467545Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:17:58.303164Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:01.110634Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:03.826290Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:06.680080Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:09.525816Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:12.146703Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:14.896506Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:17.882152Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:20.501084Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:23.331047Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:26.309893Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:28.912669Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:31.832196Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:34.646514Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:37.634919Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:40.494579Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:43.132259Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:46.068766Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:49.261605Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:51.933784Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:54.624611Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:57.284950Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:18:59.924754Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:02.573467Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:05.343702Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:08.014091Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:10.876062Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:13.847935Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:16.485049Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:19.365018Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:22.444431Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:25.116403Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:27.768820Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:30.353126Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:32.963909Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:35.677959Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:38.573183Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:41.634844Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:44.229536Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:46.898211Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:50.064886Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:52.701712Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:55.661006Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:19:58.376032Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:01.230974Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:03.909682Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:06.496798Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:09.081721Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:11.689435Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:14.473088Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:17.077820Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:20.195968Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:22.895148Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:25.577213Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:28.216621Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:30.888578Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:33.901048Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:36.834825Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:39.480100Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:42.385731Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:45.059387Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:47.679079Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:51.117874Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:53.910141Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:56.576520Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:20:59.320582Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:02.260307Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:04.873853Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:07.510285Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:10.066470Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:12.665739Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:15.323308Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:17.952013Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:20.639744Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:23.600349Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:26.595043Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:29.196702Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:31.898282Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:34.551255Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:37.631852Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:40.198645Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:42.842931Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:45.511982Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:48.178786Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:50.820503Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:53.793573Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:56.861650Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:21:59.788627Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:02.521555Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:05.168301Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:07.724531Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:10.577055Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:13.122349Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:15.924522Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:18.554125Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:21.224307Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:23.864724Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:26.771049Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:29.705480Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:32.589429Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:35.330957Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:37.997264Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:40.784267Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:43.481772Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:46.429030Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:49.070833Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:51.822248Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:54.727206Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:22:57.340286Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:00.329635Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:03.000483Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:05.683493Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:08.583837Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:11.271923Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:14.038871Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:16.885572Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:19.560379Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:22.372120Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:25.087337Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:27.834830Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:30.893629Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:33.575174Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:36.266705Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:39.253381Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:42.117487Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:45.041095Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:47.697956Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:51.203125Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    },
+    {
+      "at": "2026-10-29T19:23:55.975165Z",
+      "code": "HTTP_REQUEST_REJECTED",
+      "http_status": 503,
+      "reason": "INSTANCE_DEPENDENCY_UNAVAILABLE"
+    }
+  ],
+  "pg_observations": [
+    {
+      "at": "2026-10-29T19:12:14.258596+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+        "version": 14,
+        "pod_name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [],
+        "runtime_desired": "running",
+        "applied_mount_version": 4
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "validating",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 1,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 4,
+            "template_commit_completed": false
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:14:50.731346+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 4
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_template",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 5,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 4,
+            "template_commit_completed": false
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:15:22.906241+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 4
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_template",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 5,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 4,
+            "template_commit_completed": false
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:15:55.047321+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [],
+        "runtime_desired": "stopped",
+        "applied_mount_version": 4
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_template",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 5,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 4,
+            "template_commit_completed": false
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:16:25.257115+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "starting",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 7,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:16:58.165129+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "starting",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 7,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:17:31.232124+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "starting",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 7,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:18:02.12717+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "starting",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 7,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:18:32.974117+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "starting",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 7,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:18:44.385907+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_ready",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 8,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:19:14.813077+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_ready",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 8,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:19:45.206124+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_ready",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 8,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:20:15.526701+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_ready",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 8,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:20:46.010743+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_ready",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 8,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:21:18.953439+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_ready",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 8,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:21:52.241148+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_ready",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 8,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:22:25.140684+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_ready",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 8,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:22:55.657669+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_ready",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 8,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:23:26.169895+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "",
+        "version": 14,
+        "pod_name": "",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_ready",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 8,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:23:46.035391+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "82eccc46-28d1-4db3-ad48-114c44216b81",
+        "version": 14,
+        "pod_name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "accepted",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "waiting_network",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 9,
+            "completion_scope": "",
+            "verified_pod_uid": null,
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-29T19:24:07.674114+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "82eccc46-28d1-4db3-ad48-114c44216b81",
+        "version": 14,
+        "pod_name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "completed",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "done",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 10,
+            "completion_scope": "runtime_verified",
+            "verified_pod_uid": "82eccc46-28d1-4db3-ad48-114c44216b81",
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    }
+  ],
+  "watch_summary": {
+    "sample_count": 209,
+    "errors": [],
+    "scope": "exact same Resource Pod; status only"
+  },
+  "step_failures": {
+    "attach-resume": {
+      "at": "2026-10-29T19:13:37.077626Z",
+      "code": "ValueError"
+    }
+  },
+  "step_failure_history": [
+    {
+      "step": "attach-resume",
+      "at": "2026-10-29T19:13:37.076214Z",
+      "code": "ValueError",
+      "frames": [
+        {
+          "file": "a14-seven-stage-live-01.py",
+          "line": 238,
+          "function": "main"
+        },
+        {
+          "file": "a14-seven-stage-live-01.py",
+          "line": 164,
+          "function": "attach_resume"
+        },
+        {
+          "file": "a14-seven-stage-live-01.py",
+          "line": 125,
+          "function": "bound_deadline"
+        }
+      ]
+    }
+  ],
+  "stage_events": [
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "01-admission",
+      "site": "admission",
+      "at": "2026-10-29T19:12:13.258240894Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "validating",
+      "phase_sequence": 1,
+      "desired": "running",
+      "runtime_desired": "running",
+      "observed": "pending",
+      "applied_mount_version": 4,
+      "current_mount_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": false,
+      "pending": null,
+      "fence": null,
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "02-pending-before-write",
+      "site": "pending",
+      "at": "2026-10-29T19:12:20.410585225Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "stopping",
+      "phase_sequence": 2,
+      "desired": "running",
+      "runtime_desired": "stopped",
+      "observed": "pending",
+      "applied_mount_version": 4,
+      "current_mount_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": false,
+      "pending": {
+        "ID": "d764d3cd-f7ea-487a-9819-13dc134343d4",
+        "Phase": "stopping",
+        "PhaseSequence": 2,
+        "StoppedTarget": true,
+        "TargetMountDigest": "",
+        "FencedMutationID": "",
+        "ProviderMarkerExpected": true,
+        "Kind": "set_stopped",
+        "OperationID": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+        "TargetUID": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "ResourceVersion": "15950360",
+        "Version": 14
+      },
+      "fence": null,
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "03-stop-write",
+      "site": "finish",
+      "at": "2026-10-29T19:13:12.264647329Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "waiting_stopped",
+      "phase_sequence": 3,
+      "prior_phase": "stopping",
+      "prior_phase_sequence": 2,
+      "desired": "running",
+      "runtime_desired": "stopped",
+      "observed": "pending",
+      "applied_mount_version": 4,
+      "current_mount_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": false,
+      "pending": null,
+      "fence": null,
+      "receipt": {
+        "Mutation": {
+          "ID": "69497eeb-7b1e-4688-a3a2-4a7919dac292",
+          "Phase": "stopping",
+          "PhaseSequence": 2,
+          "StoppedTarget": true,
+          "TargetMountDigest": "",
+          "FencedMutationID": "",
+          "ProviderMarkerExpected": true,
+          "Kind": "set_stopped",
+          "OperationID": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+          "TargetUID": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+          "ResourceVersion": "15953123",
+          "Version": 14
+        },
+        "Outcome": "succeeded"
+      },
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "04-old-pods-absent",
+      "site": "finish",
+      "at": "2026-10-29T19:13:45.695253111Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "applying_mounts",
+      "phase_sequence": 4,
+      "prior_phase": "waiting_stopped",
+      "prior_phase_sequence": 3,
+      "desired": "running",
+      "runtime_desired": "stopped",
+      "observed": "pending",
+      "applied_mount_version": 4,
+      "current_mount_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": false,
+      "pending": null,
+      "fence": null,
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "05-template-write",
+      "site": "finish",
+      "at": "2026-10-29T19:14:32.802273489Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "waiting_template",
+      "phase_sequence": 5,
+      "prior_phase": "applying_mounts",
+      "prior_phase_sequence": 4,
+      "desired": "running",
+      "runtime_desired": "stopped",
+      "observed": "pending",
+      "applied_mount_version": 4,
+      "current_mount_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": false,
+      "pending": null,
+      "fence": null,
+      "receipt": {
+        "Mutation": {
+          "ID": "b63f7781-3b70-46f8-a32c-853b3ae08c1d",
+          "Phase": "applying_mounts",
+          "PhaseSequence": 4,
+          "StoppedTarget": true,
+          "TargetMountDigest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+          "FencedMutationID": "",
+          "ProviderMarkerExpected": true,
+          "Kind": "update_mounts",
+          "OperationID": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+          "TargetUID": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+          "ResourceVersion": "15954789",
+          "Version": 14
+        },
+        "Outcome": "succeeded"
+      },
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "06-current-config",
+      "site": "finish",
+      "at": "2026-10-29T19:16:00.570893615Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "starting",
+      "phase_sequence": 7,
+      "prior_phase": "committing_mounts",
+      "prior_phase_sequence": 6,
+      "desired": "running",
+      "runtime_desired": "running",
+      "observed": "pending",
+      "applied_mount_version": 14,
+      "current_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": true,
+      "pending": null,
+      "fence": null,
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "07-start-write",
+      "site": "finish",
+      "at": "2026-10-29T19:18:42.539694735Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "waiting_ready",
+      "phase_sequence": 8,
+      "prior_phase": "starting",
+      "prior_phase_sequence": 7,
+      "desired": "running",
+      "runtime_desired": "running",
+      "observed": "pending",
+      "applied_mount_version": 14,
+      "current_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": true,
+      "pending": null,
+      "fence": null,
+      "receipt": {
+        "Mutation": {
+          "ID": "c21b016e-e1d1-4cea-96db-95143e048053",
+          "Phase": "starting",
+          "PhaseSequence": 7,
+          "StoppedTarget": false,
+          "TargetMountDigest": "",
+          "FencedMutationID": "",
+          "ProviderMarkerExpected": true,
+          "Kind": "set_stopped",
+          "OperationID": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+          "TargetUID": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+          "ResourceVersion": "15957406",
+          "Version": 14
+        },
+        "Outcome": "succeeded"
+      },
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    }
+  ],
+  "real_exit86_observations": [
+    {
+      "containerID": "containerd://e79fa165da75db0493db146244d8fe72333e895c56d5572b2ce1e552780e8eff",
+      "exitCode": 86,
+      "startedAt": "2026-10-29T19:05:43Z",
+      "finishedAt": "2026-10-29T19:12:13Z",
+      "reason": "Error"
+    },
+    {
+      "containerID": "containerd://25ec110d4b815bc47d63b36fed75af6182a184b6e9a12dd1c94b1d1559358c74",
+      "exitCode": 86,
+      "startedAt": "2026-10-29T19:12:31Z",
+      "finishedAt": "2026-10-29T19:13:12Z",
+      "reason": "Error"
+    },
+    {
+      "containerID": "containerd://9e350680bc5cd068ee55d145e058b3e843d97c864229cdfff501a2a1e98bd018",
+      "exitCode": 86,
+      "startedAt": "2026-10-29T19:14:31Z",
+      "finishedAt": "2026-10-29T19:14:32Z",
+      "reason": "Error"
+    },
+    {
+      "containerID": "containerd://5492f5f756932bce0e95f6a2f381b3fa85ea04d5078d256afcd66a2a2f966647",
+      "exitCode": 86,
+      "startedAt": "2026-10-29T19:15:53Z",
+      "finishedAt": "2026-10-29T19:16:00Z",
+      "reason": "Error"
+    },
+    {
+      "containerID": "containerd://f59095f221fbd4c440213c7445898a6d094d0c0aa597819b6f1dbdbce1cd5aba",
+      "exitCode": 86,
+      "startedAt": "2026-10-29T19:18:41Z",
+      "finishedAt": "2026-10-29T19:18:42Z",
+      "reason": "Error"
+    }
+  ],
+  "physical_after": {
+    "workspace_readonly": {
+      "pod_uid": "82eccc46-28d1-4db3-ad48-114c44216b81",
+      "identities": {
+        "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+      },
+      "runtime": {
+        "pod_uid": "82eccc46-28d1-4db3-ad48-114c44216b81",
+        "hashes": {
+          "/workspace": "2eb7a7ff9c34a18d057da0be5ae96794fcfbb44bde3c4d61b1039462ebed31e8"
+        },
+        "created_only_task_markers_at": [],
+        "absent_path": null,
+        "kernel_mount_absent": true
+      }
+    },
+    "new_volume_binding": {
+      "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+      "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+      "pv_name": "pvc-5692c333-22c5-4b4a-9267-f9030df69627",
+      "pv_uid": "7b5ce479-8cb8-4d23-803a-f067c46cbeda"
+    },
+    "new_mount": {
+      "pod_uid": "82eccc46-28d1-4db3-ad48-114c44216b81",
+      "workspace_mount": true,
+      "new_pvc_mount_path": "/datasets/a14-seven-01a18156",
+      "kernel_mount_present": true,
+      "writes": 0
+    },
+    "marker_writes": 0
+  },
+  "attach_result": {
+    "result": "PASS_SEVEN_REAL_PROCESS_EXITS_SAME_OPERATION_RUNTIME_VERIFIED",
+    "operation": {
+      "id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "action": "attach-pvc",
+      "intentVersion": "14",
+      "state": "completed",
+      "phase": "done",
+      "final_run_state": "running",
+      "applied_mount_version": "14",
+      "completion_scope": "runtime_verified",
+      "reason": "",
+      "failure_reason": ""
+    },
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "14",
+      "desiredState": "running",
+      "observedState": "running",
+      "activeOperationId": "",
+      "executionRunState": "running",
+      "appliedMountVersion": "14",
+      "lastOperationId": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": false,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "14",
+      "applied_mount_version": "14",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": [
+        {
+          "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+          "mount_path": "/datasets/a14-seven-01a18156",
+          "read_only": false
+        }
+      ]
+    },
+    "resource_pod_uid": "92e95c0b-f3ed-46f8-bcae-004b64441c45",
+    "resource_restart_count_before": 0,
+    "resource_restart_count_after": 7,
+    "distinct_exit86": 5,
+    "marker_count": 7,
+    "pg_final": {
+      "at": "2026-10-29T19:24:07.674114+00:00",
+      "instance": {
+        "fence": null,
+        "desired": "running",
+        "pending": null,
+        "pod_uid": "82eccc46-28d1-4db3-ad48-114c44216b81",
+        "version": 14,
+        "pod_name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "current_mounts": [
+          {
+            "pvc_uid": "5692c333-22c5-4b4a-9267-f9030df69627",
+            "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+            "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+            "ownership": "borrowed",
+            "read_only": false,
+            "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+            "mount_path": "/datasets/a14-seven-01a18156",
+            "reference_generation": 1
+          }
+        ],
+        "runtime_desired": "running",
+        "applied_mount_version": 14
+      },
+      "read_only": "on",
+      "operations": [
+        {
+          "state": "completed",
+          "action": "attach-pvc",
+          "reason": "",
+          "version": 14,
+          "execution": {
+            "phase": "done",
+            "started_at": "2026-10-29T19:12:13.25169749Z",
+            "deadline_at": "2026-10-29T19:42:13.25169749Z",
+            "phase_sequence": 10,
+            "completion_scope": "runtime_verified",
+            "verified_pod_uid": "82eccc46-28d1-4db3-ad48-114c44216b81",
+            "applied_mount_version": 14,
+            "template_commit_completed": true
+          },
+          "created_at": "2026-10-29T19:12:13.253814+00:00",
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5"
+        }
+      ]
+    },
+    "watch_gaps": [],
+    "all_seven_phases_observed_in_pg": false
+  },
+  "stage_events_at_clear": [
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "01-admission",
+      "site": "admission",
+      "at": "2026-10-29T19:12:13.258240894Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "validating",
+      "phase_sequence": 1,
+      "desired": "running",
+      "runtime_desired": "running",
+      "observed": "pending",
+      "applied_mount_version": 4,
+      "current_mount_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": false,
+      "pending": null,
+      "fence": null,
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "02-pending-before-write",
+      "site": "pending",
+      "at": "2026-10-29T19:12:20.410585225Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "stopping",
+      "phase_sequence": 2,
+      "desired": "running",
+      "runtime_desired": "stopped",
+      "observed": "pending",
+      "applied_mount_version": 4,
+      "current_mount_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": false,
+      "pending": {
+        "ID": "d764d3cd-f7ea-487a-9819-13dc134343d4",
+        "Phase": "stopping",
+        "PhaseSequence": 2,
+        "StoppedTarget": true,
+        "TargetMountDigest": "",
+        "FencedMutationID": "",
+        "ProviderMarkerExpected": true,
+        "Kind": "set_stopped",
+        "OperationID": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+        "TargetUID": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "ResourceVersion": "15950360",
+        "Version": 14
+      },
+      "fence": null,
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "03-stop-write",
+      "site": "finish",
+      "at": "2026-10-29T19:13:12.264647329Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "waiting_stopped",
+      "phase_sequence": 3,
+      "prior_phase": "stopping",
+      "prior_phase_sequence": 2,
+      "desired": "running",
+      "runtime_desired": "stopped",
+      "observed": "pending",
+      "applied_mount_version": 4,
+      "current_mount_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": false,
+      "pending": null,
+      "fence": null,
+      "receipt": {
+        "Mutation": {
+          "ID": "69497eeb-7b1e-4688-a3a2-4a7919dac292",
+          "Phase": "stopping",
+          "PhaseSequence": 2,
+          "StoppedTarget": true,
+          "TargetMountDigest": "",
+          "FencedMutationID": "",
+          "ProviderMarkerExpected": true,
+          "Kind": "set_stopped",
+          "OperationID": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+          "TargetUID": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+          "ResourceVersion": "15953123",
+          "Version": 14
+        },
+        "Outcome": "succeeded"
+      },
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "04-old-pods-absent",
+      "site": "finish",
+      "at": "2026-10-29T19:13:45.695253111Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "applying_mounts",
+      "phase_sequence": 4,
+      "prior_phase": "waiting_stopped",
+      "prior_phase_sequence": 3,
+      "desired": "running",
+      "runtime_desired": "stopped",
+      "observed": "pending",
+      "applied_mount_version": 4,
+      "current_mount_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": false,
+      "pending": null,
+      "fence": null,
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "05-template-write",
+      "site": "finish",
+      "at": "2026-10-29T19:14:32.802273489Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "waiting_template",
+      "phase_sequence": 5,
+      "prior_phase": "applying_mounts",
+      "prior_phase_sequence": 4,
+      "desired": "running",
+      "runtime_desired": "stopped",
+      "observed": "pending",
+      "applied_mount_version": 4,
+      "current_mount_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": false,
+      "pending": null,
+      "fence": null,
+      "receipt": {
+        "Mutation": {
+          "ID": "b63f7781-3b70-46f8-a32c-853b3ae08c1d",
+          "Phase": "applying_mounts",
+          "PhaseSequence": 4,
+          "StoppedTarget": true,
+          "TargetMountDigest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+          "FencedMutationID": "",
+          "ProviderMarkerExpected": true,
+          "Kind": "update_mounts",
+          "OperationID": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+          "TargetUID": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+          "ResourceVersion": "15954789",
+          "Version": 14
+        },
+        "Outcome": "succeeded"
+      },
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "06-current-config",
+      "site": "finish",
+      "at": "2026-10-29T19:16:00.570893615Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "starting",
+      "phase_sequence": 7,
+      "prior_phase": "committing_mounts",
+      "prior_phase_sequence": 6,
+      "desired": "running",
+      "runtime_desired": "running",
+      "observed": "pending",
+      "applied_mount_version": 14,
+      "current_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": true,
+      "pending": null,
+      "fence": null,
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    },
+    {
+      "schema": 1,
+      "nonce": "3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+      "kind": "instance-attach-seven",
+      "point": "07-start-write",
+      "site": "finish",
+      "at": "2026-10-29T19:18:42.539694735Z",
+      "pid": 1,
+      "uid": 10001,
+      "exit_code": 86,
+      "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+      "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "operation_id": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+      "action": "attach-pvc",
+      "intent_version": 14,
+      "phase": "waiting_ready",
+      "phase_sequence": 8,
+      "prior_phase": "starting",
+      "prior_phase_sequence": 7,
+      "desired": "running",
+      "runtime_desired": "running",
+      "observed": "pending",
+      "applied_mount_version": 14,
+      "current_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "target_mount_digest": "629d56a3104bfdc0b89eaf77d3d76d28a5bcec740662858c069035c6d52c7727",
+      "template_commit_completed": true,
+      "pending": null,
+      "fence": null,
+      "receipt": {
+        "Mutation": {
+          "ID": "c21b016e-e1d1-4cea-96db-95143e048053",
+          "Phase": "starting",
+          "PhaseSequence": 7,
+          "StoppedTarget": false,
+          "TargetMountDigest": "",
+          "FencedMutationID": "",
+          "ProviderMarkerExpected": true,
+          "Kind": "set_stopped",
+          "OperationID": "0c6375c4-1916-4b2d-a8c3-6be2d0a23ec5",
+          "TargetUID": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+          "ResourceVersion": "15957406",
+          "Version": 14
+        },
+        "Outcome": "succeeded"
+      },
+      "before_pods": [
+        {
+          "ClusterID": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+          "Namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+          "Name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0",
+          "UID": "0f19dd83-b587-499f-8cd6-1ca45b557bd6",
+          "ContainerName": "workspace"
+        }
+      ],
+      "commit": "explicit_pg_tx_commit_success"
+    }
+  ],
+  "stage_clear_ack": "CLEARED 3d1fad4e-3298-4bcb-91c7-f14018e756d5",
+  "storage_delete_body": {
+    "data": {
+      "pvc_name": "ani-vol-b54a1f1e5c0847cc94aa567972371a64",
+      "expected_uid": "5692c333-22c5-4b4a-9267-f9030df69627"
+    }
+  },
+  "storage_delete_last": {
+    "state": "GONE",
+    "expected_uid": "5692c333-22c5-4b4a-9267-f9030df69627"
+  },
+  "cleanup_result": {
+    "normal_storage_delete": "GONE",
+    "cpu_preserved_stopped": true,
+    "original_workspace_identities": {
+      "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+      "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+      "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+    },
+    "marker_writes": 0,
+    "forced_deletes": 0
+  }
+}

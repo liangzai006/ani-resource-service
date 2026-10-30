@@ -1,0 +1,66 @@
+{
+  "credential_keys_absent": true,
+  "files": {
+    "initial-kube.safe.json": {
+      "bytes": 2061,
+      "mode": "0600",
+      "sha256": "f760d8c5d7c7a81d57efc7ab314ccba7510a14dfc6fc9dc8d942b5fe2acaf1f3"
+    },
+    "initial-original-create.safe.json": {
+      "bytes": 256,
+      "mode": "0600",
+      "sha256": "1b61a925d6595cdcaddc4bc23324fcc5980493ad1e62df7d52671d058739803d"
+    },
+    "initial-pg-after.safe.json": {
+      "bytes": 3913,
+      "mode": "0600",
+      "sha256": "17d0cf7b779f2e01d0891f5780ae6a342793eaaa8bcb28806597498522166c52"
+    },
+    "initial-pg-before.safe.json": {
+      "bytes": 3913,
+      "mode": "0600",
+      "sha256": "17f752693e99024579a43d9fb22bba1ca0a408a5306ce3b6cc6b0fbafdca8091"
+    },
+    "initial-receipt.safe.json": {
+      "bytes": 10930,
+      "mode": "0600",
+      "sha256": "1725c7bb6c02051826578473543849181ddc50fde2fce69d9000d77a11443840"
+    },
+    "restored-kube.safe.json": {
+      "bytes": 2067,
+      "mode": "0600",
+      "sha256": "d36b72c43fdec0e4e42e32915edf6ae07408b310489054b4aa81a44cfc5e31ae"
+    },
+    "restored-original-create.safe.json": {
+      "bytes": 256,
+      "mode": "0600",
+      "sha256": "1b61a925d6595cdcaddc4bc23324fcc5980493ad1e62df7d52671d058739803d"
+    },
+    "restored-pg-after.safe.json": {
+      "bytes": 4420,
+      "mode": "0600",
+      "sha256": "9ea9b3ca6f2d954f9b5a4a78e32d0c8d89ae0548ff68e3514b4016ea8f92a80e"
+    },
+    "restored-pg-before.safe.json": {
+      "bytes": 4420,
+      "mode": "0600",
+      "sha256": "11e39741d78a149562c220526f09a1b095345b7cca259c124a6d245457031359"
+    },
+    "restored-receipt.safe.json": {
+      "bytes": 11936,
+      "mode": "0600",
+      "sha256": "ab35759dd8be2553d6a2235994747367d8749d03e7d16af1165854b4a74da98e"
+    }
+  },
+  "final_helper_sha256": "8072ee90c666e70585ea0da44e02e5ad2498e08f07947cdd09d80b48c077a7d9",
+  "instance_id": "022d28e4-7c0b-4633-9f82-b510490e5877",
+  "limitations": [
+    "Pre-detach v23 was not captured; initial records show restore v25 in progress.",
+    "Initial runtime_desired=null was a task projection error selecting snapshot.RuntimeDesired; final snapshot reads authoritative instance.instances.runtime_desired.",
+    "No independent Network database query; proof combines durable Resource Network confirmed revision and physical owner/Pod/IP bookends."
+  ],
+  "read_only": true,
+  "result": "PASS_POST_RESTORE_CURRENT_NETWORK_BINDING",
+  "schema": "a38-cpu-network-binding-return-v1",
+  "source_confirm_path": "internal/biz/instance/network_worker.go:confirmNetwork sets ConfirmedSnapshotRevision only after Network.Confirm returns success."
+}

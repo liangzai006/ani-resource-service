@@ -1,0 +1,16 @@
+{
+  "archive_bytes": 2326393,
+  "commit": "d505f4a9ace1d62836a36a8df66ce7a7fda1eda3",
+  "generation_run": false,
+  "go_file_count": 608,
+  "parents": [
+    "2dbde6411d612e3749bf86652da9b1f7ec7bcc09"
+  ],
+  "pg_run": false,
+  "source_archive_sha256": "5f507ad46c3374b4b61fe79f6350fc50495032673e326660ab8437d24a974c5b",
+  "source_file_count": 942,
+  "source_manifest_sha256": "ff9ef22b75952b1bda77630bc2fcca9c0ba7b973f339a00788b7e28b6152ced7",
+  "source_subset_basis": "Source24 source.manifest.json path set; all content taken from exact Git commit",
+  "tests_run": false,
+  "tree": "e68d89877dd461d60c2d672662d7668a79e3033e"
+}

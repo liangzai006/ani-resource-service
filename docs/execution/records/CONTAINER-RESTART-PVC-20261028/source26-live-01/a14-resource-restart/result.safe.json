@@ -1,0 +1,9 @@
+{
+  "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+  "elapsed_seconds": 7.264,
+  "generation": 76,
+  "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:f5f006771e22d2048ac645b0ac52e06be3079bb91caa120544983f88f07e2aef",
+  "ready_replicas": 1,
+  "result": "RESTARTED_SAME_IMAGE",
+  "tests_or_release_gates_run": false
+}

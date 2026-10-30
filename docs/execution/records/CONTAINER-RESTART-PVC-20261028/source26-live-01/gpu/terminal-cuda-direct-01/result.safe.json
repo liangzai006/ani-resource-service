@@ -1,0 +1,35 @@
+{
+  "code": "SG_RUNTIME_ERROR",
+  "cuda_probe_source_sha256": "c040d56b7a857237b3cfabe2e51604108fbb25b3c36b7a23852c0f99e3ea4c57",
+  "cuda_requested": true,
+  "driver_sha256": "d8322da3e62e54f3328e38608570c847e7f638b810c1275cdef459e13ac53860",
+  "exec_http_status": 202,
+  "expected_marker_sha256": "36ed05fc21865dbc8eb653ca543704d20b208d87e44f800e3f0c44da48570dc9",
+  "expected_pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+  "expected_version": "2",
+  "finished_at": "2026-10-29T17:27:56.871757192Z",
+  "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+  "login": "CONFIRMED",
+  "logout": "CONFIRMED",
+  "marker_path": "/datasets/gpu-terminal-01a18156/.ani-restart-212e4e29-c200-4bcd-98cc-034d2d322b3d.txt",
+  "result": "FAIL",
+  "runtime_before": {
+    "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "phase": "Running",
+    "pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+    "ready": true,
+    "version": "2"
+  },
+  "schema": "container-restart-terminal-live-v1",
+  "session_id": "c4c109ca-5943-42b3-b80d-8e913a704a79",
+  "sg_error_code": "RUNTIME_UNAVAILABLE",
+  "started_at": "2026-10-29T17:27:50.650112058Z",
+  "websocket_close": "CLIENT_CLOSED",
+  "ws_endpoint": {
+    "host": "10.10.1.66",
+    "path_template": "/api/v1/realtime/sessions/{session_id}",
+    "port": "30082",
+    "scheme": "ws"
+  },
+  "ws_http_status": 101
+}

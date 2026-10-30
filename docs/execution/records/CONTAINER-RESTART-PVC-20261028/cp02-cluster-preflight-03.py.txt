@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+"""Read only the cluster and objects needed before this task's CP02 actions."""
+import datetime, hashlib, json, os, pathlib, subprocess
+
+root = pathlib.Path('/root/ani-runs/container-restart-pvc-20261028')
+out = root / 'cp02-stopped-preflight-03.safe.json'
+assert not out.exists()
+ns = 'tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420'
+name = 'instance-e3dd2bc7-1c6a-429b-a401-e175c287d5cf'
+expected_nb = '9f8e7e65-f937-4892-99c4-2e819debcfb0'
+expected_sts = '8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c'
+
+def k(args, raw=False):
+    p = subprocess.run(['ssh', '-oBatchMode=yes', '-oStrictHostKeyChecking=yes',
+        '-oConnectTimeout=10', 'kubercloud@10.10.1.66', 'kubectl',
+        '--request-timeout=12s'] + args, capture_output=True, timeout=25, check=True)
+    return p.stdout.decode().strip() if raw else json.loads(p.stdout)
+
+def get(kind, n, namespace=None):
+    return k(['get', kind, n] + (['-n', namespace] if namespace else []) + ['-o', 'json'])
+
+def identity(x):
+    m=x['metadata']; return dict(kind=x['kind'],name=m['name'],namespace=m.get('namespace'),
+        uid=m['uid'],generation=m.get('generation'),deleting=bool(m.get('deletionTimestamp')))
+
+receipt = dict(observed_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    read_only=True, application_image_changes=0, checks={}, deployments=[], protected=[])
+assert k(['config','current-context'],True)=='kubernetes-admin@ani-kcn-full'
+assert get('namespace','kube-system')['metadata']['uid']=='3eeb5379-8748-4bf8-8f6d-d7a48ce3bc24'
+assert get('namespace',ns)['metadata']['uid']=='a8d8a472-8a8a-43cf-abf0-0e805bbe67b0'
+receipt['checks']['cluster_identity']='PASS'
+for n,uid,replicas in [
+    ('ani-resource-service','9b17ed7e-6521-40e8-8bf5-70a44237e501',1),
+    ('ani-governance','4ae87828-5f2c-4b27-a8b8-d348aeb86ee5',1),
+    ('ani-governance-sandbox-20261027','d3db8e14-df99-4fd3-80f4-d10c3ad00915',1),
+    ('ani-resource-sandbox-20261027','81ec6bc5-c5b5-4535-af42-bb8d96b70864',0)]:
+    d=get('deployment',n,'ani-system'); row=identity(d)
+    assert row['uid']==uid and not row['deleting'] and d['spec']['replicas']==replicas
+    assert d['status'].get('observedGeneration')==row['generation']
+    assert d['status'].get('readyReplicas',0)==replicas
+    row['images']=[c['image'] for c in d['spec']['template']['spec']['containers']]
+    row['gates']={e['name']:e.get('value') for c in d['spec']['template']['spec']['containers']
+        for e in c.get('env',[]) if e['name'].startswith('ANI_INSTANCE_') and 'value' in e}
+    if replicas:
+        assert all(row['gates'].get(g)=='true' for g in ['ANI_INSTANCE_NEW_INTENTS_ENABLED','ANI_INSTANCE_PVC_MUTATIONS_ENABLED','ANI_INSTANCE_RESTART_ENABLED'])
+    receipt['deployments'].append(row)
+for kind,n,uid in [
+    ('notebook','instance-63b52ff4-e489-4df6-b6fb-be10a36e2eb9','92fe6748-7a43-460f-b4b2-000a0721be2d'),
+    ('notebook','instance-d2b9ea58-98d6-4acd-bac1-3210ac46fdaa','047a9d29-480f-4394-89e7-2dc4cf26ba5a'),
+    ('pod','instance-63b52ff4-e489-4df6-b6fb-be10a36e2eb9-0','af4cd92a-9352-4001-9697-d937bb767ec7'),
+    ('pod','instance-d2b9ea58-98d6-4acd-bac1-3210ac46fdaa-0','ce90eb86-8af7-4842-a6c9-c56ed9dbc250')]:
+    x=get(kind,n,ns); row=identity(x);assert row['uid']==uid and not row['deleting']
+    if kind=='pod':
+        row['ready']=any(c['type']=='Ready' and c['status']=='True' for c in x['status'].get('conditions',[])); assert row['ready']
+    receipt['protected'].append(row)
+nb=get('notebook',name,ns);sts=get('statefulset',name,ns)
+assert nb['metadata']['uid']==expected_nb and sts['metadata']['uid']==expected_sts
+assert nb['metadata'].get('annotations',{}).get('kubeflow-resource-stopped')=='true'
+assert sts['spec']['replicas']==0 and sts['status']['observedGeneration']==sts['metadata']['generation']
+assert any(o.get('controller') and o['kind']=='Notebook' and o['uid']==expected_nb for o in sts['metadata']['ownerReferences'])
+pods=k(['get','pods','-n',ns,'-o','json'])['items']
+target=[identity(p) for p in pods if p['metadata']['name']==name+'-0' or any(o.get('uid')==expected_sts for o in p['metadata'].get('ownerReferences',[]))]
+assert not target
+receipt['notebook']=identity(nb);receipt['statefulset']=dict(identity(sts),observed_generation=sts['status']['observedGeneration'],replicas=0)
+receipt['target_pods']=target;receipt['pvcs']=[]
+for pvc,uid in [('ani-vol-168d2c1c17684c3f9b1eab83d963327d','fa56c965-5a9a-4bb1-b271-3960a7309e96'),('workspace-e3dd2bc7-1c6a-429b-a401-e175c287d5cf','879bc064-f1d6-4054-aae3-c140c2c2abac')]:
+    p=get('pvc',pvc,ns);row=identity(p);assert row['uid']==uid and not row['deleting'] and p['status']['phase']=='Bound'
+    row['pv_name']=p['spec']['volumeName'];receipt['pvcs'].append(row)
+receipt['checks'].update(deployments='PASS',protected_workloads='PASS',stopped_identity='PASS',pvc_identity='PASS')
+data=(json.dumps(receipt,sort_keys=True,indent=2)+'\n').encode()
+fd=os.open(out,os.O_CREAT|os.O_EXCL|os.O_WRONLY,0o600)
+with os.fdopen(fd,'wb') as f:f.write(data)
+print(json.dumps({'receipt':str(out),'sha256':hashlib.sha256(data).hexdigest(),'checks':receipt['checks'],'deployments':receipt['deployments']}))

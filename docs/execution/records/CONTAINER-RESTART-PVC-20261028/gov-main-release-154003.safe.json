@@ -1,0 +1,53 @@
+{
+  "deployment_seconds": 11.84,
+  "deployments": [
+    {
+      "deployment": "ani-governance",
+      "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:31d33e08ec60c003214ad79de47e6a557386bbf05832e99ec24b30a5af69ce33",
+      "pods": [
+        {
+          "containers": [
+            {
+              "image": "sha256:8f2c914d0a569aff149e8614216487f1436337f8f58ded706e7c07b211920026",
+              "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:31d33e08ec60c003214ad79de47e6a557386bbf05832e99ec24b30a5af69ce33",
+              "ready": true
+            }
+          ],
+          "ready": true,
+          "uid": "7f00be46-bd57-4625-bbb6-8ae720c3664d"
+        }
+      ],
+      "ready_replicas": 1
+    },
+    {
+      "deployment": "ani-governance-sandbox-20261027",
+      "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:31d33e08ec60c003214ad79de47e6a557386bbf05832e99ec24b30a5af69ce33",
+      "pods": [
+        {
+          "containers": [
+            {
+              "image": "sha256:8f2c914d0a569aff149e8614216487f1436337f8f58ded706e7c07b211920026",
+              "image_id": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:31d33e08ec60c003214ad79de47e6a557386bbf05832e99ec24b30a5af69ce33",
+              "ready": true
+            }
+          ],
+          "ready": true,
+          "uid": "86c314cd-e995-4810-8292-e4fa75233e73"
+        }
+      ],
+      "ready_replicas": 1
+    }
+  ],
+  "finished_at": "2026-10-29T15:43:45.929185+00:00",
+  "image": "10.10.1.66:30003/ani-gpu-platform/ani-governance@sha256:31d33e08ec60c003214ad79de47e6a557386bbf05832e99ec24b30a5af69ce33",
+  "main_after": "45075ba255ff1f390b2f2a87c166b56d32c8ff24",
+  "main_before": "26350262119cf66a93bd5e57d169bfc9f362a1fe",
+  "merge_method": "normal fast-forward SSH push; user explicitly requested main and no test gates",
+  "request_started_at": "2026-10-29T15:40:03+00:00",
+  "request_to_rollout_complete_seconds": 222.929,
+  "result": "DEPLOYED",
+  "revision": "45075ba255ff1f390b2f2a87c166b56d32c8ff24",
+  "started_at": "2026-10-29T15:43:34.104329+00:00",
+  "tests_run": false,
+  "tests_run_for_this_release": false
+}

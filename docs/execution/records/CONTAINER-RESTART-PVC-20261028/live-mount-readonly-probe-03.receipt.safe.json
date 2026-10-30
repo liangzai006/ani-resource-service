@@ -1,0 +1,226 @@
+{
+  "build_host": "192.168.25.40",
+  "build_receipt_sha256": "ffbe839dac914e333eb04b2aa1b95d4614dfa2ea055497ac1075dc64b1ea5d48",
+  "ca_configmap_uid": "53d97618-c4cd-497e-a12a-c2bea03a0f88",
+  "ca_sha256": "97d305c27a641f674662282c28e972946773bc0a9aa8a4726724ae0651e3666d",
+  "credential_semantics": "TOKEN_REQUEST_SUBJECT_EQUIVALENT",
+  "expires_at": 1793269454,
+  "finished_at": "2026-10-29T10:14:20.737420+00:00",
+  "historical_running_status_churn_evidence_sha256": "da963435e04c214aff54466b1bcc66882ba4808d3ef0d8f2abe97bd19841d35b",
+  "issued_at": 1793268854,
+  "issued_ttl_seconds": 600,
+  "known_source20_manifest_sha256": "e0be7a1ee55d2693f17c589d0fdb28e2d4e6e0b6cab820865671ea623fb6beca",
+  "live_business_mutations": 0,
+  "original_api_server": "https://10.96.0.1:443",
+  "probe_binary_sha256": "64474fb4661b23e7564a84bfffae2494c345b3b4c3f864338b7f2054bb53bb38",
+  "probe_exit_code": 0,
+  "probe_result": {
+    "calls": [
+      {
+        "duration_ms": 14,
+        "http_status": 200,
+        "resource": "notebook_get"
+      },
+      {
+        "duration_ms": 6,
+        "http_status": 200,
+        "resource": "statefulset_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 4,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 1,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 4,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 5,
+        "http_status": 200,
+        "resource": "pods_list"
+      },
+      {
+        "duration_ms": 4,
+        "http_status": 200,
+        "resource": "notebook_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "statefulset_get"
+      },
+      {
+        "duration_ms": 4,
+        "http_status": 200,
+        "resource": "notebook_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "statefulset_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "notebook_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "statefulset_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 3,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 4,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 13,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 404,
+        "resource": "pod_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "pods_list"
+      },
+      {
+        "duration_ms": 3,
+        "http_status": 200,
+        "resource": "notebook_get"
+      },
+      {
+        "duration_ms": 2,
+        "http_status": 200,
+        "resource": "statefulset_get"
+      },
+      {
+        "duration_ms": 6,
+        "http_status": 200,
+        "resource": "notebook_get"
+      },
+      {
+        "duration_ms": 1,
+        "http_status": 200,
+        "resource": "statefulset_get"
+      }
+    ],
+    "client_burst": 10,
+    "client_qps": 5,
+    "client_timeout_seconds": 15,
+    "context_timeout_seconds": 30,
+    "credential_semantics": "TOKEN_REQUEST_SUBJECT_EQUIVALENT",
+    "dial_target": "10.10.1.66:6443",
+    "finished_at": "2026-10-29T10:14:20.122254962Z",
+    "initial_observation": {
+      "GPUPods": null,
+      "IntentVersion": 10,
+      "MutationID": "c61bbcfc-7243-4998-8ba6-479b86708458",
+      "NotebookExists": true,
+      "NotebookGeneration": 2,
+      "NotebookRV": "14107034",
+      "NotebookUID": "9f8e7e65-f937-4892-99c4-2e819debcfb0",
+      "PVCExists": false,
+      "PVCUID": "",
+      "PodExists": false,
+      "PodName": "",
+      "PodReady": false,
+      "PodUID": "",
+      "Pods": null,
+      "SafeStopped": true,
+      "StatefulSetExists": true,
+      "StatefulSetGeneration": 13,
+      "StatefulSetObservedGeneration": 13,
+      "StatefulSetReplicas": 0,
+      "StatefulSetUID": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c",
+      "Stopped": true,
+      "VolumeExists": false,
+      "VolumeName": "",
+      "VolumeUID": "",
+      "WorkspaceReason": ""
+    },
+    "initial_observe_duration_ms": 207,
+    "initial_observe_error_class": "",
+    "network_scope": "new heavy host direct API; not the Pod network route",
+    "original_api_host": "10.96.0.1:443",
+    "proof": {
+      "Class": "target",
+      "NotebookGeneration": 2,
+      "NotebookRV": "14107034",
+      "NotebookUID": "9f8e7e65-f937-4892-99c4-2e819debcfb0",
+      "SafeStopped": true,
+      "StatefulSetGeneration": 13,
+      "StatefulSetObservedGeneration": 13,
+      "StatefulSetUID": "8f47fa4c-3cf1-4c5a-8bc6-3e67de4bfe0c"
+    },
+    "read_only": true,
+    "require_safe_stopped": true,
+    "resource_pod_uid": "66598e59-390a-426f-8d47-0665548b60be",
+    "result": "REAL_API_MOUNT_TEMPLATE_TARGET",
+    "schema": "real-go-live-mount-readonly-v1",
+    "started_at": "2026-10-29T10:14:16.912522004Z",
+    "strict_ca_verified": true,
+    "tls_server_name": "10.96.0.1",
+    "total_duration_ms": 3205,
+    "verify_duration_ms": 2997,
+    "verify_error_class": ""
+  },
+  "probe_safe_sha256": "77a736eb5c7bbb50cd8a592ca482145e0094ea0427eb2907eda2561ea852df2e",
+  "requested_ttl_seconds": 600,
+  "resource_actual_image_id": [
+    "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:e7f98d498d038f57b2ff953447da62904bab03c90b8a2df9cb9561569b01461f"
+  ],
+  "resource_deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501",
+  "resource_image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service:vm-logs-20261029",
+  "resource_pod_uid": "66598e59-390a-426f-8d47-0665548b60be",
+  "same_resource_pod_and_image_before_after": true,
+  "schema": "same-sa-bound-live-probe-v1",
+  "service_account_uid": "b01307c9-f6e2-4122-b82a-dea120ed30f1",
+  "snapshot_sha256": "3df578d00cb48cd3c16869623c9a2dcd33e8ec13659c87d201208c77b50b96f3",
+  "stage": "done",
+  "started_at": "2026-10-29T10:14:13.184199+00:00",
+  "temporary_kubeconfig_removed": true,
+  "token_request_only": true
+}

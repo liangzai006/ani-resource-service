@@ -1,0 +1,15 @@
+{
+  "candidate_count": 0,
+  "error_type": "AcceptanceError",
+  "event_count": 2,
+  "finished_at": "2026-10-29T09:12:49.675796+00:00",
+  "lock_acquired": true,
+  "lock_released": true,
+  "logout_attempts": 1,
+  "new_session_logout": "CONFIRMED",
+  "old_target_absent_confirmed": false,
+  "own_jti_sha256": "5f84704acb2c259677720e1a4ed0142935b5007c4d39088841db953ebd79597c",
+  "result": "UNKNOWN",
+  "revoke_post_attempts": 0,
+  "started_at": "2026-10-29T09:12:43.455533+00:00"
+}

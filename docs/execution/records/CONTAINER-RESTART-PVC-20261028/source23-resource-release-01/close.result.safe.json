@@ -1,0 +1,6 @@
+{
+  "automatic_rollback": false,
+  "phase": "close",
+  "resource_only": true,
+  "result": "FAIL"
+}

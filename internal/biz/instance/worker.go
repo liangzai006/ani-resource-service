@@ -40,7 +40,8 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		}
 	}
 	if lp, ok := w.provider.(LifecycleProvider); ok {
-		if work.Operation != nil && NewLifecycleAction(work.Operation.Action) {
+		startRecovering := work.Operation != nil && work.Operation.Action == "start" && work.Operation.Execution != nil && (work.Operation.Execution.Phase == "recovering_stop" || work.Operation.Execution.Phase == "verifying_safe_stop")
+		if work.Operation != nil && (NewLifecycleAction(work.Operation.Action) || startRecovering) {
 			return w.stepLifecycle(ctx, *work, lp)
 		}
 		if i.MountsInitialized && i.AppliedMountVersion == 0 && i.Desired != Deleted && i.NotebookUID != "" {
@@ -91,6 +92,9 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		}
 		if errors.Is(err, ErrPVCNotFound) {
 			p.Instance.Reason = "INSTANCE_PVC_NOT_FOUND"
+		}
+		if errors.Is(err, ErrPVCReferenceChanged) || errors.Is(err, ErrPVCNotFound) {
+			recoverStartFailure(*work, &p, p.Instance.Reason)
 		}
 		return true, w.repo.Finish(ctx, *work, p)
 	}
@@ -220,6 +224,9 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 				p.Instance.Reason = "INSTANCE_RESERVED_CONFIG"
 			}
 			p.Receipt = &MutationReceipt{Mutation: m, Outcome: "definitive_rejection"}
+			if errors.Is(err, ErrPVCReferenceChanged) || errors.Is(err, ErrPVCNotFound) {
+				recoverStartFailure(*work, &p, p.Instance.Reason)
+			}
 		}
 		return true, w.repo.Finish(ctx, *work, p)
 	}
@@ -295,6 +302,7 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		// A recorded UID proves a Notebook previously existed. Losing it is not a new CREATE.
 		if i.NotebookUID != "" {
 			p.Instance.Reason = "NOTEBOOK_MISSING"
+			recoverStartFailure(*work, &p, p.Instance.Reason)
 			return true, w.repo.Finish(ctx, *work, p)
 		}
 		return mutate("create_notebook", func() error {
@@ -323,6 +331,18 @@ func (w *Worker) Step(ctx context.Context) (bool, error) {
 		}
 	}
 	return true, w.repo.Finish(ctx, *work, p)
+}
+
+// A definitively invalid Start must release its operation only after the same
+// identity and safe-stop proof used by the lifecycle recovery path. Otherwise
+// its accepted operation permanently prevents Stop and volume repair.
+func recoverStartFailure(work Work, p *Progress, reason string) {
+	if work.Operation == nil || work.Operation.Action != "start" || work.Operation.Execution == nil {
+		return
+	}
+	p.Operation = cloneOperation(work.Operation)
+	recovering(p, reason)
+	p.Instance.ActiveOperation = p.Operation
 }
 
 func completeOwnerCleanup(p *Progress) {

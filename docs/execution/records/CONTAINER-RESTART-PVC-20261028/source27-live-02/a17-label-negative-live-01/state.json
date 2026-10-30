@@ -1,0 +1,509 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "04d98e52-96bd-5cff-92db-451af3a629c4",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "one-stop": {
+      "action": "stop",
+      "idempotency_key": "a406e297-2513-4404-a624-0336176e6dfd",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "9",
+      "request_body_sha256": "f48a2b5b59be9aa9c0967a2c4e249669c078347bb011f9a5800e4d27c621b9c8",
+      "request_body": {
+        "data": {
+          "expectedVersion": "9",
+          "idempotencyKey": "a406e297-2513-4404-a624-0336176e6dfd"
+        }
+      },
+      "ack": {
+        "operationId": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+        "resourceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+        "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "action": "stop",
+        "intentVersion": "10",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "stopped",
+        "applied_mount_version": "4",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+  "transport_fault_control_calls": 0,
+  "resource_binding": {
+    "pod_uid": "6c220e68-b960-4a11-8f36-14d0d52fc8a4",
+    "image": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:eb1a1fa618e2a8bd04b7dbbeb8e3195cbf67a7a44691bbb6d046e1cf821f5a94",
+    "deployment_uid": "9b17ed7e-6521-40e8-8bf5-70a44237e501"
+  },
+  "persistent_identities": {
+    "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+    "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+    "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+    "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+    "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+  },
+  "running_baseline": {
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "9",
+      "desiredState": "running",
+      "observedState": "running",
+      "activeOperationId": "",
+      "executionRunState": "running",
+      "appliedMountVersion": "4",
+      "lastOperationId": "d9e15038-08e1-4764-b569-1239ff7d0a91",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "9",
+      "applied_mount_version": "4",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": []
+    },
+    "pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+    "workspace_readonly_proof": {
+      "pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+      "identities": {
+        "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+        "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+        "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+        "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+      },
+      "runtime": {
+        "pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+        "hashes": {
+          "/workspace": "2eb7a7ff9c34a18d057da0be5ae96794fcfbb44bde3c4d61b1039462ebed31e8"
+        },
+        "created_only_task_markers_at": [],
+        "absent_path": null,
+        "kernel_mount_absent": true
+      }
+    }
+  },
+  "step_results": {
+    "start": "PASS_NORMAL_START_ORIGINAL_WORKSPACE_READONLY",
+    "remove-label": "PASS_LABEL_ONLY_EMPTY_OLD_UID_STILL_EXISTS",
+    "stop-negative": "PASS_LABEL_ONLY_EMPTY_OLD_UID_NOT_FALSE_STOPPED",
+    "restore-label": "ORIGINAL_LABEL_RESTORED_BY_UID_RV_PATCH",
+    "resume-stop": "PASS_SAME_STOP_COMPLETED_ORIGINAL_WORKSPACE_PRESERVED"
+  },
+  "session_cleanup": [
+    {
+      "phase": "start",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "remove-label",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "stop-negative",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "restore-label",
+      "remote": "CONFIRMED"
+    },
+    {
+      "phase": "resume-stop",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "label_fault": {
+    "pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+    "original_value": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "original_resource_version": "15870467",
+    "selector": {
+      "matchLabels": {
+        "statefulset": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb"
+      }
+    },
+    "original_labels": {
+      "accelerator.ani.io/create-operation-id": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "accelerator.ani.io/owner-service": "ani-resource-service",
+      "accelerator.ani.io/resource-id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "accelerator.ani.io/resource-tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "ani.io/instance-id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "ani.io/tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "apps.kubernetes.io/pod-index": "0",
+      "controller-revision-hash": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-564f8b8877",
+      "network.ani.io/attachment-id": "att_fa93005bdb8c495a9b6e8ea979334b9c",
+      "network.ani.io/generation": "1",
+      "network.ani.io/instance-id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "network.ani.io/submission-id": "1fe0d0a3-9a40-599c-b985-9159cb3fa811",
+      "network.ani.io/tenant-id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+      "notebook-name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "statefulset": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "statefulset.kubernetes.io/pod-name": "instance-9b2e5371-5be3-4cac-8766-55147d8041fb-0"
+    },
+    "spec_sha256": "8726241277e0c420d8be62c1f62e871024d98265fbfa511abda31bbb602e7e45",
+    "external_boundary_fault": true
+  },
+  "metadata_patches": {
+    "remove": {
+      "patch": [
+        {
+          "op": "test",
+          "path": "/metadata/uid",
+          "value": "a1013e08-1a32-4ee5-a800-f81681cdb711"
+        },
+        {
+          "op": "test",
+          "path": "/metadata/resourceVersion",
+          "value": "15870467"
+        },
+        {
+          "op": "test",
+          "path": "/metadata/labels/accelerator.ani.io~1resource-id",
+          "value": "9b2e5371-5be3-4cac-8766-55147d8041fb"
+        },
+        {
+          "op": "remove",
+          "path": "/metadata/labels/accelerator.ani.io~1resource-id"
+        }
+      ],
+      "pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+      "request_sha256": "623abd7309e5e6ee5ad6740aeee35de5239aa2779edab41d7f3f6804ad461c13",
+      "attempted": true,
+      "reply": {
+        "pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+        "resource_version": "15872292",
+        "spec_sha256": "8726241277e0c420d8be62c1f62e871024d98265fbfa511abda31bbb602e7e45"
+      }
+    },
+    "restore": {
+      "patch": [
+        {
+          "op": "test",
+          "path": "/metadata/uid",
+          "value": "a1013e08-1a32-4ee5-a800-f81681cdb711"
+        },
+        {
+          "op": "test",
+          "path": "/metadata/resourceVersion",
+          "value": "15873525"
+        },
+        {
+          "op": "add",
+          "path": "/metadata/labels/accelerator.ani.io~1resource-id",
+          "value": "9b2e5371-5be3-4cac-8766-55147d8041fb"
+        }
+      ],
+      "pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+      "request_sha256": "0c063000558b6914fe9be40af2b8b409a73d1ede29631fdf163b907475df17aa",
+      "attempted": true,
+      "reply": {
+        "pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+        "resource_version": "15874978",
+        "spec_sha256": "8726241277e0c420d8be62c1f62e871024d98265fbfa511abda31bbb602e7e45"
+      }
+    }
+  },
+  "label_removed_proof": {
+    "label_selector": "accelerator.ani.io/resource-id=9b2e5371-5be3-4cac-8766-55147d8041fb",
+    "label_only_count": 0,
+    "complete_list_contains_old_uid": true,
+    "old_pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+    "pod_deleting": false
+  },
+  "negative_observations": [
+    {
+      "at": "2026-10-29T18:48:09.032929Z",
+      "operation": {
+        "id": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+        "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "action": "stop",
+        "intentVersion": "10",
+        "state": "accepted",
+        "phase": "stopping",
+        "final_run_state": "stopped",
+        "applied_mount_version": "4",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      },
+      "instance": {
+        "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "instance_kind": "container",
+        "compute_type": "cpu",
+        "version": "10",
+        "desiredState": "stopped",
+        "observedState": "pending",
+        "activeOperationId": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+        "executionRunState": "stopped",
+        "appliedMountVersion": "4",
+        "lastOperationId": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+        "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+        "computeCleaned": false,
+        "workspaceCleaned": false,
+        "networkCleaned": false,
+        "volumeReferencesReleased": true,
+        "quotaReturned": false
+      },
+      "configuration": {
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "version": "10",
+        "applied_mount_version": "4",
+        "workspace_mount_path": "/workspace",
+        "volume_mounts": []
+      },
+      "label_proof": {
+        "label_selector": "accelerator.ani.io/resource-id=9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "label_only_count": 0,
+        "complete_list_contains_old_uid": true,
+        "old_pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+        "pod_deleting": true
+      },
+      "notebook_stopped": true,
+      "old_uid_bookend_same": true
+    },
+    {
+      "at": "2026-10-29T18:48:12.856819Z",
+      "operation": {
+        "id": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+        "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "action": "stop",
+        "intentVersion": "10",
+        "state": "accepted",
+        "phase": "stopping",
+        "final_run_state": "stopped",
+        "applied_mount_version": "4",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      },
+      "instance": {
+        "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "instance_kind": "container",
+        "compute_type": "cpu",
+        "version": "10",
+        "desiredState": "stopped",
+        "observedState": "pending",
+        "activeOperationId": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+        "executionRunState": "stopped",
+        "appliedMountVersion": "4",
+        "lastOperationId": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+        "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+        "computeCleaned": false,
+        "workspaceCleaned": false,
+        "networkCleaned": false,
+        "volumeReferencesReleased": true,
+        "quotaReturned": false
+      },
+      "configuration": {
+        "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "version": "10",
+        "applied_mount_version": "4",
+        "workspace_mount_path": "/workspace",
+        "volume_mounts": []
+      },
+      "label_proof": {
+        "label_selector": "accelerator.ani.io/resource-id=9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "label_only_count": 0,
+        "complete_list_contains_old_uid": true,
+        "old_pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+        "pod_deleting": true
+      },
+      "notebook_stopped": true,
+      "old_uid_bookend_same": true
+    }
+  ],
+  "negative_result": {
+    "result": "PASS_LABEL_ONLY_EMPTY_OLD_UID_NOT_FALSE_STOPPED",
+    "samples": [
+      {
+        "at": "2026-10-29T18:48:09.032929Z",
+        "operation": {
+          "id": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+          "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "action": "stop",
+          "intentVersion": "10",
+          "state": "accepted",
+          "phase": "stopping",
+          "final_run_state": "stopped",
+          "applied_mount_version": "4",
+          "completion_scope": "",
+          "reason": "",
+          "failure_reason": ""
+        },
+        "instance": {
+          "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "pending",
+          "activeOperationId": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "4",
+          "lastOperationId": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+          "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": true,
+          "quotaReturned": false
+        },
+        "configuration": {
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "version": "10",
+          "applied_mount_version": "4",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": []
+        },
+        "label_proof": {
+          "label_selector": "accelerator.ani.io/resource-id=9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "label_only_count": 0,
+          "complete_list_contains_old_uid": true,
+          "old_pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+          "pod_deleting": true
+        },
+        "notebook_stopped": true,
+        "old_uid_bookend_same": true
+      },
+      {
+        "at": "2026-10-29T18:48:12.856819Z",
+        "operation": {
+          "id": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+          "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "action": "stop",
+          "intentVersion": "10",
+          "state": "accepted",
+          "phase": "stopping",
+          "final_run_state": "stopped",
+          "applied_mount_version": "4",
+          "completion_scope": "",
+          "reason": "",
+          "failure_reason": ""
+        },
+        "instance": {
+          "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "instance_kind": "container",
+          "compute_type": "cpu",
+          "version": "10",
+          "desiredState": "stopped",
+          "observedState": "pending",
+          "activeOperationId": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+          "executionRunState": "stopped",
+          "appliedMountVersion": "4",
+          "lastOperationId": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+          "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+          "computeCleaned": false,
+          "workspaceCleaned": false,
+          "networkCleaned": false,
+          "volumeReferencesReleased": true,
+          "quotaReturned": false
+        },
+        "configuration": {
+          "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "version": "10",
+          "applied_mount_version": "4",
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": []
+        },
+        "label_proof": {
+          "label_selector": "accelerator.ani.io/resource-id=9b2e5371-5be3-4cac-8766-55147d8041fb",
+          "label_only_count": 0,
+          "complete_list_contains_old_uid": true,
+          "old_pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+          "pod_deleting": true
+        },
+        "notebook_stopped": true,
+        "old_uid_bookend_same": true
+      }
+    ],
+    "one_stop_operation_id": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+    "transport_fault_used": false
+  },
+  "label_restore_result": {
+    "result": "ORIGINAL_LABEL_RESTORED_BY_UID_RV_PATCH",
+    "old_pod_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+    "restored_uid": "a1013e08-1a32-4ee5-a800-f81681cdb711",
+    "replacement_patched": false
+  },
+  "resume_observations": [
+    {
+      "at": "2026-10-29T18:48:53.895924Z",
+      "operation": {
+        "id": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+        "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+        "action": "stop",
+        "intentVersion": "10",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "stopped",
+        "applied_mount_version": "4",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  ],
+  "resume_result": {
+    "result": "PASS_SAME_STOP_COMPLETED_ORIGINAL_WORKSPACE_PRESERVED",
+    "negative_previously_proven": true,
+    "operation": {
+      "id": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+      "instanceId": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "action": "stop",
+      "intentVersion": "10",
+      "state": "completed",
+      "phase": "done",
+      "final_run_state": "stopped",
+      "applied_mount_version": "4",
+      "completion_scope": "",
+      "reason": "",
+      "failure_reason": ""
+    },
+    "instance": {
+      "id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "10",
+      "desiredState": "stopped",
+      "observedState": "stopped",
+      "activeOperationId": "",
+      "executionRunState": "stopped",
+      "appliedMountVersion": "4",
+      "lastOperationId": "e01be46a-a811-4abd-b612-ce0b0f87b630",
+      "createOperationId": "5a8123f1-d9ff-4bca-99b6-7c8d1b54af07",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    },
+    "configuration": {
+      "instance_id": "9b2e5371-5be3-4cac-8766-55147d8041fb",
+      "version": "10",
+      "applied_mount_version": "4",
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": []
+    },
+    "identities": {
+      "notebook_uid": "83231d65-5b24-4db3-a030-a6e4d144a7e0",
+      "statefulset_uid": "57eb666c-7d05-4098-a7ac-0d6d26e4577a",
+      "workspace_pvc_uid": "d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_name": "pvc-d4f3d393-32dc-4a3c-ba10-624e2a06a79f",
+      "workspace_pv_uid": "83072067-2c12-4605-a48b-a4d1e7fc0f42"
+    },
+    "new_stop_requests": 0
+  }
+}

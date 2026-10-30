@@ -1,0 +1,115 @@
+{
+  "checks": {
+    "authorized-original-replay": {
+      "ack": {
+        "operationId": "f152b1f3-dba1-480d-b203-9132d92efc41",
+        "replayed": true,
+        "resourceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+        "result": "ACCEPTED"
+      },
+      "http_status": 202,
+      "result": "PASS",
+      "same_session_reused": true
+    },
+    "candidate-attach-without-create-after": {
+      "create_grant": false,
+      "http_status": 200,
+      "items_count": 7,
+      "pvc_or_attach_request_sent": false,
+      "result": "PASS",
+      "same_session_reused": true,
+      "total": 7
+    },
+    "candidate-attach-without-create-before": {
+      "create_grant": false,
+      "http_status": 200,
+      "items_count": 7,
+      "pvc_or_attach_request_sent": false,
+      "result": "PASS",
+      "same_session_reused": true,
+      "total": 7
+    },
+    "same-token-revoked-original-replay": {
+      "http_status": 403,
+      "read_control_http_status": 200,
+      "reason": "FORBIDDEN",
+      "result": "PASS",
+      "same_session_reused": true
+    }
+  },
+  "objects": {
+    "grant-a": {
+      "absence_proof": "exact-tenant-and-unique-name-list-empty",
+      "attempted": true,
+      "deleted": true,
+      "http_acknowledged": true,
+      "id": 31,
+      "path": "/api/v1/admin/roles"
+    },
+    "user-a": {
+      "absence_proof": "exact-tenant-and-unique-name-list-empty",
+      "attempted": true,
+      "deleted": true,
+      "http_acknowledged": true,
+      "id": 39,
+      "path": "/api/v1/admin/users"
+    }
+  },
+  "permissions": {
+    "instance:list": 24,
+    "instance:operation:read": 29,
+    "instance:pvc:attach": 311,
+    "instance:read": 25,
+    "instance:restart": 310,
+    "sys:access_backend": 1
+  },
+  "phases": {
+    "auth": {
+      "new_business_intents": 0,
+      "owned_role_id": 31,
+      "owned_user_id": 39,
+      "result": "PASS",
+      "session_cleanup": "CONFIRMED",
+      "stable_version": "16",
+      "tenant_a": 2
+    },
+    "cleanup": {
+      "normal_api_only": true,
+      "result": "PASS",
+      "session_cleanup": "CONFIRMED"
+    }
+  },
+  "prefix": "a05-01a18156-7d615a1582cd",
+  "schema": "a05-owned-auth-fixtures-v2",
+  "stable_instance": {
+    "activeOperationId": "",
+    "appliedMountVersion": "14",
+    "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+    "desiredState": "stopped",
+    "executionRunState": "stopped",
+    "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+    "lastOperationId": "d02660d2-f0de-4280-8c74-2b5513030e4a",
+    "observedState": "stopped",
+    "version": "16"
+  },
+  "writes": {
+    "cleanup-grant-a": {
+      "attempted": true,
+      "http_acknowledged": true,
+      "method": "DELETE",
+      "path": "/api/v1/admin/roles/31"
+    },
+    "cleanup-user-a": {
+      "attempted": true,
+      "http_acknowledged": true,
+      "method": "DELETE",
+      "path": "/api/v1/admin/users/39"
+    },
+    "remove-only-own-role-restart": {
+      "attempted": true,
+      "http_acknowledged": true,
+      "method": "PUT",
+      "path": "/api/v1/admin/roles/31"
+    }
+  }
+}

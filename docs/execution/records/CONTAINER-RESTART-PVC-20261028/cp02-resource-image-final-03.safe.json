@@ -1,0 +1,9 @@
+{
+  "before_after_pod_and_image_id_match": true,
+  "image_ids": [
+    "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:e7f98d498d038f57b2ff953447da62904bab03c90b8a2df9cb9561569b01461f"
+  ],
+  "pod_uid": "66598e59-390a-426f-8d47-0665548b60be",
+  "read_only": true,
+  "ready": true
+}

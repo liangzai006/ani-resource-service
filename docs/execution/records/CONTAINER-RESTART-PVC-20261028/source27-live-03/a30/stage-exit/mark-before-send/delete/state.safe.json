@@ -1,0 +1,33 @@
+{
+  "_evidence_source": {
+    "projection": "Existing file only; secret/env/ticket values and raw Deployment bodies redacted",
+    "raw_remote_sha256": "c4552fc684027d3fdfa557ba4afb8500e4cebf426136488c9de9278e8ebf1693",
+    "redactions": [],
+    "remote_path": "/root/ani-runs/container-restart-pvc-20261028/a30-stage-exit-live-01/mark-before-send/delete/state.json"
+  },
+  "base_url": "http://127.0.0.1:39586",
+  "http_error": {
+    "code": "HTTP_REQUEST_REJECTED",
+    "http_status": 503,
+    "reason": "STORAGE_BACKEND_UNAVAILABLE"
+  },
+  "intents": {},
+  "request_attempted": true,
+  "request_body": {
+    "data": {
+      "expected_uid": "c7167f29-921e-49c0-b9e2-8a7cc7c63040",
+      "pvc_name": "ani-vol-39377b08a50d47cab66ebe55824e103d"
+    }
+  },
+  "request_body_sha256": "5062c0b0a908b6f00e316a6f1be89ce7609d10f30b57d652d2bff6b0761e7716",
+  "request_started_at": "2026-10-29T19:59:40.824278Z",
+  "result": "ONE_FORMAL_DELETE_ATTEMPT_RECORDED_AWAIT_EXIT_PROOF",
+  "run_id": "fc9a653a-e646-5560-b6fd-dedf46ef4bfd",
+  "schema": "container-restart-pvc-http-v1",
+  "session_cleanup": [
+    {
+      "remote": "CONFIRMED",
+      "step": "delete"
+    }
+  ]
+}

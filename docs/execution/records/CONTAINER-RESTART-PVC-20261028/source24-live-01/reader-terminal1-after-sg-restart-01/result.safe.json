@@ -1,0 +1,44 @@
+{
+  "cuda_requested": false,
+  "driver_sha256": "d8322da3e62e54f3328e38608570c847e7f638b810c1275cdef459e13ac53860",
+  "exec_http_status": 202,
+  "exit_code": 0,
+  "expected_marker_sha256": "9df8c355f11f1f2bf277957b03c48786ad094fc9c7d7e5b44deae9a9c0dd7df3",
+  "expected_pod_uid": "ac2329c5-7c51-4778-aa0b-0e0b6135ce6e",
+  "expected_version": "1",
+  "finished_at": "2026-10-29T16:56:27.023917794Z",
+  "instance_id": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+  "login": "CONFIRMED",
+  "logout": "CONFIRMED",
+  "marker_cat_read": true,
+  "marker_path": "/datasets/post-delete-readonly/.ani-restart-142d3ae2-b613-5649-85db-a2dd9fffc76a.txt",
+  "observed_marker_sha256": "9df8c355f11f1f2bf277957b03c48786ad094fc9c7d7e5b44deae9a9c0dd7df3",
+  "result": "PASS_LIVE_TERMINAL",
+  "runtime_after": {
+    "instance_id": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+    "phase": "Running",
+    "pod_uid": "ac2329c5-7c51-4778-aa0b-0e0b6135ce6e",
+    "ready": true,
+    "version": "1"
+  },
+  "runtime_before": {
+    "instance_id": "9f4b0ec2-aa9b-435e-a188-54ad42edb538",
+    "phase": "Running",
+    "pod_uid": "ac2329c5-7c51-4778-aa0b-0e0b6135ce6e",
+    "ready": true,
+    "version": "1"
+  },
+  "schema": "container-restart-terminal-live-v1",
+  "session_id": "f95d848c-9e28-4f37-b7ac-7bbf5911de54",
+  "started_at": "2026-10-29T16:56:20.728731273Z",
+  "terminal_pod_uid": "ac2329c5-7c51-4778-aa0b-0e0b6135ce6e",
+  "websocket_close": "REMOTE_NORMAL_1000",
+  "ws_close_code": 1000,
+  "ws_endpoint": {
+    "host": "10.10.1.66",
+    "path_template": "/api/v1/realtime/sessions/{session_id}",
+    "port": "30082",
+    "scheme": "ws"
+  },
+  "ws_http_status": 101
+}

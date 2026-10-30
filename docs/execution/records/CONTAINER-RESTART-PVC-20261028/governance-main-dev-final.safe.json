@@ -1,0 +1,189 @@
+{
+  "schema": "ani.governance-main-dev-final.safe.v1",
+  "purpose": "Summary of already completed evidence; no checks were rerun to create this file.",
+  "repository": "git@github.com:zhangzhe-ctrl/ani-governance.git",
+  "worktree": "/home/chabking/.codex/tasks/container-restart-pvc-20261028/ani-governance",
+  "refs": {
+    "frozen_main": "26350262119cf66a93bd5e57d169bfc9f362a1fe",
+    "initial_frozen_dev": "3cb88a5ece84cc708e93bee5d0c4bc434b2e810e",
+    "preserved_fresh_dev": "1d21bdd18f74606b04b4f8b32105fbe1556b916c",
+    "final_dev": "e6313101598a9dc66bf1a81156e923c3ea52572a",
+    "final_tree": "2236a971a048d41af5a3b1333847926f08dbc3fa",
+    "task_branch": "codex/container-restart-pvc-main-dev-20261029",
+    "frozen_main_and_fresh_dev_are_ancestors": true,
+    "worktree_clean_at_handoff": true
+  },
+  "formal_modules": {
+    "resource": "v0.0.0-20261029065006-6db3134ba756",
+    "inference_api": "v0.1.2-image-registry.2.0.20261029033104-a8b505b9e2ea",
+    "modeldev": "v0.0.0-20261029062749-c99c9f1081c7",
+    "gowork": "off",
+    "local_replace_used": false
+  },
+  "required_results": [
+    {
+      "name": "canonical_api_and_permission_generation",
+      "result": "PASS",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/generation-20261029T083512Z.log",
+      "details": "Exit 0; pinned workflow; protobuf zero drift; permission maps checked; 12 OpenAPI Python tests PASS."
+    },
+    {
+      "name": "formal_modeldev_dependency_resolution",
+      "result": "PASS",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/deps-20261029T091001Z.log",
+      "source_commit": "17e1534be2fa9386e3d7c28317eddb4b3967f5d2",
+      "details": "Exit 0; preserves execution kind and current readiness contracts; Resource/Inference pins unchanged."
+    },
+    {
+      "name": "focused_units_eight_packages",
+      "result": "PASS",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/units-20261029T091042Z.log",
+      "source_commit": "17e1534be2fa9386e3d7c28317eddb4b3967f5d2",
+      "details": {
+        "exit_code": 0,
+        "packages": [
+          "internal/data",
+          "internal/server",
+          "internal/service",
+          "internal/modeldevbudget",
+          "cmd/admin",
+          "cmd/server/assets",
+          "pkg/permcode",
+          "pkg/constants"
+        ]
+      }
+    },
+    {
+      "name": "official_isolated_pg_setup",
+      "result": "PASS",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/pgsetup-20261029T092141Z.log",
+      "source_commit": "17e1534be2fa9386e3d7c28317eddb4b3967f5d2",
+      "details": "Exit 0; PostgreSQL 16.10; official setup-postgres.sh; restricted runtime privilege audit."
+    },
+    {
+      "name": "modeldev_stop_close_and_current_model_rights_pg",
+      "result": "PASS",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/pg-20261029T092618Z.log",
+      "source_commit": "17e1534be2fa9386e3d7c28317eddb4b3967f5d2",
+      "details": {
+        "duration_seconds": 42.837
+      }
+    },
+    {
+      "name": "quota_instance_delete_fence_and_sandbox_parent_pg",
+      "result": "PASS",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/pg-20261029T092618Z.log",
+      "source_commit": "17e1534be2fa9386e3d7c28317eddb4b3967f5d2",
+      "details": {
+        "duration_seconds": 28.291
+      }
+    },
+    {
+      "name": "current_source_and_grants_http_pg",
+      "result": "PASS",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/pgrest-20261029T094139Z.log",
+      "source_commit": "17e1534be2fa9386e3d7c28317eddb4b3967f5d2",
+      "details": {
+        "duration_seconds": 16.705
+      }
+    },
+    {
+      "name": "admin_finite_budget_pg",
+      "result": "PASS",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/pgrest-20261029T094139Z.log",
+      "source_commit": "17e1534be2fa9386e3d7c28317eddb4b3967f5d2",
+      "details": {
+        "duration_seconds": 1.375
+      }
+    },
+    {
+      "name": "concurrent_dev_gpu_vm_instance_metrics",
+      "result": "PASS",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/metrics-20261029T094458Z.log",
+      "source_commit": "e6313101598a9dc66bf1a81156e923c3ea52572a",
+      "details": {
+        "exit_code": 0,
+        "duration_seconds": 0.674,
+        "run": "^TestInstanceMetrics"
+      }
+    },
+    {
+      "name": "cpu_gpu_delete_reject_replay_local_operation_joint_pg",
+      "result": "PASS",
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/pgservice-20261029T095206Z.log",
+      "source_commit": "e6313101598a9dc66bf1a81156e923c3ea52572a",
+      "details": {
+        "exit_code": 0,
+        "duration_seconds": 28.165,
+        "run": "^Test(InstanceDeleteVersionRejectedReplayAndLocalOperation|SandboxLegacyInstanceDeleteCanDispatch)$"
+      }
+    }
+  ],
+  "source_coverage": {
+    "units_and_first_pg_groups_tree": "83e4ff7e4a0c240981a415dcc840bad6ce657978",
+    "final_delta": "Only concurrent dev instance_metrics.go and instance_metrics_test.go; tested by final metrics group and final service PG group.",
+    "generation_not_repeated_after_dependency_only_pin_or_metric_delta": true
+  },
+  "resource_fixture": {
+    "source_commit_prefix": "6db3134ba756",
+    "binary": "/root/ani-runs/container-restart-pvc-20261028/resource-6db-instance-fixture-01/resource-6db-instance.test",
+    "sha256": "fd1d7518f76acf4c5e24cf0c5d45a4145343b7c83e038a82c59e992a3f08eaf0",
+    "origin_receipt": "/root/ani-runs/container-restart-pvc-20261028/resource-6db-instance-fixture-01/origin-01.safe.json",
+    "origin_receipt_sha256": "72ae9d0959f2fb4b8c968b7f28500d39ab0fee8cc71f6b41a85b43a0b203a94c",
+    "boundary": "Real Resource intake/PG/service subprocess; controlled external provider boundary; not LIVE acceptance."
+  },
+  "preserved_failures": [
+    {
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/units-20261029T084844Z.log",
+      "exit_code": 124,
+      "classification": "RESOLVED_COMPILE_CONFLICT",
+      "reason": "Formal ModelDev pin lacked ListExecutionsRequest.Kind; resolved using official c99c9f1 merge."
+    },
+    {
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/pg-20261029T092618Z.log",
+      "exit_code": 1,
+      "classification": "RESOLVED_FIXTURE_CONFIGURATION",
+      "reason": "Service group lacked RESOURCE_INSTANCE_TEST_BINARY. Both preceding data groups passed."
+    },
+    {
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/pgservice-20261029T094938Z.log",
+      "exit_code": 1,
+      "classification": "RESOLVED_TASK_RUNNER_CONFIGURATION",
+      "reason": "Task DSN file had a trailing newline rejected by strict Resource URL parser; corrected to official no-newline format."
+    },
+    {
+      "log": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence/pgrest-20261029T094139Z.log",
+      "exit_code": 1,
+      "classification": "BASELINE_FAIL_NON_REQUIRED_HISTORICAL_TAG",
+      "tag": "modeldev_pg,modeldev_contract",
+      "run": "^$",
+      "reason": "Historical fixture imports removed Ent modeldevreleasebinding and uses retired release-binding API/constructor. Current HTTP PG/admin groups preceding it passed. Tag not referenced by current CI scripts.",
+      "file": "app/admin/service/internal/server/modeldev_query_integration_test.go",
+      "blob_identical_to_frozen_main": "7e0c0150522ef38b35a87d38dc1d81274501064f",
+      "counted_as_pass": false
+    }
+  ],
+  "dev_push_receipt": {
+    "command": "git push --atomic origin HEAD:refs/heads/codex/container-restart-pvc-main-dev-20261029 HEAD:refs/heads/dev",
+    "exit_code": 0,
+    "old_dev": "1d21bdd18f74606b04b4f8b32105fbe1556b916c",
+    "new_dev": "e6313101598a9dc66bf1a81156e923c3ea52572a",
+    "remote_ls_remote_verified": {
+      "refs/heads/dev": "e6313101598a9dc66bf1a81156e923c3ea52572a",
+      "refs/heads/codex/container-restart-pvc-main-dev-20261029": "e6313101598a9dc66bf1a81156e923c3ea52572a"
+    },
+    "normal_fast_forward": true,
+    "force_used": false,
+    "main_written": false,
+    "receipt_source": "Completed terminal tool outputs; no additional fetch or verification executed for this summary."
+  },
+  "deployment": {
+    "image_build": false,
+    "image_publish": false,
+    "deployment": false,
+    "shared_database_write": false,
+    "reason": "User requested current images be retained; only isolated test databases used."
+  },
+  "evidence_host": "root@192.168.25.40",
+  "evidence_directory": "/root/ani-runs/container-restart-pvc-20261028/governance-main-dev-01/evidence"
+}

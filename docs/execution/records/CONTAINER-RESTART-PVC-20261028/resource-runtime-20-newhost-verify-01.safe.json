@@ -1,0 +1,22 @@
+{
+  "host": "192.168.25.40",
+  "command": [
+    "make",
+    "verify"
+  ],
+  "source_manifest_sha256": "e0be7a1ee55d2693f17c589d0fdb28e2d4e6e0b6cab820865671ea623fb6beca",
+  "source_archive_sha256": "d96db68de31188b72af28509d9a8fbbb9948aa198d20eb54ad04bb83109fab6c",
+  "started_at_utc": "2026-10-29T10:29:18.307430+00:00",
+  "sumdb_verification": "enabled; official signed records transported over goproxy.cn",
+  "module_downloads": "warm cache plus signed public proxy; private modules cache only (GOVCS off)",
+  "cgo_enabled": "0",
+  "local_fallback": false,
+  "application_image_built": false,
+  "frozen_inputs": 935,
+  "bounded_timeout": true,
+  "exit_code": -15,
+  "elapsed_seconds": 1210.968,
+  "log_sha256": "f4d72bac31b3b7a917442a940203862e069a8e71e6bbe1d416546682fb44d460",
+  "source_changes": [],
+  "result": "FAIL"
+}

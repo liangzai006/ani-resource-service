@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-29T20:02:32.717961+00:00",
+  "forced_deletes": 0,
+  "kube_writes": 0,
+  "read_only": true,
+  "remaining_task_pvs": [],
+  "result": "PASS_NO_TASK_SCRATCH_PVS_REMAIN",
+  "target_claim_uids": [
+    "5692c333-22c5-4b4a-9267-f9030df69627",
+    "b293bb4a-c560-4051-aa3e-afbe1cb6e144",
+    "91585bc6-de98-4f68-834d-c7b5525686d1"
+  ]
+}

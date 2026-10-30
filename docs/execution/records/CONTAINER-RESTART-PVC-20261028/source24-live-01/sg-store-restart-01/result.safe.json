@@ -1,0 +1,16 @@
+{
+  "before": {
+    "image": [
+      "10.10.1.66:30003/ani-gpu-platform/ani-session-gateway@sha256:47dea6deddd08084af57796119a162d383219c025c5fc7d53cdf6acbadc746b0"
+    ],
+    "uid": "24b791fa-b3da-4dee-9fbf-7bc393d26757"
+  },
+  "elapsed_seconds": 3.032,
+  "generation": 10,
+  "image": [
+    "10.10.1.66:30003/ani-gpu-platform/ani-session-gateway@sha256:47dea6deddd08084af57796119a162d383219c025c5fc7d53cdf6acbadc746b0"
+  ],
+  "ready_replicas": 1,
+  "result": "RESTARTED",
+  "tests_or_release_gates_run": false
+}

@@ -1,0 +1,528 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "0f183908-6cbb-55a1-8393-5dcd10eff141",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "a14-restart": {
+      "action": "restart",
+      "idempotency_key": "0efed537-6a9f-4d4c-896b-7d82705b70b4",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "1",
+      "request_body_sha256": "d072d4374394aae06b9d3fd9827d68f0af4d629839aa37462e15b3002f4371ea",
+      "request_body": {
+        "data": {
+          "expectedVersion": "1",
+          "idempotencyKey": "0efed537-6a9f-4d4c-896b-7d82705b70b4"
+        }
+      },
+      "method": "POST",
+      "path": "/api/v1/instances/a1dd1661-7ec0-418f-9e63-af3a2abc55fd:restart",
+      "ack": {
+        "operationId": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+        "resourceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+        "instanceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "action": "restart",
+        "intentVersion": "2",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "1",
+        "completion_scope": "runtime_verified",
+        "reason": "",
+        "failure_reason": ""
+      },
+      "replays": [
+        {
+          "operationId": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+          "resourceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+          "replayed": true,
+          "result": "ACCEPTED"
+        }
+      ]
+    },
+    "a21-restart": {
+      "action": "restart",
+      "idempotency_key": "120abbe2-552f-438f-8b8e-055d8e4c3bc0",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "2",
+      "request_body_sha256": "9e71b41622b233d29c7bfb255cb927b980617ab59015e7e22b6fd170c5dacc32",
+      "request_body": {
+        "data": {
+          "expectedVersion": "2",
+          "idempotencyKey": "120abbe2-552f-438f-8b8e-055d8e4c3bc0"
+        }
+      },
+      "method": "POST",
+      "path": "/api/v1/instances/a1dd1661-7ec0-418f-9e63-af3a2abc55fd:restart",
+      "received_acks": [
+        {
+          "operationId": "cc0270ea-3bea-4339-8232-041c54e77b5c",
+          "resourceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+          "replayed": false,
+          "result": "ACCEPTED"
+        }
+      ],
+      "ack": {
+        "operationId": "cc0270ea-3bea-4339-8232-041c54e77b5c",
+        "resourceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "cc0270ea-3bea-4339-8232-041c54e77b5c",
+        "instanceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "action": "restart",
+        "intentVersion": "3",
+        "state": "superseded",
+        "phase": "stopping",
+        "final_run_state": "running",
+        "applied_mount_version": "1",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    },
+    "a21-wrong-delete": {
+      "action": "delete",
+      "idempotency_key": "38cc7f30-8729-4103-904c-0234b5f2373e",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "2",
+      "request_body_sha256": "9c08941af104540583238a2f7191c16f452ce8aac9092e670d1e46d0a2acaf67",
+      "request_body": {
+        "data": {
+          "expectedVersion": "2",
+          "idempotencyKey": "38cc7f30-8729-4103-904c-0234b5f2373e"
+        }
+      },
+      "method": "DELETE",
+      "path": "/api/v1/instances/a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+      "rejection": {
+        "http_status": 409,
+        "reason": "INSTANCE_VERSION_CONFLICT"
+      },
+      "restart_after_rejection": {
+        "id": "cc0270ea-3bea-4339-8232-041c54e77b5c",
+        "instanceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "action": "restart",
+        "intentVersion": "3",
+        "state": "accepted",
+        "phase": "stopping",
+        "final_run_state": "running",
+        "applied_mount_version": "1",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      },
+      "instance_after_rejection": {
+        "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "instance_kind": "container",
+        "compute_type": "gpu",
+        "version": "3",
+        "desiredState": "running",
+        "observedState": "pending",
+        "activeOperationId": "cc0270ea-3bea-4339-8232-041c54e77b5c",
+        "executionRunState": "stopped",
+        "appliedMountVersion": "1",
+        "lastOperationId": "cc0270ea-3bea-4339-8232-041c54e77b5c",
+        "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+        "computeCleaned": false,
+        "workspaceCleaned": false,
+        "networkCleaned": false,
+        "volumeReferencesReleased": false,
+        "quotaReturned": false
+      }
+    },
+    "a21-delete": {
+      "action": "delete",
+      "idempotency_key": "3f792013-ddd0-472d-84b6-d9882ddf5b87",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "3",
+      "request_body_sha256": "8d7a0ff9cc83d87e009140c3464cdc706b1ba6c7554d06a53dfebf4d3970c08b",
+      "request_body": {
+        "data": {
+          "expectedVersion": "3",
+          "idempotencyKey": "3f792013-ddd0-472d-84b6-d9882ddf5b87"
+        }
+      },
+      "method": "DELETE",
+      "path": "/api/v1/instances/a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+      "received_acks": [
+        {
+          "operationId": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+          "resourceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+          "replayed": false,
+          "result": "QUEUED_FOR_OWNER"
+        },
+        {
+          "operationId": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+          "resourceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+          "replayed": true,
+          "result": "QUEUED_FOR_OWNER"
+        },
+        {
+          "operationId": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+          "resourceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+          "replayed": true,
+          "result": "QUEUED_FOR_OWNER"
+        }
+      ],
+      "ack": {
+        "operationId": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+        "resourceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "replayed": false,
+        "result": "QUEUED_FOR_OWNER"
+      },
+      "replays": [
+        {
+          "operationId": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+          "resourceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+          "replayed": true,
+          "result": "QUEUED_FOR_OWNER"
+        },
+        {
+          "operationId": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+          "resourceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+          "replayed": true,
+          "result": "QUEUED_FOR_OWNER"
+        }
+      ],
+      "operation": {
+        "id": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+        "instanceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "action": "delete",
+        "intentVersion": "4",
+        "state": "completed",
+        "phase": "deleting",
+        "final_run_state": "deleted",
+        "applied_mount_version": "1",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+  "source_state": "/root/ani-runs/container-restart-pvc-20261028/source25-gpu-terminal-01/state.json",
+  "phase_coverage": "ONLY_ACTUALLY_OBSERVED_PHASES",
+  "a14-restart_before": {
+    "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "instance_kind": "container",
+    "compute_type": "gpu",
+    "version": "1",
+    "desiredState": "running",
+    "observedState": "running",
+    "activeOperationId": "",
+    "executionRunState": "running",
+    "appliedMountVersion": "1",
+    "lastOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+    "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "pg_observations": [
+    {
+      "step": "a14-accept",
+      "pending": null,
+      "pod_uid": "31673229-b700-41f5-a39a-8490e7714685",
+      "version": 2,
+      "read_only": "on",
+      "observed_at": "2026-10-29T17:23:39.82928+00:00",
+      "recovery_fence": null,
+      "reference_states": {
+        "active": 1
+      },
+      "applied_mount_version": 1,
+      "unreleased_reference_count": 1
+    },
+    {
+      "step": "a14-resume",
+      "pending": null,
+      "pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+      "version": 2,
+      "read_only": "on",
+      "observed_at": "2026-10-29T17:24:59.954071+00:00",
+      "recovery_fence": null,
+      "reference_states": {
+        "active": 1
+      },
+      "applied_mount_version": 1,
+      "unreleased_reference_count": 1
+    },
+    {
+      "step": "a21-takeover",
+      "pending": null,
+      "pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+      "version": 4,
+      "read_only": "on",
+      "observed_at": "2026-10-29T17:34:02.599814+00:00",
+      "recovery_fence": null,
+      "reference_states": {
+        "active": 1
+      },
+      "applied_mount_version": 1,
+      "unreleased_reference_count": 1
+    },
+    {
+      "step": "a21-delete-bookend-0",
+      "pending": null,
+      "pod_uid": "",
+      "version": 4,
+      "read_only": "on",
+      "observed_at": "2026-10-29T17:35:02.786262+00:00",
+      "recovery_fence": null,
+      "reference_states": {
+        "released": 1
+      },
+      "applied_mount_version": 1,
+      "unreleased_reference_count": 0
+    },
+    {
+      "step": "a21-delete-bookend-1",
+      "pending": null,
+      "pod_uid": "",
+      "version": 4,
+      "read_only": "on",
+      "observed_at": "2026-10-29T17:35:09.185038+00:00",
+      "recovery_fence": null,
+      "reference_states": {
+        "released": 1
+      },
+      "applied_mount_version": 1,
+      "unreleased_reference_count": 0
+    }
+  ],
+  "observations": [
+    {
+      "at": "2026-10-29T17:23:41.852711Z",
+      "step": "a14-accept",
+      "operation": {
+        "id": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+        "instanceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "action": "restart",
+        "intentVersion": "2",
+        "state": "accepted",
+        "phase": "validating",
+        "final_run_state": "running",
+        "applied_mount_version": "1",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      },
+      "instance": {
+        "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "instance_kind": "container",
+        "compute_type": "gpu",
+        "version": "2",
+        "desiredState": "running",
+        "observedState": "pending",
+        "activeOperationId": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+        "executionRunState": "running",
+        "appliedMountVersion": "1",
+        "lastOperationId": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+        "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+        "computeCleaned": false,
+        "workspaceCleaned": false,
+        "networkCleaned": false,
+        "volumeReferencesReleased": false,
+        "quotaReturned": false
+      },
+      "pending_present": false
+    },
+    {
+      "at": "2026-10-29T17:25:02.003071Z",
+      "step": "a14-resume",
+      "operation": {
+        "id": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+        "instanceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "action": "restart",
+        "intentVersion": "2",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "1",
+        "completion_scope": "runtime_verified",
+        "reason": "",
+        "failure_reason": ""
+      },
+      "instance": {
+        "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "instance_kind": "container",
+        "compute_type": "gpu",
+        "version": "2",
+        "desiredState": "running",
+        "observedState": "running",
+        "activeOperationId": "",
+        "executionRunState": "running",
+        "appliedMountVersion": "1",
+        "lastOperationId": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+        "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+        "computeCleaned": false,
+        "workspaceCleaned": false,
+        "networkCleaned": false,
+        "volumeReferencesReleased": false,
+        "quotaReturned": false
+      },
+      "pending_present": false
+    },
+    {
+      "at": "2026-10-29T17:34:04.675290Z",
+      "step": "a21-takeover",
+      "operation": {
+        "id": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+        "instanceId": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "action": "delete",
+        "intentVersion": "4",
+        "state": "accepted",
+        "phase": "deleting",
+        "final_run_state": "deleted",
+        "applied_mount_version": "1",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      },
+      "instance": {
+        "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "instance_kind": "container",
+        "compute_type": "gpu",
+        "version": "4",
+        "desiredState": "deleted",
+        "observedState": "pending",
+        "activeOperationId": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+        "executionRunState": "deleted",
+        "appliedMountVersion": "1",
+        "lastOperationId": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+        "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+        "computeCleaned": false,
+        "workspaceCleaned": false,
+        "networkCleaned": false,
+        "volumeReferencesReleased": false,
+        "quotaReturned": false
+      },
+      "pending_present": false
+    }
+  ],
+  "a14-accept_result": {
+    "result": "ACK_AND_CURRENT_PHASE_SAVED_NO_WAIT",
+    "phase_coverage": "ONLY_ACTUALLY_OBSERVED_PHASES",
+    "service_restart": "NOT_PERFORMED_BY_THIS_SCRIPT"
+  },
+  "session_cleanup": [
+    {
+      "step": "a14-accept",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "a14-resume",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "a21-takeover",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "a21-resume",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "a14-resume_result": {
+    "result": "SAME_OPERATION_REPLAY_COMPLETED",
+    "phase_coverage": "ONLY_ACTUALLY_OBSERVED_PHASES",
+    "service_restart": "NOT_PERFORMED_BY_THIS_SCRIPT"
+  },
+  "a21-restart_before": {
+    "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "instance_kind": "container",
+    "compute_type": "gpu",
+    "version": "2",
+    "desiredState": "running",
+    "observedState": "running",
+    "activeOperationId": "",
+    "executionRunState": "running",
+    "appliedMountVersion": "1",
+    "lastOperationId": "ba76e756-86e4-462d-8f0f-0e32d5e63f03",
+    "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "a21-takeover_result": {
+    "result": "DELETE_TAKEOVER_ACK_AND_EXACT_BODY_REPLAY_SAVED_NO_WAIT",
+    "phase_coverage": "ONLY_ACTUALLY_OBSERVED_PHASES",
+    "service_restart": "NOT_PERFORMED_BY_THIS_SCRIPT"
+  },
+  "a21_physical_bookends": [
+    {
+      "at": "2026-10-29T17:35:04.900494Z",
+      "instance": {
+        "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "instance_kind": "container",
+        "compute_type": "gpu",
+        "version": "4",
+        "desiredState": "deleted",
+        "observedState": "deleted",
+        "activeOperationId": "",
+        "executionRunState": "deleted",
+        "appliedMountVersion": "1",
+        "lastOperationId": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+        "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+        "computeCleaned": true,
+        "workspaceCleaned": true,
+        "networkCleaned": true,
+        "volumeReferencesReleased": true,
+        "quotaReturned": true
+      },
+      "absence": {
+        "notebook": true,
+        "statefulset": true,
+        "pod": true,
+        "pvc": true
+      },
+      "borrowed_pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "borrowed_pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6"
+    },
+    {
+      "at": "2026-10-29T17:35:11.166584Z",
+      "instance": {
+        "id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+        "instance_kind": "container",
+        "compute_type": "gpu",
+        "version": "4",
+        "desiredState": "deleted",
+        "observedState": "deleted",
+        "activeOperationId": "",
+        "executionRunState": "deleted",
+        "appliedMountVersion": "1",
+        "lastOperationId": "f7fa96d4-1429-4716-b702-5ed0a6349915",
+        "createOperationId": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+        "computeCleaned": true,
+        "workspaceCleaned": true,
+        "networkCleaned": true,
+        "volumeReferencesReleased": true,
+        "quotaReturned": true
+      },
+      "absence": {
+        "notebook": true,
+        "statefulset": true,
+        "pod": true,
+        "pvc": true
+      },
+      "borrowed_pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "borrowed_pv_uid": "544dd33b-3330-48d7-a825-308c590d45f6"
+    }
+  ],
+  "a21-resume_result": {
+    "result": "DELETE_COMPLETED_OLD_RESTART_SUPERSEDED_BOUNDED_ABSENCE_AND_REFERENCES_VERIFIED",
+    "phase_coverage": "ONLY_ACTUALLY_OBSERVED_PHASES",
+    "service_restart": "NOT_PERFORMED_BY_THIS_SCRIPT"
+  }
+}

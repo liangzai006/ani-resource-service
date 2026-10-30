@@ -1,0 +1,197 @@
+{
+  "_evidence_source": {
+    "projection": "Existing file only; secret/env/ticket values and raw Deployment bodies redacted",
+    "raw_remote_sha256": "fccb326d1b69a83ef2d01165872586409e0746b65a2151a9919ccb238e1c6da3",
+    "redactions": [],
+    "remote_path": "/root/ani-runs/container-restart-pvc-20261028/a30-stage-exit-live-01/mark-before-send/recover/state.json"
+  },
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {},
+  "natural_lease_observations": [
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T19:59:56.61577+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T19:59:58.819084+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:01.040799+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:03.381534+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:05.57416+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:07.792352+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:10.03207+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:12.239991+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:14.424854+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:16.630007+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:18.806831+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:20.996509+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": true,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:23.284551+00:00",
+      "phase": "deleting"
+    },
+    {
+      "lease_epoch": 1,
+      "lease_live": false,
+      "lease_until": "2026-10-29T20:00:24.200055+00:00",
+      "observed_at": "2026-10-29T20:00:25.594429+00:00",
+      "phase": "deleting"
+    }
+  ],
+  "normal_retries": [
+    {
+      "at": "2026-10-29T20:00:27.770259Z",
+      "response": {
+        "state": "TERMINATING",
+        "volume": {
+          "access_modes": [
+            "ReadWriteOnce"
+          ],
+          "deleting": true,
+          "display_name": "a30-stage-01a18156-mark-before-send",
+          "observed_capacity_bytes": "1000341504",
+          "observed_capacity_known": true,
+          "observed_capacity_quantity": "954Mi",
+          "phase": "Bound",
+          "pvc_name": "ani-vol-39377b08a50d47cab66ebe55824e103d",
+          "reclaim_policy": "",
+          "reclaim_policy_known": false,
+          "requested_capacity_gb": "1",
+          "storage_class_name": "ani-block",
+          "uid": "c7167f29-921e-49c0-b9e2-8a7cc7c63040",
+          "volume_mode": "Filesystem"
+        }
+      }
+    },
+    {
+      "at": "2026-10-29T20:00:29.997793Z",
+      "response": {
+        "state": "GONE",
+        "volume": null
+      }
+    }
+  ],
+  "original_lease_expired_or_normal_new_epoch_observed": true,
+  "pg_after": {
+    "guards": [
+      {
+        "cluster_id": "f39bf6e2-f3ed-4191-ada3-caeebf86c220",
+        "created_at": "2026-10-29T19:59:39.200055+00:00",
+        "guard_epoch": 1,
+        "last_observation": {
+          "ObservedUID": "",
+          "Reason": "",
+          "RetryAt": "0001-01-01T00:00:00Z",
+          "State": "absent",
+          "WriteOutcome": "submitted"
+        },
+        "last_reason": "",
+        "last_write_outcome": "submitted",
+        "lease_epoch": 3,
+        "lease_live": false,
+        "lease_owner": "",
+        "lease_until": "-infinity",
+        "namespace": "tenant-64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "phase": "completed",
+        "pvc_name": "ani-vol-39377b08a50d47cab66ebe55824e103d",
+        "retry_at": "2026-10-29T20:00:30.869275+00:00",
+        "target_uid": "c7167f29-921e-49c0-b9e2-8a7cc7c63040",
+        "tenant_id": "64c5c35a-f554-432c-b4bc-7b4f36f08420",
+        "ticket_id": "5d6837ab-f783-4df8-bb54-0bb69aaeb11e",
+        "updated_at": "2026-10-29T20:00:28.0996+00:00",
+        "write_started": true
+      }
+    ],
+    "observed_at": "2026-10-29T20:00:28.789458+00:00",
+    "protective_refs": [],
+    "read_only": "on"
+  },
+  "protective_refs_empty": true,
+  "pv_absent": true,
+  "pvc_absent": true,
+  "request_body": {
+    "data": {
+      "expected_uid": "c7167f29-921e-49c0-b9e2-8a7cc7c63040",
+      "pvc_name": "ani-vol-39377b08a50d47cab66ebe55824e103d"
+    }
+  },
+  "request_body_sha256": "5062c0b0a908b6f00e316a6f1be89ce7609d10f30b57d652d2bff6b0761e7716",
+  "result": "PASS_ORIGINAL_TICKET_NORMAL_RECOVERY_GONE_PV_RECLAIMED",
+  "run_id": "fc9a653a-e646-5560-b6fd-dedf46ef4bfd",
+  "schema": "container-restart-pvc-http-v1",
+  "session_cleanup": [
+    {
+      "remote": "CONFIRMED",
+      "step": "recover"
+    }
+  ]
+}

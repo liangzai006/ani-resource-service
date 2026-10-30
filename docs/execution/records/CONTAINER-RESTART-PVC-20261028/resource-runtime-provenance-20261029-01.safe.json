@@ -1,0 +1,135 @@
+{
+  "binary_bytes": 88608960,
+  "binary_executed": false,
+  "binary_path_in_image": "/ani-resource-service",
+  "binary_sha256": "d39e151209a3eaa939a667cb97440da3edc1d34c52754aa11cf4515974bce6d8",
+  "buildinfo_identity": [
+    "/root/ani-runs/container-restart-pvc-20261028/private/artifacts/resource-c64-runtime-provenance-01/ani-resource-service: go1.26.10",
+    "\tpath\tgithub.com/zhangzhe-ctrl/ani-resource-service/cmd/ani-resource-service",
+    "\tmod\tgithub.com/zhangzhe-ctrl/ani-resource-service\t(devel)\t",
+    "\tbuild\t-buildmode=exe",
+    "\tbuild\t-compiler=gc",
+    "\tbuild\t-trimpath=true",
+    "\tbuild\tCGO_ENABLED=0",
+    "\tbuild\tGOARCH=amd64",
+    "\tbuild\tGOOS=linux",
+    "\tbuild\tGOAMD64=v1"
+  ],
+  "business_read": {
+    "instance": {
+      "activeOperationId": "e8ebe2f3-030f-456e-b4ce-2b4b7c83a81f",
+      "appliedMountVersion": "6",
+      "computeCleaned": false,
+      "compute_type": "cpu",
+      "createOperationId": "4b687e97-70cf-48b7-b973-2bb70616f003",
+      "desiredState": "running",
+      "executionRunState": "running",
+      "id": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "instance_kind": "container",
+      "lastOperationId": "e8ebe2f3-030f-456e-b4ce-2b4b7c83a81f",
+      "networkCleaned": false,
+      "observedState": "pending",
+      "quotaReturned": false,
+      "version": "8",
+      "volumeReferencesReleased": false,
+      "workspaceCleaned": false
+    },
+    "node1_image_cache": {
+      "images": [],
+      "rc": 0
+    },
+    "node1_to_node2_trust": {
+      "rc": 255,
+      "stderr": "kubercloud@10.10.1.67: Permission denied (publickey,password).\n",
+      "stdout": ""
+    },
+    "observed_at": "2026-10-29T07:40:42.086515+00:00",
+    "operation": {
+      "action": "restart",
+      "applied_mount_version": "6",
+      "completion_scope": "",
+      "failure_reason": "",
+      "final_run_state": "running",
+      "id": "e8ebe2f3-030f-456e-b4ce-2b4b7c83a81f",
+      "instanceId": "e3dd2bc7-1c6a-429b-a401-e175c287d5cf",
+      "intentVersion": "8",
+      "phase": "validating",
+      "reason": "INSTANCE_MOUNT_TEMPLATE_UNVERIFIED",
+      "state": "blocked"
+    },
+    "session_cleanup": "CONFIRMED"
+  },
+  "config_digest": "sha256:c20236e22fbd3db26e36b68a2eee21f619dbc269af1fc23cf810ca9687e21c28",
+  "declared_base_git_evidence": {
+    "contains_original_runtime_fixes": "8bd99dde33ae95209647ef9ac322b949c57fd6f2",
+    "revision": "3309c9fabd5fa670fed07ca197e157fd80f60a46",
+    "source_changed_files": [],
+    "unchanged_packages": [
+      "internal/biz/instance",
+      "internal/data/instance",
+      "internal/biz/storage",
+      "internal/data/storage"
+    ]
+  },
+  "evidence": [
+    {
+      "name": "runtime-evidence-readonly-20261029-02.safe.json",
+      "sha256": "21b899e1f984788cdece4be7afafeb8ba5c59046ab3f2266056325ef2cf66101"
+    },
+    {
+      "name": "resource-c64-image-manifest-01.safe.json",
+      "sha256": "1b59ec50e6b210f365ca5c9e5c29b406660226b2c8009f9a9f51922ca098f54e"
+    },
+    {
+      "name": "resource-c64-binary-provenance-01.safe.json",
+      "sha256": "0afd3f31a0cd92adfffc4e4611a2a711c7a2199f0693cde821b53de0da1d45bc"
+    },
+    {
+      "name": "resource-c64-pod-binding-01.safe.json",
+      "sha256": "f6abce123b8d9037744ea2af8b2f290b9c0bb4c5770b49806c47c5f70703904f"
+    }
+  ],
+  "exact_source_and_overlay_proven": false,
+  "image_created": "2026-10-29T13:49:27.032229934+08:00",
+  "image_digest": "sha256:c64afac73c156ba3473d85e671cb932c787d0a6d85d1ea15b09450e0c7a8b51f",
+  "image_label_claims": {
+    "ani.io.goal.thread": "",
+    "ani.io.release.parents": "3309c9fabd5fa670fed07ca197e157fd80f60a46",
+    "ani.io/binary-sha256": "d39e151209a3eaa939a667cb97440da3edc1d34c52754aa11cf4515974bce6d8",
+    "io.ani.base-revision": "3309c9fabd5fa670fed07ca197e157fd80f60a46",
+    "io.ani.source-snapshot-sha256": "504926cb85a654229c28b101f39328525b44c40dfceadf2fe3ababd6c210dbe9",
+    "io.ani.source-tree": "",
+    "org.opencontainers.image.base.digest": "sha256:af46381d3db9f565275cd1e2daa4b78da3d2c2930edcf305a8deee6cfbffd09c",
+    "org.opencontainers.image.revision": "",
+    "org.opencontainers.image.source": "https://github.com/zhangzhe-ctrl/ani-resource-service"
+  },
+  "manifest_config_layer_sha_verified": true,
+  "mutation_summary": {
+    "business_intents": 0,
+    "cluster_objects_changed": 0,
+    "services_started": 0,
+    "sql_writes": 0
+  },
+  "observed_at": "2026-10-29T07:49:03.824198+00:00",
+  "platform_manifest_digest": "sha256:1ad1b5cb5d45a638630c582023aba80959fac3aba9ed175ee0eb6d1faf5c2f2c",
+  "pod_binding": {
+    "containers": [
+      {
+        "containerID": "containerd://4fee41751a4b3b8c606f7fd6e91e8d868e550a8a22042522bb4e5ddceb77baa7",
+        "imageID": "10.10.1.66:30003/ani-gpu-platform/ani-resource-service@sha256:c64afac73c156ba3473d85e671cb932c787d0a6d85d1ea15b09450e0c7a8b51f",
+        "name": "resource",
+        "ready": true,
+        "restartCount": 0
+      }
+    ],
+    "deleting": false,
+    "node": "node2",
+    "observed_at": "2026-10-29T07:49:03.824198+00:00",
+    "pod_name": "ani-resource-service-65f8c9f9c6-kjnhf",
+    "pod_uid": "4a27ef86-3be5-465a-9e8d-9449d492d886"
+  },
+  "private_credentials_used_for_registry": false,
+  "registry_tls_verified": true,
+  "result": "IMAGE_BINARY_BOUND_SOURCE_NOT_PROVEN",
+  "vcs_revision_in_binary": false
+}

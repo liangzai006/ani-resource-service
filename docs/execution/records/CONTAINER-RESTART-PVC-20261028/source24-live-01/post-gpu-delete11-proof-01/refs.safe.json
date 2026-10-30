@@ -1,0 +1,21 @@
+{
+  "database_writes": 0,
+  "gpu_protective_count": 0,
+  "known_ref_states": true,
+  "observed_at": "2026-10-29T16:56:25.873772+00:00",
+  "read_only": true,
+  "result": "PASS_GPU_OWN_PROTECTIVE_REFS_ZERO",
+  "scope": "exact tenant and GPU instance ID only; unrelated reader refs excluded",
+  "scoped_rows": [
+    {
+      "instance_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+      "intent_version": 11,
+      "mount_path": "/datasets/gpu-01a18156",
+      "operation_id": "9f8d0e7f-205f-46e9-9827-1553e06cc0c8",
+      "pvc_name": "ani-vol-168d2c1c17684c3f9b1eab83d963327d",
+      "pvc_uid": "fa56c965-5a9a-4bb1-b271-3960a7309e96",
+      "reference_generation": 2,
+      "state": "released"
+    }
+  ]
+}

@@ -17,7 +17,136 @@ service SandboxService {
   rpc Pause(PauseRequest) returns (PauseResponse);
   rpc Resume(ResumeRequest) returns (ResumeResponse);
   rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc RunCode(RunCodeRequest) returns (RunCodeResponse);
+  rpc GetCodeRun(GetCodeRunRequest) returns (GetCodeRunResponse);
+  rpc QueryFiles(QueryFilesRequest) returns (QueryFilesResponse);
+  rpc MutateFiles(MutateFilesRequest) returns (MutateFilesResponse);
+  rpc GetFileOperation(GetFileOperationRequest) returns (GetFileOperationResponse);
+  rpc CreateToken(CreateTokenRequest) returns (CreateTokenResponse);
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+  rpc RevokeToken(RevokeTokenRequest) returns (RevokeTokenResponse);
 }
+
+message RunCodeRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string run_id = 3 [json_name = "run_id"];
+  string idempotency_key = 4 [json_name = "idempotency_key"];
+  string language = 5;
+  string code = 6;
+  string stdin = 7;
+  int32 timeout_seconds = 8 [json_name = "timeout_seconds"];
+  int64 expected_version = 9 [json_name = "expected_version"];
+}
+message GetCodeRunRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string run_id = 3 [json_name = "run_id"];
+}
+message RunCodeResponse { CodeRun run = 1; }
+message GetCodeRunResponse { CodeRun run = 1; }
+message CodeRun {
+  string run_id = 1 [json_name = "run_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string state = 3;
+  bytes stdout = 4;
+  bytes stderr = 5;
+  optional int32 exit_code = 6 [json_name = "exit_code"];
+  bool truncated = 7;
+  bool replayed = 8;
+  string reason = 9;
+}
+
+message FileEntry {
+  string path = 1;
+  string kind = 2;
+  int64 size_bytes = 3 [json_name = "size_bytes"];
+  int64 updated_at_ns = 4 [json_name = "updated_at_ns"];
+}
+message FileResult {
+  string path = 1;
+  string kind = 2;
+  int64 size_bytes = 3 [json_name = "size_bytes"];
+  string content_base64 = 4 [json_name = "content_base64"];
+  repeated FileEntry items = 5;
+  int64 total = 6;
+  string next_cursor = 7 [json_name = "next_cursor"];
+}
+message FileOperation {
+  string operation_id = 1 [json_name = "operation_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string state = 3;
+  string reason = 4;
+  bool replayed = 5;
+  FileResult result = 6;
+}
+message QueryFilesRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string action = 3;
+  string path = 4;
+  uint32 limit = 5;
+  string cursor = 6;
+}
+message QueryFilesResponse { FileResult result = 1; }
+message MutateFilesRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string operation_id = 3 [json_name = "operation_id"];
+  string idempotency_key = 4 [json_name = "idempotency_key"];
+  int64 expected_version = 5 [json_name = "expected_version"];
+  string action = 6;
+  string path = 7;
+  string content_base64 = 8 [json_name = "content_base64"];
+  bool overwrite = 9;
+}
+message MutateFilesResponse { FileOperation operation = 1; }
+message GetFileOperationRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string operation_id = 3 [json_name = "operation_id"];
+}
+message GetFileOperationResponse { FileOperation operation = 1; }
+
+message CreateTokenRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string token_id = 3 [json_name = "token_id"];
+  string idempotency_key = 4 [json_name = "idempotency_key"];
+  uint32 gov_tenant_id = 5 [json_name = "gov_tenant_id"];
+  uint32 issuer_id = 6 [json_name = "issuer_id"];
+  repeated string scopes = 7;
+  int64 expires_in_seconds = 8 [json_name = "expires_in_seconds"];
+}
+message CreateTokenResponse { SandboxAccessToken token = 1; }
+message SandboxAccessToken {
+  string token_id = 1 [json_name = "token_id"];
+  string value = 2;
+  int64 expires_at = 3 [json_name = "expires_at"];
+  repeated string scopes = 4;
+  bool replayed = 5;
+}
+message ValidateTokenRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string value = 3;
+  string required_scope = 4 [json_name = "required_scope"];
+}
+message ValidateTokenResponse {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string token_id = 3 [json_name = "token_id"];
+  uint32 gov_tenant_id = 4 [json_name = "gov_tenant_id"];
+  uint32 issuer_id = 5 [json_name = "issuer_id"];
+  repeated string scopes = 6;
+  int64 expires_at = 7 [json_name = "expires_at"];
+}
+message RevokeTokenRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string sandbox_id = 2 [json_name = "sandbox_id"];
+  string token_id = 3 [json_name = "token_id"];
+}
+message RevokeTokenResponse { bool revoked = 1; }
 
 message CreateSandboxData {
   string name = 1;
@@ -26,6 +155,8 @@ message CreateSandboxData {
   string image_reference = 2 [json_name = "image_reference"];
   string preset_id = 3 [json_name = "preset_id"];
   string workspace_size = 4 [json_name = "workspace_size"];
+  string image_id = 5 [json_name = "image_id"];
+  string image_scope = 6 [json_name = "image_scope"];
 }
 
 message ResolveCreateSpecRequest {
@@ -62,6 +193,8 @@ message ResolveCreateSpecResponse {
   string spec_digest = 16 [json_name = "spec_digest"];
   // UID of the tenant namespace observed when the specification was frozen.
   string namespace_uid = 17 [json_name = "namespace_uid"];
+  string image_id = 18 [json_name = "image_id"];
+  string image_scope = 19 [json_name = "image_scope"];
 }
 
 message CommandContext {
@@ -172,6 +305,8 @@ message SandboxSnapshot {
   string preset_name = 14 [json_name = "preset_name"];
   string spec_digest = 15 [json_name = "spec_digest"];
   string namespace_uid = 16 [json_name = "namespace_uid"];
+  string image_id = 17 [json_name = "image_id"];
+  string image_scope = 18 [json_name = "image_scope"];
 }
 
 message ProviderRefs {

@@ -27,6 +27,14 @@ const (
 	SandboxService_Pause_FullMethodName             = "/sandbox.v1.SandboxService/Pause"
 	SandboxService_Resume_FullMethodName            = "/sandbox.v1.SandboxService/Resume"
 	SandboxService_Delete_FullMethodName            = "/sandbox.v1.SandboxService/Delete"
+	SandboxService_RunCode_FullMethodName           = "/sandbox.v1.SandboxService/RunCode"
+	SandboxService_GetCodeRun_FullMethodName        = "/sandbox.v1.SandboxService/GetCodeRun"
+	SandboxService_QueryFiles_FullMethodName        = "/sandbox.v1.SandboxService/QueryFiles"
+	SandboxService_MutateFiles_FullMethodName       = "/sandbox.v1.SandboxService/MutateFiles"
+	SandboxService_GetFileOperation_FullMethodName  = "/sandbox.v1.SandboxService/GetFileOperation"
+	SandboxService_CreateToken_FullMethodName       = "/sandbox.v1.SandboxService/CreateToken"
+	SandboxService_ValidateToken_FullMethodName     = "/sandbox.v1.SandboxService/ValidateToken"
+	SandboxService_RevokeToken_FullMethodName       = "/sandbox.v1.SandboxService/RevokeToken"
 )
 
 // SandboxServiceClient is the client API for SandboxService service.
@@ -44,6 +52,14 @@ type SandboxServiceClient interface {
 	Pause(ctx context.Context, in *PauseRequest, opts ...grpc.CallOption) (*PauseResponse, error)
 	Resume(ctx context.Context, in *ResumeRequest, opts ...grpc.CallOption) (*ResumeResponse, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
+	RunCode(ctx context.Context, in *RunCodeRequest, opts ...grpc.CallOption) (*RunCodeResponse, error)
+	GetCodeRun(ctx context.Context, in *GetCodeRunRequest, opts ...grpc.CallOption) (*GetCodeRunResponse, error)
+	QueryFiles(ctx context.Context, in *QueryFilesRequest, opts ...grpc.CallOption) (*QueryFilesResponse, error)
+	MutateFiles(ctx context.Context, in *MutateFilesRequest, opts ...grpc.CallOption) (*MutateFilesResponse, error)
+	GetFileOperation(ctx context.Context, in *GetFileOperationRequest, opts ...grpc.CallOption) (*GetFileOperationResponse, error)
+	CreateToken(ctx context.Context, in *CreateTokenRequest, opts ...grpc.CallOption) (*CreateTokenResponse, error)
+	ValidateToken(ctx context.Context, in *ValidateTokenRequest, opts ...grpc.CallOption) (*ValidateTokenResponse, error)
+	RevokeToken(ctx context.Context, in *RevokeTokenRequest, opts ...grpc.CallOption) (*RevokeTokenResponse, error)
 }
 
 type sandboxServiceClient struct {
@@ -134,6 +150,86 @@ func (c *sandboxServiceClient) Delete(ctx context.Context, in *DeleteRequest, op
 	return out, nil
 }
 
+func (c *sandboxServiceClient) RunCode(ctx context.Context, in *RunCodeRequest, opts ...grpc.CallOption) (*RunCodeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RunCodeResponse)
+	err := c.cc.Invoke(ctx, SandboxService_RunCode_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sandboxServiceClient) GetCodeRun(ctx context.Context, in *GetCodeRunRequest, opts ...grpc.CallOption) (*GetCodeRunResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetCodeRunResponse)
+	err := c.cc.Invoke(ctx, SandboxService_GetCodeRun_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sandboxServiceClient) QueryFiles(ctx context.Context, in *QueryFilesRequest, opts ...grpc.CallOption) (*QueryFilesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryFilesResponse)
+	err := c.cc.Invoke(ctx, SandboxService_QueryFiles_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sandboxServiceClient) MutateFiles(ctx context.Context, in *MutateFilesRequest, opts ...grpc.CallOption) (*MutateFilesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MutateFilesResponse)
+	err := c.cc.Invoke(ctx, SandboxService_MutateFiles_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sandboxServiceClient) GetFileOperation(ctx context.Context, in *GetFileOperationRequest, opts ...grpc.CallOption) (*GetFileOperationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetFileOperationResponse)
+	err := c.cc.Invoke(ctx, SandboxService_GetFileOperation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sandboxServiceClient) CreateToken(ctx context.Context, in *CreateTokenRequest, opts ...grpc.CallOption) (*CreateTokenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateTokenResponse)
+	err := c.cc.Invoke(ctx, SandboxService_CreateToken_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sandboxServiceClient) ValidateToken(ctx context.Context, in *ValidateTokenRequest, opts ...grpc.CallOption) (*ValidateTokenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ValidateTokenResponse)
+	err := c.cc.Invoke(ctx, SandboxService_ValidateToken_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sandboxServiceClient) RevokeToken(ctx context.Context, in *RevokeTokenRequest, opts ...grpc.CallOption) (*RevokeTokenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RevokeTokenResponse)
+	err := c.cc.Invoke(ctx, SandboxService_RevokeToken_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SandboxServiceServer is the server API for SandboxService service.
 // All implementations must embed UnimplementedSandboxServiceServer
 // for forward compatibility.
@@ -149,6 +245,14 @@ type SandboxServiceServer interface {
 	Pause(context.Context, *PauseRequest) (*PauseResponse, error)
 	Resume(context.Context, *ResumeRequest) (*ResumeResponse, error)
 	Delete(context.Context, *DeleteRequest) (*DeleteResponse, error)
+	RunCode(context.Context, *RunCodeRequest) (*RunCodeResponse, error)
+	GetCodeRun(context.Context, *GetCodeRunRequest) (*GetCodeRunResponse, error)
+	QueryFiles(context.Context, *QueryFilesRequest) (*QueryFilesResponse, error)
+	MutateFiles(context.Context, *MutateFilesRequest) (*MutateFilesResponse, error)
+	GetFileOperation(context.Context, *GetFileOperationRequest) (*GetFileOperationResponse, error)
+	CreateToken(context.Context, *CreateTokenRequest) (*CreateTokenResponse, error)
+	ValidateToken(context.Context, *ValidateTokenRequest) (*ValidateTokenResponse, error)
+	RevokeToken(context.Context, *RevokeTokenRequest) (*RevokeTokenResponse, error)
 	mustEmbedUnimplementedSandboxServiceServer()
 }
 
@@ -182,6 +286,30 @@ func (UnimplementedSandboxServiceServer) Resume(context.Context, *ResumeRequest)
 }
 func (UnimplementedSandboxServiceServer) Delete(context.Context, *DeleteRequest) (*DeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedSandboxServiceServer) RunCode(context.Context, *RunCodeRequest) (*RunCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RunCode not implemented")
+}
+func (UnimplementedSandboxServiceServer) GetCodeRun(context.Context, *GetCodeRunRequest) (*GetCodeRunResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCodeRun not implemented")
+}
+func (UnimplementedSandboxServiceServer) QueryFiles(context.Context, *QueryFilesRequest) (*QueryFilesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryFiles not implemented")
+}
+func (UnimplementedSandboxServiceServer) MutateFiles(context.Context, *MutateFilesRequest) (*MutateFilesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MutateFiles not implemented")
+}
+func (UnimplementedSandboxServiceServer) GetFileOperation(context.Context, *GetFileOperationRequest) (*GetFileOperationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFileOperation not implemented")
+}
+func (UnimplementedSandboxServiceServer) CreateToken(context.Context, *CreateTokenRequest) (*CreateTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateToken not implemented")
+}
+func (UnimplementedSandboxServiceServer) ValidateToken(context.Context, *ValidateTokenRequest) (*ValidateTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidateToken not implemented")
+}
+func (UnimplementedSandboxServiceServer) RevokeToken(context.Context, *RevokeTokenRequest) (*RevokeTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RevokeToken not implemented")
 }
 func (UnimplementedSandboxServiceServer) mustEmbedUnimplementedSandboxServiceServer() {}
 func (UnimplementedSandboxServiceServer) testEmbeddedByValue()                        {}
@@ -348,6 +476,150 @@ func _SandboxService_Delete_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SandboxService_RunCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RunCodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SandboxServiceServer).RunCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SandboxService_RunCode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SandboxServiceServer).RunCode(ctx, req.(*RunCodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SandboxService_GetCodeRun_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCodeRunRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SandboxServiceServer).GetCodeRun(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SandboxService_GetCodeRun_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SandboxServiceServer).GetCodeRun(ctx, req.(*GetCodeRunRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SandboxService_QueryFiles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryFilesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SandboxServiceServer).QueryFiles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SandboxService_QueryFiles_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SandboxServiceServer).QueryFiles(ctx, req.(*QueryFilesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SandboxService_MutateFiles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MutateFilesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SandboxServiceServer).MutateFiles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SandboxService_MutateFiles_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SandboxServiceServer).MutateFiles(ctx, req.(*MutateFilesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SandboxService_GetFileOperation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFileOperationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SandboxServiceServer).GetFileOperation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SandboxService_GetFileOperation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SandboxServiceServer).GetFileOperation(ctx, req.(*GetFileOperationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SandboxService_CreateToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SandboxServiceServer).CreateToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SandboxService_CreateToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SandboxServiceServer).CreateToken(ctx, req.(*CreateTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SandboxService_ValidateToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ValidateTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SandboxServiceServer).ValidateToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SandboxService_ValidateToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SandboxServiceServer).ValidateToken(ctx, req.(*ValidateTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SandboxService_RevokeToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RevokeTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SandboxServiceServer).RevokeToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SandboxService_RevokeToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SandboxServiceServer).RevokeToken(ctx, req.(*RevokeTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SandboxService_ServiceDesc is the grpc.ServiceDesc for SandboxService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -386,6 +658,38 @@ var SandboxService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _SandboxService_Delete_Handler,
+		},
+		{
+			MethodName: "RunCode",
+			Handler:    _SandboxService_RunCode_Handler,
+		},
+		{
+			MethodName: "GetCodeRun",
+			Handler:    _SandboxService_GetCodeRun_Handler,
+		},
+		{
+			MethodName: "QueryFiles",
+			Handler:    _SandboxService_QueryFiles_Handler,
+		},
+		{
+			MethodName: "MutateFiles",
+			Handler:    _SandboxService_MutateFiles_Handler,
+		},
+		{
+			MethodName: "GetFileOperation",
+			Handler:    _SandboxService_GetFileOperation_Handler,
+		},
+		{
+			MethodName: "CreateToken",
+			Handler:    _SandboxService_CreateToken_Handler,
+		},
+		{
+			MethodName: "ValidateToken",
+			Handler:    _SandboxService_ValidateToken_Handler,
+		},
+		{
+			MethodName: "RevokeToken",
+			Handler:    _SandboxService_RevokeToken_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

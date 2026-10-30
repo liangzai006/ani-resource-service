@@ -1,0 +1,268 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "ad923b74-de47-5238-8864-09264b5bec1a",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "create": {
+      "action": "create",
+      "idempotency_key": "6c1f7f07-a08a-4278-94ea-8f6ee007530e",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": null,
+      "request_body_sha256": "774dc6690602f72686ff5dbed6e7889ecb62afd0f25b10bb51747fee211581fc",
+      "request_body": {
+        "data": {
+          "name": "a15-normal-cpu-2-01a18156",
+          "imageId": "img_50d0690f2d434f979f880404948d55cd",
+          "imageScope": "tenant",
+          "presetId": "9f5a0625-1eab-4a65-95af-68962138ef86",
+          "scheduling": {
+            "pod_placement": "NONE"
+          },
+          "workspace_mount_path": "/workspace",
+          "volume_mounts": [],
+          "network": {
+            "vpc_id": "vpc_34587fd5f3374abcbc19829ae3a5a558",
+            "subnet_id": "subnet_ab6ddedf50d94f8181ac42ff935e8c86"
+          },
+          "idempotencyKey": "6c1f7f07-a08a-4278-94ea-8f6ee007530e"
+        }
+      },
+      "ack": {
+        "operationId": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+        "resourceId": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+        "instanceId": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+        "action": "create",
+        "intentVersion": "1",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "0",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      },
+      "replays": [
+        {
+          "operationId": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+          "resourceId": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+          "replayed": true,
+          "result": "ACCEPTED"
+        }
+      ]
+    },
+    "stop": {
+      "action": "stop",
+      "idempotency_key": "45739b4a-9de1-4602-ba67-d2bb39532a36",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "1",
+      "request_body_sha256": "39f6354c03b55d001df10fed4d58ee086b020771acc2bc8f776ed65d9c52e9a7",
+      "request_body": {
+        "data": {
+          "expectedVersion": "1",
+          "idempotencyKey": "45739b4a-9de1-4602-ba67-d2bb39532a36"
+        }
+      },
+      "ack": {
+        "operationId": "936fbc93-f3ef-4077-b66d-6e00e62fe548",
+        "resourceId": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "936fbc93-f3ef-4077-b66d-6e00e62fe548",
+        "instanceId": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+        "action": "stop",
+        "intentVersion": "2",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "stopped",
+        "applied_mount_version": "1",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      },
+      "replays": [
+        {
+          "operationId": "936fbc93-f3ef-4077-b66d-6e00e62fe548",
+          "resourceId": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+          "replayed": true,
+          "result": "ACCEPTED"
+        }
+      ]
+    }
+  },
+  "slot": 2,
+  "create_body": {
+    "data": {
+      "name": "a15-normal-cpu-2-01a18156",
+      "imageId": "img_50d0690f2d434f979f880404948d55cd",
+      "imageScope": "tenant",
+      "presetId": "9f5a0625-1eab-4a65-95af-68962138ef86",
+      "scheduling": {
+        "pod_placement": "NONE"
+      },
+      "workspace_mount_path": "/workspace",
+      "volume_mounts": [],
+      "network": {
+        "vpc_id": "vpc_34587fd5f3374abcbc19829ae3a5a558",
+        "subnet_id": "subnet_ab6ddedf50d94f8181ac42ff935e8c86"
+      },
+      "idempotencyKey": "6c1f7f07-a08a-4278-94ea-8f6ee007530e"
+    }
+  },
+  "source_path": "/root/ani-runs/container-restart-pvc-20261028/gpu-prepared-input-import-01/cpu-create-input.json",
+  "source_sha256": "b28e5ff9ad6c8114638ad1441dd50600d1547cce34d507c21ea63927d40fb0a2",
+  "instance_id": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+  "instance_observations": [
+    {
+      "step": "create",
+      "at": "2026-10-29T18:50:45.732062Z",
+      "instance": {
+        "id": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+        "instance_kind": "container",
+        "compute_type": "cpu",
+        "version": "1",
+        "desiredState": "running",
+        "observedState": "running",
+        "activeOperationId": "",
+        "executionRunState": "running",
+        "appliedMountVersion": "1",
+        "lastOperationId": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+        "createOperationId": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+        "computeCleaned": false,
+        "workspaceCleaned": false,
+        "networkCleaned": false,
+        "volumeReferencesReleased": true,
+        "quotaReturned": false
+      }
+    },
+    {
+      "step": "stop",
+      "at": "2026-10-29T18:51:13.838518Z",
+      "instance": {
+        "id": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+        "instance_kind": "container",
+        "compute_type": "cpu",
+        "version": "1",
+        "desiredState": "running",
+        "observedState": "running",
+        "activeOperationId": "",
+        "executionRunState": "running",
+        "appliedMountVersion": "1",
+        "lastOperationId": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+        "createOperationId": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+        "computeCleaned": false,
+        "workspaceCleaned": false,
+        "networkCleaned": false,
+        "volumeReferencesReleased": true,
+        "quotaReturned": false
+      }
+    },
+    {
+      "step": "stop",
+      "at": "2026-10-29T18:51:51.743078Z",
+      "instance": {
+        "id": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+        "instance_kind": "container",
+        "compute_type": "cpu",
+        "version": "2",
+        "desiredState": "stopped",
+        "observedState": "stopped",
+        "activeOperationId": "",
+        "executionRunState": "stopped",
+        "appliedMountVersion": "1",
+        "lastOperationId": "936fbc93-f3ef-4077-b66d-6e00e62fe548",
+        "createOperationId": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+        "computeCleaned": false,
+        "workspaceCleaned": false,
+        "networkCleaned": false,
+        "volumeReferencesReleased": true,
+        "quotaReturned": false
+      }
+    }
+  ],
+  "create_result": {
+    "result": "NORMAL_CPU_CREATE_COMPLETED",
+    "instance_id": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+    "operation": {
+      "id": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+      "instanceId": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+      "action": "create",
+      "intentVersion": "1",
+      "state": "completed",
+      "phase": "done",
+      "final_run_state": "running",
+      "applied_mount_version": "0",
+      "completion_scope": "",
+      "reason": "",
+      "failure_reason": ""
+    },
+    "instance": {
+      "id": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "1",
+      "desiredState": "running",
+      "observedState": "running",
+      "activeOperationId": "",
+      "executionRunState": "running",
+      "appliedMountVersion": "1",
+      "lastOperationId": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+      "createOperationId": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    }
+  },
+  "session_cleanup": [
+    {
+      "step": "create",
+      "remote": "CONFIRMED"
+    },
+    {
+      "step": "stop",
+      "remote": "CONFIRMED"
+    }
+  ],
+  "stop_result": {
+    "result": "NORMAL_STOP_COMPLETED",
+    "operation": {
+      "id": "936fbc93-f3ef-4077-b66d-6e00e62fe548",
+      "instanceId": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+      "action": "stop",
+      "intentVersion": "2",
+      "state": "completed",
+      "phase": "done",
+      "final_run_state": "stopped",
+      "applied_mount_version": "1",
+      "completion_scope": "",
+      "reason": "",
+      "failure_reason": ""
+    },
+    "instance": {
+      "id": "0758013b-d636-4c6e-a3b3-942ae4d1e239",
+      "instance_kind": "container",
+      "compute_type": "cpu",
+      "version": "2",
+      "desiredState": "stopped",
+      "observedState": "stopped",
+      "activeOperationId": "",
+      "executionRunState": "stopped",
+      "appliedMountVersion": "1",
+      "lastOperationId": "936fbc93-f3ef-4077-b66d-6e00e62fe548",
+      "createOperationId": "388348e4-1f10-47c4-996a-fd1c032ac43b",
+      "computeCleaned": false,
+      "workspaceCleaned": false,
+      "networkCleaned": false,
+      "volumeReferencesReleased": true,
+      "quotaReturned": false
+    }
+  }
+}

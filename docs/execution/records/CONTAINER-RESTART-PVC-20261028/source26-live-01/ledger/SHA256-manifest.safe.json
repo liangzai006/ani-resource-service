@@ -1,0 +1,52 @@
+{
+  "boundaries": {
+    "aggregate_account_asserted": false,
+    "all_seven_phases_asserted": false,
+    "network_running_binding_before_delete": "NOT_CAPTURED",
+    "service_exit_phase": "NOT_PROVEN"
+  },
+  "credential_keys_absent": true,
+  "files": {
+    "a14/a14-binding.safe.json": {
+      "bytes": 7266,
+      "mode": "0600",
+      "sha256": "91b136ee91a562ba67540f2155ecd85a4f4736fe12924632841ab441686ab700"
+    },
+    "a14/resource-pg.safe.json": {
+      "bytes": 2253,
+      "mode": "0600",
+      "sha256": "b1f17368c56424dbdc9d11e11b1a58aa3fafe207a0ab204b30b7f0f1f4b9e076"
+    },
+    "after/receipt.safe.json": {
+      "bytes": 4341,
+      "mode": "0600",
+      "sha256": "7ac8540a3ec3125eea77ca1ccdd281f30ae55bcfddbc9e9819af574756ed1d90"
+    },
+    "after/refund-once.safe.json": {
+      "bytes": 1192,
+      "mode": "0600",
+      "sha256": "6ec3cc887da3a7e970c12b3012f2d0971edbaa21fdd641debd01688de892c4b5"
+    },
+    "after/snapshot.safe.json": {
+      "bytes": 5625,
+      "mode": "0600",
+      "sha256": "0e141bfbb8887d8961a97553c543387ac20fdae46a063539c129dd3e5d9adf48"
+    },
+    "before/receipt.safe.json": {
+      "bytes": 3606,
+      "mode": "0600",
+      "sha256": "e93e7d75866ed221d57221401c1d7cc905e56b0fa66f2735d1d81312d6d593ef"
+    },
+    "before/snapshot.safe.json": {
+      "bytes": 4825,
+      "mode": "0600",
+      "sha256": "d902a423ec488d21d633107b480769f15cff1dbf3a4f74a3bccf75ca0d19fad1"
+    }
+  },
+  "immutable_original_sha256": "e676554fb939f31bff68c00a9e281b133217c22ae7626160b1c6de2363f39870",
+  "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+  "original_create_operation_id": "130c6398-3c77-470e-9d0f-60b4e3c59d6f",
+  "read_only": true,
+  "result": "PASS_EXACT_GPU_DELETE_REFUND_ONCE",
+  "schema": "gpu-original-ledger-a14-return-v1"
+}

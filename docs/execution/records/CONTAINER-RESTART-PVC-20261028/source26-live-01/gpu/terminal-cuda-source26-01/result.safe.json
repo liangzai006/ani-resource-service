@@ -1,0 +1,55 @@
+{
+  "cuda": {
+    "event": "CUDA_VECTOR_ADD_PASS",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "uuid_hex": "4e7a0d189e7150ac2de305245d7d89b5",
+    "elements": 65536,
+    "checksum": 8589803520,
+    "visible_total_mib": 24570,
+    "sm_limit": "50",
+    "memory_limit": "24570m"
+  },
+  "cuda_probe_source_sha256": "c040d56b7a857237b3cfabe2e51604108fbb25b3c36b7a23852c0f99e3ea4c57",
+  "cuda_requested": true,
+  "driver_sha256": "d8322da3e62e54f3328e38608570c847e7f638b810c1275cdef459e13ac53860",
+  "exec_http_status": 202,
+  "exit_code": 0,
+  "expected_marker_sha256": "36ed05fc21865dbc8eb653ca543704d20b208d87e44f800e3f0c44da48570dc9",
+  "expected_pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+  "expected_version": "2",
+  "finished_at": "2026-10-29T17:33:03.475312634Z",
+  "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+  "login": "CONFIRMED",
+  "logout": "CONFIRMED",
+  "marker_cat_read": true,
+  "marker_path": "/datasets/gpu-terminal-01a18156/.ani-restart-212e4e29-c200-4bcd-98cc-034d2d322b3d.txt",
+  "observed_marker_sha256": "36ed05fc21865dbc8eb653ca543704d20b208d87e44f800e3f0c44da48570dc9",
+  "result": "PASS_LIVE_TERMINAL",
+  "runtime_after": {
+    "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "phase": "Running",
+    "pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+    "ready": true,
+    "version": "2"
+  },
+  "runtime_before": {
+    "instance_id": "a1dd1661-7ec0-418f-9e63-af3a2abc55fd",
+    "phase": "Running",
+    "pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+    "ready": true,
+    "version": "2"
+  },
+  "schema": "container-restart-terminal-live-v1",
+  "session_id": "35cd2831-146e-4916-a664-85fe00328eda",
+  "started_at": "2026-10-29T17:33:01.820442686Z",
+  "terminal_pod_uid": "78f6d45a-dd09-403c-a3e7-7ca54a03e957",
+  "websocket_close": "REMOTE_NORMAL_1000",
+  "ws_close_code": 1000,
+  "ws_endpoint": {
+    "host": "10.10.1.66",
+    "path_template": "/api/v1/realtime/sessions/{session_id}",
+    "port": "30082",
+    "scheme": "ws"
+  },
+  "ws_http_status": 101
+}

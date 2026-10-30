@@ -1,0 +1,67 @@
+{
+  "schema": "container-restart-pvc-http-v1",
+  "run_id": "5f193ea0-07b4-5859-a7a0-d62d6818457f",
+  "base_url": "http://127.0.0.1:39586",
+  "intents": {
+    "command": {
+      "action": "start",
+      "idempotency_key": "a6ba068f-450a-4cdb-a69e-2b05eb16fc9f",
+      "idempotency_field": "idempotencyKey",
+      "expected_version": "6",
+      "request_body_sha256": "2288d5f187fc45f0ad9c9ce5c6f7f74328aa6894bdec68ad79dd7784c09ca68b",
+      "ack": {
+        "operationId": "87da013c-7d16-49e7-a6fd-d72bcce30352",
+        "resourceId": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+        "replayed": false,
+        "result": "ACCEPTED"
+      },
+      "operation": {
+        "id": "87da013c-7d16-49e7-a6fd-d72bcce30352",
+        "instanceId": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+        "action": "start",
+        "intentVersion": "7",
+        "state": "completed",
+        "phase": "done",
+        "final_run_state": "running",
+        "applied_mount_version": "4",
+        "completion_scope": "",
+        "reason": "",
+        "failure_reason": ""
+      }
+    }
+  },
+  "mode": "command",
+  "driver_sha256": "51257002af3e49ccf00b485fa4b91c9612a9274bef8c312337a053e48bef2634",
+  "instance_id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+  "after_instance": {
+    "id": "124bb2fe-fc2d-4efb-973b-72b12ddf36ea",
+    "instance_kind": "container",
+    "compute_type": "gpu",
+    "version": "7",
+    "desiredState": "running",
+    "observedState": "running",
+    "activeOperationId": "",
+    "executionRunState": "running",
+    "appliedMountVersion": "4",
+    "lastOperationId": "87da013c-7d16-49e7-a6fd-d72bcce30352",
+    "createOperationId": "96ef1b95-b695-44cf-a61b-0a83bba682c4",
+    "computeCleaned": false,
+    "workspaceCleaned": false,
+    "networkCleaned": false,
+    "volumeReferencesReleased": false,
+    "quotaReturned": false
+  },
+  "scenario_result": {
+    "scenario": "INDIVIDUAL_COMMAND",
+    "action": "start",
+    "result": "OPERATION_COMPLETED",
+    "runtime_data_proof": "NOT_VERIFIED",
+    "operation_id": "87da013c-7d16-49e7-a6fd-d72bcce30352"
+  },
+  "session_cleanup": [
+    {
+      "application": "console",
+      "remote": "CONFIRMED"
+    }
+  ]
+}
